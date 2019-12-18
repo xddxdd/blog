@@ -1,9 +1,13 @@
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: 'assets/script.js',
+  entry: {
+    main: 'assets/script.js',
+    search: 'assets/script.search.js',
+  },
   output: {
-    filename: 'script.bundle.js',
+    filename: 'script.[name].bundle.js',
     path: 'assets',
   },
 
