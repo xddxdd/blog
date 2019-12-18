@@ -1,0 +1,32 @@
+@import "_common";
+@import "bootstrap.scss";
+
+.algolia-autocomplete {
+    width: 100%;
+    .aa-input {
+        width: 100%;
+        border: none;
+        border-bottom: $input-border-width solid $input-border-color;
+    }
+    .aa-dropdown-menu {
+        background-color: #fff;
+        border: $input-border-width solid $input-focus-border-color;
+        border-top:none;
+        width: 100%;
+
+        .aa-suggestion {
+            cursor: pointer;
+            padding: 2px;
+
+            .aa-suggestion-title {
+                color: $primary;
+            }
+            &.aa-cursor {
+                background-color: $primary;
+                .aa-suggestion-title {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
