@@ -28,7 +28,7 @@ lantian_excerpt = function(input) {
                 <% } %>
                 <% if(post.image) { %>
                 <li class="d-none d-md-block float-right">
-                    <img src="<%= image_version(post.image, {prefix: 'thumb'}) %>" alt="<%- __('illustration') %>"/>
+                    <img src="<%= image_version(post.image, {prefix: 'thumb'}) %>" alt="<%- __('illustration') %>" height="150" width="200"/>
                 </li>
                 <% } %>
             </ul>
