@@ -1,13 +1,10 @@
 import 'bootstrap.native/dist/bootstrap-native-v4';
 import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
-import algoliasearch from 'algoliasearch/lite';
-import autocomplete from 'autocomplete.js';
+/*import algoliasearch from 'algoliasearch/lite';
+import autocomplete from 'autocomplete.js';*/
 
 import './js/analytics';
-
-import iDisqus from './js/iDisqus';
-global.iDisqus = iDisqus;
 
 addLoadEvent(function() {
     'use strict';
@@ -75,7 +72,7 @@ addLoadEvent(function() {
         }
     }
     
-    var client = algoliasearch('***REMOVED***', '***REMOVED***');
+    /*var client = algoliasearch('***REMOVED***', '***REMOVED***');
     var index = client.initIndex('lantian');
 
     autocomplete('#search-input', {hint: false}, {
@@ -99,9 +96,9 @@ addLoadEvent(function() {
 
     document.getElementById('search-button').onclick = function() {
         document.getElementById('search-bar').classList.toggle('d-none');
-    };
+    };*/
 
-    if(window.console && console) console.log('%c欢迎来到 Lan Tian @ Blog。','color:#09f');
+    console.log('%c欢迎来到 Lan Tian @ Blog。','color:#09f');
 });
 
 global.elderClock = {
