@@ -14,8 +14,6 @@
 <meta name="description" content="<%= config.description || config.title %>">
 <meta name="author" content="<%= config.author %>">
 
-<link rel="stylesheet" href="<%- url_for('assets/style.css') %>" />
-
 <%
 var removeTrailingSlash = function(s) {
     if(s[s.length - 1] == '/') {
@@ -36,6 +34,8 @@ var removeTrailingSlash = function(s) {
   
 <script>function addLoadEvent(o){var n=window.onload;"function"!=typeof window.onload?window.onload=o:window.onload=function(){n&&n(),o()}}</script>
 <script defer src="<%- url_for('assets/script.bundle.js') %>"></script>
+
+<link rel="stylesheet" href="<%- url_for('assets/style.css') %>" />
 
 <meta name="copyright" content="Copyright 2012-<%= date(new Date(), 'YYYY') %> <%= config.title %>"/>
 <% if(config.googleSiteVerification) { %>
