@@ -1,0 +1,56 @@
+<header class="clearfix">
+    <h1 class="float-left"><a href="<%- url_for(config.root) %>"><%= config.title %></a></h1>
+    <ul class="nav nav-pills float-right">
+        <li class="nav-item">
+            <a id="search-button" class="nav-link" href="#"><i class="fas fa-search"></i>
+                <span class="d-none d-md-inline"><%- __('search') %></span>
+            </a>
+        </li>
+        <li class="nav-item position-relative d-none d-md-block">
+            <a class="nav-link" id="elderclock" href="#"><span id="elderclock-time">00:00:00</span></a>
+        </li>
+    </ul>
+    <ul class="nav nav-pills">
+        <% if(site.pages.length) { %>
+            <% site.pages.sort('weight', 'asc').each(function(p) { %>
+                <% if('' == p.title) return; %>
+                <li class="nav-item d-none d-md-block">
+                    <a class="nav-link<% if(p.path == page.path) { %> active<% } %>" href="<%- url_for(p.path) %>"><%- p.title %></a>
+                </li>
+            <% }) %>
+        <% } %>
+        
+        <li class="nav-item dropdown d-block d-md-none">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%- __('page') %> <span class="caret"></span></a>
+            <div class="dropdown-menu">
+                <% if(site.pages.length) { %>
+                    <% site.pages.sort('weight', 'asc').each(function(p) { %>
+                        <% if('' == p.title) return; %>
+                        <a class="dropdown-item<% if(p.path == page.path) { %> active<% } %>" href="<%- url_for(p.path) %>"><%- p.title %></a>
+                    <% }) %>
+                <% } %>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%- __('category') %> <span class="caret"></span></a>
+            <div class="dropdown-menu">
+                <% if(site.categories.length) { %>
+                    <% site.categories.sort('name', 'asc').each(function(category) { %>
+                        <% if('' == category.name) return; %>
+                        <a class="dropdown-item<%
+                            if(is_post()) {
+                                if(_.includes(page.categories.map(c => c.name), category.name)) {
+                                    %> active<%
+                                }
+                            } else if(is_category()) {
+                                if(page.category == category.name) {
+                                    %> active<%
+                                }
+                            } %>" href="<%- url_for(category.path) %>"><%- category.name %></a>
+                    <% }) %>
+                <% } %>
+            </div>
+        </li>
+    </ul>
+</header>

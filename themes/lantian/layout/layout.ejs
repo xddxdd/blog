@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= config.language %>" lang="<%= config.language %>" class="no-js">
+<%
+let title = page.title;
+if (is_archive()){
+    let time = "";
+    if(is_month()) {
+        time = page.year + '-' + page.month;
+    } else if(is_year()) {
+        time = page.year
+    }
+    title = __('list_archive').replace('{0}', time);
+} else if (is_category()){
+    title = __('list_category').replace('{0}', page.category);
+} else if (is_tag()){
+    title = __('list_tag').replace('{0}', page.tag);
+}
+%>
+<%- partial('_partial/head', {title: title}) %>
+<body>
+    <div id="bg"></div>
+
+    <div id="container">
+        <%- partial('_partial/header') %>
+        <div id="search-bar" class="row d-none">
+            <div class="col-12">
+                <form action="#" class="form">
+                    <input class="form-control" id="search-input" name="search" type="text" placeholder='输入关键词搜索文章...' />
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div id="content" class="col-12 col-lg-9">
+                <%- body %>
+            </div>
+            <%- partial('_partial/sidebar') %>
+        </div>
+        <%- partial('_partial/footer') %>
+    </div>
+    <!--<div class="d-none d-md-block">&nbsp;</div>-->
+</body>
+</html>

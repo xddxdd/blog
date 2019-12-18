@@ -1,0 +1,36 @@
+<% var post = page %>
+<article>
+    <div class="row">
+        <div class="post-info col-md-3 col-12"></div>
+        <div class="col-md-9 col-12 post-wrap">
+            <h1 class="post-title"><a href="<%- url_for(post.path) %>" rel="bookmark" title="<%= post.title %>"><%= post.title %></a></h1>
+            <div class="post-text">
+                <% var prev_date = date(Date.now(), __('list_year_month')); %>
+                <ul>
+                    <li>
+                        <span><%= date(Date.now(), __('list_year_month')) %> <%- __('list_now') %></span>
+                        <ul>
+                            <% site.posts.sort('date', 'desc').each(function(post) { %>
+                                <% if(date(post.date, __('list_year_month')) != prev_date) { %>
+                                    <% prev_date = date(post.date, __('list_year_month')) %>
+                        </ul>
+                    </li>
+                    <li>
+                        <span><%= date(post.date, __('list_year_month')) %></span>
+                        <ul>
+                                <% } %>
+
+                                <li><%= date(post.date, __('list_day')) %>: <%- __('list_title_prefix') %><a href="<%- url_for(post.path) %>"><%= post.title %></a><%- __('list_title_suffix') %></li>
+                            <% }) %>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="read">
+                <ul class="list-inline float-right">
+                    <li class="list-inline-item"><a title="<%- __('show_qrcode') %>" class="qrcode-box" href="<%- qrcode(post.permalink) %>" rel="nofollow"><span class="fas fa-fw fa-qrcode"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>

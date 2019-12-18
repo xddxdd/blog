@@ -1,0 +1,36 @@
+@import "@fortawesome/fontawesome-free/scss/variables";
+@import "@fortawesome/fontawesome-free/scss/mixins";
+
+@mixin font-awesome {
+    font-style:normal;
+    font-family:'Font Awesome 5 Free';
+    font-weight:900;
+    width:1em;
+}
+
+$font-family-sans-serif: Ubuntu,-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","WenQuanYi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif;
+$font-family-monospace: "Fira Code", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+
+$primary: #03a9f4;
+$body-color: #555;
+
+$border-default: 1px solid #bdbdbd;
+$border-dotted: 1px dotted #bdbdbd;
+
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$h1-font-size: $font-size-base * 1.5;
+$h2-font-size: $font-size-base * 1.25;
+$h3-font-size: $font-size-base * 1.125;
+$h4-font-size: $font-size-base * 1;
+$h5-font-size: $font-size-base * 0.875;
+$h6-font-size: $font-size-base * 0.75;
+
+$px-in-rem: 16px / 1rem;
+
+/* https://stackoverflow.com/questions/12788262/sass-browser-vendor-prefixes */
+@mixin vendor-prefix($name, $value) {
+    @each $vendor in ('-webkit-', '-moz-', '-ms-', '-o-', '') {
+        #{$vendor}#{$name}: #{$value};
+    }
+}

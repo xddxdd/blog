@@ -1,0 +1,107 @@
+<%
+var excerpt_length = 400;
+lantian_excerpt = function(input) {
+    var stripped = strip_html(input);
+    var separators = ['。', '，', '.', ',', '：', ':', ')', '）'];
+    var output_until = excerpt_length;
+    for(var i = excerpt_length; i > 0; i--) {
+        if(separators.includes(stripped[i])) {
+            output_until = i + 1;
+            break;
+        }
+    }
+    return stripped.substr(0, output_until) + "...";
+}
+%>
+
+<article>
+    <div class="row">
+        <div class="post-info col-md-3 col-12">
+            <ul class="list-unstyled text-right">
+                <li><%= date(post.date, 'YYYY-MM-DD') %> <span class="fas fa-fw fa-calendar"></span></li>
+                <li><%= date(post.date, 'HH:mm') %> <span class="fas fa-fw fa-clock"></span></li>
+                <% if (post.categories && post.categories.length){ %>
+                    <li><%- list_categories(post.categories, {
+                        show_count: false,
+                        style: 'none',
+                    }) %> <span class="fas fa-fw fa-file-alt"></span></li>
+                <% } %>
+                <% if(post.image) { %>
+                <li class="d-none d-md-block float-right">
+                    <img src="<%= image_version(post.image, {prefix: 'thumb'}) %>" alt="<%- __('illustration') %>"/>
+                </li>
+                <% } %>
+            </ul>
+            <% if(!index) { %>
+                <a id="quicklink-initial-position"></a>
+                <div id="quicklink" class="d-none d-md-block">
+                    <%- toc(page.content, {
+                        list_number: false
+                    }) %>
+                </div>
+            <% } %>
+        </div>
+        <div class="col-md-9 col-12 post-wrap">
+            <h1 class="post-title"><a href="<%- url_for(post.path) %>" rel="bookmark" title="<%= post.title %>"><%= post.title %></a></h1>
+            <div class="post-text">
+                <% if (config.multilingual && !index) { %>
+                    <% var post_alternates = list_alternates({
+                        'element': '<li><a href="%url" hreflang="%lang" title="%title">%title <small>(%lang)</small></a></li>',
+                        'prepend': '',
+                        'append': '',
+                        'showCurrent': false,
+                    }) %>
+                    <% if(post_alternates) { %>
+                    <blockquote>
+                        This article is also available in other languages:
+                        <ul><%- post_alternates %></ul>
+                    </blockquote>
+                    <% } %>
+                <% } %>
+                <% if(index) { %>
+                    <% if(post.excerpt) { %>
+                        <%- post.excerpt %>
+                    <% } else { %>
+                        <%- lantian_excerpt(post.content) %>
+                    <% } %>
+                <% } else { %>
+                    <%- post.content %>
+                <% } %>
+            </div>
+            <div class="read">
+                <ul class="list-inline float-left">
+                    <li class="list-inline-item">
+                        <a href="<%- url_for(post.path) %>#comments">
+                            <span class="fas fa-fw fa-comment"></span>
+                        </a>
+                    </li>
+                    <% if (post.tags && post.tags.length){ %>
+                        <li class="list-inline-item">
+                            <%- list_tags(post.tags, {
+                            show_count: false,
+                                style: 'none',
+                                separator: '</li><li class="list-inline-item">',
+                                transform(s) {
+                                    return '<span class="fas fa-fw fa-tag"></span> ' + s;
+                                }
+                            }) %>
+                        </li>
+                    <% } %>
+                    <li class="list-inline-item float-right"><a title="<%- __('show_qrcode') %>" class="qrcode-box" href="<%- qrcode(post.permalink) %>" rel="nofollow"><span class="fas fa-fw fa-qrcode"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+
+<% if(!index) { %>
+    <div class="clearfix" id="post-navi">
+        <% if(page.next) { %>
+            <div class="float-right text-right"><a href="<%- url_for(page.next.path) %>" title="<%= page.next.title %>"><%= page.next.title %></a><br><%- __('next_post') %> &raquo;</div>
+        <% } %>
+        <% if(page.prev) { %>
+            <div class="float-left text-left position-absolute">&laquo; <%- __('previous_post') %><br><a href="<%- url_for(page.prev.path) %>" title="<%= page.prev.title %>"><%= page.prev.title %></a></div>
+        <% } %>
+    </div>
+    <%- partial('_partial/comments') %>
+<% } %>

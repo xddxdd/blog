@@ -1,0 +1,35 @@
+<aside class="col-3 d-none d-lg-block">
+    <% if(site.posts.length) { %>
+    <section class="widget">
+        <h3><%- __('latest_articles') %></h3>
+        <ul class="list-unstyled">
+            <% site.posts.sort('date', 'desc').slice(0, 15).each(function(post) { %>
+                <li><%= date(post.date, "MM-DD") %> <a href="<%- url_for(post.path) %>"><%= post.title %></a></li>
+            <% }) %>
+        </ul>
+    </section>
+    <% } %>
+
+    <section class="widget">
+        <h3><%- __('latest_comments') %></h3>
+        <%- partial('_partial/disqus-recent') %>
+    </section>
+
+    <% if(theme.others) { %>
+    <section class="widget">
+        <h3><%- __('others') %></h3>
+        <%- theme.others %>
+    </section>
+    <% } %>
+
+    <% if(theme.links.length) { %>
+    <section class="widget">
+        <h3><%- __('links') %></h3>
+        <ul class="list-unstyled">
+            <% theme.links.forEach(function(link) { %>
+                <li><i class="fas fa-fw fa-link"></i><a target="_blank" href="<%= link.url %>"><%= link.name %></a></li>
+            <% }) %>
+        </ul>
+    </section>
+    <% } %>
+</aside>
