@@ -18,7 +18,7 @@ rm -rf public
 hexo generate
 hexo algolia
 
-rm webp_convert.lst
+echo Convert image to WebP...
 for FILE in $(find public -name "*.gif" -or -name "*.jpg" -or -name "*.png" -type f); do
     if [ ! -f $FILE.webp ]; then
         echo convert -quality 100 $FILE $FILE.webp >> webp_convert.lst
