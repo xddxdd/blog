@@ -15,7 +15,8 @@ echo ${RECENT_COMMENTS#*<\/style>} > themes/lantian/layout/_partial/disqus-recen
 cp node_modules/@fortawesome/fontawesome-free/webfonts/* themes/lantian/source/assets/fonts/
 
 rm -rf public
-printf "hexo generate\nhexo algolia\n" | parallel -j$(nproc)
+hexo generate
+hexo algolia
 
 echo Convert image to WebP...
 for FILE in $(find public -name "*.gif" -or -name "*.jpg" -or -name "*.png" -type f); do
