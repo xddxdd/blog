@@ -197,7 +197,7 @@ deploy:
   root: /srv/www/lantian.pub/
   port: 2222
   delete: true
-  verbose: true
+  verbose: false
   ignore_errors: false
 - type: git
   repo: git@github.com:lantian1998/lantian1998.github.io.git
