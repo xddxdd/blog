@@ -33,11 +33,12 @@ var removeTrailingSlash = function(s) {
 <% } %>
   
 <script>function addLoadEvent(o){var n=window.onload;"function"!=typeof window.onload?window.onload=o:window.onload=function(){n&&n(),o()}}</script>
+
+<link rel="stylesheet" href="<%- url_for('assets/style.css') %>" />
+
 <script defer src="https://cdn.jsdelivr.net/gh/fooleap/disqus-php-api@88dd45a/dist/iDisqus.min.js" integrity="sha384-/q2+7X6PZPaLjX6pOx6FNquaLht9mctdSDuenGY+T6IGLqjoZEuo8pXkXFmroZCS" crossorigin="anonymous"></script>
 <script defer src="<%- url_for('assets/script.main.bundle.js') %>"></script>
 <script defer src="<%- url_for('assets/script.search.bundle.js') %>"></script>
-
-<link rel="stylesheet" href="<%- url_for('assets/style.css') %>" />
 
 <meta name="copyright" content="Copyright 2012-<%= date(new Date(), 'YYYY') %> <%= config.title %>"/>
 <% if(config.googleSiteVerification) { %>
