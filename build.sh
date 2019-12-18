@@ -17,10 +17,14 @@ cp node_modules/@fortawesome/fontawesome-free/webfonts/* themes/lantian/source/a
 rm -rf public
 hexo generate
 hexo algolia
+
+rm webp_convert.lst
 for FILE in $(find public -name "*.gif" -or -name "*.jpg" -or -name "*.png" -type f); do
     if [ ! -f $FILE.webp ]; then
-        echo Convert $FILE to $FILE.webp
-        convert -quality 100 $FILE $FILE.webp
+        echo convert -quality 100 $FILE $FILE.webp >> webp_convert.lst
     fi
 done
+parallel -v -j$(nproc) < webp_convert.lst
+rm webp_convert.lst
+
 hexo deploy
