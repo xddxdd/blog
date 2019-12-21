@@ -8,7 +8,9 @@
     width:1em;
 }
 
-$font-family-sans-serif: Ubuntu,-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","WenQuanYi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif;
+$font-family-chinese: "PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","WenQuanYi Micro Hei","WenQuanYi Zen Hei","WenQuanYi Zen Hei Sharp",SimSun;
+$font-family-english: Ubuntu,-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans";
+$font-family-sans-serif: $font-family-english,$font-family-chinese,sans-serif;
 $font-family-monospace: "Fira Code", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
 
 $primary: #03a9f4;
