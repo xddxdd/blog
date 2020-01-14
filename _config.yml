@@ -201,10 +201,31 @@ deploy:
   user: root
   root: /srv/www/lantian.pub/
   port: 2222
-  delete: true
   verbose: false
-  ignore_errors: false
+- type: rsync
+  host: hostdare.lantian.pub
+  user: root
+  root: /srv/www/lantian.pub/
+  port: 2222
+  verbose: false
+- type: rsync
+  host: virmach-ny1g.lantian.pub
+  user: root
+  root: /srv/www/lantian.pub/
+  port: 2222
+  verbose: false
+- type: rsync
+  host: 50kvm.lantian.pub
+  user: root
+  root: /srv/www/lantian.pub/
+  port: 2222
+  verbose: false
+- type: rsync
+  host: oneprovider.lantian.pub
+  user: root
+  root: /srv/www/lantian.pub/
+  port: 2222
+  verbose: false
 - type: git
   repo: git@github.com:lantian1998/lantian1998.github.io.git
 - type: baidu_url_submitter
-
