@@ -152,7 +152,7 @@ NTP 服务器配置
    - Tinker Board 的 Armbian 内核没有 PPS 对应的配置，
    - 需要重新编译内核，或者用用户态的程序处理
 
-更新：以上问题已经在后续文章中解决，点击链接进入：[https://lantian.pub/article/modify-website/diy-ntp-pps-on-tinker-board.lantian][10]
+更新：以上问题已经在后续文章中解决，点击链接进入：[/article/modify-website/diy-ntp-pps-on-tinker-board.lantian][10]
 
 
   [1]: /usr/uploads/2019/09/51126337.jpg
