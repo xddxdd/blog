@@ -21,7 +21,7 @@ OS/2 是起初由 IBM 与微软公司联合开发，后续由 IBM 维护的操�
 
 我选择安装原版的 OS/2 Warp 4 操作系统，因为 eComStation 和 ArcaOS 两款商业发行版都要价 200 美元左右，对于我这次的目的（体验一下）完全不值得。这两款商业发行版应该是针对受应用程序限制，只能继续使用 OS/2 的客户的。
 
-我们可以在 WinWorld 网站上下载 OS/2 Warp 4 的安装 ISO 镜像，[点击这里可以进入下载](https://winworldpc.com/product/os-2-warp-4/os-2-warp-452)。我下载的镜像名为“IBM OS2 Warp 4.52 (4.52.14.086_W4)”，这是 OS/2 Warp 4 的最后一版发行的镜像，包含了之前的系统更新，类似于“Windows XP with SP3”。
+我们可以在 WinWorld 网站上下载 OS/2 Warp 4 的安装 ISO 镜像，[点击这里可以进入下载](https://winworldpc.com/product/os-2-warp-4/os-2-warp-452)。我下载的镜像是 `IBM OS2 Warp 4.52 (4.52.14.086_W4)`，这是 OS/2 Warp 4 的最后一版发行的镜像，包含了之前的系统更新，类似于“Windows XP with SP3”。
 
 > 下载完成的压缩包里包含有 Boot 和 Client 两个 ISO 镜像。Boot 镜像是启动盘，用来启动 OS/2 的安装程序；之后，安装程序会提醒你取出 Boot 启动盘，插入包含操作系统文件的 Client 盘。
 

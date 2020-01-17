@@ -122,44 +122,20 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: lantian
 
-minify:
+hfc_useref:
   enable: true
-  html:
-    enable: true
-  css:
-    enable: true
-  js:
-    enable: true
-  svg:
-    enable: false
-  gzip:
-    enable: true
-    include:
-      - '*.html'
-      - '*.css'
-      - '*.js'
-      - '*.txt'
-      - '*.ttf'
-      - '*.atom'
-      - '*.stl'
-      - '*.xml'
-      - '*.svg'
-      - '*.eot'
-      - '*.json'
-  brotli:
-    enable: true
-    include:
-      - '*.html'
-      - '*.css'
-      - '*.js'
-      - '*.txt'
-      - '*.ttf'
-      - '*.atom'
-      - '*.stl'
-      - '*.xml'
-      - '*.svg'
-      - '*.eot'
-      - '*.json'
+  concat: true
+hfc_html:
+  enable: true
+hfc_css:
+  enable: true
+hfc_js:
+  enable: true
+  mangle: true
+hfc_img:
+  enable: false
+hfc_favicons:
+  enable: false
 
 responsive_images:
   priority: 9
@@ -215,13 +191,13 @@ deploy:
   port: 2222
   verbose: false
 - type: rsync
-  host: 50kvm.lantian.pub
+  host: oneprovider.lantian.pub
   user: root
   root: /srv/www/lantian.pub/
   port: 2222
   verbose: false
 - type: rsync
-  host: oneprovider.lantian.pub
+  host: 50kvm.lantian.pub
   user: root
   root: /srv/www/lantian.pub/
   port: 2222

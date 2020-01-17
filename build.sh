@@ -18,13 +18,24 @@ rm -rf public
 hexo generate
 hexo algolia
 
-echo Convert image to WebP...
-for FILE in $(find public -name "*.gif" -or -name "*.jpg" -or -name "*.png" -type f); do
-    if [ ! -f $FILE.webp ]; then
-        echo convert -quality 100 $FILE $FILE.webp >> webp_convert.lst
+echo Preparing parallel jobs...
+for FILE in $(find public -type f \( -name "*.html" -or -name "*.css" -or -name "*.js" -or -name "*.ttf" -or -name "*.atom" -or -name "*.stl" -or -name "*.xml" -or -name "*.svg" -or -name "*.eot" -or -name "*.json" \)); do
+    if [ ! -f $FILE.gz ]; then
+        echo gzip -9 -k $FILE >> parallel_jobs.lst
+    fi
+    if [ ! -f $FILE.br ]; then
+        echo brotli -9 -k $FILE >> parallel_jobs.lst
+    fi
+    if [ ! -f $FILE.zst ]; then
+        echo zstd -19 -k $FILE >> parallel_jobs.lst
     fi
 done
-parallel -j$(nproc) < webp_convert.lst
-rm webp_convert.lst
+for FILE in $(find public -type f \( -name "*.gif" -or -name "*.jpg" -or -name "*.png" \)); do
+    if [ ! -f $FILE.webp ]; then
+        echo convert -quality 100 $FILE $FILE.webp >> parallel_jobs.lst
+    fi
+done
+parallel -j$(nproc) < parallel_jobs.lst
+rm parallel_jobs.lst
 
 hexo deploy
