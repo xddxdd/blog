@@ -178,7 +178,7 @@ AAAA "pickclosest({'2001:470:19:10bb::1','2001:470:d:46e::1','2001:470:1f07:54d:
 $ dig +short lantian.pub
 103.42.215.193
 
-# 美国纽约
+# 美国洛杉矶
 $ dig +short lantian.pub
 185.186.147.110
 
