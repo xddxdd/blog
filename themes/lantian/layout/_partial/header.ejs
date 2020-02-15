@@ -1,26 +1,22 @@
 <header class="clearfix">
     <h1 class="float-left"><a href="<%- url_for(config.root) %>"><%= config.title %></a></h1>
     <ul class="nav nav-pills float-left">
-        <% if(site.pages.length) { %>
-            <% site.pages.sort('weight', 'asc').each(function(p) { %>
-                <% if('' == p.title) return; %>
+        <% if(theme.nav) { %>
+            <% theme.nav.forEach(function(link) { %>
                 <li class="nav-item d-none d-md-block">
-                    <a class="nav-link<% if(p.path == page.path) { %> active<% } %>" href="<%- url_for(p.path) %>"><%- p.title %></a>
+                    <a class="nav-link<% if(link.url == '/' + page.path) { %> active<% } %>" href="<%- url_for(link.url) %>"><%- link.name %></a>
                 </li>
             <% }) %>
-        <% } %>
         
-        <li class="nav-item dropdown d-block d-md-none">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%- __('page') %> <span class="caret"></span></a>
-            <div class="dropdown-menu">
-                <% if(site.pages.length) { %>
-                    <% site.pages.sort('weight', 'asc').each(function(p) { %>
-                        <% if('' == p.title) return; %>
-                        <a class="dropdown-item<% if(p.path == page.path) { %> active<% } %>" href="<%- url_for(p.path) %>"><%- p.title %></a>
+            <li class="nav-item dropdown d-block d-md-none">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%- __('page') %> <span class="caret"></span></a>
+                <div class="dropdown-menu">
+                    <% theme.nav.forEach(function(link) { %>
+                        <a class="dropdown-item<% if(link.url == '/' + page.path) { %> active<% } %>" href="<%- url_for(link.url) %>"><%- link.name %></a>
                     <% }) %>
-                <% } %>
-            </div>
-        </li>
+                </div>
+            </li>
+        <% } %>
 
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%- __('category') %> <span class="caret"></span></a>
