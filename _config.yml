@@ -148,6 +148,15 @@ responsive_images:
 
 # Links
 theme_config:
+  nav:
+    - name: 文章们
+      url: /page/archive/index.html
+    - name: 项目们
+      url: /page/projects/index.html
+    - name: 俯瞰地球
+      url: /page/himawari/index.html
+    - name: DN42
+      url: /page/dn42/index.html
   links:
     - name: SangSir | 艺术界的一朵奇葩
       url: https://sangsir.com
