@@ -13,7 +13,7 @@ Chinese information comes after English. If you are on PC, use the navigation on
 English: "1xRTT" Peering
 ------------------------
 
-I live in China, on the opposite side of the planet (for most of you). This means that due to timezone differences, one round of information exchange (you send an email, I respond, you see my reply) may need 24 hours or even more.
+I live in China, and (many of) you may be on the opposite side of the planet. This means that due to timezone differences, one round of information exchange (you send an email, I respond while you sleep, you see my reply after wake up) may need 24 hours or even more.
 
 Here I provide instructions to perform "1xRTT" peering, which means we can peer with only one email from you and one email from me. Even if you and me are in the same timezone, this will still simplify things.
 
@@ -65,7 +65,7 @@ PS: It's not recommended to contact me over IRC. Although I leave my IRC client 
 中文：“1xRTT” 对接（Peering）
 ---------------------------
 
-我住在中国，意味着你可能在地球的另一侧。此时我们的一轮邮件（你发一封，我回复，你查看）需要 24 小时甚至更多。
+我住在中国，而你有可能在地球的另一侧。此时我们的一轮邮件（你发一封，我在你睡着时回复，你醒来后查看）需要 24 小时甚至更多。
 
 以下是进行 “1xRTT” 对接（Peering）的说明，意味着我们可以只用两封邮件建立 Peering，一封来自你，一封来自我。即使没有时区差异，“1xRTT” Peering 仍然能减少很多麻烦。
 
