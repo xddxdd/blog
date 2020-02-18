@@ -84,18 +84,6 @@ Available VPN: OpenVPN, GRE/IPSec, GRE/Plain, ZeroTier One, WireGuard
 Unavailable VPN: None
 ```
 
-Server 4: Roubaix, France, provider WisHosting (NAT VPS)
-
-```bash
-Public IPv4: 178.32.100.87
-Public IPv6: 2001:41d0:1:777c:200:c0a8:6582:0
-DN42 IPv4: 172.22.76.188
-DN42 IPv6: fdbc:f9dc:67ad::88:3fc0:8122
-Link-local IPv6: fe80::2547
-Available VPN: OpenVPN, ZeroTier One
-Unavailable VPN: GRE/IPSec, GRE/Plain, WireGuard
-```
-
 中文：如何与我 Peer
 -----------------
 
@@ -168,18 +156,6 @@ DN42 IPv6：fdbc:f9dc:67ad::cc:433e:da3b
 Link-local IPv6：fe80::2547
 可用的 VPN：OpenVPN，GRE/IPSec，GRE/Plain，ZeroTier One，WireGuard
 不可用的 VPN：无
-```
-
-服务器 4，法国鲁贝 WisHosting（NAT VPS）
-
-```bash
-公网 IPv4：178.32.100.87（NAT VPS 仅少量端口可用）
-公网 IPv6：2001:41d0:1:777c:200:c0a8:6582:0
-DN42 IPv4：172.22.76.188
-DN42 IPv6：fdbc:f9dc:67ad::88:3fc0:8122
-Link-local IPv6：fe80::2547
-可用的 VPN：OpenVPN，ZeroTier One
-不可用的 VPN：GRE/IPSec，GRE/Plain，WireGuard
 ```
 
   [1]: https://lg.lantian.pub/
