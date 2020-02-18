@@ -4,7 +4,8 @@ title: 'LADSPA 双声道分频及低音增强插件'
 label: ladspa-plugin-frequency-splitter-bass-boost
 categories: 自制软硬工具
 tags: [LADSPA, 音效]
-date: 2020-02-17 23:57:17
+date: 2020-02-18 00:48:15
+image: /usr/uploads/202002/ladspa-audacity.png
 ---
 
 前言
