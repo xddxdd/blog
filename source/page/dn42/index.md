@@ -48,6 +48,7 @@ Here I provide instructions to perform "1xRTT" peering, which means we can peer 
      - DN42 IPv4 and IPv6 (IP used in tunnel on your end)
        - Or address blocks, if you need them for the tunnel
        - Including link-local address for IPv6 peering
+     - Which server you want to peer with
    - For creating a tunnel connection:
      - WireGuard/OpenVPN port on your side
        - I will assume 22547 if you don't specify
@@ -100,8 +101,9 @@ PS: It's not recommended to contact me over IRC. Although I leave my IRC client 
      - DN42 IPv4 and IPv6（隧道你那端的地址）
        - 或者地址块，如果你需要的话
        - 对于 IPv6 Peering，需要包括本地链路（Link-local）地址
+     - 你想和哪台服务器连接
    - 建立 VPN 隧道：
-     - WireGuard/OpenVPN 你那段的端口号
+     - WireGuard/OpenVPN 你那端的端口号
        - 如果你不写明，我会假设你使用 22547 端口
      - OpenVPN 预共享密钥：由你生成
      - GRE/IPSec 公钥
