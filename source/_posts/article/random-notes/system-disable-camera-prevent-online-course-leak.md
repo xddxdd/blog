@@ -4,7 +4,7 @@ title: 系统禁用摄像头防止网课翻车
 label: system-disable-camera-prevent-online-course-leak
 categories: 随手记
 tags: [Linux, 摄像头]
-date: 2020-03-111 15:50:47
+date: 2020-03-11 15:50:47
 ---
 
 本文介绍如何在 Windows 和 Linux 中禁用摄像头驱动，从而：
