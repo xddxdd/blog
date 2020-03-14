@@ -10,6 +10,8 @@ Chinese information comes after English. If you are on PC, use the navigation on
 
 中文信息在英文信息之后。如果你使用电脑浏览，可以使用左侧导航栏跳转。
 
+For Chinese users: 如果你需要 DN42 配置上的帮助，可以参见《[DN42 实验网络介绍（2020 版）](/article/modify-website/dn42-experimental-network-2020.lantian)》，以及浏览本站之前有关 DN42 的文章。
+
 English: "1xRTT" Peering
 ------------------------
 
@@ -21,6 +23,7 @@ Here I provide instructions to perform "1xRTT" peering, which means we can peer 
    - If you have multiple servers in DN42, I'm open to peering with all of them at once.
 2. Choose a type of VPN for tunneling.
    - I usually prefer WireGuard and OpenVPN, but others such as GRE/IPSec, GRE/Plain and ZeroTier will also work.
+   - **WARN:** If your server is located in mainland China, I only accept ZeroTier One, to prevent my server from being blocked.
    - I'm also willing to try new types of VPNs - just ask!
 3. Configure BGP daemon and VPN software on your side. You may assume I will use the following configuration:
    - My General Information:
@@ -74,6 +77,7 @@ PS: It's not recommended to contact me over IRC. Although I leave my IRC client 
    - 如果你有多台服务器加入 DN42，并且愿意的话，我可以同时建立多个 Peering。
 2. 选择一种 VPN 建立隧道。
    - 我偏好使用 WireGuard 和 OpenVPN，但 GRE/IPSec，明文 GRE 和 ZeroTier One 也可以。
+   - **注意：**如果你的服务器位于中国大陆，我只接受 ZeroTier One，以防止我的服务器被土啬。
    - 我也愿意尝试其它种类的 VPN，只要你询问就可以了。
 3. 在你那边配置好 VPN 隧道和 BGP 客户端。你可以假设我会使用以下的配置：
    - 基础信息：
