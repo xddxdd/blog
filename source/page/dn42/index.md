@@ -226,7 +226,7 @@ local         [MY_IP]
 lport         [LAST_5_DIGITS_OF_YOUR_ASN]
 dev-type      tun
 resolv-retry  infinite
-dev           dn42-billchen
+dev           dn42-[PEER_NAME]
 comp-lzo
 persist-key
 persist-tun
@@ -234,13 +234,13 @@ tun-ipv6
 cipher        aes-256-cbc
 ifconfig      [MY_DN42_IP] [YOUR_DN42_IP]
 ifconfig-ipv6 fe80::2547 [YOUR_LINK_LOCAL_IP]
-<secret>[YOUR_STATIC_KEY]</secret>
+<secret>[STATIC_KEY]</secret>
 ```
 
 ipsec.conf:
 
 ```bash
-conn dn42-yourname
+conn dn42-[PEER_NAME]
     keyexchange=ikev1
     ike=aes128-sha384-ecp384!
     esp=aes128gcm16-ecp384!
