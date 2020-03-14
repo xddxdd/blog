@@ -13,6 +13,7 @@ DN42 全称 Decentralized Network 42（42 号去中心网络），是一个大�
 
 - 不适合单纯想要保护隐私、解锁流媒体服务、规避网络审查的用户
 - 适合想要研究网络技术，练习服务器、路由器等网络设备配置，甚至后续在真实互联网建立 AS 的用户
+- 适合拥有真实 AS，但担心自己[配置错误广播出错误路由、干掉半个互联网](https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/)，希望有个地方测试的用户。
 
 正因为此，使用 DN42 的门槛比较高。就像在真实互联网中一样，你要扮演一个 ISP（互联网服务提供商），注册自己的个人信息，ASN 号码，IPv4 和 IPv6 的地址池，并且使用 BGP 在自己的服务器上广播它们。你还要和其它的用户联系，和他们做 Peering（对接），一步步进入完整的 DN42 网络。
 
@@ -571,3 +572,8 @@ protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
 - 注册一个域名，建立网站
   - 参见我在 2018 年写的文章：《[在 DN42 中注册自己的域名](/article/modify-website/register-own-domain-in-dn42.lantian/#%E5%9C%A8-dn42-%E6%B3%A8%E5%86%8C%E5%9F%9F%E5%90%8D)》
 - 或者直接在真实互联网中，找 RIPE 注册真实的 AS，租用公网的 IPv4 和 IPv6 地址池，开始玩真的。
+
+需要帮助？
+---------
+
+记住：DN42 是一个**测试网络**，所有人都在帮助所有人。即使你不小心搞砸了，也没有人会指责你。你可以在 DN42 的 [IRC 频道](https://wiki.dn42.us/services/IRC)，[邮件列表](https://wiki.dn42.us/contact#contact_mailing-list)或者[非官方 Telegram 群组](https://t.me/Dn42Chat)寻求帮助。
