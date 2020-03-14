@@ -566,6 +566,8 @@ protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
 - Anycast，指多台服务器同时广播一个 IP，外界访问会被导到最近的服务器上
   - 在真实互联网一般用于 DNS。在 DN42 内，Wiki（172.23.0.80）也是 Anycast 的。
   - 我在去年和今年各就此写过一篇文章：参见《[在 DN42 中使用 Docker 建立 Anycast DNS 服务](/article/modify-website/dn42-docker-anycast-dns.lantian)》和《[Docker 容器共享网络命名空间，集成 Bird 实现 Anycast 高可用](/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian)》。
+- 建立自己的递归和权威 DNS 服务器
+  - 你甚至可以申请加入 DN42 的 DNS Anycast，成为官方 DNS 中的一分子。
 - 注册一个域名，建立网站
-  - 参见我在 2018 年写的文章：《[在 DN42 中注册自己的域名](https://lantian.pub/article/modify-website/register-own-domain-in-dn42.lantian/#%E5%9C%A8-dn42-%E6%B3%A8%E5%86%8C%E5%9F%9F%E5%90%8D)》
-- 或者直接在真实互联网中，找 RIPE 注册真实的 AS，租用公网的 IPv4 和 IPv6 地址池，开始广播。
+  - 参见我在 2018 年写的文章：《[在 DN42 中注册自己的域名](/article/modify-website/register-own-domain-in-dn42.lantian/#%E5%9C%A8-dn42-%E6%B3%A8%E5%86%8C%E5%9F%9F%E5%90%8D)》
+- 或者直接在真实互联网中，找 RIPE 注册真实的 AS，租用公网的 IPv4 和 IPv6 地址池，开始玩真的。
