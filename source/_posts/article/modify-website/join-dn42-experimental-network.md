@@ -8,8 +8,8 @@ date: 2017-07-17 16:41:00
 image: /usr/uploads/2017/07/1491468561.png
 ---
 
-提示
-====
+2020-03-16 提示
+===============
 
 本文已有更新版本：参见《[DN42 实验网络介绍（2020 版）](/article/modify-website/dn42-experimental-network-2020.lantian)》。
 
