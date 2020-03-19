@@ -18,8 +18,10 @@ lantian_excerpt = function(input) {
     <div class="row">
         <div class="post-info col-md-3 col-12">
             <ul class="list-unstyled text-right">
-                <li><%= date(post.date, 'YYYY-MM-DD') %> <span class="fas fa-fw fa-calendar"></span></li>
-                <li><%= date(post.date, 'HH:mm') %> <span class="fas fa-fw fa-clock"></span></li>
+                <% if(post.date && post.date.unix() > 43200 /* Filter out posts before UTC & handle timezone which may be 12h off */) { %>
+                    <li><%- date(post.date, 'YYYY-MM-DD') %> <span class="fas fa-fw fa-calendar"></span></li>
+                    <li><%- date(post.date, 'HH:mm') %> <span class="fas fa-fw fa-clock"></span></li>
+                <% } %>
                 <% if (post.categories && post.categories.length){ %>
                     <li><%- list_categories(post.categories, {
                         show_count: false,

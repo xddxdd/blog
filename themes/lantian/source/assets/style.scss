@@ -11,6 +11,8 @@ a{color:$primary}
 p:last-child{margin-bottom:0}
 #textarea{resize:none}
 
+b,strong{font-weight:900 !important}
+
 header {
     $site-title-padding: $font-size-base;
     $site-title-padding-horizontal: 1.25 * $font-size-base;
