@@ -14,6 +14,13 @@ date: 2020-03-19 21:55:54
 
 但我在 GitHub 发现了一个[修改版的 glibc（C 语言运行库）](https://github.com/sdwru/glibc-debian-10/releases)，可以在 OpenVZ 6 内核上正常运行 Debian 10。
 
+警告
+----
+
+不保证以下步骤适用于所有 OpenVZ VPS，也不保证这个 glibc 的安全性（我没看它修改了哪里，说起来停止维护的 OpenVZ 6 还要什么安全性）。
+
+**请备份好数据**，最坏的情况下你可能需要重装系统。
+
 安装步骤
 --------
 
