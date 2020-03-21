@@ -239,6 +239,11 @@ tun-ipv6
 cipher        aes-256-cbc
 ifconfig      [MY_DN42_IP] [YOUR_DN42_IP]
 ifconfig-ipv6 fe80::2547 [YOUR_LINK_LOCAL_IP]
+
+# Remove stable-privacy IPv6 address
+script-security	2
+up		"/bin/sh -c '/sbin/sysctl -w net.ipv6.conf.$dev.autoconf=0 && /sbin/sysctl -w net.ipv6.conf.$dev.accept_ra=0 && /sbin/sysctl -w net.ipv6.conf.$dev.addr_gen_mode=1'"
+
 <secret>[STATIC_KEY]</secret>
 ```
 
