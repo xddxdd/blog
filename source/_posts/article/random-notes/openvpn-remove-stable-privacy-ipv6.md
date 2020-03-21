@@ -15,8 +15,8 @@ date: 2020-03-21 12:28:40
 
 ```bash
 # 在 OpenVPN 的 conf 文件里加上
-script-security	2
-up		"/bin/sh -c '/sbin/sysctl -w net.ipv6.conf.$dev.autoconf=0 && /sbin/sysctl -w net.ipv6.conf.$dev.accept_ra=0 && /sbin/sysctl -w net.ipv6.conf.$dev.addr_gen_mode=1'"
+script-security 2
+up "/bin/sh -c '/sbin/sysctl -w net.ipv6.conf.$dev.autoconf=0 && /sbin/sysctl -w net.ipv6.conf.$dev.accept_ra=0 && /sbin/sysctl -w net.ipv6.conf.$dev.addr_gen_mode=1'"
 ```
 
 根据你的 Linux 发行版不同，可能需要调整 `/bin/sh` 和 `/sbin/sysctl` 的路径。
