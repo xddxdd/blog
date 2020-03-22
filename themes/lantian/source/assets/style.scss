@@ -222,23 +222,24 @@ footer {
 
     .toc, .toc-child {
         padding: 0;
+        margin-bottom: -1px;
+    }
 
-        .toc-link { display:block;height:26px;overflow:hidden; }
-        .toc-text { word-break:break-all; }
+    .toc-link { display:block;height:26px;overflow:hidden; }
+    .toc-text { word-break:break-all; }
 
-        .toc-level-1, .toc-level-2, .toc-level-3, .toc-level-4, .toc-level-5, .toc-level-6 {
-            &:before {
-                @include font-awesome;
-                float:left;
-            }
+    .toc-level-1, .toc-level-2, .toc-level-3, .toc-level-4, .toc-level-5, .toc-level-6 {
+        &:before {
+            @include font-awesome;
+            float:left;
         }
+    }
 
-        .toc-level-1 {
-            &:before { content: fa-content($fa-var-angle-double-right); }
-        }
-        .toc-level-2, .toc-level-3, .toc-level-4, .toc-level-5, .toc-level-6 {
-            &:before { content: fa-content($fa-var-angle-right); }
-        }
+    .toc-level-1 {
+        &:before { content: fa-content($fa-var-angle-double-right); }
+    }
+    .toc-level-2, .toc-level-3, .toc-level-4, .toc-level-5, .toc-level-6 {
+        &:before { content: fa-content($fa-var-angle-right); }
     }
 }
 
