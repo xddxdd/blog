@@ -259,34 +259,34 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 非常重要的系统配置
 ===============
 
-首先，**千万 一定 绝对** 要打开 Linux 内核的数据包转发功能，即 `ip_forwarding`。
+- 首先，**千万 一定 绝对** 要打开 Linux 内核的数据包转发功能，即 `ip_forwarding`。
+  - 在 DN42 内，没有绝对意义上的客户端，每个人的服务器都是其它人的路由器，都可能需要转发数据包。具体步骤如下：
 
-在 DN42 内，没有绝对意义上的客户端，每个人的服务器都是其它人的路由器，都可能需要转发数据包。具体步骤如下：
+  - ```bash
+    echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+    echo "net.ipv6.conf.default.forwarding=1" >> /etc/sysctl.conf
+    echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
+    sysctl -p
+    ```
 
-```bash
-echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-echo "net.ipv6.conf.default.forwarding=1" >> /etc/sysctl.conf
-echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
-sysctl -p
-```
+  - 同时，如果你配置过 `iptables` 等防火墙软件，请检查相关配置，确保放行数据包的转发。
+- 然后，**千万 一定 绝对** 要关闭 Linux 内核的 `rp_filter` 功能，具体步骤如下：
 
-同时，如果你配置过 `iptables` 等防火墙软件，请检查相关配置，确保放行数据包的转发。
+  - ```bash
+    echo "net.ipv4.conf.default.rp_filter=0" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.all.rp_filter=0" >> /etc/sysctl.conf
+    sysctl -p
+    ```
 
-然后，**千万 一定 绝对** 要关闭 Linux 内核的 `rp_filter` 功能，具体步骤如下：
+  - `rp_filter` 是 Linux 内核针对网络的一项网络安全保护功能，对于数据包的来源地址和来源网络界面（网卡）进行检查：
+    - 如果设置为 0（即禁用），放行所有数据包。
+    - 如果设置为 1（严格模式），如果数据包来源网卡不是发送这个数据包的最优网卡（也就是如果你本机要回复这个地址的话，会选择一张不同的网卡），就把这个数据包**丢掉**。
+      - 来源和回复在不同网卡是 DN42 内**非常常见的情况**，因此 **千万 一定 绝对** 不能把 `rp_filter` 设置成 1！
+    - 如果设置为 2（宽松模式），如果数据包来源地址不在路由表内（也就是本机不知道要怎么回复这个地址），就把这个数据包丢掉。
+      - 理论上 `rp_filter` 设置成 2 也可以，但因为我的所有节点都设置成 0，所以我没有测试过。
 
-```bash
-echo "net.ipv4.conf.default.rp_filter=0" >> /etc/sysctl.conf
-echo "net.ipv4.conf.all.rp_filter=0" >> /etc/sysctl.conf
-sysctl -p
-```
-
-`rp_filter` 是 Linux 内核针对网络的一项网络安全保护功能，对于数据包的来源地址和来源网络界面（网卡）进行检查：
-
-- 如果设置为 0（即禁用），放行所有数据包。
-- 如果设置为 1（严格模式），如果数据包来源网卡不是发送这个数据包的最优网卡（也就是如果你本机要回复这个地址的话，会选择一张不同的网卡），就把这个数据包**丢掉**。
-  - 来源和回复在不同网卡是 DN42 内**非常常见的情况**，因此 **千万 一定 绝对** 不能把 `rp_filter` 设置成 1！
-- 如果设置为 2（宽松模式），如果数据包来源地址不在路由表内（也就是本机不知道要怎么回复这个地址），就把这个数据包丢掉。
-  - 理论上 `rp_filter` 设置成 2 也可以，但因为我的所有节点都设置成 0，所以我没有测试过。
+- 另外，如果你有多台 VPS 准备一同加入 DN42，放在同一个 ASN 下，**千万 一定 绝对** 要在几台 VPS 之间两两搭好隧道并设置好 BGP，步骤和普通 Peering 相同。
+  - 你的 AS 外部的路由只负责把数据包发送进你的 AS，数据包可能从任何一个节点进入。你自己的节点需要负责在内部将数据包转发给目标节点。
 
 选择你的隧道软件
 -------------
