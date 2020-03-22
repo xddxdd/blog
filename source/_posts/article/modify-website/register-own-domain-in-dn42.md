@@ -255,9 +255,18 @@ nserver:            ns2.lantian.dn42 172.22.76.185
 nserver:            ns2.lantian.dn42 fdbc:f9dc:67ad::dd:c85a:8a93
 nserver:            ns3.lantian.dn42 172.22.76.187
 nserver:            ns3.lantian.dn42 fdbc:f9dc:67ad::18:ca0f:741d
-status:             CONNECT
 source:             DN42
 ```
+
+（2020-03-22 更新：在我最初写此文时，文件里还有如下一行：
+
+```bash
+status:             CONNECT
+```
+
+但是在 2018 年 11 月的一次更新中，这行被去掉了（不再需要）。
+
+作此更新是因为看到 Telegram 群里的群友踩了坑。）
 
 然后 git add，git commit，git push，然后发 Pull Request 等待合并，并根据管理员的提示修改可能出现的错误。
 
