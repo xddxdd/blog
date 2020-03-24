@@ -212,18 +212,6 @@ deploy:
   port: 2222
   verbose: false
 - type: rsync
-  host: oracle-vm1.lantian.pub
-  user: root
-  root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
-- type: rsync
-  host: oracle-vm2.lantian.pub
-  user: root
-  root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
-- type: rsync
   host: oneprovider.lantian.pub
   user: root
   root: /srv/www/lantian.pub/
