@@ -217,6 +217,25 @@ IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
 
 IPSec 公钥：暂无（等有人需要 IPSec 再生成）
 
+---
+
+Server 4: Frankfurt, Germany, provider Virtono
+
+服务器 4: 德国法兰克福，Virtono 服务商
+
+| English | 中文 | Value / 数值 |
+| ------- | --- | ------------ |
+| Public IPv4 | 公网 IPv4 | 45.138.97.165 |
+| Public IPv6 | 公网 IPv6 | 2001:ac8:20:3::433a:a05d |
+| DN42 IPv4 | | 172.22.76.187 |
+| DN42 IPv6 | | fdbc:f9dc:67ad::20:5549:a809 |
+| Link-local IPv6 | 本地链路 IPv6 | fe80::2547 |
+| WireGuard Public Key | WireGuard 公钥 | DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM= |
+
+IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
+
+IPSec 公钥：暂无（等有人需要 IPSec 再生成）
+
 Default Parameters / 默认参数
 ----------------------------
 
