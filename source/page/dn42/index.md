@@ -173,7 +173,7 @@ Server 2：Los Angeles, United States, provider HostDare
 | English | 中文 | Value / 数值 |
 | ------- | --- | ------------ |
 | Public IPv4 | 公网 IPv4 | 185.186.147.110 |
-| Public IPv6 | 公网 IPv6 | 2001:470:d:46e::1 |
+| Public IPv6 | 公网 IPv6 | 2607:fcd0:100:b100::198a:b7f6 |
 | DN42 IPv4 | | 172.22.76.185 |
 | DN42 IPv6 | | fdbc:f9dc:67ad::dd:c85a:8a93 |
 | Link-local IPv6 | 本地链路 IPv6 | fe80::2547 |
