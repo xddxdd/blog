@@ -22,7 +22,6 @@
     "hexo-algoliasearch": "^0.4.2",
     "hexo-baidu-url-submit": "0.0.6",
     "hexo-deployer-git": "^2.1.0",
-    "hexo-deployer-rsync": "^1.0.0",
     "hexo-filter-cleanup": "^1.2.2",
     "hexo-filter-responsive-images": "^1.5.0",
     "hexo-generator-archive": "^0.1.5",
