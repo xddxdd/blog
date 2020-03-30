@@ -21,13 +21,13 @@ hexo algolia
 echo Preparing parallel jobs...
 for FILE in $(find public -type f \( -name "*.html" -or -name "*.css" -or -name "*.js" -or -name "*.ttf" -or -name "*.atom" -or -name "*.stl" -or -name "*.xml" -or -name "*.svg" -or -name "*.eot" -or -name "*.json" -or -name "*.txt" \)); do
     if [ ! -f $FILE.gz ]; then
-        echo gzip -9 -k $FILE >> parallel_jobs.lst
+        echo gzip -9 -k -f $FILE >> parallel_jobs.lst
     fi
     if [ ! -f $FILE.br ]; then
-        echo brotli -9 -k $FILE >> parallel_jobs.lst
+        echo brotli -9 -k -f $FILE >> parallel_jobs.lst
     fi
     if [ ! -f $FILE.zst ]; then
-        echo zstd --no-progress -19 -k $FILE >> parallel_jobs.lst
+        echo "sh -c \"zstd --no-progress -19 -k -f $FILE 2>/dev/null\"" >> parallel_jobs.lst
     fi
 done
 for FILE in $(find public -type f \( -name "*.gif" -or -name "*.jpg" -or -name "*.png" \)); do
