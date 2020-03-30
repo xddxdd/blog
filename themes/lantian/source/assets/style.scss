@@ -4,8 +4,13 @@
 @import "sass/fonts.scss";
 @import "sass/bootstrap.scss";
 
-body{font-size: $font-size-base;}
-body,html{overflow-x:hidden}
+$post-info-padding: 5px;
+
+body{
+    font-size: $font-size-base;
+    overflow-x: hidden;
+}
+
 a{color:$primary}
 
 p:last-child{margin-bottom:0}
@@ -39,7 +44,7 @@ article {
     }
 
     .post-info {
-        padding: 5px;
+        padding: $post-info-padding;
         ul li {
             color: $body-color;
             .fas { color: $primary; }
@@ -197,7 +202,10 @@ footer {
 }
 
 #quicklink {
-    margin:0 -1em 0 1em;
+    margin:0 -1em (-$post-info-padding - 1px) 1em;
+    position: sticky;
+    top: -1px;
+
     li {
         margin:0;
         padding:0;

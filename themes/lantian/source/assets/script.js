@@ -1,8 +1,6 @@
 import 'bootstrap.native/dist/bootstrap-native-v4';
 import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
-/*import algoliasearch from 'algoliasearch/lite';
-import autocomplete from 'autocomplete.js';*/
 
 import './js/analytics';
 
@@ -10,16 +8,6 @@ addLoadEvent(function() {
     'use strict';
     ga('create','UA-37067735-1');
     ga('send', 'pageview', location.pathname + location.search);
-    // $('.post-text img').each(function(){
-    //     if ($(this).parent().is('a')) return;
-    //     $(this).wrap('<a href="' + this.src + '" title="' + this.alt + '" class="lightbox"></a>');
-    // });
-    // $('.post-text a').each(function() {
-    //     $(this).simpleLightbox({nav:false,showCounter:false});
-    // });
-    // $('.qrcode-box').each(function() {
-    //     $(this).simpleLightbox({fileExt:false,nav:false,showCounter:false});
-    // });
 
     var lightbox_onclick = function() {
         SimpleLightbox.open({items: [this.href]});
@@ -45,58 +33,6 @@ addLoadEvent(function() {
     }
 
     elderClock.tick();
-
-    let quicklink = document.getElementById('quicklink');
-    if(quicklink != null) {
-        let quicklinkInitialPosition = document.getElementById('quicklink-initial-position');
-        let postNaviPosition = document.getElementById('post-navi');
-        if(quicklinkInitialPosition != null) {
-            let window_onscroll_original = window.onscroll;
-            window.onscroll = function() {
-                if(quicklinkInitialPosition.getBoundingClientRect().top + quicklinkInitialPosition.getBoundingClientRect().height <= 0) {
-                    quicklink.classList.add('quicklink-float');
-                } else {
-                    quicklink.classList.remove('quicklink-float');
-                }
-                if(postNaviPosition) {
-                    if(quicklink.getBoundingClientRect().height >= postNaviPosition.getBoundingClientRect().top) {
-                        quicklink.classList.add('quicklink-over-position');
-                    } else {
-                        quicklink.classList.remove('quicklink-over-position');
-                    }
-                }
-                if(window_onscroll_original) {
-                    window_onscroll_original();
-                }
-            }
-        }
-    }
-    
-    /*var client = algoliasearch('***REMOVED***', '***REMOVED***');
-    var index = client.initIndex('lantian');
-
-    autocomplete('#search-input', {hint: false}, {
-        source: autocomplete.sources.hits(index, { hitsPerPage: 5 }),
-        displayKey: 'title',
-        templates:  {
-            suggestion: function(suggestion) {
-                let dateObj = new Date(suggestion.date);
-                let dateStr = "";
-                dateStr += (dateObj.getFullYear() % 100) + '-';
-                dateStr += (dateObj.getMonth() < 9 ? '0' : '') + (dateObj.getMonth() + 1) + '-';
-                dateStr += (dateObj.getDate() <= 9 ? '0' : '') + dateObj.getDate();
-
-                return dateStr + '《<span class="aa-suggestion-title">' + suggestion.title + '</span>》';
-            },
-            footer: "<div class='text-right'><small>搜索服务由 Algolia 提供</small> <i class=\"fab fa-lg fa-algolia\"></i></div>"
-        }
-    }).on('autocomplete:selected', function(event, suggestion, dataset, context) {
-        window.location.href = suggestion.permalink;
-    });
-
-    document.getElementById('search-button').onclick = function() {
-        document.getElementById('search-bar').classList.toggle('d-none');
-    };*/
 
     console.log('%c欢迎来到 Lan Tian @ Blog。','color:#09f');
 });
