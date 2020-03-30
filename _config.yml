@@ -181,48 +181,13 @@ theme_config:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-- type: rsync
-  host: gigsgigscloud.lantian.pub
+- type: ansible
+  host: website
   user: root
   root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
-- type: rsync
-  host: hostdare.lantian.pub
-  user: root
-  root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
-- type: rsync
-  host: 50kvm.lantian.pub
-  user: root
-  root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
-- type: rsync
-  host: virmach-ny1g.lantian.pub
-  user: root
-  root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
-- type: rsync
-  host: virmach-ny3ip.lantian.pub
-  user: root
-  root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
-- type: rsync
-  host: virtono.lantian.pub
-  user: root
-  root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
-- type: rsync
-  host: oneprovider.lantian.pub
-  user: root
-  root: /srv/www/lantian.pub/
-  port: 2222
-  verbose: false
+  delete: true
+  archive: true
+  verbose: true
 - type: git
   repo: git@github.com:lantian1998/lantian1998.github.io.git
 - type: baidu_url_submitter
