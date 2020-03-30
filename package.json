@@ -21,6 +21,7 @@
     "hexo": "^3.9.0",
     "hexo-algoliasearch": "^0.4.1",
     "hexo-baidu-url-submit": "0.0.6",
+    "hexo-deployer-ansible": "^0.1.0",
     "hexo-deployer-git": "^2.1.0",
     "hexo-deployer-rsync": "^1.0.0",
     "hexo-filter-cleanup": "^1.2.2",
