@@ -12,7 +12,7 @@ var removeTrailingSlash = function(s) {
 }
 %>
 <script>
-addLoadEvent(function() {
+addLoadEvent(setTimeout(function() {
     var disq = new iDisqus('comments', {
         forum: 'lantian',
         api: 'https://comments.lantian.pub',
@@ -20,10 +20,10 @@ addLoadEvent(function() {
         identifier: '/<%= removeTrailingSlash(page.path) %>',
         url: '<%= removeTrailingSlash(page.permalink) %>',
         mode: 1,
-        timeout: 1000,
+        timeout: 3000,
         init: true,
         emojiPreview: true,
         autoCreate: true
     });
-})
+}, 3000));
 </script>
