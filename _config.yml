@@ -206,6 +206,12 @@ deploy:
   port: 2222
   verbose: false
 - type: rsync
+  host: virmach-ny3ip.lantian.pub
+  user: root
+  root: /srv/www/lantian.pub/
+  port: 2222
+  verbose: false
+- type: rsync
   host: virtono.lantian.pub
   user: root
   root: /srv/www/lantian.pub/
