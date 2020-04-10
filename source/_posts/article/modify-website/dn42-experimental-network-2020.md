@@ -19,6 +19,14 @@ DN42 全称 Decentralized Network 42（42 号去中心网络），是一个大�
 
 DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配给内网使用的。换句话说，你在 DN42 上怎么折腾，都不会影响到服务器其它的互联网连接。
 
+本文更新日志
+----------
+
+- 2020-04-10：更详细地解释一些内容，例如 BIRDv2 中为何不建议在一个 BGP 会话中同时传递 IPv4 和 IPv6 的路由，以及为何建议使用 Link-local IPv6。
+- 2020-03-23：解释自选 IPv6 ULA 地址（违反 RFC4193）带来的风险，以及如何在已知风险的情况下继续使用自选 IPv6 地址。
+- 2020-03-22：添加《非常重要的系统配置》一节，说明一些如果设置不当会破坏 DN42 网络的配置项。
+- 2020-03-19：添加在注册 DN42、发起 Pull Request 时，生成、上传 PGP 密钥，签名 Git Commit 的相关内容。
+
 注册过程
 -------
 
@@ -111,19 +119,21 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
    4. 接下来就进入 IP 选择环节了。进入 `data/inetnum` 文件夹，里面是所有已被注册的 IPv4 地址块信息。你需要在其中挑选一块空闲的地址块占为己用。
 
       - DN42 的 IPv4 地址在 `172.20.0.0/14` 范围，即 `172.20.0.0 - 172.23.255.255`。
-      - 你在 DN42 内能申请的最小地址块是 `/29`，即 8 个 IP，其中除去第一个 IP 标记地址块，最后一个 IP 作为地址块内广播（broadcast）不可用意外，可以分给 6 个服务器和设备。
+      - 你在 DN42 内能申请的最小地址块是 `/29`，即 8 个 IP，其中除去第一个 IP 标记地址块，最后一个 IP 作为地址块内广播（broadcast）不可用以外，可以分给 6 个服务器和设备。
+        - 对于“只想简单玩玩”的用户，`/29` 已经够了。
       - 如果你满足下列一项，那么 `/29` 不够你用，需要申请更大的地址块：
         - 服务器、设备多，超过了 6 个
-        - 你准备自己玩些 Anycast 之类的，需要占用更多的 IP
+        - 你准备自己配置些 Anycast 之类的，需要占用更多的 IP
         - 你使用的一些设备（例如 Mikrotik 路由器），在 Peering（对接）阶段建立隧道时，只能使用 `/30` 地址块。
-          - 在后续 Peering（对接）阶段，Linux 服务器可以配置单个 IP 到单个 IP 的隧道，例如 `172.22.76.185/32` 到 `172.21.2.3/32`。同时，我这端的地址 `172.22.76.185/32` 可以同时用在多个隧道中，意味着我可以设置任意多的隧道，与任意多的人 Peer，而不需要额外的 IP。
+          - 在后续 Peering（对接）阶段，Linux 服务器可以配置单个 IP 到单个 IP 的隧道，例如 `172.22.76.185/32` 到 `172.21.2.3/32`。同时，我这端的地址 `172.22.76.185/32` 可以同时用在多个隧道中，意味着我可以同时设置 `172.22.76.185/32` 到 `172.21.2.3/32` 的隧道，以及`172.22.76.185/32` 到 `172.22.3.4/32` 的隧道，以及任意多的隧道，与任意多的人 Peer，而不需要额外的 IP。
           - 但如果你的设备要求使用 `/30` 地址，意味着一个隧道就需要占用 4 个 IP 地址，并且你这端的地址无法重复使用，比较浪费。
           - 此时你需要预留较多的地址，因为 DN42 内物理路由器较少见，与你对接的另一位一般也没有预留这么多地址，这个 `/30` 地址块需要由你出。
       - DN42 一般建议申请 `/27`，你能直接申请的最大地址块是 `/26`。
       - 如果你的服务器**非常多**，连 `/26` 都不够用，那么：
         - 首先大佬受我一拜；
-        - 然后你的注册申请不会立即被同意；
-        - 此时你需要去 DN42 的 IRC 频道（服务器地址在[这个页面](https://wiki.dn42.us/services/IRC)可以看到，其中的 public internet 项），或者去 DN42 的邮件列表（地址在[这个页面](https://wiki.dn42.us/contact#contact_mailing-list)的 Mailing list 项），告诉大家你需要更大地址块的理由，请求大家的同意。
+        - 然后你的注册申请不会立即被同意。此时你需要去以下任何一个地方，告诉大家你需要更大地址块的理由，请求大家投票同意：
+          - DN42 的 IRC 频道（服务器地址在[这个页面](https://wiki.dn42.us/services/IRC)可以看到，其中的 public internet 项）
+          - DN42 的邮件列表（地址在[这个页面](https://wiki.dn42.us/contact#contact_mailing-list)的 Mailing list 项）
 
       - 选好地址块之后，在 `data/inetnum` 文件夹创建 IPv4 地址对应的文件。例如我的其中一个地址块是 `172.22.76.184/29`，对应的文件就是 `data/inetnum/172.22.76.184_29`：
 
@@ -376,7 +386,7 @@ DN42 中几乎每个 Peering 都是建立在隧道软件（即 VPN）之上的�
      - 完全没有加密！数据明文可读！
      - 完全没有加密！数据明文可读！
 
-5. 如果你用的是 Linux 服务器，也可以选择 ZeroTier One。
+5. 如果你用的是 Linux 服务器，也可以选择 ZeroTier One，用于你自己的 AS 内部的互联，或者用于与他人 Peer。
    - ZeroTier One 的优点：
      - 直观的网页管理面板
      - 全自动的 IP 地址分配
@@ -398,6 +408,8 @@ DN42 中的用户之间使用 BGP 协议来交换路由信息。以下是常用�
    - 由于 BIRD 配置较复杂，请直接参见 [DN42 Wiki 上的 Bird2 配置教程](https://wiki.dn42.us/howto/Bird2)，有现成的配置可以直接复制粘贴。
 2. BIRD Internet Routing Daemon **(v1)**
    - 相比 v2，将 IPv4 与 IPv6 分到了两个进程
+   - 同时缺少一些功能，包括 Multiprotocol BGP（多协议 BGP，在一个 BGP 连接上同时传输 IPv4 和 IPv6 的路由信息），OSPFv3 等
+     - 但不影响基础的 Peering 等操作
    - 参见 [DN42 Wiki 上的 Bird1 配置教程](https://wiki.dn42.us/howto/Bird)，有现成的配置可以直接复制粘贴。
 3. Quagga / FRRouting
    - 配置语法接近 Cisco 路由器，如果你用过硬件路由器可能会喜欢
@@ -419,7 +431,7 @@ DN42 中多数用户处在美国或者欧洲，当我们从中国与他们联系
 
 在此，我将步骤列表复制一遍：
 
-1. 从下面的列表中选择一个服务器。一般你应该选择到你那边延迟（Ping）最低的服务器。
+1. 选择一个服务器。一般你应该选择到你那边延迟（Ping）最低的服务器。
    - 如果你有多台服务器加入 DN42，并且愿意的话，我可以同时建立多个 Peering。
 2. 选择一种 VPN 建立隧道。
    - 我偏好使用 WireGuard 和 OpenVPN，但 GRE/IPSec，明文 GRE 和 ZeroTier One 也可以。
@@ -487,9 +499,11 @@ AllowedIPs = 0.0.0.0/0,::/0
 #/bin/sh
 ip link add dev dn42-[PEER_NAME] type wireguard
 wg setconf dn42-[PEER_NAME] [PEER_NAME].conf
+ip link set dn42-[PEER_NAME] up
 ip addr add [MY_LINK_LOCAL_IP]/64 dev dn42-[PEER_NAME]
 ip addr add [MY_DN42_IP] peer [YOUR_DN42_IP] dev dn42-[PEER_NAME]
-ip link set dn42-[PEER_NAME] up
+ip addr add [MY_DN42_IPV6] peer [YOUR_DN42_IPV6] dev dn42-[PEER_NAME]
+ip route add [YOUR_DN42_IPV6]/128 src [MY_DN42_IPV6] dev dn42-[PEER_NAME]
 ```
 
 - MY 指的是你自己，而 YOUR 指的是你将要 Peer 的那个人。
@@ -499,12 +513,13 @@ ip link set dn42-[PEER_NAME] up
   - 这种方法容易记忆、管理，并且不会重复。
   - 但如果你是公网 ASN 大佬，后 5 位就有可能和别人产生冲突。你就需要和别人协商决定使用哪一个端口。
 - PEER_NAME 是对方的昵称，这里设置的是 Linux 下的网络设备名。注意整个网络设备名不能超过 15 个字符，否则会被截断。
-- MY_DN42_IP 和 YOUR_DN42_IP 指双方在 DN42 内的 IP，具体而言指的是对接的这台服务器的 IP。
+- MY_DN42_IP 和 YOUR_DN42_IP 指双方连接两端在 DN42 内的 IP，具体而言指的是对接的这台服务器的 IP。
   - 例如我用服务器 A（172.22.76.185）去对接，MY_DN42_IP 就是 172.22.76.185；我换另一台服务器 B（172.22.76.186）对接，MY_DN42_IP 就是 172.22.76.186。
+- 类似的，MY_DN42_IPV6 和 YOUR_DN42_IPV6 指双方连接两端在 DN42 内的 IPv6 地址。
+  - 这里我额外加了一行 `ip route add` 添加了一条额外的固定路由，是因为在我的服务器（Debian 10）上，有时 `ip addr add ... peer ...` 不会自动添加到对端的路由，需要手动指定。
 - MY_LINK_LOCAL_IP 用于交换 IPv6 路由，在 `fe80::/64` 段中任意选择，多台服务器可以重复（不会出大问题）。
   - 例如我的服务器 MY_LINK_LOCAL_IP 统一为 `fe80::2547`。
-- STATIC_KEY 是 OpenVPN 使用的静态密钥，在 DN42 内很少有人会去建立一个 CA 给 OpenVPN，然后给每个 Peer 分发证书。
-  - 使用 `openvpn --genkey --secret static.key` 生成。
+  - Link-local IPv6 是对于每个网络界面（虚拟网卡）而言的，如果你愿意你可以给每个连接设置不同的 Link-local IPv6，但一般没有意义。
 
 隧道搭建：OpenVPN
 ----------------
@@ -575,6 +590,7 @@ protocol bgp dn42_[PEER_NAME] from dnpeers {
 protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
     neighbor [YOUR_DN42_IP] as [YOUR_ASN];
     direct;
+    # 下面这段是在 IPv4 BGP 中禁用 IPv6 路由传递；查看下文以决定你要不要这样做（保留下面的内容）
     ipv6 {
         import none;
         export none;
@@ -585,6 +601,7 @@ protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
 protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
     neighbor [YOUR_LINK_LOCAL_IP] % 'dn42-[PEER_NAME]' as [YOUR_ASN];
     direct;
+    # 下面这段是在 IPv6 BGP 中禁用 IPv4 路由传递；查看下文以决定你要不要这样做（保留下面的内容）
     ipv4 {
         import none;
         export none;
@@ -595,16 +612,25 @@ protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
 - MY 指的是你自己，而 YOUR 指的是你将要 Peer 的那个人。
 - BIRD 中配置的是 DN42 内的 IP 而非公网 IP。
 - 相比 DN42 Wiki 上的配置，我加了一行 `direct;`，原因是我发现如果缺少这行，路由信息有可能无法被正确的导入系统路由表。
+  - BIRD 默认会根据系统路由表查找要将数据包转发到哪个网络设备，以此设置系统路由表，但有时查找会失败（表现为 `ip route` 中出现大片 `unreachable`）。
+  - 此时指定 `direct`，让 BIRD 将数据包直接转发到 BGP 连接所在的网卡上。
+  - `direct` 的含义是连接双方直接连接（即中间没有间隔其它的路由器）。
 - PEER_NAME 是对方的昵称，这里设置的是 Linux 下的网络设备名，与隧道保持一致。注意整个网络设备名不能超过 15 个字符，否则会被截断。
-- 在 IPv6 Peering 时，我推荐使用 Link-local IP。直接使用对方整个节点的 IPv6 地址（指 `fd00::/8` 范围中的那个）可能会造成路由信息上的问题。
-- 在 BIRDv2 中，你需要在 IPv4 BGP 会话中禁用 IPv6 的路由传递，在 IPv6 中亦然。原因是 BIRDv2 支持在一个 BGP 会话中同时传递 IPv4 和 IPv6 的路由。这里不禁用会造成诡异的问题！
+- 在 IPv6 Peering 时，我推荐使用 Link-local IP。
+  - 直接使用对方整个节点的 IPv6 地址（指 `fd00::/8` 范围中的那个）时，部分系统不会自动添加到对端的路由，需要手动添加一条；见 `隧道搭建：WireGuard` 一节。
+- 在 BIRDv2 中，**强烈推荐**在 IPv4 BGP 会话中禁用 IPv6 的路由传递，同时**可以**在 IPv6 BGP 中禁用 IPv4 路由传递。
+  - BIRDv2 支持在一个 BGP 会话中同时传递 IPv4 和 IPv6 的路由。
+  - 在 IPv4 BGP 会话中，BIRDv2 难以正确判断 IPv6 数据包转发目标的地址（Next Hop），会导致 `ip -6 route` 中出现大片 `unreachable`。
+    - 因此直接禁用就好了。
+  - 在 IPv6 BGP 会话中传递 IPv4 路由时，但如果双方使用特定的 BGP 软件组合，一方或双方的日志中会出现大片 `Invalid NEXT_HOP Attribute`，指 Next Hop 判断出错。
+    - 但 IPv6 BGP 中同时传递 IPv4 和 IPv6 路由的应用还比较广泛，因此一般建议不要禁用 IPv4 路由传递，除非出现了问题。
 
 网络测试及几个加分项
 -----------------
 
 上述配置完后，你就已经成功接入了 DN42 网络。此时，你可以进行一些测试：
 
-- `ping 172.20.0.53`，这个地址是 DN42 网络内的 Anycast DNS。
+- `ping 172.20.0.53` 或者 `ping 172.23.0.53`，这个地址是 DN42 网络内的 Anycast DNS。
 - `ping 172.23.0.80`，这是 DN42 Wiki 在内部的 IP 地址。
 - 尝试 [DN42 Wiki 上的内部服务](https://wiki.dn42.us/internal/Internal-Services)，或者 [Burble 的服务](https://dn42.burble.com/home/burble-dn42-services)。
 
