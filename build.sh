@@ -14,9 +14,15 @@ echo ${RECENT_COMMENTS#*<\/style>} > themes/lantian/layout/_partial/disqus-recen
 # Font Awesome update
 cp node_modules/@fortawesome/fontawesome-free/webfonts/* themes/lantian/source/assets/fonts/
 
+# Regenerate everything
 rm -rf public
 hexo generate
 
+# Hexo deploy takes care of git, and baidu_url_submit
+hexo deploy
+
+# Compress to gzip, brotli, zstd and webp only for my own site system
+# Useless on other hosts, e.g. GitHub Pages
 echo Preparing parallel jobs...
 for FILE in $(find public -type f \( -name "*.html" -or -name "*.css" -or -name "*.js" -or -name "*.ttf" -or -name "*.atom" -or -name "*.stl" -or -name "*.xml" -or -name "*.svg" -or -name "*.eot" -or -name "*.json" -or -name "*.txt" \)); do
     if [ ! -f $FILE.gz ]; then
@@ -37,7 +43,8 @@ done
 parallel -j$(nproc) < parallel_jobs.lst
 rm parallel_jobs.lst
 
-hexo deploy
+# Deploy to my site system
 ansible website -m synchronize -a "src=public/ dest=/srv/www/lantian.pub/"
 
+# Index new posts on Algolia
 hexo algolia
