@@ -15,7 +15,7 @@ echo ${RECENT_COMMENTS#*<\/style>} > themes/lantian/layout/_partial/disqus-recen
 cp node_modules/@fortawesome/fontawesome-free/webfonts/* themes/lantian/source/assets/fonts/
 
 # Regenerate everything
-rm -rf public
+rm -rf public .deploy_git
 hexo generate
 
 # Hexo deploy takes care of git, and baidu_url_submit
