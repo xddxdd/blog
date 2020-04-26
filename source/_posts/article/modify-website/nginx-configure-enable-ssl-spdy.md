@@ -6,9 +6,9 @@ categories: 网站与服务端
 tags: [SPDY,nginx,StartSSL,SSL]
 date: 2014-08-08 14:41:00
 ---
-来自 CloudFlare 博客的最新消息（<a href="http://blog.cloudflare.com/google-now-factoring-https-support-into-ranking-cloudflare-on-track-to-make-it-free-and-easy" _src="http://blog.cloudflare.com/google-now-factoring-https-support-into-ranking-cloudflare-on-track-to-make-it-free-and-easy">http://blog.cloudflare.com/google-now-factoring-https-support-into-ranking-cloudflare-on-track-to-make-it-free-and-easy</a> ），Google可能会在算权重的时候把网站支持SSL作为加分项目。因此我就给我的博客启用了SSL。</p><h2>1.申请证书<br/></h2><p>SSL，在服务器端必须有证书。这个证书最好不要自己生成，否则大多数浏览器都会提示证书不受信任。
+来自 CloudFlare 博客的最新消息（[http://blog.cloudflare.com/google-now-factoring-https-support-into-ranking-cloudflare-on-track-to-make-it-free-and-easy](http://blog.cloudflare.com/google-now-factoring-https-support-into-ranking-cloudflare-on-track-to-make-it-free-and-easy) ），Google可能会在算权重的时候把网站支持SSL作为加分项目。因此我就给我的博客启用了SSL。</p><h2>1.申请证书<br/></h2><p>SSL，在服务器端必须有证书。这个证书最好不要自己生成，否则大多数浏览器都会提示证书不受信任。
 
-StartSSL是目前唯一一家颁发免费SSL证书并且受到大多数浏览器信任的证书颁发机构，可以根据 <a href="http://www.freehao123.com/startssl-ssl/" _src="http://www.freehao123.com/startssl-ssl/">http://www.freehao123.com/startssl-ssl/</a> 这篇文章进行操作。
+StartSSL是目前唯一一家颁发免费SSL证书并且受到大多数浏览器信任的证书颁发机构，可以根据 [http://www.freehao123.com/startssl-ssl/](http://www.freehao123.com/startssl-ssl/) 这篇文章进行操作。
 
 不过在实际操作中，由于StartSSL连接速度较慢，如果按照向导生成证书，中途可能卡住，而一旦卡住就要全部重来，我们可以自己生成证书请求，然后提交。</p><ol class=" list-paddingleft-2" style="list-style-type: decimal;"><li><p>在你的Linux服务器（本例为Debian 7）上输入以下命令产生一个私钥：</p></li><li>```bash
 openssl genrsa -out privkey.pem 4096```<p><br/></p></li><li><p>输入以下命令产生证书请求（CSR文件），其中信息可以乱填，StartSSL不关心其中信息，他只关心你的私钥是多少。</p></li><li>```bash

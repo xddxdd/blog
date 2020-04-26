@@ -6,7 +6,7 @@ categories: 转载
 tags: [学校,iOS]
 date: 2013-05-14 19:16:00
 ---
-来自<a href="http://maomihz.com" target="_blank">Maomihz's Blog</a>。原文：<a href="http://maomihz.com/archives/225" target="_blank">http://maomihz.com/archives/225</a>
+来自[Maomihz's Blog](http://maomihz.com)。原文：[http://maomihz.com/archives/225](http://maomihz.com/archives/225)
 
 <h2 style="text-align: center;">序章</h2>1.话说三年忙下来，原来班里有44个同学一起学习，可是现在只剩32个了，一个一个都走了，最后还是把自己也赶走了。三年下来，我觉得有些人似乎没有和我说过一句话，虽然同在一个教室学习，彼此却像陌生人一样，实在是遗憾啊。
 

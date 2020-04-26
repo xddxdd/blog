@@ -56,7 +56,7 @@ qemu-img create -f raw winxp.img 4G
 qemu-kvm -hda winxp.img -cdrom winxp.iso -boot d -m 1024 #安装系统
 ```
 
-然后下载gogoCLIENT：（要注册一个帐号）<a href="http://www.gogo6.com/profile/gogoCLIENT" target="_blank">http://www.gogo6.com/profile/gogoCLIENT</a>
+然后下载gogoCLIENT：（要注册一个帐号）[http://www.gogo6.com/profile/gogoCLIENT](http://www.gogo6.com/profile/gogoCLIENT)
 
 并在虚拟机中安装。安装完成后打开gogoCLIENT主界面，Server Address 改成“hg.tfn.net.tw”，点击下面的Connect。很快，你就连接上了IPv6网络。我之所以推崇这种方式，是因为gogo6服务器相对miredo要多，上面这个是台湾的，速度很快，官方还提供了montreal.freenet6.net（蒙特利尔）和amsterdam.freenet6.net（阿姆斯特丹）和taiwan.freenet6.net（台湾，我这里连不上）三台服务器，注意：前两台需要用户名密码，可以去gogo6申请，与账户信息独立。
 
@@ -90,7 +90,7 @@ sudo service vncserver restart
 
 注意：apache原版对IPv6支持不佳，请下载我提供的Apache 1.3 修改版，已经配置好HTTP代理。
 
-下载：<a href="/usr/uploads/2013/04/1343548325.7z" title="Apache.7z">/usr/uploads/2013/04/1343548325.7z</a>
+下载：[/usr/uploads/2013/04/1343548325.7z](/usr/uploads/2013/04/1343548325.7z)
 
 在服务管理器启动服务。一般就可以直接用了。
 

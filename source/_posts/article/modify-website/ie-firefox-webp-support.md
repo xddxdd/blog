@@ -6,7 +6,7 @@ categories: 网站与服务端
 tags: [向日葵8号,Firefox,IE,WebP]
 date: 2016-08-23 13:59:00
 ---
-写了段 PHP 代码，自动从向日葵 8 号卫星的网站上抓取高清图并合成一张图。获取卫星照片的方法可以在<a href="//lantian.pub/article/modify-website/php-javascript-satellite-earth-picture.lantian" target="_blank">这里</a>看到。
+写了段 PHP 代码，自动从向日葵 8 号卫星的网站上抓取高清图并合成一张图。获取卫星照片的方法可以在[这里](//lantian.pub/article/modify-website/php-javascript-satellite-earth-picture.lantian)看到。
 
 但是……最终合成的4d分辨率（2200x2200）的PNG图片有7M多大，而且中美网络又频繁抽风，实际都要1分钟左右才能加载完这张图片。
 
@@ -22,7 +22,7 @@ WebPJS 是一个在浏览器中完成上述转换的 Javascript 代码。它根�
 
 要使用它，你只需要：
 
-1.下载 <a href="http://webpjs.appspot.com/js/webpjs-0.0.2.min.js" target="_blank">webpjs-0.0.2.min.js</a> 和 <a href="http://webpjs.appspot.com/js/webpjs-0.0.2.swf" target="_blank">webpjs-0.0.2.swf</a>（需要番羽土啬，可以在服务器上直接 wget 下来）
+1.下载 [webpjs-0.0.2.min.js](http://webpjs.appspot.com/js/webpjs-0.0.2.min.js) 和 [webpjs-0.0.2.swf](http://webpjs.appspot.com/js/webpjs-0.0.2.swf)（需要番羽土啬，可以在服务器上直接 wget 下来）
 
 2.在网页的 head 里加入如下代码：
 

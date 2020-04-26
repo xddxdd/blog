@@ -8,7 +8,7 @@ date: 2016-08-28 17:38:00
 ---
 刚在 V2EX 上看到，有人利用沃通证书签发系统的漏洞，成功签出了一张 GitHub 主域名的证书。
 
-<a href="https://crt.sh/?id=29647048" target="_blank">https://crt.sh/?id=29647048</a>
+[https://crt.sh/?id=29647048](https://crt.sh/?id=29647048)
 
 ```bash
 Certificate:

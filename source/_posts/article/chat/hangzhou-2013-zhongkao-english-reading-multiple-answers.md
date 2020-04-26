@@ -7,11 +7,11 @@ tags: [英语,中考,浙江]
 date: 2013-06-20 11:57:58
 image: /usr/uploads/2013/06/1718670891.jpg
 ---
-（本文同时发布在19楼论坛上，<a href="http://www.19lou.com/forum-15-thread-12021371701528323-1-1.html" target="_blank">http://www.19lou.com/forum-15-thread-12021371701528323-1-1.html</a>）
+（本文同时发布在19楼论坛上，[http://www.19lou.com/forum-15-thread-12021371701528323-1-1.html](http://www.19lou.com/forum-15-thread-12021371701528323-1-1.html)）
 
 原题图片：
 
-<a href="/usr/uploads/2013/06/1718670891.jpg" title="原题目"><img src="/usr/uploads/2013/06/1718670891.jpg" width="550" alt="原题目" /></a>
+![原题目](/usr/uploads/2013/06/1718670891.jpg)
 
 大家都知道，对于英语阅读第二部分的正确答案，这几天19楼上吵得沸沸扬扬。其实对于这道题，不同人有不同人的理解，而这些理解可能都是对的。主要争议集中在57、58、60上面。首先说明：原文中assistant是she，所以工作人员是女的。
 
@@ -29,7 +29,7 @@ image: /usr/uploads/2013/06/1718670891.jpg
 
 60.F she will give you a receipt for your parcel。图中两人交接的就是一个receipt，放大如下：
 
-<a href="/usr/uploads/2013/06/1460254178.jpg" title="F选项放大图"><img src="/usr/uploads/2013/06/1460254178.jpg" alt="F选项放大图" /></a>
+![F选项放大图](/usr/uploads/2013/06/1460254178.jpg)
 
 有人说这是包裹。但是这两人在用单手拿东西，另外的图中都是双手捧着的。所以这不是包裹，唯一的可能是回条！
 

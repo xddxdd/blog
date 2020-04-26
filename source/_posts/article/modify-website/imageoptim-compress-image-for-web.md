@@ -15,7 +15,7 @@ image: /usr/uploads/2013/07/622061787.png
 
 一个网站不能缺少图片，文澜杀官网除外。
 
-<a href="/usr/uploads/2013/07/622061787.png" title="文澜杀官网截图"><img src="/usr/uploads/2013/07/622061787.png" alt="文澜杀官网截图" /></a>
+![文澜杀官网截图](/usr/uploads/2013/07/622061787.png)
 
 文澜杀作者说他的个人网站准备弄命令提示符的风格。对于这个，我只能说两个字：呵呵。
 
@@ -33,8 +33,8 @@ image: /usr/uploads/2013/07/622061787.png
 
 主界面如下：
 
-<a href="/usr/uploads/2013/07/2934219930.png" title="ImageOptim"><img src="/usr/uploads/2013/07/2934219930.png" alt="ImageOptim" /></a>
+![ImageOptim](/usr/uploads/2013/07/2934219930.png)
 
 用法超级简单，把图片或者装图片的文件夹拖进去，原始图片自动变成精简后的，注意备份。
 
-下载：<a href="http://imageoptim.com/" target="_blank">http://imageoptim.com/</a>
+下载：[http://imageoptim.com/](http://imageoptim.com/)

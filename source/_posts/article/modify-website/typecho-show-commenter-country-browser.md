@@ -8,7 +8,7 @@ date: 2014-07-30 21:09:00
 ---
 Typecho 由于插件稀少，一直没有找到显示评论者国家和浏览器的插件，所以只好自力更生了。
 
-代码修改自WordPress插件Show UserAgent，下载页面：<a href="https://wordpress.org/plugins/show-useragent/" _src="https://wordpress.org/plugins/show-useragent/">https://wordpress.org/plugins/show-useragent/</a>
+代码修改自WordPress插件Show UserAgent，下载页面：[https://wordpress.org/plugins/show-useragent/](https://wordpress.org/plugins/show-useragent/)
 
 前提是你的主题使用了自定义评论代码而不是Typecho默认的评论显示代码，一般符合要求的主题的comments.php或者functions.php中会有如下代码：
 

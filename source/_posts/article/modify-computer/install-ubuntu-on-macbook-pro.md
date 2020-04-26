@@ -19,7 +19,7 @@ Mac 系统的确非常漂亮，非常流畅。但是 VirtualBox 虚拟机在上�
 
 因为 Macbook 默认的引导可能无法启动 Ubuntu（不过我测试可以直接启动），我们需要安装第三方引导工具，rEFInd。rEFInd 是让使用 EFI 启动的电脑能够启动各类操作系统的一个引导工具，说白了就是给 Macbook 设计的，因为其它电脑的 EFI 大都可以关闭，如果碰到无法关闭 EFI 的电脑也可以安装 Ubuntu，只有 Macbook 比较奇葩。
 
-- （在 Mac 下）下载 rEFInd，解压。<a target="_self" href="http://sourceforge.net/projects/refind/files/0.8.3/refind-bin-0.8.3.zip/download">http://sourceforge.net/projects/refind/files/0.8.3/refind-bin-0.8.3.zip/download</a>
+- （在 Mac 下）下载 rEFInd，解压。[http://sourceforge.net/projects/refind/files/0.8.3/refind-bin-0.8.3.zip/download](http://sourceforge.net/projects/refind/files/0.8.3/refind-bin-0.8.3.zip/download)
 - 打开 Launchpad - 实用工具 - 终端，输入“cd "”，也就是cd然后一个空格然后一个英文双引号。不要回车。
 - 把刚才解压出的文件夹窗口上面的那个文件夹图标拖进终端，此时终端上就出现了你解压开的 rEFInd 文件夹路径。
 - 再输入一个英文双引号，回车。
@@ -45,7 +45,7 @@ sudo ./install.sh --esp
 - 此时将会自动进入 Ubuntu 安装向导，选择试用 Ubuntu 。
 - 在 Unity 里搜索 GParted 并启动，把新的分区格式化成 ext4 ，应用。
 - 关闭电脑，拔掉U盘，进入 Mac。
-- 下载 GPT Fdisk <a target="_self" href="http://sourceforge.net/projects/gptfdisk/">http://sourceforge.net/projects/gptfdisk/</a> 并安装。
+- 下载 GPT Fdisk [http://sourceforge.net/projects/gptfdisk/](http://sourceforge.net/projects/gptfdisk/) 并安装。
 - 打开终端，输入：
 
 ```bash

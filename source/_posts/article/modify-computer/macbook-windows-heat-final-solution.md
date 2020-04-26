@@ -7,7 +7,7 @@ tags: [散热,Mac]
 date: 2014-05-03 15:50:08
 image: /usr/uploads/2014/05/597218418.png
 ---
-<a href="/article/modify-computer/windows-control-macbook-fan.lantian" target="_blank">LubbosFanControl</a> 这款软件的确是Windows下控制风扇转速的神器，但是控制转速只是治标不治本的做法，只解决了散热却没有解决发热量大的问题。
+[LubbosFanControl](/article/modify-computer/windows-control-macbook-fan.lantian) 这款软件的确是Windows下控制风扇转速的神器，但是控制转速只是治标不治本的做法，只解决了散热却没有解决发热量大的问题。
 
 在Mac系统下，在我使用Chrome访问B站时，CPU温度一般稳定在60℃左右，从来没上过70℃，但是在Win8下做同样的操作，CPU上70℃是家常便饭。之前我一直以为是Windows对CPU的消耗大，所以CPU温度高。
 

@@ -19,6 +19,6 @@ Aroma 文件管理器就可以让你把出错的文件删除或者替换，恢�
 
 这个界面可以触摸屏操作，你可以在其中进行文件删除、复制等操作。当你完成操作时，点右下角Menu-Exit，就可以退回Recovery界面，继续刷入刷机包或者重启。
 
-原帖地址：<a href="http://forum.xda-developers.com/showthread.php?t=1646108">http://forum.xda-developers.com/showthread.php?t=1646108</a>（链接在二楼底部，可以查找aromafm-1.91.zip找到）
+原帖地址：[http://forum.xda-developers.com/showthread.php?t=1646108](http://forum.xda-developers.com/showthread.php?t=1646108)（链接在二楼底部，可以查找aromafm-1.91.zip找到）
 
-汉化版：<a href="http://pan.baidu.com/s/1o6sNMxc">http://pan.baidu.com/s/1o6sNMxc</a> （基于别人的汉化做的，我增加了Adobe最新公开的思源黑体字体，然后改了汉化的几处错误，原帖找不到了）</p>
+汉化版：[http://pan.baidu.com/s/1o6sNMxc](http://pan.baidu.com/s/1o6sNMxc) （基于别人的汉化做的，我增加了Adobe最新公开的思源黑体字体，然后改了汉化的几处错误，原帖找不到了）</p>

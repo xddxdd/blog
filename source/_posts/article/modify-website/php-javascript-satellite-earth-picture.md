@@ -7,9 +7,9 @@ tags: [向日葵8号]
 date: 2016-06-14 22:40:00
 image: /usr/uploads/2016/06/1359531479.png
 ---
-<blockquote>向日葵8号气象卫星是日本宇宙航空研究开发机构设计制造的向日葵系列卫星之一，重约3500公斤，设计寿命15年以上。该卫星于2014年10月7日由H2A火箭搭载发射成功，主要用于监测暴雨云团、台风动向以及持续喷发活动的火山等防灾领域。——百度百科</blockquote>
+> 向日葵8号气象卫星是日本宇宙航空研究开发机构设计制造的向日葵系列卫星之一，重约3500公斤，设计寿命15年以上。该卫星于2014年10月7日由H2A火箭搭载发射成功，主要用于监测暴雨云团、台风动向以及持续喷发活动的火山等防灾领域。——百度百科
 
-日本发射这颗卫星后，不仅用它防灾，还将它拍摄的地球照片发布在互联网上，供爱好者下载。照片发布的官方网站是<a href="http://himawari8.nict.go.jp/" target="_blank">http://himawari8.nict.go.jp/</a>，每到整10分钟更新（比如9:30，9:40……），同时有30分钟延迟（你10:00看到的照片实际上是9:30拍的）。
+日本发射这颗卫星后，不仅用它防灾，还将它拍摄的地球照片发布在互联网上，供爱好者下载。照片发布的官方网站是[http://himawari8.nict.go.jp/](http://himawari8.nict.go.jp/)，每到整10分钟更新（比如9:30，9:40……），同时有30分钟延迟（你10:00看到的照片实际上是9:30拍的）。
 
 接下来，我们就要研究一下如何获取这些卫星照片了。通过浏览器的访问监测功能，我们可以看到请求的地址：（点击看大图）
 
@@ -79,8 +79,8 @@ writeHimawariTable(2);
 <img id="himawari-pic" src="" />
 ```
 
-大家在使用该项目图片时也要注意，这个照片发布项目是非盈利的，因此也不提供任何保障，哪天 API 更换，或者是使用这些卫星照片的人太多导致网站流量超标，造成网站无法访问，都是有可能的。另外几个基于该卫星照片的软件项目 <a href="https://github.com/bitdust/EarthLiveSharp" target="_blank">EarthLiveSharp</a>、<a href="http://www.coolapk.com/apk/ooo.oxo.apps.earth" target="_blank">馒头地球</a>都是作者自己架设了 CDN 以缓解对源站的压力。
+大家在使用该项目图片时也要注意，这个照片发布项目是非盈利的，因此也不提供任何保障，哪天 API 更换，或者是使用这些卫星照片的人太多导致网站流量超标，造成网站无法访问，都是有可能的。另外几个基于该卫星照片的软件项目 [EarthLiveSharp](https://github.com/bitdust/EarthLiveSharp)、[馒头地球](http://www.coolapk.com/apk/ooo.oxo.apps.earth)都是作者自己架设了 CDN 以缓解对源站的压力。
 
-因此，我自己建了CDN，缓存图像并把它们转换成 WebP 格式。要让 WebP 在 IE 和 Firefox 上得到支持，可以看<a href="//lantian.pub/article/modify-website/ie-firefox-webp-support.lantian">让 IE 与 Firefox 支持 WebP 图像格式</a>这篇文章。
+因此，我自己建了CDN，缓存图像并把它们转换成 WebP 格式。要让 WebP 在 IE 和 Firefox 上得到支持，可以看[让 IE 与 Firefox 支持 WebP 图像格式](//lantian.pub/article/modify-website/ie-firefox-webp-support.lantian)这篇文章。
 
 网站的数据源网址 himawari8-dl.nict.go.jp 是可以直接 CNAME 到你自己的域名上，并加上 CDN 的。因此，也希望大家在使用时注意请求频率，也尽量架设自己的 CDN。

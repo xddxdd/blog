@@ -9,4 +9,4 @@ image: /usr/uploads/2013/06/1719017918.png
 ---
 新装的Win8……
 
-<a href="/usr/uploads/2013/06/1719017918.png" title="beautiful-error.png"><img src="/usr/uploads/2013/06/3557301816.png" alt="beautiful-error.png" /></a>
+![beautiful-error.png](/usr/uploads/2013/06/1719017918.png)

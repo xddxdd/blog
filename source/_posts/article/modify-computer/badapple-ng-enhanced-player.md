@@ -6,9 +6,9 @@ categories: 计算机与客户端
 tags: [Pascal,Bad Apple]
 date: 2013-03-16 10:56:23
 ---
-UPDATE：如果碰到打不开、运行错误2什么的问题，请在<a href="/article/modify-computer/bad-apple-command-line-art.lantian">Bad Apple 命令行动画版</a>看说明下数据文件！！！
+UPDATE：如果碰到打不开、运行错误2什么的问题，请在[Bad Apple 命令行动画版](/article/modify-computer/bad-apple-command-line-art.lantian)看说明下数据文件！！！
 
-上次我的<a href="/article/modify-computer/bad-apple-command-line-art.lantian">Bad Apple 命令行动画版</a>成功被同学WotorDho转载，并且进行了增强，主要是判断延时，以便控制系统卡的时候FPS保持基本不变。可惜他用的是他编写文澜杀时使用的自建Unit XCrt，冗余代码多不说，还不好懂。
+上次我的[Bad Apple 命令行动画版](/article/modify-computer/bad-apple-command-line-art.lantian)成功被同学WotorDho转载，并且进行了增强，主要是判断延时，以便控制系统卡的时候FPS保持基本不变。可惜他用的是他编写文澜杀时使用的自建Unit XCrt，冗余代码多不说，还不好懂。
 
 我研究了一下XCrt，搞懂他的原理，并且对自己的播放器进行修改，达到了一样的效果。（理论上还会快一点）
 

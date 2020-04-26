@@ -6,7 +6,7 @@ categories: 闲聊
 tags: [WordPress,JS,签到]
 date: 2013-07-01 22:04:09
 ---
-这个是我从Arefly的博客上看来的。原网址：<a href="http://www.arefly.com/zh-cn/wordpress-js-check/" target="_blank">http://www.arefly.com/zh-cn/wordpress-js-check/</a>
+这个是我从Arefly的博客上看来的。原网址：[http://www.arefly.com/zh-cn/wordpress-js-check/](http://www.arefly.com/zh-cn/wordpress-js-check/)
 
 使用方法：
 

@@ -8,7 +8,7 @@ date: 2013-02-13 10:40:59
 ---
 话说Ubuntu软件源里的VirtualBox越来越不给力，原先至少还能安装，现在装都装不上。官方源的那个倒是能用，但是要拖下来一大堆KDE组件，等VBox装好了，KDE也差不多了。然后我就决定去弄一个VMware玩玩。
 
-下载地址：<a href="http://download.pchome.net/system/sysenhance/download-10771.html">http://download.pchome.net/system/sysenhance/download-10771.html</a>
+下载地址：[http://download.pchome.net/system/sysenhance/download-10771.html](http://download.pchome.net/system/sysenhance/download-10771.html)
 
 下载下来是一个末尾是bundle的文件，这就是VMware的安装程序。但是直接执行是不行的，我们要先给它执行的权限。
 
@@ -38,7 +38,7 @@ ln -s /usr/src/linux-headers-3.7.0-7-generic/include/generated/uapi/linux/versio
 
 Ctrl+Alt+F8，Ctrl+Alt+F7，回到X，VMware弹出一个提示：Cannot find a valid peer process to connect to。八成是那个Peer Process挂掉了。绝对是内核兼容性问题，绝对的。
 
-再次Google，就找到了《<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=65&t=391262">VMware Workstation 9引发kernel 3.5（包含最新版ubuntu）崩溃的解决方案</a>》。里面提供了一个补丁。
+再次Google，就找到了《[VMware Workstation 9引发kernel 3.5（包含最新版ubuntu）崩溃的解决方案](http://forum.ubuntu.org.cn/viewtopic.php?f=65&t=391262)》。里面提供了一个补丁。
 
 描述的症状和我的还比较像，试一试。下载补丁后：
 

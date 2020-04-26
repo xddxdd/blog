@@ -9,4 +9,4 @@ image: /usr/uploads/2013/05/1894882685.png
 ---
 这是才擦的早期作品。（才擦微博：腾讯@fyc009cc，新浪@cyfcc）
 
-<a href="/usr/uploads/2013/05/1894882685.png" title="大话三国志"><img src="/usr/uploads/2013/05/1894882685.png" alt="大话三国志" /></a>
+![大话三国志](/usr/uploads/2013/05/1894882685.png)

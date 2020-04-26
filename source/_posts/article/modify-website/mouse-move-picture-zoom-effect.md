@@ -7,9 +7,9 @@ tags: [特效,HTML,CSS,jQuery,JS]
 date: 2013-06-18 20:36:47
 image: /usr/uploads/2013/06/1260012588.jpg
 ---
-鼠标移过图片放大显示效果 - Original by <a href="http://maomihz.com" target="_blank">Maomihz</a>, Modified by <a href="https://lantian.pub" target="_blank">Lan Tian</a>
+鼠标移过图片放大显示效果 - Original by [Maomihz](http://maomihz.com), Modified by [Lan Tian](https://lantian.pub)
 
-昨天晚上<a href="http://maomihz.com" target="_blank">Maomihz</a>让我帮他改一段jQuery，实现鼠标移上去自动显示高清大图的效果。一开始有两个Bug，一个是鼠标移到大图框上时，大图会闪来闪去，另一个就是图片会超出屏幕上边界。
+昨天晚上[Maomihz](http://maomihz.com)让我帮他改一段jQuery，实现鼠标移上去自动显示高清大图的效果。一开始有两个Bug，一个是鼠标移到大图框上时，大图会闪来闪去，另一个就是图片会超出屏幕上边界。
 
 我的修改， 就是把大图放到小图底下去，然后给小图设定半透明效果。超出上边界的判断非常容易，写了个max函数就搞定了。
 
@@ -61,7 +61,7 @@ if(marginRight < imageWidth)
 网页调用方法：
 
 ```html
-<div class="imgls"><a href="small.jpg" rel="img0.jpg" class="smallimage"><img src="small.jpg"></a></div>
+<div class="imgls">![small.jpg" rel="img0.jpg" class="smallimage"><img src="small](small.jpg" rel="img0.jpg" class="smallimage"><img src="small.jpg)</div>
 ```
 
 截图：
