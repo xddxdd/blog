@@ -9,7 +9,7 @@ image: /usr/uploads/54071403878812.png
 ---
 众所周知，验证码是为了防止机器暴力破解密码或者发广告刷评论而产生的东西，一般的验证码都是由4位数字组成，加上一些干扰线，从而尽可能防止机器暴力破解。
 
-问题是……这世界上还有一种逗比的验证码。图片来自 <a href="http://imbushuo.net/archives/58" _src="http://imbushuo.net/archives/58">http://imbushuo.net/archives/58</a> 。
+问题是……这世界上还有一种逗比的验证码。图片来自 [http://imbushuo.net/archives/58](http://imbushuo.net/archives/58" _src="http://imbushuo.net/archives/58) 。
 
 <img src="/usr/uploads/54071403878812.png" title="Screenshot-171.png"/>
 

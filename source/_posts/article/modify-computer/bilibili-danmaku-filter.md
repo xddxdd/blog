@@ -8,7 +8,7 @@ date: 2016-11-20 17:05:00
 ---
 随着 Bilibili 用户的增多，不少小学生也进入了 B 站，并且发布了大量不合弹幕礼仪的弹幕，对其他用户观看视频造成了极大的影响。不少用户甚至因此彻底关闭弹幕，但不看弹幕用什么 B 站？
 
-我自己用 Python 3 写了个小程序以过滤掉小学生弹幕（同时这个程序也是最近编程课 Python 的练手）。程序可以在 <a href="https://github.com/xddxdd/bilibili-dmshield" target="_blank">https://github.com/xddxdd/bilibili-dmshield</a> 看到。
+我自己用 Python 3 写了个小程序以过滤掉小学生弹幕（同时这个程序也是最近编程课 Python 的练手）。程序可以在 [https://github.com/xddxdd/bilibili-dmshield](https://github.com/xddxdd/bilibili-dmshield) 看到。
 
 可以通过将 comment.bilibili.com 的 IP 通过 hosts 文件指向 127.0.0.1，或者通过 FoxyProxy 或者 SwitchyOmega 等插件将 comment.bilibili.com 的代理指向程序的代理端口，来使用过滤功能。
 

@@ -10,7 +10,7 @@ date: 2014-03-27 17:11:00
 
 在寻找飞机无果的情况下，大家也纷纷猜测飞机去处，空中解体说法和飞行员劫机说法都有漏洞（其中前者已经被排除），而最近加拿大飞行员Chris Goodfellow分析称飞机可能起火，导致通讯设备故障。
 
-以下内容引自维基百科，<a href="http://zh.wikipedia.org/wiki/%E9%A9%AC%E6%9D%A5%E8%A5%BF%E4%BA%9A%E8%88%AA%E7%A9%BA370%E5%8F%B7%E7%8F%AD%E6%9C%BA%E7%A9%BA%E9%9A%BE" target="_blank">http://zh.wikipedia.org/wiki/%E9%A9%AC%E6%9D%A5%E8%A5%BF%E4%BA%9A%E8%88%AA%E7%A9%BA370%E5%8F%B7%E7%8F%AD%E6%9C%BA%E7%A9%BA%E9%9A%BE</a>
+以下内容引自维基百科，[http://zh.wikipedia.org/wiki/%E9%A9%AC%E6%9D%A5%E8%A5%BF%E4%BA%9A%E8%88%AA%E7%A9%BA370%E5%8F%B7%E7%8F%AD%E6%9C%BA%E7%A9%BA%E9%9A%BE](http://zh.wikipedia.org/wiki/%E9%A9%AC%E6%9D%A5%E8%A5%BF%E4%BA%9A%E8%88%AA%E7%A9%BA370%E5%8F%B7%E7%8F%AD%E6%9C%BA%E7%A9%BA%E9%9A%BE)
 
 <blockquote>
 加拿大一级飞行员兼仪器机师Chris Goodfellow写的分析文章，提出一种猜测。说扎哈里的飞行动作，在他看来，都符合电器火灾的特点。在这个假设下，所有的飞行动作，他都能理解其目的。
@@ -26,4 +26,4 @@ date: 2014-03-27 17:11:00
 此猜测解释了几乎所有扎哈里奇怪的飞行动作，并且和下面的“目击者”中所列符合：越南工人麦奇（Michael McKay）报告在南部头顿市对出海面的出光兴产所属离岸油井工作时报称目击到飞机着火，并已通报越南当局。在ABC记者向越南取得的副本中，指其观测到客机在钻油平台方位265°至275°之间，距离约50至70公里处的相当高度上空起火，目睹时间持续10至15秒。
 </blockquote>
 
-原文：<a href="http://www.wired.com/autopia/2014/03/mh370-electrical-fire/" target="_blank">http://www.wired.com/autopia/2014/03/mh370-electrical-fire/</a>
+原文：[http://www.wired.com/autopia/2014/03/mh370-electrical-fire/](http://www.wired.com/autopia/2014/03/mh370-electrical-fire/)

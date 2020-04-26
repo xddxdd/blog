@@ -26,7 +26,7 @@ HTML5Shiv主要解决HTML5提出的新的元素不被IE6-8识别，这些新元�
 
 方法：
 
-1.下载<a href="https://github.com/aFarkas/html5shiv/zipball/master" target="_blank">HTML5Shiv 源代码</a>，并上传到自己网站服务器。
+1.下载[HTML5Shiv 源代码](https://github.com/aFarkas/html5shiv/zipball/master)，并上传到自己网站服务器。
 
 2.在网页的head部分加入以下代码：
 
@@ -50,7 +50,7 @@ linear-gradient as background image
 
 因此我们就可以添加CSS3Pie，优化网页的显示效果。
 
-1.下载<a href="http://css3pie.com/download-latest-2.x" target="_blank">CSS3Pie 2.0</a>，把压缩包里所有文件传到服务器上。
+1.下载[CSS3Pie 2.0](http://css3pie.com/download-latest-2.x)，把压缩包里所有文件传到服务器上。
 
 2.在CSS中找到有上述支持的CSS3代码的部分，比如我的CSS中只有#container有支持的CSS3部分。
 

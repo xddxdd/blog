@@ -13,11 +13,11 @@ image: /usr/uploads/2013/07/445511655.png
 
 起因是我在B站看视频的时候，发现我的Macbook出风口的地方很烫。我马上觉得，我应该找一个CPU温度监测软件来看看是什么情况。
 
-于是我找到了<a href="http://www.eidac.de/?p=243" target="_blank">smcFanControl</a>，这是一款CPU温度检测＋风扇速度控制的软件，可以在任务栏上添加一个图标，并且实时显示你的CPU温度和转速。
+于是我找到了[smcFanControl](http://www.eidac.de/?p=243)，这是一款CPU温度检测＋风扇速度控制的软件，可以在任务栏上添加一个图标，并且实时显示你的CPU温度和转速。
 
 下载之后，是一个app文件，在dock上随便一个图标（ finder、窗口图标、下载、垃圾桶除外），右键-选项-在Finder中显示，把这个app拖到出现的文件夹里就行。然后在Launchpad里把app打开。
 
-<a href="/usr/uploads/2013/07/445511655.png" title="smcFanControl 任务栏截图"><img src="/usr/uploads/2013/07/445511655.png" alt="smcFanControl 任务栏截图" /></a>
+![smcFanControl 任务栏截图](/usr/uploads/2013/07/445511655.png)
 
 打开时，由于我的系统是10.9，软件支持到10.8，所以有警告告诉我可能会出错。不过经过我的测试，10.9运行一切正常。同时也要注意，你不能安装其它的风扇控制软件，否则出bug别怪我。
 
@@ -27,11 +27,11 @@ image: /usr/uploads/2013/07/445511655.png
 
 直接单击菜单，打开设置（Preferences）。
 
-<a href="/usr/uploads/2013/07/1980939657.png" title="smcFanControl 菜单"><img src="/usr/uploads/2013/07/1980939657.png" alt="smcFanControl 菜单" /></a>
+![smcFanControl 菜单](/usr/uploads/2013/07/1980939657.png)
 
 主界面就是这个样子的，我直接在上面点＋号创建了一个Max Speed，风速条直接拖到最右边6200转，确定。
 
-<a href="/usr/uploads/2013/07/1127560382.png" title="smcFanControl 设置"><img src="/usr/uploads/2013/07/1127560382.png" alt="smcFanControl 设置" /></a>
+![smcFanControl 设置](/usr/uploads/2013/07/1127560382.png)
 
 10秒钟后，电脑风扇开始呼呼呼地转起来。1分钟后，CPU温度降到了65摄氏度。
 

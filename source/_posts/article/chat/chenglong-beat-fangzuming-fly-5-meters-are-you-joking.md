@@ -7,7 +7,7 @@ tags: [物理]
 date: 2014-08-21 17:55:02
 image: /usr/uploads/20140821/1408614732480959.jpg
 ---
-据网易新闻 <a href="http://ent.163.com/14/0820/20/A449AUVV00031H2L.html" _src="http://ent.163.com/14/0820/20/A449AUVV00031H2L.html">http://ent.163.com/14/0820/20/A449AUVV00031H2L.html</a> ，成龙见到房祖名后怒打儿子，房祖名凌空飞5米。
+据网易新闻 [http://ent.163.com/14/0820/20/A449AUVV00031H2L.html](http://ent.163.com/14/0820/20/A449AUVV00031H2L.html) ，成龙见到房祖名后怒打儿子，房祖名凌空飞5米。
 
 把一个成年男人打出5米远？果然是武术世家啊！<br/>
 

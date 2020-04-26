@@ -10,7 +10,7 @@ date: 2013-04-12 19:46:56
 
 开发者工具曾经是无敌的，直到这段JS出现。
 
-<a href="http://publicdn.cdn.duapp.com/js/wqnmlgb.min.js" target="_blank">http://publicdn.cdn.duapp.com/js/wqnmlgb.min.js</a>
+[http://publicdn.cdn.duapp.com/js/wqnmlgb.min.js](http://publicdn.cdn.duapp.com/js/wqnmlgb.min.js)
 
 源代码+作者信息：
 

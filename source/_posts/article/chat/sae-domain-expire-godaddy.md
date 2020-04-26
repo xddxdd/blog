@@ -6,7 +6,7 @@ categories: 闲聊
 tags: [SAE,GoDaddy,域名]
 date: 2014-07-29 17:53:00
 ---
-更新：SAE官方已经辟谣。<a href="http://weibo.com/1662047260/Bg8rZ0sGN" _src="http://weibo.com/1662047260/Bg8rZ0sGN">http://weibo.com/1662047260/Bg8rZ0sGN</a> 
+更新：SAE官方已经辟谣。[http://weibo.com/1662047260/Bg8rZ0sGN](http://weibo.com/1662047260/Bg8rZ0sGN) 
 
 <img src="/usr/uploads/54971406802813.jpg" title="6310d41cjw1eiw506vfqfj20dw2gwdu7.jpg"/>
 

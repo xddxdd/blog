@@ -13,9 +13,9 @@ image: /usr/uploads/2014/02/93602513.png
 
 但是她那神奇的夺冠方式，有贴吧网友已经预测到了有木有！
 
-《<a href="http://tieba.baidu.com/p/2865895607" target="_blank">别着急，看我神预测</a>》发帖时间：2014-02-13 19:29
+《[别着急，看我神预测](http://tieba.baidu.com/p/2865895607)》发帖时间：2014-02-13 19:29
 
-<a href="/usr/uploads/2014/02/93602513.png"><img src="/usr/uploads/2014/02/93602513.png" alt="QQ截图20140215105419.png" /></a>
+![/usr/uploads/2014/02/93602513](/usr/uploads/2014/02/93602513.png)
 
 <blockquote>
 比赛开始，棒子第一，意大利第二，英国第三，中国第四，一圈后，意大利和英国由于挣抢双双摔倒，棒子回头见状大喜，没看到前面歪道直接撞墙，最后中国金牌
@@ -27,13 +27,13 @@ image: /usr/uploads/2014/02/93602513.png
 
 比赛开始6.3秒，视频里的顺序依次是138，124，116，111，也就是韩国、意大利、英国、中国。
 
-<a href="/usr/uploads/2014/02/4182108109.png"><img src="/usr/uploads/2014/02/4182108109.png" alt="QQ截图20140215110140.png" /></a>
+![/usr/uploads/2014/02/4182108109](/usr/uploads/2014/02/4182108109.png)
 
 <p style="font-size:24px;color:red;padding:6px 0">神啊！</p>
 
 7.14秒，英国妹子一个飞踢把意大利妹子和自己送了出去，棒子暂时没事。
 
-<a href="/usr/uploads/2014/02/308957884.png"><img src="/usr/uploads/2014/02/308957884.png" alt="QQ截图20140215110448.png" /></a>
+![/usr/uploads/2014/02/308957884](/usr/uploads/2014/02/308957884.png)
 
 虽然不是一圈以后……不过她们俩真的是在争抢。
 
@@ -41,7 +41,7 @@ image: /usr/uploads/2014/02/93602513.png
 
 10.4秒，棒子脚下一滑，撞墙。
 
-<a href="/usr/uploads/2014/02/1710484826.png"><img src="/usr/uploads/2014/02/1710484826.png" alt="QQ截图20140215110659.png" /></a>
+![/usr/uploads/2014/02/1710484826](/usr/uploads/2014/02/1710484826.png)
 
 虽然没回头……
 

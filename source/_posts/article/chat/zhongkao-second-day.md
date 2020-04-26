@@ -7,7 +7,7 @@ tags: [浙江,中考]
 date: 2013-06-16 16:12:55
 image: /usr/uploads/2013/06/1084092691.gif
 ---
-<a href="/usr/uploads/2013/06/1084092691.gif" title="文澜加油"><img src="/usr/uploads/2013/06/1084092691.gif" alt="文澜加油" width="500" height="500" /></a>
+![文澜加油](/usr/uploads/2013/06/1084092691.gif)
 
 <span style="color:#fff">Please ignore this line</span>
 

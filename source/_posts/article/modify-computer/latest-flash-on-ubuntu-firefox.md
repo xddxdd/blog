@@ -12,9 +12,9 @@ date: 2014-12-13 13:32:05
 
 那么问题来了，Pepper Flash 是 Chrome 独占的，如何让 Firefox 也用上呢？
 
-有人希望 Mozilla 来主动支持 Pepper Flash，但是被 Firefox 开发组否决了：<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=729481" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=729481</a>
+有人希望 Mozilla 来主动支持 Pepper Flash，但是被 Firefox 开发组否决了：[https://bugzilla.mozilla.org/show_bug.cgi?id=729481](https://bugzilla.mozilla.org/show_bug.cgi?id=729481)
 
-于是国外网友 <a href="https://github.com/i-rinat" target="_blank">Rinat Ibragimov</a> 开发了一款插件，支持 Firefox 使用 Pepper Flash。
+于是国外网友 [Rinat Ibragimov](https://github.com/i-rinat) 开发了一款插件，支持 Firefox 使用 Pepper Flash。
 
 这款插件虽然还不完善（硬件加速功能不稳定，部分功能缺失），但是基本功能已经可以正常使用。
 

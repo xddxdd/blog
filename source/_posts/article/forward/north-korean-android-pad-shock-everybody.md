@@ -13,11 +13,11 @@ image: /usr/uploads/182676472.jpg
 
 当朝鲜人在自己国家建立3G网络时，人们惊呼：朝鲜竟然还有3G技术？
 
-虽然朝鲜的非智能手机都是中国进口，虽然目前为止朝鲜的安卓机也都是中国制造，但是朝鲜突然宣布自主研发了安卓手机……我和我的小伙伴都惊呆了。<a href="/article/chat/north-korean-arirang-android-phone-shock-everyone.lantian" target="_blank">这款手机名为阿里郎，来自当地一首民歌的名字。</a>
+虽然朝鲜的非智能手机都是中国进口，虽然目前为止朝鲜的安卓机也都是中国制造，但是朝鲜突然宣布自主研发了安卓手机……我和我的小伙伴都惊呆了。[这款手机名为阿里郎，来自当地一首民歌的名字。](/article/chat/north-korean-arirang-android-phone-shock-everyone.lantian)
 
 但是，朝鲜人民的创造能力是无限的。既然他们连智能手机都造出来了，那么……下一个目标是……
 
-<a href="/usr/uploads/182676472.jpg" title="朝鲜平板电脑"><img src="/usr/uploads/182676472.jpg" alt="朝鲜平板电脑" /></a>
+![朝鲜平板电脑](/usr/uploads/182676472.jpg)
 
 这个……那个……
 
@@ -49,7 +49,7 @@ CPU：1.2G，核心数不明。为什么我又一次想到了MT6589？
 
 当然，它能通过手机卡上网，不过朝鲜局域网有什么好玩的呢？不过，就算你不上网，三明治平板里也有一些好玩的东西，比如——
 
-<a href="/usr/uploads/2935984201.jpg" title="愤怒的小鸟"><img src="/usr/uploads/2935984201.jpg" alt="愤怒的小鸟" width="500" /></a>
+![愤怒的小鸟](/usr/uploads/2935984201.jpg)
 
 我赌五毛这是盗版游戏。
 
@@ -61,7 +61,7 @@ CPU：1.2G，核心数不明。为什么我又一次想到了MT6589？
 
 而且从图片上看，里面还有打砖块和两个塔防游戏。
 
-<a href="/usr/uploads/3807044014.jpg" title="三明治内置应用"><img src="/usr/uploads/3807044014.jpg" alt="三明治内置应用" /></a>
+![三明治内置应用](/usr/uploads/3807044014.jpg)
 
 不过，美帝的Gmail和Google Play就别想了，装了你也连不上。
 

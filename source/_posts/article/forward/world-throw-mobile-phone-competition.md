@@ -12,11 +12,11 @@ date: 2013-09-05 10:10:00
 
 该比赛的目的是让人们以壮观的方式告别自己的旧手机，并有可能免费获得一只新手机。参加比赛的要求只有一个：手机重量220g-400g之间。
 
-<a href="/usr/uploads/3439027324.jpg" title="世界扔手机竞标赛"><img src="/usr/uploads/3439027324.jpg" alt="世界扔手机竞标赛" /></a>
+![世界扔手机竞标赛](/usr/uploads/3439027324.jpg)
 
 不过蓝天脑补了一下，为什么在芬兰举行，这里好像有个什么特产……哦，原来是这个！
 
-<a href="/usr/uploads/2132830877.png" title="诺基亚！！！"><img src="/usr/uploads/2132830877.png" alt="诺基亚！！！" /></a>
+![诺基亚！！！](/usr/uploads/2132830877.png)
 
 这是要毁灭地球的节奏啊！
 
@@ -36,6 +36,6 @@ date: 2013-09-05 10:10:00
 所以伟大的先贤阿基米德子曾预言，“给我一部诺基亚，我能毁灭一个地球！”也就是说，如果不小心将手上看似无害的诺基亚随意向地上扔去的话，地球君可能就会杯具……
 </blockquote>
 
-引自萌娘百科：<a href="http://zh.moegirl.org/%E8%AF%BA%E5%9F%BA%E4%BA%9A" target="_blank">http://zh.moegirl.org/%E8%AF%BA%E5%9F%BA%E4%BA%9A</a>
+引自萌娘百科：[http://zh.moegirl.org/%E8%AF%BA%E5%9F%BA%E4%BA%9A](http://zh.moegirl.org/%E8%AF%BA%E5%9F%BA%E4%BA%9A)
 
 在此蓝天对这种严重危害到地球安全的行为表示强烈的谴责！

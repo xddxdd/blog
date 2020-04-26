@@ -6,7 +6,7 @@ categories: 转载
 tags: [算法]
 date: 2014-03-22 17:43:00
 ---
-B站上看到的，<a href="http://www.bilibili.tv/video/av1020723/" target="_blank">av1020723</a>。等会我可能会做一个PHP版出来。
+B站上看到的，[av1020723](http://www.bilibili.tv/video/av1020723/)。等会我可能会做一个PHP版出来。
 
 <embed height="452" width="544" quality="high" allowfullscreen="true" type="application/x-shockwave-flash" src="http://static.hdslb.com/miniloader.swf" flashvars="aid=1020723&page=1" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash"></embed>
 

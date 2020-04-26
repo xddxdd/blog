@@ -35,7 +35,7 @@ date: 2014-07-25 16:00:30
 
 以下是分区步骤。
 
-- 下载 <a href="/article/modify-computer/aroma-file-manager-recovery-mode.lantian" _src="/article/modify-computer/aroma-file-manager-recovery-mode.lantian">https://lantian.pub/article/modify-computer/aroma-file-manager-recovery-mode.lantian</a> 里的Aroma文件管理器，并按照文章中教程进入管理器。
+- 下载 [https://lantian.pub/article/modify-computer/aroma-file-manager-recovery-mode.lantian](/article/modify-computer/aroma-file-manager-recovery-mode.lantian) 里的Aroma文件管理器，并按照文章中教程进入管理器。
 - 点击菜单（Menu）-命令行（终端）（Terminal），进入命令行。
 - 输入以下命令：
 

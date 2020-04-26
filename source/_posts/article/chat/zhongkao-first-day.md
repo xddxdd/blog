@@ -7,7 +7,7 @@ tags: [中考,浙江]
 date: 2013-06-15 19:58:18
 image: /usr/uploads/2013/06/1084092691.gif
 ---
-<a href="/usr/uploads/2013/06/1084092691.gif" title="文澜加油"><img src="/usr/uploads/2013/06/1084092691.gif" alt="文澜加油" width="500" height="500" /></a>
+![文澜加油](/usr/uploads/2013/06/1084092691.gif)
 
 <span style="color:#fff">Please ignore this line</span>
 
@@ -17,11 +17,11 @@ image: /usr/uploads/2013/06/1084092691.gif
 
 <del>送图4张</del>送图3张（原来有一张重复了）：（不是我拍的，来自19楼）
 
-<a href="/usr/uploads/2013/06/2249404118.jpg" title="middle_094452_14861371260692384_ce9920e7288e76684b868c474ad4b0fc.jpg"><img src="/usr/uploads/2013/06/2249404118.jpg" alt="middle_094452_14861371260692384_ce9920e7288e76684b868c474ad4b0fc.jpg" /></a>
+![middle_094452_14861371260692384_ce9920e7288e76684b868c474ad4b0fc.jpg](/usr/uploads/2013/06/2249404118.jpg)
 
-<a href="/usr/uploads/2013/06/3970367125.jpg" title="middle_094452_17931371260692691_3b77c47744f6f7f4bdde10b7653c66da.jpg"><img src="/usr/uploads/2013/06/3970367125.jpg" alt="middle_094452_17931371260692691_3b77c47744f6f7f4bdde10b7653c66da.jpg" /></a>
+![middle_094452_17931371260692691_3b77c47744f6f7f4bdde10b7653c66da.jpg](/usr/uploads/2013/06/3970367125.jpg)
 
-<a href="/usr/uploads/2013/06/3158596131.jpg" title="middle_094453_15861371260693006_ce9920e7288e76684b868c474ad4b0fc.jpg"><img src="/usr/uploads/2013/06/3158596131.jpg" alt="middle_094453_15861371260693006_ce9920e7288e76684b868c474ad4b0fc.jpg" /></a>
+![middle_094453_15861371260693006_ce9920e7288e76684b868c474ad4b0fc.jpg](/usr/uploads/2013/06/3158596131.jpg)
 
 进去，看到教学楼旁边围了一圈那种挂着彩旗的线，就是不让你进去。按照原来说的，我们去实验楼复习。
 

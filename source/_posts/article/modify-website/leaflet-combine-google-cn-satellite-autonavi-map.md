@@ -89,7 +89,7 @@ date: 2016-07-21 10:22:00
         }).addTo(map);
 </script>
 
-源代码可右键查看，也可以在下面复制，其中地图数据源的 URL 来自 <a href="https://github.com/htoooth/Leaflet.ChineseTmsProviders" target="_blank">htoooth/Leaflet.ChineseTmsProviders</a> 。
+源代码可右键查看，也可以在下面复制，其中地图数据源的 URL 来自 [htoooth/Leaflet.ChineseTmsProviders](https://github.com/htoooth/Leaflet.ChineseTmsProviders) 。
 
 ```html
 <!DOCTYPE HTML>

@@ -52,4 +52,4 @@ begin
 end.
 ```
 
-当然只执行主程序是没用的，还需要原始图形文件，就是我调用的那个txt，下载地址：<a href="/usr/uploads/2013/03/badapple.7z" target="_blank">/usr/uploads/2013/03/badapple.7z</a>。下载下来和主程序放在一起。
+当然只执行主程序是没用的，还需要原始图形文件，就是我调用的那个txt，下载地址：[/usr/uploads/2013/03/badapple.7z](/usr/uploads/2013/03/badapple.7z)。下载下来和主程序放在一起。

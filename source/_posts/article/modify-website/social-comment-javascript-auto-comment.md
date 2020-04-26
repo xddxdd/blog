@@ -6,7 +6,7 @@ categories: 网站与服务端
 tags: [签到,JS]
 date: 2013-07-02 11:40:43
 ---
-受<a href="/article/chat/wordpress-blog-onekey-comment-javascript.lantian">WP博客一键签到JS</a>启发，我自己修改JS代码，实现了友言和多说的一键签到功能。
+受[WP博客一键签到JS](/article/chat/wordpress-blog-onekey-comment-javascript.lantian)启发，我自己修改JS代码，实现了友言和多说的一键签到功能。
 
 友言版：
 

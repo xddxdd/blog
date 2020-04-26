@@ -46,13 +46,13 @@ server {
 
 　　注册成为StartSSL（http://www.startssl.com）用户，并通过邮件验证后，就可以申请免费的可信任的SSL证书了。</blockquote>
 
-以上摘自<a href="http://blog.s135.com/startssl/" target="_blank">http://blog.s135.com/startssl/</a>。申请教程这篇文章里也有。
+以上摘自[http://blog.s135.com/startssl/](http://blog.s135.com/startssl/)。申请教程这篇文章里也有。
 
 优点：可以被大多数浏览器（除Opera）信任。缺点：需要人工审核，而且免费的TK域名无法使用，还要一年续期一次。
 
 3.CAcert，自己谷歌。
 
-<blockquote>CAcert.org 是一个社群推动的公共认证机构。它可以对个人发放免费公钥证书(其他证书颁发机构需要收费)。该机构目前已经有200,000名认证用户，以及接近800,000份证书。</blockquote>
+> CAcert.org 是一个社群推动的公共认证机构。它可以对个人发放免费公钥证书(其他证书颁发机构需要收费)。该机构目前已经有200,000名认证用户，以及接近800,000份证书。
 
 摘自维基。CACert的证书是程序自动签发的，不会有人工审核，证书可信度也不高，所以别想让它和StartSSL一样搞定微软了。别想了。
 

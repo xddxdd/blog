@@ -21,11 +21,11 @@ image: /usr/uploads/2013/07/897756688.png
 
 由于这款软件是收费的，免费的有广告，所以打开后屏幕上两个窗口，一个是广告，一个是快捷关闭Sleepless，两个窗口都可以关闭。
 
-<a href="/usr/uploads/2013/07/897756688.png" title="Sleepless 快捷关闭窗口"><img src="/usr/uploads/2013/07/897756688.png" alt="Sleepless 快捷关闭窗口" /></a>
+![Sleepless 快捷关闭窗口](/usr/uploads/2013/07/897756688.png)
 
 软件开启后，在任务栏上生成一个电灯泡图标，点击它打开菜单。
 
-<a href="/usr/uploads/2013/07/1522386294.png" title="Sleepless 菜单"><img src="/usr/uploads/2013/07/1522386294.png" alt="Sleepless 菜单" /></a>
+![Sleepless 菜单](/usr/uploads/2013/07/1522386294.png)
 
 菜单中从上至下四个选项，分别是：
 
@@ -43,4 +43,4 @@ image: /usr/uploads/2013/07/897756688.png
 
 再另外，软件未注册有广告，貌似没有可用破解。觉得烦的朋友可以买注册码，不过要9.5美刀，有点贵。我觉得还不如自己去关闭广告窗口好了。
 
-<a href="/usr/uploads/2013/07/2078725271.png" title="Sleepless 广告"><img src="/usr/uploads/2013/07/2078725271.png" alt="Sleepless 广告" /></a>
+![Sleepless 广告](/usr/uploads/2013/07/2078725271.png)

@@ -7,11 +7,11 @@ tags: [Typecho]
 date: 2013-10-26 09:51:26
 image: /usr/uploads/2013/10/2214168162.png
 ---
-昨天下午回到家，打开feedly，看到<a href="http://www.zntec.cn/archives/typecho-0-9.html" target="_blank">小蒋博客</a>上有篇Typecho 0.9的文章。
+昨天下午回到家，打开feedly，看到[小蒋博客](http://www.zntec.cn/archives/typecho-0-9.html)上有篇Typecho 0.9的文章。
 
-啥，Typecho居然在有生之年更新了！？果断打开<a href="http://typecho.org" target="_blank">Typecho 官网</a>，居然看到了TE那个简洁的默认主题。我记得以前官网不是长这样。
+啥，Typecho居然在有生之年更新了！？果断打开[Typecho 官网](http://typecho.org)，居然看到了TE那个简洁的默认主题。我记得以前官网不是长这样。
 
-<a href="/usr/uploads/2013/10/2214168162.png" title="Typecho 官方网站"><img src="/usr/uploads/2013/10/2214168162.png" alt="Typecho 官方网站" /></a>
+![Typecho 官方网站](/usr/uploads/2013/10/2214168162.png)
 
 发布文章上来就一句话“是的，你没有进错网址，目前这个简陋的地方确实是Typecho的官方网站”。。。
 
@@ -21,18 +21,18 @@ image: /usr/uploads/2013/10/2214168162.png
 
 打开登录页面，我瞬间觉得高端大气上档次。
 
-<a href="/usr/uploads/2013/10/1883541722.png" title="登陆界面"><img src="/usr/uploads/2013/10/1883541722.png" alt="登陆界面" /></a>
+![登陆界面](/usr/uploads/2013/10/1883541722.png)
 
 据说TE0.9增加了Markdown编辑器，要到个人面板开启。虽然不用，但是还是看一眼。个人面板也是高端大气上档次啊。
 
-<a href="/usr/uploads/2013/10/467160611.png" title="个人面板"><img src="/usr/uploads/2013/10/467160611.png" alt="个人面板" /></a>
+![个人面板](/usr/uploads/2013/10/467160611.png)
 
 文章编辑界面。和WordPress有点相像。
 
-<a href="/usr/uploads/2013/10/1758541712.png" title="文章编辑界面"><img src="/usr/uploads/2013/10/1758541712.png" alt="文章编辑界面" /></a>
+![文章编辑界面](/usr/uploads/2013/10/1758541712.png)
 
 HTML5的图片上传，终于告别Flash了。还支持拖放呢。
 
-<a href="/usr/uploads/2013/10/1274762080.png" title="图片上传"><img src="/usr/uploads/2013/10/1274762080.png" alt="图片上传" /></a>
+![图片上传](/usr/uploads/2013/10/1274762080.png)
 
 不管怎么说，一年之后，TE终于有了动静，接下来就是等TE完善了。

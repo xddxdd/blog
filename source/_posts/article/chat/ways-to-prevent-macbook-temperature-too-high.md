@@ -13,7 +13,7 @@ image: /usr/uploads/2013/07/2453648692.jpg
 
 在国外举行的一场“魔鬼级测试”中，测试人员在Macbook中安装专业测试软件，使Macbook满负荷运行，CPU轻松烧到100度。之后，测试人员不得不将Macbook晾了一个晚上以恢复常温，在测试过程中，这台可怜的Macbook Pro也只能以这个姿态立着：
 
-<a href="/usr/uploads/2013/07/2453648692.jpg" title="Macbook Pro"><img src="/usr/uploads/2013/07/2453648692.jpg" alt="Macbook Pro" /></a>
+![Macbook Pro](/usr/uploads/2013/07/2453648692.jpg)
 
 所以，CPU温度问题一定要注意。
 
@@ -30,13 +30,13 @@ lm_sensors
 
 忘了最后一句要不要sudo。我记得不用。
 
-在Mac下，<a href="/article/modify-computer/macbook-manual-config-cpu-fan-speed.lantian">smcFanControl</a>为你搞定一切。
+在Mac下，[smcFanControl](/article/modify-computer/macbook-manual-config-cpu-fan-speed.lantian)为你搞定一切。
 
 2）控制CPU温度
 
 1.设置风扇转速
 
-在Mac下，<a href="/article/modify-computer/macbook-manual-config-cpu-fan-speed.lantian">smcFanControl</a>为你搞定一切。
+在Mac下，[smcFanControl](/article/modify-computer/macbook-manual-config-cpu-fan-speed.lantian)为你搞定一切。
 
 在Windows下，自行搜索LubbosFanControl。
 
