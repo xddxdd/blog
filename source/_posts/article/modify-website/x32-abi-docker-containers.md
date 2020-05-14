@@ -134,14 +134,16 @@ docker run -it --rm xddxdd/debian-x32
 apt install debootstrap
 
 # 安装 Debian Ports 的 GPG 密钥，以校验 x32 软件包
-# Debian Ports 项目负责把 Debian 系统移植到其它架构上（例如 x32 和 RISC-V）
+# Debian Ports 项目负责把 Debian 系统移植到其它架构上（例如 x32，ARM 和 RISC-V）
 apt install debian-ports-archive-keyring
 
 # 运行 Debootstrap，把一个 x32 Debian 系统安装到 debian-x32 文件夹下
 # 注意此处的参数设置：
+# - arch 指定 x32（废话）
 # - variant 指定 minbase，即最小化安装的系统，毕竟是在打包 Docker 镜像；后续有需要再加东西
 # - keyring 参数要指定 Debian Ports 的 GPG 密钥，默认是不包括的
 # - include 也要指定 Debian Ports
+# - 版本选择 unstable，因为 x32 从来就没有成为一个“稳定”的版本
 debootstrap --arch=x32 --variant=minbase --keyring=/usr/share/keyrings/debian-ports-archive-keyring.gpg --include=debian-ports-archive-keyring unstable debian-x32 http://deb.debian.org/debian-ports
 
 # 删掉占空间的日志、下载缓存等东西，立省 60M+
@@ -150,7 +152,7 @@ rm -rf debian-x32/var/cache/apt/*
 rm -rf debian-x32/var/lib/apt/lists/*
 rm -rf debian-x32/var/log/*.log
 
-# 创建一个非常简单的 Dockerfile，把 debian-x32 文件夹的内容都拷进去
+# 创建一个非常简单的 Dockerfile，作用就是把 debian-x32 文件夹的内容都拷进去
 cat >Dockerfile <<EOF
 FROM scratch
 COPY debian-x32/ /
