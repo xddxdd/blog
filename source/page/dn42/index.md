@@ -138,13 +138,13 @@ Server 1: Hong Kong, China, provider GigsGigsCloud
 
 | English | 中文 | Value / 数值 |
 | ------- | --- | ------------ |
-| Public IPv4 | 公网 IPv4 | 103.42.215.193 |
-| Public IPv6 | 公网 IPv6 | 2001:470:19:10bb::1 |
-| DN42 IPv4 | | 172.22.76.186 |
-| DN42 IPv6 | | fdbc:f9dc:67ad::8b:c606:ba01 |
-| Link-local IPv6 | 本地链路 IPv6 | fe80::2547 |
-| WireGuard Public Key | WireGuard 公钥 | xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs= |
-
+| Public IPv4 | 公网 IPv4 | `103.42.215.193` |
+| Public IPv6 | 公网 IPv6 | `2001:470:19:10bb::1` |
+| DN42 IPv4 | | `172.22.76.186` |
+| DN42 IPv6 | | `fdbc:f9dc:67ad::8b:c606:ba01` |
+| Link-local IPv6 | 本地链路 IPv6 | `fe80::2547` |
+| WireGuard Public Key | WireGuard 公钥 | `xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=` |
+`
 IPSec Public Key / IPSec 公钥：
 
 ```bash
@@ -172,12 +172,12 @@ Server 2：Los Angeles, United States, provider HostDare
 
 | English | 中文 | Value / 数值 |
 | ------- | --- | ------------ |
-| Public IPv4 | 公网 IPv4 | 185.186.147.110 |
-| Public IPv6 | 公网 IPv6 | 2607:fcd0:100:b100::198a:b7f6 |
-| DN42 IPv4 | | 172.22.76.185 |
-| DN42 IPv6 | | fdbc:f9dc:67ad::dd:c85a:8a93 |
-| Link-local IPv6 | 本地链路 IPv6 | fe80::2547 |
-| WireGuard Public Key | WireGuard 公钥 | zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo= |
+| Public IPv4 | 公网 IPv4 | `185.186.147.110` |
+| Public IPv6 | 公网 IPv6 | `2607:fcd0:100:b100::198a:b7f6` |
+| DN42 IPv4 | | `172.22.76.185` |
+| DN42 IPv6 | | `fdbc:f9dc:67ad::dd:c85a:8a93` |
+| Link-local IPv6 | 本地链路 IPv6 | `fe80::2547` |
+| WireGuard Public Key | WireGuard 公钥 | `zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=` |
 
 IPSec Public Key / IPSec 公钥：
 
@@ -206,12 +206,12 @@ Server 3: New York, United States, provider VirMach
 
 | English | 中文 | Value / 数值 |
 | ------- | --- | ------------ |
-| Public IPv4 | 公网 IPv4 | 107.172.134.89 |
-| Public IPv6 | 公网 IPv6 | / |
-| DN42 IPv4 | | 172.22.76.190 |
-| DN42 IPv6 | | fdbc:f9dc:67ad::cc:433e:da3b |
-| Link-local IPv6 | 本地链路 IPv6 | fe80::2547 |
-| WireGuard Public Key | WireGuard 公钥 | a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk= |
+| Public IPv4 | 公网 IPv4 | `107.172.134.89` |
+| Public IPv6 | 公网 IPv6 | `/` |
+| DN42 IPv4 | | `172.22.76.190` |
+| DN42 IPv6 | | `fdbc:f9dc:67ad::cc:433e:da3b` |
+| Link-local IPv6 | 本地链路 IPv6 | `fe80::2547` |
+| WireGuard Public Key | WireGuard 公钥 | `a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=` |
 
 IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
 
@@ -225,12 +225,12 @@ Server 4: Frankfurt, Germany, provider Virtono
 
 | English | 中文 | Value / 数值 |
 | ------- | --- | ------------ |
-| Public IPv4 | 公网 IPv4 | 45.138.97.165 |
-| Public IPv6 | 公网 IPv6 | 2001:ac8:20:3::433a:a05d |
-| DN42 IPv4 | | 172.22.76.187 |
-| DN42 IPv6 | | fdbc:f9dc:67ad::20:5549:a809 |
-| Link-local IPv6 | 本地链路 IPv6 | fe80::2547 |
-| WireGuard Public Key | WireGuard 公钥 | DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM= |
+| Public IPv4 | 公网 IPv4 | `45.138.97.165` |
+| Public IPv6 | 公网 IPv6 | `2001:ac8:20:3::433a:a05d` |
+| DN42 IPv4 | | `172.22.76.187` |
+| DN42 IPv6 | | `fdbc:f9dc:67ad::20:5549:a809` |
+| Link-local IPv6 | 本地链路 IPv6 | `fe80::2547` |
+| WireGuard Public Key | WireGuard 公钥 | `DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=` |
 
 IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
 
