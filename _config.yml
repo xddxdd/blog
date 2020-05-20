@@ -122,21 +122,6 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: lantian
 
-hfc_useref:
-  enable: true
-  concat: true
-hfc_html:
-  enable: true
-hfc_css:
-  enable: true
-hfc_js:
-  enable: true
-  mangle: true
-hfc_img:
-  enable: false
-hfc_favicons:
-  enable: false
-
 responsive_images:
   priority: 9
   rules:
