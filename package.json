@@ -7,14 +7,14 @@
   },
   "dependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.9.6",
     "@babel/polyfill": "^7.8.7",
-    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-env": "^7.9.6",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "algoliasearch": "^3.35.1",
     "autocomplete.js": "^0.37.1",
     "babel-loader": "^8.1.0",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.0",
     "bootstrap.native": "^2.0.27",
     "bourbon": "^6.0.0",
     "deepmerge": "^4.2.2",
@@ -38,11 +38,12 @@
     "hexo-renderer-sass": "^0.4.0",
     "hexo-renderer-stylus": "^0.3.3",
     "hexo-server": "^0.3.3",
-    "hexo-util": "^1.9.0",
+    "hexo-util": "^1.9.1",
     "hexo-webpack": "^1.0.0",
     "instant.page": "^2.0.1",
+    "node-sass": "^4.14.1",
     "popper.js": "^1.16.1",
     "simple-lightbox": "^2.1.0",
-    "webpack": "^4.42.1"
+    "webpack": "^4.43.0"
   }
 }
