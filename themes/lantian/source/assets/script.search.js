@@ -25,8 +25,7 @@ addLoadEvent(function() {
         window.location.href = suggestion.permalink;
     });
 
-    var searchButton = document.getElementById('search-button')
-    searchButton.onmousedown = searchButton.ontouchstart = function() {
+    document.getElementById('search-button').onclick = function() {
         document.getElementById('search-bar').classList.toggle('d-none');
     };
 
