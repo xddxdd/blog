@@ -88,7 +88,11 @@ lantian_excerpt = function(input) {
                             }) %>
                         </li>
                     <% } %>
-                    <li class="list-inline-item float-right"><a title="<%- __('show_qrcode') %>" class="qrcode-box" href="<%- qrcode(post.permalink) %>" rel="nofollow"><span class="fas fa-fw fa-qrcode"></span></a></li>
+                    <li class="list-inline-item float-right">
+                        <a title="<%- __('show_qrcode') %>" class="qrcode-box" href="<%- qrcode(post.permalink) %>" rel="nofollow">
+                            <span class="fas fa-fw fa-qrcode"></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
