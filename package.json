@@ -40,7 +40,7 @@
     "hexo-server": "^1.0.0",
     "hexo-util": "^2.1.0",
     "hexo-webpack": "^1.0.0",
-    "instant.page": "^5.0.1",
+    "instant.page": "^3.0.0",
     "node-sass": "^4.14.1",
     "popper.js": "^1.16.1",
     "simple-lightbox": "^2.1.0",

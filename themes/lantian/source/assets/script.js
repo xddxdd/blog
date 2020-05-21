@@ -18,18 +18,15 @@ addLoadEvent(function() {
     for(var i = 0; i < posts.length; i++) {
         var images = posts[i].getElementsByTagName('img');
         for(var j = 0; j < images.length; j++) {
-            images[j].onmousedown = lightbox_onclick;
-            images[j].ontouchstart = lightbox_onclick;
+            images[j].onclick = lightbox_onclick;
             images[j].style.cursor = 'pointer';
+
         }
     }
 
     var qrcodes = document.getElementsByClassName('qrcode-box');
     for(var i = 0; i < qrcodes.length; i++) {
-        qrcodes[i].onmousedown = lightbox_onclick;
-        qrcodes[i].ontouchstart = lightbox_onclick;
-        qrcodes[i].setAttribute('src', qrcodes[i].href);
-        qrcodes[i].href = '#';
+        qrcodes[i].onclick = lightbox_onclick;
     }
 
     elderClock.tick();
