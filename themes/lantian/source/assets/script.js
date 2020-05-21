@@ -18,21 +18,16 @@ addLoadEvent(function() {
     for(var i = 0; i < posts.length; i++) {
         var images = posts[i].getElementsByTagName('img');
         for(var j = 0; j < images.length; j++) {
-            // var wrapper = document.createElement('a');
-            // // wrapper.setAttribute('href', images[j].src);
-            // wrapper.setAttribute('href', 'javascript:;');
-            // wrapper.setAttribute('target', '_blank');
-            // wrapper.appendChild(images[j].cloneNode(true));
-            // wrapper.onclick = lightbox_onclick;
-            // images[j].parentNode.replaceChild(wrapper, images[j]);
-            images[j].onclick = lightbox_onclick;
+            images[j].onmousedown = lightbox_onclick;
+            images[j].ontouchstart = lightbox_onclick;
             images[j].style.cursor = 'pointer';
         }
     }
 
     var qrcodes = document.getElementsByClassName('qrcode-box');
     for(var i = 0; i < qrcodes.length; i++) {
-        qrcodes[i].onclick = lightbox_onclick;
+        qrcodes[i].onmousedown = lightbox_onclick;
+        qrcodes[i].ontouchstart = lightbox_onclick;
         qrcodes[i].setAttribute('src', qrcodes[i].href);
         qrcodes[i].href = '#';
     }
