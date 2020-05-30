@@ -82,15 +82,16 @@ protocol ospf {
 - 永远记住一点原则：OSPF，Babel 等 IGP（内部路由协议）不应处理 BGP 路由信息，BGP 路由就应该让 BGP 协议自己处理。
   - 在网络内部配置 BGP 有多种方案，可以参考《[Bird 配置 BGP Confederation](/article/modify-website/bird-confederation.lantian/)》这篇文章。
 - 同时，内部路由协议的路由也不应漏到 BGP 中，除非内部路由协议中处理的所有 IP 段都是你自己所有。
-  - 将 BGP 的 `export filter` 写成这样：
-  - ```bash
-    export filter {
-      # 只允许向外发送来自 STATIC（手动配置）和 BGP 协议的路由
-      if source ~ [RTS_STATIC, RTS_BGP] then accept;
-      # 拒绝掉其它路由协议的路由
-      reject;
-    }
-    ```
+- 所以你应该把 BGP 的 `export filter` 写成这样：
+
+```bash
+export filter {
+  # 只允许向外发送来自 STATIC（手动配置）和 BGP 协议的路由
+  if source ~ [RTS_STATIC, RTS_BGP] then accept;
+  # 拒绝掉其它路由协议的路由
+  reject;
+}
+```
 
 如何防御
 -------
