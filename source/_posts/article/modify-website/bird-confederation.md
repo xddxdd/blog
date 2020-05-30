@@ -97,13 +97,11 @@ template bgp lantian_internal {
   enable extended messages on;
   ipv4 {
     next hop self yes;
-    next hop address LTNET_IPv4;
     import filter { ltnet_filter_v4(); };
     export filter { ltnet_filter_v4(); };
   };
   ipv6 {
     next hop self yes;
-    next hop address LTNET_IPv6;
     import filter { ltnet_filter_v6(); };
     export filter { ltnet_filter_v6(); };
   };
@@ -155,13 +153,11 @@ template bgp lantian_internal {
   enable extended messages on;
   ipv4 {
     next hop self yes;
-    next hop address LTNET_IPv4;
     import filter { ltnet_filter_v4(); };
     export filter { ltnet_filter_v4(); };
   };
   ipv6 {
     next hop self yes;
-    next hop address LTNET_IPv6;
     import filter { ltnet_filter_v6(); };
     export filter { ltnet_filter_v6(); };
   };
