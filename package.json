@@ -41,6 +41,7 @@
     "hexo-util": "^2.1.0",
     "hexo-webpack": "^1.0.0",
     "instant.page": "^3.0.0",
+    "ipfs-deploy": "^7.14.0",
     "node-sass": "^4.14.1",
     "popper.js": "^1.16.1",
     "simple-lightbox": "^2.1.0",
