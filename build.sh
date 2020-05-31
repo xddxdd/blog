@@ -23,9 +23,9 @@ node_modules/hexo/bin/hexo generate
 # Hexo deploy takes care of git, and baidu_url_submit
 node_modules/hexo/bin/hexo deploy
 
-# Deploy to IPFS
-IPFS_HASH=$(ipfs-cluster-ctl add -r -Q public)
-curl -H 'X-Api-Key: ***REMOVED***' -X PATCH "http://172.18.0.1:8081/api/v1/servers/localhost/zones/lantian.pub" --data '{"rrsets": [{"name": "ipfs.lantian.pub.","records": [{"content": "\"dnslink=/ipfs/${IPFS_HASH}\"","disabled": false}],"ttl": 600,"type": "TXT","changetype": "REPLACE"},{"name": "_dnslink.ipfs.lantian.pub.","records": [{"content": "\"dnslink=/ipfs/${IPFS_HASH}\"","disabled": false}],"ttl": 600,"type": "TXT","changetype": "REPLACE"}]}'
+# # Deploy to IPFS
+# IPFS_HASH=$(ipfs-cluster-ctl add -r -Q public)
+# curl -H 'X-Api-Key: ***REMOVED***' -X PATCH "http://172.18.0.1:8081/api/v1/servers/localhost/zones/lantian.pub" --data '{"rrsets": [{"name": "ipfs.lantian.pub.","records": [{"content": "\"dnslink=/ipfs/${IPFS_HASH}\"","disabled": false}],"ttl": 600,"type": "TXT","changetype": "REPLACE"},{"name": "_dnslink.ipfs.lantian.pub.","records": [{"content": "\"dnslink=/ipfs/${IPFS_HASH}\"","disabled": false}],"ttl": 600,"type": "TXT","changetype": "REPLACE"}]}'
 
 # Compress to gzip, brotli, zstd and webp only for my own site system
 # Useless on other hosts, e.g. GitHub Pages
