@@ -30,7 +30,11 @@ node_modules/hexo/bin/hexo deploy
 # Deploy to IPFS pinning services
 export IPFS_DEPLOY_PINATA__API_KEY=***REMOVED***
 export IPFS_DEPLOY_PINATA__SECRET_API_KEY=***REMOVED***
-node_modules/ipfs-deploy/bin/ipfs-deploy.js public/ -p infura -p pinata -s lantian.pub -C -O
+export IPFS_DEPLOY_CLOUDFLARE__API_EMAIL=b980120@hotmail.com
+export IPFS_DEPLOY_CLOUDFLARE__API_KEY=f832baa082df741c9ef32a4c1fa829eb0b95e
+export IPFS_DEPLOY_CLOUDFLARE__ZONE=xuyh0120.win
+export IPFS_DEPLOY_CLOUDFLARE__RECORD=_dnslink.ipfs.xuyh0120.win
+node_modules/ipfs-deploy/bin/ipfs-deploy.js public/ -p pinata -d cloudflare -s lantian.pub -C -O
 
 # Compress to gzip, brotli, zstd and webp only for my own site system
 # Useless on other hosts, e.g. GitHub Pages
