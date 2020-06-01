@@ -6,10 +6,10 @@
     "version": "4.2.1"
   },
   "dependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.6",
-    "@babel/polyfill": "^7.8.7",
-    "@babel/preset-env": "^7.9.6",
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/polyfill": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "algoliasearch": "^3.35.1",
     "autocomplete.js": "^0.37.1",
@@ -40,7 +40,7 @@
     "hexo-server": "^1.0.0",
     "hexo-util": "^2.1.0",
     "hexo-webpack": "^1.0.0",
-    "instant.page": "^3.0.0",
+    "instant.page": "^5.1.0",
     "ipfs-deploy": "^7.14.0",
     "node-sass": "^4.14.1",
     "popper.js": "^1.16.1",
