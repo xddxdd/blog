@@ -1,11 +1,17 @@
 ---
 lang: zh
-title: 'Bird 配置 BGP Confederation'
+title: 'Bird 配置 BGP Confederation，及模拟 Confederation（2020-06-07 更新）'
 label: bird-confederation
 categories: 网站与服务端
 tags: [BGP, Bird, Confederation]
 date: 2020-05-17 00:35:55
 ---
+
+更新记录
+-------
+
+- 2020-06-07：添加 Bird Confederation 的局限，及模拟 Confederation 方法
+- 2020-05-17：最初版本
 
 ISP 内部 BGP 互联方案比较
 ----------------------
@@ -79,6 +85,19 @@ ISP 内部 BGP 互联方案比较
        - E：`AS3 -> AS2 -> AS1`。
      - 如果天灾降临，B、D 之间的连接中断，D 仍然可以从 C 获得 `AS23 -> AS22 -> AS21 -> AS1` 这条路由，从而保证数据转发正常。
    - 这样既最大化保留了互联网去中心化的特点、避免了单点故障，同时也降低了 NIC 的信息处理压力。
+   - 但是在 Bird 中，Confederation 有点问题：
+     - Bird 在计算 BGP 路径长度时不会计入 Confederation 这一段的长度，这就会导致诡异的路由结果。
+       - 例如 C 同时收到 `A -> B -> C` 和 `A -> B -> D -> C` 两条路由，同时两者优先级相同。此时 Bird 认为两条路由**等长**，于是**随机**选择路由，就有可能绕路。
+     - 同时 Bird 也不提供变量，让 Filter 来计算 Confederation 的长度，从而手动调整优先级。
+       - Bird 中的 `bgp_path.len` 不包含 Confederation 一段长度，如上所述；
+       - Bird 提供的最接近的功能是 AIGP，也就是跨 AS 累积路径的 Cost。但是 AIGP 累计的值不能被 Filter 访问。
+6. 手动模拟一个 BGP Confederation
+   - 方案与 Confederation 相同，只不过不把所有路由器设置同一个 Confederation 编号，让它们仍然独立运行。
+   - 然后在对外广播路由时，用 Filter 删除掉内网一段的 ASN 来模拟 Confederation 的效果。
+   - 优点是保留了 Confederation 的所有好处，同时可以正常计算路径长度（不会绕路）；
+   - 缺点是容易配置出错，例如内网 ASN 没删干净就广播了出去。
+
+下面先介绍 Bird 自带的 Confederation 的配置方法，再介绍模拟 Confederation 的方法。
 
 在 Bird 中配置 Confederation
 ---------------------------
@@ -210,3 +229,35 @@ Table master4:
 ```
 
 可以看到括号里的私有 ASN 被自动替换成了 4242422547 这个由 DN42 分配的 ASN，这样从外部看起来，整个 AS 仍然是一个整体。
+
+模拟 Confederation
+-----------------
+
+内网部分的配置方法大致与 Bird Confederation 相同，将每个服务器设置不同的 ASN，并相应地修改邻居设置：
+
+```bash
+# 详细操作见 Bird Confederation 配置
+local as LTNET_AS;
+neighbor NEIGHBOR_IP external;
+```
+
+但是**不加**以下两行，即不启用 Bird 自带的 Confederation：
+
+```bash
+confederation DN42_AS;
+confederation member yes;
+```
+
+然后修改所有对外的 BGP 会话，设置如下的 Filter：
+
+```bash
+export filter {
+  # 添加这一行，删除 BGP 路径中的所有内部 ASN
+  # 记得改成你自己的范围！
+  bgp_path.delete([4225470000..4225479999]);
+  # 此处省略你可能有的其它过滤规则
+  accept;
+}
+```
+
+一定要注意把**所有**对外 BGP 都设置好，否则就会发生人民群众喜闻乐见的剧情。
