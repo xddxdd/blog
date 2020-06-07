@@ -3,7 +3,7 @@ lang: zh
 title: 'RoboMaster 开发踩坑日记（2018-05-28 更新）'
 label: robomaster-bugs-in-development
 categories: 计算机与客户端
-tags: [ChibiOS,STM32,RoboMaster]
+tags: [ChibiOS,STM32,RoboMaster, 踩坑]
 date: 2018-03-31 09:44:00
 ---
 学校组建了一支 RoboMaster 队伍，准备参加今年的比赛。因为是新校区新学生，因此我们完全没有之前的参考资料，只能自己一个个踩坑。

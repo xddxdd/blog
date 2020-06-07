@@ -4,7 +4,7 @@ title: 'Bird 配置 BGP Confederation，及模拟 Confederation（2020-06-07 更
 label: bird-confederation
 categories: 网站与服务端
 tags: [BGP, Bird, Confederation]
-date: 2020-05-17 00:35:55
+date: 2020-06-07 21:51:51
 ---
 
 更新记录
@@ -91,6 +91,7 @@ ISP 内部 BGP 互联方案比较
      - 同时 Bird 也不提供变量，让 Filter 来计算 Confederation 的长度，从而手动调整优先级。
        - Bird 中的 `bgp_path.len` 不包含 Confederation 一段长度，如上所述；
        - Bird 提供的最接近的功能是 AIGP，也就是跨 AS 累积路径的 Cost。但是 AIGP 累计的值不能被 Filter 访问。
+         - ~~`bgp_aigp` 变量居然是 void 类型，不知道开发者在干什么。~~
 6. 手动模拟一个 BGP Confederation
    - 方案与 Confederation 相同，只不过不把所有路由器设置同一个 Confederation 编号，让它们仍然独立运行。
    - 然后在对外广播路由时，用 Filter 删除掉内网一段的 ASN 来模拟 Confederation 的效果。
