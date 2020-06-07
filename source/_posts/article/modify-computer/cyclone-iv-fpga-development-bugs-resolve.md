@@ -3,7 +3,7 @@ lang: zh
 title: 'Cyclone IV FPGA 开发踩坑记录'
 label: cyclone-iv-fpga-development-bugs-resolve
 categories: 计算机与客户端
-tags: [FPGA]
+tags: [FPGA, 踩坑]
 date: 2019-07-08 13:10:00
 ---
 上学期，学校开设了一门数字电路课程，使用 FPGA 进行开发。在课程结尾，我们需要分成小组，利用 FPGA 自由设计电路的特性实现复杂的功能，例如制作一款游戏、运行卷积神经网络等等，并且可以按自己喜好加入各种额外的功能。
