@@ -1,8 +1,10 @@
 import 'bootstrap.native/dist/bootstrap-native-v4';
 import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
-
+import DisqusJS from 'disqusjs'
 import './js/analytics';
+
+global.DisqusJS = DisqusJS;
 
 addLoadEvent(function() {
     'use strict';

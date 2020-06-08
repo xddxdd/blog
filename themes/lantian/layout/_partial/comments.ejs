@@ -1,4 +1,4 @@
-<div id="comments"></div>
+<div id="disqus_thread"></div>
 
 <%
 var removeTrailingSlash = function(s) {
@@ -13,17 +13,14 @@ var removeTrailingSlash = function(s) {
 %>
 <script>
 addLoadEvent(setTimeout(function() {
-    var disq = new iDisqus('comments', {
-        forum: 'lantian',
-        api: 'https://comments.lantian.pub',
-        site: 'https://lantian.pub',
+    var disq = new DisqusJS({
+        shortname: 'lantian',
+        siteName: 'Lan Tian @ Blog',
         identifier: '/<%= removeTrailingSlash(page.path) %>',
         url: '<%= removeTrailingSlash(page.permalink) %>',
-        mode: 1,
-        timeout: 3000,
-        init: true,
-        emojiPreview: true,
-        autoCreate: true
+        apikey: 'hxtAuBcAKlhxWnRnQlpLA6jIR54Wdh8aiVIIkm8Doha088NweAdV4jJXUahTWBb6',
+        admin: 'lan_tian',
+        adminLabel: '管理员'
     });
 }, 3000));
 </script>
