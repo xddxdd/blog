@@ -6,8 +6,22 @@ addLoadEvent(function() {
     var client = algoliasearch('MU6U5GYQMI', '980c1cdb13ca7904d196dc74f757d7b1');
     var index = client.initIndex('lantian');
 
+    function newHitsSource(index, params) {
+        return function doSearch(query, cb) {
+          index
+            .search(query, params)
+            .then(function(res) {
+              cb(res.hits, res);
+            })
+            .catch(function(err) {
+              console.error(err);
+              cb([]);
+            });
+        };
+    }
+
     autocomplete('#search-input', {hint: false}, {
-        source: autocomplete.sources.hits(index, { hitsPerPage: 5 }),
+        source: newHitsSource(index, { hitsPerPage: 5 }),
         displayKey: 'title',
         templates:  {
             suggestion: function(suggestion) {
