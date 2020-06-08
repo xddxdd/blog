@@ -5,6 +5,7 @@ label: senior-design-sensor-network-bugs-resolve
 categories: 计算机与客户端
 tags: [STM32, 传感器, 踩坑]
 date: 2020-06-08 04:06:23
+image: /usr/uploads/202006/stm32cubemx.png
 ---
 
 欢迎来到踩坑系列的第三篇。之前两篇中我分别介绍了我 [RoboMaster 机器人竞赛](/article/modify-computer/robomaster-bugs-in-development.lantian)和 [FPGA 课程大作业](/article/modify-computer/cyclone-iv-fpga-development-bugs-resolve.lantian)中踩的坑。
