@@ -1,13 +1,51 @@
-import 'bootstrap.native/dist/bootstrap-native-v4';
 import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
-import DisqusJS from 'disqusjs'
+
+import DisqusJS from 'disqusjs';
+global.DisqusJS = DisqusJS;
+
 import './js/analytics';
 
-global.DisqusJS = DisqusJS;
+/*****************************************
+ * Bootstrap Native
+ *****************************************/
+
+import {initCallback} from 'bootstrap.native/src/util/callbacks.js'
+import {componentsInit} from 'bootstrap.native/src/util/globals.js'
+// import {Util} from 'bootstrap.native/src/util/util.js'
+
+// import Alert from 'bootstrap.native/src/components/alert-native.js'
+// import Button from 'bootstrap.native/src/components/button-native.js'
+// import Carousel from 'bootstrap.native/src/components/carousel-native.js'
+// import Collapse from 'bootstrap.native/src/components/collapse-native.js'
+import Dropdown from 'bootstrap.native/src/components/dropdown-native.js'
+// import Modal from 'bootstrap.native/src/components/modal-native.js'
+// import Popover from 'bootstrap.native/src/components/popover-native.js'
+// import ScrollSpy from 'bootstrap.native/src/components/scrollspy-native.js'
+// import Tab from 'bootstrap.native/src/components/tab-native.js'
+// import Toast from 'bootstrap.native/src/components/toast-native.js'
+// import Tooltip from 'bootstrap.native/src/components/tooltip-native.js'
+
+// componentsInit.Alert = [ Alert, '[data-dismiss="alert"]']
+// componentsInit.Button = [ Button, '[data-toggle="buttons"]' ]
+// componentsInit.Carousel = [ Carousel, '[data-ride="carousel"]' ]
+// componentsInit.Collapse = [ Collapse, '[data-toggle="collapse"]' ]
+componentsInit.Dropdown = [ Dropdown, '[data-toggle="dropdown"]']
+// componentsInit.Modal = [ Modal, '[data-toggle="modal"]' ]
+// componentsInit.Popover = [ Popover, '[data-toggle="popover"],[data-tip="popover"]' ]
+// componentsInit.ScrollSpy = [ ScrollSpy, '[data-spy="scroll"]' ]
+// componentsInit.Tab = [ Tab, '[data-toggle="tab"]' ]
+// componentsInit.Toast = [ Toast, '[data-dismiss="toast"]' ]
+// componentsInit.Tooltip = [ Tooltip, '[data-toggle="tooltip"],[data-tip="tooltip"]' ]
+
+/*****************************************
+ * Page Onload Logic
+ *****************************************/
 
 addLoadEvent(function() {
     'use strict';
+    initCallback();
+
     ga('create','UA-37067735-1');
     ga('send', 'pageview', location.pathname + location.search);
 
@@ -35,6 +73,10 @@ addLoadEvent(function() {
 
     console.log('%c欢迎来到 Lan Tian @ Blog。','color:#09f');
 });
+
+/*****************************************
+ * Elder Clock
+ *****************************************/
 
 global.elderClock = {
     last_date: new Date(),
