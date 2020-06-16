@@ -18,14 +18,20 @@ cp node_modules/@fortawesome/fontawesome-free/webfonts/* themes/lantian/source/a
 
 # Regenerate everything
 rm -rf public .deploy_git
+node_modules/hexo/bin/hexo clean
 node_modules/hexo/bin/hexo generate
+
+# Verify generated javascript
+node_modules/acorn/bin/acorn --silent public/assets/script.main.bundle.js || exit 1
+node_modules/acorn/bin/acorn --silent public/assets/script.search.bundle.js || exit 1
+
+# Do not deploy if specified to be local
+if [ "$1" = "--local" ]; then
+	exit 0
+fi
 
 # Hexo deploy takes care of git, and baidu_url_submit
 node_modules/hexo/bin/hexo deploy
-
-# # Deploy to local IPFS cluster
-# IPFS_HASH=$(ipfs-cluster-ctl add -r -Q public)
-# curl -H 'X-Api-Key: ***REMOVED***' -X PATCH "http://172.18.0.1:8081/api/v1/servers/localhost/zones/lantian.pub" --data '{"rrsets": [{"name": "ipfs.lantian.pub.","records": [{"content": "\"dnslink=/ipfs/${IPFS_HASH}\"","disabled": false}],"ttl": 600,"type": "TXT","changetype": "REPLACE"},{"name": "_dnslink.ipfs.lantian.pub.","records": [{"content": "\"dnslink=/ipfs/${IPFS_HASH}\"","disabled": false}],"ttl": 600,"type": "TXT","changetype": "REPLACE"}]}'
 
 # Deploy to IPFS pinning services
 export IPFS_DEPLOY_PINATA__API_KEY=***REMOVED***
