@@ -13,9 +13,6 @@ RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | sed "s/document.write/process.stdout
 RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | node)
 echo ${RECENT_COMMENTS#*<\/style>} > themes/lantian/layout/_partial/disqus-recent.ejs
 
-# Font Awesome update
-cp node_modules/@fortawesome/fontawesome-free/webfonts/* themes/lantian/source/assets/fonts/
-
 # Regenerate everything
 rm -rf public .deploy_git
 node_modules/hexo/bin/hexo clean
