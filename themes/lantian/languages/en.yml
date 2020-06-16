@@ -13,6 +13,7 @@ latest_articles: "Latest articles"
 latest_comments: "Latest comments"
 others: "Others"
 links: "Links"
+admin: "Admin"
 
 # post-list
 list_year_month: "YYYY-MM"

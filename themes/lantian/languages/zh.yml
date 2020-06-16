@@ -13,6 +13,7 @@ latest_articles: "最新文章"
 latest_comments: "最新评论"
 others: "其它功能"
 links: "友情链接"
+admin: "管理员"
 
 # post-list
 list_year_month: "YYYY 年 MM 月"
