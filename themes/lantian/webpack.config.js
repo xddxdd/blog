@@ -19,11 +19,11 @@ module.exports = {
     minimizer: [
       new TerserJSPlugin({
         terserOptions: {
-          warnings: true,
           parse: {},
           compress: {
             arguments: true,
             booleans_as_integers: true,
+            // drop_console: true,
             passes: 2,
           },
           output: {
@@ -58,9 +58,31 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         options: {
-          presets: [[
-            '@babel/preset-env',
-          ]]
+          presets: [
+            [
+              "@babel/preset-env",
+              {
+                bugfixes: true,
+                useBuiltIns: "usage",
+                corejs: { version: 3, proposals: true },
+                forceAllTransforms: true,
+                shippedProposals: true,
+              }
+            ]
+          ],
+          plugins: [
+            [
+              "@babel/plugin-transform-runtime",
+              {
+                "absoluteRuntime": false,
+                "corejs": 3,
+                "helpers": true,
+                "regenerator": true,
+                "useESModules": true,
+                "version": "^7.10.2"
+              }
+            ],
+          ],
         }
       },
       {
