@@ -1,7 +1,7 @@
 import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
 
-import DisqusJS from 'disqusjs';
+import DisqusJS from 'disqusjs/src/disqus';
 global.DisqusJS = DisqusJS;
 
 import './js/analytics';
