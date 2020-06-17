@@ -47,16 +47,16 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 4. 在 Clone 下的仓库里创建一系列的文件，包括：
    1. 在 `data/mntner` 文件夹下创建一个名为 `[昵称]-MNT` 的文件，这个文件代表你的账户，用来认证你以后的操作。例如我的 mntner 文件如下（也可以在 `data/mntner/LANTIAN-MNT` 看到）：
 
-      - ```bash
-        mntner:             LANTIAN-MNT
-        admin-c:            LANTIAN-DN42
-        tech-c:             LANTIAN-DN42
-        mnt-by:             LANTIAN-MNT
-        source:             DN42
-        auth:               pgp-fingerprint 23067C13B6AEBDD7C0BB567327F31700E751EC22
-        auth:               ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCulLscvKjEeroKdPE207W10MbZ3+ZYzWn34EnVeIG0GzfZ3zkjQJVfXFahu97P68Tw++N6zIk7htGic9SouQuAH8+8kzTB8/55Yjwp7W3bmqL7heTmznRmKehtKg6RVgcpvFfciyxQXV/bzOkyO+xKdmEw+fs92JLUFjd/rbUfVnhJKmrfnohdvKBfgA27szHOzLlESeOJf3PuXV7BLge1B+cO8TJMJXv8iG8P5Uu8UCr857HnfDyrJS82K541Scph3j+NXFBcELb2JSZcWeNJRVacIH3RzgLvp5NuWPBCt6KET1CCJZLsrcajyonkA5TqNhzumIYtUimEnAPoH51hoUD1BaL4wh2DRxqCWOoXn0HMrRmwx65nvWae6+C/7l1rFkWLBir4ABQiKoUb/MrNvoXb+Qw/ZRo6hVCL5rvlvFd35UF0/9wNu1nzZRSs9os2WLBMt00A4qgaU2/ux7G6KApb7shz1TXxkN1k+/EKkxPj/sQuXNvO6Bfxww1xEWFywMNZ8nswpSq/4Ml6nniS2OpkZVM2SQV1q/VdLEKYPrObtp2NgneQ4lzHmAa5MGnUCckES+qOrXFZAcpI126nv1uDXqA2aytN6WHGfN50K05MZ+jA8OM9CWFWIcglnT+rr3l+TI/FLAjE13t6fMTYlBH0C8q+RnQDiIncNwyidQ==
-        remarks:            pin-sha256:o1lfYvcdcYy81UIuZMZO1CkCLX+vJOdD5GLw1cmeStU=
-        ```
+      ```bash
+      mntner:             LANTIAN-MNT
+      admin-c:            LANTIAN-DN42
+      tech-c:             LANTIAN-DN42
+      mnt-by:             LANTIAN-MNT
+      source:             DN42
+      auth:               pgp-fingerprint 23067C13B6AEBDD7C0BB567327F31700E751EC22
+      auth:               ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCulLscvKjEeroKdPE207W10MbZ3+ZYzWn34EnVeIG0GzfZ3zkjQJVfXFahu97P68Tw++N6zIk7htGic9SouQuAH8+8kzTB8/55Yjwp7W3bmqL7heTmznRmKehtKg6RVgcpvFfciyxQXV/bzOkyO+xKdmEw+fs92JLUFjd/rbUfVnhJKmrfnohdvKBfgA27szHOzLlESeOJf3PuXV7BLge1B+cO8TJMJXv8iG8P5Uu8UCr857HnfDyrJS82K541Scph3j+NXFBcELb2JSZcWeNJRVacIH3RzgLvp5NuWPBCt6KET1CCJZLsrcajyonkA5TqNhzumIYtUimEnAPoH51hoUD1BaL4wh2DRxqCWOoXn0HMrRmwx65nvWae6+C/7l1rFkWLBir4ABQiKoUb/MrNvoXb+Qw/ZRo6hVCL5rvlvFd35UF0/9wNu1nzZRSs9os2WLBMt00A4qgaU2/ux7G6KApb7shz1TXxkN1k+/EKkxPj/sQuXNvO6Bfxww1xEWFywMNZ8nswpSq/4Ml6nniS2OpkZVM2SQV1q/VdLEKYPrObtp2NgneQ4lzHmAa5MGnUCckES+qOrXFZAcpI126nv1uDXqA2aytN6WHGfN50K05MZ+jA8OM9CWFWIcglnT+rr3l+TI/FLAjE13t6fMTYlBH0C8q+RnQDiIncNwyidQ==
+      remarks:            pin-sha256:o1lfYvcdcYy81UIuZMZO1CkCLX+vJOdD5GLw1cmeStU=
+      ```
 
       - 其中各项的含义如下：
         - `mntner`：即 `maintainer（维护者）`，说明这个账户的名称，与文件名相同。
@@ -69,9 +69,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
             - 你还需要将你的 PGP 公钥上传到公共查询服务器，称为 Keyserver。目前使用最广泛的是 `SKS-Keyservers`。
             - 上传步骤请参考[阮一峰的这份教程](https://www.ruanyifeng.com/blog/2013/07/gpg.html)，并将 `keyserver` 参数替换成 `hkp://pool.sks-keyservers.net`，例如：
 
-              - ```bash
-                gpg --send-keys [密钥ID] --keyserver hkp://pool.sks-keyservers.net
-                ```
+              - `gpg --send-keys [密钥ID] --keyserver hkp://pool.sks-keyservers.net`
 
           - 你可以添加一个 SSH 公钥，也可以不加。DN42 上有些服务会以此处的 SSH 公钥来验证你的身份。
         - `remarks`：备注信息，随便填写，也可以没有。
@@ -79,13 +77,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
    2. 在 `data/person` 文件夹下创建一个 `[昵称]-DN42` 的文件，代表你的个人信息。说是个人信息，但其实只需要一个邮箱。例如我的 person 文件如下（`data/person/LANTIAN-DN42`）：
 
-      - ```bash
-        person:             Lan Tian
-        contact:            b980120@hotmail.com
-        nic-hdl:            LANTIAN-DN42
-        mnt-by:             LANTIAN-MNT
-        source:             DN42
-        ```
+      ```bash
+      person:             Lan Tian
+      contact:            b980120@hotmail.com
+      nic-hdl:            LANTIAN-DN42
+      mnt-by:             LANTIAN-MNT
+      source:             DN42
+      ```
 
       - 各项含义如下：
         - `person`：你的昵称。
@@ -96,15 +94,15 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
    3. 接下来你要给自己选择一个 AS 编号，即 ASN。在国际互联网上，ASN 范围 4200000000 - 4294967294 是被保留作私下使用（private use）的，DN42 占用的就是其中的一块，424242**0000** - 424242**3999**。**（注意范围是 4000 个，不是 10000 个）** 在这 4000 个号码中挑选一个你喜欢的，并且没有被占用的，然后进入 `data/aut-num` 文件夹，创建文件。例如我是 AS4242422547, 文件就是 `data/aut-num/AS4242422547`：
 
-      - ```bash
-        aut-num:            AS4242422547
-        as-name:            LANTIAN-AS
-        descr:              Peer with me at b980120@hotmail.com
-        admin-c:            LANTIAN-DN42
-        tech-c:             LANTIAN-DN42
-        mnt-by:             LANTIAN-MNT
-        source:             DN42
-        ```
+      ```bash
+      aut-num:            AS4242422547
+      as-name:            LANTIAN-AS
+      descr:              Peer with me at b980120@hotmail.com
+      admin-c:            LANTIAN-DN42
+      tech-c:             LANTIAN-DN42
+      mnt-by:             LANTIAN-MNT
+      source:             DN42
+      ```
 
       - 各项含义如下：
         - `aut-num`：AS 号。
@@ -150,7 +148,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
       - 选好地址块之后，在 `data/inetnum` 文件夹创建 IPv4 地址对应的文件。例如我的其中一个地址块是 `172.22.76.184/29`，对应的文件就是 `data/inetnum/172.22.76.184_29`：
 
-      - ```bash
+        ```bash
         inetnum:            172.22.76.184 - 172.22.76.191
         netname:            LANTIAN-IPV4
         remarks:            Peer with me at b980120@hotmail.com
@@ -182,13 +180,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
    5. 注册 IP 的过程还没结束，你还需要创建一个 route 对象，授权某个 AS 使用这个地址。在 `data/route` 文件夹创建对应文件，例如我的是 `data/route/172.22.76.184_29`：
 
-      - ```bash
-        route:              172.22.76.184/29
-        descr:              Peer with me at b980120@hotmail.com
-        origin:             AS4242422547
-        mnt-by:             LANTIAN-MNT
-        source:             DN42
-        ```
+      ```bash
+      route:              172.22.76.184/29
+      descr:              Peer with me at b980120@hotmail.com
+      origin:             AS4242422547
+      mnt-by:             LANTIAN-MNT
+      source:             DN42
+      ```
 
       - 各项含义如下：
         - `route`：你的这个地址块的范围。
@@ -224,7 +222,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
       - 生成完地址块后，类似的在 `data/inet6num` 中创建文件，例如我的地址块是 `fdbc:f9dc:67ad::/48`，文件名就是 `data/inet6num/fdbc:f9dc:67ad::_48`：
 
-      - ```bash
+        ```bash
         inet6num:           fdbc:f9dc:67ad:0000:0000:0000:0000:0000 - fdbc:f9dc:67ad:ffff:ffff:ffff:ffff:ffff
         netname:            LANTIAN-IPV6
         descr:              Peer with me at b980120@hotmail.com
@@ -255,13 +253,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
    7. 然后在 `data/route6` 创建一个 route6 对象，授权你自己的 AS 使用这个 IP 段，例如我的是 `data/route6/fdbc:f9dc:67ad::_48`：
 
-      - ```bash
-        route6:             fdbc:f9dc:67ad::/48
-        descr:              Peer with me at b980120@hotmail.com
-        origin:             AS4242422547
-        mnt-by:             LANTIAN-MNT
-        source:             DN42
-        ```
+      ```bash
+      route6:             fdbc:f9dc:67ad::/48
+      descr:              Peer with me at b980120@hotmail.com
+      origin:             AS4242422547
+      mnt-by:             LANTIAN-MNT
+      source:             DN42
+      ```
 
       - 各项含义如下：
         - `route6`：你的这个地址块的范围。
@@ -304,7 +302,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 - 首先，**千万 一定 绝对** 要打开 Linux 内核的数据包转发功能，即 `ip_forwarding`。
   - 在 DN42 内，没有绝对意义上的客户端，每个人的服务器都是其它人的路由器，都可能需要转发数据包。具体步骤如下：
 
-  - ```bash
+    ```bash
     echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
     echo "net.ipv6.conf.default.forwarding=1" >> /etc/sysctl.conf
     echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
@@ -314,7 +312,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
   - 同时，如果你配置过 `iptables` 等防火墙软件，请检查相关配置，确保放行数据包的转发。
 - 然后，**千万 一定 绝对** 要关闭 Linux 内核 `rp_filter` 的严格模式，具体步骤如下：
 
-  - ```bash
+    ```bash
     echo "net.ipv4.conf.default.rp_filter=2" >> /etc/sysctl.conf
     echo "net.ipv4.conf.all.rp_filter=2" >> /etc/sysctl.conf
     sysctl -p
@@ -362,7 +360,7 @@ DN42 中几乎每个 Peering 都是建立在隧道软件（即 VPN）之上的�
      - 首先加入 Debian Unstable 的软件源：
        - 编辑 `/etc/apt/sources.list`，添加：
 
-       - ```bash
+         ```bash
          deb http://deb.debian.org/debian/ unstable main contrib non-free
          deb-src http://deb.debian.org/debian/ unstable main contrib non-free
          ```
@@ -370,7 +368,7 @@ DN42 中几乎每个 Peering 都是建立在隧道软件（即 VPN）之上的�
      - 然后限制 Unstable 软件源的使用范围，避免把整个系统升级到 Unstable：
        - 添加文件 `/etc/apt/preferences.d/limit-unstable`：
 
-       - ```bash
+         ```bash
          Package: *
          Pin: release a=unstable
          Pin-Priority: 90
@@ -378,7 +376,7 @@ DN42 中几乎每个 Peering 都是建立在隧道软件（即 VPN）之上的�
 
        - 添加文件 `/etc/apt/preferences.d/allow-unstable`：
 
-       - ```bash
+         ```bash
          Package: wireguard*
          Pin: release a=unstable
          Pin-Priority: 900
