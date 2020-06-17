@@ -55,7 +55,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        // exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         options: {
           presets: [
@@ -63,25 +63,12 @@ module.exports = {
               "@babel/preset-env",
               {
                 bugfixes: true,
-                useBuiltIns: "usage",
-                corejs: { version: 3, proposals: true },
+                useBuiltIns: 'entry',
+                corejs: 3,
                 forceAllTransforms: true,
                 shippedProposals: true,
               }
             ]
-          ],
-          plugins: [
-            [
-              "@babel/plugin-transform-runtime",
-              {
-                "absoluteRuntime": false,
-                "corejs": 3,
-                "helpers": true,
-                "regenerator": true,
-                "useESModules": true,
-                "version": "^7.10.2"
-              }
-            ],
           ],
         }
       },
