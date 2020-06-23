@@ -17,7 +17,7 @@
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
-    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@fortawesome/fontawesome-free": "^5.13.1",
     "acorn": "^7.3.1",
     "algoliasearch": "^4.3.0",
     "autocomplete.js": "^0.37.1",
