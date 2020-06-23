@@ -13,8 +13,10 @@ import './js/analytics';
  * Bootstrap Native
  *****************************************/
 
-import {initCallback} from 'bootstrap.native/src/util/callbacks.js'
-import {componentsInit} from 'bootstrap.native/src/util/globals.js'
+import initCallback from 'bootstrap.native/src/util/initCallback.js'
+// import removeDataAPI from 'bootstrap.native/src/util/removeDataAPI.js'
+
+import componentsInit from 'bootstrap.native/src/util/componentsInit.js'
 // import {Util} from 'bootstrap.native/src/util/util.js'
 
 // import Alert from 'bootstrap.native/src/components/alert-native.js'
