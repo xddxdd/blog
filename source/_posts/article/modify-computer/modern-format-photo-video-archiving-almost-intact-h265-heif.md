@@ -15,6 +15,12 @@ date: 2020-02-13 15:05:18
 
 本文中我将使用 FFmpeg 与 ImageMagick 两款软件，将录像统一转换成 H265（HEVC）编码的 MP4 文件，将图片转换成 HEIF 文件格式。
 
+本文更新日志
+----------
+
+- 2020-06-24：修正关于 Arch 源中 ImageMagick 的错误表述，Arch 源里的 ImageMagick 默认不带 HEIF 支持，但安装 `libheif` 即可支持，无需安装 `imagemagick-full`。
+- 2020-02-13：最初版本。
+
 视频存档 - H265
 --------------
 
@@ -92,10 +98,10 @@ for FILE in **/*.mp4; do ffmpeg -loglevel quiet -stats -i "$FILE" -c:v libx264 -
 - HEIF 目前在 iOS 设备上被广泛使用，作为相机的默认格式。Android 9 也添加了对它的支持。在可预见的将来，对 HEIF 的软件支持将迅速完善。
 - 它最大的特点是使用 H265 对图片进行编码，充分地利用了视频编码器发展的结果，同时需要时可以利用硬件编解码器提供加速。
 
-HEIF 文件可以使用 ImageMagick 转换生成。但是在 Arch Linux 下，官方软件源的 ImageMagick 不带 HEIF 支持，我们需要从 AUR 安装。另外，还可以装一个 exiftool，把原照片的 EXIF 信息（包括相机型号，光圈快门 ISO 参数，地理位置等）转移到
+HEIF 文件可以使用 ImageMagick 转换生成。但是在 Arch Linux 下，官方软件源的 ImageMagick 默认不带 HEIF 支持，我们需要额外安装 `libheif` 这个 HEIF 编解码库来让 ImageMagick 支持 HEIF。另外，还可以装一个 exiftool，把原照片的 EXIF 信息（包括相机型号，光圈快门 ISO 参数，地理位置等）转移到
 
 ```bash
-pikaur -S imagemagick-full perl-image-exiftool
+pikaur -S imagemagick libheif perl-image-exiftool
 ```
 
 然后下面三行命令，分别是将所有 JPG 文件转换成 HEIC（HEIF 的文件扩展名），转移 EXIF 信息，和删掉 JPG：
