@@ -74,7 +74,7 @@ parallel -j$(nproc) < parallel_jobs.lst
 
 # Deploy to my site system
 python -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)"
-ansible website -m synchronize -a "src=public/ dest=/srv/www/lantian.pub/"
+ansible-playbook ansible_deploy.yml
 
 # Index new posts on Algolia
 node_modules/hexo/bin/hexo algolia

@@ -1,0 +1,8 @@
+- hosts: website
+  gather_facts: false
+  remote_user: root
+  tasks:
+    - name: Deploy website file
+      synchronize:
+        src: public/
+        dest: /srv/www/lantian.pub/
