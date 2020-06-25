@@ -162,6 +162,11 @@ theme_config:
             <p><a href="https://lg-alt.lantian.pub" target="_blank">节点状态 备用</a></p>
         </div>
     </div>
+  disqus:
+    short_name: lantian
+    name: 'Lan Tian @ Blog'
+    admin: lan_tian
+    api_key: ***REMOVED***
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
