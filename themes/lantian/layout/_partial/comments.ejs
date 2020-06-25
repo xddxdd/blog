@@ -14,12 +14,12 @@ var removeTrailingSlash = function(s) {
 <script>
 addLoadEvent(setTimeout(function() {
     var disq = new DisqusJS({
-        shortname: 'lantian',
-        siteName: 'Lan Tian @ Blog',
+        shortname: '<%- theme.disqus.short_name %>',
+        siteName: '<%- theme.disqus.name %>',
         identifier: '/<%= removeTrailingSlash(page.path) %>',
         url: '<%= removeTrailingSlash(page.permalink) %>',
-        apikey: 'hxtAuBcAKlhxWnRnQlpLA6jIR54Wdh8aiVIIkm8Doha088NweAdV4jJXUahTWBb6',
-        admin: 'lan_tian',
+        apikey: '<%- theme.disqus.api_key %>',
+        admin: '<%- theme.disqus.admin %>',
         adminLabel: '<%- __("admin") %>'
     });
 }, 3000));
