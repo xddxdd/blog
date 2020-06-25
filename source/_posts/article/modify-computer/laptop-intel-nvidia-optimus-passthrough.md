@@ -1,9 +1,9 @@
 ---
 lang: zh
-title: '笔记本 Optimus 下的 Intel 和 NVIDIA 虚拟机显卡直通'
+title: '笔记本 Optimus MUXless 下的 Intel 和 NVIDIA 虚拟机显卡直通'
 label: laptop-intel-nvidia-optimus-passthrough
 categories: 计算机与客户端
-tags: [显卡, 虚拟机, Intel, NVIDIA]
+tags: [显卡, 虚拟机, Intel, NVIDIA, MUXless]
 date: 2020-06-25 23:59:41
 image: null
 ---
@@ -100,7 +100,7 @@ image: null
 
       区别在于，独显不直连显示器，而是将渲染好的画面传输给核显，让核显发给显示器。
 
-      这种方案称为 NVIDIA Optimus。
+      这种方案称为 NVIDIA Optimus 的 MUXless 结构。
 
       - 优点：
         - 省电（独显不用时可以直接关闭）
@@ -127,7 +127,7 @@ image: null
 
       与上一种方案的区别在于，电脑主板的电路上加入了开关，可以设置 HDMI 接口及显示器分别由核显或独显进行管理。
 
-      这种方案也是 NVIDIA Optimus 的一种。
+      这种方案也是 NVIDIA Optimus 的一种，称为 MUXed 结构。
 
       - 优点：
         - 省电（独显不用时可以关闭）
@@ -177,7 +177,7 @@ image: null
 本文中我使用的电脑及系统环境如下：
 
 - 联想拯救者 R720-15IKBN 笔记本电脑（i7-7700HQ，GTX 1050）
-  - 属于第一种 Optimus 架构，核显直连显示器
+  - 属于第一种的 Optimus MUXless 架构，核显直连显示器
 - 宿主系统使用 Arch Linux，并更新到写本文时的最新版本
 - 虚拟机软件使用 QEMU，并且安装 Libvirt 及 Virt-Manager 进行图形化管理
 - 虚拟机内使用 Windows 10 LTSC 2019
@@ -536,8 +536,8 @@ image: null
   - Arch Linux Wiki [https://wiki.archlinux.org/index.php/Intel_GVT-g](https://wiki.archlinux.org/index.php/Intel_GVT-g)
   - Gentoo Wiki / Shunlir 的虚拟机配置 [https://wiki.gentoo.org/wiki/User:Shunlir/Intel_GVT-g#Install_Intel_driver_in_Guest](https://wiki.gentoo.org/wiki/User:Shunlir/Intel_GVT-g#Install_Intel_driver_in_Guest)
 - NVIDIA 独显直通
-  - GitHub Misairu-G 的 NVIDIA 直通教程（不局限于 Optimus） [https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28](https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28)
-  - GitHub jscinoz 的 Optimus 直通研究 [https://github.com/jscinoz/optimus-vfio-docs](https://github.com/jscinoz/optimus-vfio-docs)
+  - GitHub Misairu-G 的 NVIDIA Optimus MUXed 直通教程 [https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28](https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28)
+  - GitHub jscinoz 的 Optimus MUXless 直通研究 [https://github.com/jscinoz/optimus-vfio-docs](https://github.com/jscinoz/optimus-vfio-docs)
   - GitHub arne-claeys 的 OVMF 补丁和相关讨论 [https://github.com/jscinoz/optimus-vfio-docs/issues/2](https://github.com/jscinoz/optimus-vfio-docs/issues/2)
   - Reddit VFIO 版块的资料整理 [https://www.reddit.com/r/VFIO/comments/8gv60l/current_state_of_optimus_muxless_laptop_gpu/](https://www.reddit.com/r/VFIO/comments/8gv60l/current_state_of_optimus_muxless_laptop_gpu/)
-  - 虚拟电池补丁 [https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/](https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/)
+  - Reddit VFIO 版块的虚拟电池补丁 [https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/](https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/)
