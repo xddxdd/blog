@@ -296,7 +296,6 @@ image: null
        <source>
          <address uuid='af5972fb-5530-41a7-0000-fd836204445b'/>
        </source>
-       <address type='pci' domain='0x0000' bus='0x0a' slot='0x00' function='0x0'/>
      </hostdev>
      ```
 
@@ -524,6 +523,7 @@ image: null
 
 1. 让 Intel GVT-g 虚拟核显和 NVIDIA 独显正常组成 Optimus
 2. 让 QXL 和 NVIDIA 独显组成 Optimus
+3. 魔改 NVIDIA 驱动加一个虚拟显示器
 
 资料来源
 -------
