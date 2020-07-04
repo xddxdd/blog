@@ -342,7 +342,7 @@ image: null
      </qemu:commandline>
      ```
 
-     其中 `vbios_gvt_uefi.rom` 从 [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom) 下载，放在根目录下。如果移动了位置，也要对应修改 `romfile` 参数。
+     其中 `vbios_gvt_uefi.rom` 从 [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom) 下载，或者[从本站下载](/usr/uploads/202007/vbios_gvt_uefi.rom)，放在根目录下。如果移动了位置，也要对应修改 `romfile` 参数。
    - 把整个文件第一行的 `<domain type='kvm'>` 改成 `<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>`。
 5. 重新启动虚拟机，应该有正常的图像显示，此时虚拟机就开始使用 GVT-g 虚拟显卡了。
 
@@ -364,7 +364,7 @@ image: null
 1. 首先把宿主机重启到 Windows 系统，做如下事情：
    - （可选）下载一个 GPU-Z，导出显卡的 BIOS 备用。
    - 进入设备管理器，找到你的显卡，查看它的硬件 ID，类似 `PCI\VEN_10DE&DEV_1C8D&SUBSYS_39D117AA&REV_A1`，记录下来备用。
-2. 然后重启回 Linux。如果你上面一步备有导出显卡的 BIOS，这里你也可以使用 `VBiosFinder` 软件，从电脑的 BIOS 更新中提取显卡 BIOS 内容。
+2. 然后重启回 Linux。如果你上面一步没有导出显卡的 BIOS，这里你也可以使用 `VBiosFinder` 软件，从电脑的 BIOS 更新中提取显卡 BIOS 内容。
 
    ```bash
    # 下载 VBiosFinder
@@ -405,7 +405,8 @@ image: null
    在 Optimus 笔记本电脑上，NVIDIA 的驱动会去系统的 ACPI 表中查找显卡的 BIOS，并将其加载到显卡上，而 ACPI 表由 UEFI 固件管理。因此需要修改 UEFI 固件添加显卡 BIOS。
 
    ```bash
-   # UEFI 固件编译完成后不能移动位置，所以要先找好存放的地方
+   # 根据 GitHub 上用户反馈，UEFI 固件编译完成后不能移动位置
+   # 所以要先找好存放的地方
    cd /opt
    git clone https://github.com/tianocore/edk2.git
    # 安装编译过程中需要的依赖
@@ -490,7 +491,7 @@ image: null
 
    此处的 ID 对应之前从设备管理器里查出的硬件 ID，`PCI\VEN_10DE&DEV_1C8D&SUBSYS_39D117AA&REV_A1`，请注意对应替换。
 
-   此处的 ssdt1.dat 对应如下 Base64，可以用 [Base64 解码网站](https://base64.guru/converter/decode/file) 转换成二进制文件，放在根目录。如果移动了，需要对应修改上面的 file 参数。这也是一个修改后的 ACPI 表，用来模拟一块满电的电池，只不过不需要合并到 OVMF 里，而是直接用参数加载就可以。
+   此处的 ssdt1.dat 对应如下 Base64，可以用 [Base64 解码网站](https://base64.guru/converter/decode/file)转换成二进制文件，放在根目录，或者[从本站下载](/usr/uploads/202007/ssdt1.dat)。如果移动了，需要对应修改上面的 file 参数。这也是一个修改后的 ACPI 表，用来模拟一块满电的电池，只不过不需要合并到 OVMF 里，而是直接用参数加载就可以。
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
@@ -745,6 +746,8 @@ image: null
     <qemu:arg value='device.hostdev0.xres=1920'/>
     <qemu:arg value='-set'/>
     <qemu:arg value='device.hostdev0.yres=1080'/>
+    <qemu:arg value='-set'/>
+    <qemu:arg value='device.hostdev0.romfile=/vbios_gvt_uefi.rom'/>
     <qemu:arg value='-set'/>
     <qemu:arg value='device.hostdev1.x-pci-vendor-id=0x10de'/>
     <qemu:arg value='-set'/>
