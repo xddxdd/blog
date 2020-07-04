@@ -1,10 +1,10 @@
 ---
 lang: zh
-title: 'DN42 实验网络介绍及注册教程（2020-05-18 更新）'
+title: 'DN42 实验网络介绍及注册教程（2020-07-04 更新）'
 label: dn42-experimental-network-2020
 categories: 网站与服务端
 tags: [DN42, BGP]
-date: 2020-05-18 14:46:12
+date: 2020-07-04 23:08:32
 ---
 
 DN42 全称 Decentralized Network 42（42 号去中心网络），是一个大型、去中心化的 VPN 网络。但是与其它传统 VPN 不同的是，DN42 本身不提供 VPN 出口服务，即不提供规避网络审查、流媒体解锁等类似服务。相反，DN42 的目的是模拟一个互联网。它使用了大量在目前互联网骨干上应用的技术（例如 BGP 和递归 DNS），可以很好地模拟一个真实的网络环境。
@@ -23,6 +23,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 本文更新日志
 ----------
 
+- 2020-07-04：DN42 Git 服务器地址从 `git.dn42.us` 更换成 `git.dn42.dev`。
 - 2020-05-18：更新 `rp_filter` 相关内容，添加“关闭 UFW”的建议。
 - 2020-04-19：添加内网配置的建议。
 - 2020-04-13：添加“不要占用太多资源”的请求。
@@ -41,8 +42,8 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
 大致注册流程如下：
 
-1. 首先去 [https://git.dn42.us](https://git.dn42.us) 注册一个账户，这相当于 DN42 内的 GitHub，账户信息就存放在其中的一个仓库里。
-2. 打开 [dn42/registry](https://git.dn42.us/dn42/registry) 这个账户信息仓库，点右上角的 Fork，把仓库复制一份到你自己的账户。
+1. 首先去 [https://git.dn42.dev](https://git.dn42.dev) 注册一个账户，这相当于 DN42 内的 GitHub，账户信息就存放在其中的一个仓库里。
+2. 打开 [dn42/registry](https://git.dn42.dev/dn42/registry) 这个账户信息仓库，点右上角的 Fork，把仓库复制一份到你自己的账户。
 3. 此时你应该已经进入了你自己账户里的那份复制，把它 Clone 下来。
 4. 在 Clone 下的仓库里创建一系列的文件，包括：
    1. 在 `data/mntner` 文件夹下创建一个名为 `[昵称]-MNT` 的文件，这个文件代表你的账户，用来认证你以后的操作。例如我的 mntner 文件如下（也可以在 `data/mntner/LANTIAN-MNT` 看到）：
@@ -271,7 +272,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 5. 恭喜你创建完了所有需要的文件，接下来执行一次 `git add`，然后执行 `git commit -S`，使用你先前创建的 GPG 密钥，创建一份**带 GPG 签名的 commit**，这是 DN42 的强制要求。
    - 如果你操作快已经 commit 完了，你可以执行 `git commit --amend -S` 修改之前的 commit，将其签名。
 6. 执行 `git push` 将修改上传到 Git 服务器。
-7. 回到 [dn42/registry](https://git.dn42.us/dn42/registry)，发起 Pull Request，等待你的信息被合并。
+7. 回到 [dn42/registry](https://git.dn42.dev/dn42/registry)，发起 Pull Request，等待你的信息被合并。
    - 如果你的操作或者填写的内容有问题，管理员会回复你的 Pull Request，根据他们的要求修改即可。
    - 但注意，按照要求修改完成后，**不用关闭原先的 Pull Request 再重新开一个。**你只需要照常 `git commit` 和 `git push`，你后续的变更会被自动添加到原先这个 Pull Request 里。
      - 一次注册/修改信息行为只需要发一个 Pull Request 就够了。
