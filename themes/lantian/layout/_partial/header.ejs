@@ -1,10 +1,21 @@
+<%
+var removeTrailingSlash = function(s) {
+    if(s[s.length - 1] == '/') {
+        return s.substring(0, s.length - 1);
+    } else if(s.substring(s.length - 11) == '/index.html') {
+        return s.substring(0, s.length - 11);
+    } else {
+        return s;
+    }
+}
+%>
 <header class="lantian clearfix">
     <h1 class="float-left"><a href="<%- url_for(config.root) %>"><%= config.title %></a></h1>
     <ul class="nav nav-pills float-left">
         <% if(theme.nav) { %>
             <% theme.nav.forEach(function(link) { %>
                 <li class="nav-item d-none d-md-block">
-                    <a class="nav-link<% if(link.url == '/' + page.path) { %> active<% } %>" href="<%- url_for(link.url) %>"><%- link.name %></a>
+                    <a class="nav-link<% if(link.url == '/' + page.path) { %> active<% } %>" href="<%- url_for(removeTrailingSlash(link.url)) %>"><%- link.name %></a>
                 </li>
             <% }) %>
         
@@ -12,7 +23,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%- __('page') %> <span class="caret"></span></a>
                 <div class="dropdown-menu">
                     <% theme.nav.forEach(function(link) { %>
-                        <a class="dropdown-item<% if(link.url == '/' + page.path) { %> active<% } %>" href="<%- url_for(link.url) %>"><%- link.name %></a>
+                        <a class="dropdown-item<% if(link.url == '/' + page.path) { %> active<% } %>" href="<%- url_for(removeTrailingSlash(link.url)) %>"><%- link.name %></a>
                     <% }) %>
                 </div>
             </li>
@@ -33,7 +44,7 @@
                                 if(page.category == category.name) {
                                     %> active<%
                                 }
-                            } %>" href="<%- url_for(category.path) %>"><%- category.name %></a>
+                            } %>" href="<%- url_for(removeTrailingSlash(category.path)) %>"><%- category.name %></a>
                     <% }) %>
                 <% } %>
             </div>
