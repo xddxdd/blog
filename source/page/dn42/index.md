@@ -4,7 +4,6 @@ title: 'DN42'
 label: dn42
 weight: 4
 date: 1970-01-01 00:00:00
-typesuffix: "/"
 ---
 
 Chinese information comes after English. If you are on PC, use the navigation on the left to jump around.

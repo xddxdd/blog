@@ -4,7 +4,6 @@ title: '俯瞰地球'
 label: himawari
 weight: 3
 date: 1970-01-01 00:00:00
-typesuffix: "/"
 ---
 
 本页面使用 JavaScript 动态更新日本向日葵8号地球同步卫星拍摄的图片，数据来自[http://himawari8.nict.go.jp/](http://himawari8.nict.go.jp/)，10分钟一更新，有一小时延迟。详细信息及实现方法请至[https://lantian.pub/article/modify-website/php-javascript-satellite-earth-picture.lantian](/article/modify-website/php-javascript-satellite-earth-picture.lantian)查看。
