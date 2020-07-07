@@ -27,7 +27,7 @@ OS/2 是起初由 IBM 与微软公司联合开发，后续由 IBM 维护的操�
 
 现在我们先在 VirtualBox 中创建一个虚拟机。我使用的配置是内存 512 MB，硬盘 4 GB，对于 OS/2 已经绰绰有余。然后向虚拟机加载 Boot 镜像，启动并进入如下界面：
 
-![OS/2 提示插入 Client 光盘](../../../usr/uploads/202001/os2-insert-client-cd.png)
+![OS/2 提示插入 Client 光盘](/usr/uploads/202001/os2-insert-client-cd.png)
 
 这里就是上面说的提示，你需要切换到 Client 镜像，然后回车继续安装。
 
@@ -35,37 +35,37 @@ OS/2 是起初由 IBM 与微软公司联合开发，后续由 IBM 维护的操�
 
 首先选择 `Install boot manager` 安装启动管理程序（类似 bootmgr 和 Grub）。
 
-![OS/2 安装启动管理程序](../../../usr/uploads/202001/os2-install-boot-manager.png)
+![OS/2 安装启动管理程序](/usr/uploads/202001/os2-install-boot-manager.png)
 
 然后创建一个 Volume（类似于 Windows 的盘符）。注意要选择 `can be made bootable`（可以启动操作系统），并且给它随便命一个名字（不能为空）。
 
-![OS/2 创建可引导卷](../../../usr/uploads/202001/os2-create-bootable-volume.png)
+![OS/2 创建可引导卷](/usr/uploads/202001/os2-create-bootable-volume.png)
 
 下一步是选择这个 Volume 对应的硬盘分区。我们选择 `Allocate from free space`（从空闲空间分配），给分区命名，然后输入分区大小即可（默认是全部占满），
 
-![OS/2 创建硬盘分区](../../../usr/uploads/202001/os2-create-disk-partition.png)
+![OS/2 创建硬盘分区](/usr/uploads/202001/os2-create-disk-partition.png)
 
 按 F3 退出分区程序，并保存修改。
 
-![OS/2 保存分区修改并退出](../../../usr/uploads/202001/os2-save-partition-change.png)
+![OS/2 保存分区修改并退出](/usr/uploads/202001/os2-save-partition-change.png)
 
 分区程序会提醒你必须重启才能继续安装 OS/2。这里把光盘换回 Boot，然后直接重启虚拟机。
 
-![OS/2 分区后重启提示](../../../usr/uploads/202001/os2-reboot-after-partition.png)
+![OS/2 分区后重启提示](/usr/uploads/202001/os2-reboot-after-partition.png)
 
 之后重新插入 Client 光盘，继续安装程序，基本上一路 Next 即可。只有一处需要注意，OS/2 的声卡支持默认是没有打开的。在安装程序复制完文件、第一次重启后，会有一个界面提示你需要安装什么功能，这里点击 `Multimedia Device Support`（多媒体设备支持）：
 
-![OS/2 安装程序配置界面](../../../usr/uploads/202001/os2-after-enable-sound-blaster.png)
+![OS/2 安装程序配置界面](/usr/uploads/202001/os2-after-enable-sound-blaster.png)
 
 然后找到 Sound Blaster 16（VirtualBox 模拟的声卡型号），然后把它添加到右侧安装：
 
-![OS/2 启用 Sound Blaster 16 声卡](../../../usr/uploads/202001/os2-enable-sound-blaster.png)
+![OS/2 启用 Sound Blaster 16 声卡](/usr/uploads/202001/os2-enable-sound-blaster.png)
 
 然后继续下一步。中间有一步会让你输入用户名和密码，设置完后继续下一步，直到进入桌面。
 
 进入桌面后会弹出一个界面，让你选择要不要安装一些安装镜像自带的软件。这里我全部安装了，但是不安装也不会影响后续操作。
 
-![OS/2 安装额外工具](../../../usr/uploads/202001/os2-install-utilities.png)
+![OS/2 安装额外工具](/usr/uploads/202001/os2-install-utilities.png)
 
 至此，OS/2 Warp 系统本身的安装已经成功。我们需要做一些显示、网络的基本配置。
 
@@ -74,17 +74,17 @@ OS/2 是起初由 IBM 与微软公司联合开发，后续由 IBM 维护的操�
 
 双击桌面上的 `OS/2 System` 图标，再双击 `System Setup` 进入“控制面板”。
 
-![OS/2 进入控制面板](../../../usr/uploads/202001/os2-enter-system-setup.png)
+![OS/2 进入控制面板](/usr/uploads/202001/os2-enter-system-setup.png)
 
 在这里双击 `TCP/IP Configuration (Local)` 打开网络配置。选中 `Enable Interface` 启用网卡，然后选择 DHCP，保存，但先不要重启。
 
-![OS/2 启用网卡与 DHCP](../../../usr/uploads/202001/os2-enable-dhcp.png)
+![OS/2 启用网卡与 DHCP](/usr/uploads/202001/os2-enable-dhcp.png)
 
 在“控制面板”中双击 `System`，默认弹出的就是分辨率选择。一路向下滚动，选择最下面一个选项，对应 1024x768 分辨率，24 位彩色。
 
 点击右上角 `Page 1 of 2` 旁边的加号，还可以选择最高到 1600x1200 的分辨率，按个人需要选择。
 
-![OS/2 使用高分辨率](../../../usr/uploads/202001/os2-high-resolution.png)
+![OS/2 使用高分辨率](/usr/uploads/202001/os2-high-resolution.png)
 
 选择完成后，点击任务栏上的“电脑+叉号”图标关机，重启系统，使网络和显示配置生效。
 
@@ -109,7 +109,7 @@ kLIBC 可以从 Arca Noae（也就是维护 ArcaOS 的公司）的软件源下�
 
 安装完成后，双击桌面 `Arca Noae Package Manager` 文件夹，在其中打开 ANPM 包管理器。第一次启动时，它会提示需要联网下载 RPM 与 YUM 的环境，并且让你选择架构：
 
-![OS/2 ANPM 架构选择](../../../usr/uploads/202001/os2-choose-architecture.png)
+![OS/2 ANPM 架构选择](/usr/uploads/202001/os2-choose-architecture.png)
 
 鉴于今年是 2020 年，除非你翻出了一台尘封的旧款电脑用来原汁原味地体验 OS/2，大多数人都应该选择更新一点的 pentium4 架构。
 
@@ -117,7 +117,7 @@ kLIBC 可以从 Arca Noae（也就是维护 ArcaOS 的公司）的软件源下�
 
 点击任务栏最靠中间的按钮，选择 `OS/2 Window` 打开“命令提示符”：
 
-![OS/2 打开命令提示符](../../../usr/uploads/202001/os2-commandline.png)
+![OS/2 打开命令提示符](/usr/uploads/202001/os2-commandline.png)
 
 输入 `e config.sys`，编辑 `config.sys` 这个配置文件。我们需要修改的地方如下：
 
@@ -133,11 +133,11 @@ kLIBC 可以从 Arca Noae（也就是维护 ArcaOS 的公司）的软件源下�
 
 重启后再次打开 ANPM，ANPM 会询问你要不要修改 `LIBPATH`。由于我们已经自己修改过了，所以这里选 No。
 
-![OS/2 ANPM LIBPATH 询问界面](../../../usr/uploads/202001/os2-anpm-libpath-question.png)
+![OS/2 ANPM LIBPATH 询问界面](/usr/uploads/202001/os2-anpm-libpath-question.png)
 
 之后如果 ANPM 显示出了软件包列表，那就正常了。
 
-![OS/2 ANPM 软件包列表界面](../../../usr/uploads/202001/os2-anpm-package-list.png)
+![OS/2 ANPM 软件包列表界面](/usr/uploads/202001/os2-anpm-package-list.png)
 
 然后我们可以按上述方法再次打开“命令提示符”，自由执行搜索、升级、安装软件等过程：
 
@@ -177,7 +177,7 @@ firefox
 
 大功告成：
 
-![OS/2 Firefox 浏览器运行截图](../../../usr/uploads/202001/os2-firefox-open-webpage.png)
+![OS/2 Firefox 浏览器运行截图](/usr/uploads/202001/os2-firefox-open-webpage.png)
 
 过程中踩的坑
 ----------

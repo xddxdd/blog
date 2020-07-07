@@ -4,7 +4,6 @@ title: '项目们'
 label: projects
 weight: 2
 date: 1970-01-01 00:00:00
-typesuffix: "/"
 ---
 
 GitHub 主页：[https://github.com/xddxdd][1]

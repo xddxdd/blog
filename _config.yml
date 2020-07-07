@@ -16,9 +16,7 @@ timezone: Asia/Shanghai
 # URL
 url: https://lantian.pub
 root: /
-permalink: :title:typesuffix
-permalink_defaults:
-  typesuffix: ".lantian/"
+permalink: :title.html
 pretty_urls:
   trailing_index: false
   trailing_html: false
