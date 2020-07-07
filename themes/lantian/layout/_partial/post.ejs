@@ -13,7 +13,17 @@ lantian_excerpt = function(input) {
     return stripped.substr(0, output_until) + "...";
 }
 %>
-
+<%
+var removeTrailingSlash = function(s) {
+    if(s[s.length - 1] == '/') {
+        return s.substring(0, s.length - 1);
+    } else if(s.substring(s.length - 11) == '/index.html') {
+        return s.substring(0, s.length - 11);
+    } else {
+        return s;
+    }
+}
+%>
 <article>
     <div class="row">
         <div class="post-info col-md-3 col-12">
@@ -43,7 +53,7 @@ lantian_excerpt = function(input) {
             <% } %>
         </div>
         <div class="col-md-9 col-12 post-wrap">
-            <h1 class="post-title"><a href="<%- url_for(post.path) %>" rel="bookmark" title="<%= post.title %>"><%= post.title %></a></h1>
+            <h1 class="post-title"><a href="<%- url_for(removeTrailingSlash(post.path)) %>" rel="bookmark" title="<%= post.title %>"><%= post.title %></a></h1>
             <div class="post-text">
                 <% if (config.multilingual && !index) { %>
                     <% var post_alternates = list_alternates({
@@ -72,7 +82,7 @@ lantian_excerpt = function(input) {
             <div class="read">
                 <ul class="list-inline float-left">
                     <li class="list-inline-item">
-                        <a href="<%- url_for(post.path) %>#comments">
+                        <a href="<%- url_for(removeTrailingSlash(post.path)) %>#comments">
                             <span class="fas fa-fw fa-comment"></span>
                         </a>
                     </li>
@@ -102,10 +112,10 @@ lantian_excerpt = function(input) {
 <% if(!index) { %>
     <div class="clearfix" id="post-navi">
         <% if(page.next) { %>
-            <div class="float-right text-right"><a href="<%- url_for(page.next.path) %>" title="<%= page.next.title %>"><%= page.next.title %></a><br><%- __('next_post') %> &raquo;</div>
+            <div class="float-right text-right"><a href="<%- url_for(removeTrailingSlash(page.next.path)) %>" title="<%= page.next.title %>"><%= page.next.title %></a><br><%- __('next_post') %> &raquo;</div>
         <% } %>
         <% if(page.prev) { %>
-            <div class="float-left text-left position-absolute">&laquo; <%- __('previous_post') %><br><a href="<%- url_for(page.prev.path) %>" title="<%= page.prev.title %>"><%= page.prev.title %></a></div>
+            <div class="float-left text-left position-absolute">&laquo; <%- __('previous_post') %><br><a href="<%- url_for(removeTrailingSlash(page.prev.path)) %>" title="<%= page.prev.title %>"><%= page.prev.title %></a></div>
         <% } %>
     </div>
     <%- partial('_partial/comments') %>

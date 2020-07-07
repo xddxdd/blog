@@ -1,10 +1,21 @@
+<%
+var removeTrailingSlash = function(s) {
+    if(s[s.length - 1] == '/') {
+        return s.substring(0, s.length - 1);
+    } else if(s.substring(s.length - 11) == '/index.html') {
+        return s.substring(0, s.length - 11);
+    } else {
+        return s;
+    }
+}
+%>
 <aside class="col-3 d-none d-lg-block">
     <% if(site.posts.length) { %>
     <section class="widget">
         <h3><%- __('latest_articles') %></h3>
         <ul class="list-unstyled">
             <% site.posts.sort('date', 'desc').slice(0, 15).each(function(post) { %>
-                <li><%= date(post.date, "MM-DD") %> <a href="<%- url_for(post.path) %>"><%= post.title %></a></li>
+                <li><%= date(post.date, "MM-DD") %> <a href="<%- url_for(removeTrailingSlash(post.path)) %>"><%= post.title %></a></li>
             <% }) %>
         </ul>
     </section>
