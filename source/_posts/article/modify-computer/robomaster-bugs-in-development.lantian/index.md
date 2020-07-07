@@ -48,7 +48,7 @@ STM32 不能同时使用 CAN 和 USB
 
 队友把主要逻辑（判断按键，驱动电机等）都写在另一个线程，主线程初始化完后就启动那个线程然后 `while(true);` 什么都不干。然后队友发现必须把逻辑线程的优先级提升到正常优先级 +2 才能正常执行，否则不运行。
 
-我简单研究后得出结论：ChibiOS 主线程优先级是正常 +1，并且 `while(true);` 也在消耗 CPU，并且堵死了同等优先级或者更低优先级的其它线程。解决方法是把主线程改成 `while(true) chThdSleepMilliseconds(1000);`，让它去 sleep 就能解决问题。
+我简单研究后得出结论：ChibiOS 主线程优先级是正常 +1，并且 `while(true);` 也在消耗 CPU，并且堵死了同等优先级或者更低优先级的其它线程。解决方法是把主线程改成 `while(true) chThdSleepMilliseconds(1000);`，让它去 sleep，让 ChibiOS 调度其它任务就能解决问题。
 
 大疆文档里某几个键顺序写反
 ----------------------
@@ -62,9 +62,11 @@ Q、E、Shift、Ctrl 四个键，以 4 个 bit 一一对应的形式传给开发
 
 经过两个小时的调试，发现队友有类似下图的代码：
 
-    uint8_t x = 0xff; // 电机返回数据示例
-    uint8_t y = 0x8f; // 返回的数据分成了两个 uint8_t
-    int a = (x << 8 | y); // 队友的代码
+```c
+uint8_t x = 0xff; // 电机返回数据示例
+uint8_t y = 0x8f; // 返回的数据分成了两个 uint8_t
+int a = (x << 8 | y); // 队友的代码
+```
 
 此处 int 为 int32_t。
 
@@ -72,20 +74,26 @@ Q、E、Shift、Ctrl 四个键，以 4 个 bit 一一对应的形式传给开发
 
 C 这么做是因为 `x << 8` 这一步生成了一个 4 byte 的变量：
 
-    int c = sizeof(x << 8); // c = 4
+```c
+int c = sizeof(x << 8); // c = 4
+```
 
 然后或操作的实际对象是 0x0000ff00 和 0x8f，得 0x0000ff8f。
 
 另外，拼接 uint16_t 时不会出现这样的现象：
 
-    uint16_t x = 0xffff;
-    uint16_t y = 0xff8f;
-    int64_t a = (x << 16 | y); // a = -113
+```c
+uint16_t x = 0xffff;
+uint16_t y = 0xff8f;
+int64_t a = (x << 16 | y); // a = -113
+```
 
 因为 x << 16 = 0xffff0000，所以 a = 0xffffff8f = -113。
 
 对于原来的问题，修改方法就是把 int 替换成 int16_t：
 
-    int16_t a = (x << 8 | y);
+```c
+int16_t a = (x << 8 | y);
+```
 
 此时 a 为 0xff8f，即 -113，符合预期。
