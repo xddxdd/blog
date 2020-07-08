@@ -1,0 +1,24 @@
+nav:
+  - name: Archive
+    url: /page/archive/index.html
+  - name: Projects
+    url: /page/projects/index.html
+  - name: Earth
+    url: /page/himawari/index.html
+  - name: DN42
+    url: /page/dn42/index.html
+others: >
+  <div class="row">
+      <div class="col-6">
+          <p><i class="fas fa-fw fa-2x fa-globe"></i></p>
+          <p>Network Info</p>
+          <p><a href="https://status.lantian.pub" target="_blank">Uptime</a></p>
+          <p><a href="https://ping.lantian.pub" target="_blank">Latency</a></p>
+      </div>
+      <div class="col-6">
+          <p><i class="fas fa-fw fa-2x fa-sitemap"></i></p>
+          <p>DN42</p>
+          <p><a href="https://lg.lantian.pub" target="_blank">Looking Glass</a></p>
+          <p><a href="https://lg-alt.lantian.pub" target="_blank">Looking Glass (alt)</a></p>
+      </div>
+  </div>
