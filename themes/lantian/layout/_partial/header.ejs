@@ -8,7 +8,13 @@
     })(); %>"><%= config.title %></a></h1>
     <ul class="nav nav-pills float-left">
         <% if(theme_config(page_language()).nav) { %>
-            <li class="nav-item dropdown">
+            <% theme_config(page_language()).nav.forEach(function(link) { %>
+                <li class="nav-item d-none d-md-block">
+                    <a class="nav-link<% if(link.url == '/' + page.path) { %> active<% } %>" href="<%- url_for(remove_trailing_slash(link.url)) %>"><%- link.name %></a>
+                </li>
+            <% }) %>
+        
+            <li class="nav-item dropdown d-block d-md-none">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%- __('page') %> <span class="caret"></span></a>
                 <div class="dropdown-menu">
                     <% theme_config(page_language()).nav.forEach(function(link) { %>
@@ -18,7 +24,7 @@
             </li>
         <% } %>
 
-        <% if(site.categories && site.categories.length) { %>
+        <% if(0 && site.categories && site.categories.length) { %>
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%- __('category') %> <span class="caret"></span></a>
             <div class="dropdown-menu">
