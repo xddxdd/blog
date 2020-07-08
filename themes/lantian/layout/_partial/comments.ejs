@@ -1,25 +1,13 @@
 <div id="disqus_thread"></div>
-
-<%
-var removeTrailingSlash = function(s) {
-    if(s[s.length - 1] == '/') {
-        return s.substring(0, s.length - 1);
-    } else if(s.substring(s.length - 11) == '/index.html') {
-        return s.substring(0, s.length - 11);
-    } else {
-        return s;
-    }
-}
-%>
 <script>
 addLoadEvent(setTimeout(function() {
     var disq = new DisqusJS({
-        shortname: '<%- theme.disqus.short_name %>',
-        siteName: '<%- theme.disqus.name %>',
-        identifier: '/<%= removeTrailingSlash(page.path) %>',
-        url: '<%= removeTrailingSlash(page.permalink) %>',
-        apikey: '<%- theme.disqus.api_key %>',
-        admin: '<%- theme.disqus.admin %>',
+        shortname: '<%- theme_config(page_language()).disqus.short_name %>',
+        siteName: '<%- theme_config(page_language()).disqus.name %>',
+        identifier: '/<%= remove_trailing_slash(page.path) %>',
+        url: '<%= remove_trailing_slash(page.permalink) %>',
+        apikey: '<%- theme_config(page_language()).disqus.api_key %>',
+        admin: '<%- theme_config(page_language()).disqus.admin %>',
         adminLabel: '<%- __("admin") %>'
     });
 }, 3000));

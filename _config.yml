@@ -96,7 +96,7 @@ index_generator:
   path: ''
   per_page: 10
   order_by: -date
-  # single_language_index: true
+  single_language_index: true
   
 # Category & Tag
 default_category: uncategorized
@@ -131,35 +131,6 @@ responsive_images:
 
 # Links
 theme_config:
-  nav:
-    - name: 文章们
-      url: /page/archive/index.html
-    - name: 项目们
-      url: /page/projects/index.html
-    - name: 俯瞰地球
-      url: /page/himawari/index.html
-    - name: DN42
-      url: /page/dn42/index.html
-  links:
-    - name: SangSir | 艺术界的一朵奇葩
-      url: https://sangsir.com
-    - name: 十年之约
-      url: http://foreverblog.cn
-  others: >
-    <div class="row">
-        <div class="col-6">
-            <p><i class="fas fa-fw fa-2x fa-globe"></i></p>
-            <p>网络信息</p>
-            <p><a href="https://status.lantian.pub" target="_blank">服务器状态</a></p>
-            <p><a href="https://ping.lantian.pub" target="_blank">延迟监测</a></p>
-        </div>
-        <div class="col-6">
-            <p><i class="fas fa-fw fa-2x fa-sitemap"></i></p>
-            <p>DN42</p>
-            <p><a href="https://lg.lantian.pub" target="_blank">节点状态</a></p>
-            <p><a href="https://lg-alt.lantian.pub" target="_blank">节点状态 备用</a></p>
-        </div>
-    </div>
   disqus:
     short_name: lantian
     name: 'Lan Tian @ Blog'

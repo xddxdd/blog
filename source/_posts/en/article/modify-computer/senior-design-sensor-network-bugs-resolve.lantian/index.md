@@ -12,7 +12,7 @@ image: /usr/uploads/202006/stm32cubemx.png
 >
 > The current translation corresponds to the version originally written on 2019-06-08.
 
-Welcome to my third development log. In the two previous logs, I discussed the pitfalls I met in the [RoboMaster competition](/article/modify-computer/robomaster-bugs-in-development.lantian/index_en.html) and [FPGA course final project](/article/modify-computer/cyclone-iv-fpga-development-bugs-resolve.lantian/index_en.html).
+Welcome to my third development log. In the two previous logs, I discussed the pitfalls I met in the [RoboMaster competition](/en/article/modify-computer/robomaster-bugs-in-development.lantian) and [FPGA course final project](/en/article/modify-computer/cyclone-iv-fpga-development-bugs-resolve.lantian).
 
 This time I will be talking about my graduate design project, an air quality sensor network built by a 3-person group. The whole project is structured as follow:
 
