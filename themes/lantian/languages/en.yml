@@ -14,6 +14,7 @@ latest_comments: "Latest comments"
 others: "Others"
 links: "Links"
 admin: "Admin"
+language: 'Language'
 
 # post-list
 list_year_month: "YYYY-MM"

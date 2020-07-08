@@ -10,10 +10,11 @@ show_qrcode: "显示二维码"
 next_post: "下一篇文章"
 previous_post: "上一篇文章"
 latest_articles: "最新文章"
-latest_comments: "最新评论"
+latest_comments: "最新评py论"
 others: "其它功能"
 links: "友情链接"
 admin: "管理员"
+language: 'Language'
 
 # post-list
 list_year_month: "YYYY 年 MM 月"
