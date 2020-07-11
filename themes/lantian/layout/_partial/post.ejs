@@ -9,7 +9,7 @@
                 <% if (post.categories && post.categories.length) { %>
                     <li>
                     <% (post._categories || post.categories).forEach(category => { %>
-                        <a href="<%- url_for(category.path) %>"><%= category.name %></a>
+                        <a href="<%- url_for(remove_trailing_slash(category.path)) %>"><%= category.name %></a>
                     <% }) %>
                     <span class="fas fa-fw fa-file-alt"></span>
                     </li>
@@ -51,7 +51,7 @@
                     <% if(post.tags && post.tags.length) { %>
                         <% (post._tags || post.tags).forEach(tag => { %>
                             <li class="list-inline-item">
-                                <a href="<%- url_for(tag.path) %>"><span class="fas fa-fw fa-tag"></span> <%= tag.name %></a>
+                                <a href="<%- url_for(remove_trailing_slash(tag.path)) %>"><span class="fas fa-fw fa-tag"></span> <%= tag.name %></a>
                             </li>
                         <% }) %>
                     <% } %>
