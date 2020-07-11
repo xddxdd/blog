@@ -83,7 +83,7 @@ When We Don't Have Enough ROM
 But in the later stage of the project, we found that the 64 KB ROM of STM32F103C8T6 is no longer enough for us. The ROM space is mainly occupied by the following parts:
 
 - BME680's closed source BSEC library
-  - BSEC is the only source of BME680's TVOC reading. The sensor only provides a resistor value, and there is no simple formula to convert resistor value to actual readings.
+  - BSEC is the only source of BME680's TVOC reading. The sensor only provides a resistor value, and there is no simple formula to convert resistor value to actual TVOC readings.
 - Floating point logic of `printf` and `scanf`
   - InfluxDB, what we use, accepts only ASCII-formatted upload data, so the IEEE 754 floating point readings from sensors must be converted to ASCII text.
   - For the same reason, the latitude and longitude information must be extracted from the GPS module's NMEA0183 statements, and converted to IEEE 754 floating point number.
@@ -114,7 +114,7 @@ Therefore we tried to shrink the code size in these places:
     - Copy the third column to the latitude character array, **starting from the second character of the array**
     - If the 4th column is N (north of equator), set the first character of the array to `0`
       - Result has format 01234.56789, can be recognized by InfluxDB
-    - If the 4th column is N (north of equator), set the first character of the array to `-` (minus sign)
+    - If the 4th column is S (south of equator), set the first character of the array to `-` (minus sign)
       - Result has format -1234.56789, can also be recognized by InfluxDB
     - Do the same to longitude data in column 5 and 6
     - For conversion from `degree * 100 + minute` to more commonly used `degree`, we choose to do it on the more powerful server
