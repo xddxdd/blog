@@ -177,12 +177,12 @@ BME680
 
 In our program, BME680 is solely controlled by its closed source BSEC library. However BSEC only supports measurements every 30 seconds or 300 seconds; if that interval is incorrect, BSEC will neither perform measurements nor return valid data.
 
-But since BSEC relies on us to provide timing and communication functions, we did a dangerous movement: decoupling the BSEC timing from actual system time. Specifically, when we run BSEC every 15 minutes, instead of telling it 15 minutes has passed, we tell it that only 300 seconds has passed, or it's time for the next measurement, to force BSEC to do its job.
+But since BSEC relies on us to provide timing and communication functions, we made a dangerous move: decoupling the BSEC timing from actual system time. Specifically, when we run BSEC every 15 minutes, instead of telling it 15 minutes has passed, we tell it that only 300 seconds has passed, or it's exactly the time for the next measurement, to force BSEC to do its job.
 
 PMS5003
 -------
 
-PMS5003 is quite simple to use, simply pull the enable signal high to turn on its fan - wait 30 seconds - read data from serial port.
+PMS5003 is quite simple to use, simply pull the enable signal high to turn on its fan - wait 30 seconds - and read data from serial port.
 
 PMS5003 sends 32 bytes of data each time, with a fixed packet header, and a checksum of the whole packet. To avoid reading only half of a packet, thanks to the characteristic of PMS5003 sending data every second, we did the following:
 
@@ -200,7 +200,7 @@ Due to the limitation of available devices, we had to assume that the change in 
 Battery Status and Voltage
 --------------------------
 
-18650 lithium batteries usually have a voltage range of 3.0-4.5V (not absolute), which is above the 3.3V input limit of STM32. Therefore two resistors are needed to divide the voltage, and the result is connected to STM32's ADC.
+18650 lithium batteries usually have a voltage range of around 3.0-4.5V (not exact), which is above the 3.3V input voltage limit of STM32. Therefore two resistors are needed to divide the voltage, and the result is connected to STM32's ADC.
 
 STM32 can also monitor the input voltage to the chip, since it has a internal stable 1.2V power source connected to ADC. Since ADC readings are relative to the chip input voltage, the input voltage can be calculated back from the reading on this power source.
 
