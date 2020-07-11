@@ -40,9 +40,18 @@ export IPFS_DEPLOY_CLOUDFLARE__RECORD=_dnslink.ipfs.xuyh0120.win
 node_modules/ipfs-deploy/bin/ipfs-deploy.js public/ -p pinata -d cloudflare -C -O
 
 # Pinata: obtain last pinned hash
-PINATA_LAST_HASH=$(curl -H 'pinata_api_key: ***REMOVED***' -H 'pinata_secret_api_key: ***REMOVED***' "https://api.pinata.cloud/data/pinList?status=pinned&metadata[name]=_dnslink.ipfs.xuyh0120.win" | jq -r ".rows[1].ipfs_pin_hash")
+PINATA_LAST_HASH=$(curl \
+    -H "pinata_api_key: $IPFS_DEPLOY_PINATA__API_KEY" \
+    -H "pinata_secret_api_key: $IPFS_DEPLOY_PINATA__SECRET_API_KEY" \
+    "https://api.pinata.cloud/data/pinList?status=pinned&metadata[name]=$IPFS_DEPLOY_CLOUDFLARE__RECORD" \
+    | jq -r ".rows[1].ipfs_pin_hash")
+
 # Pinata: remove last hash
-curl -X DELETE -H 'pinata_api_key: ***REMOVED***' -H 'pinata_secret_api_key: ***REMOVED***' -H 'Content-Type: application/json' "https://api.pinata.cloud/pinning/unpin/$PINATA_LAST_HASH"
+curl -X DELETE \
+     -H "pinata_api_key: $IPFS_DEPLOY_PINATA__API_KEY" \
+     -H "pinata_secret_api_key: $IPFS_DEPLOY_PINATA__SECRET_API_KEY" \
+     -H 'Content-Type: application/json' \
+     "https://api.pinata.cloud/pinning/unpin/$PINATA_LAST_HASH"
 
 # Compress to gzip, brotli, zstd and webp only for my own site system
 # Useless on other hosts, e.g. GitHub Pages
