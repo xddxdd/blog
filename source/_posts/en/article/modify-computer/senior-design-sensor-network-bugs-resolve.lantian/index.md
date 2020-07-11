@@ -163,7 +163,7 @@ Weather Station Needs to Connect to School Wi-Fi
 
 Professor's weather station device also needs to connect to school Wi-Fi, so it can upload data to its cloud service. Unlike our ESP8266, we cannot modify its program, which means we cannot ask it to send another HTTP request to log on to the network.
 
-The solution: use a computer to spoof the MAC address of the weather station, log on to the school network, and then disconnect. The device will not be kicked out from logged on status during short disconnections, and when the weather station is powered on at this time, it will be able to connect to Internet without login.
+The solution is to use a computer to spoof the MAC address of the weather station, log on to the school network, and then disconnect. The device will not be kicked out from logged on status during short disconnections, and when the weather station is powered on at this time, it will be able to connect to Internet without logging on itself.
 
 Another problem is that the school Wi-Fi restricts to 4 devices per user account, and previously connected devices will be kicked out when that number is exceeded. Our sensor network consists of 10 devices; although they can log on again when they are kicked out, the weather station cannot do so.
 
