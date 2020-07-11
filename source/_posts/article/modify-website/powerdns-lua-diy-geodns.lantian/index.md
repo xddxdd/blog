@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '使用 PowerDNS 的 Lua 功能自建分地区解析 GeoDNS'
 label: powerdns-lua-diy-geodns
 categories: 网站与服务端

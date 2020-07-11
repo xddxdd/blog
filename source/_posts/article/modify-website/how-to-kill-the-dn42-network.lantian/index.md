@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '如何引爆 DN42 网络（持续更新）'
 label: how-to-kill-the-dn42-network
 categories: 网站与服务端

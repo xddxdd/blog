@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '基于 Mailgun 的 Typecho 评论邮件提醒插件'
 label: mailgun-typecho-comment-email-notification
 categories: 网站与服务端

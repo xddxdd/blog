@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '笔记本 Optimus MUXless 下的 Intel 和 NVIDIA 虚拟机显卡直通'
 label: laptop-intel-nvidia-optimus-passthrough
 categories: 计算机与客户端

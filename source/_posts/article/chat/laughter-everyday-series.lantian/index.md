@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '每日笑点系列'
 label: laughter-everyday-series
 categories: 闲聊

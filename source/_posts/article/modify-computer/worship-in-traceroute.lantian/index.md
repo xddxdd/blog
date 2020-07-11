@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在 Traceroute 里膜 拜大佬'
 label: worship-in-traceroute
 categories: 计算机与客户端

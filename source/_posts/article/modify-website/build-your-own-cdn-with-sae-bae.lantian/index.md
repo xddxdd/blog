@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '用新浪云和百度云搭建自己的CDN'
 label: build-your-own-cdn-with-sae-bae
 categories: 网站与服务端

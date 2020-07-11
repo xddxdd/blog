@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'ImageOptim 为网页使用而压缩图片'
 label: imageoptim-compress-image-for-web
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: en
 title: 'Cyclone IV FPGA Development Log'
 label: cyclone-iv-fpga-development-bugs-resolve
 categories: 'Computers and Clients'

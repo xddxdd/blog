@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '最傻的代码错误：一个空格酿成的血案'
 label: foolish-code-typo
 categories: 转载

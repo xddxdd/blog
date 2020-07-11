@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在 Macbook Pro 上安装 Ubuntu 操作系统'
 label: install-ubuntu-on-macbook-pro
 categories: 计算机与客户端

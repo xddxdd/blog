@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '六三群英传——二中之巅 魔塔游戏反编译及彩蛋寻找'
 label: erzhongzhidian-magic-tower-game-decompile-easteregg-find
 categories: 闲聊

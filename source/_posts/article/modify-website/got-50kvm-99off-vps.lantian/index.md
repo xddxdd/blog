@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '抢到了 50KVM 家一台 0.1 折的 VPS'
 label: got-50kvm-99off-vps
 categories: 网站与服务端

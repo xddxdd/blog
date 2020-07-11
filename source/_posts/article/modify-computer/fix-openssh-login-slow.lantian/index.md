@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '解决 OpenSSH 登录缓慢的方法'
 label: fix-openssh-login-slow
 categories: 计算机与客户端

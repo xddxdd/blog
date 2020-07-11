@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Bilibili 弹幕过滤工具'
 label: bilibili-danmaku-filter
 categories: 计算机与客户端

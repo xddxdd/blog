@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '愿者上钩（指美国签证）'
 label: if-you-wanna-take-the-bite
 categories: 一图流

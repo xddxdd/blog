@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '开始使用 Hexo 静态网站生成器'
 label: switching-to-hexo-static-site-generator
 categories: 网站与服务端
@@ -115,7 +114,6 @@ if ($res) {
             $_t = str_replace('<!--markdown-->', '', $r->text);
             $_tmp = <<<TMP
 ---
-lang: zh
 title: '{$r->title}'
 label: {$r->slug}
 categories: {$r->category}

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Macbook 在 Windows 下发热的最终解决方案'
 label: macbook-windows-heat-final-solution
 categories: 计算机与客户端

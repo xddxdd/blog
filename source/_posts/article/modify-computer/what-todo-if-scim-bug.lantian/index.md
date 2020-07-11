@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'SCIM抽风的解决办法'
 label: what-todo-if-scim-bug
 categories: 计算机与客户端

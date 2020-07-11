@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在“开发者工具”中加上彩蛋'
 label: easteregg-in-developer-tools
 categories: 网站与服务端

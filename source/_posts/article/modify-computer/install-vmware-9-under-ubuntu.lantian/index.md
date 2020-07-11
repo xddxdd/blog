@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Ubuntu 环境下安装 VMware Workstation 9'
 label: install-vmware-9-under-ubuntu
 categories: 计算机与客户端

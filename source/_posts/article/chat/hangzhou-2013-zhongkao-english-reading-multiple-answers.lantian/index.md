@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '杭州市2013年中考英语阅读第二篇各种答案的可行性分析'
 label: hangzhou-2013-zhongkao-english-reading-multiple-answers
 categories: 闲聊

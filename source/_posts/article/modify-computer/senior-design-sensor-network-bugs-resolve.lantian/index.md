@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '毕业设计 - 传感器网络开发踩坑记录'
 label: senior-design-sensor-network-bugs-resolve
 categories: 计算机与客户端

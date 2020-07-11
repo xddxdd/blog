@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '终极对抗开发者工具的一段JS'
 label: js-against-develop-tools
 categories: 网站与服务端

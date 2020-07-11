@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '让 ASF 帮你在 Steam 中挂“贪玩蓝月”'
 label: asf-steam-tanwanlanyue
 categories: 计算机与客户端

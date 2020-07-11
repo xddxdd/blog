@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Host1Free 检查所有用户是否使用VPS'
 label: host1free-check-users-vps-actively-used
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '树莓派 3B 折腾笔记：硬件看门狗'
 label: raspberry-pi-3b-hardware-watchdog
 categories: 计算机与客户端

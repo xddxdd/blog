@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '将网站迁移到 Docker'
 label: migrate-website-docker
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '（自建 NTP）在 Tinker Board 上使用 PPS'
 label: diy-ntp-pps-on-tinker-board
 categories: 网站与服务端

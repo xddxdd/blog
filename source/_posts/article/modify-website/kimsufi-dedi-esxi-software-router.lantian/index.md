@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Kimsufi 独服安装升级 ESXi 并设置软路由'
 label: kimsufi-dedi-esxi-software-router
 categories: 网站与服务端

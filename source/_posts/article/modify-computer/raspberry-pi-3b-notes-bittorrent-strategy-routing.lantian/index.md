@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '树莓派 3B 折腾笔记：BT 下载与策略路由'
 label: raspberry-pi-3b-notes-bittorrent-strategy-routing
 categories: 计算机与客户端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在 DN42 中设置 IP 反向解析'
 label: dn42-ip-reverse-record
 categories: 网站与服务端

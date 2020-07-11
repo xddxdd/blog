@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '加入 DN42 实验网络'
 label: join-dn42-experimental-network
 categories: 网站与服务端

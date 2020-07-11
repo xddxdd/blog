@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '奇葩的比赛：扔手机世界竞标赛'
 label: world-throw-mobile-phone-competition
 categories: 转载

@@ -1,5 +1,4 @@
 ---
-lang: en
 title: 'Graduation Design - Sensor Network Development Log'
 label: senior-design-sensor-network-bugs-resolve
 categories: 'Computers and Clients'

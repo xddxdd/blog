@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'DN42 实验网络介绍及注册教程（2020-07-04 更新）'
 label: dn42-experimental-network-2020
 categories: 网站与服务端

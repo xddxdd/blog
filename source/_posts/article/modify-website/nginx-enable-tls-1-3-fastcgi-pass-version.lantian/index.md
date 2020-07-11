@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '为 nginx 启用 TLS 1.3，并传递给 FastCGI 后端'
 label: nginx-enable-tls-1-3-fastcgi-pass-version
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Bilibili 底端弹幕转 LRC 工具'
 label: bilibili-danmaku2lrc
 categories: 计算机与客户端

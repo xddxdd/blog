@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Aroma 文件管理器：Recovery 环境下的文件管理器'
 label: aroma-file-manager-recovery-mode
 categories: 计算机与客户端

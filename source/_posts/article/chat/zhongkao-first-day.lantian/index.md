@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '中考第一天'
 label: zhongkao-first-day
 categories: 闲聊

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'BuyPass GO SSL 证书试用'
 label: buypass-go-ssl-certificate-trial
 categories: 网站与服务端

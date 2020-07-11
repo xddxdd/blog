@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '信息奥赛班的神人一个'
 label: a-god-in-oi-class
 categories: 闲聊

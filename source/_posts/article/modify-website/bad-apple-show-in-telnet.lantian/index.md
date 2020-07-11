@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Bad Apple 移植到 Telnet 中并成功放映'
 label: bad-apple-show-in-telnet
 categories: 网站与服务端

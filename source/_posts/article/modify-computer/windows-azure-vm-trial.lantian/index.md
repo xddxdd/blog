@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Windows Azure 虚拟机试用'
 label: windows-azure-vm-trial
 categories: 计算机与客户端

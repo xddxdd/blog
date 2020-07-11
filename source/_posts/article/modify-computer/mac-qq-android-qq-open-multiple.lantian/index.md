@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Mac QQ和手机QQ多开方法'
 label: mac-qq-android-qq-open-multiple
 categories: 计算机与客户端

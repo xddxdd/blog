@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '项目们'
 label: projects
 weight: 2

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '编写配置文件，让 Thunderbird 自动配置域名邮箱'
 label: write-config-file-let-thunderbird-autoconfig-domain-email
 categories: 网站与服务端

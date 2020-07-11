@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '[转]回忆·文澜'
 label: memory-of-wenlan
 categories: 转载

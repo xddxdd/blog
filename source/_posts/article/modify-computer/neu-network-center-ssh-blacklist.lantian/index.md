@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '使用东北大学网络中心的 SSH 黑名单系统'
 label: neu-network-center-ssh-blacklist
 categories: 计算机与客户端

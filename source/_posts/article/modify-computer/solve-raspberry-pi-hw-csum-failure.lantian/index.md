@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '解决树莓派 HW CSum Failure 问题'
 label: solve-raspberry-pi-hw-csum-failure
 categories: 计算机与客户端

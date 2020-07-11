@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'nginx 配置并启用SSL和SPDY访问'
 label: nginx-configure-enable-ssl-spdy
 categories: 网站与服务端

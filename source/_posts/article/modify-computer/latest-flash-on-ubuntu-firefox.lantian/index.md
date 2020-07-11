@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在 Ubuntu Firefox 上使用最新版本的 Flash'
 label: latest-flash-on-ubuntu-firefox
 categories: 计算机与客户端

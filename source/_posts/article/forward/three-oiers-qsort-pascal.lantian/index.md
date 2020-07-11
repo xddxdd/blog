@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '各种OIer的快排（Pascal语言）'
 label: three-oiers-qsort-pascal
 categories: 转载

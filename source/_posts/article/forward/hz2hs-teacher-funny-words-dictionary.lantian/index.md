@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '杭二中老师经典语录大词典'
 label: hz2hs-teacher-funny-words-dictionary
 categories: 转载

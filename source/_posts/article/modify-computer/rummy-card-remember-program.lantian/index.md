@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Rummy 拉米纸牌记牌程序'
 label: rummy-card-remember-program
 categories: 计算机与客户端

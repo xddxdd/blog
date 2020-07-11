@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在 DN42 中注册自己的域名'
 label: register-own-domain-in-dn42
 categories: 网站与服务端

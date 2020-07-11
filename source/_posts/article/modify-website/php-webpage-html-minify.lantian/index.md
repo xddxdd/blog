@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'PHP网页的HTML压缩'
 label: php-webpage-html-minify
 categories: 网站与服务端

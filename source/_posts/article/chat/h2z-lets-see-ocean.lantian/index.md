@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '杭二中台风特别节目《我们去看海》'
 label: h2z-lets-see-ocean
 categories: 闲聊

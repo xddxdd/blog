@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'NOIP复赛有感'
 label: noip-contest-thought
 categories: 计算机与客户端

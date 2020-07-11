@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'nginx 启用 SSL 加密'
 label: nginx-enable-ssl
 categories: 网站与服务端

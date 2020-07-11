@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '与 Hexo 配合使用 Sass 和 Webpack'
 label: sass-webpack-with-hexo
 categories: 网站与服务端

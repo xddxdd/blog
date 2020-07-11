@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '沃通你咋不上天呢！'
 label: wosign-leak-sign-github
 categories: 闲聊

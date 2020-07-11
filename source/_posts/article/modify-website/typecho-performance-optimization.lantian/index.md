@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Typecho 主题性能优化和缓存'
 label: typecho-performance-optimization
 categories: 网站与服务端

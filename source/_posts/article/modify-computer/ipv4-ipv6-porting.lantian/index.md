@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'IPv4 与 IPv6 的互通'
 label: ipv4-ipv6-porting
 categories: 计算机与客户端

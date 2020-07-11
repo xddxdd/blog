@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Windows 8.1 下 gogoCLIENT 的安装使用与Bug修复'
 label: windows-8-1-gogoclient-install-repair-bug
 categories: 计算机与客户端

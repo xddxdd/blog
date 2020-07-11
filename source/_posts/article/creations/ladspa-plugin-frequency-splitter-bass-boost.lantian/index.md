@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'LADSPA 双声道分频及低音增强插件'
 label: ladspa-plugin-frequency-splitter-bass-boost
 categories: 自制软硬工具

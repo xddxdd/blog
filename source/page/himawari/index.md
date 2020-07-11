@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '俯瞰地球'
 label: himawari
 weight: 3

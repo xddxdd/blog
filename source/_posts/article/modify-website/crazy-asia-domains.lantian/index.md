@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '免费ASIA域名：CrazyDomains.Com.Au'
 label: crazy-asia-domains
 categories: 网站与服务端

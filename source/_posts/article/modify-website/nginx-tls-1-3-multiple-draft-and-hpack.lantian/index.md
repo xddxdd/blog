@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'nginx：TLS 1.3 多版本草案和 HPACK'
 label: nginx-tls-1-3-multiple-draft-and-hpack
 categories: 网站与服务端

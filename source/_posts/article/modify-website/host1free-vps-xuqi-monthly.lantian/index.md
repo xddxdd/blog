@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Host1Free 为防VPS闲置再出狠招：每月续期一次'
 label: host1free-vps-xuqi-monthly
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '华为C8815 内置存储分区'
 label: huawei-c8815-partition
 categories: 计算机与客户端

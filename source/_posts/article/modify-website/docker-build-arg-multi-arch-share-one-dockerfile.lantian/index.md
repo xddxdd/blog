@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '使用 Docker 构建参数，多架构共享一份 Dockerfile'
 label: docker-build-arg-multi-arch-share-one-dockerfile
 categories: 网站与服务端

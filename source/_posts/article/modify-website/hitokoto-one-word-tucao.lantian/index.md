@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Hitokoto 一句话吐槽'
 label: hitokoto-one-word-tucao
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '写一个简单的 Telegram 机器人'
 label: simple-telegram-bot
 categories: 网站与服务端

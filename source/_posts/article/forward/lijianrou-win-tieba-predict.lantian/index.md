@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '李坚柔神夺冠，贴吧网友神预测'
 label: lijianrou-win-tieba-predict
 categories: 转载
