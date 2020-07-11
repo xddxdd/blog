@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'XJOI被多款搜索引擎收录'
 label: xjoj-can-be-found-in-search-engines
 categories: 闲聊

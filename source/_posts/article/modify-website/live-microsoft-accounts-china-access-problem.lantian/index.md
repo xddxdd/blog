@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Microsoft Accounts 在天朝访问发生异常'
 label: live-microsoft-accounts-china-access-problem
 categories: 网站与服务端

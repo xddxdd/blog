@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '让 IE 与 Firefox 支持 WebP 图像格式'
 label: ie-firefox-webp-support
 categories: 网站与服务端

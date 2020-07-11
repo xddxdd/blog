@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Mac OS X 开启内置FTP服务'
 label: mac-osx-enable-builtin-ftp
 categories: 计算机与客户端

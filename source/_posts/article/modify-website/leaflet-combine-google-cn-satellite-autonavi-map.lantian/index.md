@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在 Leaflet 中合并使用谷歌中国卫星图和高德地图'
 label: leaflet-combine-google-cn-satellite-autonavi-map
 categories: 网站与服务端

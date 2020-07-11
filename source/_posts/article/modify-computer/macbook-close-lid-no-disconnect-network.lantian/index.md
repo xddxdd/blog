@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Macbook 合盖不断网的方法'
 label: macbook-close-lid-no-disconnect-network
 categories: 计算机与客户端

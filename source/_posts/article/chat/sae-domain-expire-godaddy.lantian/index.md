@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '【已辟谣】SAE 域名忘记续费，被GoDaddy抢购'
 label: sae-domain-expire-godaddy
 categories: 闲聊

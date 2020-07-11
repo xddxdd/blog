@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在 Telnet 中显示有趣的东西'
 label: telnet-interesting-things
 categories: 网站与服务端

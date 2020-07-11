@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '用证书验证Linux远程登录'
 label: login-linux-shell-with-cert
 categories: 网站与服务端

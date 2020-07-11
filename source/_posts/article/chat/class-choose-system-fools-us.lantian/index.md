@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '选课系统坑爹'
 label: class-choose-system-fools-us
 categories: 闲聊

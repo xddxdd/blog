@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Windows 下控制 MacBook 风扇转速'
 label: windows-control-macbook-fan
 categories: 计算机与客户端

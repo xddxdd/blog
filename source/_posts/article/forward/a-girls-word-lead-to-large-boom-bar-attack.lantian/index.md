@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '一句话引发的全面爆吧'
 label: a-girls-word-lead-to-large-boom-bar-attack
 categories: 转载

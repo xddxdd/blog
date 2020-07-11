@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '用电驴断头档发现更多驴友，加快下载速度'
 label: use-emule-friend-file-find-emule-users-accelerate-download
 categories: 计算机与客户端

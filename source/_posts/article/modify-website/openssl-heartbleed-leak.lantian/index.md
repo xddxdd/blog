@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'OpenSSL “心血”漏洞 造成巨大影响'
 label: openssl-heartbleed-leak
 categories: 网站与服务端

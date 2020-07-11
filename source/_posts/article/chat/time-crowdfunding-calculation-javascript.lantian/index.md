@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'A Javascript for time crowdfunding calculation'
 label: time-crowdfunding-calculation-javascript
 categories: 闲聊

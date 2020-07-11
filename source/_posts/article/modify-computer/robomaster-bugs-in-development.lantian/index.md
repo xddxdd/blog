@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'RoboMaster 开发踩坑日记（2018-05-28 更新）'
 label: robomaster-bugs-in-development
 categories: 计算机与客户端

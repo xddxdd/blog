@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Bad Apple 命令行动画版'
 label: bad-apple-command-line-art
 categories: 计算机与客户端

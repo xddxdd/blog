@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '使用 ZeroTier One 在多台 Docker 服务器间建立双栈互通网络'
 label: zerotier-one-connect-docker-containers-dualstack
 categories: 网站与服务端

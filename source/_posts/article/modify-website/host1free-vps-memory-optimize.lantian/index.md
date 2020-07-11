@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Host1Free VPS 内存占用优化'
 label: host1free-vps-memory-optimize
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'LT NoLitter：防止 Android 应用乱建文件夹的 Xposed 插件'
 label: lt-nolitter-stop-android-app-litter-folder
 categories: 计算机与客户端

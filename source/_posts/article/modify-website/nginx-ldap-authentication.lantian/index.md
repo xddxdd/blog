@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'nginx 配置 LDAP 认证'
 label: nginx-ldap-authentication
 categories: 网站与服务端

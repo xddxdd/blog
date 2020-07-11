@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Docker 镜像的精简'
 label: docker-image-thin
 categories: 计算机与客户端

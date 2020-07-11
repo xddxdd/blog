@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'CommentToMail 修改版'
 label: comment-to-mail-modified
 categories: 网站与服务端

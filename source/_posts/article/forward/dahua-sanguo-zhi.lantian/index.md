@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '大话三国志'
 label: dahua-sanguo-zhi
 categories: 转载

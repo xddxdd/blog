@@ -1,5 +1,4 @@
 ---
-lang: en
 title: 'RoboMaster Development Log (Updated 2018-05-28)'
 label: robomaster-bugs-in-development
 categories: 'Computers and Clients'

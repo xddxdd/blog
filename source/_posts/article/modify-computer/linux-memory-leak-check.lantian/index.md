@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '一次 Linux 内存泄漏的排查'
 label: linux-memory-leak-check
 categories: 计算机与客户端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '朝鲜自主研发安卓手机：我和我的小伙伴都惊呆了'
 label: north-korean-arirang-android-phone-shock-everyone
 categories: 转载

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Debian VPS 设置SMTP发信'
 label: debian-vps-smtp-sendmail
 categories: 网站与服务端

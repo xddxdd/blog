@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '奇葩年年有，今年特别多'
 label: strange-things-happen-every-year-this-year-there-are-many
 categories: 娱乐

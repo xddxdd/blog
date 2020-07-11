@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 系统禁用摄像头防止网课翻车
 label: system-disable-camera-prevent-online-course-leak
 categories: 随手记

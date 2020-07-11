@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 在 OpenVZ 6 上安装/升级到 Debian 10
 label: debian-10-on-openvz
 categories: 随手记

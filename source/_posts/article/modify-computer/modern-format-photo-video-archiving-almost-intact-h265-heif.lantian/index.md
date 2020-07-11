@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '使用现代格式几乎无损地存档图片及视频 - H265 与 HEIF'
 label: modern-format-photo-video-archiving-almost-intact-h265-heif
 categories: 计算机与客户端

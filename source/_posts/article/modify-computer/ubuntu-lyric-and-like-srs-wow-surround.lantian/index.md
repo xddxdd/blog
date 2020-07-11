@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Ubuntu 安装 LRC 歌词显示插件和开启类 SRS WOW 音效'
 label: ubuntu-lyric-and-like-srs-wow-surround
 categories: 计算机与客户端

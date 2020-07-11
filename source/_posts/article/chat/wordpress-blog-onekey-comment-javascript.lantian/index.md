@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'WP博客一键签到JS'
 label: wordpress-blog-onekey-comment-javascript
 categories: 闲聊

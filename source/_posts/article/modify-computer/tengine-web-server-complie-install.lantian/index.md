@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Tengine 网页服务器编译以及安装'
 label: tengine-web-server-complie-install
 categories: 计算机与客户端

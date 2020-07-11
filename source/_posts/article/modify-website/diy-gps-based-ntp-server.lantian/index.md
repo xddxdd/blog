@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '自建基于 GPS 的 NTP 服务端'
 label: diy-gps-based-ntp-server
 categories: 网站与服务端

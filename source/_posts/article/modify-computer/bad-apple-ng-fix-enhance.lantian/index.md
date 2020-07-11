@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Bad Apple NG 修正增强版本'
 label: bad-apple-ng-fix-enhance
 categories: 计算机与客户端

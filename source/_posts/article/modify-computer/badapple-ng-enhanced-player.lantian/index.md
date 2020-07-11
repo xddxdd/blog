@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Bad Apple NG：增强版 Bad Apple 播放系统'
 label: badapple-ng-enhanced-player
 categories: 计算机与客户端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '成龙将房祖名打飞5米：你TM在逗我？'
 label: chenglong-beat-fangzuming-fly-5-meters-are-you-joking
 categories: 闲聊

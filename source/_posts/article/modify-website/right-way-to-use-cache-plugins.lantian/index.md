@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '缓存插件的正确使用方法'
 label: right-way-to-use-cache-plugins
 categories: 网站与服务端

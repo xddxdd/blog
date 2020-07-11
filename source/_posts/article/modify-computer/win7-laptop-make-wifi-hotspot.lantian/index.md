@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Win7 笔记本电脑发射无线网络'
 label: win7-laptop-make-wifi-hotspot
 categories: 计算机与客户端

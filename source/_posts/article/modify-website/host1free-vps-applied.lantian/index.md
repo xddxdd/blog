@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Host1Free VPS 申请成功'
 label: host1free-vps-applied
 categories: 网站与服务端

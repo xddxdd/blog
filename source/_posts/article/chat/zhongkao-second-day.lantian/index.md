@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '中考第二天'
 label: zhongkao-second-day
 categories: 闲聊

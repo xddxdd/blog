@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'GetIPIntel 反欺诈服务'
 label: getipintel-anti-fraud
 categories: 网站与服务端

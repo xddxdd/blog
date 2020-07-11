@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'NAT64 服务器搭建'
 label: nat64-server-build
 categories: 计算机与客户端

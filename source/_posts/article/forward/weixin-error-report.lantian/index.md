@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在微信面前，一切错误检测程序都是渣渣！'
 label: weixin-error-report
 categories: 转载

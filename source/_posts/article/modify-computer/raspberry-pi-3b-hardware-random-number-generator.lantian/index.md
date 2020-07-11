@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '树莓派 3B 折腾笔记：硬件随机数发生器'
 label: raspberry-pi-3b-hardware-random-number-generator
 categories: 计算机与客户端

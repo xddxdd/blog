@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '社会化评论系统的JS签到'
 label: social-comment-javascript-auto-comment
 categories: 网站与服务端

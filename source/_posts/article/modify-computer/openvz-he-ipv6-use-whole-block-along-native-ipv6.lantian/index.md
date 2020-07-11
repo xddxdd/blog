@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'OpenVZ 配置 Hurricane Electric IPv6 隧道，开启整个地址池并与原生 IPv6 共同使用'
 label: openvz-he-ipv6-use-whole-block-along-native-ipv6
 categories: 计算机与客户端

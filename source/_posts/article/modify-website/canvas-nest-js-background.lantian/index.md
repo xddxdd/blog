@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '用  Canvas-Nest.js 加上酷炫的网页背景'
 label: canvas-nest-js-background
 categories: 网站与服务端

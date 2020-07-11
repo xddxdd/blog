@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '验证码：不做死就不会死'
 label: captcha-no-make-no-die
 categories: 闲聊

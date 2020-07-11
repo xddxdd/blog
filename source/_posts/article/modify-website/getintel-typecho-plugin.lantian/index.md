@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'GetIPIntel 的 Typecho 插件'
 label: getintel-typecho-plugin
 categories: 网站与服务端

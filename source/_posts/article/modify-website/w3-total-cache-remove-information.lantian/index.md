@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'W3 Total Cache 末尾注释去除'
 label: w3-total-cache-remove-information
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '在 DN42 中设置 IPv6 反向解析'
 label: dn42-reverse-record-ipv6
 categories: 网站与服务端

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '给IE添加HTML5和CSS3支持'
 label: ie-html5-css3-support
 categories: 网站与服务端

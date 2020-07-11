@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '神算法对班里进行八卦'
 label: calculate-couple-in-class
 categories: 转载

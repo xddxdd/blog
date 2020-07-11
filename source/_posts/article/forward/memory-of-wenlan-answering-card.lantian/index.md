@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '[转]怀念文澜（机读卡篇）'
 label: memory-of-wenlan-answering-card
 categories: 转载

@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'gogoCLIENT DNS解析问题解决'
 label: gogoclient-dns-resolve-solution
 categories: 计算机与客户端

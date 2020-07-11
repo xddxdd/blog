@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: '朝鲜自主研发安卓平板：我和我的小伙伴又惊呆了'
 label: north-korean-android-pad-shock-everybody
 categories: 转载

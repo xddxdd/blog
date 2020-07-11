@@ -1,5 +1,4 @@
 ---
-lang: zh
 title: 'Go 语言实现的 Bird-lg（Bird Looking Glass）'
 label: go-bird-looking-glass
 categories: 网站与服务端
