@@ -20,9 +20,6 @@
                     <% theme_config(page_language()).nav.forEach(function(link) { %>
                         <a class="dropdown-item<% if(link.url == '/' + page.path) { %> active<% } %>" href="<%- url_for(remove_trailing_slash(link.url)) %>"><%- link.name %></a>
                     <% }) %>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item disabled" href="#">Not all pages have translations.</a>
-                    <a class="dropdown-item disabled" href="#">You may see 404 - this is normal.</a>
                 </div>
             </li>
         <% } %>
@@ -58,6 +55,9 @@
                         <%= language_name(language) %>
                     </a>
                 <% }) %>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item disabled" href="#">Not all pages have translations.</a>
+                <a class="dropdown-item disabled" href="#">You may see 404 - this is normal.</a>
             </div>
         </li>
         <% } %>
