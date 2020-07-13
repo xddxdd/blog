@@ -20,9 +20,6 @@ header.lantian {
     $site-title-padding: $font-size-base;
     $site-title-padding-horizontal: 1.25 * $font-size-base;
 
-    border-bottom: $border-default;
-    background-color: #eee;
-
     ul { padding-top: (2 * $site-title-padding + $h1-font-size * $headings-line-height - $font-size-base * $line-height-base - 1rem) / 2; }
     h1 {
         margin: $site-title-padding
@@ -32,6 +29,11 @@ header.lantian {
     }
 
     #elderclock-plus1s{opacity:0;position:absolute;animation:elderclock-plus1s 1s 1}
+}
+
+header.lantian, section.lantian {
+    border-bottom: $border-default;
+    background-color: #eee;
 }
 
 article {

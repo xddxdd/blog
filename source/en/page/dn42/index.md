@@ -142,7 +142,7 @@ Servers
 My Config Templates (Default Parameters)
 ----------------------------------------
 
-> If you plan to copy my templates, remember to swap information, such as IPs.
+> If you plan to copy my templates, remember to swap information of both sides, such as IPs.
 
 OpenVPN:
 

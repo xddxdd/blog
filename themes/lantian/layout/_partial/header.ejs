@@ -73,3 +73,9 @@
         </li>
     </ul>
 </header>
+
+<% if(theme_config(page_language()).announcement) { %>
+<section class="text-center lantian">
+    <%- theme_config(page_language()).announcement %>
+</section>
+<% } %>
