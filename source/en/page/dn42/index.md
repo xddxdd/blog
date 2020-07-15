@@ -27,6 +27,9 @@ Here I provide instructions to perform "1xRTT" peering, which means we can peer 
        - This is usually needed for hardware routers, such as Mikrotik.
      - DN42 IPv6: **fe80::2547** for peering over link-local addresses
        - If you need an address block (such as /64) for IPv6 tunnel, it will come out of your address space.
+     - Multiprotocol BGP (MP-BGP):
+       - Although I support MP-BGP, I still configure two BGP sesssions (1 IPv4 & 1 IPv6) by default.
+       - If you also support MP-BGP and only need one session, just let me know.
    - For creating a tunnel connection:
      - WireGuard/OpenVPN port on my side: **last 5 digits of your ASN**
        - e.g. 4242420001 means I will use port 20001
