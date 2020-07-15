@@ -4,7 +4,7 @@ label: laptop-intel-nvidia-optimus-passthrough
 categories: 计算机与客户端
 tags: [显卡, 虚拟机, Intel, NVIDIA, MUXless]
 date: 2020-06-25 23:59:41
-image: null
+image: /usr/uploads/202007/linus-torvalds-nvidia.png
 ---
 
 摘要（剧透）
@@ -63,6 +63,7 @@ image: null
 
 - NVIDIA 的驱动在虚拟机中会拒绝加载
   - NVIDIA 不想让你买了几千块钱的民用卡就在虚拟机里用，他们希望你去买上万的 GRID 虚拟化专用卡。
+    - ![Linus Torvalds Fxxk Nvidia](/usr/uploads/202007/linus-torvalds-nvidia.png)
   - 因此需要用一大堆神奇的操作来隐藏“这是个虚拟机”的事实，让 NVIDIA 驱动乖乖启动。
     - 后续部分中会详细介绍。
 - 笔记本电脑上的 NVIDIA 显卡和台式机上的是不一样的
