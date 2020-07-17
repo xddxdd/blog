@@ -75,6 +75,7 @@ Servers
 - Server 1: Hong Kong, China, provider GigsGigsCloud
   - Public IPv4: `103.42.215.193`
   - Public IPv6: `2001:470:19:10bb::1`
+    - This node has **extremely high latency** (~150ms) to HE tunnel broker, so IPv4 is strongly preferred, unless you only have IPv6.
   - DN42 IPv4: `172.22.76.186`
   - DN42 IPv6: `fdbc:f9dc:67ad::8b:c606:ba01`
   - Link-local IPv6: `fe80::2547`
