@@ -1,6 +1,5 @@
 ---
 title: 'Go 语言实现的 Bird-lg（Bird Looking Glass）'
-label: go-bird-looking-glass
 categories: 网站与服务端
 tags: [Bird-lg]
 date: 2019-01-08 23:40:00

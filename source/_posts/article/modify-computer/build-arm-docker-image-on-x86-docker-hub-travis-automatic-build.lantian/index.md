@@ -1,6 +1,5 @@
 ---
 title: 'x86 下制作 ARM Docker 镜像，Docker Hub、Travis 自动构建'
-label: build-arm-docker-image-on-x86-docker-hub-travis-automatic-build
 categories: 计算机与客户端
 tags: [Docker,Raspberry Pi,Travis,ARM]
 date: 2018-07-26 22:33:00

@@ -1,6 +1,5 @@
 ---
 title: 'RoboMaster 开发踩坑日记（2018-05-28 更新）'
-label: robomaster-bugs-in-development
 categories: 计算机与客户端
 tags: [ChibiOS,STM32,RoboMaster, 踩坑]
 date: 2018-03-31 09:44:00

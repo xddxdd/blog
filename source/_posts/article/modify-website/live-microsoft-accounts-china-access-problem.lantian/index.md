@@ -1,6 +1,5 @@
 ---
 title: 'Microsoft Accounts 在天朝访问发生异常'
-label: live-microsoft-accounts-china-access-problem
 categories: 网站与服务端
 tags: [微软]
 date: 2014-10-04 22:41:00

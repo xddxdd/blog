@@ -1,6 +1,5 @@
 ---
 title: 'Bad Apple NG 修正增强版本'
-label: bad-apple-ng-fix-enhance
 categories: 计算机与客户端
 tags: [Pascal,Bad Apple]
 date: 2013-03-23 21:34:44

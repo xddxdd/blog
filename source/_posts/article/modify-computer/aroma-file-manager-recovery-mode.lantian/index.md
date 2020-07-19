@@ -1,6 +1,5 @@
 ---
 title: 'Aroma 文件管理器：Recovery 环境下的文件管理器'
-label: aroma-file-manager-recovery-mode
 categories: 计算机与客户端
 tags: [分区,Recovery,Android]
 date: 2014-07-25 15:32:00

@@ -1,6 +1,5 @@
 ---
 title: '使用现代格式几乎无损地存档图片及视频 - H265 与 HEIF'
-label: modern-format-photo-video-archiving-almost-intact-h265-heif
 categories: 计算机与客户端
 tags: [图片, 视频, H265, HEIF]
 date: 2020-02-13 15:05:18

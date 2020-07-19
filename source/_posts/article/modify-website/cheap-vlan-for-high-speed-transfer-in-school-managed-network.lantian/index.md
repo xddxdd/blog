@@ -1,6 +1,5 @@
 ---
 title: '学校网络中自建 VLAN，低价实现高速私有内网'
-label: cheap-vlan-for-high-speed-transfer-in-school-managed-network
 categories: 网站与服务端
 tags: [VLAN]
 date: 2020-01-13 22:31:07

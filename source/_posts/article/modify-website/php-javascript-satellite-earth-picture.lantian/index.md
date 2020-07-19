@@ -1,6 +1,5 @@
 ---
 title: '用 PHP 和 JavaScript 显示地球卫星照片'
-label: php-javascript-satellite-earth-picture
 categories: 网站与服务端
 tags: [向日葵8号]
 date: 2016-06-14 22:40:00

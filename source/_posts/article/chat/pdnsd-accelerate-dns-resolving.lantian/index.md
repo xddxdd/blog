@@ -1,6 +1,5 @@
 ---
 title: '用Pdnsd，给你的DNS解析缓存加速'
-label: pdnsd-accelerate-dns-resolving
 categories: 闲聊
 tags: [DNS]
 date: 2013-09-14 15:42:40

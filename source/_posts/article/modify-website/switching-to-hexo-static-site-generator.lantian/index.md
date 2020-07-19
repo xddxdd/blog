@@ -1,6 +1,5 @@
 ---
 title: '开始使用 Hexo 静态网站生成器'
-label: switching-to-hexo-static-site-generator
 categories: 网站与服务端
 tags: [Hexo, 静态网站]
 date: 2019-09-25 22:17:00
@@ -115,7 +114,6 @@ if ($res) {
             $_tmp = <<<TMP
 ---
 title: '{$r->title}'
-label: {$r->slug}
 categories: {$r->category}
 tags: [{$r->tags}]
 date: {$_c}

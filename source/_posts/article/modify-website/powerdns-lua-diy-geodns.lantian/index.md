@@ -1,6 +1,5 @@
 ---
 title: '使用 PowerDNS 的 Lua 功能自建分地区解析 GeoDNS'
-label: powerdns-lua-diy-geodns
 categories: 网站与服务端
 tags: [PowerDNS,GeoDNS,Lua]
 date: 2020-01-17 23:45:58

@@ -1,6 +1,5 @@
 ---
 title: '树莓派 3B 折腾笔记：硬件随机数发生器'
-label: raspberry-pi-3b-hardware-random-number-generator
 categories: 计算机与客户端
 tags: [随机数发生器,Raspberry Pi]
 date: 2017-10-30 20:13:25

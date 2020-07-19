@@ -1,6 +1,5 @@
 ---
 title: '在 Macbook Pro 上安装 Ubuntu 操作系统'
-label: install-ubuntu-on-macbook-pro
 categories: 计算机与客户端
 tags: [Mac,Linux]
 date: 2014-10-04 19:27:05

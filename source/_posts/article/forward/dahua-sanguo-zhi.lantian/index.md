@@ -1,6 +1,5 @@
 ---
 title: '大话三国志'
-label: dahua-sanguo-zhi
 categories: 转载
 tags: [恶搞]
 date: 2013-05-01 10:58:00

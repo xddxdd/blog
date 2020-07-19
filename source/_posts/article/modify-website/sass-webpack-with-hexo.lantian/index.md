@@ -1,6 +1,5 @@
 ---
 title: '与 Hexo 配合使用 Sass 和 Webpack'
-label: sass-webpack-with-hexo
 categories: 网站与服务端
 tags: [Hexo, 静态网站, Webpack, Sass]
 date: 2019-10-26 00:48:17

@@ -1,6 +1,5 @@
 ---
 title: '在微信面前，一切错误检测程序都是渣渣！'
-label: weixin-error-report
 categories: 转载
 tags: [编程,错误,微信]
 date: 2013-05-04 21:42:00

@@ -1,6 +1,5 @@
 ---
 title: 'Mac QQ和手机QQ多开方法'
-label: mac-qq-android-qq-open-multiple
 categories: 计算机与客户端
 tags: [QQ,Android,手机]
 date: 2013-07-18 10:32:31

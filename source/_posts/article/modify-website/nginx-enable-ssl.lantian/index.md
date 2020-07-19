@@ -1,6 +1,5 @@
 ---
 title: 'nginx 启用 SSL 加密'
-label: nginx-enable-ssl
 categories: 网站与服务端
 tags: [网站,折腾]
 date: 2013-01-27 01:09:00

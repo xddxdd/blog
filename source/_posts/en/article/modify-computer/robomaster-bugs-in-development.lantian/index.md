@@ -1,6 +1,5 @@
 ---
 title: 'RoboMaster Development Log (Updated 2018-05-28)'
-label: robomaster-bugs-in-development
 categories: 'Computers and Clients'
 tags: [ChibiOS, STM32, RoboMaster, Development Log]
 date: 2018-03-31 09:44:00

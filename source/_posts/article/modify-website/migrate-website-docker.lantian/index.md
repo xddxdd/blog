@@ -1,6 +1,5 @@
 ---
 title: '将网站迁移到 Docker'
-label: migrate-website-docker
 categories: 网站与服务端
 tags: [Docker]
 date: 2016-12-29 13:55:00

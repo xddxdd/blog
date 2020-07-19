@@ -1,6 +1,5 @@
 ---
 title: '在 DN42 中使用 Docker 建立 Anycast DNS 服务'
-label: dn42-docker-anycast-dns
 categories: 网站与服务端
 tags: [DN42,Anycast,BGP]
 date: 2019-03-14 22:54:00

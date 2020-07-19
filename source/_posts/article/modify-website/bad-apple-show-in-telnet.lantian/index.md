@@ -1,6 +1,5 @@
 ---
 title: 'Bad Apple 移植到 Telnet 中并成功放映'
-label: bad-apple-show-in-telnet
 categories: 网站与服务端
 tags: [VPS,折腾,Bad Apple]
 date: 2013-03-02 13:31:23

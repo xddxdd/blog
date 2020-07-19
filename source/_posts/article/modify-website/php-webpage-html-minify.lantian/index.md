@@ -1,6 +1,5 @@
 ---
 title: 'PHP网页的HTML压缩'
-label: php-webpage-html-minify
 categories: 网站与服务端
 tags: [优化,PHP,Typecho,折腾,网站]
 date: 2013-05-18 14:11:56

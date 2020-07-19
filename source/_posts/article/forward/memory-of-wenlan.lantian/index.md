@@ -1,6 +1,5 @@
 ---
 title: '[转]回忆·文澜'
-label: memory-of-wenlan
 categories: 转载
 tags: [学校,iOS]
 date: 2013-05-14 19:16:00

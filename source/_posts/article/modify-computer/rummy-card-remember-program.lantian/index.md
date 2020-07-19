@@ -1,6 +1,5 @@
 ---
 title: 'Rummy 拉米纸牌记牌程序'
-label: rummy-card-remember-program
 categories: 计算机与客户端
 tags: [JS,Rummy]
 date: 2016-09-18 16:49:00

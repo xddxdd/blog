@@ -1,6 +1,5 @@
 ---
 title: '让 IE 与 Firefox 支持 WebP 图像格式'
-label: ie-firefox-webp-support
 categories: 网站与服务端
 tags: [向日葵8号,Firefox,IE,WebP]
 date: 2016-08-23 13:59:00

@@ -1,6 +1,5 @@
 ---
 title: '李坚柔神夺冠，贴吧网友神预测'
-label: lijianrou-win-tieba-predict
 categories: 转载
 tags: [冬奥会]
 date: 2014-02-15 11:11:00

@@ -1,6 +1,5 @@
 ---
 title: 'Debian VPS 设置SMTP发信'
-label: debian-vps-smtp-sendmail
 categories: 网站与服务端
 tags: [WordPress,SMTP,sendmail]
 date: 2014-08-02 21:15:32

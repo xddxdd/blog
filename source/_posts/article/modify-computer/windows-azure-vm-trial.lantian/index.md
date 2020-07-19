@@ -1,6 +1,5 @@
 ---
 title: 'Windows Azure 虚拟机试用'
-label: windows-azure-vm-trial
 categories: 计算机与客户端
 tags: [Windows,Azure,虚拟机]
 date: 2014-05-23 16:40:00

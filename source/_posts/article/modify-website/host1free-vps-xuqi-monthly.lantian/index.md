@@ -1,6 +1,5 @@
 ---
 title: 'Host1Free 为防VPS闲置再出狠招：每月续期一次'
-label: host1free-vps-xuqi-monthly
 categories: 网站与服务端
 tags: [Host1Free,VPS]
 date: 2013-10-03 11:11:32

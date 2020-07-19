@@ -1,6 +1,5 @@
 ---
 title: '朝鲜三明治平板电脑在 eBay 上惨遭拍卖！'
-label: north-korean-samijyon-tablet-bid-on-ebay
 categories: 转载
 tags: [eBay,朝鲜,平板]
 date: 2013-11-17 11:31:00

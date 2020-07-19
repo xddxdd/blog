@@ -1,6 +1,5 @@
 ---
 title: 'GetIPIntel 反欺诈服务'
-label: getipintel-anti-fraud
 categories: 网站与服务端
 tags: [GetIPIntel,反欺诈]
 date: 2016-10-01 20:50:00

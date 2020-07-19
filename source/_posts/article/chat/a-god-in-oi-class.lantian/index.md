@@ -1,6 +1,5 @@
 ---
 title: '信息奥赛班的神人一个'
-label: a-god-in-oi-class
 categories: 闲聊
 tags: [OI]
 date: 2012-07-18 09:53:56

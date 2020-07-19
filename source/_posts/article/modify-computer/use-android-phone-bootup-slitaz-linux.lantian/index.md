@@ -1,6 +1,5 @@
 ---
 title: '用安卓手机引导启动 SliTaz Linux'
-label: use-android-phone-bootup-slitaz-linux
 categories: 计算机与客户端
 tags: [SliTaz,启动,安卓,手机,Linux]
 date: 2013-07-23 20:52:40

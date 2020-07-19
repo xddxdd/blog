@@ -1,6 +1,5 @@
 ---
 title: 'Kimsufi 独服安装升级 ESXi 并设置软路由'
-label: kimsufi-dedi-esxi-software-router
 categories: 网站与服务端
 tags: [Kimsufi,ESXi]
 date: 2018-06-06 17:22:00

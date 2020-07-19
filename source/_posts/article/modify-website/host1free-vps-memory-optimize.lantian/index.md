@@ -1,6 +1,5 @@
 ---
 title: 'Host1Free VPS 内存占用优化'
-label: host1free-vps-memory-optimize
 categories: 网站与服务端
 tags: [折腾,Host1Free,VPS]
 date: 2013-02-06 20:04:05

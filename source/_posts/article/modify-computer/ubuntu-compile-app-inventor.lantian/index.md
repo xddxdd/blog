@@ -1,6 +1,5 @@
 ---
 title: 'Ubuntu 下编译安装 App Inventor'
-label: ubuntu-compile-app-inventor
 categories: 计算机与客户端
 tags: [Android]
 date: 2014-10-18 17:37:03

@@ -1,6 +1,5 @@
 ---
 title: 'Host1Free VPS 申请成功'
-label: host1free-vps-applied
 categories: 网站与服务端
 tags: [Host1Free,VPS,Linux]
 date: 2012-08-16 04:25:27

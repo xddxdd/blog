@@ -1,6 +1,5 @@
 ---
 title: 'A Javascript for time crowdfunding calculation'
-label: time-crowdfunding-calculation-javascript
 categories: 闲聊
 tags: [JS]
 date: 2016-08-25 00:19:00

@@ -1,6 +1,5 @@
 ---
 title: '马航MH370失联 加拿大飞行员提出全新分析'
-label: malaysia-mh370-canada-pilot-new-guess
 categories: 转载
 tags: [MH370]
 date: 2014-03-27 17:11:00

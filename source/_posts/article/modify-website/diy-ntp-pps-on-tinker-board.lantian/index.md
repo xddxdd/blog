@@ -1,6 +1,5 @@
 ---
 title: '（自建 NTP）在 Tinker Board 上使用 PPS'
-label: diy-ntp-pps-on-tinker-board
 categories: 网站与服务端
 tags: [NTP,GPS]
 date: 2019-09-16 22:20:20

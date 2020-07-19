@@ -1,6 +1,5 @@
 ---
 title: 'W3 Total Cache 实现内存缓存'
-label: w3-total-cache-memory-cache
 categories: 网站与服务端
 tags: [VPS,网站,折腾]
 date: 2013-02-23 21:30:05

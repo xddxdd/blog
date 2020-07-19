@@ -1,6 +1,5 @@
 ---
 title: 'nginx 配置 LDAP 认证'
-label: nginx-ldap-authentication
 categories: 网站与服务端
 tags: [nginx,LDAP]
 date: 2018-10-14 12:34:17

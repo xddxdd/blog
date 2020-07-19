@@ -1,6 +1,5 @@
 ---
 title: 'CommentToMail 修改版'
-label: comment-to-mail-modified
 categories: 网站与服务端
 tags: [SMTP,Typecho]
 date: 2017-09-26 21:23:00

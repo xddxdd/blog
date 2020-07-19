@@ -1,6 +1,5 @@
 ---
 title: 'Tengine 网页服务器编译以及安装'
-label: tengine-web-server-complie-install
 categories: 计算机与客户端
 tags: [服务器,网页,Tengine,编译]
 date: 2013-07-31 16:19:50

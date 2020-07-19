@@ -1,6 +1,5 @@
 ---
 title: '奇葩的比赛：扔手机世界竞标赛'
-label: world-throw-mobile-phone-competition
 categories: 转载
 tags: [手机,比赛]
 date: 2013-09-05 10:10:00

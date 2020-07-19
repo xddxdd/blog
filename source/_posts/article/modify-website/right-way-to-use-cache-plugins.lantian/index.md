@@ -1,6 +1,5 @@
 ---
 title: '缓存插件的正确使用方法'
-label: right-way-to-use-cache-plugins
 categories: 网站与服务端
 tags: [网站,折腾]
 date: 2013-02-18 09:55:23

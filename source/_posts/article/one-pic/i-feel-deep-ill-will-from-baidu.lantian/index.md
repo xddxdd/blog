@@ -1,6 +1,5 @@
 ---
 title: '我感受到了来自百度深深的恶意'
-label: i-feel-deep-ill-will-from-baidu
 categories: 一图流
 tags: [百度]
 date: 2014-09-14 08:52:00

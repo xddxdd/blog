@@ -1,6 +1,5 @@
 ---
 title: 'Bird 配置 BGP Confederation，及模拟 Confederation（2020-06-07 更新）'
-label: bird-confederation
 categories: 网站与服务端
 tags: [BGP, Bird, Confederation]
 date: 2020-06-07 21:51:51

@@ -1,6 +1,5 @@
 ---
 title: '避免苹果笔记本电脑温度过高的方法'
-label: ways-to-prevent-macbook-temperature-too-high
 categories: 闲聊
 tags: [过热,Mac]
 date: 2013-07-20 17:14:26

@@ -1,6 +1,5 @@
 ---
 title: '选课系统坑爹'
-label: class-choose-system-fools-us
 categories: 闲聊
 tags: [学校,Bug,抢课]
 date: 2013-12-14 12:56:12

@@ -1,6 +1,5 @@
 ---
 title: 'Macbook 手动设置CPU风扇散热'
-label: macbook-manual-config-cpu-fan-speed
 categories: 计算机与客户端
 tags: [温度,CPU,风扇,笔记本,苹果]
 date: 2013-07-20 09:55:36

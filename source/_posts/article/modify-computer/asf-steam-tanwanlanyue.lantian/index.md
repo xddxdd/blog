@@ -1,6 +1,5 @@
 ---
 title: '让 ASF 帮你在 Steam 中挂“贪玩蓝月”'
-label: asf-steam-tanwanlanyue
 categories: 计算机与客户端
 tags: [Steam,贪玩蓝月]
 date: 2018-01-16 22:02:00

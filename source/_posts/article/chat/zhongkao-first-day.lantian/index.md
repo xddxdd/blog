@@ -1,6 +1,5 @@
 ---
 title: '中考第一天'
-label: zhongkao-first-day
 categories: 闲聊
 tags: [中考,浙江]
 date: 2013-06-15 19:58:18

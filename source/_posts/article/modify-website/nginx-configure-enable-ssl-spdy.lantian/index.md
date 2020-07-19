@@ -1,6 +1,5 @@
 ---
 title: 'nginx 配置并启用SSL和SPDY访问'
-label: nginx-configure-enable-ssl-spdy
 categories: 网站与服务端
 tags: [SPDY,nginx,StartSSL,SSL]
 date: 2014-08-08 14:41:00

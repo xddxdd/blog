@@ -1,6 +1,5 @@
 ---
 title: 'Mac OS X 开启内置FTP服务'
-label: mac-osx-enable-builtin-ftp
 categories: 计算机与客户端
 tags: [Mac,FTP]
 date: 2014-07-05 21:15:17

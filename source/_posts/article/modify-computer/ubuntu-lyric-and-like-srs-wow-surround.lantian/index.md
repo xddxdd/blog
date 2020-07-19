@@ -1,6 +1,5 @@
 ---
 title: 'Ubuntu 安装 LRC 歌词显示插件和开启类 SRS WOW 音效'
-label: ubuntu-lyric-and-like-srs-wow-surround
 categories: 计算机与客户端
 tags: [音乐,折腾,Linux]
 date: 2013-03-09 11:40:45

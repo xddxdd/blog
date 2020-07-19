@@ -1,6 +1,5 @@
 ---
 title: '社会化评论系统的JS签到'
-label: social-comment-javascript-auto-comment
 categories: 网站与服务端
 tags: [签到,JS]
 date: 2013-07-02 11:40:43

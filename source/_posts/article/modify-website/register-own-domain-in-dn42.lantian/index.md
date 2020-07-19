@@ -1,6 +1,5 @@
 ---
 title: '在 DN42 中注册自己的域名'
-label: register-own-domain-in-dn42
 categories: 网站与服务端
 tags: [DN42,DNS]
 date: 2018-04-26 21:54:00

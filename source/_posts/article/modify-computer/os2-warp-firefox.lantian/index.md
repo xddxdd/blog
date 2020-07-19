@@ -1,6 +1,5 @@
 ---
 title: 'OS/2 Warp 4 系统试用及安装 Firefox'
-label: os2-warp-firefox
 categories: 计算机与客户端
 tags: [OS2, Firefox]
 date: 2020-01-07 13:28:40

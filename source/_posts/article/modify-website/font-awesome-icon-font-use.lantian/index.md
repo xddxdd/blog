@@ -1,6 +1,5 @@
 ---
 title: 'Font Awesome 图标字体使用'
-label: font-awesome-icon-font-use
 categories: 网站与服务端
 tags: [fontawesome]
 date: 2014-08-18 18:15:00
