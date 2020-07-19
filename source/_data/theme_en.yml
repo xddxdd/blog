@@ -1,4 +1,6 @@
 nav:
+  - name: Articles
+    url: /en/page/archive/index.html
   - name: DN42
     url: /en/page/dn42/index.html
 others: >

@@ -10,7 +10,7 @@
                     <li>
                         <span><%= date(Date.now(), __('list_year_month')) %> <%- __('list_now') %></span>
                         <ul>
-                            <% site.posts.sort('date', 'desc').each(function(post) { %>
+                            <% posts_filter(site.posts).sort('date', 'desc').each(function(post) { %>
                                 <% if(date(post.date, __('list_year_month')) != prev_date) { %>
                                     <% prev_date = date(post.date, __('list_year_month')) %>
                         </ul>
