@@ -1,6 +1,5 @@
 ---
 title: 'Graduation Design - Sensor Network Development Log'
-label: senior-design-sensor-network-bugs-resolve
 categories: 'Computers and Clients'
 tags: [STM32, Sensors, Development Log]
 date: 2020-06-08 04:06:23

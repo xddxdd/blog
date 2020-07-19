@@ -1,6 +1,5 @@
 ---
 title: '【已辟谣】SAE 域名忘记续费，被GoDaddy抢购'
-label: sae-domain-expire-godaddy
 categories: 闲聊
 tags: [SAE,GoDaddy,域名]
 date: 2014-07-29 17:53:00

@@ -1,6 +1,5 @@
 ---
 title: 'Host1Free 检查所有用户是否使用VPS'
-label: host1free-check-users-vps-actively-used
 categories: 网站与服务端
 tags: [VPS,Host1Free]
 date: 2013-02-06 19:48:05

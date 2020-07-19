@@ -1,6 +1,5 @@
 ---
 title: '在 DN42 中设置 IP 反向解析'
-label: dn42-ip-reverse-record
 categories: 网站与服务端
 tags: [DNS,DN42]
 date: 2018-05-05 21:58:00

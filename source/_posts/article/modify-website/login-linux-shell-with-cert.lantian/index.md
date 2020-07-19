@@ -1,6 +1,5 @@
 ---
 title: '用证书验证Linux远程登录'
-label: login-linux-shell-with-cert
 categories: 网站与服务端
 tags: [折腾,VPS]
 date: 2013-02-22 20:21:04

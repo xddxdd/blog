@@ -1,6 +1,5 @@
 ---
 title: 'Typecho 显示评论者国家和浏览器'
-label: typecho-show-commenter-country-browser
 categories: 网站与服务端
 tags: [IP,Typecho]
 date: 2014-07-30 21:09:00

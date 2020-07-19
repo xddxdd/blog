@@ -1,6 +1,5 @@
 ---
 title: '加入 DN42 实验网络'
-label: join-dn42-experimental-network
 categories: 网站与服务端
 tags: [DN42,ZeroTier One]
 date: 2017-07-17 16:41:00

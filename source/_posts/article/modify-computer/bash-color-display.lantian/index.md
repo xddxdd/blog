@@ -1,6 +1,5 @@
 ---
 title: '启用 Bash 的彩色显示'
-label: bash-color-display
 categories: 计算机与客户端
 tags: [Bash]
 date: 2016-07-18 10:41:00

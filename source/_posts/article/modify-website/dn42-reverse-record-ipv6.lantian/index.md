@@ -1,6 +1,5 @@
 ---
 title: '在 DN42 中设置 IPv6 反向解析'
-label: dn42-reverse-record-ipv6
 categories: 网站与服务端
 tags: [DN42,DNS]
 date: 2018-05-27 20:19:00

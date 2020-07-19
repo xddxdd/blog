@@ -1,6 +1,5 @@
 ---
 title: '使用 GPP 预处理 Dockerfile，实现 #include、#if 等功能'
-label: gpp-preprocess-dockerfile-include-if
 categories: 网站与服务端
 tags: [GPP,Docker]
 date: 2019-08-03 13:23:00

@@ -1,6 +1,5 @@
 ---
 title: '终极对抗开发者工具的一段JS'
-label: js-against-develop-tools
 categories: 网站与服务端
 tags: [网站]
 date: 2013-04-12 19:46:56

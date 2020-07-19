@@ -1,6 +1,5 @@
 ---
 title: 'NAT64 服务器搭建'
-label: nat64-server-build
 categories: 计算机与客户端
 tags: [NAT64]
 date: 2018-03-10 20:21:00

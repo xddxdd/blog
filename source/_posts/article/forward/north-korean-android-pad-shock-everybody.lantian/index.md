@@ -1,6 +1,5 @@
 ---
 title: '朝鲜自主研发安卓平板：我和我的小伙伴又惊呆了'
-label: north-korean-android-pad-shock-everybody
 categories: 转载
 tags: [平板,安卓]
 date: 2013-08-30 13:09:00

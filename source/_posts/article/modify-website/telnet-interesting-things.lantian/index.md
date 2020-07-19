@@ -1,6 +1,5 @@
 ---
 title: '在 Telnet 中显示有趣的东西'
-label: telnet-interesting-things
 categories: 网站与服务端
 tags: [Telnet]
 date: 2016-07-27 16:42:00

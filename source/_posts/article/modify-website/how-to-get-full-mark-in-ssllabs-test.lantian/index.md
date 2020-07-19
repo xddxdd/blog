@@ -1,6 +1,5 @@
 ---
 title: '如何在 SSLLabs 测试中冲满分'
-label: how-to-get-full-mark-in-ssllabs-test
 categories: 网站与服务端
 tags: [SSL]
 date: 2018-01-02 22:44:00

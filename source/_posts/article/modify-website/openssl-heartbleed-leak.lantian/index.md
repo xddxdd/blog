@@ -1,6 +1,5 @@
 ---
 title: 'OpenSSL “心血”漏洞 造成巨大影响'
-label: openssl-heartbleed-leak
 categories: 网站与服务端
 tags: [OpenSSL]
 date: 2014-04-11 22:16:00

@@ -1,6 +1,5 @@
 ---
 title: 'Windows 8.1 下 gogoCLIENT 的安装使用与Bug修复'
-label: windows-8-1-gogoclient-install-repair-bug
 categories: 计算机与客户端
 tags: [IPv6,gogoCLIENT]
 date: 2013-10-02 20:28:15

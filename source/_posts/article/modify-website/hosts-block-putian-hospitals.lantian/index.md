@@ -1,6 +1,5 @@
 ---
 title: '一个屏蔽莆田系医院的 Hosts'
-label: hosts-block-putian-hospitals
 categories: 网站与服务端
 tags: [Hosts,莆田系]
 date: 2016-06-18 12:39:00

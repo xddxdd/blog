@@ -1,6 +1,5 @@
 ---
 title: '一次 Linux 内存泄漏的排查'
-label: linux-memory-leak-check
 categories: 计算机与客户端
 tags: [Linux]
 date: 2016-12-04 23:42:00

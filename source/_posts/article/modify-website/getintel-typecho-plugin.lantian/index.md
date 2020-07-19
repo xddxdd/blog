@@ -1,6 +1,5 @@
 ---
 title: 'GetIPIntel 的 Typecho 插件'
-label: getintel-typecho-plugin
 categories: 网站与服务端
 tags: [反欺诈,GetIPIntel]
 date: 2016-10-01 22:20:00

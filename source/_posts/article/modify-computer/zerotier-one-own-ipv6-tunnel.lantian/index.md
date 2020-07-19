@@ -1,6 +1,5 @@
 ---
 title: '使用 ZeroTier One 建立自己的 IPv6 隧道'
-label: zerotier-one-own-ipv6-tunnel
 categories: 计算机与客户端
 tags: [IPv6,ZeroTier One]
 date: 2017-07-06 16:10:15

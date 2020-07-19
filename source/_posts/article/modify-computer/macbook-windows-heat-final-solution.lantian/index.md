@@ -1,6 +1,5 @@
 ---
 title: 'Macbook 在 Windows 下发热的最终解决方案'
-label: macbook-windows-heat-final-solution
 categories: 计算机与客户端
 tags: [散热,Mac]
 date: 2014-05-03 15:50:08

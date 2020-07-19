@@ -1,6 +1,5 @@
 ---
 title: '中考第二天'
-label: zhongkao-second-day
 categories: 闲聊
 tags: [浙江,中考]
 date: 2013-06-16 16:12:55

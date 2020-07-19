@@ -1,6 +1,5 @@
 ---
 title: '笔记本 Optimus MUXless 下的 Intel 和 NVIDIA 虚拟机显卡直通'
-label: laptop-intel-nvidia-optimus-passthrough
 categories: 计算机与客户端
 tags: [显卡, 虚拟机, Intel, NVIDIA, MUXless]
 date: 2020-06-25 23:59:41

@@ -1,6 +1,5 @@
 ---
 title: 'Docker 容器共享网络命名空间，集成 Bird 实现 Anycast 高可用'
-label: docker-share-network-namespace-bird-anycast-high-availability
 categories: 网站与服务端
 tags: [Docker, Bird]
 date: 2020-03-13 20:23:20

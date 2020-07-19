@@ -1,6 +1,5 @@
 ---
 title: '[转]怀念文澜（机读卡篇）'
-label: memory-of-wenlan-answering-card
 categories: 转载
 tags: [学校,文澜,怀念]
 date: 2013-05-24 21:19:00

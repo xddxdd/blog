@@ -1,6 +1,5 @@
 ---
 title: '沃通你咋不上天呢！'
-label: wosign-leak-sign-github
 categories: 闲聊
 tags: [WoSign,GitHub]
 date: 2016-08-28 17:38:00

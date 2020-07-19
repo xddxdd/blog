@@ -1,6 +1,5 @@
 ---
 title: 'Cyclone IV FPGA 开发踩坑记录'
-label: cyclone-iv-fpga-development-bugs-resolve
 categories: 计算机与客户端
 tags: [FPGA, 踩坑]
 date: 2019-07-08 13:10:00

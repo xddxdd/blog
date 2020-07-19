@@ -1,6 +1,5 @@
 ---
 title: '自建基于 GPS 的 NTP 服务端'
-label: diy-gps-based-ntp-server
 categories: 网站与服务端
 tags: [NTP,GPS]
 date: 2019-09-16 21:01:00

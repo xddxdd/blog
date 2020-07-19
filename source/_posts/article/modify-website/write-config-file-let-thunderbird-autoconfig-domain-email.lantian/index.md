@@ -1,6 +1,5 @@
 ---
 title: '编写配置文件，让 Thunderbird 自动配置域名邮箱'
-label: write-config-file-let-thunderbird-autoconfig-domain-email
 categories: 网站与服务端
 tags: [邮件,Thunderbird,域名邮箱]
 date: 2018-06-01 14:45:00

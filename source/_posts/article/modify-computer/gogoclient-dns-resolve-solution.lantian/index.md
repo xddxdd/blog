@@ -1,6 +1,5 @@
 ---
 title: 'gogoCLIENT DNS解析问题解决'
-label: gogoclient-dns-resolve-solution
 categories: 计算机与客户端
 tags: [gogoCLIENT,IPv6,Windows]
 date: 2014-06-01 23:17:00

@@ -1,6 +1,5 @@
 ---
 title: 'NOIP复赛有感'
-label: noip-contest-thought
 categories: 计算机与客户端
 tags: [OI]
 date: 2012-11-10 22:21:10

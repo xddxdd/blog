@@ -1,6 +1,5 @@
 ---
 title: 'x32 ABI 及相应 Docker 容器使用'
-label: x32-abi-docker-containers
 categories: 网站与服务端
 tags: [x32, Docker]
 date: 2020-05-15 00:20:26

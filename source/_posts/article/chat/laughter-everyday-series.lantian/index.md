@@ -1,6 +1,5 @@
 ---
 title: '每日笑点系列'
-label: laughter-everyday-series
 categories: 闲聊
 tags: [恶搞]
 date: 2013-06-22 10:20:00

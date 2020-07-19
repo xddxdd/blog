@@ -1,6 +1,5 @@
 ---
 title: 系统禁用摄像头防止网课翻车
-label: system-disable-camera-prevent-online-course-leak
 categories: 随手记
 tags: [Linux, 摄像头]
 date: 2020-03-11 15:50:47

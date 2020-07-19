@@ -1,6 +1,5 @@
 ---
 title: '解决树莓派 HW CSum Failure 问题'
-label: solve-raspberry-pi-hw-csum-failure
 categories: 计算机与客户端
 tags: [Raspberry Pi]
 date: 2018-01-25 23:18:00

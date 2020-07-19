@@ -1,6 +1,5 @@
 ---
 title: '树莓派 3B 折腾笔记'
-label: raspberry-pi-3b-notes
 categories: 计算机与客户端
 tags: [Raspberry Pi]
 date: 2017-10-13 19:39:00

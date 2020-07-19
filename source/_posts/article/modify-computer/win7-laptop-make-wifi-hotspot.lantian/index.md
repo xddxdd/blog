@@ -1,6 +1,5 @@
 ---
 title: 'Win7 笔记本电脑发射无线网络'
-label: win7-laptop-make-wifi-hotspot
 categories: 计算机与客户端
 tags: [Windows,无线网络]
 date: 2013-07-30 10:31:44

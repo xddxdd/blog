@@ -1,6 +1,5 @@
 ---
 title: 'Bilibili 弹幕过滤工具'
-label: bilibili-danmaku-filter
 categories: 计算机与客户端
 tags: [Bilibili,弹幕,过滤]
 date: 2016-11-20 17:05:00

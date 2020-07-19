@@ -1,6 +1,5 @@
 ---
 title: 'ImageOptim 为网页使用而压缩图片'
-label: imageoptim-compress-image-for-web
 categories: 网站与服务端
 tags: [压缩]
 date: 2013-07-20 16:34:18

@@ -1,6 +1,5 @@
 ---
 title: '愿者上钩（指美国签证）'
-label: if-you-wanna-take-the-bite
 categories: 一图流
 tags: [美国签证]
 date: 2020-06-17 17:33:06

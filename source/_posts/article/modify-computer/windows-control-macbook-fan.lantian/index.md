@@ -1,6 +1,5 @@
 ---
 title: 'Windows 下控制 MacBook 风扇转速'
-label: windows-control-macbook-fan
 categories: 计算机与客户端
 tags: [风扇,Mac,Windows]
 date: 2013-10-01 15:00:54

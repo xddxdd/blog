@@ -1,6 +1,5 @@
 ---
 title: '抢到了 50KVM 家一台 0.1 折的 VPS'
-label: got-50kvm-99off-vps
 categories: 网站与服务端
 tags: [VPS,50KVM,愚人节]
 date: 2018-04-03 22:01:00

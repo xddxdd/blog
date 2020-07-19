@@ -1,6 +1,5 @@
 ---
 title: 'Cyclone IV FPGA Development Log'
-label: cyclone-iv-fpga-development-bugs-resolve
 categories: 'Computers and Clients'
 tags: [FPGA, Development Log]
 date: 2019-07-08 13:10:00

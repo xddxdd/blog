@@ -1,6 +1,5 @@
 ---
 title: '为什么香港CDN会比美国CDN慢'
-label: why-hongkong-cdn-slower-than-america-cdn
 categories: 网站与服务端
 tags: [CDN,折腾,网站]
 date: 2013-02-16 22:21:09

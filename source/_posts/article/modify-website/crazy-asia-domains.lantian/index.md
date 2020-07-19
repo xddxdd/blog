@@ -1,6 +1,5 @@
 ---
 title: '免费ASIA域名：CrazyDomains.Com.Au'
-label: crazy-asia-domains
 categories: 网站与服务端
 tags: [网站]
 date: 2012-11-02 20:02:11

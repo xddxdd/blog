@@ -1,6 +1,5 @@
 ---
 title: 'Macbook 合盖不断网的方法'
-label: macbook-close-lid-no-disconnect-network
 categories: 计算机与客户端
 tags: [笔记本,苹果,Mac]
 date: 2013-07-20 13:15:45

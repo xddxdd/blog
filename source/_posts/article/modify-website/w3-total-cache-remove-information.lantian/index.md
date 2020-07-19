@@ -1,6 +1,5 @@
 ---
 title: 'W3 Total Cache 末尾注释去除'
-label: w3-total-cache-remove-information
 categories: 网站与服务端
 tags: [网站,折腾,WordPress,W3 Total Cache]
 date: 2013-02-13 21:07:00

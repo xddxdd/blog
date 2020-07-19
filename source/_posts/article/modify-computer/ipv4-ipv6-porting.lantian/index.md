@@ -1,6 +1,5 @@
 ---
 title: 'IPv4 与 IPv6 的互通'
-label: ipv4-ipv6-porting
 categories: 计算机与客户端
 tags: [互通,IPv6,IPv4,折腾]
 date: 2013-04-20 18:25:37

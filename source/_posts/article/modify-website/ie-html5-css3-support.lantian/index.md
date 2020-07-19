@@ -1,6 +1,5 @@
 ---
 title: '给IE添加HTML5和CSS3支持'
-label: ie-html5-css3-support
 categories: 网站与服务端
 tags: [IE8,CSS,HTML]
 date: 2013-10-03 17:08:23

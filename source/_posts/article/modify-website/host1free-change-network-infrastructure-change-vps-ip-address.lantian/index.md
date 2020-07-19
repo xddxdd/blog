@@ -1,6 +1,5 @@
 ---
 title: 'Host1Free 近期改造网络架构，更换VPS IP'
-label: host1free-change-network-infrastructure-change-vps-ip-address
 categories: 网站与服务端
 tags: [VPS,Host1Free,IP]
 date: 2013-06-08 21:59:07

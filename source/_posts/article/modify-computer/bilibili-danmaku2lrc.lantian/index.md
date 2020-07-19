@@ -1,6 +1,5 @@
 ---
 title: 'Bilibili 底端弹幕转 LRC 工具'
-label: bilibili-danmaku2lrc
 categories: 计算机与客户端
 tags: [歌词,弹幕,Bilibili]
 date: 2016-10-22 18:56:00

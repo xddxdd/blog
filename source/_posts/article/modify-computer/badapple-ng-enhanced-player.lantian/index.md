@@ -1,6 +1,5 @@
 ---
 title: 'Bad Apple NG：增强版 Bad Apple 播放系统'
-label: badapple-ng-enhanced-player
 categories: 计算机与客户端
 tags: [Pascal,Bad Apple]
 date: 2013-03-16 10:56:23

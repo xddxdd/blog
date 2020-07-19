@@ -1,6 +1,5 @@
 ---
 title: '解决 OpenSSH 登录缓慢的方法'
-label: fix-openssh-login-slow
 categories: 计算机与客户端
 tags: [ssh]
 date: 2014-12-26 19:53:57

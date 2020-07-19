@@ -1,6 +1,5 @@
 ---
 title: '神算法对班里进行八卦'
-label: calculate-couple-in-class
 categories: 转载
 tags: [算法]
 date: 2014-03-22 17:43:00

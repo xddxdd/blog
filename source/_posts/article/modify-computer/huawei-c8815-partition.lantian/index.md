@@ -1,6 +1,5 @@
 ---
 title: '华为C8815 内置存储分区'
-label: huawei-c8815-partition
 categories: 计算机与客户端
 tags: [分区,华为c8815]
 date: 2014-07-25 16:00:30

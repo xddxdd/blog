@@ -1,6 +1,5 @@
 ---
 title: '树莓派 3B 折腾笔记：串口拨号上网'
-label: raspberry-pi-3b-ppp-dial-ethernet
 categories: 计算机与客户端
 tags: [Raspberry Pi,串口]
 date: 2019-01-18 22:12:56

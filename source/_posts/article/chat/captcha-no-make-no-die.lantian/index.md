@@ -1,6 +1,5 @@
 ---
 title: '验证码：不做死就不会死'
-label: captcha-no-make-no-die
 categories: 闲聊
 tags: [验证码]
 date: 2014-06-27 22:22:05

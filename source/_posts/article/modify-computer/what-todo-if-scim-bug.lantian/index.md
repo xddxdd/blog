@@ -1,6 +1,5 @@
 ---
 title: 'SCIM抽风的解决办法'
-label: what-todo-if-scim-bug
 categories: 计算机与客户端
 tags: [Linux,折腾]
 date: 2012-12-31 22:27:39

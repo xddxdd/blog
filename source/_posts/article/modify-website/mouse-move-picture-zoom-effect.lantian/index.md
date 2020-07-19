@@ -1,6 +1,5 @@
 ---
 title: '鼠标移过图片放大显示效果'
-label: mouse-move-picture-zoom-effect
 categories: 网站与服务端
 tags: [特效,HTML,CSS,jQuery,JS]
 date: 2013-06-18 20:36:47

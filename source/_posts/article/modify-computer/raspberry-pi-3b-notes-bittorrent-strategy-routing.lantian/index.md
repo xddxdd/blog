@@ -1,6 +1,5 @@
 ---
 title: '树莓派 3B 折腾笔记：BT 下载与策略路由'
-label: raspberry-pi-3b-notes-bittorrent-strategy-routing
 categories: 计算机与客户端
 tags: [Linux,Raspberry Pi,策略路由]
 date: 2017-10-21 19:17:00

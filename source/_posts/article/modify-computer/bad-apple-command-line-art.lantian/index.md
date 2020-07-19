@@ -1,6 +1,5 @@
 ---
 title: 'Bad Apple 命令行动画版'
-label: bad-apple-command-line-art
 categories: 计算机与客户端
 tags: [Bad Apple,Pascal,Linux]
 date: 2013-03-02 11:16:00

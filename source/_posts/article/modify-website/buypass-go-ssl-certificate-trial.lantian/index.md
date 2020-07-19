@@ -1,6 +1,5 @@
 ---
 title: 'BuyPass GO SSL 证书试用'
-label: buypass-go-ssl-certificate-trial
 categories: 网站与服务端
 tags: [BuyPass GO,SSL]
 date: 2019-01-04 11:17:00

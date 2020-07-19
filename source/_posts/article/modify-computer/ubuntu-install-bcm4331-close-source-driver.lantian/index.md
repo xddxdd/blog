@@ -1,6 +1,5 @@
 ---
 title: 'Ubuntu 安装 BCM4331 网卡闭源驱动'
-label: ubuntu-install-bcm4331-close-source-driver
 categories: 计算机与客户端
 tags: [Linux]
 date: 2014-10-12 16:11:47

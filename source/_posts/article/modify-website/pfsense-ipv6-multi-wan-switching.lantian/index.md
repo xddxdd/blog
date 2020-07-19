@@ -1,6 +1,5 @@
 ---
 title: 'pfSense 配置 IPv6 多 WAN 自动切换'
-label: pfsense-ipv6-multi-wan-switching
 categories: 网站与服务端
 tags: [pfSense,Tunnelbroker,IPv6]
 date: 2018-11-17 03:29:00

@@ -1,6 +1,5 @@
 ---
 title: （怀旧）ATduck 虚拟 Modem 拨号上网
-label: atduck-emulate-modem-dialup-retro
 categories: 计算机与客户端
 tags: [拨号上网, PPP]
 date: 2019-12-12 21:10:04

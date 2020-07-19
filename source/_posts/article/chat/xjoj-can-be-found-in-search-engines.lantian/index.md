@@ -1,6 +1,5 @@
 ---
 title: 'XJOI被多款搜索引擎收录'
-label: xjoj-can-be-found-in-search-engines
 categories: 闲聊
 tags: [网站,OI]
 date: 2012-12-01 16:29:49

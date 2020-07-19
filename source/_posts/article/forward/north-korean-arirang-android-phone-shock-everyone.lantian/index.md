@@ -1,6 +1,5 @@
 ---
 title: '朝鲜自主研发安卓手机：我和我的小伙伴都惊呆了'
-label: north-korean-arirang-android-phone-shock-everyone
 categories: 转载
 tags: [安卓]
 date: 2013-08-23 18:00:00

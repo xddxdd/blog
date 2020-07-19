@@ -1,6 +1,5 @@
 ---
 title: '【有生之年】Typecho 0.9 Alpha 终于发布了'
-label: typecho-09-alpha
 categories: 网站与服务端
 tags: [Typecho]
 date: 2013-10-26 09:51:26

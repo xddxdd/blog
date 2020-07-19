@@ -1,6 +1,5 @@
 ---
 title: 'nginx：TLS 1.3 多版本草案和 HPACK'
-label: nginx-tls-1-3-multiple-draft-and-hpack
 categories: 网站与服务端
 tags: [OpenSSL,SSL,Docker,TLS 1.3]
 date: 2018-07-07 00:28:00

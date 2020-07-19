@@ -1,6 +1,5 @@
 ---
 title: 'Intel and NVIDIA GPU Passthrough on a Optimus MUXless Laptop'
-label: laptop-intel-nvidia-optimus-passthrough
 categories: 'Computers and Clients'
 tags: [GPU, Virtual Machine, Intel, NVIDIA, MUXless]
 date: 2020-06-25 23:59:41

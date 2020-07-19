@@ -1,6 +1,5 @@
 ---
 title: '一句话引发的全面爆吧'
-label: a-girls-word-lead-to-large-boom-bar-attack
 categories: 转载
 tags: [爆吧]
 date: 2013-07-30 18:56:00

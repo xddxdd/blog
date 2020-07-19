@@ -1,6 +1,5 @@
 ---
 title: 去除 OpenVPN 的 Stable-privacy IPv6 地址
-label: openvpn-remove-stable-privacy-ipv6
 categories: 随手记
 tags: [OpenVPN, DN42]
 date: 2020-03-21 12:28:40
