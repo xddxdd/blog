@@ -20,5 +20,5 @@ language: 'Language'
 list_year_month: "YYYY-MM"
 list_day: "MM-DD"
 list_now: "(now)"
-list_title_prefix: ""
-list_title_suffix: ""
+list_title_prefix: " "
+list_title_suffix: " "
