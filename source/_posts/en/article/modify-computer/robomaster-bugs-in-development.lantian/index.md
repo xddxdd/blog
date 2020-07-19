@@ -6,10 +6,6 @@ tags: [ChibiOS, STM32, RoboMaster, Development Log]
 date: 2018-03-31 09:44:00
 ---
 
-> This article was originally written in Chinese, and was translated to English on 2020-07-07.
->
-> The current translation corresponds to the version originally written on 2018-05-28.
-
 Our school organized a RoboMaster team and plans to attend the competition this year. Since we are all new students at a new campus, we do not have any reference materials available from previous students, and we have to figure out bugs after bugs on our own.
 
 This article describes some of the problems we met during software development.

@@ -6,10 +6,6 @@ tags: [FPGA, Development Log]
 date: 2019-07-08 13:10:00
 ---
 
-> This article was originally written in Chinese, and was translated to English on 2020-07-07.
->
-> The current translation corresponds to the version originally written on 2019-07-08.
-
 Last semester, the school offered a digital systems course, which involves development on FPGAs. At the end of the course, we need to gather in groups and achieve some complicated functionality with the flexible architecture of FPGA, such as creating a game or running a convoluted neural network. We are free to add extra functionalities as we wish.
 
 Our group has done a game similar to Raiden, or controlling a fighter jet and attacking enemies with bullets. In addition to course requirements, we implemented these extra functionalities:

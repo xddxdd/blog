@@ -213,7 +213,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
 宿主系统上的 NVIDIA 的驱动会占用独显，阻止虚拟机调用它，因此需要先用 PCIe 直通用的 `vfio-pci` 驱动替换掉它。
 
-即使你不需要直通独显，你仍然需要一种方法把宿主系统的图形显示调整到核显上，否则后续直通核显时也会出错。你可以用这里的方法禁用 NVIDIA 驱动，或者使用 `optimus-manager` 等软件进行管理。
+即使你不需要直通独显，你仍然需要一种方法把宿主系统的图形显示调整到核显上，否则后续直通核显时 Virt-Manager 会崩溃。你可以用这里的方法禁用 NVIDIA 驱动，或者使用 `optimus-manager` 等软件进行管理。
 
 禁用 NVIDIA 驱动，把独显交给处理虚拟机 PCIe 直通的内核模块管理的步骤如下：
 
@@ -252,7 +252,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
 与 NVIDIA 不同，Intel 的 5 代及之后的 CPU 自带的核显都直接支持了这个功能，不需要额外花钱去购买昂贵的计算卡了。虽然核显本身性能非常弱鸡，但是相比 QXL 等方案，它至少能让虚拟机内可以流畅的完成浏览网页等工作。
 
-同时 Intel 核显直通配置相对简单，可以作为练习，也可以让虚拟机有一个（相对 QXL 来说）高性能的图形显示方案。
+同时 Intel 核显直通配置相对简单，可以作为练习。
 
 1. 启用 GVT-g 所需的内核配置，加载对应的内核模块
    - 编辑你的内核参数（如果你使用 Systemd-boot，在类似 `/boot/loader/entries/arch.conf` 的位置），添加如下内容：
@@ -271,7 +271,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
      这三行对应了需要加载的内核模块。
    - 重启。
-2. 在系统启动时创建虚拟显卡
+2. 创建虚拟显卡
    - 运行 `lspci | grep "HD Graphics"` 查找核显的 PCIe 总线位置编号，例如我的电脑上输出如下：
 
      ```bash
@@ -307,7 +307,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
      - 如果安装失败，代表你操作出了问题，或者虚拟机软件有 Bug。
    - 驱动安装成功后，虚拟机已经看到了 Intel 显卡，但是因为当前的显示器显示的是 QXL 显卡的图像，Intel 显卡不是主显卡，因此 Windows 还没有把任何程序放到上面运行。
      - 下一步就要禁用 QXL 显卡了。
-4. 关闭虚拟机，再次修改虚拟机配置，按照如下步骤操作：
+4. 关闭虚拟机，再次修改虚拟机配置：
    - 在上面添加的这个 `<hostdev>` 中，把 `display='off'` 改成 `display='on'`
    - 删除 `<graphics>...</graphics>` 和 `<video>...</video>` 的所有内容，用如下内容替换：
 
@@ -516,12 +516,12 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
 - 由于 Windows 认为主显示器连接在 GVT-g 虚拟核显上，系统会把所有 3D 应用交给性能孱弱的核显来渲染。
   - 如果你没直通 GVT-g 虚拟核显，那就是主显示器连接在 QXL 上。
-  - 例外：部分虚幻引擎游戏会自动检测并主动调用独显。
-- 由于 NVIDIA Optimus 独显没有直连显示器，因此无法以任意方式指定独显为主显示卡。
+  - 例外：根据反馈部分虚幻引擎游戏会自动检测并主动调用独显。
+- 由于 MUXless Optimus 独显没有直连显示器，因此无法以任意方式指定独显为主显示卡。
 - Intel GVT-g 虚拟核显与 NVIDIA 独显无法正常组成 Optimus，因此 NVIDIA 驱动也不会主动把游戏调到独显上渲染。
 - 如果你只留 NVIDIA 一块显卡，虽然 Windows 会把渲染放在独显上（没得选了），但分辨率会被限制到 640x480，同时你就必须依赖远程桌面玩游戏了。
 
-因此目前 Optimus 显卡直通的炫技成分更大于实用。如果你是驱动开发大佬，可以从以下两个方向进行研究：
+因此目前 Optimus 显卡直通的炫技成分更大于实用。如果你是驱动开发大佬，可以从以下几个方向进行研究：
 
 1. 让 Intel GVT-g 虚拟核显和 NVIDIA 独显正常组成 Optimus
 2. 让 QXL 和 NVIDIA 独显组成 Optimus
