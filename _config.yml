@@ -101,6 +101,16 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  闲聊: chat
+  自制软硬工具: creations
+  转载: forward
+  娱乐: fun
+  计算机与客户端: modify-computer
+  网站与服务端: modify-website
+  一图流: one-pic
+  随手记: random-notes
+  Computers and Clients: modify-computer
+  Website and Servers: modify-website
 tag_map:
 
 # Date / Time format
