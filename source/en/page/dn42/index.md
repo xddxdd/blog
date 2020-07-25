@@ -63,7 +63,7 @@ My Network
 ----------
 
 - ASN: 4242422547
-- IPv4 Pool: 172.22.76.184/29 and 172.22.76.96/28
+- IPv4 Pool: 172.22.76.184/29 and 172.22.76.96/27
 - IPv6 Pool: fdbc:f9dc:67ad::/48
 - My Side's Default Port: last 5 digits of your ASN
 - Looking glass: [https://lg.lantian.pub](https://lg.lantian.pub/)
