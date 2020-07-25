@@ -79,6 +79,6 @@ writeHimawariTable(2);
 
 大家在使用该项目图片时也要注意，这个照片发布项目是非盈利的，因此也不提供任何保障，哪天 API 更换，或者是使用这些卫星照片的人太多导致网站流量超标，造成网站无法访问，都是有可能的。另外几个基于该卫星照片的软件项目 [EarthLiveSharp](https://github.com/bitdust/EarthLiveSharp)、[馒头地球](http://www.coolapk.com/apk/ooo.oxo.apps.earth)都是作者自己架设了 CDN 以缓解对源站的压力。
 
-因此，我自己建了CDN，缓存图像并把它们转换成 WebP 格式。要让 WebP 在 IE 和 Firefox 上得到支持，可以看[让 IE 与 Firefox 支持 WebP 图像格式](//lantian.pub/article/modify-website/ie-firefox-webp-support.lantian)这篇文章。
+因此，我自己建了CDN，缓存图像并把它们转换成 WebP 格式。要让 WebP 在 IE 和 Firefox 上得到支持，可以看[让 IE 与 Firefox 支持 WebP 图像格式](/article/modify-website/ie-firefox-webp-support.lantian)这篇文章。
 
-网站的数据源网址 himawari8-dl.nict.go.jp 是可以直接 CNAME 到你自己的域名上，并加上 CDN 的。因此，也希望大家在使用时注意请求频率，也尽量架设自己的 CDN。
+网站的数据源网址 `himawari8-dl.nict.go.jp` 是可以直接 CNAME 到你自己的域名上，并加上 CDN 的。因此，也希望大家在使用时注意请求频率，也尽量架设自己的 CDN。

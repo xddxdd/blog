@@ -6,9 +6,9 @@ date: 1970-01-01 00:00:00
 
 本页面使用 JavaScript 动态更新日本向日葵8号地球同步卫星拍摄的图片，数据来自[http://himawari8.nict.go.jp/](http://himawari8.nict.go.jp/)，10分钟一更新，有一小时延迟。
 
-详细信息及实现方法请至[https://lantian.pub/article/modify-website/php-javascript-satellite-earth-picture.lantian](/article/modify-website/php-javascript-satellite-earth-picture.lantian)查看。
+详细信息及实现方法请至[/article/modify-website/php-javascript-satellite-earth-picture.lantian](/article/modify-website/php-javascript-satellite-earth-picture.lantian)查看。
 
-图片由我的服务器处理并转换成 WebP 格式，以提升加载速度。[对于某些不支持 WebP 的浏览器（例如旧版 Firefox 和 IE），使用 Javascript 实现本地转换](//lantian.pub/article/modify-website/ie-firefox-webp-support.lantian)，页面加载卡顿属于正常现象。
+图片由我的服务器处理并转换成 WebP 格式，以提升加载速度。[对于某些不支持 WebP 的浏览器（例如旧版 Firefox 和 IE），使用 Javascript 实现本地转换](/article/modify-website/ie-firefox-webp-support.lantian)，页面加载卡顿属于正常现象。
 
 <p id="himawari-time">加载速度稍慢，请稍候……</p>
 
