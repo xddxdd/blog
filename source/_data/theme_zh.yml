@@ -1,8 +1,6 @@
 nav:
   - name: 文章们
     url: /page/archive/index.html
-  - name: 项目们
-    url: /page/projects/index.html
   - name: 俯瞰地球
     url: /page/himawari/index.html
   - name: DN42
