@@ -45,16 +45,41 @@ post_asset_folder: false
 relative_link: true
 future: true
 
-markdown_it_plus:
-  highlight: true
-  html: true
-  xhtmlOut: true
-  breaks: true
-  langPrefix:
-  linkify: true
-  typographer:
-  quotes: “”‘’
-  pre_class: highlight
+markdown:
+  render:
+    html: true
+    xhtmlOut: true
+    breaks: true
+    linkify: true
+    typographer: false
+  plugins:
+    - markdown-it-abbr
+    - markdown-it-footnote
+    - markdown-it-ins
+    - markdown-it-sub
+    - markdown-it-sup
+  anchors:
+    level: 1
+    collisionSuffix: 'no'
+    permalink: true
+    permalinkClass: 'header-anchor'
+    permalinkSide: 'right'
+    permalinkSymbol: '¶'
+    case: 0
+    separator: '-'
+
+highlight:
+  enable: true
+  auto_detect: true
+  line_number: false
+  tab_replace: '    '
+  wrap: true
+  hljs: false
+prismjs:
+  enable: false
+  preprocess: true
+  line_number: true
+  tab_replace: ''
 
 feed:
   type: 
