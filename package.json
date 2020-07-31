@@ -64,6 +64,6 @@
     "simple-lightbox": "^2.1.0",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^3.0.8",
-    "webpack": "^4.44.0"
+    "webpack": "^4.44.1"
   }
 }
