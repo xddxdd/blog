@@ -7,4 +7,6 @@ special: ping-an-jing
 >
 > 请查阅[维基百科](https://zh.wikipedia.org/wiki/%E5%B9%B3%E5%AE%89%E7%BB%8F)或者[百度百科](https://baike.baidu.com/item/%E5%B9%B3%E5%AE%89%E7%BB%8F/52832038)获得更详细的介绍。
 >
+> 制作过程记录在[这篇文章](/article/modify-website/an-elegant-scripture-of-safety-generator.lantian)。
+>
 > 本页面价值人民币 299 元。
