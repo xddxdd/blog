@@ -8,6 +8,6 @@ special: ping-an-jing-en
 >
 > [Wikipedia (Chinese only atm)](https://zh.wikipedia.org/wiki/%E5%B9%B3%E5%AE%89%E7%BB%8F) provides a more detailed explanation.
 >
-> The process of creating this page is documented [here](/article/modify-website/an-elegant-scripture-of-safety-generator.lantian).
+> The process of creating this page is documented [here](/en/article/modify-website/an-elegant-scripture-of-safety-generator.lantian).
 >
 > This page is worth RMB 299 (around USD $45).
