@@ -39,6 +39,7 @@
                     <% } %>
                 <% } else { %>
                     <%- post.content %>
+                    <%- (post.special ? partial('../_special/' + post.special, {post: post, index: index}) : '') %>
                 <% } %>
             </div>
             <div class="read">
