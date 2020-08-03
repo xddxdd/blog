@@ -43,7 +43,7 @@
     "hexo-generator-feed": "^2.2.0",
     "hexo-generator-index": "^1.0.0",
     "hexo-generator-json-feed-org": "git+https://github.com/lantian1998/hexo-generator-json-feed-org.git",
-    "hexo-generator-sitemap": "^2.0.0",
+    "hexo-generator-sitemap": "^2.1.0",
     "hexo-generator-tag": "^1.0.0",
     "hexo-helper-qrcode": "^1.0.2",
     "hexo-html-minifier": "^1.0.0",
