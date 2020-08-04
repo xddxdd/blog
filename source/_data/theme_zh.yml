@@ -11,17 +11,8 @@ links:
   - name: 十年之约
     url: http://foreverblog.cn
 others: >
-  <div class="row">
-      <div class="col-6">
-          <p><i class="fas fa-fw fa-2x fa-globe"></i></p>
-          <p>网络信息</p>
-          <p><a href="https://status.lantian.pub" target="_blank">服务器状态</a></p>
-          <p><a href="https://ping.lantian.pub" target="_blank">延迟监测</a></p>
-      </div>
-      <div class="col-6">
-          <p><i class="fas fa-fw fa-2x fa-sitemap"></i></p>
-          <p>DN42</p>
-          <p><a href="https://lg.lantian.pub" target="_blank">节点状态</a></p>
-          <p><a href="https://lg-alt.lantian.pub" target="_blank">节点状态 备用</a></p>
-      </div>
-  </div>
+  <ul class="list-unstyled">
+    <li><i class="fas fa-fw fa-rss"></i> <a href="/rss2.xml" target="_blank">RSS 订阅</a> | <a href="/feed.xml" target="_blank">Atom</a> | <a href="/feed.json" target="_blank">JSON</a></li>
+    <li><i class="fas fa-fw fa-globe"></i> <a href="https://status.lantian.pub" target="_blank">服务器状态</a></li>
+    <li><i class="fas fa-fw fa-sitemap"></i> <a href="https://lg.lantian.pub" target="_blank">DN42 节点状态</a></li>
+  </ul>

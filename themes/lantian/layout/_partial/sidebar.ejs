@@ -27,7 +27,7 @@
         <h3><%- __('links') %></h3>
         <ul class="list-unstyled">
             <% theme_config(page_language()).links.forEach(function(link) { %>
-                <li><i class="fas fa-fw fa-link"></i><a target="_blank" href="<%= link.url %>"><%= link.name %></a></li>
+                <li><i class="fas fa-fw fa-link"></i> <a target="_blank" href="<%= link.url %>"><%= link.name %></a></li>
             <% }) %>
         </ul>
     </section>
