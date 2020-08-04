@@ -69,32 +69,33 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
   - 不止是指性能，在整体架构上也有区别。
   - 在台式机上，显卡的连接方式是这样的：
 
-    ```bash
-                                 +------+
-                             +-> | HDMI |
-                             |   +------+
-                             |
-    +-----+      +--------+  |   +-------+
-    | CPU | ---> | NVIDIA | -+-> | 显示器 |
-    +-----+      +--------+      +-------+
+    ```graphviz
+    digraph {
+      rankdir=LR
+      node[shape=box]
+
+      CPU -> NVIDIA
+      NVIDIA -> HDMI
+      NVIDIA -> 显示器
+    }
     ```
 
     也就是显卡只连接 CPU 和显示器，不关心其它的东西。
+
   - 但在笔记本上又有不同，而且不同的笔记本电脑也是有区别的。
     - 如果你买的是几千元的中低端游戏本，连接方式可能是这样的：
 
-      ```bash
-                                      +------+
-                                  +-> | HDMI |
-                                  |   +------+
-                                  |
-      +-----+      +-----------+  |   +-------+
-      | CPU | ---> | Intel 核显 | -+-> | 显示器 |
-      +-----+      +-----------+      +-------+
-         |               |
-         |          +--------+
-         +--------> | NVIDIA |
-                    +--------+
+      ```graphviz
+      digraph {
+        rankdir=LR
+        node[shape=box]
+
+        CPU -> NVIDIA
+        CPU -> "Intel 核显"
+        {rank=same; NVIDIA -> "Intel 核显"; }
+        "Intel 核显" -> HDMI
+        "Intel 核显" -> 显示器
+      }
       ```
 
       区别在于，独显不直连显示器，而是将渲染好的画面传输给核显，让核显发给显示器。
@@ -114,14 +115,19 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
           - 也就是，除非游戏主动检测并调用独显，否则游戏会在核显上运行。
     - 如果你买的是一万元左右的中高端游戏本，连接方式可能是这样的：
 
-      ```bash
-      +-----+      +-----------+           +------+
-      | CPU | ---> | Intel 核显 | --+   +-> | HDMI |
-      +-----+      +-----------+   |   |   +------+
-         |               |         +---+
-         |          +--------+     |   |   +-------+
-         +--------> | NVIDIA | ----+   +-> | 显示器 |
-                    +--------+             +-------+
+      ```graphviz
+      digraph {
+        rankdir=LR
+        node[shape=box]
+
+        CPU -> NVIDIA
+        CPU -> "Intel 核显"
+        {rank=same; NVIDIA -> "Intel 核显" [dir=none]; }
+        "Intel 核显" -> HDMI
+        "Intel 核显" -> 显示器
+        NVIDIA -> HDMI
+        NVIDIA -> 显示器
+      }
       ```
 
       与上一种方案的区别在于，电脑主板的电路上加入了开关，可以设置 HDMI 接口及显示器分别由核显或独显进行管理。
@@ -137,14 +143,15 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
         - 贵（电路复杂）
     - 如果你买的是几万块钱的“后浪专用”厚砖游戏本，连接方式可能是这样的：
 
-      ```bash
-                                   +------+
-                               +-> | HDMI |
-                               |   +------+
-                               |
-      +-----+      +--------+  |   +-------+
-      | CPU | ---> | NVIDIA | -+-> | 显示器 |
-      +-----+      +--------+      +-------+
+      ```graphviz
+      digraph {
+        rankdir=LR
+        node[shape=box]
+
+        CPU -> NVIDIA
+        NVIDIA -> HDMI
+        NVIDIA -> 显示器
+      }
       ```
 
       你问核显哪去了？你都买几万块钱的电脑玩游戏，还要核显有什么用？
