@@ -321,8 +321,14 @@ ol ol, ol ul, ul ol, ul ul{margin-bottom: -1px}
 @import "katex/dist/katex";
 
 @import "sass/algolia.scss";
-@import "sass/highlight.scss";
 @import "sass/images.scss";
+
+@import "highlight.js/styles/github";
+.hljs {
+    padding: 0 !important;
+    background: none !important;
+    color: inherit !important;
+}
 
 @import "disqusjs/src/disqusjs";
 #dsqjs {

@@ -57,6 +57,7 @@
     "instant.page": "^5.1.0",
     "ipfs-deploy": "^8.0.1",
     "markdown-it-graphviz": "git+https://github.com/lantian1998/markdown-it-graphviz.git",
+    "markdown-it-highlightjs": "git+https://github.com/lantian1998/markdown-it-highlightjs.git",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
