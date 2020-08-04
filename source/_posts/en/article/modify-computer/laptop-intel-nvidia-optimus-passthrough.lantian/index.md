@@ -69,32 +69,32 @@ But for NVIDIA GPUs and laptops, things are more complicated:
   - No, I don't just mean performance. The overall architecture is also different.
   - On a desktop the GPU is connected in the following scheme:
 
-    ```bash
-                                 +------+
-                             +-> | HDMI |
-                             |   +------+
-                             |
-    +-----+      +--------+  |   +---------+
-    | CPU | ---> | NVIDIA | -+-> | Monitor |
-    +-----+      +--------+      +---------+
+    ```graphviz
+    digraph {
+      rankdir=LR
+      node[shape=box]
+
+      CPU -> NVIDIA
+      NVIDIA -> HDMI
+      NVIDIA -> Monitor
+    }
     ```
 
     The GPU only connects to the CPU and monitors, and don't care about other components.
   - But on laptops things are different, and they even differ between laptops.
     - If you spent a few hundred dollars on a low-to-mid-range gaming laptop, the connection may look like:
 
-      ```bash
-                                      +------+
-                                  +-> | HDMI |
-                                  |   +------+
-                                  |
-      +-----+      +-----------+  |   +---------+
-      | CPU | ---> | Intel GPU | -+-> | Monitor |
-      +-----+      +-----------+      +---------+
-         |               |
-         |          +--------+
-         +--------> | NVIDIA |
-                    +--------+
+      ```graphviz
+      digraph {
+        rankdir=LR
+        node[shape=box]
+
+        CPU -> NVIDIA
+        CPU -> "Intel GPU"
+        {rank=same; NVIDIA -> "Intel GPU"; }
+        "Intel GPU" -> HDMI
+        "Intel GPU" -> Monitor
+      }
       ```
 
       The difference is, instead of directly connecting to the monitor, the dGPU transfers the rendered image to iGPU, which in turn sends them to the monitor.
@@ -114,14 +114,19 @@ But for NVIDIA GPUs and laptops, things are more complicated:
           - Which means games will run on the integrated graphics, unless the game engine proactively detects and uses the dGPU.
     - If you spent a bit more than a thousand on a mid-to-higher-range laptop, you may get:
 
-      ```bash
-      +-----+      +-----------+           +------+
-      | CPU | ---> | Intel GPU | --+   +-> | HDMI |
-      +-----+      +-----------+   |   |   +------+
-         |               |         +---+
-         |          +--------+     |   |   +---------+
-         +--------> | NVIDIA | ----+   +-> | Monitor |
-                    +--------+             +---------+
+      ```graphviz
+      digraph {
+        rankdir=LR
+        node[shape=box]
+
+        CPU -> NVIDIA
+        CPU -> "Intel GPU"
+        {rank=same; NVIDIA -> "Intel GPU" [dir=none]; }
+        "Intel GPU" -> HDMI
+        "Intel GPU" -> Monitor
+        NVIDIA -> HDMI
+        NVIDIA -> Monitor
+      }
       ```
 
       Compared to the last scheme, there is a switch on the motherboard circuit, and the HDMI port and the monitor can be allocated to different GPUs on demand.
@@ -137,14 +142,15 @@ But for NVIDIA GPUs and laptops, things are more complicated:
         - Expensive (with all those circuits)
     - If you spent thousands on a top-end laptop, you may get this:
 
-      ```bash
-                                   +------+
-                               +-> | HDMI |
-                               |   +------+
-                               |
-      +-----+      +--------+  |   +---------+
-      | CPU | ---> | NVIDIA | -+-> | Monitor |
-      +-----+      +--------+      +---------+
+      ```graphviz
+      digraph {
+        rankdir=LR
+        node[shape=box]
+
+        CPU -> NVIDIA
+        NVIDIA -> HDMI
+        NVIDIA -> Monitor
+      }
       ```
 
       You're asking where had the iGPU gone? How come you need it on a multi-thousand-dollar laptop for gaming?

@@ -30,10 +30,32 @@ ISP 内部 BGP 互联方案比较
    - 但是 iBGP 有一个很严重的限制：所有路由器都应该两两相连。原因如下：
      - 假设我们有如下的网络拓扑：
 
-       ```bash
-       A ----- B ----- C
-               |       |
-               +-- D --+
+       ```graphviz
+       graph {
+         rankdir=LR
+         node[shape=box]
+
+         subgraph cluster_1 {
+           style=filled;
+           color=lightgrey;
+           label="AS1";
+           node[style=filled,color=white]
+           {rank=same; A -- "10.0.0.0/8"; }
+           "10.0.0.0/8"[shape=oval]
+         }
+
+         subgraph cluster_2 {
+           style=filled;
+           color=lightgrey;
+           label="AS2";
+           node[style=filled,color=white]
+           {rank=same; B -- C; }
+           B -- D;
+           C -- D;
+         }
+
+         A -- B
+       }
        ```
 
        - 其中 A 属于 AS1, B、C、D 属于 AS2。
@@ -71,11 +93,42 @@ ISP 内部 BGP 互联方案比较
    - 但是每台路由器的 ASN 都不同，如何知道哪些路由器是“友军”（属于自己这个 ISP），哪些是“敌军”（属于其它 ISP）？可以给 ISP 内部的所有路由器分配一个统一的编号（称为 Confederation Identifier），用它来识别敌我。
    - 假设我们有如下的网络拓扑：
 
-     ```bash
-     A ----- B ----- C ----- E
-             |       |
-             +-- D --+
-     ```
+       ```graphviz
+       graph {
+         rankdir=LR
+         node[shape=box]
+
+         subgraph cluster_1 {
+           style=filled;
+           color=lightgrey;
+           label="AS1";
+           node[style=filled,color=white]
+           {rank=same; A -- "10.0.0.0/8"; }
+           "10.0.0.0/8"[shape=oval]
+         }
+
+         subgraph cluster_2 {
+           style=filled;
+           color=lightgrey;
+           label="AS2";
+           node[style=filled,color=white]
+           {rank=same; B -- C; }
+           B -- D;
+           C -- D;
+         }
+
+         subgraph cluster_3 {
+           style=filled;
+           color=lightgrey;
+           label="AS3";
+           node[style=filled,color=white]
+           E
+         }
+
+         A -- B
+         D -- E
+       }
+       ```
 
      - 其中 A 属于 AS1, B、C、D 属于 AS2，E 属于 AS3。
      - AS2 中设置了 BGP Confederation，B、C、D 的私有 ASN 分别是 21、22、23。

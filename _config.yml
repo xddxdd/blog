@@ -55,6 +55,7 @@ markdown:
   plugins:
     - markdown-it-abbr
     - markdown-it-footnote
+    - markdown-it-graphviz
     - markdown-it-ins
     - "@iktakahiro/markdown-it-katex"
     - markdown-it-sub
@@ -70,7 +71,7 @@ markdown:
     separator: '-'
 
 highlight:
-  enable: true
+  enable: false
   auto_detect: true
   line_number: false
   tab_replace: '    '
