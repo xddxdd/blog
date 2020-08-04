@@ -97,13 +97,13 @@ So we need some way to set the random seed, but Javascript doesn't support this.
 
 A most simple RNG is LCG (Linear congruential generator), which performs the following operation each time a new number is requested:
 
-`X <- (A * X + B) mod M`
+$$X \leftarrow (A \cdot X + B) \bmod M$$
 
 A, B and M are constants, and X is the seed or the last result. Common constant values are available on [Wikipedia](https://en.wikipedia.org/wiki/Linear_congruential_generator). I'm using the constants of glibc:
 
-- `A = 1103515245`
-- `B = 12345`
-- `M = 2 ^ 31`
+- $A = 1103515245$
+- $B = 12345$
+- $M = 2^{31}$
   - Later I changed it to `32`, since a paragraph with 32 tags is already long enough. In addition `32 = 2 ^ 5`, so it won't impact the randomness much.
 
 Note that the results of this RNG still follow some form of rules, which means its results can be predicted, and is not appropriate for security related areas such as cryptography. But since we're only splitting paragraphs, we're fine.

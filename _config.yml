@@ -56,6 +56,7 @@ markdown:
     - markdown-it-abbr
     - markdown-it-footnote
     - markdown-it-ins
+    - "@iktakahiro/markdown-it-katex"
     - markdown-it-sub
     - markdown-it-sup
   anchors:
