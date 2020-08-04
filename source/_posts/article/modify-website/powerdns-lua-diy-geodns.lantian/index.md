@@ -49,7 +49,7 @@ apt-get install geoipupdate
 
 之后创建文件夹 `/etc/geoip`，并修改 `/etc/GeoIP.conf`（注意大小写），填写如下内容：
 
-```text
+```bash
 AccountID [账户编号]
 LicenseKey [授权密钥]
 EditionIDs GeoLite2-ASN GeoLite2-City GeoLite2-Country
@@ -110,7 +110,7 @@ systemctl start pdns
 
 首先演示如何使用 `bestwho`。创建一条记录，类型为 `LUA`，内容如下：
 
-```text
+```bash
 A ";if(bestwho:isIPv4()) then return bestwho:toString() else return '0.0.0.0' end"
 ```
 
@@ -118,19 +118,19 @@ A ";if(bestwho:isIPv4()) then return bestwho:toString() else return '0.0.0.0' en
 
 类似的，我们可以写出 IPv6 的版本。再创建一条同名记录，类型也为 `LUA`：
 
-```text
+```bash
 AAAA ";if(bestwho:isIPv6()) then return bestwho:toString() else return '::' end"
 ```
 
 或者使用 TXT 记录返回含端口号的连接信息：
 
-```text
+```bash
 TXT "bestwho:toStringWithPort()"
 ```
 
 或者使用 LOC 记录返回 GeoIP 推测的地理位置：
 
-```text
+```bash
 LOC "latlonloc()"
 ```
 
@@ -157,13 +157,13 @@ $ dig +short @1.1.1.1 LOC whoami.lantian.pub
 
 大致了解了 PowerDNS 的 Lua 是怎么工作的，就可以开始配置分地区解析的记录了。PowerDNS 提供了一个方便的函数 `pickclosest`，自动从一个 IP 列表中选择离用户最近的服务器返回。例如现在 `lantian.pub` 的 A 记录是这样的：
 
-```text
+```bash
 A "pickclosest({'103.42.215.193','185.186.147.110','107.172.134.89','195.154.221.59'})"
 ```
 
 `pickclosest` 同样适用于 AAAA 记录：
 
-```text
+```bash
 AAAA "pickclosest({'2001:470:19:10bb::1','2001:470:d:46e::1','2001:470:1f07:54d::1','2001:470:1f13:28::1'})"
 ```
 
@@ -194,7 +194,7 @@ $ dig +short lantian.pub
 
 比起按照地理位置选择最近服务器的方法，有时更好的方法是按照国家解析，例如常见的国内直连、国外启用 Cloudflare 的搭配。PowerDNS 对此也提供了一个好用的函数，`country`：
 
-```text
+```bash
 TXT ";if(country('CN')) then return 'YES' else return 'NO' end"
 ```
 
@@ -212,7 +212,7 @@ $ dig +short @103.42.215.193 TXT is-china.lantian.pub
 
 上述代码稍作修改也可以用于 A、AAAA、CNAME 等记录上，将中国大陆及海外流量分配到不同的服务器上：
 
-```text
+```bash
 CNAME ";if(country('CN')) then return 'cdn-china.lantian.pub' else return 'cdn-overseas.lantian.pub' end"
 ```
 
