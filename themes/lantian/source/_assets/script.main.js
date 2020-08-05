@@ -60,23 +60,25 @@ addLoadEvent(function() {
 
     attempt('Simple Lightbox', function() {
         'use strict';
-        var lightbox_onclick = function() {
+        let lightbox_onclick = function(e) {
             SimpleLightbox.open({items: [this.getAttribute("src") || this.getAttribute("href")]});
+            try {
+                e.preventDefault();
+            } catch(e) {}
             return false;
         };
     
-        var posts = document.getElementsByClassName('post-text');
-        for(var i = 0; i < posts.length; i++) {
-            var images = posts[i].getElementsByTagName('img');
-            for(var j = 0; j < images.length; j++) {
+        let posts = document.getElementsByClassName('post-text');
+        for(let i = 0; i < posts.length; i++) {
+            let images = posts[i].getElementsByTagName('img');
+            for(let j = 0; j < images.length; j++) {
                 images[j].onclick = lightbox_onclick;
                 images[j].style.cursor = 'pointer';
-    
             }
         }
     
-        var qrcodes = document.getElementsByClassName('qrcode-box');
-        for(var i = 0; i < qrcodes.length; i++) {
+        let qrcodes = document.getElementsByClassName('qrcode-box');
+        for(let i = 0; i < qrcodes.length; i++) {
             qrcodes[i].onclick = lightbox_onclick;
         }
     });
