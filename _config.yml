@@ -55,8 +55,8 @@ markdown:
   plugins:
     - markdown-it-abbr
     - markdown-it-footnote
-    - markdown-it-graphviz
-    - name: markdown-it-highlightjs
+    - '@lantian1998/markdown-it-graphviz'
+    - name: '@lantian1998/markdown-it-highlightjs'
       options:
         auto: true
         code: false
