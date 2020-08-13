@@ -22,7 +22,7 @@
     "@lantian1998/hexo-generator-json-feed-org": "^1.0.6",
     "@lantian1998/markdown-it-graphviz": "^1.1.2",
     "@lantian1998/markdown-it-highlightjs": "^3.2.0",
-    "acorn": "^7.4.0",
+    "acorn": "^8.0.1",
     "algoliasearch": "^4.4.0",
     "autocomplete.js": "^0.37.1",
     "babel-loader": "^8.1.0",
