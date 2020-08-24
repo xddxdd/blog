@@ -54,7 +54,7 @@
     "hexo-renderer-markdown-it": "^4.1.0",
     "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^2.0.0",
-    "hexo-util": "^2.3.0",
+    "hexo-util": "^2.4.0",
     "hexo-webpack": "^1.0.0",
     "instant.page": "^5.1.0",
     "ipfs-deploy": "^8.0.1",
