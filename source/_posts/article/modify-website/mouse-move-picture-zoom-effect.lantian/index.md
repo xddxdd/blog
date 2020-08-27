@@ -64,8 +64,8 @@ if(marginRight < imageWidth)
 
 截图：
 
-![特效截图](/usr/uploads/2013/06/1260012588.jpg)
+![特效截图](../../../../usr/uploads/2013/06/1260012588.jpg)
 
 下载：（用的是Win8那两朵花）
 
-[样例包](/usr/uploads/2013/06/3009674103.zip)
+[样例包](../../../../usr/uploads/2013/06/3009674103.zip)

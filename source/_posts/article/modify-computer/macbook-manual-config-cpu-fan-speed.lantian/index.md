@@ -15,7 +15,7 @@ image: /usr/uploads/2013/07/445511655.png
 
 下载之后，是一个app文件，在dock上随便一个图标（ finder、窗口图标、下载、垃圾桶除外），右键-选项-在Finder中显示，把这个app拖到出现的文件夹里就行。然后在Launchpad里把app打开。
 
-![smcFanControl 任务栏截图](/usr/uploads/2013/07/445511655.png)
+![smcFanControl 任务栏截图](../../../../usr/uploads/2013/07/445511655.png)
 
 打开时，由于我的系统是10.9，软件支持到10.8，所以有警告告诉我可能会出错。不过经过我的测试，10.9运行一切正常。同时也要注意，你不能安装其它的风扇控制软件，否则出bug别怪我。
 
@@ -25,11 +25,11 @@ image: /usr/uploads/2013/07/445511655.png
 
 直接单击菜单，打开设置（Preferences）。
 
-![smcFanControl 菜单](/usr/uploads/2013/07/1980939657.png)
+![smcFanControl 菜单](../../../../usr/uploads/2013/07/1980939657.png)
 
 主界面就是这个样子的，我直接在上面点＋号创建了一个Max Speed，风速条直接拖到最右边6200转，确定。
 
-![smcFanControl 设置](/usr/uploads/2013/07/1127560382.png)
+![smcFanControl 设置](../../../../usr/uploads/2013/07/1127560382.png)
 
 10秒钟后，电脑风扇开始呼呼呼地转起来。1分钟后，CPU温度降到了65摄氏度。
 

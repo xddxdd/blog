@@ -7,7 +7,7 @@ image: /usr/uploads/46671412433584.png
 ---
 2014年10月4日晚上，从中国访问微软账户登陆页面均会跳出SSL证书无效提示，如图：
 
-![/usr/uploads/46671412433584.png](/usr/uploads/46671412433584.png)
+![/usr/uploads/46671412433584.png](../../../../usr/uploads/46671412433584.png)
 
 ```bash
 颁发对象
@@ -57,15 +57,15 @@ rNGBhbyz/1RpgXRwAw+oBp/Ii9ZoNsde1qD4hkP3OOlTTQNP2kg=
 
 同时，也有反馈称login.windows.net出现同样问题，经过DNS查询，发现DNS没有受到污染。
 
-![/usr/uploads/26971412433584.png](/usr/uploads/26971412433584.png)
+![/usr/uploads/26971412433584.png](../../../../usr/uploads/26971412433584.png)
 
 上图左：Google DNS，通过TCP查询，右：114DNS，通过UDP查询
 
-![/usr/uploads/96551412433589.png](/usr/uploads/96551412433589.png)
+![/usr/uploads/96551412433589.png](../../../../usr/uploads/96551412433589.png)
 
 经过测试，通过 Windows Azure 中国版建立的SSH隧道进行访问，没有出现问题。上左图为本地查询结果，右图为Azure中国版查询结果，再次证实DNS没出问题。
 
-![/usr/uploads/59401412433590.png](/usr/uploads/59401412433590.png)
+![/usr/uploads/59401412433590.png](../../../../usr/uploads/59401412433590.png)
 
 经过tcping测试（[https://github.com/jlyo/tcping](https://github.com/jlyo/tcping)）到443端口的连接明显遭到劫持，毕竟ping login.live.com的延迟也有200ms左右，10ms内做出响应是绝对不可能的。
 

@@ -7,7 +7,7 @@ image: /usr/uploads/2014/02/530548245.png
 ---
 这几天晚上在上化学竞赛课。昨天的那节课，化学老师请来几个学长给我们传（jiang）授（jiang）经（gu）验（shi）。学长们扯着扯着，扯到了他们空闲时自己做的一款魔塔游戏——六三群英传——二中之巅。
 
-![/usr/uploads/2014/02/530548245.png](/usr/uploads/2014/02/530548245.png)
+![/usr/uploads/2014/02/530548245.png](../../../../usr/uploads/2014/02/530548245.png)
 
 这么高大上的游戏，而且是杭二中背景的，我当然要拿来看一下彩蛋。比起开游戏玩，更方便的方法当然是反编译。
 
@@ -15,11 +15,11 @@ image: /usr/uploads/2014/02/530548245.png
 
 看着文件夹里一个9M大的Game.rgssad文件，我想着这就是游戏数据吧，右键尝试用万能解压软件7-Zip打开。很明显，这招不行。
 
-![/usr/uploads/2014/02/2010882355.png](/usr/uploads/2014/02/2010882355.png)
+![/usr/uploads/2014/02/2010882355.png](../../../../usr/uploads/2014/02/2010882355.png)
 
 我刷新了一下文件夹，文件类型那里突然出现了一句话：
 
-![/usr/uploads/2014/02/1183876371.png](/usr/uploads/2014/02/1183876371.png)
+![/usr/uploads/2014/02/1183876371.png](../../../../usr/uploads/2014/02/1183876371.png)
 
 等等。加密？我喜欢。这种不需要输密码就能玩的“加密”游戏，肯定有解密方法。
 
@@ -29,11 +29,11 @@ Google一下，找到了RGSSAD专用解包器：[http://www.pc6.com/softview/Sof
 
 接下来，我开始研究里面的彩蛋。先看地图列表。
 
-![/usr/uploads/2014/02/1995936471.png](/usr/uploads/2014/02/1995936471.png)
+![/usr/uploads/2014/02/1995936471.png](../../../../usr/uploads/2014/02/1995936471.png)
 
 首先看喜闻乐见的校史馆。
 
-![/usr/uploads/2014/02/3589412933.png](/usr/uploads/2014/02/3589412933.png)
+![/usr/uploads/2014/02/3589412933.png](../../../../usr/uploads/2014/02/3589412933.png)
 
 右键查看入口处1899年的事件，也就是查看走到这里会显示的历史。
 
@@ -93,7 +93,7 @@ Google一下，找到了RGSSAD专用解包器：[http://www.pc6.com/softview/Sof
 
 一楼刚进来有个来爷爷。
 
-![/usr/uploads/2014/02/2852339400.png](/usr/uploads/2014/02/2852339400.png)
+![/usr/uploads/2014/02/2852339400.png](../../../../usr/uploads/2014/02/2852339400.png)
 
 > 老人：厉害啊，曾经贤者之章的持有者，不愧是神啊！据说这里刚刚发现一种代表贤者力量的不明物质，我想您这么厉害的人一定可以搞定吧。
 > 
@@ -125,7 +125,7 @@ Google一下，找到了RGSSAD专用解包器：[http://www.pc6.com/softview/Sof
 
 贤者楼顶楼的Boss叫八哥。
 
-![/usr/uploads/2014/02/109403124.png](/usr/uploads/2014/02/109403124.png)
+![/usr/uploads/2014/02/109403124.png](../../../../usr/uploads/2014/02/109403124.png)
 
 > 你：终于找到你了！
 > 
@@ -151,7 +151,7 @@ Google一下，找到了RGSSAD专用解包器：[http://www.pc6.com/softview/Sof
 
 一楼如下。
 
-![/usr/uploads/2014/02/2996602411.png](/usr/uploads/2014/02/2996602411.png)
+![/usr/uploads/2014/02/2996602411.png](../../../../usr/uploads/2014/02/2996602411.png)
 
 > 胖二哥：数学太难学！
 > 
@@ -169,7 +169,7 @@ Google一下，找到了RGSSAD专用解包器：[http://www.pc6.com/softview/Sof
 
 三楼如下。
 
-![/usr/uploads/2014/02/3727711326.png](/usr/uploads/2014/02/3727711326.png)
+![/usr/uploads/2014/02/3727711326.png](../../../../usr/uploads/2014/02/3727711326.png)
 
 > （先到中间顶上那个人那里）
 > 
@@ -235,7 +235,7 @@ Google一下，找到了RGSSAD专用解包器：[http://www.pc6.com/softview/Sof
 
 一楼：
 
-![/usr/uploads/2014/02/4079948483.png](/usr/uploads/2014/02/4079948483.png)
+![/usr/uploads/2014/02/4079948483.png](../../../../usr/uploads/2014/02/4079948483.png)
 
 起点旁边那个人的对话：
 
@@ -269,7 +269,7 @@ Google一下，找到了RGSSAD专用解包器：[http://www.pc6.com/softview/Sof
 
 顶楼：
 
-![/usr/uploads/2014/02/1469884290.png](/usr/uploads/2014/02/1469884290.png)
+![/usr/uploads/2014/02/1469884290.png](../../../../usr/uploads/2014/02/1469884290.png)
 
 > 你：又见到一个人！
 > 
