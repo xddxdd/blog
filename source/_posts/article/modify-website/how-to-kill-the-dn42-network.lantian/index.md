@@ -2,8 +2,8 @@
 title: '如何引爆 DN42 网络（持续更新）'
 categories: 网站与服务端
 tags: [DN42,BGP]
-date: 2020-07-13 23:10:31
-image: /usr/uploads/202007/dn42-registry-error.png
+date: 2020-08-28 01:11:18d
+image: /usr/uploads/202008/i-love-niantic-network.png
 ---
 
 > DN42 是一个**测试网络**，所有人都在帮助所有人。即使你不小心搞砸了，也没有人会指责你。你可以在 DN42 的 [IRC 频道](https://wiki.dn42.us/services/IRC)，[邮件列表](https://wiki.dn42.us/contact#contact_mailing-list)或者[非官方 Telegram 群组](https://t.me/Dn42Chat)寻求帮助。
@@ -151,6 +151,8 @@ export filter {
   - 为了解决一个 AS 的问题，可能需要断开好几个 AS。
 
 例如，某 Telegram 群友从 Fullmesh + Direct 转向 Multihop 时出现事故，造成了非常大量的路由切换。
+
+![我永远喜欢 Niantic Network](../../../../usr/uploads/202008/i-love-niantic-network.png)
 
 他在切换过程中没有断开 BGP，而 Babel 的配置错误导致大量路由被传递及撤销。
 
