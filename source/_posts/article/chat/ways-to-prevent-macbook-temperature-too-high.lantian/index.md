@@ -11,7 +11,7 @@ image: /usr/uploads/2013/07/2453648692.jpg
 
 在国外举行的一场“魔鬼级测试”中，测试人员在Macbook中安装专业测试软件，使Macbook满负荷运行，CPU轻松烧到100度。之后，测试人员不得不将Macbook晾了一个晚上以恢复常温，在测试过程中，这台可怜的Macbook Pro也只能以这个姿态立着：
 
-![Macbook Pro](/usr/uploads/2013/07/2453648692.jpg)
+![Macbook Pro](../../../../usr/uploads/2013/07/2453648692.jpg)
 
 所以，CPU温度问题一定要注意。
 

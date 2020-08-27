@@ -7,4 +7,4 @@ image: /usr/uploads/2013/06/1719017918.png
 ---
 新装的Win8……
 
-![beautiful-error.png](/usr/uploads/2013/06/1719017918.png)
+![beautiful-error.png](../../../../usr/uploads/2013/06/1719017918.png)

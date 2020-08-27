@@ -19,12 +19,12 @@ MacBook的散热是用户们心中永远的痛，苹果的散热非常的保守�
 
 我双击打开了软件，这东西居然不需要管理员权限。软件识别出我的CPU温度为90度，好高啊！风扇速度自然被调到最高值6000转。过了一会儿，我看到温度还是稳稳停留在90度，但是我摸了一下出风口，一点也不像90度烫手的样子。
 
-![Lubbos Fan Control](/usr/uploads/2013/10/2933104397.png)
+![Lubbos Fan Control](../../../../usr/uploads/2013/10/2933104397.png)
 
 我去谷歌上搜索，发现是因为版本太老，传感器参数不对的原因，到设置的ini里就能改。在ini里我修改了传感器、GPU数量和CPU数量设置，以和我的MacBook对应。修改完成后，再次启动，LubbosFanControl识别出我的CPU温度是57度，风速控制正常。
 
 我去网上找了个CPU显卡杀手级的视频[炮姐时代](http://www.bilibili.tv/video/av719948/)，这个是2160P的分辨率+120fps的帧率，集显电脑绝对不可能流畅播放。一打开视频，CPU占用率迅速飙升，风扇速度也正常提升；关掉视频，风扇也自动减速，测试成功。
 
-![/usr/uploads/2013/10/566121349.png](/usr/uploads/2013/10/566121349.png)
+![/usr/uploads/2013/10/566121349.png](../../../../usr/uploads/2013/10/566121349.png)
 
-修改版LubbosFanControl下载地址（完美支持12年中版集显MBP）：[LubbosFanControl.7z](/usr/uploads/2013/10/1691255080.7z)
+修改版LubbosFanControl下载地址（完美支持12年中版集显MBP）：[LubbosFanControl.7z](../../../../usr/uploads/2013/10/1691255080.7z)

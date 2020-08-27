@@ -17,7 +17,7 @@ Windows 操作方法
 
 （下图截自 Windows XP，但 Windows 7 和 10 上的操作相同。）
 
-![Windows 禁用摄像头](/usr/uploads/202003/windows-disable-camera.png)
+![Windows 禁用摄像头](../../../../usr/uploads/202003/windows-disable-camera.png)
 
 当需要使用摄像头时，再回到此处启用摄像头，关闭并重新打开浏览器/网课软件即可。
 

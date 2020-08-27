@@ -62,7 +62,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
 - NVIDIA 的驱动在虚拟机中会拒绝加载
   - NVIDIA 不想让你买了几千块钱的民用卡就在虚拟机里用，他们希望你去买上万的 GRID 虚拟化专用卡。
-    - ![Linus Torvalds Fxxk Nvidia](/usr/uploads/202007/linus-torvalds-nvidia.png)
+    - ![Linus Torvalds Fxxk Nvidia](../../../../usr/uploads/202007/linus-torvalds-nvidia.png)
   - 因此需要用一大堆神奇的操作来隐藏“这是个虚拟机”的事实，让 NVIDIA 驱动乖乖启动。
     - 后续部分中会详细介绍。
 - 笔记本电脑上的 NVIDIA 显卡和台式机上的是不一样的
@@ -348,7 +348,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
      </qemu:commandline>
      ```
 
-     其中 `vbios_gvt_uefi.rom` 从 [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom) 下载，或者[从本站下载](/usr/uploads/202007/vbios_gvt_uefi.rom)，放在根目录下。如果移动了位置，也要对应修改 `romfile` 参数。
+     其中 `vbios_gvt_uefi.rom` 从 [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom) 下载，或者[从本站下载](../../../../usr/uploads/202007/vbios_gvt_uefi.rom)，放在根目录下。如果移动了位置，也要对应修改 `romfile` 参数。
    - 把整个文件第一行的 `<domain type='kvm'>` 改成 `<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>`。
 5. 重新启动虚拟机，应该有正常的图像显示，此时虚拟机就开始使用 GVT-g 虚拟显卡了。
 
@@ -497,7 +497,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
    此处的 ID 对应之前从设备管理器里查出的硬件 ID，`PCI\VEN_10DE&DEV_1C8D&SUBSYS_39D117AA&REV_A1`，请注意对应替换。
 
-   此处的 ssdt1.dat 对应如下 Base64，可以用 [Base64 解码网站](https://base64.guru/converter/decode/file)转换成二进制文件，放在根目录，或者[从本站下载](/usr/uploads/202007/ssdt1.dat)。如果移动了，需要对应修改上面的 file 参数。这也是一个修改后的 ACPI 表，用来模拟一块满电的电池，只不过不需要合并到 OVMF 里，而是直接用参数加载就可以。
+   此处的 ssdt1.dat 对应如下 Base64，可以用 [Base64 解码网站](https://base64.guru/converter/decode/file)转换成二进制文件，放在根目录，或者[从本站下载](../../../../usr/uploads/202007/ssdt1.dat)。如果移动了，需要对应修改上面的 file 参数。这也是一个修改后的 ACPI 表，用来模拟一块满电的电池，只不过不需要合并到 OVMF 里，而是直接用参数加载就可以。
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
