@@ -2,7 +2,7 @@
 title: '如何引爆 DN42 网络（持续更新）'
 categories: 网站与服务端
 tags: [DN42,BGP]
-date: 2020-08-28 01:11:18d
+date: 2020-08-28 01:11:18
 image: /usr/uploads/202008/i-love-niantic-network.png
 ---
 
