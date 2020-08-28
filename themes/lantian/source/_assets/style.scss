@@ -7,8 +7,13 @@
 $post-info-padding: 5px;
 
 html, body {
+    @include media-breakpoint-down(sm) {
+        overflow-x: hidden;
+    }
+}
+
+body {
     font-size: $font-size-base;
-    overflow-x: hidden;
 }
 
 a{color:$primary}
