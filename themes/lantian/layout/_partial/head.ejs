@@ -34,17 +34,15 @@
 <% } %>
 
 <% if(is_home()) { %>
-<!-- Windows Page Pin Menu -->
 <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
 <meta name="application-name" content="<% if (title){ %><%= title %> | <% } %><%= config.title %>"/>
 <meta name="msapplication-TileColor" content="#03a9f4"/>
 <meta name="msapplication-navbutton-color" content="#03a9f4"/>
-<meta content="name=首页;action-uri=/;icon-uri=/favicon.ico" name="msapplication-task"/>
-<% if(site.pages.length) { %>
-    <% site.pages.sort('weight', 'asc').each(function(p) { %>
-        <% if('' == p.title) return; %>
-        <meta content="name=<%- p.title %>;action-uri=<%- url_for(remove_trailing_slash(p.path)) %>;icon-uri=/favicon.ico" name="msapplication-task"/>
+<meta content="name=<%= config.title %>;action-uri=/;icon-uri=/favicon.ico" name="msapplication-task"/>
+<% if(theme_config(page_language()).nav) { %>
+    <% theme_config(page_language()).nav.forEach(function(link) { %>
+        <meta content="name=<%- link.name %>;action-uri=<%- url_for(remove_trailing_slash(link.url)) %>;icon-uri=/favicon.ico" name="msapplication-task"/>
     <% }) %>
 <% } %>
 <% } %>
