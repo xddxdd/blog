@@ -136,6 +136,7 @@ category_map:
   随手记: random-notes
   Computers and Clients: modify-computer
   Website and Servers: modify-website
+  Random Notes: random-notes
 tag_map:
 
 # Date / Time format
