@@ -6,9 +6,14 @@
 
 $post-info-padding: 5px;
 
-html, body {
-    @include media-breakpoint-down(sm) {
+@include media-breakpoint-down(sm) {
+    html, body {
         overflow-x: hidden;
+        width: 100%;
+    }
+
+    body {
+        position: relative;
     }
 }
 
