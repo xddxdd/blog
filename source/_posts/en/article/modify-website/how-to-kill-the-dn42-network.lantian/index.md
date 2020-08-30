@@ -1,5 +1,5 @@
 ---
-title: 'How to Kill the DN42 Network (Continuously Updated)'
+title: 'How to Kill the DN42 Network (Updated 2020-08-28)'
 categories: 'Website and Servers'
 tags: [DN42,BGP]
 date: 2020-08-28 01:11:18
@@ -56,7 +56,7 @@ Suddenly a message box pops up on your IRC client / Telegram. You clicked on it:
 <he**> yup, I see some roa fails for them as well
 ```
 
-Congratulations on you successfully hijacking (part of) DN42.
+Congratulations! You've successfully hijacking (part of) DN42.
 
 What's Going On
 ---------------
@@ -148,7 +148,7 @@ In addition, route flapping may cause severe impacts:
 - If the problematic AS peered with many other ASes, even if you disconnected from it, the route flap may still be passed from another AS to your AS again.
   - To fix the problem of one problematic AS, you may have to cut off multiple ASes.
 
-For example, one guy in Telegram group had a misconfiguration while transitioning from Fullmesh + Direct connections to Multihop.
+For example, one user in Telegram group had a misconfiguration while transitioning from Fullmesh + Direct connections to Multihop.
 
 ![I Always Love Niantic Network](../../../../../usr/uploads/202008/i-love-niantic-network.png)
 
@@ -377,7 +377,7 @@ This is what happened to DN42:
   ```html
   <lantian> Why someone with an ASN of 424242236 came to peer with me
   <lantian> Yep, 9 digits
-  <lantian> /whois@lantian_lg_bot 424242235
+  <lantian> /whois@lantian_lg_bot 424242236
        <lg> (outputs WHOIS information of the AS)
   <lantian> And it has proper WHOIS information
    <KaiKai> https://net-info.nia.ac.cn/#424242236
