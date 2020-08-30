@@ -28,7 +28,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 - 2020-04-10：更详细地解释一些内容，例如 BIRDv2 中为何不建议在一个 BGP 会话中同时传递 IPv4 和 IPv6 的路由，以及为何建议使用 Link-local IPv6。
 - 2020-03-23：解释自选 IPv6 ULA 地址（违反 RFC4193）带来的风险，以及如何在已知风险的情况下继续使用自选 IPv6 地址。
 - 2020-03-22：添加《非常重要的系统配置》一节，说明一些如果设置不当会破坏 DN42 网络的配置项。
-- 2020-03-19：添加在注册 DN42、发起 Pull Request 时，生成、上传 PGP 密钥，签名 Git Commit 的相关内容。
+- 2020-03-19：添加在注册 DN42、发起 Pull Request 时，生成、上传 GPG 密钥，签名 Git Commit 的相关内容。
 - 2020-03-14：最初版本
 
 注册过程
@@ -63,9 +63,9 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         - `tech-c`：即 `tech contact（技术员联系信息）`，需要指向后续创建的 person 文件，一般也为 `[昵称]-DN42`。
         - `mnt-by`：即 `maintain by（由谁维护）`，指向这个账户本身，一般为 `[昵称]-MNT`。
         - `source`：固定为 `DN42`。
-        - `auth`：你的个人认证信息。一般接受两种类型：PGP 公钥和 SSH 公钥。
-          - 你**必须在此处添加一个 PGP 公钥**。如果你没有，你需要**立即创建一个**，例如参照 [GitHub 的这份教程](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)操作。后续提交过程也会用到这个公钥。
-            - 你还需要将你的 PGP 公钥上传到公共查询服务器，称为 Keyserver。目前使用最广泛的是 `SKS-Keyservers`。
+        - `auth`：你的个人认证信息。一般接受两种类型：GPG 公钥和 SSH 公钥。
+          - 你**必须在此处添加一个 GPG 公钥**。如果你没有，你需要**立即创建一个**，例如参照 [GitHub 的这份教程](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)操作。后续提交过程也会用到这个公钥。
+            - 你还需要将你的 GPG 公钥上传到公共查询服务器，称为 Keyserver。目前使用最广泛的是 `SKS-Keyservers`。
             - 上传步骤请参考[阮一峰的这份教程](https://www.ruanyifeng.com/blog/2013/07/gpg.html)，并将 `keyserver` 参数替换成 `hkp://pool.sks-keyservers.net`，例如：
 
               - `gpg --send-keys [密钥ID] --keyserver hkp://pool.sks-keyservers.net`
@@ -91,7 +91,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         - `mnt-by`：`maintain by（由谁维护）`，由谁维护，指向你之前的 mntner 文件，`[昵称]-MNT`。
         - `source`：固定为 `DN42`。
 
-   3. 接下来你要给自己选择一个 AS 编号，即 ASN。在国际互联网上，ASN 范围 4200000000 - 4294967294 是被保留作私下使用（private use）的，DN42 占用的就是其中的一块，424242**0000** - 424242**3999**。**（注意范围是 4000 个，不是 10000 个）** 在这 4000 个号码中挑选一个你喜欢的，并且没有被占用的，然后进入 `data/aut-num` 文件夹，创建文件。例如我是 AS4242422547, 文件就是 `data/aut-num/AS4242422547`：
+   3. 接下来你要给自己选择一个 AS 编号，即 ASN。在国际互联网上，ASN 范围 4200000000 - 4294967294 是被保留作私下使用（private use）的，DN42 占用的就是其中的一块，424242**0000** - 424242**3999**。**（注意范围是 4000 个，不是 10000 个，剩下 6000 个暂未开放注册）** 在这 4000 个号码中挑选一个你喜欢的，并且没有被占用的，然后进入 `data/aut-num` 文件夹，创建文件。例如我是 AS4242422547, 文件就是 `data/aut-num/AS4242422547`：
 
       ```bash
       aut-num:            AS4242422547
@@ -114,8 +114,11 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       - 如果你在真实互联网拥有自己的 ASN：
         - 首先大佬受我一拜；
         - 然后你**可以选择在 DN42 内使用自己的真实 ASN**，填入你自己的 ASN 即可。
-        - 如果你这样做，你可能会在与其它人 Peer 的时候遇到一点小麻烦（但很容易解决），见后续内容。
+        - 如果你这样做，你可能会在与其它人 Peer 的时候遇到一点小麻烦：
+          - 在建立 VPN 隧道时，DN42 中很多人会使用 ASN 的后五位作为端口号。你的公网 ASN 就有可能和 DN42 的内部 ASN 产生端口冲突。
+          - 此时你就需要和对方协商换个端口了。
         - 同时注册时可能会检查 AS 邮箱是否一致等。
+          - 我没经历过这个过程，上述是我的猜测。可能还需要更麻烦的验证流程。
         - 因此我一般建议**再在 DN42 注册一个 ASN 算了**，减少麻烦。
 
    4. 接下来就进入 IP 选择环节了。进入 `data/inetnum` 文件夹，里面是所有已被注册的 IPv4 地址块信息。你需要在其中挑选一块空闲的地址块占为己用。
@@ -267,7 +270,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         - `mnt-by`：`maintain by（由谁维护）`，由谁维护，指向你之前的 mntner 文件，`[昵称]-MNT`。
         - `source`：固定为 `DN42`。
 
-5. 恭喜你创建完了所有需要的文件，接下来执行一次 `git add`，然后执行 `git commit -S`，使用你先前创建的 GPG 密钥，创建一份**带 GPG 签名的 commit**，这是 DN42 的强制要求。
+5. 恭喜你创建完了所有需要的文件，接下来 `cd` 到 Git 仓库的根目录，执行一次 `git add .`，然后执行 `git commit -S`，使用你先前创建的 GPG 密钥，创建一份**带 GPG 签名的 commit**，这是 DN42 的强制要求。
    - 如果你操作快已经 commit 完了，你可以执行 `git commit --amend -S` 修改之前的 commit，将其签名。
 6. 执行 `git push` 将修改上传到 Git 服务器。
 7. 回到 [dn42/registry](https://git.dn42.dev/dn42/registry)，发起 Pull Request，等待你的信息被合并。
@@ -397,7 +400,7 @@ DN42 中几乎每个 Peering 都是建立在隧道软件（即 VPN）之上的�
    - 安装方式：`sudo apt install openvpn supervisor`
    - 此处 Supervisor 用于进程管理。
 
-3. 如果你用的是 Cisco、Mikrotik 等公司的硬件路由器，你一般只能使用 GRE/IPSec 或者 GRE；推荐带加密的 GRE/IPSec。
+3. 如果你用的是 Cisco、Mikrotik 等公司的硬件路由器，你一般只能使用 GRE/IPSec：
    - GRE/IPSec 的优点：
      - 在硬件路由器上使用广泛
    - GRE/IPSec 的缺点：
@@ -405,11 +408,12 @@ DN42 中几乎每个 Peering 都是建立在隧道软件（即 VPN）之上的�
 
 4. 或者你也可以使用纯 GRE：
    - GRE 的优点：
+     - 硬件路由器上可用
      - 配置相对简便
    - GRE 的缺点：
-     - 完全没有加密！数据明文可读！
-     - 完全没有加密！数据明文可读！
-     - 完全没有加密！数据明文可读！
+     - **完全没有加密！数据明文可读！**
+     - **完全没有加密！数据明文可读！**
+     - **完全没有加密！数据明文可读！**
 
 5. 如果你用的是 Linux 服务器，也可以选择 ZeroTier One，用于你自己的 AS 内部的互联，或者用于与他人 Peer。
    - ZeroTier One 的优点：
@@ -458,8 +462,10 @@ DN42 中的用户之间使用 BGP 协议来交换路由信息。以下是常用�
    - 这样做的原因是你的 AS 外部的路由只负责把数据包发送进你的 AS，数据包可能从任何一个节点进入。你自己的节点需要负责在内部将数据包转发给目标节点。
    - 你可以使用这些方案：
      1. 使用 Tinc，ZeroTier One 之类的软件建立 Full-Mesh VPN，使得每两台服务器之间都能直接连通。
-     2. 使用 OpenVPN，WireGuard 等软件建立 `n * (n-1) / 2` 条点对点隧道连接，使得每两台服务器之间都能直接连通。
-     3. **（危险操作）** 使用 OpenVPN，WireGuard 等建立少于 `n * (n-1) / 2` 条点对点隧道连接，但需要保证每两台服务器之间能连通（可以间接连通），然后使用 Babel、OSPF、RIP 等协议在内部寻路。
+     2. 使用 OpenVPN，WireGuard 等软件建立 $\frac{n (n-1)}{2}$ 条点对点隧道连接，使得每两台服务器之间都能直接连通。
+     3. **（相对危险）** 使用 OpenVPN，WireGuard 等建立少于 $\frac{n (n-1)}{2}$ 条点对点隧道连接，但需要保证每两台服务器之间能连通（可以间接连通），然后使用 Babel、OSPF、RIP 等协议在内部寻路。
+       - 这种方案很容易配置出错，并造成严重后果。
+         - 一些实例详见《[如何引爆 DN42 网络](/article/modify-website/how-to-kill-the-dn42-network.lantian/)》。
        - Babel、OSPF、RIP 等路由协议可以自动识别整个网络的拓扑结构，并设置好相应的路由。
        - 但注意，Babel、OSPF、RIP 等只应该处理你内部的路由，**不能用于转发由 BGP 从外部收到的路由！**
          - 当 BGP 路由信息被 Babel、OSPF、RIP 等转发时，包括来源、路径长度、Community 等信息都会丢失。
@@ -478,7 +484,8 @@ DN42 中的用户之间使用 BGP 协议来交换路由信息。以下是常用�
    3. 在每个节点配置一个不同的私有 ASN，并设置 Confederation。
       - ASN 需要在 4200000000 - 4294967294 的私有 ASN 范围内选择，但不要选择 4242420000 - 4242429999 这个范围，以防止与其它 DN42 用户重复。
       - Confederation 使得多个服务器“抱团”，对外展示为同一个 AS。
-      - 注意我没有尝试过这种配置，因此无法为此提供任何技术支持。但[非官方 Telegram 群组](https://t.me/Dn42Chat)内有人使用这种方案，你可以在那里寻求帮助。
+      - 这种配置方法详见《[Bird 配置 BGP Confederation，及模拟 Confederation](/article/modify-website/bird-confederation.lantian)》。
+      - 另外[非官方 Telegram 群组](https://t.me/Dn42Chat)内也有人使用这种方案，你可以在那里寻求帮助。
 3. **所有服务器完成上一节的“非常重要的系统配置”。**
 
 “1xRTT Peering”：更快速的对接
@@ -507,6 +514,9 @@ DN42 中多数用户处在美国或者欧洲，当我们从中国与他们联系
        - 以上设置常见于 Mikrotik 等硬件路由器。
      - DN42 IPv6: **fe80::2547**，用于本地链路（Link-local）连接
        - 如果你需要为隧道设置一个地址块（例如 /64），这个地址块将来自你的地址池（由你分配给我）。
+     - Multiprotocol BGP（MP-BGP）：
+       - 虽然我支持 MP-BGP，但我默认仍会同时配置 v4、v6 两条 BGP 会话。
+       - 如果你也支持 MP-BGP，只需要一条会话，直接告诉我就行。
    - 建立 VPN 隧道：
      - WireGuard/OpenVPN 我这端的端口号：**你的 ASN 的后五位**
        - 例如 4242420001 意味着我会使用 20001 端口
@@ -533,7 +543,7 @@ DN42 中多数用户处在美国或者欧洲，当我们从中国与他们联系
      - ZeroTier One：你的网络 ID（我会申请加入）
      - OpenVPN/IPSec 设置参数（如果你无法使用我的默认参数）
 5. 等我设置好 VPN 隧道和 Peering，然后回复邮件。一般这时 Peering 就已经成功了。
-   - 你可以使用[我的 looking glass](https://lg.lantian.pub/) 或者[我的另一个 looking glass](https://lg-alt.lantian.pub/) 来调试连接。
+   - 你可以使用[我的 Looking Glass](https://lg.lantian.pub/) 来调试连接。
 
 隧道搭建：WireGuard
 -----------------
@@ -574,7 +584,7 @@ ip route add [YOUR_DN42_IPV6]/128 src [MY_DN42_IPV6] dev dn42-[PEER_NAME]
   - 例如我（4242422547）和一个人（4242420001）建立隧道，我会使用 20001 端口，对方会使用 22547 端口。
   - 这种方法容易记忆、管理，并且不会重复。
   - 但如果你是公网 ASN 大佬，后 5 位就有可能和别人产生冲突。你就需要和别人协商决定使用哪一个端口。
-- PEER_NAME 是对方的昵称，这里设置的是 Linux 下的网络设备名。注意整个网络设备名不能超过 15 个字符，否则会被截断。
+- PEER_NAME 是对方的昵称，这里设置的是 Linux 下的网络设备名。注意整个网络设备名 `dn42-[PEER_NAME]` 不能超过 15 个字符，否则会被截断。
 - MY_DN42_IP 和 YOUR_DN42_IP 指双方连接两端在 DN42 内的 IP，具体而言指的是对接的这台服务器的 IP。
   - 例如我用服务器 A（172.22.76.185）去对接，MY_DN42_IP 就是 172.22.76.185；我换另一台服务器 B（172.22.76.186）对接，MY_DN42_IP 就是 172.22.76.186。
 - 类似的，MY_DN42_IPV6 和 YOUR_DN42_IPV6 指双方连接两端在 DN42 内的 IPv6 地址。
@@ -628,6 +638,9 @@ BGP 会话配置：BIRD v1 和 v2
 -------------------------
 
 我这里只介绍 BIRD v1 和 v2 的配置，因为它们是使用最广泛的。我假设你已经按照 Wiki 上的步骤完成了基本的配置，只是还没接入任何 Peer。
+
+- [DN42 Wiki 上的 Bird2 配置教程](https://wiki.dn42.us/howto/Bird2)
+- [DN42 Wiki 上的 Bird1 配置教程](https://wiki.dn42.us/howto/Bird)
 
 对于 BIRD v1，需要的配置如下：
 
@@ -684,7 +697,7 @@ protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
   - BIRDv2 支持在一个 BGP 会话中同时传递 IPv4 和 IPv6 的路由。
   - 在 IPv4 BGP 会话中，BIRDv2 难以正确判断 IPv6 数据包转发目标的地址（Next Hop），会导致 `ip -6 route` 中出现大片 `unreachable`。
     - 因此直接禁用就好了。
-  - 在 IPv6 BGP 会话中传递 IPv4 路由时，但如果双方使用特定的 BGP 软件组合，一方或双方的日志中会出现大片 `Invalid NEXT_HOP Attribute`，指 Next Hop 判断出错。
+  - 在 IPv6 BGP 会话中传递 IPv4 路由时，如果双方使用特定的 BGP 软件组合，一方或双方的日志中会出现大片 `Invalid NEXT_HOP Attribute`，指 Next Hop 判断出错。
     - 但 IPv6 BGP 中同时传递 IPv4 和 IPv6 路由的应用还比较广泛，因此一般建议不要禁用 IPv4 路由传递，除非出现了问题。
 
 网络测试及几个加分项
