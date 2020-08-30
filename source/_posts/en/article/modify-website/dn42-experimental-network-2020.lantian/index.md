@@ -663,7 +663,7 @@ protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
     };
 };
 
-# 在 /etc/bird/peers6/[PEER_NAME].conf 中填写：
+# Add /etc/bird/peers6/[PEER_NAME].conf
 protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
     neighbor [YOUR_LINK_LOCAL_IP] % 'dn42-[PEER_NAME]' as [YOUR_ASN];
     direct;
