@@ -67,7 +67,7 @@
     </div>
 </article>
 
-<% if(!index && page.next && page.prev) { %>
+<% if(!index && (page.next || page.prev)) { %>
     <div class="clearfix" id="post-navi">
         <% if(page.next) { %>
             <div class="float-right text-right"><a href="<%- url_for(remove_trailing_slash(page.next.path)) %>" title="<%= page.next.title %>"><%= page.next.title %></a><br><%- __('next_post') %> &raquo;</div>
