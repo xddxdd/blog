@@ -455,7 +455,7 @@ If you have multiple servers joining DN42, you need to configure your internal n
      2. $\frac{n (n-1)}{2}$ point-to-point tunnels with OpenVPN, WireGuard, etc, so each two servers are connected directly.
      3. **(Relatively Dangerous)** Use OpenVPN, WireGuard, etc to create less than $\frac{n (n-1)}{2}$ tunnels, but make sure there is a path between each two servers (intermediate nodes allowed). Then use Babel, OSPF, RIP, etc to find the path in your own network.
        - In this scheme, it's easy to make mistakes and **cause catastrophic failures**.
-         - Some real examples are available at [How to Kill the DN42 Network (Chinese Only at the moment)](/article/modify-website/how-to-kill-the-dn42-network.lantian/).
+         - Some real examples are available at [How to Kill the DN42 Network](/en/article/modify-website/how-to-kill-the-dn42-network.lantian/).
        - Routing protocols including Babel, OSPF, RIP, etc can automatically detect the topology of your whole network and configure the routes.
        - But Babel, OSPF, RIP are only supposed to handle your internal routing, and **shouldn't be used to forward routes received externally from BGP!**
          - When BGP routing information are forwarded by Babel, OSPF, RIP, information such as source, route length and BGP communities are all lost.
