@@ -60,7 +60,7 @@
     "ipfs-deploy": "^8.0.1",
     "mini-css-extract-plugin": "^0.11.0",
     "node-sass": "^4.14.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "popper.js": "^1.16.1",
     "resolve-url-loader": "^3.1.1",
     "sass-loader": "^10.0.1",
