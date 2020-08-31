@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2020-08-31: No longer recommend new users to go to Burble, following his policy update.
 - 2020-07-04: DN42 Git server has changed from `git.dn42.us` to `git.dn42.dev`.
 - 2020-05-18: Update `rp_filter` content, and suggest to disable UFW.
 - 2020-04-19: Add suggestions for configuring your internal network across servers.
@@ -285,7 +286,8 @@ Here are some recommended places to find other users:
 1. Use [DN42 PingFinder](https://dn42.us/peers). Submit your IP address, and server nodes of other users registered on PingFinder will test their latency to you. These node entries usually have email addresses or links to description page for their DN42 AS. You may contact them with these information.
 2. Go to DN42's [IRC channel](https://wiki.dn42.us/services/IRC).
 3. Go to this [unofficial Telegram group](https://t.me/Dn42Chat).
-4. Directly go to Burble. Burble is a really active user in DN42 who has many nodes around the world. Visit [his peering info page](https://dn42.burble.com/peering) to see his server information and contacts.
+4. ~~Directly go to Burble. Burble is a really active user in DN42 who has many nodes around the world. Visit [his peering info page](https://dn42.burble.com/peering) to see his server information and contacts.~~
+   - To reduce network centrality and avoid single point failure, Burble now only accept users with at least 2 already established peers.
 5. Directly go to me. Click [here](/en/page/dn42/index.html) or the DN42 item on the top navbar to see my information and contacts.
 
 You may peer with many people/nodes simultaneously. This increases the stablity of your network, and prevents loss of connection when a single node fails.
