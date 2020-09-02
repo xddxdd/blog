@@ -1,8 +1,8 @@
 ---
-title: 'DN42 实验网络介绍及注册教程（2020-07-04 更新）'
+title: 'DN42 实验网络介绍及注册教程（2020-09-03 更新）'
 categories: 网站与服务端
 tags: [DN42, BGP]
-date: 2020-07-04 23:08:32
+date: 2020-09-03 00:46:04
 ---
 
 DN42 全称 Decentralized Network 42（42 号去中心网络），是一个大型、去中心化的 VPN 网络。但是与其它传统 VPN 不同的是，DN42 本身不提供 VPN 出口服务，即不提供规避网络审查、流媒体解锁等类似服务。相反，DN42 的目的是模拟一个互联网。它使用了大量在目前互联网骨干上应用的技术（例如 BGP 和递归 DNS），可以很好地模拟一个真实的网络环境。
@@ -21,6 +21,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 本文更新日志
 ----------
 
+- 2020-09-03：更新最新的注册流程。
 - 2020-08-31：由于 Burble 修改了他的 Peer 标准，不再向新用户推荐与他 Peer。
 - 2020-07-04：DN42 Git 服务器地址从 `git.dn42.us` 更换成 `git.dn42.dev`。
 - 2020-05-18：更新 `rp_filter` 相关内容，添加“关闭 UFW”的建议。
@@ -39,11 +40,26 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
 预先警告：DN42 的注册流程比较繁琐，需要花费较多的时间。这是因为真实互联网中申请 ASN 和 IP 的流程也是相似的，而 DN42 的目标就是对真实互联网的尽可能真实的模拟。
 
+**请注意：**
+
+- 这里的注册流程随时可能因 DN42 的流程变动而过时。请优先参照 DN42 的官方注册流程，并将以下流程当作参考。
+- [DN42 官方 Wiki 的注册流程](https://dn42.dev/howto/Getting-Started)
+- [DN42 官方 Wiki 的 Git 操作流程（创建 Pull Request）](https://git.dn42.dev/dn42/registry/src/branch/master/README.md)
+
 大致注册流程如下：
 
 1. 首先去 [https://git.dn42.dev](https://git.dn42.dev) 注册一个账户，这相当于 DN42 内的 GitHub，账户信息就存放在其中的一个仓库里。
-2. 打开 [dn42/registry](https://git.dn42.dev/dn42/registry) 这个账户信息仓库，点右上角的 Fork，把仓库复制一份到你自己的账户。
-3. 此时你应该已经进入了你自己账户里的那份复制，把它 Clone 下来。
+2. 打开 [dn42/registry](https://git.dn42.dev/dn42/registry) 这个账户信息仓库，把它 Clone 下来。
+   - 以前你需要把仓库 Fork 一份，但现在 DN42 的流程进行了简化，你只需要创建一个自己的分支。
+3. 新建一个分支，命名格式类似 `[昵称]-[日期，YYYYMMDD]/[自定义的分支名称]`。
+   - 假设我要在 2020 年 9 月 1 日注册，那么分支名就叫 `lantian-20200901/register`。
+   - 运行这两行命令来创建分支，并将分支上传。记得替换你自己的分支名：
+
+     ```bash
+     git checkout -b lantian-20200901/register
+     git push --set-upstream origin lantian-20200901/register
+     ```
+
 4. 在 Clone 下的仓库里创建一系列的文件，包括：
    1. 在 `data/mntner` 文件夹下创建一个名为 `[昵称]-MNT` 的文件，这个文件代表你的账户，用来认证你以后的操作。例如我的 mntner 文件如下（也可以在 `data/mntner/LANTIAN-MNT` 看到）：
 
@@ -65,13 +81,21 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         - `mnt-by`：即 `maintain by（由谁维护）`，指向这个账户本身，一般为 `[昵称]-MNT`。
         - `source`：固定为 `DN42`。
         - `auth`：你的个人认证信息。一般接受两种类型：GPG 公钥和 SSH 公钥。
-          - 你**必须在此处添加一个 GPG 公钥**。如果你没有，你需要**立即创建一个**，例如参照 [GitHub 的这份教程](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)操作。后续提交过程也会用到这个公钥。
+          - 你**必须**在 GPG 公钥和 SSH 公钥中添加至少一种。
+          - 如果你准备添加 GPG 公钥，首先你需要创建一个（如果你之前没有的话），例如参照 [GitHub 的这份教程](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)操作。后续提交过程也会用到这个公钥。
             - 你还需要将你的 GPG 公钥上传到公共查询服务器，称为 Keyserver。目前使用最广泛的是 `SKS-Keyservers`。
             - 上传步骤请参考[阮一峰的这份教程](https://www.ruanyifeng.com/blog/2013/07/gpg.html)，并将 `keyserver` 参数替换成 `hkp://pool.sks-keyservers.net`，例如：
 
               - `gpg --send-keys [密钥ID] --keyserver hkp://pool.sks-keyservers.net`
 
-          - 你可以添加一个 SSH 公钥，也可以不加。DN42 上有些服务会以此处的 SSH 公钥来验证你的身份。
+            - 然后将密钥 ID 填写到 `auth` 项中，格式如 `pgp-fingerprint [密钥 ID]`，例如上面例子中的 `pgp-fingerprint` 项。
+
+          - 如果你准备添加 SSH 公钥，首先你需要创建一个（如果你之前没有的话）。
+            - Mac 和 Linux 一般运行 `ssh-keygen -t ed25519` 即可，但如果你的 SSH 版本特别老不支持 ED25519 密钥，也可以使用 RSA，`ssh-keygen -t rsa`。
+            - Windows 可以[下载 PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)，使用其中的 puttygen 工具生成。
+            - 生成完成后，将公钥（Mac 和 Linux 一般在 `~/.ssh` 目录下，名为 `id_ed25519.pub` 或者 `id_rsa.pub`；Windows 下 puttygen 会直接在窗口上显示公钥）以 `ssh-ed25519 [公钥]` 或者 `ssh-rsa [公钥]` 格式添加到 `auth` 项中。
+            - 此外，DN42 上有些服务会以此处的 SSH 公钥来验证你的身份。
+          - 可以阅读 DN42 官方的[身份认证 Wiki 页面](https://dn42.dev/howto/Registry-Authentication)获取更多信息。
         - `remarks`：备注信息，随便填写，也可以没有。
       - **注意：**各个项目的名称和值之间有一长串空格。这段空格的长度**不是自己可以随意修改的，也不能替换成 Tab**。名称 + 冒号 + 空格的长度**必须是 20 个字符**。
 
@@ -273,8 +297,22 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
 5. 恭喜你创建完了所有需要的文件，接下来 `cd` 到 Git 仓库的根目录，执行一次 `git add .`，然后执行 `git commit -S`，使用你先前创建的 GPG 密钥，创建一份**带 GPG 签名的 commit**，这是 DN42 的强制要求。
    - 如果你操作快已经 commit 完了，你可以执行 `git commit --amend -S` 修改之前的 commit，将其签名。
-6. 执行 `git push` 将修改上传到 Git 服务器。
-7. 回到 [dn42/registry](https://git.dn42.dev/dn42/registry)，发起 Pull Request，等待你的信息被合并。
+6. 如果你先前 commit 了多次，你需要把所有变更合并到一次 commit 里，直接运行 Registry 根目录下的 `./squash-my-commits` 脚本即可。
+7. 由于你操作期间 Registry 可能有来自其他人的变更，你需要获取一下 Registry 的更新：
+
+   ```bash
+   # 获取更新
+   git fetch origin master
+   # 切换到你自己的分支
+   git checkout lantian-20200901/register
+   # Rebase 你的分支，实际上就是将你的修改在最新的 Registry 上重新应用一遍
+   # 输入这行命令后会出现一个编辑器，你需要保留第一行的 pick，
+   # 并将第二行开始（如果有的话）的 pick 全部改成 squash，然后保存并退出编辑器就可以了
+   git rebase -i -S origin/master
+   ```
+
+8. 执行 `git push -f` 将修改上传到 Git 服务器。
+9.  回到 [dn42/registry](https://git.dn42.dev/dn42/registry)，发起 Pull Request，等待你的信息被合并。
    - 如果你的操作或者填写的内容有问题，管理员会回复你的 Pull Request，根据他们的要求修改即可。
    - 但注意，按照要求修改完成后，**不用关闭原先的 Pull Request 再重新开一个。**你只需要照常 `git commit` 和 `git push`，你后续的变更会被自动添加到原先这个 Pull Request 里。
      - 一次注册/修改信息行为只需要发一个 Pull Request 就够了。
