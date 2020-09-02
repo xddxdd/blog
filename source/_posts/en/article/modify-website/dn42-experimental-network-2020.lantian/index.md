@@ -1,8 +1,8 @@
 ---
-title: 'DN42 Experimental Network: Intro and Registration (Updated 2020-07-04)'
+title: 'DN42 Experimental Network: Intro and Registration (Updated 2020-09-03)'
 categories: 'Website and Servers'
 tags: [DN42, BGP]
-date: 2020-07-04 23:08:32
+date: 2020-09-03 00:46:04
 ---
 
 DN42, aka Decentralized Network 42, is a large, decentralized VPN-based network. But unlike other traditional VPNs, DN42 itself doesn't provide any VPN exits, which means it doesn't allow you to bypass Internet censorships or unlock streaming services. On the contrary, the goal of DN42 is to simulate another Internet. It uses much of the technology running on modern Internet backbones (BGP, recursive DNS, etc), and is a great replica of a real network environment.
@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2020-09-03: Update to the latest registration procedure.
 - 2020-08-31: No longer recommend new users to go to Burble, following his policy update.
 - 2020-07-04: DN42 Git server has changed from `git.dn42.us` to `git.dn42.dev`.
 - 2020-05-18: Update `rp_filter` content, and suggest to disable UFW.
@@ -39,11 +40,26 @@ When I wrote my previous guide in 2017, [Joining DN42 Experimental Network (Chin
 
 WARNING: The registration procedure to DN42 is long and complicated, since the procedure to register ASN and IP in real Internet is similar, and DN42's goal is being a replication of real Internet.
 
+**ATTENTION:**
+
+- The procedure here may become outdated as DN42 updates its registration procedures. Please refer to DN42's official guides first, and use my guide only as reference.
+- [DN42 Registration Procedure on Official Wiki](https://dn42.dev/howto/Getting-Started)
+- [DN42 Git Guide (Creating Pull Request) on Official Wiki](https://git.dn42.dev/dn42/registry/src/branch/master/README.md)
+
 Here is the procedures:
 
 1. First, go to [https://git.dn42.dev](https://git.dn42.dev) and register an account. This is the GitHub for DN42, and the account information is stored in one of the git repos.
-2. Visit [dn42/registry](https://git.dn42.dev/dn42/registry), the account information repo, and click Fork on the top right. This will create a copy of the repo into your own account.
-3. Now the page should automatically switch to the copy in your own account. Git clone it to your local machine.
+2. Visit [dn42/registry](https://git.dn42.dev/dn42/registry), the account information repo, and `git clone` it to your local machine.
+   - Previously you need to fork the repo, but now DN42 has simplified the process, and you only need to create a branch.
+3. Create a new branch named after `[NICKNAME]-[Date, YYYYMMDD]/[Custom Branch Name]`.
+   - Assume I want to register on 2020-09-01, my branch name will be `lantian-20200901/register`.
+   - Run these two lines to create your branch and upload it. Remember to replace with your own branch name:
+
+     ```bash
+     git checkout -b lantian-20200901/register
+     git push --set-upstream origin lantian-20200901/register
+     ```
+
 4. Now you need to create a series of files in the cloned repo, including:
    1. Create a file `[NICKNAME]-MNT` under `data/mntner` directory, this file is your account that authorizes your further operations. For example, this is my `mntner` file (available under `data/mntner/LANTIAN-MNT`):
 
@@ -64,12 +80,35 @@ Here is the procedures:
         - `tech-c`: `tech contact`, point to a later created `person` file. Usually `[NICKNAME]-DN42`.
         - `mnt-by`: `maintain by`, points to this account itself. Usually `[NICKNAME]-DN42`.
         - `source`: has a fixed value of `DN42`.
+        - `auth`：你的个人认证信息。一般接受两种类型：GPG 公钥和 SSH 公钥。
+          - 你**必须**：添加一个 GPG 公钥，或者一个 SSH 公钥。
+          - 如果你准备添加 GPG 公钥，首先你需要创建一个（如果你之前没有的话），例如参照 [GitHub 的这份教程](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)操作。后续提交过程也会用到这个公钥。
+            - 你还需要将你的 GPG 公钥上传到公共查询服务器，称为 Keyserver。目前使用最广泛的是 `SKS-Keyservers`。
+            - 上传步骤请参考[阮一峰的这份教程](https://www.ruanyifeng.com/blog/2013/07/gpg.html)，并将 `keyserver` 参数替换成 `hkp://pool.sks-keyservers.net`，例如：
+
+              - `gpg --send-keys [密钥ID] --keyserver hkp://pool.sks-keyservers.net`
+
+            - 然后将密钥 ID 填写到 `auth` 项中，格式如 `pgp-fingerprint [密钥 ID]`，例如上面例子中的 `pgp-fingerprint` 项。
+
+          - 如果你准备添加 SSH 公钥，首先你需要创建一个（如果你之前没有的话）。
+            - Mac 和 Linux 一般运行 `ssh-keygen -t ed25519` 即可，但如果你的 SSH 版本特别老不支持 ED25519 密钥，也可以使用 RSA，`ssh-keygen -t rsa`。
+            - Windows 可以下载 PuTTY，使用其中的 puttygen 工具生成。
+            - 生成完成后，将公钥（Mac 和 Linux 一般在 `~/.ssh` 目录下，名为 `id_ed25519.pub` 或者 `id_rsa.pub`；Windows 下 puttygen 会直接在窗口上显示公钥）以 `ssh-ed25519 [公钥]` 或者 `ssh-rsa [公钥]` 格式添加到 `auth` 项中。
+            - 此外，DN42 上有些服务会以此处的 SSH 公钥来验证你的身份。
+
         - `auth`: your authentication info. Usually two types of data are accepted: GPG public key and SSH public key.
-          - You **MUST add a GPG pubkey here**. If you don't have one you need to create one immediately, for example following [this guide by GitHub](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key). You will also need the pubkey when submitting your registration request.
+          - You **MUST** add at least one out of GPG pubkey and SSH pubkey.
+          - If you plan to add a GPG pubkey, you need to create one first (assuming you don't have one), for example following [this guide by GitHub](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key). You will also need the pubkey when submitting your registration request.
             - You also need to upload your GPG pubkey to a public server, aka Keyserver, for other people to obtain. The most widely used option if `SKS-Keyservers`.
             - Run this command:
               - `gpg --send-keys [GPG Key ID] --keyserver hkp://pool.sks-keyservers.net`
-          - You may add a SSH pubkey, but skipping this step is also fine. Some services on DN42 verifies your identity with your SSH pubkey here.
+            - Then fill the key ID to `auth` item, with format like `pgp-fingerprint [GPG Key ID]`, similar to my example above.
+          - If you plan to add a SSH pubkey, you need to create one first (assuming you don't have one).
+            - Running `ssh-keygen -t ed25519` is usually enough for Mac and Linux, but if you have a rather old version of SSH which doesn't support ED25519 crypto, you may run `ssh-keygen -t rsa` instead to use RSA crypto.
+            - For Windows, you can [download PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) and use its `puttygen` utility.
+            - After generation, add your pubkey (usually stored at `~/.ssh` and named `id_ed25519.pub` or `id_rsa.pub` on Mac and Linux; displayed straight on `puttygen` window after generation) to `auth` item, with format `ssh-ed25519 [SSH Pubkey]` or `ssh-rsa [SSH Pubkey]`.
+            - In addition, some services on DN42 verifies your identity with your SSH pubkey here.
+          - Read DN42's [Registry Authentication Wiki Page](https://dn42.dev/howto/Registry-Authentication) for more information.
         - `remarks`: comments, fill with whatever content you like. Or you may simply remove them.
       - **ATTENTION:** There is a long sequence of spaces between the name and values. The length of this space sequence **cannot be changed to whatever you like, and cannot be replaced with TAB**. the length of name, the colon, and the spaces **MUST be exactly 20 characters**.
 
@@ -267,8 +306,23 @@ Here is the procedures:
 
 5. Congratulations, you have created all files you need. Next `cd` to the root folder of the git repo, run `git add .`, and run `git commit -S`, use your previously created GPG key to create a **GPG signed commit**. This is mandatory for DN42.
    - If you have already committed, run `git commit --amend -S` sign your previous commit.
-6. Run `git push` to upload your changes to the Git server.
-7. Back to [dn42/registry](https://git.dn42.dev/dn42/registry), start a Pull Request and wait for your information to be merged.
+6. If you committed multiple times before, you need to squash all of your changes into a single commit. Simply run the `./squash-my-commits` script to do so.
+7. Since others may have changed the registry while you're adding your files, you need to update your repository:
+
+   ```bash
+   # Obtain registry updates
+   git fetch origin master
+   # Switch to your own branch
+   git checkout lantian-20200901/register
+   # Rebase your branch, effectively reapplying your changes on the latest registry
+   # An editor will pop up after typing this line, you need to keep the "pick" in 1st line
+   # and change all "pick" to "squash" starting from 2nd line (if exists)
+   # then save and exit your editor
+   git rebase -i -S origin/master
+   ```
+
+8. Run `git push -f` to upload your changes to the Git server.
+9.  Back to [dn42/registry](https://git.dn42.dev/dn42/registry), start a Pull Request and wait for your information to be merged.
    - If there is some error in your procedure or file contents, an admin will reply to your Pull Request, fix accordingly.
    - But you **don't need to close your previous Pull Request and create a new one** after fixing your problem. Simply `git commit` and `git push`, and your later changes will be automatically added to the Pull Request.
      - You need only one Pull Request per registration/information change.
