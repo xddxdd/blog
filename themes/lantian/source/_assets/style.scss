@@ -39,9 +39,12 @@ header.lantian {
     }
 
     #elderclock-plus1s{opacity:0;position:absolute;animation:elderclock-plus1s 1s 1}
+
+    border-bottom: $border-default;
+    background-color: #eee;
 }
 
-header.lantian, section.lantian {
+section.lantian {
     border-bottom: $border-default;
     background-color: #eee;
 }
