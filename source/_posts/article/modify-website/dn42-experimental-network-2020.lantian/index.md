@@ -297,6 +297,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
 5. 恭喜你创建完了所有需要的文件，接下来 `cd` 到 Git 仓库的根目录，执行一次 `git add .`，然后执行 `git commit -S`，使用你先前创建的 GPG 密钥，创建一份**带 GPG 签名的 commit**，这是 DN42 的强制要求。
    - 如果你操作快已经 commit 完了，你可以执行 `git commit --amend -S` 修改之前的 commit，将其签名。
+     - 如果你没有 GPG 密钥，把 -S 参数删掉。
 6. 如果你先前 commit 了多次，你需要把所有变更合并到一次 commit 里，直接运行 Registry 根目录下的 `./squash-my-commits` 脚本即可。
 7. 由于你操作期间 Registry 可能有来自其他人的变更，你需要获取一下 Registry 的更新：
 
@@ -308,11 +309,16 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
    # Rebase 你的分支，实际上就是将你的修改在最新的 Registry 上重新应用一遍
    # 输入这行命令后会出现一个编辑器，你需要保留第一行的 pick，
    # 并将第二行开始（如果有的话）的 pick 全部改成 squash，然后保存并退出编辑器就可以了
+   #
+   # 如果你没有 GPG 密钥，把 -S 参数删掉
    git rebase -i -S origin/master
    ```
 
 8. 执行 `git push -f` 将修改上传到 Git 服务器。
-9.  回到 [dn42/registry](https://git.dn42.dev/dn42/registry)，发起 Pull Request，等待你的信息被合并。
+9. 回到 [dn42/registry](https://git.dn42.dev/dn42/registry)，发起 Pull Request，等待你的信息被合并。
+   - 如果你使用 SSH 公钥来验证，首先 `git log` 查看你的 commit 的 hash，然后运行以下命令，把结果附在 Pull Request 里：
+     - `echo [commit hash] | ssh-keygen -Y sign -f ~/.ssh/id_ed25519 -n dn42`
+     - 注意替换你的 commit hash 和私钥位置。
    - 如果你的操作或者填写的内容有问题，管理员会回复你的 Pull Request，根据他们的要求修改即可。
    - 但注意，按照要求修改完成后，**不用关闭原先的 Pull Request 再重新开一个。**你只需要照常 `git commit` 和 `git push`，你后续的变更会被自动添加到原先这个 Pull Request 里。
      - 一次注册/修改信息行为只需要发一个 Pull Request 就够了。

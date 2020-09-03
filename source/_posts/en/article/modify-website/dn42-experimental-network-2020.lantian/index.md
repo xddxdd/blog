@@ -306,6 +306,7 @@ Here is the procedures:
 
 5. Congratulations, you have created all files you need. Next `cd` to the root folder of the git repo, run `git add .`, and run `git commit -S`, use your previously created GPG key to create a **GPG signed commit**. This is mandatory for DN42.
    - If you have already committed, run `git commit --amend -S` sign your previous commit.
+     - If you don't have a GPG key, remove `-S` from command.
 6. If you committed multiple times before, you need to squash all of your changes into a single commit. Simply run the `./squash-my-commits` script to do so.
 7. Since others may have changed the registry while you're adding your files, you need to update your repository:
 
@@ -318,11 +319,16 @@ Here is the procedures:
    # An editor will pop up after typing this line, you need to keep the "pick" in 1st line
    # and change all "pick" to "squash" starting from 2nd line (if exists)
    # then save and exit your editor
+   #
+   # If you don't have a GPG key, remove -S from command
    git rebase -i -S origin/master
    ```
 
 8. Run `git push -f` to upload your changes to the Git server.
-9.  Back to [dn42/registry](https://git.dn42.dev/dn42/registry), start a Pull Request and wait for your information to be merged.
+9. Back to [dn42/registry](https://git.dn42.dev/dn42/registry), start a Pull Request and wait for your information to be merged.
+   - If you're authenticating with SSH pubkey, first run `git log` to see the hash of your commit, then run this command, and post the result along with your Pull Request:
+     - `echo [commit hash] | ssh-keygen -Y sign -f ~/.ssh/id_ed25519 -n dn42`
+     - Remember to replace with your commit hash and private key location.
    - If there is some error in your procedure or file contents, an admin will reply to your Pull Request, fix accordingly.
    - But you **don't need to close your previous Pull Request and create a new one** after fixing your problem. Simply `git commit` and `git push`, and your later changes will be automatically added to the Pull Request.
      - You need only one Pull Request per registration/information change.
