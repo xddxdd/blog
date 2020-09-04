@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const util = require('hexo-util');
-const RFC5646_TAGS = require('./rfc5646');
+const LANGUAGE_TAGS = require('./language');
 
 const Pattern = util.Pattern;
 
@@ -8,29 +8,6 @@ module.exports = function (hexo) {
     function pathJoin(...paths) {
         return paths.join('/');
     }
-
-    // function formatRfc5646(language) {
-    //     if (!language) {
-    //         return '';
-    //     }
-    //     return language.split(/[-_]/).map((l, i) => i === 0 ? l.toLowerCase() : l.toUpperCase()).join('-');
-    // }
-
-    // function formatIso639(language) {
-    //     if (!language) {
-    //         return '';
-    //     }
-    //     return language.split(/[-_]/)[0].toLowerCase();
-    // }
-
-    // function getClosestRfc5646WithCountryCode(language) {
-    //     if (!language) {
-    //         return '';
-    //     }
-    //     const iso639 = formatRfc5646(language).split('-')[0];
-    //     const result = Object.keys(RFC5646_TAGS).find(tag => tag.startsWith(iso639 + '-'));
-    //     return result ? result : iso639;
-    // }
 
     function getUsedLanguages() {
         return hexo.theme.i18n.list();
@@ -50,11 +27,6 @@ module.exports = function (hexo) {
         }
         return languages;
     }
-
-    // function isLanguageValid(language) {
-    //     const variants = [language, formatRfc5646(language)];
-    //     return variants.some(variant => RFC5646_TAGS.hasOwnProperty(variant));
-    // }
 
     function injectLanguages(func) {
         return function(locals) {
@@ -101,9 +73,5 @@ module.exports = function (hexo) {
         getUsedLanguages,
         getDisplayLanguages,
         getPageLanguage,
-        // isLanguageValid,
-        // formatRfc5646,
-        // formatIso639,
-        // getClosestRfc5646WithCountryCode
     };
 };

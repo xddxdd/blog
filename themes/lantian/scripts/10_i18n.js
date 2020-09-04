@@ -14,12 +14,8 @@ const {
     getUsedLanguages,
     getDisplayLanguages,
     getPageLanguage,
-    // isLanguageValid,
-    // formatRfc5646,
-    // formatIso639,
-    // getClosestRfc5646WithCountryCode
 } = require('../lib/i18n')(hexo);
-const RFC5646_LANGUAGE_TAGS = require('../lib/rfc5646');
+const LANGUAGE_TAGS = require('../lib/language');
 
 /**
  * Modify previous and next post link
@@ -346,32 +342,11 @@ hexo.extend.helper.register('i18n_path', function (language) {
     return (language ? '/' + language : '') + '/' + base;
 });
 
-// /**
-//  * Format language to RFC5646 style
-//  */
-// hexo.extend.helper.register('rfc5646', function (language) {
-//     return formatRfc5646(language);
-// });
-
-// /**
-//  * Return the ISO639 part of the language tag
-//  */
-// hexo.extend.helper.register('iso639', function (language) {
-//     return formatIso639(language);
-// });
-
-// /**
-//  * Get the closest language tag to the provided language tag
-//  */
-// hexo.extend.helper.register('closest_rfc5646_with_country_code', function (language) {
-//     return getClosestRfc5646WithCountryCode(language);
-// });
-
 /**
  * Get the language name
  */
 hexo.extend.helper.register('language_name', function (language) {
-    return RFC5646_LANGUAGE_TAGS[language] ? RFC5646_LANGUAGE_TAGS[language] : language;
+    return LANGUAGE_TAGS[language] ? LANGUAGE_TAGS[language] : language;
 });
 
 hexo.extend.helper.register('posts_filter', function(posts) {
