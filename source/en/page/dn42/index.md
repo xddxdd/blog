@@ -127,7 +127,7 @@ Servers
 
 - Server 3: New York, United States, provider VirMach
   - Public IPv4: `107.172.134.89`
-  - Public IPv6: `/`
+  - Public IPv6: None
   - DN42 IPv4: `172.22.76.190`
   - DN42 IPv6: `fdbc:f9dc:67ad::cc:433e:da3b`
   - Link-local IPv6: `fe80::2547`
@@ -141,6 +141,15 @@ Servers
   - DN42 IPv6: `fdbc:f9dc:67ad::20:5549:a809`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
+  - IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
+
+- Server 5: Romania, provider HostSolutions
+  - Public IPv4: `45.14.150.211`
+  - Public IPv6: None
+  - DN42 IPv4: `172.22.76.188`
+  - DN42 IPv6: `fdbc:f9dc:67ad::b2:9dd9:af42`
+  - Link-local IPv6: `fe80::2547`
+  - WireGuard Public Key: `o1khch2IZ5IbVgEm8kIKyCtqj1hfkRb+OP51tOBrwSk=`
   - IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
 
 My Config Templates (Default Parameters)
