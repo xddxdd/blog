@@ -25,7 +25,7 @@ date: 1970-01-01 00:00:00
      - DN42 IPv4（隧道我这端的地址）：见以下列表
        - 如果你需要为隧道设置一个地址块（例如 /30），这个地址块将来自你的地址池（由你分配给我）。
        - 以上设置常见于 Mikrotik 等硬件路由器。
-     - DN42 IPv6: **fe80::2547**，用于本地链路（Link-local）连接
+     - DN42 IPv6：**fe80::2547**，用于本地链路（Link-local）连接
        - 如果你需要为隧道设置一个地址块（例如 /64），这个地址块将来自你的地址池（由你分配给我）。
      - Multiprotocol BGP（MP-BGP）：
        - 虽然我支持 MP-BGP，但我默认仍会同时配置 v4、v6 两条 BGP 会话。
@@ -63,7 +63,7 @@ date: 1970-01-01 00:00:00
 基本信息
 -------
 
-- ASN: 4242422547
+- ASN：4242422547
 - IPv4 地址池：172.22.76.184/29 和 172.22.76.96/27
 - IPv6 地址池：fdbc:f9dc:67ad::/48
 - 我这边的默认端口号：你的 ASN 的后五位
@@ -99,7 +99,7 @@ date: 1970-01-01 00:00:00
     -----END PUBLIC KEY-----
     ```
 
-- 服务器 2: 美国洛杉矶，HostDare 服务商
+- 服务器 2：美国洛杉矶，HostDare 服务商
   - 公网 IPv4：`185.186.147.110`
   - 公网 IPv6：`2607:fcd0:100:b100::198a:b7f6`
   - DN42 IPv4：`172.22.76.185`
@@ -125,22 +125,31 @@ date: 1970-01-01 00:00:00
     -----END PUBLIC KEY-----
     ```
 
-- 服务器 3: 美国纽约，VirMach 服务商
+- 服务器 3：美国纽约，VirMach 服务商
   - 公网 IPv4：`107.172.134.89`
-  - 公网 IPv6：`/`
+  - 公网 IPv6：无
   - DN42 IPv4：`172.22.76.190`
   - DN42 IPv6：`fdbc:f9dc:67ad::cc:433e:da3b`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
   - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
 
-- 服务器 4: 德国法兰克福，Virtono 服务商
+- 服务器 4：德国法兰克福，Virtono 服务商
   - 公网 IPv4：`45.138.97.165`
   - 公网 IPv6：`2001:ac8:20:3::433a:a05d`
   - DN42 IPv4：`172.22.76.187`
   - DN42 IPv6：`fdbc:f9dc:67ad::20:5549:a809`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
+  - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
+
+- 服务器 5：罗马尼亚，HostSolutions 服务商
+  - 公网 IPv4：`45.14.150.211`
+  - 公网 IPv6：无
+  - DN42 IPv4：`172.22.76.188`
+  - DN42 IPv6：`fdbc:f9dc:67ad::b2:9dd9:af42`
+  - Link-local IPv6：`fe80::2547`
+  - WireGuard 公钥：`o1khch2IZ5IbVgEm8kIKyCtqj1hfkRb+OP51tOBrwSk=`
   - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
 
 我的配置模板（默认参数）
