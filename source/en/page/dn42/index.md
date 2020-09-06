@@ -106,7 +106,7 @@ Servers
   - DN42 IPv6: `fdbc:f9dc:67ad::dd:c85a:8a93`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
-  - IPSec Public Key
+  - IPSec Public Key:
 
     ```bash
     -----BEGIN PUBLIC KEY-----
@@ -127,12 +127,29 @@ Servers
 
 - Server 3: New York, United States, provider VirMach
   - Public IPv4: `107.172.134.89`
-  - Public IPv6: None
+  - Public IPv6: `2001:470:1f07:54d::1`
   - DN42 IPv4: `172.22.76.190`
   - DN42 IPv6: `fdbc:f9dc:67ad::cc:433e:da3b`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
-  - IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
+  - IPSec Public Key:
+
+    ```bash
+    -----BEGIN PUBLIC KEY-----
+    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvi/9B2Ms73OqyITx7fmF
+    euImT7rHexwQ8Xz6Hdn8O6FfPK9XLBYRnxYxOT616PNfwHxZpddQgE9ilgmCmGH/
+    W/7+gF+Ub0WfPPsmCjQ0XoYB32bEv9FTuF0Z94A2HGB4DW7b4zRcwC63NgTWLZ1t
+    S+josno+1Q4pwmffNipPm/Z3jH+DMoJep8ShqANG3JKnzAR40X1XHv9KpYIgyIgZ
+    QGChXK55rY7zprQQ+Hab2sHZ1vAlsfQ0OitgIYqc770Tewfz9AWbOLqz6WIPifKg
+    9Mhzli1dsO5rBG3VG3KAuJOejiEZKrG1EteWW24Zv5iRCh2qTbiyZmHHlKpwukOw
+    UwLyE3k8b8ZnAF0rpZ3Amq0W1zZXI6M9VXtcyHUPUCFICdTluE9UHHpFDCQvolqO
+    UuEzqJ6FyAXMhH14JG19uM+uGcbLEtFOQR13iQK8LnVWVl3nF3AqHUthdXCmWqb/
+    IjfcThEFvno4qE95ByOzIW3/AR+IWSU1XDEQZieIztQqJvUADUl60j4lbM5+SbLw
+    uBcAjWSK8wLeUqy8CLeIv41olKnpPXTNbouu+E/7qxOLEfjkx6QZ3DhN1UGtPFQS
+    Xt1p+DuItBlcE2vJzADHTCb3LsdhMQ3q3reH9DVbDxyIxrKxpcVJHHI37rboBDl9
+    BWxEF0pSRIaVU2DExNVLz6ECAwEAAQ==
+    -----END PUBLIC KEY-----
+    ```
 
 - Server 4: Frankfurt, Germany, provider Virtono
   - Public IPv4: `45.138.97.165`
@@ -145,7 +162,8 @@ Servers
 
 - Server 5: Romania, provider HostSolutions
   - Public IPv4: `45.14.150.211`
-  - Public IPv6: None
+  - Public IPv6: `2001:470:1f1b:bb::1`
+    - This node has **high latency** (~50ms) to HE tunnel broker, so IPv4 is preferred, unless you only have IPv6.
   - DN42 IPv4: `172.22.76.188`
   - DN42 IPv6: `fdbc:f9dc:67ad::b2:9dd9:af42`
   - Link-local IPv6: `fe80::2547`
