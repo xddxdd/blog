@@ -75,7 +75,7 @@ date: 1970-01-01 00:00:00
 - 服务器 1：中国香港，GigsGigsCloud 服务商
   - 公网 IPv4：`103.42.215.193`
   - 公网 IPv6：`2001:470:19:10bb::1`
-    - 该节点到 HE 的隧道服务器延迟很高（约 150 ms），所以强烈推荐使用 IPv4 地址连接，除非你只有 IPv6。
+    - 该节点到 HE 的隧道服务器**延迟很高**（约 150 ms），所以强烈推荐使用 IPv4 地址连接，除非你只有 IPv6。
   - DN42 IPv4：`172.22.76.186`
   - DN42 IPv6：`fdbc:f9dc:67ad::8b:c606:ba01`
   - Link-local IPv6：`fe80::2547`
@@ -127,12 +127,29 @@ date: 1970-01-01 00:00:00
 
 - 服务器 3：美国纽约，VirMach 服务商
   - 公网 IPv4：`107.172.134.89`
-  - 公网 IPv6：无
+  - 公网 IPv6：`2001:470:1f07:54d::1`
   - DN42 IPv4：`172.22.76.190`
   - DN42 IPv6：`fdbc:f9dc:67ad::cc:433e:da3b`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
-  - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
+  - IPSec 公钥：
+
+    ```bash
+    -----BEGIN PUBLIC KEY-----
+    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvi/9B2Ms73OqyITx7fmF
+    euImT7rHexwQ8Xz6Hdn8O6FfPK9XLBYRnxYxOT616PNfwHxZpddQgE9ilgmCmGH/
+    W/7+gF+Ub0WfPPsmCjQ0XoYB32bEv9FTuF0Z94A2HGB4DW7b4zRcwC63NgTWLZ1t
+    S+josno+1Q4pwmffNipPm/Z3jH+DMoJep8ShqANG3JKnzAR40X1XHv9KpYIgyIgZ
+    QGChXK55rY7zprQQ+Hab2sHZ1vAlsfQ0OitgIYqc770Tewfz9AWbOLqz6WIPifKg
+    9Mhzli1dsO5rBG3VG3KAuJOejiEZKrG1EteWW24Zv5iRCh2qTbiyZmHHlKpwukOw
+    UwLyE3k8b8ZnAF0rpZ3Amq0W1zZXI6M9VXtcyHUPUCFICdTluE9UHHpFDCQvolqO
+    UuEzqJ6FyAXMhH14JG19uM+uGcbLEtFOQR13iQK8LnVWVl3nF3AqHUthdXCmWqb/
+    IjfcThEFvno4qE95ByOzIW3/AR+IWSU1XDEQZieIztQqJvUADUl60j4lbM5+SbLw
+    uBcAjWSK8wLeUqy8CLeIv41olKnpPXTNbouu+E/7qxOLEfjkx6QZ3DhN1UGtPFQS
+    Xt1p+DuItBlcE2vJzADHTCb3LsdhMQ3q3reH9DVbDxyIxrKxpcVJHHI37rboBDl9
+    BWxEF0pSRIaVU2DExNVLz6ECAwEAAQ==
+    -----END PUBLIC KEY-----
+    ```
 
 - 服务器 4：德国法兰克福，Virtono 服务商
   - 公网 IPv4：`45.138.97.165`
@@ -145,7 +162,8 @@ date: 1970-01-01 00:00:00
 
 - 服务器 5：罗马尼亚，HostSolutions 服务商
   - 公网 IPv4：`45.14.150.211`
-  - 公网 IPv6：无
+  - 公网 IPv6：`2001:470:1f1b:bb::1`
+    - 该节点到 HE 的隧道服务器**延迟较高**（约 50 ms），所以推荐使用 IPv4 地址连接，除非你只有 IPv6。
   - DN42 IPv4：`172.22.76.188`
   - DN42 IPv6：`fdbc:f9dc:67ad::b2:9dd9:af42`
   - Link-local IPv6：`fe80::2547`
