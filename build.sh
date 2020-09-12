@@ -82,7 +82,7 @@ echo Executing parallel jobs...
 parallel -j$(nproc) < parallel_jobs.lst
 
 # Deploy to my site system
-python -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)"
+python3 -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)"
 ansible-playbook ansible_deploy.yml
 
 # Index new posts on Algolia
