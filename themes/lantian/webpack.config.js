@@ -1,6 +1,8 @@
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const SassInlineSVG = require('sass-inline-svg')(__dirname, { optimize: true, encodingFormat: 'uri' });
+const path = require('path');
 
 module.exports = {
   entry: {
@@ -94,6 +96,31 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
+              implementation: require('node-sass'),
+              /* https://github.com/haithembelhaj/sass-inline-svg/issues/16 */
+              sassOptions: (loaderContext) => ({
+                functions: {
+                  svg(filePath, done) {
+                    /**
+                     * That loader helper function will resolve webpack aliased imports into absolute strings
+                     * svg("~@images/icon.svg") -> /var/www/app/static/img/icon.svg
+                     *
+                     * Sass import might include webpack alias (like ~@images/)
+                     * These aliased imports always start with '~', so if we see one - we modify it into valid webpack alias
+                     */
+                    const filePathValue = filePath.getValue();
+                    const resultPath = filePathValue.indexOf('~') !== -1 ? filePathValue.substr(1) : filePathValue;
+                    loaderContext.resolve(__dirname, resultPath, (error, result) => {
+                      if (error) {
+                        throw error;
+                      }
+                      // eslint-disable-next-line global-require
+                      const SassString = require('node-sass').types.String;
+                      done(SassInlineSVG(SassString(result)));
+                    });
+                  },
+                },
+              }),
             }
           },
         ],

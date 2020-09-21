@@ -22,7 +22,7 @@ $flag-icon-css-path: '~flag-icon-css/flags';
 
 @mixin flag-icon($country) {
     .flag-icon-#{$country} {
-        background-image: url(#{$flag-icon-css-path}#{$flag-icon-rect-path}/#{$country}.svg);
+        background-image: svg("#{$flag-icon-css-path}#{$flag-icon-rect-path}/#{$country}.svg");
     }
 }
 
