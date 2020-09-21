@@ -52,7 +52,7 @@
             <div class="dropdown-menu">
                 <% languages.forEach((language) => { %>
                     <a href="<%= url_for(remove_trailing_slash(i18n_path(!is_default_language(language) ? language : null))) %>" class="dropdown-item<% if(language == page.language) { %> active<% } %>">
-                        <%= language_name(language) %>
+                        <%- language_name(language) %>
                     </a>
                 <% }) %>
                 <div class="dropdown-divider"></div>
