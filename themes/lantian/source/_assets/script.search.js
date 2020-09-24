@@ -37,7 +37,7 @@ addLoadEvent(function() {
     
                     return dateStr + '《<span class="aa-suggestion-title">' + suggestion.title + '</span>》';
                 },
-                footer: "<div class='text-right'><small>搜索服务由 Algolia 提供</small> <i class=\"fab fa-lg fa-algolia\"></i></div>"
+                footer: "<div class='text-right'><small>Search provided by Algolia</small> <i class=\"fab fa-lg fa-algolia\"></i></div>"
             }
         }).on('autocomplete:selected', function(event, suggestion, dataset, context) {
             window.location.href = suggestion.permalink;
