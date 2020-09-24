@@ -131,7 +131,7 @@ article {
                 background-color: #eee;
                 padding: 2px 8px;
                 margin: ($tag-separation / 2) 0;
-    
+
                 a { color: $body-color; }
             }
             &:first-child li:first-child {
@@ -142,7 +142,6 @@ article {
                 margin-right: $tag-separation;
             }
         }
-        
     }
 }
 
@@ -164,7 +163,7 @@ footer.lantian {
     @include media-breakpoint-down(sm) {
         margin:0;
     }
-    
+
     @include media-breakpoint-up(md) {
         @include vendor-prefix(box-shadow, 0 0 50px #777);
     }
@@ -202,7 +201,7 @@ footer.lantian {
             }
         }
     }
-    
+
     .row {
         border-bottom:$border-default;
         margin:0;

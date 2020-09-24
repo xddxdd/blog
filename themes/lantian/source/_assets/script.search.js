@@ -9,7 +9,7 @@ addLoadEvent(function() {
         'use strict';
         var client = algoliasearch('***REMOVED***', '***REMOVED***');
         var index = client.initIndex('lantian');
-    
+
         function newHitsSource(index, params) {
             return function doSearch(query, cb) {
               index
@@ -23,7 +23,7 @@ addLoadEvent(function() {
                 });
             };
         }
-    
+
         autocomplete('#search-input', {hint: false}, {
             source: newHitsSource(index, { hitsPerPage: 5 }),
             displayKey: 'title',
@@ -34,7 +34,7 @@ addLoadEvent(function() {
                     dateStr += (dateObj.getFullYear() % 100) + '-';
                     dateStr += (dateObj.getMonth() < 9 ? '0' : '') + (dateObj.getMonth() + 1) + '-';
                     dateStr += (dateObj.getDate() <= 9 ? '0' : '') + dateObj.getDate();
-    
+
                     return dateStr + '《<span class="aa-suggestion-title">' + suggestion.title + '</span>》';
                 },
                 footer: "<div class='text-right'><small>Search provided by Algolia</small> <i class=\"fab fa-lg fa-algolia\"></i></div>"
@@ -42,7 +42,7 @@ addLoadEvent(function() {
         }).on('autocomplete:selected', function(event, suggestion, dataset, context) {
             window.location.href = suggestion.permalink;
         });
-    
+
         document.getElementById('search-button').onclick = function() {
             document.getElementById('search-bar').classList.toggle('d-none');
         };
