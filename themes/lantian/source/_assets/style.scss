@@ -1,13 +1,14 @@
 @charset "utf-8";
 
-@import "sass/common";
-@import "sass/fonts.scss";
-@import "sass/bootstrap.scss";
+@import 'sass/common';
+@import 'sass/fonts.scss';
+@import 'sass/bootstrap.scss';
 
 $post-info-padding: 5px;
 
 @include media-breakpoint-down(sm) {
-    html, body {
+    html,
+    body {
         overflow-x: hidden;
         width: 100%;
     }
@@ -21,24 +22,37 @@ body {
     font-size: $font-size-base;
 }
 
-a{color:$primary}
+a {
+    color: $primary;
+}
 
-p:last-child{margin-bottom:0}
-#textarea{resize:none}
+p:last-child {
+    margin-bottom: 0;
+}
+#textarea {
+    resize: none;
+}
 
 header.lantian {
     $site-title-padding: $font-size-base;
     $site-title-padding-horizontal: 1.25 * $font-size-base;
 
-    ul { padding-top: (2 * $site-title-padding + $h1-font-size * $headings-line-height - $font-size-base * $line-height-base - 1rem) / 2; }
+    ul {
+        padding-top: (
+                2 * $site-title-padding + $h1-font-size * $headings-line-height -
+                    $font-size-base * $line-height-base - 1rem
+            ) / 2;
+    }
     h1 {
-        margin: $site-title-padding
-                ($site-title-padding-horizontal - 0.5rem)
-                $site-title-padding
-                $site-title-padding-horizontal;
+        margin: $site-title-padding ($site-title-padding-horizontal - 0.5rem)
+            $site-title-padding $site-title-padding-horizontal;
     }
 
-    #elderclock-plus1s{opacity:0;position:absolute;animation:elderclock-plus1s 1s 1}
+    #elderclock-plus1s {
+        opacity: 0;
+        position: absolute;
+        animation: elderclock-plus1s 1s 1;
+    }
 
     border-bottom: $border-default;
     background-color: #eee;
@@ -52,22 +66,32 @@ section.lantian {
 article {
     border-bottom: $border-default;
 
-    .post-title{
-        margin:5px 0;
+    .post-title {
+        margin: 5px 0;
     }
 
     .post-info {
         padding: $post-info-padding;
         ul li {
             color: $body-color;
-            .fas { color: $primary; }
-            img { max-width: 100%; max-height: 200px; }
+            .fas {
+                color: $primary;
+            }
+            img {
+                max-width: 100%;
+                max-height: 200px;
+            }
         }
 
         @include media-breakpoint-down(sm) {
-            padding-bottom:0;
-            ul{margin-left:13px}
-            ul li{float:left;margin-left:5px}
+            padding-bottom: 0;
+            ul {
+                margin-left: 13px;
+            }
+            ul li {
+                float: left;
+                margin-left: 5px;
+            }
         }
     }
 
@@ -78,10 +102,12 @@ article {
             word-wrap: break-word;
             word-break: normal;
         }
-        img, svg {
+        img,
+        svg {
             max-width: 100%;
         }
-        blockquote, pre {
+        blockquote,
+        pre {
             border-left: 5px solid #eee;
             padding-left: 8px;
         }
@@ -89,7 +115,12 @@ article {
             border-bottom: 3px solid #eee;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             @include media-breakpoint-up(md) {
                 margin-left: -1em;
             }
@@ -100,15 +131,24 @@ article {
         }
 
         h1 {
-            &:before { content: fa-content($fa-var-angle-double-right); }
+            &:before {
+                content: fa-content($fa-var-angle-double-right);
+            }
         }
-        h2, h3, h4, h5, h6 {
-            &:before { content: fa-content($fa-var-angle-right); }
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            &:before {
+                content: fa-content($fa-var-angle-right);
+            }
         }
 
-        b, strong {
-            font-weight:900 !important;
-            color:#000;
+        b,
+        strong {
+            font-weight: 900 !important;
+            color: #000;
         }
 
         .header-anchor {
@@ -125,18 +165,22 @@ article {
     .read {
         $tag-separation: 6px;
         ul {
-            width:100%;
+            width: 100%;
             margin-bottom: $tag-separation;
             li {
                 background-color: #eee;
                 padding: 2px 8px;
                 margin: ($tag-separation / 2) 0;
 
-                a { color: $body-color; }
+                a {
+                    color: $body-color;
+                }
             }
             &:first-child li:first-child {
                 background-color: $primary;
-                a { color: #fff; }
+                a {
+                    color: #fff;
+                }
             }
             &:first-child li:not(:last-child) {
                 margin-right: $tag-separation;
@@ -150,18 +194,20 @@ footer.lantian {
     border-top: $border-default;
     border-bottom: $border-default;
     width: 100%;
-    background-color:#eee;
+    background-color: #eee;
 
-    #copyright { padding:5px; }
+    #copyright {
+        padding: 5px;
+    }
 }
 
-#container{
-    background:#fff;
-    margin:50px 5%;
-    padding:0;
+#container {
+    background: #fff;
+    margin: 50px 5%;
+    padding: 0;
 
     @include media-breakpoint-down(sm) {
-        margin:0;
+        margin: 0;
     }
 
     @include media-breakpoint-up(md) {
@@ -170,20 +216,21 @@ footer.lantian {
 }
 
 .widget {
-    margin-bottom:2px;
+    margin-bottom: 2px;
 
     h3 {
-        color:#000;
-        font-weight:700;
+        color: #000;
+        font-weight: 700;
     }
 
-    ul li, h3 {
-        margin:0;
-        padding:0;
+    ul li,
+    h3 {
+        margin: 0;
+        padding: 0;
         border-bottom: $border-dotted;
-        overflow:hidden;
-        word-break:break-all;
-        white-space:nowrap;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: nowrap;
         @include vendor-prefix(text-overflow, ellipsis);
     }
 
@@ -191,124 +238,167 @@ footer.lantian {
         margin: 0;
 
         li {
-            .fas { color:#000; }
+            .fas {
+                color: #000;
+            }
 
-            &:last-child { border-bottom:$border-default; }
+            &:last-child {
+                border-bottom: $border-default;
+            }
             &::before {
                 @include font-awesome;
-                float:left;
+                float: left;
                 content: fa-content($fa-var-angle-right);
             }
         }
     }
 
     .row {
-        border-bottom:$border-default;
-        margin:0;
+        border-bottom: $border-default;
+        margin: 0;
         div {
-            padding:3px;
-            text-align:center;
+            padding: 3px;
+            text-align: center;
         }
         div:not(:last-child) {
-            border-right:$border-dotted;
+            border-right: $border-dotted;
         }
-        p { margin:0; }
+        p {
+            margin: 0;
+        }
     }
 }
 
 #content {
-    #post-navi{border-bottom:1px solid #bdbdbd}
+    #post-navi {
+        border-bottom: 1px solid #bdbdbd;
+    }
 }
 
 #quicklink {
-    margin:0 -1em (-$post-info-padding - 1px) 1em;
+    margin: 0 -1em (-$post-info-padding - 1px) 1em;
     position: sticky;
     top: -1px;
 
     li {
-        margin:0;
-        padding:0;
-        border-top:$border-dotted;
-        overflow:hidden;
-        word-break:break-all;
+        margin: 0;
+        padding: 0;
+        border-top: $border-dotted;
+        overflow: hidden;
+        word-break: break-all;
 
-        .fas{ color:#000; }
+        .fas {
+            color: #000;
+        }
     }
     li:last-child {
-        border-bottom:$border-default;
+        border-bottom: $border-default;
     }
 
-    &.quicklink-float{
-        position:fixed;
-        top:0;
-        width:300px;
+    &.quicklink-float {
+        position: fixed;
+        top: 0;
+        width: 300px;
     }
-    &.quicklink-over-position{
-        visibility:hidden;
+    &.quicklink-over-position {
+        visibility: hidden;
     }
 
-    .toc, .toc-child {
+    .toc,
+    .toc-child {
         padding: 0;
         margin-bottom: -1px;
     }
 
-    .toc-link { display:block;height:26px;overflow:hidden; }
-    .toc-text { word-break:break-all; }
+    .toc-link {
+        display: block;
+        height: 26px;
+        overflow: hidden;
+    }
+    .toc-text {
+        word-break: break-all;
+    }
 
-    .toc-level-1, .toc-level-2, .toc-level-3, .toc-level-4, .toc-level-5, .toc-level-6 {
+    .toc-level-1,
+    .toc-level-2,
+    .toc-level-3,
+    .toc-level-4,
+    .toc-level-5,
+    .toc-level-6 {
         &:before {
             @include font-awesome;
-            float:left;
+            float: left;
         }
     }
 
     .toc-level-1 {
-        &:before { content: fa-content($fa-var-angle-double-right); }
+        &:before {
+            content: fa-content($fa-var-angle-double-right);
+        }
     }
-    .toc-level-2, .toc-level-3, .toc-level-4, .toc-level-5, .toc-level-6 {
-        &:before { content: fa-content($fa-var-angle-right); }
-    }
-}
-
-.dsq-widget-list{
-    padding-left:0;
-    list-style:none;
-
-    .dsq-widget-comment p{
-        display:inline;
-        white-space:nowrap;
-
-        br { display: none; }
-        &:not(:first-child) { display:none; }
-    }
-
-    .dsq-widget-item::before{
-        @include font-awesome;
-        float:left;
-        content: fa-content($fa-var-angle-right);
-    }
-
-    .dsq-widget-meta{
-        font-size:12px;
-        padding-left:1em;
-
-        a {
-            &:first-child {
-                &::before{content:"《"}
-                &::after{content:"》"}
-            }
-            &:not(:first-child) { display: none; }
+    .toc-level-2,
+    .toc-level-3,
+    .toc-level-4,
+    .toc-level-5,
+    .toc-level-6 {
+        &:before {
+            content: fa-content($fa-var-angle-right);
         }
     }
 }
 
-#post-navi{padding:5px}
+.dsq-widget-list {
+    padding-left: 0;
+    list-style: none;
+
+    .dsq-widget-comment p {
+        display: inline;
+        white-space: nowrap;
+
+        br {
+            display: none;
+        }
+        &:not(:first-child) {
+            display: none;
+        }
+    }
+
+    .dsq-widget-item::before {
+        @include font-awesome;
+        float: left;
+        content: fa-content($fa-var-angle-right);
+    }
+
+    .dsq-widget-meta {
+        font-size: 12px;
+        padding-left: 1em;
+
+        a {
+            &:first-child {
+                &::before {
+                    content: '《';
+                }
+                &::after {
+                    content: '》';
+                }
+            }
+            &:not(:first-child) {
+                display: none;
+            }
+        }
+    }
+}
+
+#post-navi {
+    padding: 5px;
+}
 
 .page-navigator {
     list-style: none;
     float: left;
 
-    span, a {
+    span,
+    a {
         border: 1px solid #9e9e9e;
         float: left;
         margin: 5px;
@@ -321,29 +411,45 @@ footer.lantian {
             color: #fff;
         }
     }
-    a:hover { background-color: #bdbdbd; }
+    a:hover {
+        background-color: #bdbdbd;
+    }
 }
 
-ol ol, ol ul, ul ol, ul ul{margin-bottom: -1px}
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin-bottom: -1px;
+}
 
-@keyframes elderclock-plus1s{from{opacity:1;margin-top:0}to{opacity:0;margin-top:-30px}}
+@keyframes elderclock-plus1s {
+    from {
+        opacity: 1;
+        margin-top: 0;
+    }
+    to {
+        opacity: 0;
+        margin-top: -30px;
+    }
+}
 
-@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "simple-lightbox/dist/simpleLightbox";
-@import "katex/dist/katex";
+@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import 'simple-lightbox/dist/simpleLightbox';
+@import 'katex/dist/katex';
 
-@import "sass/algolia.scss";
-@import "sass/images.scss";
-@import "sass/flags.scss";
+@import 'sass/algolia.scss';
+@import 'sass/images.scss';
+@import 'sass/flags.scss';
 
-@import "highlight.js/styles/github";
+@import 'highlight.js/styles/github';
 .hljs {
     padding: 0 !important;
     background: none !important;
     color: inherit !important;
 }
 
-@import "disqusjs/src/disqusjs";
+@import 'disqusjs/src/disqusjs';
 #dsqjs {
     footer {
         margin: 0 !important;
