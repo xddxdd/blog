@@ -55,7 +55,7 @@ addLoadEvent(function() {
     attempt('Google Analytics', function() {
         'use strict';
         ga('create','UA-37067735-1');
-        ga('send', 'pageview', location.pathname + location.search);    
+        ga('send', 'pageview', location.pathname + location.search);
     });
 
     attempt('Simple Lightbox', function() {
@@ -67,7 +67,7 @@ addLoadEvent(function() {
             } catch(e) {}
             return false;
         };
-    
+
         let posts = document.getElementsByClassName('post-text');
         for(let i = 0; i < posts.length; i++) {
             let images = posts[i].getElementsByTagName('img');
@@ -76,7 +76,7 @@ addLoadEvent(function() {
                 images[j].style.cursor = 'pointer';
             }
         }
-    
+
         let qrcodes = document.getElementsByClassName('qrcode-box');
         for(let i = 0; i < qrcodes.length; i++) {
             qrcodes[i].onclick = lightbox_onclick;
