@@ -1,7 +1,4 @@
-const _ = require('lodash');
 const util = require('hexo-util');
-const LANGUAGE_TAGS = require('./language');
-
 const Pattern = util.Pattern;
 
 module.exports = function (hexo) {
