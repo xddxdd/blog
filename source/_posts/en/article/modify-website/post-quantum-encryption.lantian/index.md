@@ -138,7 +138,7 @@ I also modified a Chromium `PKGBUILD` file that Arch Linux users can use directl
 
 After the compilation and installation is complete, launch Chromium to access a website with post-quantum cryptography, then open the `Security` tab in Developer Tools:
 
-![Chromium Shows Using Post-Quantum Cryptography](../../../usr/uploads/202009/chromium-post-quantum.png)
+![Chromium Shows Using Post-Quantum Cryptography](../../../../usr/uploads/202009/chromium-post-quantum.png)
 
 Here `p256_frodo640aes` is being used, which means you're browsing with post-quantum protection.
 
