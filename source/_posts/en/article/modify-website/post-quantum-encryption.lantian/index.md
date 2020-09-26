@@ -52,12 +52,7 @@ Compared to compiling a normal nginx, there are 2 main changes:
    ```bash
    # Redacted
    && git clone -b OQS-OpenSSL_1_1_1-stable https://github.com/open-quantum-safe/openssl.git \
-      && cd openssl \
-      # This is a patch I personally use, this is not required, and doesn't impact post-quantum cryptography
-      && PATCH(https://github.com/hakasenyang/openssl-patch/raw/master/openssl-equal-1.1.1e-dev_ciphers.patch) \
-      # Enable some disabled-by-default algorithms, optional
-      && sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml \
-      && cd /tmp \
+      # Some personal modifications omitted here, they're not necessary for post-quantum cryptography
    && git clone -b master https://github.com/open-quantum-safe/liboqs.git \
       && mkdir /tmp/liboqs/build && cd /tmp/liboqs/build \
       && cmake -DOQS_BUILD_ONLY_LIB=1 -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=/tmp/openssl/oqs .. \
