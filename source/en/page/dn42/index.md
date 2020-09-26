@@ -73,6 +73,7 @@ Servers
 -------
 
 - Server 1: Hong Kong, China, provider GigsGigsCloud
+  - Domain: `gigsgigscloud.lantian.pub`
   - Public IPv4: `103.42.215.193`
   - Public IPv6: `2001:470:19:10bb::1`
     - This node has **extremely high latency** (~150ms) to HE tunnel broker, so IPv4 is strongly preferred, unless you only have IPv6.
@@ -100,6 +101,7 @@ Servers
     ```
 
 - Server 2：Los Angeles, United States, provider HostDare
+  - Domain: `hostdare.lantian.pub`
   - Public IPv4: `185.186.147.110`
   - Public IPv6: `2607:fcd0:100:b100::198a:b7f6`
   - DN42 IPv4: `172.22.76.185`
@@ -126,6 +128,7 @@ Servers
     ```
 
 - Server 3: New York, United States, provider VirMach
+  - Domain: `virmach-ny1g.lantian.pub`
   - Public IPv4: `107.172.134.89`
   - Public IPv6: `2001:470:1f07:54d::1`
   - DN42 IPv4: `172.22.76.190`
@@ -152,6 +155,7 @@ Servers
     ```
 
 - Server 4: Frankfurt, Germany, provider Virtono
+  - Domain: `virtono.lantian.pub`
   - Public IPv4: `45.138.97.165`
   - Public IPv6: `2001:ac8:20:3::433a:a05d`
   - DN42 IPv4: `172.22.76.187`
@@ -161,6 +165,7 @@ Servers
   - IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
 
 - Server 5: Romania, provider HostSolutions
+  - Domain: `hostsolutions.lantian.pub`
   - Public IPv4: `45.14.150.211`
   - Public IPv6: `2001:470:1f1b:bb::1`
     - This node has **high latency** (~50ms) to HE tunnel broker, so IPv4 is preferred, unless you only have IPv6.
