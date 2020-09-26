@@ -52,12 +52,7 @@ Open Quantum Safe 提供了[一份修改后的 Dockerfile，可以用作参考](
    ```bash
    # 前略
    && git clone -b OQS-OpenSSL_1_1_1-stable https://github.com/open-quantum-safe/openssl.git \
-      && cd openssl \
-      # 下一行是我自己打的一个额外补丁，不是必要的，对后量子加密无影响
-      && PATCH(https://github.com/hakasenyang/openssl-patch/raw/master/openssl-equal-1.1.1e-dev_ciphers.patch) \
-      # 下一行会开启默认禁用的一些加密算法，也不是必要的
-      && sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml \
-      && cd /tmp \
+      # 省略了一些我个人使用的 OpenSSL 修改，对后量子加密不是必要的
    && git clone -b master https://github.com/open-quantum-safe/liboqs.git \
       && mkdir /tmp/liboqs/build && cd /tmp/liboqs/build \
       && cmake -DOQS_BUILD_ONLY_LIB=1 -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=/tmp/openssl/oqs .. \
