@@ -7,7 +7,7 @@ global.DisqusJS = DisqusJS;
 import attempt from './js/attempt';
 import elderClock from './js/elderclock';
 
-import './js/analytics';
+import cfga from './js/cfga';
 
 /*****************************************
  * Bootstrap Native
@@ -54,8 +54,9 @@ addLoadEvent(function () {
 
     attempt('Google Analytics', function () {
         'use strict';
-        ga('create', 'UA-37067735-1');
-        ga('send', 'pageview', location.pathname + location.search);
+        // ga('create', 'UA-37067735-1');
+        // ga('send', 'pageview', location.pathname + location.search);
+        cfga(window, document, navigator, 'UA-37067735-1', 'https://ga.lantian.pub/jquery.min.js');
     });
 
     attempt('Simple Lightbox', function () {
