@@ -40,6 +40,7 @@ module.exports = {
                 extractComments: false,
             }),
             new OptimizeCSSAssetsPlugin({
+                cssProcessor: require('cssnano'),
                 cssProcessorPluginOptions: {
                     preset: [
                         'advanced',

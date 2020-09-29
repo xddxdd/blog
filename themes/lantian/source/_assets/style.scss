@@ -211,7 +211,7 @@ footer.lantian {
     }
 
     @include media-breakpoint-up(md) {
-        @include vendor-prefix(box-shadow, 0 0 50px #777);
+        box-shadow: 0 0 50px #777;
     }
 }
 
@@ -231,7 +231,7 @@ footer.lantian {
         overflow: hidden;
         word-break: break-all;
         white-space: nowrap;
-        @include vendor-prefix(text-overflow, ellipsis);
+        text-overflow: ellipsis;
     }
 
     ul {
