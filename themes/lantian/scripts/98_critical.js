@@ -77,7 +77,7 @@ function CriticalCssWorker() {
         return new Promise(function(resolve, reject) {
             var initialPromiseQueue = Promise.resolve();
 
-            htmlFiles.reduce(function(promiseQueue, html_file) {
+            files.reduce(function(promiseQueue, html_file) {
                 return promiseQueue.then(function() {
                     return applyCriticalToFile(html_file);
                 });
