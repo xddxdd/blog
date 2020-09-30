@@ -107,41 +107,39 @@ function multithread_wait(queues, i, count, resolve) {
 function CriticalCssWorker() {
     const threads = os.cpus().length * 2;
 
-    return fs.exists(hexo.public_dir).then(function (exist) {
-        if (!exist) {
-            return;
+    if (!(/^(g|deploy)/.test(this.env.cmd))) {
+        return;
+    }
+
+    let files = fs.listDirSync(hexo.public_dir);
+    files = files.filter(function (file) {
+        return hexo.config.skip_render.reduce(function (kept, filter) {
+            return kept && !minimatch(file, filter);
+        }, true);
+    });
+    files = files.filter(function (name) {
+        const extname = path.extname(name) || path.basename(name) || name;
+        const extension = extname[0] === '.' ? extname.slice(1) : extname;
+        return extension === 'html' || extension === 'htm';
+    });
+
+    return new Promise(function (resolve, reject) {
+        let queues = new Array(threads);
+        let file_chunks = multithread_split(files, threads);
+        for (let i = 0; i < threads; i++) {
+            queues[i] = file_chunks[i].reduce(function (queue, html_file) {
+                return queue.then(function () {
+                    return applyCriticalToFile(html_file, i);
+                });
+            }, Promise.resolve());
         }
 
-        let files = fs.listDirSync(hexo.public_dir);
-        files = files.filter(function (file) {
-            return hexo.config.skip_render.reduce(function (kept, filter) {
-                return kept && !minimatch(file, filter);
-            }, true);
-        });
-        files = files.filter(function (name) {
-            const extname = path.extname(name) || path.basename(name) || name;
-            const extension = extname[0] === '.' ? extname.slice(1) : extname;
-            return extension === 'html' || extension === 'htm';
-        });
-
-        return new Promise(function (resolve, reject) {
-            let queues = new Array(threads);
-            let file_chunks = multithread_split(files, threads);
-            for (let i = 0; i < threads; i++) {
-                queues[i] = file_chunks[i].reduce(function (queue, html_file) {
-                    return queue.then(function () {
-                        return applyCriticalToFile(html_file, i);
-                    });
-                }, Promise.resolve());
-            }
-
-            return multithread_wait(queues, 0, threads, resolve);
-        }).then(function (resolvedPromises) {
-            hexo.log.log(
-                'Finished including all critical css into the html files',
-            );
-            return resolvedPromises;
-        });
+        return multithread_wait(queues, 0, threads, resolve);
+    }).then(function (resolvedPromises) {
+        hexo.log.log(
+            'Finished including all critical css into the html files',
+        );
+        return resolvedPromises;
     });
 }
 
