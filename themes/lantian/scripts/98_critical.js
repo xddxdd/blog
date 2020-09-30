@@ -25,6 +25,11 @@ function getCriticalOptions(html_file) {
                 width: 1280,
             },
         ],
+        ignore: [
+            '@font-face',
+            /flag-icon-([a-zA-Z\-]*)/,
+            /fa-([a-zA-Z0-9]*)/
+        ],
     };
 }
 
