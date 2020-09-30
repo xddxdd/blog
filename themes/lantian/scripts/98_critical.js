@@ -7,48 +7,25 @@ const fs = require('hexo-fs');
 const minimatch = require('minimatch');
 
 function getCriticalOptions(html_file) {
-    let perPageCss = true;
+    let fullyQualifiedFilename = path.join(hexo.public_dir, html_file);
+    let base = path.dirname(fullyQualifiedFilename) + '/';
 
-    if (perPageCss) {
-        let fullyQualifiedFilename = path.join(hexo.public_dir, html_file);
-        let base = path.dirname(fullyQualifiedFilename) + '/';
-
-        return {
-            base: base,
-            src: fullyQualifiedFilename,
-            inline: true,
-            minify: true,
-            dimensions: [
-                {
-                    height: 640,
-                    width: 360,
-                },
-                {
-                    height: 720,
-                    width: 1280,
-                },
-            ],
-            ignore: ['@font-face'],
-        };
-    } else {
-        return {
-            base: hexo.public_dir,
-            src: html_file,
-            inline: true,
-            minify: true,
-            dimensions: [
-                {
-                    height: 640,
-                    width: 360,
-                },
-                {
-                    height: 720,
-                    width: 1280,
-                },
-            ],
-            ignore: ['@font-face'],
-        };
-    }
+    return {
+        base: base,
+        src: fullyQualifiedFilename,
+        inline: true,
+        minify: true,
+        dimensions: [
+            {
+                height: 640,
+                width: 360,
+            },
+            {
+                height: 720,
+                width: 1280,
+            },
+        ],
+    };
 }
 
 function applyCriticalToFile(html_file, thread_id) {
@@ -60,9 +37,7 @@ function applyCriticalToFile(html_file, thread_id) {
         return;
     }
 
-    let criticalPromise = critical.generate(options);
-
-    return criticalPromise
+    return critical.generate(options)
         .then(({ css, html, unneeded }) => {
             fs.writeFileSync(dest_file, html);
 
@@ -104,7 +79,7 @@ function multithread_wait(queues, i, count, resolve) {
     }
 }
 
-function CriticalCssWorker() {
+function critical_css() {
     const threads = os.cpus().length * 2;
 
     if (!(/^(g|deploy)/.test(this.env.cmd))) {
@@ -143,4 +118,4 @@ function CriticalCssWorker() {
     });
 }
 
-hexo.extend.filter.register('before_exit', CriticalCssWorker, 10000);
+hexo.extend.filter.register('before_exit', critical_css, 10000);
