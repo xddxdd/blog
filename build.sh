@@ -30,6 +30,19 @@ fi
 # Hexo deploy takes care of git, and baidu_url_submit
 node_modules/hexo/bin/hexo deploy
 
+# Pinata: obtain last pinned hash
+PINATA_LAST_HASH=$(curl \
+    -H "pinata_api_key: $IPFS_DEPLOY_PINATA__API_KEY" \
+    -H "pinata_secret_api_key: $IPFS_DEPLOY_PINATA__SECRET_API_KEY" \
+    "https://api.pinata.cloud/data/pinList?status=pinned&metadata\[name\]=$IPFS_DEPLOY_CLOUDFLARE__RECORD" \
+    | jq -r ".rows[1].ipfs_pin_hash")
+
+# Pinata: check if last hash is fetched correctly
+if [ "$PINATA_LAST_HASH" = "" ]; then
+    echo "Get pinata last hash failed"
+    exit 1
+fi
+
 # Deploy to IPFS pinning services
 export IPFS_DEPLOY_PINATA__API_KEY=4fbcc22aefdb73437046
 export IPFS_DEPLOY_PINATA__SECRET_API_KEY=91545fd9ade86cbde04f1a32b18acb3190124dd14f3adff6ab0ea7189f51b068
@@ -38,13 +51,6 @@ export IPFS_DEPLOY_CLOUDFLARE__API_KEY=f832baa082df741c9ef32a4c1fa829eb0b95e
 export IPFS_DEPLOY_CLOUDFLARE__ZONE=xuyh0120.win
 export IPFS_DEPLOY_CLOUDFLARE__RECORD=_dnslink.ipfs.xuyh0120.win
 node_modules/ipfs-deploy/bin/ipfs-deploy.js public/ -p pinata -d cloudflare -C -O
-
-# Pinata: obtain last pinned hash
-PINATA_LAST_HASH=$(curl \
-    -H "pinata_api_key: $IPFS_DEPLOY_PINATA__API_KEY" \
-    -H "pinata_secret_api_key: $IPFS_DEPLOY_PINATA__SECRET_API_KEY" \
-    "https://api.pinata.cloud/data/pinList?status=pinned&metadata[name]=$IPFS_DEPLOY_CLOUDFLARE__RECORD" \
-    | jq -r ".rows[1].ipfs_pin_hash")
 
 # Pinata: remove last hash
 curl -X DELETE \
