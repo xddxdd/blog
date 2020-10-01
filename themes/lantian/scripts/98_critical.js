@@ -7,12 +7,9 @@ const fs = require('hexo-fs');
 const minimatch = require('minimatch');
 
 function getCriticalOptions(html_file) {
-    let fullyQualifiedFilename = path.join(hexo.public_dir, html_file);
-    let base = path.dirname(fullyQualifiedFilename) + '/';
-
     return {
-        base: base,
-        src: fullyQualifiedFilename,
+        base: hexo.public_dir,
+        src: path.join(hexo.public_dir, html_file),
         inline: true,
         minify: true,
         dimensions: [
@@ -26,7 +23,6 @@ function getCriticalOptions(html_file) {
             },
         ],
         ignore: [
-            '@font-face',
             /flag-icon-([a-zA-Z\-]*)/,
             /fa-([a-zA-Z0-9]*)/
         ],
