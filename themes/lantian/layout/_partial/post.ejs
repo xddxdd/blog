@@ -21,11 +21,11 @@
                 <% } %>
             </ul>
             <% if(!index) { %>
-                <div id="quicklink" class="d-none d-md-block">
+                <ol id="quicklink" class="d-none d-md-block">
                     <%- toc(page.content, {
                         list_number: false
                     }) %>
-                </div>
+                </ol>
             <% } %>
         </div>
         <div class="col-md-9 col-12 post-wrap">
