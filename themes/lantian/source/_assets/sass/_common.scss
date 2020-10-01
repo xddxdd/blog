@@ -1,5 +1,6 @@
 @import "~@fortawesome/fontawesome-free/scss/variables";
 @import "~@fortawesome/fontawesome-free/scss/mixins";
+@import "~sass-material-colors";
 
 @mixin font-awesome {
     font-style:normal;
@@ -13,11 +14,11 @@ $font-family-english: Ubuntu,-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sa
 $font-family-sans-serif: $font-family-english,$font-family-chinese,sans-serif;
 $font-family-monospace: "";
 
-$primary: #03a9f4;
-$body-color: #555;
+$primary: material-color('light-blue', '500');
+$body-color: material-color('gray', '700');
 
-$border-default: 1px solid #bdbdbd;
-$border-dotted: 1px dotted #bdbdbd;
+$border-default: 1px solid material-color('gray', '400');
+$border-dotted: 1px dotted material-color('gray', '400');
 
 $font-size-base: 1rem;
 $font-size-sm: 0.875rem;
