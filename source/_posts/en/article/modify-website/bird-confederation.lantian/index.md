@@ -31,10 +31,32 @@ BGP can also be necessary within a large scale AS, for example China Telecom whi
    - But there is a severe limitation of iBGP: all routers should be connected to each other. The reason is that:
      - Suppose we have such a network topology:
 
-       ```bash
-       A ----- B ----- C
-               |       |
-               +-- D --+
+       ```graphviz
+       graph {
+         rankdir=LR
+         node[shape=box]
+
+         subgraph cluster_1 {
+           style=filled;
+           color=lightgrey;
+           label="AS1";
+           node[style=filled,color=white]
+           {rank=same; A -- "10.0.0.0/8"; }
+           "10.0.0.0/8"[shape=oval]
+         }
+
+         subgraph cluster_2 {
+           style=filled;
+           color=lightgrey;
+           label="AS2";
+           node[style=filled,color=white]
+           {rank=same; B -- C; }
+           B -- D;
+           C -- D;
+         }
+
+         A -- B
+       }
        ```
 
        - A belongs to AS1, and B, C, D belong to AS2.
@@ -72,11 +94,42 @@ BGP can also be necessary within a large scale AS, for example China Telecom whi
    - But since each router has a different ASN, how can they know if a router is "friendly" (within the same ISP) or "hostile" (from another ISP)? A common identifier can be assigned to all routers in the same ISP (called Confederation Identifier) to assist.
    - Suppose we have such a network topology:
 
-     ```bash
-     A ----- B ----- C ----- E
-             |       |
-             +-- D --+
-     ```
+       ```graphviz
+       graph {
+         rankdir=LR
+         node[shape=box]
+
+         subgraph cluster_1 {
+           style=filled;
+           color=lightgrey;
+           label="AS1";
+           node[style=filled,color=white]
+           {rank=same; A -- "10.0.0.0/8"; }
+           "10.0.0.0/8"[shape=oval]
+         }
+
+         subgraph cluster_2 {
+           style=filled;
+           color=lightgrey;
+           label="AS2";
+           node[style=filled,color=white]
+           {rank=same; B -- C; }
+           B -- D;
+           C -- D;
+         }
+
+         subgraph cluster_3 {
+           style=filled;
+           color=lightgrey;
+           label="AS3";
+           node[style=filled,color=white]
+           E
+         }
+
+         A -- B
+         D -- E
+       }
+       ```
 
      - A belongs to AS1, B, C, D belongs to AS2, and E belongs to AS3.
      - AS2 has BGP Confederation configured, and B, C, D has private ASNs 21, 22 and 23.
