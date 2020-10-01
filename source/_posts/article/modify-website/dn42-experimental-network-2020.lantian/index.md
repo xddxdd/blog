@@ -1,8 +1,8 @@
 ---
-title: 'DN42 实验网络介绍及注册教程（2020-09-03 更新）'
+title: 'DN42 实验网络介绍及注册教程（2020-10-01 更新）'
 categories: 网站与服务端
 tags: [DN42, BGP]
-date: 2020-09-03 00:46:04
+date: 2020-10-01 22:36:06
 ---
 
 DN42 全称 Decentralized Network 42（42 号去中心网络），是一个大型、去中心化的 VPN 网络。但是与其它传统 VPN 不同的是，DN42 本身不提供 VPN 出口服务，即不提供规避网络审查、流媒体解锁等类似服务。相反，DN42 的目的是模拟一个互联网。它使用了大量在目前互联网骨干上应用的技术（例如 BGP 和递归 DNS），可以很好地模拟一个真实的网络环境。
@@ -21,6 +21,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 本文更新日志
 ----------
 
+- 2020-10-01：不再推荐添加 Debian Unstable 软件源（有更好的方法了）。
 - 2020-10-01：收到反馈 Windows 上 Git GPG 签名会出问题，建议使用 WSL。
 - 2020-09-03：更新最新的注册流程。
 - 2020-08-31：由于 Burble 修改了他的 Peer 标准，不再向新用户推荐与他 Peer。
@@ -420,34 +421,16 @@ DN42 中几乎每个 Peering 都是建立在隧道软件（即 VPN）之上的�
      - 是 L3 层隧道，难以进行桥接等操作
    - 如果你用的是 OpenVZ 或者 LXC 的 VPS，不建议使用 `wireguard-go` 代替内核驱动，该软件更新较慢且据其它用户称有稳定性问题。
    - 安装方式，以 Debian 10 (Buster) 为例：
-     - 首先加入 Debian Unstable 的软件源：
+     - 首先加入 Debian Backports 软件源：
        - 编辑 `/etc/apt/sources.list`，添加：
 
          ```bash
-         deb http://deb.debian.org/debian/ unstable main contrib non-free
-         deb-src http://deb.debian.org/debian/ unstable main contrib non-free
-         ```
-
-     - 然后限制 Unstable 软件源的使用范围，避免把整个系统升级到 Unstable：
-       - 添加文件 `/etc/apt/preferences.d/limit-unstable`：
-
-         ```bash
-         Package: *
-         Pin: release a=unstable
-         Pin-Priority: 90
-         ```
-
-       - 添加文件 `/etc/apt/preferences.d/allow-unstable`：
-
-         ```bash
-         Package: wireguard*
-         Pin: release a=unstable
-         Pin-Priority: 900
+         deb http://deb.debian.org/debian buster-backports main
          ```
 
      - 然后使用 DKMS 安装 WireGuard 的内核驱动和管理工具：
        - `sudo apt update`
-       - `sudo apt install wireguard-tools wireguard-dkms`
+       - `sudo apt install -t buster-backports wireguard-tools wireguard-dkms`
 
 2. 如果你用的是 OpenVZ 或者 LXC 的 VPS，推荐使用 OpenVPN。
    - OpenVPN 的优点：
@@ -496,11 +479,33 @@ DN42 中的用户之间使用 BGP 协议来交换路由信息。以下是常用�
    - 配置清晰明了，功能强大
    - 注意：此处指 BIRD2，即第二版本；与第一版本不兼容。
    - 由于 BIRD 配置较复杂，请直接参见 [DN42 Wiki 上的 Bird2 配置教程](https://wiki.dn42.us/howto/Bird2)，有现成的配置可以直接复制粘贴。
+   - 在 Debian 中可以添加 BIRD 官方软件源安装：
+
+     ```bash
+     wget -O - http://bird.network.cz/debian/apt.key | apt-key add -
+     apt-get install lsb-release
+     echo "deb http://bird.network.cz/debian/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/bird.list
+     apt-get update
+     apt-get install bird2
+     ```
+
+     可以参考 [BIRD 的下载页面](https://bird.network.cz/?download&tdir=debian/)。
 2. BIRD Internet Routing Daemon **(v1)**
    - 相比 v2，将 IPv4 与 IPv6 分到了两个进程
    - 同时缺少一些功能，包括 Multiprotocol BGP（多协议 BGP，在一个 BGP 连接上同时传输 IPv4 和 IPv6 的路由信息），OSPFv3 等
      - 但不影响基础的 Peering 等操作
    - 参见 [DN42 Wiki 上的 Bird1 配置教程](https://wiki.dn42.us/howto/Bird)，有现成的配置可以直接复制粘贴。
+   - 在 Debian 中可以添加 BIRD 官方软件源安装：
+
+     ```bash
+     wget -O - http://bird.network.cz/debian/apt.key | apt-key add -
+     apt-get install lsb-release
+     echo "deb http://bird.network.cz/debian/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/bird.list
+     apt-get update
+     apt-get install bird
+     ```
+
+     可以参考 [BIRD 的下载页面](https://bird.network.cz/?download&tdir=debian/)。
 3. Quagga / FRRouting
    - 配置语法接近 Cisco 路由器，如果你用过硬件路由器可能会喜欢
    - 某些软路由系统（例如 pfSense）只有 FRRouting 可选

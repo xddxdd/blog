@@ -2,7 +2,7 @@
 title: 'DN42 Experimental Network: Intro and Registration (Updated 2020-09-03)'
 categories: 'Website and Servers'
 tags: [DN42, BGP]
-date: 2020-09-03 00:46:04
+date: 2020-10-01 22:36:06
 ---
 
 DN42, aka Decentralized Network 42, is a large, decentralized VPN-based network. But unlike other traditional VPNs, DN42 itself doesn't provide any VPN exits, which means it doesn't allow you to bypass Internet censorships or unlock streaming services. On the contrary, the goal of DN42 is to simulate another Internet. It uses much of the technology running on modern Internet backbones (BGP, recursive DNS, etc), and is a great replica of a real network environment.
@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2020-10-01: No longer recommend using Debian Unstable repo (better ways exist now).
 - 2020-10-01: Got feedback that Git GPG signing may not work on Windows, recommend using WSL for this.
 - 2020-09-03: Update to the latest registration procedure.
 - 2020-08-31: No longer recommend new users to go to Burble, following his policy update.
@@ -414,34 +415,16 @@ Here is my recommendation for tunneling software:
      - Layer 3 only, doesn't support bridging
    - If you're using OpenVZ or LXC, `wireguard-go` is not suggested. It's not updated as frequent, and it's reported by other users to have stability issues.
    - Installation, Debian 10 (Buster) as example:
-     - First, add Debian Unstable repo:
+     - First, add Debian Backports repo:
        - Edit `/etc/apt/sources.list`, add:
 
          ```bash
-         deb http://deb.debian.org/debian/ unstable main contrib non-free
-         deb-src http://deb.debian.org/debian/ unstable main contrib non-free
-         ```
-
-     - Then restrict the packages Unstable apply to, to prevent upgrading the whole OS to Unstable：
-       - Add file `/etc/apt/preferences.d/limit-unstable`:
-
-         ```bash
-         Package: *
-         Pin: release a=unstable
-         Pin-Priority: 90
-         ```
-
-       - Add file `/etc/apt/preferences.d/allow-unstable`:
-
-         ```bash
-         Package: wireguard*
-         Pin: release a=unstable
-         Pin-Priority: 900
+         deb http://deb.debian.org/debian buster-backports main
          ```
 
      - Then use DKMS to install WireGuard kernel modules and management tools:
        - `sudo apt update`
-       - `sudo apt install wireguard-tools wireguard-dkms`
+       - `sudo apt install -t buster-backports wireguard-tools wireguard-dkms`
 
 2. If you're using OpenVZ or LXC VPS, use OpenVPN.
    - Pros:
@@ -490,11 +473,33 @@ BGP protocol is used to exchange route information between DN42 users. Here is a
    - Clear configuration syntax yet powerful
    - ATTENTION: this is for BIRD2, which is different from BIRD1.
    - BIRD configuration is a bit complicated, so please refer to [DN42 Wiki's Bird2 Guide](https://wiki.dn42.us/howto/Bird2), where a copy-paste-able config is available.
+   - You can directly use BIRD's official repo in Debian:
+
+     ```bash
+     wget -O - http://bird.network.cz/debian/apt.key | apt-key add -
+     apt-get install lsb-release
+     echo "deb http://bird.network.cz/debian/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/bird.list
+     apt-get update
+     apt-get install bird2
+     ```
+
+     You may refer to [BIRD's download page](https://bird.network.cz/?download&tdir=debian/).
 2. BIRD Internet Routing Daemon **(v1)**
    - Split IPv4 and IPv6 to two processes compared to V2
    - And lack some features, like Multiprotocol BGP, OSPFv3, etc
      - But doesn't affect basic peerings
    - Refer to [DN42 Wiki's Bird1 Guide](https://wiki.dn42.us/howto/Bird), where a copy-paste-able config is available.
+   - You can directly use BIRD's official repo in Debian:
+
+     ```bash
+     wget -O - http://bird.network.cz/debian/apt.key | apt-key add -
+     apt-get install lsb-release
+     echo "deb http://bird.network.cz/debian/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/bird.list
+     apt-get update
+     apt-get install bird
+     ```
+
+     You may refer to [BIRD's download page](https://bird.network.cz/?download&tdir=debian/).
 3. Quagga / FRRouting
    - Syntax is similar to Cisco routers, people with hardware router experiences may like this
    - Might be the only available option for some routing OSes (like pfSense)
