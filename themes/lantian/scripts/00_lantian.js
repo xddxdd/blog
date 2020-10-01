@@ -1,3 +1,6 @@
+const execSync = require('child_process').execSync;
+const gitRevision = execSync('git log -1 --format=%h').toString().trim();
+
 hexo.extend.helper.register('remove_trailing_slash', function(s) {
     if(s[s.length - 1] == '/') {
         return s.substring(0, s.length - 1);
@@ -20,4 +23,8 @@ hexo.extend.helper.register('lantian_excerpt', function(input) {
         }
     }
     return stripped.substr(0, output_until) + "...";
+});
+
+hexo.extend.helper.register('lantian_git_rev', function() {
+    return gitRevision;
 });
