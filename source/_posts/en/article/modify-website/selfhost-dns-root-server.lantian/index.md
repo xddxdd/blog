@@ -18,6 +18,12 @@ Yet today I'm going to present another point:
 
 Yes. The root server you're going to selfhost is functionally equivalent to the root servers as fundamental Internet infrastructure.
 
+Changelog
+---------
+
+- 2020-10-01: Also preserve DS records while filtering root zone file, to better support DNSSEC enabled recursive servers.
+- 2020-09-05: Initial version.
+
 DNS Resolving Process
 ---------------------
 
@@ -81,10 +87,10 @@ Therefore with common authoritative DNS resolver software, like PowerDNS or Bind
 4. Open the downloaded `root.zone` file. The content within is seperated to 5 columns. Perform some modifications:
    - Remove all lines with a dot `.` in the 1st column, and `NS` in the 4th column.
      - These lines are at the beginning of the file.
-   - Remove all lines where the content in 4th column is not `A`, `AAAA`, `SOA` or `NS`. This can be achieved with:
+   - Remove all lines where the content in 4th column is not `A`, `AAAA`, `SOA`, `NS` or `DS`. This can be achieved with:
 
      ```bash
-     cat root.zone | awk '{if ($4=="A" || $4=="AAAA" || $4=="SOA" || $4=="NS") print $0}' > root.zone.2
+     cat root.zone | awk '{if ($4=="A" || $4=="AAAA" || $4=="SOA" || $4=="NS" || $4=="DS") print $0}' > root.zone.2
      ```
 
      What's removed is DNSSEC relevant, used to prevent DNS records from being modified. But since we do need to modify, these records will be invalid, so we'd better remove them all.
