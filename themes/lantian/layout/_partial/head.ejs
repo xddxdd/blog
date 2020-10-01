@@ -20,13 +20,13 @@
 <% if (config.multilingual) { %>
     <%- list_head_alternates() %>
 <% } %>
-  
+
 <script>function addLoadEvent(o){var n=window.onload;"function"!=typeof window.onload?window.onload=o:window.onload=function(){n&&n(),o()}}</script>
 
-<link rel="stylesheet" href="<%- url_for('assets/style.css') %>" />
+<link rel="stylesheet" href="<%- url_for('assets/style.css?v=' + lantian_git_rev()) %>" />
 
-<script defer src="<%- url_for('assets/script.main.bundle.js') %>"></script>
-<script defer src="<%- url_for('assets/script.search.bundle.js') %>"></script>
+<script defer src="<%- url_for('assets/script.main.bundle.js?v=' + lantian_git_rev()) %>"></script>
+<script defer src="<%- url_for('assets/script.search.bundle.js?v=' + lantian_git_rev()) %>"></script>
 
 <meta name="copyright" content="Copyright 2012-<%= date(new Date(), 'YYYY') %> <%= config.title %>"/>
 <% if(config.googleSiteVerification) { %>
