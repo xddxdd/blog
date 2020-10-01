@@ -1,5 +1,5 @@
 ---
-title: 'DN42 Experimental Network: Intro and Registration (Updated 2020-09-03)'
+title: 'DN42 Experimental Network: Intro and Registration (Updated 2020-10-01)'
 categories: 'Website and Servers'
 tags: [DN42, BGP]
 date: 2020-10-01 22:36:06
