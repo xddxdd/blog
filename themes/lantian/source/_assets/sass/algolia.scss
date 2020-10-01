@@ -9,7 +9,7 @@
         border-bottom: $input-border-width solid $input-border-color;
     }
     .aa-dropdown-menu {
-        background-color: #fff;
+        background-color: white;
         border: $input-border-width solid $input-focus-border-color;
         border-top:none;
         width: 100%;
@@ -24,7 +24,7 @@
             &.aa-cursor {
                 background-color: $primary;
                 .aa-suggestion-title {
-                    color: #fff;
+                    color: white;
                 }
             }
         }
