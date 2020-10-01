@@ -63,3 +63,14 @@ $blockquote-font-size: $font-size-base;
 // @import "~bootstrap/scss/utilities/visibility";
 
 // @import "~bootstrap/scss/print";
+
+/* Replacing monospace font with own logic */
+pre,
+code,
+kbd,
+samp {
+    font-family: "Fira Code", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    @supports (font-variation-settings: normal) {
+        font-family: "Fira Code VF", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    }
+}
