@@ -21,6 +21,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 本文更新日志
 ----------
 
+- 2020-10-01：收到反馈 Windows 上 Git GPG 签名会出问题，建议使用 WSL。
 - 2020-09-03：更新最新的注册流程。
 - 2020-08-31：由于 Burble 修改了他的 Peer 标准，不再向新用户推荐与他 Peer。
 - 2020-07-04：DN42 Git 服务器地址从 `git.dn42.us` 更换成 `git.dn42.dev`。
@@ -45,6 +46,11 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 - 这里的注册流程随时可能因 DN42 的流程变动而过时。请优先参照 DN42 的官方注册流程，并将以下流程当作参考。
 - [DN42 官方 Wiki 的注册流程](https://dn42.dev/howto/Getting-Started)
 - [DN42 官方 Wiki 的 Git 操作流程（创建 Pull Request）](https://git.dn42.dev/dn42/registry/src/branch/master/README.md)
+
+另外，由于注册流程中需要用到大量的 UNIX 工具，例如 Git、GnuPG 等：
+
+- 最好使用 Linux 或 macOS 完成整个流程。
+- 如果你使用 Windows，建议使用 [Windows 的 Linux 子系统（WSL）](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10)。
 
 大致注册流程如下：
 
@@ -82,7 +88,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         - `source`：固定为 `DN42`。
         - `auth`：你的个人认证信息。一般接受两种类型：GPG 公钥和 SSH 公钥。
           - 你**必须**在 GPG 公钥和 SSH 公钥中添加至少一种。
-          - 如果你准备添加 GPG 公钥，首先你需要创建一个（如果你之前没有的话），例如参照 [GitHub 的这份教程](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)操作。后续提交过程也会用到这个公钥。
+          - 如果你准备添加 GPG 公钥，首先你需要创建一个（如果你之前没有的话），例如参照 [GitHub 的这份教程](https://docs.github.com/cn/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key)操作。后续提交过程也会用到这个公钥。
             - 你还需要将你的 GPG 公钥上传到公共查询服务器，称为 Keyserver。目前使用最广泛的是 `SKS-Keyservers`。
             - 上传步骤请参考[阮一峰的这份教程](https://www.ruanyifeng.com/blog/2013/07/gpg.html)，并将 `keyserver` 参数替换成 `hkp://pool.sks-keyservers.net`，例如：
 
@@ -295,9 +301,18 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         - `mnt-by`：`maintain by（由谁维护）`，由谁维护，指向你之前的 mntner 文件，`[昵称]-MNT`。
         - `source`：固定为 `DN42`。
 
-5. 恭喜你创建完了所有需要的文件，接下来 `cd` 到 Git 仓库的根目录，执行一次 `git add .`，然后执行 `git commit -S`，使用你先前创建的 GPG 密钥，创建一份**带 GPG 签名的 commit**，这是 DN42 的强制要求。
+5. 恭喜你创建完了所有需要的文件，接下来 `cd` 到 Git 仓库的根目录，执行一次 `git add .`，然后执行 `git commit -S`，使用你先前创建的 GPG 密钥，创建一份**带 GPG 签名的 commit**。
    - 如果你操作快已经 commit 完了，你可以执行 `git commit --amend -S` 修改之前的 commit，将其签名。
-     - 如果你没有 GPG 密钥，把 -S 参数删掉。
+     - 如果你没有 GPG 密钥，把 -S 参数删掉，此时你需要使用 SSH 公钥验证，见后续步骤。
+   - 根据反馈，在 Windows 下使用 Git Bash 时，此处 GPG 签名时会出问题。
+     - 你可以尝试 [Windows 的 Linux 子系统（WSL）](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10)。
+     - 你也可以尝试评论区提供的方法。运行这条命令，然后重试：
+
+       ```bash
+       export GPG_TTY=$(tty)
+       ```
+
+     - 你也可以选择不用 GPG，而用 SSH 公钥验证你的身份。见后续步骤。
 6. 如果你先前 commit 了多次，你需要把所有变更合并到一次 commit 里，直接运行 Registry 根目录下的 `./squash-my-commits` 脚本即可。
 7. 由于你操作期间 Registry 可能有来自其他人的变更，你需要获取一下 Registry 的更新：
 

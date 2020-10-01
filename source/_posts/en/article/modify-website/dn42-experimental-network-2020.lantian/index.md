@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2020-10-01: Got feedback that Git GPG signing may not work on Windows, recommend using WSL for this.
 - 2020-09-03: Update to the latest registration procedure.
 - 2020-08-31: No longer recommend new users to go to Burble, following his policy update.
 - 2020-07-04: DN42 Git server has changed from `git.dn42.us` to `git.dn42.dev`.
@@ -46,7 +47,12 @@ WARNING: The registration procedure to DN42 is long and complicated, since the p
 - [DN42 Registration Procedure on Official Wiki](https://dn42.dev/howto/Getting-Started)
 - [DN42 Git Guide (Creating Pull Request) on Official Wiki](https://git.dn42.dev/dn42/registry/src/branch/master/README.md)
 
-Here is the procedures:
+In addition, since a bunch of UNIX tools (such as Git, GnuPG) are required in the procedure:
+
+- It's recommended to use Linux or macOS for the whole procedure.
+- If you use Windows, you may try [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
+Here are the steps:
 
 1. First, go to [https://git.dn42.dev](https://git.dn42.dev) and register an account. This is the GitHub for DN42, and the account information is stored in one of the git repos.
 2. Visit [dn42/registry](https://git.dn42.dev/dn42/registry), the account information repo, and `git clone` it to your local machine.
@@ -82,7 +88,7 @@ Here is the procedures:
         - `source`: has a fixed value of `DN42`.
         - `auth`: your authentication info. Usually two types of data are accepted: GPG public key and SSH public key.
           - You **MUST** add at least one out of GPG pubkey and SSH pubkey.
-          - If you plan to add a GPG pubkey, you need to create one first (assuming you don't have one), for example following [this guide by GitHub](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key). You will also need the pubkey when submitting your registration request.
+          - If you plan to add a GPG pubkey, you need to create one first (assuming you don't have one), for example following [this guide by GitHub](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key). You will also need the pubkey when submitting your registration request.
             - You also need to upload your GPG pubkey to a public server, aka Keyserver, for other people to obtain. The most widely used option if `SKS-Keyservers`.
             - Run this command:
               - `gpg --send-keys [GPG Key ID] --keyserver hkp://pool.sks-keyservers.net`
@@ -288,9 +294,18 @@ Here is the procedures:
         - `mnt-by`: `maintain by`, points to your `mntner` file, `[NICKNAME]-MNT`.
         - `source`: has a fixed value of `DN42`.
 
-5. Congratulations, you have created all files you need. Next `cd` to the root folder of the git repo, run `git add .`, and run `git commit -S`, use your previously created GPG key to create a **GPG signed commit**. This is mandatory for DN42.
+5. Congratulations, you have created all files you need. Next `cd` to the root folder of the git repo, run `git add .`, and run `git commit -S`, use your previously created GPG key to create a **GPG signed commit**.
    - If you have already committed, run `git commit --amend -S` sign your previous commit.
-     - If you don't have a GPG key, remove `-S` from command.
+     - If you don't have a GPG key, remove `-S` from command. This means you need to authenticate yourself with your SSH pubkey, see following steps.
+   - According to feedbacks, you may run into problems with GPG signing here if you're using Windows.
+     - You may try [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+     - Alternatively, a possible solution is provided in comment section. Run this command, then retry:
+
+       ```bash
+       export GPG_TTY=$(tty)
+       ```
+
+     - Alternatively, authenticate yourself with SSH pubkey instead of GPG. See following steps.
 6. If you committed multiple times before, you need to squash all of your changes into a single commit. Simply run the `./squash-my-commits` script to do so.
 7. Since others may have changed the registry while you're adding your files, you need to update your repository:
 
