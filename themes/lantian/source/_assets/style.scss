@@ -55,12 +55,12 @@ header.lantian {
     }
 
     border-bottom: $border-default;
-    background-color: material-color('gray', '200');
+    background-color: material-color('grey', '200');
 }
 
 section.lantian {
     border-bottom: $border-default;
-    background-color: material-color('gray', '200');
+    background-color: material-color('grey', '200');
 }
 
 article {
@@ -108,11 +108,11 @@ article {
         }
         blockquote,
         pre {
-            border-left: 5px solid material-color('gray', '200');
+            border-left: 5px solid material-color('grey', '200');
             padding-left: 8px;
         }
         code {
-            border-bottom: 3px solid material-color('gray', '200');
+            border-bottom: 3px solid material-color('grey', '200');
         }
 
         h1,
@@ -168,7 +168,7 @@ article {
             width: 100%;
             margin-bottom: $tag-separation;
             li {
-                background-color: material-color('gray', '200');
+                background-color: material-color('grey', '200');
                 padding: 2px 8px;
                 margin: ($tag-separation / 2) 0;
 
@@ -194,7 +194,7 @@ footer.lantian {
     border-top: $border-default;
     border-bottom: $border-default;
     width: 100%;
-    background-color: material-color('gray', '200');
+    background-color: material-color('grey', '200');
 
     #copyright {
         padding: 5px;
@@ -211,7 +211,7 @@ footer.lantian {
     }
 
     @include media-breakpoint-up(md) {
-        box-shadow: 0 0 50px material-color('gray', '600');
+        box-shadow: 0 0 50px material-color('grey', '600');
     }
 }
 
@@ -271,7 +271,7 @@ footer.lantian {
 
 #content {
     #post-navi {
-        border-bottom: 1px solid material-color('gray', '400');
+        border-bottom: 1px solid material-color('grey', '400');
     }
 }
 
@@ -399,7 +399,7 @@ footer.lantian {
 
     span,
     a {
-        border: 1px solid material-color('gray', '500');
+        border: 1px solid material-color('grey', '500');
         float: left;
         margin: 5px;
         text-align: center;
@@ -412,7 +412,7 @@ footer.lantian {
         }
     }
     a:hover {
-        background-color: #material-color('gray', '400');
+        background-color: #material-color('grey', '400');
     }
 }
 

@@ -39,7 +39,6 @@
     "deepmerge": "^4.2.2",
     "disqusjs": "^1.3.0",
     "file-loader": "^6.1.0",
-    "firacode": "^5.2.0",
     "flag-icon-css": "^3.5.0",
     "hexo": "^5.2.0",
     "hexo-algoliasearch": "^1.0.0",
