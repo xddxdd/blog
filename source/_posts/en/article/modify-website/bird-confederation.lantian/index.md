@@ -8,6 +8,7 @@ date: 2020-06-07 21:51:51
 Changelog
 ---------
 
+- 2020-10-01: Add warning to not filter private ASNs within internal network
 - 2020-06-07: Add limitations of Bird confederation, and a way to simulate confederation
 - 2020-05-17: Initial version
 
@@ -97,6 +98,7 @@ BGP can also be necessary within a large scale AS, for example China Telecom whi
 6. Manual Emulation of BGP Confederation
    - It's the same thing as Confederation, but instead of assigning a common Confederation Identifier, all routers still run individually.
    - Then while broadcasting routes to other ASes, a filter is used to remove private ASNs to simulate the effect of Confederation.
+     - **WARNING:** Do not filter your private ASNs within your network! Or you will end up with a route loop.
    - The advantage is that all goodness of Confederation is kept, and the path length is calculated normally (no more detours);
    - The disadvantage is that it's easier to make configuration mistakes, like broadcasting routes without removing private ASNs.
 
@@ -262,5 +264,7 @@ export filter {
   accept;
 }
 ```
+
+**WARNING Again:** Do not add this filter to internal peerings, or you will end up with a loop.
 
 You need to make sure that **every** external BGP session is properly configured, or something interesting will happen.
