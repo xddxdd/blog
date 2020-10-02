@@ -50,5 +50,5 @@
     ],
     "theme_color": "#03a9f4",
     "background_color": "#03a9f4",
-    "start_url": "https://lantian.pub"
+    "display": "standalone"
 }
