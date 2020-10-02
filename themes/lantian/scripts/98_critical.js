@@ -23,8 +23,7 @@ function getCriticalOptions(html_file) {
             },
         ],
         ignore: [
-            /flag-icon-([a-zA-Z\-]*)/,
-            /fa-([a-zA-Z0-9]*)/
+            /flag-icon-([a-zA-Z\-]*)/
         ],
     };
 }
