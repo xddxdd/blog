@@ -45,12 +45,6 @@ PINATA_LAST_HASH=$(curl \
     "https://api.pinata.cloud/data/pinList?status=pinned&metadata\[name\]=$IPFS_DEPLOY_CLOUDFLARE__RECORD" \
     | jq -r ".rows[1].ipfs_pin_hash")
 
-# Pinata: check if last hash is fetched correctly
-if [ "$PINATA_LAST_HASH" = "null" ]; then
-    echo "Get pinata last hash failed"
-    exit 1
-fi
-
 node_modules/ipfs-deploy/bin/ipfs-deploy.js public/ -p pinata -d cloudflare -C -O
 
 # Pinata: remove last hash
