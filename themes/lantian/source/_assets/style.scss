@@ -34,18 +34,19 @@ p:last-child {
 }
 
 header.lantian {
-    $site-title-padding: $font-size-base;
-    $site-title-padding-horizontal: 1.25 * $font-size-base;
+    padding: 0;
 
-    ul {
-        padding-top: (
-                2 * $site-title-padding + $h1-font-size * $headings-line-height -
-                    $font-size-base * $line-height-base - 1rem
-            ) / 2;
+    .navbar-brand {
+        padding: 1.25rem 0.75rem 1.25rem 1.25rem;
+        font-weight: 700;
     }
-    h1 {
-        margin: $site-title-padding ($site-title-padding-horizontal - 0.5rem)
-            $site-title-padding $site-title-padding-horizontal;
+
+    .navbar-spacer {
+        margin-right: auto;
+    }
+
+    .navbar-toggler-icon {
+        background-image: escape-svg($navbar-light-toggler-icon-bg);
     }
 
     #elderclock-plus1s {

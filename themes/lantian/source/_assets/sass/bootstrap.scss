@@ -8,6 +8,9 @@ $body-bg: material-color('light-blue', '100');
 
 $blockquote-font-size: $font-size-base;
 
+$navbar-nav-link-padding-x: 1rem;
+$navbar-brand-font-size: $h1-font-size;
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
@@ -20,7 +23,7 @@ $blockquote-font-size: $font-size-base;
 // @import "~bootstrap/scss/tables";
 @import "~bootstrap/scss/forms";
 // @import "~bootstrap/scss/buttons";
-// @import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/transitions";
 @import "~bootstrap/scss/dropdown";
 // @import "~bootstrap/scss/button-group";
 // @import "~bootstrap/scss/input-group";
