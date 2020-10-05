@@ -118,4 +118,4 @@ function critical_css() {
     });
 }
 
-hexo.extend.filter.register('before_exit', critical_css, 10000);
+// hexo.extend.filter.register('before_exit', critical_css, 10000);

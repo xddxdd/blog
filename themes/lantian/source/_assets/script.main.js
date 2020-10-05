@@ -14,34 +14,34 @@ import cfga from './js/cfga';
  *****************************************/
 
 import initCallback from 'bootstrap.native/src/util/initCallback.js';
-// import removeDataAPI from 'bootstrap.native/src/util/removeDataAPI.js'
+// import removeDataAPI from 'bootstrap.native/src/util/removeDataAPI.js';
 
 import componentsInit from 'bootstrap.native/src/util/componentsInit.js';
-// import {Util} from 'bootstrap.native/src/util/util.js'
+// import {Util} from 'bootstrap.native/src/util/util.js';
 
-// import Alert from 'bootstrap.native/src/components/alert-native.js'
-// import Button from 'bootstrap.native/src/components/button-native.js'
-// import Carousel from 'bootstrap.native/src/components/carousel-native.js'
-// import Collapse from 'bootstrap.native/src/components/collapse-native.js'
+// import Alert from 'bootstrap.native/src/components/alert-native.js';
+// import Button from 'bootstrap.native/src/components/button-native.js';
+// import Carousel from 'bootstrap.native/src/components/carousel-native.js';
+import Collapse from 'bootstrap.native/src/components/collapse-native.js';
 import Dropdown from 'bootstrap.native/src/components/dropdown-native.js';
-// import Modal from 'bootstrap.native/src/components/modal-native.js'
-// import Popover from 'bootstrap.native/src/components/popover-native.js'
-// import ScrollSpy from 'bootstrap.native/src/components/scrollspy-native.js'
-// import Tab from 'bootstrap.native/src/components/tab-native.js'
-// import Toast from 'bootstrap.native/src/components/toast-native.js'
-// import Tooltip from 'bootstrap.native/src/components/tooltip-native.js'
+// import Modal from 'bootstrap.native/src/components/modal-native.js';
+// import Popover from 'bootstrap.native/src/components/popover-native.js';
+// import ScrollSpy from 'bootstrap.native/src/components/scrollspy-native.js';
+// import Tab from 'bootstrap.native/src/components/tab-native.js';
+// import Toast from 'bootstrap.native/src/components/toast-native.js';
+// import Tooltip from 'bootstrap.native/src/components/tooltip-native.js';
 
-// componentsInit.Alert = [ Alert, '[data-dismiss="alert"]']
-// componentsInit.Button = [ Button, '[data-toggle="buttons"]' ]
-// componentsInit.Carousel = [ Carousel, '[data-ride="carousel"]' ]
-// componentsInit.Collapse = [ Collapse, '[data-toggle="collapse"]' ]
+// componentsInit.Alert = [ Alert, '[data-dismiss="alert"]'];
+// componentsInit.Button = [ Button, '[data-toggle="buttons"]' ];
+// componentsInit.Carousel = [ Carousel, '[data-ride="carousel"]' ];
+componentsInit.Collapse = [ Collapse, '[data-toggle="collapse"]' ];
 componentsInit.Dropdown = [Dropdown, '[data-toggle="dropdown"]'];
-// componentsInit.Modal = [ Modal, '[data-toggle="modal"]' ]
-// componentsInit.Popover = [ Popover, '[data-toggle="popover"],[data-tip="popover"]' ]
-// componentsInit.ScrollSpy = [ ScrollSpy, '[data-spy="scroll"]' ]
-// componentsInit.Tab = [ Tab, '[data-toggle="tab"]' ]
-// componentsInit.Toast = [ Toast, '[data-dismiss="toast"]' ]
-// componentsInit.Tooltip = [ Tooltip, '[data-toggle="tooltip"],[data-tip="tooltip"]' ]
+// componentsInit.Modal = [ Modal, '[data-toggle="modal"]' ];
+// componentsInit.Popover = [ Popover, '[data-toggle="popover"],[data-tip="popover"]' ];
+// componentsInit.ScrollSpy = [ ScrollSpy, '[data-spy="scroll"]' ];
+// componentsInit.Tab = [ Tab, '[data-toggle="tab"]' ];
+// componentsInit.Toast = [ Toast, '[data-dismiss="toast"]' ];
+// componentsInit.Tooltip = [ Tooltip, '[data-toggle="tooltip"],[data-tip="tooltip"]' ];
 
 /*****************************************
  * Page Onload Logic
