@@ -91,7 +91,7 @@ DNS 解析原理
    - 删除所有第 4 列不是 A，AAAA，SOA，NS 或者 DS 的行，可以用以下命令完成：
 
      ```bash
-     cat root.zone | awk '{if ($4=="A" || $4=="AAAA" || $4=="SOA" || $4=="NS" || $4=="NS") print $0}' > root.zone.2
+     cat root.zone | awk '{if ($4=="A" || $4=="AAAA" || $4=="SOA" || $4=="NS" || $4=="DS") print $0}' > root.zone.2
      ```
 
      被删除的记录是 DNSSEC 相关的记录，为了保护 DNS 内容不被修改。因为我们有必要修改内容，所以这些 DNSSEC 记录会全部失效，所以干脆全部删除。
