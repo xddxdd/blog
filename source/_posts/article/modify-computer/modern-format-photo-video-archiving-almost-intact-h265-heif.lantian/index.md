@@ -62,7 +62,7 @@ date: 2020-02-13 15:05:18
     - slow
     - slower
     - veryslow
-    - placebo 
+    - placebo
   - 对于 H265，因为 H265 编码本身就很慢，我选择的是 medium（对应 i7-7700HQ 处理器）。如果你用的是什么 i9-9900K 啊，i9-10980XE 啊，线程撕裂者 3990X 啊，框框非常多，频率特别高的处理器，可以挑战 slow 甚至 slower。
   - 对于 H264，因为 H264 编码较简单（相比 H265），一般推荐 slower 起步，可以挑战 veryslow。
   - 如果这个参数调得过高，编码出的视频文件并不会小多少，但相应的编码时间将**成倍增加**。
@@ -96,7 +96,7 @@ for FILE in **/*.mp4; do ffmpeg -loglevel quiet -stats -i "$FILE" -c:v libx264 -
 - HEIF 目前在 iOS 设备上被广泛使用，作为相机的默认格式。Android 9 也添加了对它的支持。在可预见的将来，对 HEIF 的软件支持将迅速完善。
 - 它最大的特点是使用 H265 对图片进行编码，充分地利用了视频编码器发展的结果，同时需要时可以利用硬件编解码器提供加速。
 
-HEIF 文件可以使用 ImageMagick 转换生成。但是在 Arch Linux 下，官方软件源的 ImageMagick 默认不带 HEIF 支持，我们需要额外安装 `libheif` 这个 HEIF 编解码库来让 ImageMagick 支持 HEIF。另外，还可以装一个 exiftool，把原照片的 EXIF 信息（包括相机型号，光圈快门 ISO 参数，地理位置等）转移到
+HEIF 文件可以使用 ImageMagick 转换生成。但是在 Arch Linux 下，官方软件源的 ImageMagick 默认不带 HEIF 支持，我们需要额外安装 `libheif`。另外，还可以装一个 exiftool，把原照片的 EXIF 信息（包括相机型号，光圈快门 ISO 参数，地理位置等）转移到 HEIF 文件。
 
 ```bash
 pikaur -S imagemagick libheif perl-image-exiftool
