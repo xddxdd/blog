@@ -43,7 +43,7 @@ for PINATA_LAST_HASH in $(curl \
     -H "pinata_api_key: $IPFS_DEPLOY_PINATA__API_KEY" \
     -H "pinata_secret_api_key: $IPFS_DEPLOY_PINATA__SECRET_API_KEY" \
     "https://api.pinata.cloud/data/pinList?status=pinned&metadata\[name\]=$IPFS_DEPLOY_CLOUDFLARE__RECORD" \
-    | jq -r ".rows[].ipfs_pin_hash")
+    | jq -r ".rows\[\].ipfs_pin_hash")
 do
     curl -X DELETE \
          -H "pinata_api_key: $IPFS_DEPLOY_PINATA__API_KEY" \
