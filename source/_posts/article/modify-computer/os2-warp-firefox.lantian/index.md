@@ -35,7 +35,7 @@ OS/2 是起初由 IBM 与微软公司联合开发，后续由 IBM 维护的操�
 
 ![OS/2 安装启动管理程序](../../../../usr/uploads/202001/os2-install-boot-manager.png)
 
-然后创建一个 Volume（类似于 Windows 的盘符）。注意要选择 `can be made bootable`（可以启动操作系统），并且给它随便命一个名字（不能为空）。
+然后创建一个 Volume（类似于 Windows 的盘符，或者 Linux 的挂载点）。注意要选择 `can be made bootable`（可以启动操作系统），并且给它随便命一个名字（不能为空）。
 
 ![OS/2 创建可引导卷](../../../../usr/uploads/202001/os2-create-bootable-volume.png)
 
@@ -119,10 +119,10 @@ kLIBC 可以从 Arca Noae（也就是维护 ArcaOS 的公司）的软件源下�
 
 输入 `e config.sys`，编辑 `config.sys` 这个配置文件。我们需要修改的地方如下：
 
-- 找到 `LIBPATH=`，在等号后面加上“C:\USR\LOCAL\LIB;C:\USR\LIB;”
+- 找到 `LIBPATH=`，在等号后面加上 `C:\USR\LOCAL\LIB;C:\USR\LIB;`
   - 修改完后类似于：
   - `LIBPATH=C:\USR\LOCAL\LIB;C:\USR\LIB;C:\NETSCAPE\PROGRAM;...`
-- 找到 `SET PATH=`，在等号后面加上“C:\USR\BIN;”
+- 找到 `SET PATH=`，在等号后面加上 `C:\USR\BIN;`
   - 修改完后类似于：
   - `SET PATH=C:\USR\BIN;C:\NETSCAPE\PROGRAM;...`
 - 在文件末尾添加一行 `SET UNIXROOT=C:`
