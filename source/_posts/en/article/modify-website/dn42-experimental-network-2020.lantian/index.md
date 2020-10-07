@@ -541,7 +541,7 @@ If you have multiple servers joining DN42, you need to configure your internal n
    3. Configure a different private ASN at each node, and configure BGP Confederation.
       - ASN should be in the private ASN range 4200000000 - 4294967294, but not 4242420000 - 4242429999 since it may overlap with other DN42 users.
       - With Confederation, multiple servers team together and appear as one AS when observed externally.
-      - See [Bird BGP Confederation: Configuration and Emulation (Chinese Only at the moment)](/article/modify-website/bird-confederation.lantian).
+      - See [Bird BGP Confederation: Configuration and Emulation](/en/article/modify-website/bird-confederation.lantian).
       - If you have questions, seek help at [the unofficial Telegram group](https://t.me/Dn42Chat), where some other users also use this scheme.
 3. **All your servers must finish the Very Important System Configuration.**
 
@@ -774,7 +774,7 @@ You can also challenge yourself and change your tunnel and BGP config, add more 
   - For Bird1 refer to [DN42 Wiki's Bird Communities Page](https://wiki.dn42.us/howto/Bird-communities). For Bird2 changes are needed, and you may try out yourself
 - Anycast, or multiple servers announcing the same IP, and external requests will be directed to the nearest server
   - Usually used for DNS on global Internet, but in DN42, the Wiki (172.23.0.80) is also anycasted.
-  - I've written two articles on this, one in last year and one in this year: see [Building Anycast DNS with Docker in DN42 (Chinese Only at the moment)](/article/modify-website/dn42-docker-anycast-dns.lantian) and [Sharing Docker Container Network Namespaces and Building Anycast with Bird (Chinese Only at the moment)](/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian).
+  - I've written two articles on this, one in last year and one in this year: see [Building Anycast DNS with Docker in DN42](/en/article/modify-website/dn42-docker-anycast-dns.lantian) and [Sharing Network Namespace Among Docker Containers for Bird Anycasting](/en/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian).
 - Build your own recursive or authoritative DNS server
   - You may even apply to join DN42's DNS Anycast and become a DN42 official DNS server.
 - Register a domain and create a website
