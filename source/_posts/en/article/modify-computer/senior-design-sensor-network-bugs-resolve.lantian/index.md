@@ -63,7 +63,7 @@ So I bought an STM32 development board from Taobao with the following specs:
   - 1 CAN, 2 SPI, etc. Stuff we don't need
 - External 8 MHz crystal oscillator and 32.768 KHz crystal oscillator
   - STM32 does have integrated oscillators, but guides online show that they may be affected by chip temperature and provide imprecise output, so external oscillators are definitely helpful
-- For just RMB 10
+- For just CNY 10
   - ~~Pay less and get better performance~~
   - In fact the performance to cost ratio of Arduino is not high, but its ecosystem is awesome
 
