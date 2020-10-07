@@ -81,7 +81,7 @@ prismjs:
   enable: false
 
 feed:
-  type: 
+  type:
     - atom
     - rss2
   path:
@@ -122,7 +122,7 @@ index_generator:
   per_page: 10
   order_by: -date
   single_language_index: true
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -134,6 +134,7 @@ category_map:
   网站与服务端: modify-website
   一图流: one-pic
   随手记: random-notes
+  Creations: creations
   Computers and Clients: modify-computer
   Website and Servers: modify-website
   Random Notes: random-notes
