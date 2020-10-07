@@ -108,7 +108,7 @@ Correct Way to Do This
 ----------------------
 
 - Always remember: Interior Gateway Protocols, including OSPF, Babel, etc, should never process BGP routing information. BGP routing should be handled solely by BGP.
-  - There are multiple schemes to configure BGP in a network. You may refer to: [Bird BGP Confederation: Configuration and Emulation (Chinese Only at the moment)](/article/modify-website/bird-confederation.lantian).
+  - There are multiple schemes to configure BGP in a network. You may refer to: [Bird BGP Confederation: Configuration and Emulation](/en/article/modify-website/bird-confederation.lantian).
 - Similarly, interior routes should not be passed to BGP, unless you own each and every IP that you're using internally on DN42.
 - So you should set BGP's `export filter` to this in Bird:
 
