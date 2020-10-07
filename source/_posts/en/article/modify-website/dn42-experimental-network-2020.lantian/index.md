@@ -233,7 +233,7 @@ Here are the steps:
         - First, I am **against you from doing this**!
         - First, I am **against you from doing this**!
         - First, I am **against you from doing this**!
-          - Instead of an easy-to-remember IPv6 address, you may want [an easy-to-remember domain in DN42 (Chinese only at the moment)](/article/modify-website/register-own-domain-in-dn42.lantian/#%E5%9C%A8-dn42-%E6%B3%A8%E5%86%8C%E5%9F%9F%E5%90%8D)。
+          - Instead of an easy-to-remember IPv6 address, you may want [an easy-to-remember domain in DN42](/en/article/modify-website/register-own-domain-in-dn42.lantian)。
         - RFC4193 regulates that all IPv6 ULA addresses should be generated randomly to be **globally unique**.
           - If you customized your block, another user may have a address conflict while joining DN42. This causes trouble for both of you.
         - In addition, DN42 interconnects with similar experimental networks, and shares the IPv6 ULA range with them.
@@ -778,7 +778,7 @@ You can also challenge yourself and change your tunnel and BGP config, add more 
 - Build your own recursive or authoritative DNS server
   - You may even apply to join DN42's DNS Anycast and become a DN42 official DNS server.
 - Register a domain and create a website
-  - See my article in 2018: [Register Domain in DN42 (Chinese Only at the moment)](/article/modify-website/register-own-domain-in-dn42.lantian/#%E5%9C%A8-dn42-%E6%B3%A8%E5%86%8C%E5%9F%9F%E5%90%8D)
+  - See my article in 2018: [Register Domain in DN42](/en/article/modify-website/register-own-domain-in-dn42.lantian)
 - Or register a AS on the real Internet with RIPE, rent a public IPv4 and IPv6 address pool, and start doing it for real.
 
 Need Help?

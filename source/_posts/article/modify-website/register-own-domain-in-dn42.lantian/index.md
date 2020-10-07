@@ -12,7 +12,7 @@ DN42 全称 Decentralized Network 42（42 号去中心网络），是一个大�
 搭建权威 DNS 服务器
 ------------
 
-权威 DNS 服务器，就是指管理某个域名记录的服务器。例如本站主域名 lantian.pub 的权威服务器是 lv3ns[1-4].ffdns.net，就是 CloudXNS。在互联网上注册域名时，我们可以用现成的 CloudXNS、Cloudflare 等免费 DNS 服务，但是在 DN42 中，虽然有人提供这样的服务，但是需要在 IRC 上与他们交流申请，我觉得太麻烦，就干脆自建了。
+权威 DNS 服务器，就是指管理某个域名记录的服务器。例如本站主域名 lantian.pub 的权威服务器是 `lv3ns[1-4].ffdns.net`，就是 CloudXNS。在互联网上注册域名时，我们可以用现成的 CloudXNS、Cloudflare 等免费 DNS 服务，但是在 DN42 中，虽然有人提供这样的服务，但是需要在 IRC 上与他们交流申请，我觉得太麻烦，就干脆自建了。
 
 Linux 下自建 DNS 一般使用 Bind 或 PowerDNS 两款软件。Bind 以文件形式保存 DNS 记录，跨服务器同步有些麻烦，而 PowerDNS 不仅可以用文件保存，还可以用 MySQL 等数据库形式保存，同时自己也提供记录同步功能。
 
@@ -33,7 +33,7 @@ log_bin=mysql-bin
 log_error=mysql-bin.err
 ```
 
-然后用 phpMyAdmin 登录主 MySQL 服务器，在“Replication / 主从复制”页面将这台服务器设置为 Master / 主服务器，并创建一个用于主从复制的用户（拥有 REPLICATION SLAVE 和 REPLICATION CLIENT 权限）。由于这一步我已经做过了，所以我没法截图。
+然后用 phpMyAdmin 登录主 MySQL 服务器，在“Replication / 主从复制”页面将这台服务器设置为 Master / 主服务器，并创建一个用于主从复制的用户（拥有 REPLICATION SLAVE 和 REPLICATION CLIENT 权限）。
 
 设置完后你应该可以看到类似这样的状态：
 
@@ -61,7 +61,9 @@ start slave;
 搭建 DNS：设置 PowerDNS
 ------------------
 
-设置完数据库，我们就可以设置 PowerDNS 了。先在 MySQL 给 PowerDNS 建立一个用户和数据库。因为我是 Docker 用户，所以在主服务器上，直接用 docker-compose 下载镜像并启动：
+设置完数据库，我们就可以设置 PowerDNS 了。先在 MySQL 给 PowerDNS 建立一个用户和数据库。
+
+然后安装 PowerDNS，因为我是 Docker 用户，所以在主服务器上，直接用 docker-compose 下载镜像并启动：
 
 ```yaml
   powerdns:
@@ -83,6 +85,8 @@ start slave;
 
 解决这个问题不需要再改数据库配置，只需要把 64000 改小，例如 16000，然后手动创建表即可：
 
+> 以下语句对于新版 PowerDNS 可能已经过时，请参照 [https://doc.powerdns.com/authoritative/backends/generic-mysql.html](https://doc.powerdns.com/authoritative/backends/generic-mysql.html) 查看新版的创建语句，并相应修改长度。
+
 ```sql
 CREATE TABLE domains (
   id                    INT AUTO_INCREMENT,
@@ -102,7 +106,7 @@ CREATE TABLE records (
   domain_id             INT DEFAULT NULL,
   name                  VARCHAR(255) DEFAULT NULL,
   type                  VARCHAR(10) DEFAULT NULL,
-  content               VARCHAR(64000) DEFAULT NULL,
+  content               VARCHAR(16000) DEFAULT NULL,
   ttl                   INT DEFAULT NULL,
   prio                  INT DEFAULT NULL,
   change_date           INT DEFAULT NULL,
@@ -189,13 +193,13 @@ PowerAdmin 是一个 PowerDNS 的控制面板，可以去 [https://github.com/po
 
 最开始装完 PowerAdmin 之后，创建的 SOA 记录开头可能是没有类似 ns1.lantian.dn42 一类的内容的，这样的 SOA 记录就不符合规范。我的 SOA 记录是“ns1.lantian.dn42 lantian.lantian.dn42 0 28800 7200 604800 60”，解释如下：
 
- - ns1.lantian.dn42：主要 DNS 服务器的名字，一般就是你现在在操作的服务器之后要取的域名。
- - lantian.lantian.dn42：DNS 服务器管理者的邮箱，但是 @ 符号被句点代替了，例如这里就是 lantian@lantian.dn42。在 DN42 中不一定需要真实地址。
- - 0：记录编号，如果使用 AXFR 等进行 DNS 记录同步，从 DNS 服务器可能会根据这个编号判断记录有没有更改。我们使用 MySQL 主从复制，所以这里不重要。这里设置为 0 代表 PowerDNS 会自动管理这一项，无需人工操作。
- - 28800：刷新时间，AXFR 从服务器两次拉取的间隔，同样不重要。
- - 7200：重试时间，AXFR 从服务器拉取失败后，再次拉取的时间，同样不重要。
- - 604800：过期时间，AXFR 从服务器拉取失败后，最多用先前最后一次拉取成功的记录继续提供服务这么长时间，之后停止应答。同样不重要。
- - 60：最小 TTL，所有记录的最小刷新时间，至少过了这么长时间才会刷新。
+- ns1.lantian.dn42：主要 DNS 服务器的名字，一般就是你现在在操作的服务器之后要取的域名。
+- lantian.lantian.dn42：DNS 服务器管理者的邮箱，但是 @ 符号被句点代替了，例如这里就是 lantian@lantian.dn42。在 DN42 中不一定需要真实地址。
+- 0：记录编号，如果使用 AXFR 等进行 DNS 记录同步，从 DNS 服务器可能会根据这个编号判断记录有没有更改。我们使用 MySQL 主从复制，所以这里不重要。这里设置为 0 代表 PowerDNS 会自动管理这一项，无需人工操作。
+- 28800：刷新时间，AXFR 从服务器两次拉取的间隔，同样不重要。
+- 7200：重试时间，AXFR 从服务器拉取失败后，再次拉取的时间，同样不重要。
+- 604800：过期时间，AXFR 从服务器拉取失败后，最多用先前最后一次拉取成功的记录继续提供服务这么长时间，之后停止应答。同样不重要。
+- 60：最小 TTL，所有记录的最小刷新时间，至少过了这么长时间才会刷新。
 
 点击 SOA 记录左边的编辑按钮，对应着设置好，保存。
 
@@ -220,7 +224,7 @@ PowerAdmin 是一个 PowerDNS 的控制面板，可以去 [https://github.com/po
 
 DN42 最近进行了一次升级，弃用了原来的 Monotone 管理界面，改用 Git 管理。首先去 [https://git.dn42.us/explore/repos][12] 上面注册一个账号，Fork [dn42/registry][13]，Clone 到本地。
 
-首先，DN42 要求 Git Commit 经过 GPG 数字签名。我在 Mac 上使用的软件是 GPG Keychain，Windows / Linux 下使用什么软件我并不了解。大致流程是：创建密钥，将公钥提交到 SKS 等公开 GPG 服务器上供查询，然后复制下 Fingerprint。
+首先，DN42 要求 Git Commit 经过 GPG 数字签名。我在 Mac 上使用的软件是 GPG Keychain。大致流程是：创建密钥，将公钥提交到 SKS 等公开 GPG 服务器上供查询，然后复制下 Fingerprint。
 
 然后设置 git，打开自动签名每次 commit 的功能：
 
