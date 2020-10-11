@@ -12,7 +12,7 @@ Traceroute 是常用的检查网络状况的工具之一，会显示你操作的
 
 可以看到后两跳的 IP 显示出了对应的域名，这个域名就是 IP 的反向解析记录。反向解析记录在 DNS 服务器中以类似 4.3.2.1.in-addr.arpa 域名的 PTR 记录形式存在。更多的信息可以参考《[在 DN42 中设置 IP 反向解析](/article/modify-website/dn42-ip-reverse-record.lantian)》这篇文章。
 
-自然，Traceroute 里能显示字，也就能显示一篇文章。两年前我为了达到这个目的，[开了一堆 Docker 容器，修改它们的路由表让它们连成一长串，来做出显示文章需要的路径](/article/modify-website/dn42-ip-reverse-record.lantian)。
+自然，Traceroute 里能显示字，也就能显示一篇文章。两年前我为了达到这个目的，[开了一堆 Docker 容器，修改它们的路由表让它们连成一长串，来做出显示文章需要的路径](/article/modify-computer/worship-in-traceroute.lantian)。
 
 但是开一堆容器不够优雅，而且也不方便管理，尤其是路径过长的时候。更好的方法是用一个程序创建一张虚拟网卡，直接根据进入的 Traceroute 请求回复相应的数据包。这样不仅节省了一大堆容器的系统资源和管理负担，而且也容易根据需要实现复杂的功能。
 
