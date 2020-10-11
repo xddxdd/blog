@@ -12,7 +12,7 @@ Traceroute is one of the popular tools for network inspection. It shows the IP a
 
 Domains are shown on the last 2 hops, which is the IP's reverse DNS record. Reverse DNS records exist as PTR records in the format of `4.3.2.1.in-addr.arpa`. For more information, you may refer to [Setting IP Reverse Records in DN42 (Chinese Only)](/article/modify-website/dn42-ip-reverse-record.lantian).
 
-Naturally, where there are characters, there will be essays shown in them. Two years ago, [I set up a bunch of Docker containers, and modified and chained their routing tables, so they create the path needed for showing the essay](/en/article/modify-website/dn42-ip-reverse-record.lantian).
+Naturally, where there are characters, there will be essays shown in them. Two years ago, [I set up a bunch of Docker containers, and modified and chained their routing tables, so they create the path needed for showing the essay](/en/article/modify-computer/worship-in-traceroute.lantian).
 
 Using a lot of containers isn't elegant enough, and is a management burden, especially if the path is long. A better solution is creating a virtual network interface with a program, and reply corresponding packets directly based on incoming Traceroute packets. In addition to resource and management burden savings, this can be easily adapted in more complex scenarios if necessary.
 
