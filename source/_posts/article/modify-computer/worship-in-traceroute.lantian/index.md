@@ -5,6 +5,15 @@ tags: [Traceroute,DN42]
 date: 2018-08-15 19:46:00
 image: /usr/uploads/2018/08/2301166997.png
 ---
+
+2020-10-11 更新
+--------------
+
+已经有了更好的配置方法，不需要启动一大堆 Docker 容器了。请参阅《[优雅地在 Traceroute 里膜 拜大佬](/article/creations/traceroute-chain.lantian)》。
+
+简介
+----
+
 Traceroute 是常用的检查网络状况的工具之一，会显示你操作的电脑到指定服务器的网络路径上经过的每一个路由器的 IP 地址，类似于这样：
 
 ![Traceroute 示例][1]
