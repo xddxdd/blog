@@ -74,6 +74,6 @@
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^4.2.3",
     "webpack": "^4.44.2",
-    "yargs-parser": "^20.2.1"
+    "yargs-parser": "^20.2.2"
   }
 }
