@@ -430,7 +430,7 @@ DN42 中几乎每个 Peering 都是建立在隧道软件（即 VPN）之上的�
 
      - 然后使用 DKMS 安装 WireGuard 的内核驱动和管理工具：
        - `sudo apt update`
-       - `sudo apt install -t buster-backports wireguard-tools wireguard-dkms`
+       - `sudo apt install wireguard-tools wireguard-dkms`
 
 2. 如果你用的是 OpenVZ 或者 LXC 的 VPS，推荐使用 OpenVPN。
    - OpenVPN 的优点：
