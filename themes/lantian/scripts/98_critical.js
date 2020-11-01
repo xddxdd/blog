@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 const os = require('os');
 const critical = require('critical');
 const path = require('path');
@@ -119,3 +119,4 @@ function critical_css() {
 }
 
 hexo.extend.filter.register('before_exit', critical_css, 10000);
+*/
