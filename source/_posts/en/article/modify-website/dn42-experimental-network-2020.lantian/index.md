@@ -424,7 +424,7 @@ Here is my recommendation for tunneling software:
 
      - Then use DKMS to install WireGuard kernel modules and management tools:
        - `sudo apt update`
-       - `sudo apt install -t buster-backports wireguard-tools wireguard-dkms`
+       - `sudo apt install wireguard-tools wireguard-dkms`
 
 2. If you're using OpenVZ or LXC VPS, use OpenVPN.
    - Pros:
