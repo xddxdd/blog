@@ -23,7 +23,7 @@
     "@lantian1998/markdown-it-graphviz": "^1.1.2",
     "@lantian1998/markdown-it-highlightjs": "^3.2.0",
     "acorn": "^8.0.4",
-    "algoliasearch": "^4.5.1",
+    "algoliasearch": "^4.6.0",
     "autocomplete.js": "^0.38.0",
     "autoprefixer": "^10.0.1",
     "babel-loader": "^8.1.0",
