@@ -22,9 +22,9 @@ node_modules/hexo/bin/hexo generate
 node_modules/acorn/bin/acorn --silent public/assets/script.main.bundle.js || exit 1
 node_modules/acorn/bin/acorn --silent public/assets/script.search.bundle.js || exit 1
 
-# Do not deploy if specified to be local
-if [ "$1" = "--local" ]; then
-	exit 0
+# Do not deploy if not on master branch
+if [ "${GIT_BRANCH}" != "origin/master" ]; then
+    exit 0
 fi
 
 # Hexo deploy takes care of git, and baidu_url_submit
