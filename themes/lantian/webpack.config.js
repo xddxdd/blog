@@ -10,7 +10,6 @@ const path = require('path');
 module.exports = {
     entry: {
         main: '_assets/script.main.js',
-        search: '_assets/script.search.js',
         style: '_assets/script.style.js',
     },
     output: {

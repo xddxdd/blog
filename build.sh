@@ -20,7 +20,6 @@ node_modules/hexo/bin/hexo generate
 
 # Verify generated javascript
 node_modules/acorn/bin/acorn --silent public/assets/script.main.bundle.js || exit 1
-node_modules/acorn/bin/acorn --silent public/assets/script.search.bundle.js || exit 1
 
 # Do not deploy if not on master branch
 if [ "${GIT_BRANCH}" != "origin/master" ]; then
@@ -85,6 +84,3 @@ parallel -j$(nproc) < parallel_jobs.lst
 # Deploy to my site system
 python3 -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)"
 ansible-playbook ansible_deploy.yml
-
-# Index new posts on Algolia
-node_modules/hexo/bin/hexo algolia

@@ -99,20 +99,6 @@ baidu_url_submit:
   token: ***REMOVED***
   path: baidu_urls.txt
 
-algolia:
-  appId: "***REMOVED***"
-  apiKey: "***REMOVED***"
-  adminApiKey: "***REMOVED***"
-  chunkSize: 5000
-  indexName: "lantian"
-  fields:
-    - content:strip:truncate,0,2500
-    - permalink
-    - categories
-    - tags
-    - date
-    - title
-
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
