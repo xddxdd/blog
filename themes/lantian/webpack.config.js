@@ -15,6 +15,7 @@ module.exports = {
     output: {
         filename: 'script.[name].bundle.js',
         path: 'assets',
+        publicPath: ''
     },
 
     // mode: 'development',
