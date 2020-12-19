@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2020-12-19: Fix peer config path for BIRDv2.
 - 2020-10-01: No longer recommend using Debian Unstable repo (better ways exist now).
 - 2020-10-01: Got feedback that Git GPG signing may not work on Windows, recommend using WSL for this.
 - 2020-09-03: Update to the latest registration procedure.
@@ -718,7 +719,7 @@ protocol bgp dn42_[PEER_NAME] from dnpeers {
 For BIRD v2, what you need is:
 
 ```bash
-# Add to /etc/bird/peers4/[PEER_NAME].conf
+# Add to /etc/bird/peers/[PEER_NAME].conf
 protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
     neighbor [YOUR_DN42_IP] as [YOUR_ASN];
     direct;
@@ -729,7 +730,6 @@ protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
     };
 };
 
-# Add /etc/bird/peers6/[PEER_NAME].conf
 protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
     neighbor [YOUR_LINK_LOCAL_IP] % 'dn42-[PEER_NAME]' as [YOUR_ASN];
     direct;

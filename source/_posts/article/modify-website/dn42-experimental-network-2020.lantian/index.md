@@ -21,6 +21,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 本文更新日志
 ----------
 
+- 2020-12-19：修正 BIRDv2 Peer 配置文件的路径。
 - 2020-10-01：不再推荐添加 Debian Unstable 软件源（有更好的方法了）。
 - 2020-10-01：收到反馈 Windows 上 Git GPG 签名会出问题，建议使用 WSL。
 - 2020-09-03：更新最新的注册流程。
@@ -727,7 +728,7 @@ protocol bgp dn42_[PEER_NAME] from dnpeers {
 对于 BIRD v2，配置如下：
 
 ```bash
-# 在 /etc/bird/peers4/[PEER_NAME].conf 中填写：
+# 在 /etc/bird/peers/[PEER_NAME].conf 中填写：
 protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
     neighbor [YOUR_DN42_IP] as [YOUR_ASN];
     direct;
@@ -738,7 +739,6 @@ protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
     };
 };
 
-# 在 /etc/bird/peers6/[PEER_NAME].conf 中填写：
 protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
     neighbor [YOUR_LINK_LOCAL_IP] % 'dn42-[PEER_NAME]' as [YOUR_ASN];
     direct;
