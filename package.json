@@ -23,7 +23,7 @@
     "@lantian1998/markdown-it-graphviz": "git+https://github.com/lantian1998/markdown-it-graphviz.git",
     "@lantian1998/markdown-it-highlightjs": "git+https://github.com/lantian1998/markdown-it-highlightjs.git",
     "acorn": "^8.0.4",
-    "autoprefixer": "^10.2.1",
+    "autoprefixer": "^10.2.3",
     "babel-loader": "^8.2.2",
     "bootstrap": "^4.6.0",
     "bootstrap.native": "^3.0.14",
