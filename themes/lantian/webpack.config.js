@@ -11,6 +11,7 @@ module.exports = {
     entry: {
         main: '_assets/script.main.js',
         style: '_assets/script.style.js',
+        style_bigscreen_indihome: '_assets/bigscreen/indihome/script.style.js',
     },
     output: {
         filename: 'script.[name].bundle.js',
