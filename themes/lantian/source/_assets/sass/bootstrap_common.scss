@@ -1,0 +1,16 @@
+@charset "utf-8";
+@import "common";
+
+$enable-rounded: false;
+$enable-transitions: false;
+
+$body-bg: material-color('light-blue', '100');
+
+$blockquote-font-size: $font-size-base;
+
+$navbar-nav-link-padding-x: 1rem;
+$navbar-brand-font-size: $h1-font-size;
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
