@@ -72,13 +72,12 @@ date: 1970-01-01 00:00:00
 服务器列表
 --------
 
-- 服务器 1：中国香港，GigsGigsCloud 服务商
-  - 域名：`gigsgigscloud.lantian.pub`
-  - 公网 IPv4：`103.42.215.193`
-  - 公网 IPv6：`2001:470:19:10bb::1`
-    - 该节点到 HE 的隧道服务器**延迟很高**（约 150 ms），所以强烈推荐使用 IPv4 地址连接，除非你只有 IPv6。
+- 服务器 1：中国香港，微基主机（idc.wiki，原 50KVM）服务商
+  - 域名：`50kvm.lantian.pub`
+  - 公网 IPv4：`23.226.61.104`
+  - 公网 IPv6：`2001:470:19:10bd::1`
   - DN42 IPv4：`172.22.76.186`
-  - DN42 IPv6：`fdbc:f9dc:67ad::8b:c606:ba01`
+  - DN42 IPv6：`fdbc:f9dc:67ad:1::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
   - IPSec 公钥：
@@ -105,7 +104,7 @@ date: 1970-01-01 00:00:00
   - 公网 IPv4：`185.186.147.110`
   - 公网 IPv6：`2607:fcd0:100:b100::198a:b7f6`
   - DN42 IPv4：`172.22.76.185`
-  - DN42 IPv6：`fdbc:f9dc:67ad::dd:c85a:8a93`
+  - DN42 IPv6：`fdbc:f9dc:67ad:3::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
   - IPSec 公钥：
@@ -132,7 +131,7 @@ date: 1970-01-01 00:00:00
   - 公网 IPv4：`107.172.134.89`
   - 公网 IPv6：`2001:470:1f07:54d::1`
   - DN42 IPv4：`172.22.76.190`
-  - DN42 IPv6：`fdbc:f9dc:67ad::cc:433e:da3b`
+  - DN42 IPv6：`fdbc:f9dc:67ad:8::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
   - IPSec 公钥：
@@ -159,7 +158,7 @@ date: 1970-01-01 00:00:00
   - 公网 IPv4：`45.138.97.165`
   - 公网 IPv6：`2001:ac8:20:3::433a:a05d`
   - DN42 IPv4：`172.22.76.187`
-  - DN42 IPv6：`fdbc:f9dc:67ad::20:5549:a809`
+  - DN42 IPv6：`fdbc:f9dc:67ad:2::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
   - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
@@ -170,10 +169,27 @@ date: 1970-01-01 00:00:00
   - 公网 IPv6：`2001:470:1f1b:bb::1`
     - 该节点到 HE 的隧道服务器**延迟较高**（约 50 ms），所以推荐使用 IPv4 地址连接，除非你只有 IPv6。
   - DN42 IPv4：`172.22.76.188`
-  - DN42 IPv6：`fdbc:f9dc:67ad::b2:9dd9:af42`
+  - DN42 IPv6：`fdbc:f9dc:67ad:9::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`o1khch2IZ5IbVgEm8kIKyCtqj1hfkRb+OP51tOBrwSk=`
-  - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
+  - IPSec 公钥：
+
+    ```bash
+    -----BEGIN PUBLIC KEY-----
+    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAs1pxDctgxMG6oxVOPgO7
+    LXDTBf8V4H2CJAGUBkJaFo5hi6seWDjmyhbtPU6Sop0Bpq/cKoHkWgN5RLpdeeHm
+    y1Hh+75jacjvyZG+KcReRerAzGjwizgeq7te9HySo1vncYnPnU4piJgMl/A2g52/
+    irv/FHP46RPGjky3joUW5Bt35qSQuvBJJB2G2LW2spgUxcBBtviLbHVfFY/Suj8R
+    qYaIP/DV56hggkFEmrxVC5rOc4CIWijYIS5pYxyCk1yZqsH6uCpFLXyOUMt/k8ut
+    5fb/KLdt1HcGTUqfBsJNZzhSEq058YalvWdhz+QFQMELcQe0CB8nRbNH5c4qZAyQ
+    nxiV07Aexa+LYFWIPfbDJZqTwqOTmeRzSXkQt5FTVHuiWihJs7nhGDYtMRWLKGAO
+    xnBkz+O0bwl1HKJ2ddi4h2UAz2pJTruqp8B72Z3VtISdxi7qkUcItsEHZAvY0Hc0
+    uFhDg1ZEgm4ER75b4/GIogZiba7euXWn/jYbDpXy6EkfrVgA7oqMFdY+4/zWQ9wV
+    BwuMCa5KPW3LydVQARPFDs1K59qGrs6JLnv0juM9rtW14YYHF0/wj6syjE5QDcY+
+    4bjsVSByB2ZhMUMLdKusS/oA6CDyF3doGvlzbo70BgKYifagBbw+l3wD0CUzH3Zn
+    bl9kuJhvIz++kAAj7VCLYUECAwEAAQ==
+    -----END PUBLIC KEY-----
+    ```
 
 我的配置模板（默认参数）
 -------------------
