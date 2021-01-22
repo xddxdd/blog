@@ -1,5 +1,5 @@
 const LANGUAGE_TAGS = {
-    'en': '<span class="flag-icon flag-icon-gb"></span> English',
+    'en': '<span class="flag-icon flag-icon-us"></span> English',
     'zh': '<span class="flag-icon flag-icon-cn"></span> Chinese',
 };
 

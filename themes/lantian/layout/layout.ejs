@@ -16,11 +16,24 @@ if (is_archive()){
     title = __('list_tag').replace('{0}', page.tag);
 }
 %>
-<%- partial('_partial/head', {title: title}) %>
-<body>
-    <div id="bg"></div>
+<head>
+    <%- partial('_partial/head', {title: title}) %>
 
-    <div id="container">
+    <% if(page.bigscreen) { %>
+        <%- partial('_bigscreen/' + page.bigscreen + '/head.ejs') %>
+    <% } %>
+</head>
+<body>
+    <div id="bg">
+        <% if(page.bigscreen) { %>
+            <%- partial('_bigscreen/' + page.bigscreen + '/body.ejs') %>
+        <% } %>
+    </div>
+    <% if(page.bigscreen) { %>
+        <div id="bigscreen-placeholder">&nbsp;</div>
+    <% } %>
+
+    <div id="container" class="<%- (page.bigscreen ? 'bigscreen' : '') %>">
         <%- partial('_partial/header') %>
         <div class="row">
             <div id="content" class="col-12 col-lg-9">
