@@ -72,13 +72,12 @@ My Network
 Servers
 -------
 
-- Server 1: Hong Kong, China, provider GigsGigsCloud
-  - Domain: `gigsgigscloud.lantian.pub`
-  - Public IPv4: `103.42.215.193`
-  - Public IPv6: `2001:470:19:10bb::1`
-    - This node has **extremely high latency** (~150ms) to HE tunnel broker, so IPv4 is strongly preferred, unless you only have IPv6.
+- Server 1: Hong Kong, China, provider IDC.wiki (originally 50KVM)
+  - Domain: `50kvm.lantian.pub`
+  - Public IPv4: `23.226.61.104`
+  - Public IPv6: `2001:470:19:10bd::1`
   - DN42 IPv4: `172.22.76.186`
-  - DN42 IPv6: `fdbc:f9dc:67ad::8b:c606:ba01`
+  - DN42 IPv6: `fdbc:f9dc:67ad:1::1`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
   - IPSec Public Key:
@@ -105,7 +104,7 @@ Servers
   - Public IPv4: `185.186.147.110`
   - Public IPv6: `2607:fcd0:100:b100::198a:b7f6`
   - DN42 IPv4: `172.22.76.185`
-  - DN42 IPv6: `fdbc:f9dc:67ad::dd:c85a:8a93`
+  - DN42 IPv6: `fdbc:f9dc:67ad:3::1`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
   - IPSec Public Key:
@@ -132,7 +131,7 @@ Servers
   - Public IPv4: `107.172.134.89`
   - Public IPv6: `2001:470:1f07:54d::1`
   - DN42 IPv4: `172.22.76.190`
-  - DN42 IPv6: `fdbc:f9dc:67ad::cc:433e:da3b`
+  - DN42 IPv6: `fdbc:f9dc:67ad:8::1`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
   - IPSec Public Key:
@@ -159,7 +158,7 @@ Servers
   - Public IPv4: `45.138.97.165`
   - Public IPv6: `2001:ac8:20:3::433a:a05d`
   - DN42 IPv4: `172.22.76.187`
-  - DN42 IPv6: `fdbc:f9dc:67ad::20:5549:a809`
+  - DN42 IPv6: `fdbc:f9dc:67ad:2::1`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
   - IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
@@ -170,10 +169,27 @@ Servers
   - Public IPv6: `2001:470:1f1b:bb::1`
     - This node has **high latency** (~50ms) to HE tunnel broker, so IPv4 is preferred, unless you only have IPv6.
   - DN42 IPv4: `172.22.76.188`
-  - DN42 IPv6: `fdbc:f9dc:67ad::b2:9dd9:af42`
+  - DN42 IPv6: `fdbc:f9dc:67ad:9::1`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `o1khch2IZ5IbVgEm8kIKyCtqj1hfkRb+OP51tOBrwSk=`
-  - IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
+  - IPSec Public Key:
+
+    ```bash
+    -----BEGIN PUBLIC KEY-----
+    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAs1pxDctgxMG6oxVOPgO7
+    LXDTBf8V4H2CJAGUBkJaFo5hi6seWDjmyhbtPU6Sop0Bpq/cKoHkWgN5RLpdeeHm
+    y1Hh+75jacjvyZG+KcReRerAzGjwizgeq7te9HySo1vncYnPnU4piJgMl/A2g52/
+    irv/FHP46RPGjky3joUW5Bt35qSQuvBJJB2G2LW2spgUxcBBtviLbHVfFY/Suj8R
+    qYaIP/DV56hggkFEmrxVC5rOc4CIWijYIS5pYxyCk1yZqsH6uCpFLXyOUMt/k8ut
+    5fb/KLdt1HcGTUqfBsJNZzhSEq058YalvWdhz+QFQMELcQe0CB8nRbNH5c4qZAyQ
+    nxiV07Aexa+LYFWIPfbDJZqTwqOTmeRzSXkQt5FTVHuiWihJs7nhGDYtMRWLKGAO
+    xnBkz+O0bwl1HKJ2ddi4h2UAz2pJTruqp8B72Z3VtISdxi7qkUcItsEHZAvY0Hc0
+    uFhDg1ZEgm4ER75b4/GIogZiba7euXWn/jYbDpXy6EkfrVgA7oqMFdY+4/zWQ9wV
+    BwuMCa5KPW3LydVQARPFDs1K59qGrs6JLnv0juM9rtW14YYHF0/wj6syjE5QDcY+
+    4bjsVSByB2ZhMUMLdKusS/oA6CDyF3doGvlzbo70BgKYifagBbw+l3wD0CUzH3Zn
+    bl9kuJhvIz++kAAj7VCLYUECAwEAAQ==
+    -----END PUBLIC KEY-----
+    ```
 
 My Config Templates (Default Parameters)
 ----------------------------------------
