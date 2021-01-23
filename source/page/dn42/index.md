@@ -1,6 +1,7 @@
 ---
 title: 'DN42'
 date: 1970-01-01 00:00:00
+bigscreen: indihome
 ---
 
 如果你需要 DN42 配置上的帮助，可以参见《[DN42 实验网络介绍（2020 版）](/article/modify-website/dn42-experimental-network-2020.lantian)》，以及浏览本站之前有关 DN42 的文章。
