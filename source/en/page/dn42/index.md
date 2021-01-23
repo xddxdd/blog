@@ -1,7 +1,6 @@
 ---
 title: 'DN42'
 date: 1970-01-01 00:00:00
-bigscreen: indihome
 ---
 
 If you need assistance on DN42 configuration, you may refer to [DN42 Experimental Network: Intro and Registration](/en/article/modify-website/dn42-experimental-network-2020.lantian) and my previous articles on DN42.
