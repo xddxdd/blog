@@ -148,5 +148,10 @@ addLoadEvent(function () {
         options.forEach(option => {
             option.onclick = interactive_onclick;
         });
+
+        let contents = Array.prototype.slice.call(document.getElementsByClassName('lt-interactive-content'));
+        contents.forEach(content => {
+            content.classList.add('d-none');
+        });
     });
 });
