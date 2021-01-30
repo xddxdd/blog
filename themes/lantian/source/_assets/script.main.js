@@ -20,7 +20,7 @@ import componentsInit from 'bootstrap.native/src/util/componentsInit.js';
 // import {Util} from 'bootstrap.native/src/util/util.js';
 
 // import Alert from 'bootstrap.native/src/components/alert-native.js';
-// import Button from 'bootstrap.native/src/components/button-native.js';
+import Button from 'bootstrap.native/src/components/button-native.js';
 // import Carousel from 'bootstrap.native/src/components/carousel-native.js';
 import Collapse from 'bootstrap.native/src/components/collapse-native.js';
 import Dropdown from 'bootstrap.native/src/components/dropdown-native.js';
@@ -32,7 +32,7 @@ import Dropdown from 'bootstrap.native/src/components/dropdown-native.js';
 // import Tooltip from 'bootstrap.native/src/components/tooltip-native.js';
 
 // componentsInit.Alert = [ Alert, '[data-dismiss="alert"]'];
-// componentsInit.Button = [ Button, '[data-toggle="buttons"]' ];
+componentsInit.Button = [ Button, '[data-toggle="buttons"]' ];
 // componentsInit.Carousel = [ Carousel, '[data-ride="carousel"]' ];
 componentsInit.Collapse = [ Collapse, '[data-toggle="collapse"]' ];
 componentsInit.Dropdown = [Dropdown, '[data-toggle="dropdown"]'];
@@ -61,12 +61,12 @@ addLoadEvent(function () {
 
     attempt('Simple Lightbox', function () {
         'use strict';
-        let lightbox_onclick = function (e) {
+        let lightbox_onclick = function () {
             SimpleLightbox.open({
                 items: [this.getAttribute('src') || this.getAttribute('href')],
             });
             try {
-                e.preventDefault();
+                this.preventDefault();
             } catch (e) {}
             return false;
         };
@@ -89,5 +89,44 @@ addLoadEvent(function () {
     attempt('ElderClock', function () {
         'use strict';
         elderClock();
+    });
+
+    attempt('Interactive Content', function() {
+        'use strict';
+
+        let interactive_onclick = function (e) {
+            let group = e.dataset.group;
+            // let parent = document.getElementById(`lt-interactive-group-${group}`);
+            let parent = e.parentElement.parentElement;
+            let option_list = Array.prototype.slice.call(parent.getElementsByClassName('lt-interactive-option'));
+            option_list.forEach(element => {
+                let this_tag = element.dataset.tag;
+                let child = document.getElementById(`lt-interactive-content-${this_tag}`);
+
+                if (element.checked) {
+                    child.classList.remove('d-none');
+                } else {
+                    child.classList.add('d-none');
+                }
+
+                let child_options = Array.prototype.slice.call(child.getElementsByClassName('lt-interactive-option'));
+
+                /* bootstrap native js will handle state save & restore */
+                child_options.forEach(function(e) {
+                    e.parentElement.classList.remove('active');
+                    e.checked = false;
+                    interactive_onclick(e);
+                });
+            });
+        };
+
+        let interactive_onclick_wrapper = function() {
+            interactive_onclick(this);
+        };
+
+        let options = Array.prototype.slice.call(document.getElementsByClassName('lt-interactive-option'));
+        options.forEach(option => {
+            option.onclick = interactive_onclick_wrapper;
+        });
     });
 });
