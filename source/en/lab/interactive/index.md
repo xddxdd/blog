@@ -8,6 +8,7 @@ Use the case options below to perform tests.
 {% interactive_buttons vertical lg %}
 t1 Case 1
 t2 Case 2
+t3 Nothing
 {% endinteractive_buttons %}
 
 {% interactive t1 %}

@@ -8,6 +8,7 @@ date: 1970-01-01 00:00:00
 {% interactive_buttons vertical lg %}
 t1 支线 1
 t2 支线 2
+t3 不存在的
 {% endinteractive_buttons %}
 
 {% interactive t1 %}

@@ -98,10 +98,17 @@ addLoadEvent(function () {
             let group = e.dataset.group;
             // let parent = document.getElementById(`lt-interactive-group-${group}`);
             let parent = e.parentElement.parentElement;
-            let option_list = Array.prototype.slice.call(parent.getElementsByClassName('lt-interactive-option'));
-            option_list.forEach(element => {
+            let option_list = parent.getElementsByClassName('lt-interactive-option');
+            if (!option_list) {
+                return;
+            }
+
+            Array.prototype.slice.call(option_list).forEach(element => {
                 let this_tag = element.dataset.tag;
                 let child = document.getElementById(`lt-interactive-content-${this_tag}`);
+                if (!child) {
+                    return;
+                }
 
                 if (element.checked) {
                     child.classList.remove('d-none');
@@ -109,10 +116,13 @@ addLoadEvent(function () {
                     child.classList.add('d-none');
                 }
 
-                let child_options = Array.prototype.slice.call(child.getElementsByClassName('lt-interactive-option'));
+                let child_options = child.getElementsByClassName('lt-interactive-option');
+                if (!child_options) {
+                    return;
+                }
 
                 /* bootstrap native js will handle state save & restore */
-                child_options.forEach(function(e) {
+                Array.prototype.slice.call(child_options).forEach(function(e) {
                     e.parentElement.classList.remove('active');
                     e.checked = false;
                     interactive_onclick(e);
