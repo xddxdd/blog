@@ -94,49 +94,59 @@ addLoadEvent(function () {
     attempt('Interactive Content', function() {
         'use strict';
 
-        let interactive_onclick = function (e) {
-            let group = e.dataset.group;
-            // let parent = document.getElementById(`lt-interactive-group-${group}`);
-            let parent = e.parentElement.parentElement;
-            let option_list = parent.getElementsByClassName('lt-interactive-option');
+        let interactive_update = function(element) {
+            let this_tag = element.dataset.tag;
+            let child = document.getElementById(`lt-interactive-content-${this_tag}`);
+            if (!child) {
+                return;
+            }
+
+            if (element.checked) {
+                child.classList.remove('d-none');
+                return;
+            }
+
+            child.classList.add('d-none');
+
+            let child_options = child.getElementsByClassName('lt-interactive-option');
+            if (!child_options) {
+                return;
+            }
+
+            /* bootstrap native js will handle state save & restore */
+            Array.prototype.slice.call(child_options).forEach(function(e) {
+                e.parentElement.classList.remove('active');
+                e.checked = false;
+                // interactive_onclick(e);
+            });
+
+            if (child_options.length) {
+                interactive_recurse(child_options.item(0).parentElement.parentElement);
+            }
+        };
+
+        let interactive_recurse = function(container) {
+            let option_list = container.getElementsByClassName('lt-interactive-option');
             if (!option_list) {
                 return;
             }
 
-            Array.prototype.slice.call(option_list).forEach(element => {
-                let this_tag = element.dataset.tag;
-                let child = document.getElementById(`lt-interactive-content-${this_tag}`);
-                if (!child) {
-                    return;
-                }
+            let option_array = Array.prototype.slice.call(option_list);
 
-                if (element.checked) {
-                    child.classList.remove('d-none');
-                } else {
-                    child.classList.add('d-none');
-                }
+            // first go through the unselected options
+            option_array.filter(e => { return !e.checked; }).forEach(interactive_update);
 
-                let child_options = child.getElementsByClassName('lt-interactive-option');
-                if (!child_options) {
-                    return;
-                }
-
-                /* bootstrap native js will handle state save & restore */
-                Array.prototype.slice.call(child_options).forEach(function(e) {
-                    e.parentElement.classList.remove('active');
-                    e.checked = false;
-                    interactive_onclick(e);
-                });
-            });
+            // then handle the selected one
+            option_array.filter(e => { return e.checked; }).forEach(interactive_update);
         };
 
-        let interactive_onclick_wrapper = function() {
-            interactive_onclick(this);
+        let interactive_onclick = function() {
+            interactive_recurse(this.parentElement.parentElement);
         };
 
         let options = Array.prototype.slice.call(document.getElementsByClassName('lt-interactive-option'));
         options.forEach(option => {
-            option.onclick = interactive_onclick_wrapper;
+            option.onclick = interactive_onclick;
         });
     });
 });
