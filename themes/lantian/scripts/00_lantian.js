@@ -66,7 +66,7 @@ hexo.extend.tag.register(
     'interactive',
     function (args, content) {
         var rendered = markdown_render(content);
-        return `<div id="lt-interactive-content-${args[0]}" class="d-none">${rendered}</div>`;
+        return `<div id="lt-interactive-content-${args[0]}" class="lt-interactive-content">${rendered}</div>`;
     },
     { ends: true },
 );
