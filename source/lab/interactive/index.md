@@ -81,6 +81,7 @@ end1 算了，/24 也不是不能用
 {% interactive_buttons %}
 end2 上邮件列表骂街
 end2 这个管理员够不够格啊？
+end2 Telegram 私聊骚扰管理员
 {% endinteractive_buttons %}
 {% endinteractive %}
 
