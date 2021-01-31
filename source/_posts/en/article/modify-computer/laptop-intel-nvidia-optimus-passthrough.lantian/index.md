@@ -535,7 +535,7 @@ Therefore, currently Optimus GPU passthrough is more for tinkerers than for actu
 References
 ----------
 
-Huge thanks to previous explorers on the topic of GPU passthrough. Without their effort this article won't have existed in the first place.在。
+Huge thanks to previous explorers on the topic of GPU passthrough. Without their effort this article won't have existed in the first place.
 
 Here are the sources I referenced when I did my configuration:
 
