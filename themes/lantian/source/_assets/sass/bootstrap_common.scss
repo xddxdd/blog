@@ -11,6 +11,10 @@ $blockquote-font-size: $font-size-base;
 $navbar-nav-link-padding-x: 1rem;
 $navbar-brand-font-size: $h1-font-size;
 
+$line-height-lg: 1.75;
+$line-height-sm: 1.75;
+$line-height-base: 1.75;
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
