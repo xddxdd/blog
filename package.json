@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/cli": "^7.12.13",
     "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-env": "^7.12.13",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@iktakahiro/markdown-it-katex": "^4.0.1",
     "@lantian1998/hexo-generator-json-feed-org": "git+https://github.com/lantian1998/hexo-generator-json-feed-org.git",
