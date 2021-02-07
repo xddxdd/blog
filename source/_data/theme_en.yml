@@ -5,6 +5,21 @@ nav:
     url: /en/page/himawari/index.html
   - name: DN42
     url: /en/page/dn42/index.html
+links:
+  - name: 0x7f Blog
+    url: https://0x7f.cc
+  - name: 10 Year's Promise (Forever Blog)
+    url: http://foreverblog.cn
+  - name: Alanyhq
+    url: https://alanyhq.com
+  - name: JerryXiao
+    url: https://jerryxiao.cc
+  - name: LSC.MOE
+    url: https://lsc.moe
+  - name: SangSir
+    url: https://sangsir.com
+  - name: YuetAu's Spot
+    url: https://yuetau.net
 others: >
   <ul class="list-unstyled">
     <li><i class="fas fa-fw fa-rss"></i> <a href="/rss2.xml" target="_blank">RSS Feed</a> | <a href="/feed.xml" target="_blank">Atom</a> | <a href="/feed.json" target="_blank">JSON</a></li>
