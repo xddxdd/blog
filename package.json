@@ -14,9 +14,9 @@
     "Chrome 49"
   ],
   "dependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@iktakahiro/markdown-it-katex": "^4.0.1",
     "@lantian1998/hexo-generator-json-feed-org": "git+https://github.com/lantian1998/hexo-generator-json-feed-org.git",
@@ -28,7 +28,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap.native": "^3.0.14",
     "bourbon": "^7.0.0",
-    "browserslist": "^4.16.1",
+    "browserslist": "^4.16.3",
     "core-js": "^3.8.3",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
@@ -62,7 +62,7 @@
     "node-sass": "^5.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "popper.js": "^1.16.1",
-    "postcss": "^8.2.4",
+    "postcss": "^8.2.5",
     "resolve-url-loader": "^3.1.2",
     "sass-inline-svg": "^1.2.3",
     "sass-loader": "^10.1.1",
@@ -70,8 +70,8 @@
     "simple-lightbox": "^2.1.0",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.1.1",
-    "webpack": "^5.19.0",
-    "webpack-cli": "^4.4.0",
+    "webpack": "^5.21.1",
+    "webpack-cli": "^4.5.0",
     "yargs-parser": "^20.2.4"
   }
 }
