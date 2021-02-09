@@ -6,3 +6,5 @@
       synchronize:
         src: public/
         dest: /srv/www/lantian.pub/
+        checksum: yes
+        delete: yes
