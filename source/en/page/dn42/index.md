@@ -163,9 +163,9 @@ Servers
   - WireGuard Public Key: `DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
   - IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
 
-- Server 5: Romania, provider HostSolutions
+- Server 5: Oradea, Romania, provider HostSolutions
   - Domain: `hostsolutions.lantian.pub`
-  - Public IPv4: `45.14.150.211`
+  - Public IPv4: `193.148.70.208`
   - Public IPv6: `2001:470:1f1b:bb::1`
     - This node has **high latency** (~50ms) to HE tunnel broker, so IPv4 is preferred, unless you only have IPv6.
   - DN42 IPv4: `172.22.76.188`
