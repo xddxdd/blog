@@ -16,6 +16,7 @@ Here I provide instructions to perform "1xRTT" peering, which means we can peer 
    - If you have multiple servers in DN42, I'm open to peering with all of them at once.
 2. Choose a type of VPN for tunneling.
    - I usually prefer WireGuard and OpenVPN, but others such as GRE/IPSec, GRE/Plain and ZeroTier will also work.
+     - **Please avoid GRE/IPSec wherever possible**, unless it's your only option. Different IPSec implementations usually have severe compatibility issues, and it may take days or even weeks to debug.
    - **WARN: I DO NOT** peer with servers in mainland China, to avoid possible legal issues.
    - I'm also willing to try new types of VPNs - just ask!
 3. Configure BGP daemon and VPN software on your side. You may assume I will use the following configuration:
