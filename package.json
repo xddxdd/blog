@@ -14,7 +14,7 @@
     "Chrome 49"
   ],
   "dependencies": {
-    "@babel/cli": "^7.12.17",
+    "@babel/cli": "^7.13.0",
     "@babel/core": "^7.12.17",
     "@babel/preset-env": "^7.12.16",
     "@fortawesome/fontawesome-free": "^5.15.2",
