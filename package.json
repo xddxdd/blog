@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.8",
+    "@babel/core": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@iktakahiro/markdown-it-katex": "^4.0.1",
