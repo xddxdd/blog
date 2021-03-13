@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "5.3.0"
+    "version": "5.4.0"
   },
   "browserslist": [
     "last 1 version",
@@ -49,6 +49,7 @@
     "hexo-generator-tag": "^1.0.0",
     "hexo-helper-qrcode": "^1.0.2",
     "hexo-html-minifier": "^1.0.0",
+    "hexo-pangu": "^0.2.0",
     "hexo-renderer-ejs": "^1.0.0",
     "hexo-renderer-markdown-it": "^5.0.0",
     "hexo-renderer-stylus": "^2.0.1",
