@@ -17,7 +17,7 @@
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
-    "@fortawesome/fontawesome-free": "^5.15.2",
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "@iktakahiro/markdown-it-katex": "^4.0.1",
     "@lantian1998/hexo-generator-json-feed-org": "git+https://github.com/lantian1998/hexo-generator-json-feed-org.git",
     "@lantian1998/markdown-it-graphviz": "git+https://github.com/lantian1998/markdown-it-graphviz.git",
