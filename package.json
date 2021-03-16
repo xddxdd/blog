@@ -71,7 +71,7 @@
     "simple-lightbox": "^2.1.0",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.1.1",
-    "webpack": "^5.26.0",
+    "webpack": "^5.26.1",
     "webpack-cli": "^4.5.0",
     "yargs-parser": "^20.2.7"
   }
