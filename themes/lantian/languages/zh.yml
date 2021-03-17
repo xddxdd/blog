@@ -15,6 +15,7 @@ others: "其它功能"
 links: "友情链接"
 admin: "管理员"
 language: 'Language'
+color_scheme: '深色/浅色'
 
 # post-list
 list_year_month: "YYYY 年 MM 月"
