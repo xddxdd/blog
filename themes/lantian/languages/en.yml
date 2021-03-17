@@ -15,6 +15,7 @@ others: "Others"
 links: "Links"
 admin: "Admin"
 language: 'Language'
+color_scheme: 'Day/Night'
 
 # post-list
 list_year_month: "YYYY-MM"

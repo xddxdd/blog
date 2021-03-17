@@ -56,6 +56,12 @@ header.lantian {
         animation: elderclock-plus1s 1s 1;
     }
 
+    @include media-breakpoint-down(sm) {
+        #lantian-navbar {
+            padding: 0 20px;
+        }
+    }
+
     border-bottom: $border-default;
     background-color: material-color('grey', '200');
 }
@@ -478,4 +484,22 @@ ul ul {
     * {
         border-radius: 0 !important;
     }
+}
+
+:root {
+    --color-mode: 'light';
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-mode: 'dark';
+    }
+
+    :root:not([data-user-color-scheme]) {
+        @import 'style_dark.scss';
+    }
+}
+
+[data-user-color-scheme='dark'] {
+    @import 'style_dark.scss';
 }
