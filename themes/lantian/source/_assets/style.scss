@@ -56,9 +56,9 @@ header.lantian {
         animation: elderclock-plus1s 1s 1;
     }
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
         #lantian-navbar {
-            padding: 0 20px;
+            padding: 0 1.5rem;
         }
     }
 
