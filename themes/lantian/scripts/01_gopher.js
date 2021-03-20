@@ -25,6 +25,7 @@ const crlf = '\r\n';
 const gopherBefore = 'i';
 const gopherBeforeLink = '1';
 const gopherAfter = '\tinvalid.host\t0' + crlf;
+const gopherEOF = '.' + crlf;
 
 var markdown_to_gopher = (result, data) => {
     if (data.page.raw) {
@@ -55,7 +56,7 @@ var markdown_to_gopher = (result, data) => {
                 md =
                     gopherBefore +
                     md.split('\n').join(gopherAfter + gopherBefore) +
-                    gopherAfter;
+                    gopherAfter + gopherEOF;
 
                 var target_path = data.path;
                 target_path = target_path.replace(/index\.html$/, 'gophermap');
@@ -130,6 +131,7 @@ var gophermap_index_generator = injectLanguages((languages, locals) => {
                     gopherAfter;
                 data += gopherBefore + gopherAfter;
             });
+        data += gopherEOF;
 
         var path =
             (isDefaultLanguage(language) ? '/' : '/' + language + '/') +
