@@ -104,7 +104,7 @@ var gophermap_index_generator = injectLanguages((languages, locals) => {
                 data +=
                     gopherBeforeLink +
                     '- ' +
-                    post.title.substr(0, 56) +
+                    LANTIAN.slice_width(post.title, 0, 56) +
                     ' (' +
                     new Date(post.date)
                         .toISOString()
