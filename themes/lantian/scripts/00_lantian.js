@@ -1,3 +1,5 @@
+const LANTIAN = require('../lib/lantian');
+
 const execSync = require('child_process').execSync;
 const gitRevision = execSync('git log -1 --format=%h').toString().trim();
 
@@ -13,7 +15,7 @@ hexo.extend.helper.register('remove_trailing_slash', function (s) {
 
 hexo.extend.helper.register('lantian_excerpt', function (input) {
     var excerpt_length = 400;
-    var stripped = input.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, '');
+    var stripped = input.replace(LANTIAN.EXCERPT_REGEX, '');
     var separators = ['。', '，', '.', ',', '：', ':', ')', '）'];
     var output_until = excerpt_length;
     for (var i = excerpt_length; i > 0; i--) {
