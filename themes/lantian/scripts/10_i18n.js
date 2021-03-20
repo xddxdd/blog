@@ -346,7 +346,7 @@ hexo.extend.helper.register('i18n_path', function (language) {
  * Get the language name
  */
 hexo.extend.helper.register('language_name', function (language) {
-    return LANGUAGE_TAGS[language] ? LANGUAGE_TAGS[language] : language;
+    return LANGUAGE_TAGS[language] ? LANGUAGE_TAGS[language].join(' ') : language;
 });
 
 hexo.extend.helper.register('posts_filter', function(posts) {
