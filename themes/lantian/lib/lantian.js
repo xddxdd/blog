@@ -20,6 +20,6 @@ function slice_width(str, start, length) {
 }
 
 module.exports = {
-    EXCERPT_REGEX: /<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g,
+    EXCERPT_REGEX: /([\n\r]|<\/?("[^"]*"|'[^']*'|[^>])*(>|$))/g,
     slice_width: slice_width,
 };
