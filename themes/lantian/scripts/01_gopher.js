@@ -24,7 +24,7 @@ const LANGUAGE_TAGS = require('../lib/language');
 const crlf = '\r\n';
 const gopherBefore = 'i';
 const gopherBeforeLink = '1';
-const gopherAfter = '\tinvalid.host\t0' + crlf;
+const gopherAfter = '\t\t{{server_addr}}\t{{server_port}}' + crlf;
 const gopherEOF = '.' + crlf;
 
 var markdown_to_gopher = (result, data) => {
@@ -91,7 +91,7 @@ var gophermap_index_generator = injectLanguages((languages, locals) => {
                 (lang == language ? ' (*)' : '') +
                 '\t' +
                 (isDefaultLanguage(lang) ? '/' : '/' + lang + '/') +
-                '\t70' +
+                '\t{{server_addr}}\t{{server_port}}' +
                 crlf;
         });
         data += gopherBefore + gopherAfter;
@@ -113,7 +113,7 @@ var gophermap_index_generator = injectLanguages((languages, locals) => {
                     ')' +
                     '\t/' +
                     post.path.replace(/index\.html$/g, '') +
-                    '\t70' +
+                    '\t{{server_addr}}\t{{server_port}}' +
                     crlf;
 
                 var summary = post.content
