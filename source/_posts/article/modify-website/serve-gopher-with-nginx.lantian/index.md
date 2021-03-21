@@ -150,7 +150,7 @@ nginx 补丁及用法
 2. 增加了一个 `plain` 模式专用的、解析 URL 用的状态机，相比 HTTP 的状态机，删除了解析请求类型（`GET`）、域名（`http://localhost`）和 HTTP 版本（`HTTP/1.1`）相关的功能，请求类型锁定为 `GET`，域名设置为 `null`（与 HTTP/1.0 相同），HTTP 版本锁定为 0.9。
 3. 在开始接收客户端的请求前，先往接收缓冲区存一个斜杠 `/`，以达到向 URL 开头插入斜杠的效果。nginx 后续处理流程需要频繁用到存放 URL 的指针，相比修改所有用到 URL 的逻辑，直接插入一个斜杠是最简单粗暴、也是最稳妥的方法。
 
-在编译 nginx 时，需要开启 `--with-http_plain_module` 参数。
+在编译 nginx 时，需要开启 `--with-http_plain_module` 参数。此外在配置 nginx 时，记得设置 `index gophermap;` 让 nginx 默认读取文件夹中的 Gophermap。
 
 生成 Gophermap 文件
 ------------------
