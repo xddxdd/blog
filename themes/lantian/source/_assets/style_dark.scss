@@ -35,6 +35,18 @@ article {
             color: white;
         }
 
+        img,
+        svg {
+            box-shadow: 0 0 10px black;
+        }
+        blockquote,
+        pre {
+            border-left: 5px solid material-color('grey', '800');
+        }
+        code {
+            border-bottom: 3px solid material-color('grey', '800');
+        }
+
         .header-anchor {
             margin-left: 0.25em;
         }
@@ -106,3 +118,5 @@ footer.lantian {
         }
     }
 }
+
+@import 'highlight.js/styles/atom-one-dark';

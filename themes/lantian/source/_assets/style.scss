@@ -112,7 +112,11 @@ article {
         }
         img,
         svg {
+            box-shadow: 0 0 10px material-color('grey', '600');
             max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
         blockquote,
         pre {
@@ -467,7 +471,7 @@ ul ul {
 @import 'sass/images.scss';
 @import 'sass/flags.scss';
 
-@import 'highlight.js/styles/github';
+@import 'highlight.js/styles/atom-one-light';
 .hljs {
     padding: 0 !important;
     background: none !important;
