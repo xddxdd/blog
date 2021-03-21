@@ -10,14 +10,9 @@ var path = require('path');
 const LANTIAN = require('../lib/lantian');
 
 const {
-    pathJoin,
     isDefaultLanguage,
-    url_for,
     postFilter,
     injectLanguages,
-    getUsedLanguages,
-    getDisplayLanguages,
-    getPageLanguage,
 } = require('../lib/i18n')(hexo);
 const LANGUAGE_TAGS = require('../lib/language');
 
