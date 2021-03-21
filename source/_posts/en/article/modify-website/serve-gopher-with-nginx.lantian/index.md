@@ -149,6 +149,8 @@ Overall, this patch did three changes:
 2. A state machine for parsing `plain` URLs is added. Compared to HTTP state machines, everything related to parsing request type (`GET`), domain (`http://localhost`) and HTTP version (`HTTP/1.1`) is removed. The request type is hardcoded to `GET`, domain set to `null` (just like HTTP/1.0), and the HTTP version is set to 0.9.
 3. Before starting to receive requests from the client, a slash `/` is stored into the receiving buffer, to insert it to the beginning of the URL. nginx will use the pointers to the URL many times during the entire process, and compared to changing all URL-related logic, inserting a slash directly is simple, effective and reliable.
 
+Remember to enable `--with-http_plain_module` while compiling nginx, and remember to set `index gophermap;` so nginx looks for the Gophermap by default.
+
 Generating Gophermaps
 ---------------------
 
