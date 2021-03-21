@@ -3,7 +3,7 @@
         if(is_default_language(page_language())) {
             return url_for(config.root);
         } else {
-            return url_for(config.root + '/' + page_language());
+            return url_for(config.root + (config.root == '/' ? '' : '/') + page_language());
         }
     })(); %>"><%= config.title %></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#lantian-navbar" aria-controls="lantian-navbar" aria-expanded="false" aria-label="Toggle navigation">
