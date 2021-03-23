@@ -3,7 +3,7 @@ var remark_parse = require('remark-parse');
 var remark_stringify = require('remark-stringify');
 var remark_gfm = require('remark-gfm');
 var remark_frontmatter = require('remark-frontmatter');
-var remark_reference_links = require('remark-reference-links');
+var remark_inline_links = require('remark-inline-links');
 var prettier = require('prettier');
 var fs = require('hexo-fs');
 var path = require('path');
@@ -19,8 +19,70 @@ const LANGUAGE_TAGS = require('../lib/language');
 const crlf = '\r\n';
 const gopherBefore = 'i';
 const gopherBeforeLink = '1';
+const gopherBeforeImage = 'I';
 const gopherAfter = '\t\t{{server_addr}}\t{{server_port}}' + crlf;
 const gopherEOF = '.' + crlf;
+
+// https://github.com/benjojo/gophervista/blob/master/blog-gopher-bridge/main.go
+
+function markdown_formatter(rel_path, md) {
+    const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g;
+
+    var rows = md.split('\n');
+    for (var i = 0; i < rows.length; i++) {
+        // Link regex can also match images
+        if (rows[i].match(markdownRegex)) {
+            var replace_at_beginning = false,
+                replace_at_end = false;
+
+            var replace_fn = (
+                match,
+                prefix,
+                img_marker,
+                label,
+                href,
+                suffix,
+            ) => {
+                // Don't touch external links
+                if (href.match("://")) {
+                    return match;
+                }
+
+                if (prefix !== null) {
+                    replace_at_beginning = true;
+                }
+                if (suffix !== null) {
+                    replace_at_end = true;
+                }
+
+                href = path.join('/', rel_path, href);
+
+                return (
+                    (prefix ? prefix + gopherAfter : '') +
+                    (img_marker === '!'
+                        ? gopherBeforeImage
+                        : gopherBeforeLink) +
+                    label +
+                    '\t' +
+                    href +
+                    '\t{{server_addr}}\t{{server_port}}' +
+                    crlf +
+                    (suffix ? gopherBefore + suffix : '')
+                );
+            };
+
+            rows[i] = rows[i].replaceAll(markdownRegex, replace_fn);
+            rows[i] =
+                (replace_at_beginning ? '' : gopherBefore) +
+                rows[i] +
+                (replace_at_end ? '' : gopherAfter);
+        } else {
+            rows[i] = gopherBefore + rows[i] + gopherAfter;
+        }
+    }
+
+    return rows.join('') + gopherEOF;
+}
 
 var markdown_to_gopher = (result, data) => {
     if (data.page.raw) {
@@ -28,11 +90,12 @@ var markdown_to_gopher = (result, data) => {
             .use(remark_parse)
             .use(remark_frontmatter)
             .use(remark_gfm)
-            .use(remark_reference_links)
+            .use(remark_inline_links)
             .use(remark_stringify, {
                 bullet: '-',
                 fences: true,
                 listItemIndent: 'one',
+                resourceLink: false,
             })
             .process(data.page.raw)
             .then((file) => {
@@ -48,10 +111,7 @@ var markdown_to_gopher = (result, data) => {
                 });
                 if (!md) return;
 
-                md =
-                    gopherBefore +
-                    md.split('\n').join(gopherAfter + gopherBefore) +
-                    gopherAfter + gopherEOF;
+                md = markdown_formatter(path.dirname(data.path), md);
 
                 var target_path = data.path;
                 target_path = target_path.replace(/index\.html$/, 'gophermap');
@@ -119,10 +179,15 @@ var gophermap_index_generator = injectLanguages((languages, locals) => {
                     '  ' +
                     LANTIAN.slice_width(summary, 0, 68) +
                     gopherAfter;
-                data +=
+                    data +=
                     gopherBefore +
                     '  ' +
                     LANTIAN.slice_width(summary, 68, 68) +
+                    gopherAfter;
+                    data +=
+                    gopherBefore +
+                    '  ' +
+                    LANTIAN.slice_width(summary, 136, 68) +
                     gopherAfter;
                 data += gopherBefore + gopherAfter;
             });
