@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ ! -e node_modules/node-sass/vendor ]; then
+    npm rebuild node-sass
+fi
+
 # Cache folder
 CACHEDIR=/tmp/hexo-blog
 mkdir -p $CACHEDIR
@@ -19,7 +23,7 @@ node_modules/hexo/bin/hexo clean
 node_modules/hexo/bin/hexo generate
 
 # Verify generated javascript
-node_modules/acorn/bin/acorn --silent public/assets/script.main.bundle.js || exit 1
+node_modules/acorn/bin/acorn --ecma2020 --silent public/assets/script.main.bundle.js || exit 1
 
 # Do not deploy if not on master branch
 if [ "${GIT_BRANCH}" != "origin/master" ]; then
