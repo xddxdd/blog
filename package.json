@@ -53,7 +53,6 @@
     "hexo-renderer-ejs": "^1.0.0",
     "hexo-renderer-markdown-it": "^5.0.0",
     "hexo-renderer-stylus": "^2.0.1",
-    "hexo-ruby-character": "^1.0.6",
     "hexo-server": "^2.0.0",
     "hexo-spoiler": "^1.7.3",
     "hexo-util": "^2.4.0",
