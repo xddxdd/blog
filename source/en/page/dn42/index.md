@@ -5,6 +5,25 @@ date: 1970-01-01 00:00:00
 
 If you need assistance on DN42 configuration, you may refer to [DN42 Experimental Network: Intro and Registration](/en/article/modify-website/dn42-experimental-network-2020.lantian) and my previous articles on DN42.
 
+Some Helpful Links for Debugging
+--------------------------------
+
+Here's some links that may assist you in diagnosing problems with our peering.
+
+- [My Looking Glass](https://lg.lantian.pub/)
+  - You can see BIRD routing software status across my nodes, including whether BGP session is established, and whether route is received.
+  - You can perform traceroute to either public IP addresses or DN42 ones.
+- Route ROA filtering stats
+  - My network only accepts routes that are registered in DN42. Received invalid or unknown routes will be listed here.
+  - Invalid route: this IP block is registerd in DN42, but the actual source of route is different from the registration.
+    - For example, I registered IP block `172.22.76.184/29` and allow 4242422547 (my AS) to announce it. If you tried to announce this route, your announcement will be shown here.
+    - See the [list of invalid IPv4 routes](https://lg.lantian.pub/route_generic/hostdare/table%20roa_fail_v4), and the [list of invalid IPv6 routes](https://lg.lantian.pub/route_generic/hostdare/table%20roa_fail_v6).
+  - Unknown route: this IP block isn't registered in DN42.
+    - It usually means you announced your personal intranet (such as `192.168.0.0/16` or `10.0.0.0/8`) to others by mistake.
+    - Or maybe you just registrated and my ROA information isn't updated yet. Please wait 4-8 hours and restart our peering.
+    - Or maybe you only created inetnum/inet6num objects, but not route/route6 objects.
+    - See the [list of unknown IPv4 routes](https://lg.lantian.pub/route_generic/hostdare/table%20roa_unknown_v4), and the [list of unknown IPv6 routes](https://lg.lantian.pub/route_generic/hostdare/table%20roa_unknown_v6).
+
 "1xRTT" Peering
 ---------------
 
