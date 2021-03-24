@@ -6,6 +6,12 @@ date: 2021-03-21 22:16:44
 image: /usr/uploads/202103/gopher-gopherus-en.png
 ---
 
+Changelog
+---------
+
+- 2021-03-24: Improve article processing, add scripts for parsing links and images.
+- 2021-03-21: Initial version.
+
 What's Gopher
 -------------
 
@@ -154,12 +160,79 @@ Remember to enable `--with-http_plain_module` while compiling nginx, and remembe
 Generating Gophermaps
 ---------------------
 
-Now that we have a server, the next thing we need is files for the website. Since I use Hexo, a static site generator, and all my articles are written in Markdown, I simply went the lazy way of reformatting Markdown files with [Remark](https://github.com/remarkjs/remark), capping to 70 characters per line with [Prettier](https://github.com/prettier/prettier), and setting every line to text (`i`) according to the Gophermap format:
+Now that we have a server, the next thing we need is files for the website. Since I use Hexo, a static site generator, and all my articles are written in Markdown, I simply went the lazy way of reformatting Markdown files with [Remark](https://github.com/remarkjs/remark), capping to 70 characters per line with [Prettier](https://github.com/prettier/prettier). Then I search for all links and images with a regex, put them to their own lines as link (`1`) or image (`I`), since Gophermap doesn't support mixing text and link in the same line. All other texts are set as `i`:
 
 ```javascript
 const crlf = '\r\n';
 const gopherBefore = 'i';
+const gopherBeforeLink = '1';
+const gopherBeforeImage = 'I';
 const gopherAfter = '\t\t{{server_addr}}\t{{server_port}}' + crlf;
+const gopherEOF = '.' + crlf;
+
+function markdown_formatter(rel_path, md) {
+    const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g;
+
+    var rows = md.split('\n');
+    for (var i = 0; i < rows.length; i++) {
+        // Recognize all [Link](url) 和 ![Image](image)
+        if (rows[i].match(markdownRegex)) {
+            var replace_at_beginning = false,
+                replace_at_end = false;
+
+            var replace_fn = (
+                match,
+                prefix,
+                img_marker,
+                label,
+                href,
+                suffix,
+            ) => {
+                // Don't replace external links like http://, gopher://
+                // Gopher browsers don't support them
+                if (href.match("://")) {
+                    return match;
+                }
+
+                if (prefix !== null) {
+                    // Mark there's link or image at line beginning
+                    // Don't add prefix anymore
+                    replace_at_beginning = true;
+                }
+                if (suffix !== null) {
+                    // Mark there's link or image at line end
+                    // Don't add suffix anymore
+                    replace_at_end = true;
+                }
+
+                href = path.join('/', rel_path, href);
+
+                return (
+                    (prefix ? prefix + gopherAfter : '') +
+                    (img_marker === '!'
+                        ? gopherBeforeImage
+                        : gopherBeforeLink) +
+                    label +
+                    '\t' +
+                    href +
+                    '\t{{server_addr}}\t{{server_port}}' +
+                    crlf +
+                    (suffix ? gopherBefore + suffix : '')
+                );
+            };
+
+            rows[i] = rows[i].replaceAll(markdownRegex, replace_fn);
+            rows[i] =
+                (replace_at_beginning ? '' : gopherBefore) +
+                rows[i] +
+                (replace_at_end ? '' : gopherAfter);
+        } else {
+            rows[i] = gopherBefore + rows[i] + gopherAfter;
+        }
+    }
+
+    return rows.join('') + gopherEOF;
+}
 
 // Key logic
 unified()
@@ -168,10 +241,12 @@ unified()
         bullet: '-',
         fences: true,
         listItemIndent: 'one',
+        resourceLink: false,
     })
     .process(data.page.raw) // Get source Markdown data
     .then((file) => {
         var md = String(file);
+        if (!md) return;
 
         // Cap to 70 chars per line
         md = prettier.format(md, {
@@ -184,10 +259,7 @@ unified()
         if (!md) return;
 
         // Reformat each line to Gophermap
-        md =
-            gopherBefore +
-            md.split('\n').join(gopherAfter + gopherBefore) +
-            gopherAfter + gopherEOF;
+        md = markdown_formatter(path.dirname(data.path), md);
 
         // Write files, omitted
     });
@@ -207,8 +279,7 @@ See the `{{server_addr}}` and `{{server_port}}`? They point to the target host a
 
 ```bash
 location / {
-    sub_filter "{{server_addr}}" $server_addr;
-    sub_filter "{{server_port}}" $server_port;
+    sub_filter "{{server_addr}}\t{{server_port}}" "$gopher_addr\t$server_port";
     sub_filter_once off;
     sub_filter_types '*';
 }
@@ -285,7 +356,7 @@ Chinese contents layout is much better than Gopherus. Of course, English content
 
 ![Firefox + Overbite on English contents](../../../../../usr/uploads/202103/gopher-overbite-en.png)
 
-Let's try browsing an article. Since it's just plain Markdown without extra processing, there is no interactive components in the page like links, but the article itself is readable:
+Let's try browsing an article. Although it's just plain Markdown without much extra processing, the article itself is readable:
 
 ![Firefox + Overbite on Chinese contents](../../../../../usr/uploads/202103/gopher-overbite-article.png)
 

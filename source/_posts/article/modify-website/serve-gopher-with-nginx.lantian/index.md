@@ -6,6 +6,12 @@ date: 2021-03-21 22:16:44
 image: /usr/uploads/202103/gopher-gopherus.png
 ---
 
+更新日志
+-------
+
+- 2021-03-24：改进文章处理逻辑，增加识别链接和图片的代码。
+- 2021-03-21：最初版本。
+
 什么是 Gopher
 ------------
 
@@ -155,12 +161,76 @@ nginx 补丁及用法
 生成 Gophermap 文件
 ------------------
 
-有了服务端，接下来需要的就是网站的文件了。由于我用的是静态网站生成器 Hexo，文章的文件格式都是 Markdown，我就偷了个懒，把 Markdown 文件用 [Remark](https://github.com/remarkjs/remark) 稍微调整一下格式、再过一下 [Prettier](https://github.com/prettier/prettier) 缩成 70 字符一行，然后每行都按 Gophermap 的格式设置成文字（`i`）就好：
+有了服务端，接下来需要的就是网站的文件了。由于我用的是静态网站生成器 Hexo，文章的文件格式都是 Markdown，我就偷了个懒，把 Markdown 文件用 [Remark](https://github.com/remarkjs/remark) 稍微调整一下格式、再过一下 [Prettier](https://github.com/prettier/prettier) 缩成 70 字符一行。然后我用正则表达式识别文章中的链接和图片，把他们放到单独的一行并设置为链接（`1`）或图片（`I`）格式，因为 Gophermap 不支持文字和链接混在同一行。最后把剩余文字全部设置为 `i`：
 
 ```javascript
 const crlf = '\r\n';
 const gopherBefore = 'i';
+const gopherBeforeLink = '1';
+const gopherBeforeImage = 'I';
 const gopherAfter = '\t\t{{server_addr}}\t{{server_port}}' + crlf;
+const gopherEOF = '.' + crlf;
+
+function markdown_formatter(rel_path, md) {
+    const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g;
+
+    var rows = md.split('\n');
+    for (var i = 0; i < rows.length; i++) {
+        // 识别所有的 [链接](url) 和 ![图片](image)
+        if (rows[i].match(markdownRegex)) {
+            var replace_at_beginning = false,
+                replace_at_end = false;
+
+            var replace_fn = (
+                match,
+                prefix,
+                img_marker,
+                label,
+                href,
+                suffix,
+            ) => {
+                // 不要替换 http://，gopher:// 等外部链接，Gopher 浏览器不支持
+                if (href.match("://")) {
+                    return match;
+                }
+
+                if (prefix !== null) {
+                    // 标记链接或图片在这行开头，不要再添加文字 i 前缀了
+                    replace_at_beginning = true;
+                }
+                if (suffix !== null) {
+                    // 标记链接或图片在这行开头，不要再添加后缀了
+                    replace_at_end = true;
+                }
+
+                href = path.join('/', rel_path, href);
+
+                return (
+                    (prefix ? prefix + gopherAfter : '') +
+                    (img_marker === '!'
+                        ? gopherBeforeImage
+                        : gopherBeforeLink) +
+                    label +
+                    '\t' +
+                    href +
+                    '\t{{server_addr}}\t{{server_port}}' +
+                    crlf +
+                    (suffix ? gopherBefore + suffix : '')
+                );
+            };
+
+            rows[i] = rows[i].replaceAll(markdownRegex, replace_fn);
+            rows[i] =
+                (replace_at_beginning ? '' : gopherBefore) +
+                rows[i] +
+                (replace_at_end ? '' : gopherAfter);
+        } else {
+            rows[i] = gopherBefore + rows[i] + gopherAfter;
+        }
+    }
+
+    return rows.join('') + gopherEOF;
+}
 
 // 关键逻辑
 unified()
@@ -169,10 +239,12 @@ unified()
         bullet: '-',
         fences: true,
         listItemIndent: 'one',
+        resourceLink: false,
     })
     .process(data.page.raw) // 读取原始 Markdown 数据
     .then((file) => {
         var md = String(file);
+        if (!md) return;
 
         // 缩到 70 字符一行
         md = prettier.format(md, {
@@ -185,10 +257,7 @@ unified()
         if (!md) return;
 
         // 全部行改成 Gophermap 文字格式
-        md =
-            gopherBefore +
-            md.split('\n').join(gopherAfter + gopherBefore) +
-            gopherAfter + gopherEOF;
+        md = markdown_formatter(path.dirname(data.path), md);
 
         // 写文件等，略
     });
@@ -208,8 +277,7 @@ i口服务，即不提供规避网络审查、流媒体解锁等类似服务。�
 
 ```bash
 location / {
-    sub_filter "{{server_addr}}" $server_addr;
-    sub_filter "{{server_port}}" $server_port;
+    sub_filter "{{server_addr}}\t{{server_port}}" "$gopher_addr\t$server_port";
     sub_filter_once off;
     sub_filter_types '*';
 }
@@ -286,7 +354,7 @@ return data;
 
 ![Firefox + Overbite 访问英文内容](../../../../usr/uploads/202103/gopher-overbite-en.png)
 
-我们点进一篇文章看看。由于只是 Markdown 没做额外的处理，页面里没有链接等可互动内容，但文章本身是可读的：
+我们点进一篇文章看看。虽然只是 Markdown 没做太多额外的处理，但文章本身是可读的：
 
 ![Firefox + Overbite 访问中文文章](../../../../usr/uploads/202103/gopher-overbite-article.png)
 
