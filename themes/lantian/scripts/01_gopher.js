@@ -55,7 +55,9 @@ function markdown_formatter(rel_path, md) {
                     replace_at_end = true;
                 }
 
-                href = path.join('/', rel_path, href);
+                if (!href.startsWith('/')) {
+                    href = path.join('/', rel_path, href);
+                }
 
                 return (
                     (prefix ? prefix + gopherAfter : '') +
