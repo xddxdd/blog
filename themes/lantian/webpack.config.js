@@ -1,6 +1,6 @@
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const SassInlineSVG = require('sass-inline-svg')(__dirname, {
     optimize: true,
     encodingFormat: 'uri',
@@ -40,9 +40,9 @@ module.exports = {
                 },
                 extractComments: false,
             }),
-            new OptimizeCSSAssetsPlugin({
-                cssProcessor: require('cssnano'),
-                cssProcessorPluginOptions: {
+            new CssMinimizerPlugin({
+                minify: CssMinimizerPlugin.cssnanoMinify,
+                minimizerOptions: {
                     preset: [
                         'advanced',
                         {
