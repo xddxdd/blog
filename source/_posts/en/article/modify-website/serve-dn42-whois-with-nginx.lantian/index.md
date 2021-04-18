@@ -36,7 +36,7 @@ Categorizing Queries
 Since our nginx already had support for WHOIS, all we have to do is to add data. However, "adding data" to a WHOIS server is not an easy task. Take the [DN42 Registry](https://git.dn42.dev/dn42/registry) for example, its data is categorized into:
 
 - `as-block`: Range of ASN, defining allocation policies.
-- `as-set`：Group of ASNs, managed by each AS individually. It's used to label peered AS and downstream customers for automated routing policy generation on the Internet, but is not that useful in DN42.
+- `as-set`: Group of ASNs, managed by each AS individually. It's used to label peered AS and downstream customers for automated routing policy generation on the Internet, but is not that useful in DN42.
 - `aut-num`: Information for the AS itself.
 - `dns`: Domains.
 - `inet6num`: **Allocation** of IPv6 address blocks. This is not the same as routing information.
