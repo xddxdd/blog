@@ -29,7 +29,7 @@
     "bootstrap.native": "^3.0.14",
     "bourbon": "^7.0.0",
     "browserslist": "^4.16.4",
-    "core-js": "^3.10.1",
+    "core-js": "^3.10.2",
     "css-loader": "^5.2.1",
     "css-minimizer-webpack-plugin": "^2.0.0",
     "cssnano": "^5.0.1",
