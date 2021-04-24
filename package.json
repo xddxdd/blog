@@ -22,7 +22,7 @@
     "@lantian1998/hexo-generator-json-feed-org": "github:lantian1998/hexo-generator-json-feed-org",
     "@lantian1998/markdown-it-graphviz": "git+https://github.com/lantian1998/markdown-it-graphviz.git",
     "@lantian1998/markdown-it-highlightjs": "git+https://github.com/lantian1998/markdown-it-highlightjs.git",
-    "acorn": "^8.2.0",
+    "acorn": "^8.2.1",
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
     "bootstrap": "^4.6.0",
