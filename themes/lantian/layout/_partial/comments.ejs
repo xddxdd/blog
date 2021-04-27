@@ -1,17 +1,14 @@
-<% if (page_language() != 'zh') { %>
-<p class="text-center">This site provides a read-only mode for those who cannot access Disqus. Click on the link on the right (if any) to get the full Disqus comment box.</p>
+<% if (page_language() == 'zh') { %>
+<p class="text-center">本站使用 Disqus 评论系统，中国大陆访问可能不稳定。</p>
 <% } %>
+
 <div id="disqus_thread"></div>
 <script>
-addLoadEvent(setTimeout(function() {
-    var disq = new DisqusJS({
-        shortname: '<%- theme_config(page_language()).disqus.short_name %>',
-        siteName: '<%- theme_config(page_language()).disqus.name %>',
-        identifier: '/<%= remove_trailing_slash(page.path) %>',
-        url: '<%= remove_trailing_slash(page.permalink) %>',
-        apikey: '<%- theme_config(page_language()).disqus.api_key %>',
-        admin: '<%- theme_config(page_language()).disqus.admin %>',
-        adminLabel: '<%- __("admin") %>'
-    });
-}, 3000));
+    var disqus_config = function () {
+        this.page.url = '<%= remove_trailing_slash(page.permalink) %>';
+        this.page.identifier = '/<%= remove_trailing_slash(page.path) %>';
+    };
 </script>
+<noscript>
+    <%- __('disqus_noscript').replace('{0}', '<a href="https://disqus.com/?ref_noscript">Disqus</a>') %>
+</noscript>

@@ -17,6 +17,8 @@ admin: "管理员"
 language: 'Language'
 color_scheme: '深色/浅色'
 
+disqus_noscript: '请启用 JavaScript 以查看 {0} 评论区。'
+
 # post-list
 list_year_month: "YYYY 年 MM 月"
 list_day: "DD 日"

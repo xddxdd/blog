@@ -478,18 +478,6 @@ ul ul {
     color: inherit !important;
 }
 
-@import 'disqusjs/src/disqusjs';
-#dsqjs {
-    footer {
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-    }
-    * {
-        border-radius: 0 !important;
-    }
-}
-
 :root {
     --color-mode: 'light';
 }
