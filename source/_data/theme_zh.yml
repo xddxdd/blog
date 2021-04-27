@@ -25,6 +25,6 @@ links:
 others: >
   <ul class="list-unstyled">
     <li><i class="fas fa-fw fa-rss"></i> <a href="/rss2.xml" target="_blank">RSS 订阅</a> | <a href="/feed.xml" target="_blank">Atom</a> | <a href="/feed.json" target="_blank">JSON</a></li>
-    <li><i class="fas fa-fw fa-globe"></i> <a href="https://status.lantian.pub" target="_blank">服务器状态</a></li>
+    <li><i class="fas fa-fw fa-globe"></i> <a href="https://stats.uptimerobot.com/BLK6VsRkR" target="_blank">服务器状态</a></li>
     <li><i class="fas fa-fw fa-sitemap"></i> <a href="https://lg.lantian.pub" target="_blank">DN42 节点状态</a></li>
   </ul>
