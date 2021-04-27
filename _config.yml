@@ -154,11 +154,6 @@ responsive_images:
 
 # Links
 theme_config:
-  disqus:
-    short_name: lantian
-    name: 'Lan Tian @ Blog'
-    admin: lan_tian
-    api_key: ***REMOVED***
   announcement: >
     I'm starting to provide Chinese / English versions of some articles, switch with the Language menu above. 我开始提供部分文章的中文、英文翻译，请使用顶部语言菜单切换。
 

@@ -1,9 +1,6 @@
 import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
 
-import DisqusJS from 'disqusjs/src/disqus';
-global.DisqusJS = DisqusJS;
-
 import attempt from './js/attempt';
 import elderClock from './js/elderclock';
 
@@ -42,6 +39,14 @@ componentsInit.Dropdown = [Dropdown, '[data-toggle="dropdown"]'];
 // componentsInit.Tab = [ Tab, '[data-toggle="tab"]' ];
 // componentsInit.Toast = [ Toast, '[data-dismiss="toast"]' ];
 // componentsInit.Tooltip = [ Tooltip, '[data-toggle="tooltip"],[data-tip="tooltip"]' ];
+
+window.disqus_load = function() {
+    var d = document,
+        s = d.createElement('script');
+    s.src = 'https://lantian.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+};
 
 /*****************************************
  * Page Onload Logic
@@ -198,8 +203,14 @@ addLoadEvent(function () {
         darkModeTogglebuttonElement.addEventListener('click', () => {
             // 当用户点击「开关」时，获得新的显示模式、写入 localStorage、并在页面上生效
             applyCustomDarkModeSettings(toggleCustomDarkMode());
+            if (window.disqus_load) {
+                document.getElementById('disqus_thread').innerHTML = '';
+                window.disqus_load();
+            }
         });
     });
+
+    attempt('Disqus', window.disqus_load);
 
     attempt('Interactive Content', function () {
         'use strict';
