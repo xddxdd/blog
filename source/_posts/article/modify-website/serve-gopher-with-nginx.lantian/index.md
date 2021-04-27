@@ -59,7 +59,7 @@ iScreenshot[TAB]/project/screenshot.jpg[TAB]gopher.lantian.pub[TAB]70[CR][LF]
 
 相比起 Gophernicus 等专用的 Gopher 服务端软件，nginx 对现代的动态网页技术有着更好的支持。例如它可以用 FastCGI 对接 PHP 和 ASP.NET（Mono）来动态生成内容，或者把请求代理到其它基于 HTTP 的服务器，作为一个 Gopher 代理。相比之下，Gophernicus 只支持传统的 CGI，也没有代理功能。此外，nginx 的高性能有目共睹。
 
-不过我选择 nginx 还有另一个原因：我正在把 nginx 魔改成一个 WHOIS 服务器（给 DN42 用的），而 WHOIS 也是和 Gopher 一样，一问一答的协议。我把修改的功能稍微调整一下就可以直接支持 Gopher 了。
+不过我选择 nginx 还有另一个原因：我正在[把 nginx 魔改成一个 WHOIS 服务器](/article/modify-website/serve-dn42-whois-with-nginx.lantian/)（给 DN42 用的），而 WHOIS 也是和 Gopher 一样，一问一答的协议。我把修改的功能稍微调整一下就可以直接支持 Gopher 了。
 
 让 nginx 支持 Gopher
 -------------------
