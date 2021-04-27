@@ -59,7 +59,7 @@ Why nginx?
 
 Compared to a software designed specifically for Gopher, such as Gophernicus, nginx has better support for modern dynamic web pages. For example, it can dynamically generate response based on PHP and ASP.NET (Mono) over FastCGI, or proxy requests to other HTTP servers, effectively making it a Gopher gateway. Comparatively, Gophernicus only supports classic CGI and no proxy functionality. In addition, nginx is well known for its high performance.
 
-But there is one more reason I chose nginx: I was modifying nginx to use it as a WHOIS server (for DN42), and WHOIS protocol is almost the same as Gopher: one request and one response. With minor adjustments, I can make my new feature work with Gopher.
+But there is one more reason I chose nginx: I was [modifying nginx to use it as a WHOIS server](/en/article/modify-website/serve-dn42-whois-with-nginx.lantian/) (for DN42), and WHOIS protocol is almost the same as Gopher: one request and one response. With minor adjustments, I can make my new feature work with Gopher.
 
 Let nginx support Gopher
 ------------------------
