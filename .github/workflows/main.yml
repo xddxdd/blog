@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  merge-dependabot:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Merge Dependabot
+      uses: Elskom/merge-dependabot@v1.0
