@@ -9,13 +9,11 @@ CACHEDIR=/tmp/hexo-blog
 mkdir -p $CACHEDIR
 
 RECENT_COMMENTS=$(wget -O- https://lantian.disqus.com/recent_comments_widget.js\?num_items\=10\&hide_mods\=0\&hide_avatars\=1\&excerpt_length\=100)
-# Remove delimiters and fixed strings
-RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | sed "s/Lan Tian @ Blog//g;s/https:\/\/lantian.pub//g")
-RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | sed "s/ | //g;s/ - //g;s/&nbsp\;&middot\;&nbsp\;//g")
 # NodeJS preprocessing
 RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | sed "s/document.write/process.stdout.write/g")
 RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | node)
-echo ${RECENT_COMMENTS#*<\/style>} > themes/lantian/layout/_partial/disqus-recent.ejs
+RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | python3 disqus_comments.py)
+echo $RECENT_COMMENTS > themes/lantian/layout/_partial/disqus-recent.ejs
 
 # Regenerate everything
 rm -rf public .deploy_git
