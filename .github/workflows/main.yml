@@ -1,16 +1,14 @@
-name: CI
+name: auto-merge
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
-
-  workflow_dispatch:
 
 jobs:
-  merge-dependabot:
+  auto-merge:
     runs-on: ubuntu-latest
     steps:
-    - name: Merge Dependabot
-      uses: Elskom/merge-dependabot@v1.0
+      - uses: actions/checkout@v2
+      - uses: ahmadnassri/action-dependabot-auto-merge@v2
+        with:
+          target: minor
+          github-token: ${{ secrets.mytoken }}
