@@ -2,23 +2,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
-<meta name="renderer" content="webkit"/>
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta name="theme-color" content="#bbdefb" />
+<meta name="imagemode" content="force">
+<meta name="nightmode" content="disable">
+<meta name="wap-font-scale" content="no">
 
 <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
 <meta name="title" content="<% if (title){ %><%= title %> | <% } %><%= config.title %>"/>
-<meta property="og:title" content="<% if (title){ %><%= title %> | <% } %><%= config.title %>">
-<meta property="og:type" content="website">
-<meta name="Keywords" content="<%= config.keywords %>">
+<meta name="keywords" content="<%= config.keywords %>">
 <meta name="description" content="<%= config.description || config.title %>">
 <meta name="author" content="<%= config.author %>">
 
 <link rel="canonical" href="<%- remove_trailing_slash(url) %>">
-<link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for('rss2.xml') %>" />
-<link rel="alternate" type="application/atom+xml" title="<%= config.title %>" href="<%- url_for('feed.xml') %>"/>
-<% if (config.multilingual) { %>
-    <%- list_head_alternates() %>
-<% } %>
+<link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- full_url_for('rss2.xml') %>" />
+<link rel="alternate" type="application/atom+xml" title="<%= config.title %>" href="<%- full_url_for('feed.xml') %>"/>
+<% const languages = display_languages(); %>
+<% languages.forEach((language) => { %>
+    <link rel="alternate" href="<%= full_url_for(remove_trailing_slash(i18n_path(!is_default_language(language) ? language : null))) %>" hreflang="<%= language %>">
+<% }) %>
 
 <script>function addLoadEvent(o){var n=window.onload;"function"!=typeof window.onload?window.onload=o:window.onload=function(){n&&n(),o()}}</script>
 
@@ -58,3 +60,40 @@
     <% }) %>
 <% } %>
 <meta name="theme-color" content="#03a9f4">
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta property="og:url" content="<%- remove_trailing_slash(url) %>">
+<meta property="og:type" content="website">
+<meta property="og:title" content="<% if (title){ %><%= title %> | <% } %><%= config.title %>">
+
+<% if(is_post()) { %>
+    <meta property="og:image" content="<%- full_url_for(page.image || '/apple-touch-icon.png') %>">
+    <meta property="og:description" content="<%= page.excerpt || lantian_excerpt(page.content, 150) %>">
+<% } else { %>
+    <meta property="og:image" content="<%- full_url_for('/apple-touch-icon.png') %>">
+    <meta property="og:description" content="<%= config.description || config.title %>">
+<% } %>
+<meta property="og:site_name" content="<%= config.title %>">
+<meta property="og:locale" content="<%= page_language() %>">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:url" content="<%- remove_trailing_slash(url) %>">
+<meta name="twitter:title" content="<% if (title){ %><%= title %> | <% } %><%= config.title %>">
+<% if(is_post()) { %>
+    <meta name="twitter:image" content="<%- full_url_for(page.image || '/apple-touch-icon.png') %>">
+    <meta name="twitter:description" content="<%= page.excerpt || lantian_excerpt(page.content, 150) %>">
+<% } else { %>
+    <meta name="twitter:image" content="<%- full_url_for('/apple-touch-icon.png') %>">
+    <meta name="twitter:description" content="<%= config.description || config.title %>">
+<% } %>
+
+<meta name="twitter:dnt" content="on">
+
+<meta itemprop="name" content="<% if (title){ %><%= title %> | <% } %><%= config.title %>">
+<% if(is_post()) { %>
+    <meta itemprop="image" content="<%- full_url_for(page.image || '/apple-touch-icon.png') %>">
+    <meta itemprop="description" content="<%= page.excerpt || lantian_excerpt(page.content, 150) %>">
+<% } else { %>
+    <meta itemprop="image" content="<%- full_url_for('/apple-touch-icon.png') %>">
+    <meta itemprop="description" content="<%= config.description || config.title %>">
+<% } %>
