@@ -32,11 +32,7 @@
             <h1 class="post-title"><a href="<%- url_for(remove_trailing_slash(post.path)) %>" rel="bookmark" title="<%= post.title %>"><%= post.title %></a></h1>
             <div class="post-text">
                 <% if(index) { %>
-                    <% if(post.excerpt) { %>
-                        <%- post.excerpt %>
-                    <% } else { %>
-                        <%- lantian_excerpt(post.content) %>
-                    <% } %>
+                    <%- post.excerpt || lantian_excerpt(post.content) %>
                 <% } else { %>
                     <%- post.content %>
                     <%- (post.special ? partial('../_special/' + post.special, {post: post, index: index}) : '') %>
