@@ -1,8 +1,8 @@
 ---
-title: 'DN42 Experimental Network: Intro and Registration (Updated 2020-10-01)'
+title: 'DN42 Experimental Network: Intro and Registration (Updated 2021-05-02)'
 categories: 'Website and Servers'
 tags: [DN42, BGP]
-date: 2020-10-01 22:36:06
+date: 2021-05-02 12:21:45
 ---
 
 DN42, aka Decentralized Network 42, is a large, decentralized VPN-based network. But unlike other traditional VPNs, DN42 itself doesn't provide any VPN exits, which means it doesn't allow you to bypass Internet censorships or unlock streaming services. On the contrary, the goal of DN42 is to simulate another Internet. It uses much of the technology running on modern Internet backbones (BGP, recursive DNS, etc), and is a great replica of a real network environment.
@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2021-05-02: Add iptables rules restricting traffic from peers.
 - 2020-12-19: Fix peer config path for BIRDv2.
 - 2020-10-01: No longer recommend using Debian Unstable repo (better ways exist now).
 - 2020-10-01: Got feedback that Git GPG signing may not work on Windows, recommend using WSL for this.
@@ -623,6 +624,10 @@ Endpoint = [YOUR_IP]:[LAST_5_DIGITS_OF_MY_ASN]
 AllowedIPs = 0.0.0.0/0,::/0
 ```
 
+> Here I set AllowedIPs to any IP, since I have additional iptables rules (see below) to limit traffic on the interface. If you don't like iptables, you can set this to:
+>
+> AllowesIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
+
 Then create a script `[PEER_NAME].sh`, and `chmod +x [PEER_NAME].sh && ./[PEER_NAME].sh` to run it:
 
 ```bash
@@ -691,6 +696,51 @@ Most people simply copy/paste the template on Wiki when creating an OpenVPN tunn
   - Here I added an extra line `ip route add` for an extra route, as on my server (Debian 10), sometimes `ip addr add ... peer ...` doesn't automatically add the route to the other end, so manual specifying is needed.
 - STATIC_KEY is the static encryption key that OpenVPN uses. In DN42 very few person create a CA for OpenVPN and issue certificates for peers.
   - This can be generated with `openvpn --genkey --secret static.key`.
+
+Limit Traffic on DN42 Interfaces
+--------------------------------
+
+The tunnel established during a DN42 peering usually allows traffic to any IP (unless you set AllowedIPs for WireGuard), and this creates a risk: your peer can inject packets destined for public IPs to your tunnel, and your node will forward them to the public Internet, under your name. If your peer is exploiting this for a network attack, you will be in great trouble.
+
+Therefore, it's recommended that you set up iptables rules, to block forwarding from your peers to the Internet. The following rules will restrict traffic to DN42 IP ranges on all interfaces with name starting with `dn42-`:
+
+```bash
+iptables -N DN42_INPUT
+iptables -A DN42_INPUT -s 172.20.0.0/14 -j ACCEPT
+iptables -A DN42_INPUT -s 172.31.0.0/16 -j ACCEPT
+iptables -A DN42_INPUT -s 10.0.0.0/8 -j ACCEPT
+iptables -A DN42_INPUT -s 224.0.0.0/4 -j ACCEPT
+iptables -A DN42_INPUT -j REJECT
+iptables -A INPUT -i dn42+ -j DN42_INPUT
+
+iptables -N DN42_OUTPUT
+iptables -A DN42_OUTPUT -d 172.20.0.0/14 -j ACCEPT
+iptables -A DN42_OUTPUT -d 172.31.0.0/16 -j ACCEPT
+iptables -A DN42_OUTPUT -d 10.0.0.0/8 -j ACCEPT
+iptables -A DN42_OUTPUT -d 224.0.0.0/4 -j ACCEPT
+iptables -A DN42_OUTPUT -j REJECT
+iptables -A OUTPUT -o dn42+ -j DN42_OUTPUT
+
+ip6tables -N DN42_INPUT
+ip6tables -A DN42_INPUT -s fd00::/8 -j ACCEPT
+ip6tables -A DN42_INPUT -s fe80::/10 -j ACCEPT
+ip6tables -A DN42_INPUT -s ff00::/8 -j ACCEPT
+ip6tables -A DN42_INPUT -j REJECT
+ip6tables -A INPUT -i dn42+ -j DN42_INPUT
+
+ip6tables -N DN42_OUTPUT
+ip6tables -A DN42_OUTPUT -d fd00::/8 -j ACCEPT
+ip6tables -A DN42_OUTPUT -d fe80::/10 -j ACCEPT
+ip6tables -A DN42_OUTPUT -d ff00::/8 -j ACCEPT
+ip6tables -A DN42_OUTPUT -j REJECT
+ip6tables -A OUTPUT -o dn42+ -j DN42_OUTPUT
+
+iptables -A FORWARD -i dn42+ -j DN42_INPUT
+iptables -A FORWARD -o dn42+ -j DN42_OUTPUT
+
+ip6tables -A FORWARD -i dn42+ -j DN42_INPUT
+ip6tables -A FORWARD -o dn42+ -j DN42_OUTPUT
+```
 
 BGP Session Setup: BIRD v1 & v2
 -------------------------------

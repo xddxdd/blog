@@ -1,8 +1,8 @@
 ---
-title: 'DN42 实验网络介绍及注册教程（2020-10-01 更新）'
+title: 'DN42 实验网络介绍及注册教程（2021-05-02 更新）'
 categories: 网站与服务端
 tags: [DN42, BGP]
-date: 2020-10-01 22:36:06
+date: 2021-05-02 12:21:45
 ---
 
 DN42 全称 Decentralized Network 42（42 号去中心网络），是一个大型、去中心化的 VPN 网络。但是与其它传统 VPN 不同的是，DN42 本身不提供 VPN 出口服务，即不提供规避网络审查、流媒体解锁等类似服务。相反，DN42 的目的是模拟一个互联网。它使用了大量在目前互联网骨干上应用的技术（例如 BGP 和递归 DNS），可以很好地模拟一个真实的网络环境。
@@ -21,6 +21,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 本文更新日志
 ----------
 
+- 2021-05-02：添加限制 Peer 流量的 iptables 规则。
 - 2020-12-19：修正 BIRDv2 Peer 配置文件的路径。
 - 2020-10-01：不再推荐添加 Debian Unstable 软件源（有更好的方法了）。
 - 2020-10-01：收到反馈 Windows 上 Git GPG 签名会出问题，建议使用 WSL。
@@ -632,6 +633,10 @@ Endpoint = [YOUR_IP]:[LAST_5_DIGITS_OF_MY_ASN]
 AllowedIPs = 0.0.0.0/0,::/0
 ```
 
+> 这里我把 AllowedIPs 设置为了所有 IP，因为我加了额外的 iptables 规则（见后续）来限制网卡上的流量。如果你不想用 iptables，你也可以设置为：
+>
+> AllowesIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
+
 然后创建一个脚本 `[PEER_NAME].sh`，随后 `chmod +x [PEER_NAME].sh && ./[PEER_NAME].sh` 执行：
 
 ```bash
@@ -700,6 +705,51 @@ ifconfig-ipv6 [MY_LINK_LOCAL_IP] [YOUR_LINK_LOCAL_IP]
   - 例如我的服务器 MY_LINK_LOCAL_IP 统一为 `fe80::2547`。
 - STATIC_KEY 是 OpenVPN 使用的静态密钥，在 DN42 内很少有人会去建立一个 CA 给 OpenVPN，然后给每个 Peer 分发证书。
   - 使用 `openvpn --genkey --secret static.key` 生成。
+
+限制 DN42 相关网卡上的流量
+-----------------------
+
+一般而言，进行 DN42 Peering 时双方建立的隧道可以承载任何 IP 的流量（除非你配置了 WireGuard 的 AllowedIPs），这就造成了风险：你的 Peer 可以向你的隧道传入目标地址是公网 IP 的数据包，此时你的节点会把数据包以你的名义转发到公网。如果你的 Peer 利用此进行网络攻击，你就有大麻烦了。
+
+因此，建议你设置 iptables 防火墙规则，来拒绝转发 Peer 向公网发送的数据。下面的规则会在所有以 `dn42-` 开头的网卡上，只允许已有的 DN42 IP 段的流量：
+
+```bash
+iptables -N DN42_INPUT
+iptables -A DN42_INPUT -s 172.20.0.0/14 -j ACCEPT
+iptables -A DN42_INPUT -s 172.31.0.0/16 -j ACCEPT
+iptables -A DN42_INPUT -s 10.0.0.0/8 -j ACCEPT
+iptables -A DN42_INPUT -s 224.0.0.0/4 -j ACCEPT
+iptables -A DN42_INPUT -j REJECT
+iptables -A INPUT -i dn42+ -j DN42_INPUT
+
+iptables -N DN42_OUTPUT
+iptables -A DN42_OUTPUT -d 172.20.0.0/14 -j ACCEPT
+iptables -A DN42_OUTPUT -d 172.31.0.0/16 -j ACCEPT
+iptables -A DN42_OUTPUT -d 10.0.0.0/8 -j ACCEPT
+iptables -A DN42_OUTPUT -d 224.0.0.0/4 -j ACCEPT
+iptables -A DN42_OUTPUT -j REJECT
+iptables -A OUTPUT -o dn42+ -j DN42_OUTPUT
+
+ip6tables -N DN42_INPUT
+ip6tables -A DN42_INPUT -s fd00::/8 -j ACCEPT
+ip6tables -A DN42_INPUT -s fe80::/10 -j ACCEPT
+ip6tables -A DN42_INPUT -s ff00::/8 -j ACCEPT
+ip6tables -A DN42_INPUT -j REJECT
+ip6tables -A INPUT -i dn42+ -j DN42_INPUT
+
+ip6tables -N DN42_OUTPUT
+ip6tables -A DN42_OUTPUT -d fd00::/8 -j ACCEPT
+ip6tables -A DN42_OUTPUT -d fe80::/10 -j ACCEPT
+ip6tables -A DN42_OUTPUT -d ff00::/8 -j ACCEPT
+ip6tables -A DN42_OUTPUT -j REJECT
+ip6tables -A OUTPUT -o dn42+ -j DN42_OUTPUT
+
+iptables -A FORWARD -i dn42+ -j DN42_INPUT
+iptables -A FORWARD -o dn42+ -j DN42_OUTPUT
+
+ip6tables -A FORWARD -i dn42+ -j DN42_INPUT
+ip6tables -A FORWARD -o dn42+ -j DN42_OUTPUT
+```
 
 BGP 会话配置：BIRD v1 和 v2
 -------------------------
