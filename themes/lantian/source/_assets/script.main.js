@@ -40,14 +40,6 @@ componentsInit.Dropdown = [Dropdown, '[data-toggle="dropdown"]'];
 // componentsInit.Toast = [ Toast, '[data-dismiss="toast"]' ];
 // componentsInit.Tooltip = [ Tooltip, '[data-toggle="tooltip"],[data-tip="tooltip"]' ];
 
-window.disqus_load = function() {
-    var d = document,
-        s = d.createElement('script');
-    s.src = 'https://lantian.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-};
-
 /*****************************************
  * Page Onload Logic
  *****************************************/
@@ -210,7 +202,16 @@ addLoadEvent(function () {
         });
     });
 
-    attempt('Disqus', window.disqus_load);
+    attempt('Disqus', function() {
+        window.disqus_load = function() {
+            var d = document,
+                s = d.createElement('script');
+            s.src = 'https://lantian.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        };
+        setTimeout(window.disqus_load, 1000);
+    });
 
     attempt('Interactive Content', function () {
         'use strict';
