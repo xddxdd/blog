@@ -635,7 +635,7 @@ AllowedIPs = 0.0.0.0/0,::/0
 
 > 这里我把 AllowedIPs 设置为了所有 IP，因为我加了额外的 iptables 规则（见后续）来限制网卡上的流量。如果你不想用 iptables，你也可以设置为：
 >
-> AllowesIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
+> AllowedIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
 
 然后创建一个脚本 `[PEER_NAME].sh`，随后 `chmod +x [PEER_NAME].sh && ./[PEER_NAME].sh` 执行：
 
