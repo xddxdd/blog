@@ -626,7 +626,7 @@ AllowedIPs = 0.0.0.0/0,::/0
 
 > Here I set AllowedIPs to any IP, since I have additional iptables rules (see below) to limit traffic on the interface. If you don't like iptables, you can set this to:
 >
-> AllowesIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
+> dIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
 
 Then create a script `[PEER_NAME].sh`, and `chmod +x [PEER_NAME].sh && ./[PEER_NAME].sh` to run it:
 
