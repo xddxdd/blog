@@ -64,7 +64,7 @@
     "minimist": "^1.2.5",
     "node-sass": "^5.0.0",
     "popper.js": "^1.16.1",
-    "postcss": "^8.2.13",
+    "postcss": "^8.2.14",
     "prettier": "^2.2.1",
     "remark": "^13.0.0",
     "remark-frontmatter": "^3.0.0",
