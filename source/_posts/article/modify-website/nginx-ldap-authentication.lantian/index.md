@@ -17,7 +17,7 @@ LDAP 是常用的认证协议之一，不仅有许多软件原生支持它的认
 2. `git clone https://github.com/kvspb/nginx-auth-ldap.git`
 3. `./configure --add-module=/path/to/nginx-auth-ldap`
 
-我依然使用 Docker 部署 nginx，Dockerfile 可以在 [https://github.com/xddxdd/dockerfiles/blob/master/nginx/Dockerfile.amd64][1] 找到，其中的编译参数可以参考。
+我依然使用 Docker 部署 nginx，Dockerfile 可以在 [https://github.com/xddxdd/dockerfiles/blob/210f0f82c7bc1c0c3697d329b73ea31abea6b14a/nginx/Dockerfile][1] 找到，其中的编译参数可以参考。
 
 配置认证
 --------
@@ -61,4 +61,4 @@ add_after_body "";
 
 如上操作之后，指定的地址就启用了 LDAP 认证。如果将 nginx 作为反向代理代理其它内部服务，并屏蔽外网直接访问这些内部服务，就可以用 LDAP 统一保护认证这些服务。
 
-  [1]: https://github.com/xddxdd/dockerfiles/blob/master/nginx/Dockerfile.amd64
+  [1]: https://github.com/xddxdd/dockerfiles/blob/210f0f82c7bc1c0c3697d329b73ea31abea6b14a/nginx/Dockerfile
