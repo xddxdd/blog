@@ -21,28 +21,34 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
-- 2021-05-02: Add iptables rules restricting traffic from peers.
-- 2020-12-19: Fix peer config path for BIRDv2.
-- 2020-10-01: No longer recommend using Debian Unstable repo (better ways exist now).
-- 2020-10-01: Got feedback that Git GPG signing may not work on Windows, recommend using WSL for this.
-- 2020-09-03: Update to the latest registration procedure.
-- 2020-08-31: No longer recommend new users to go to Burble, following his policy update.
-- 2020-07-04: DN42 Git server has changed from `git.dn42.us` to `git.dn42.dev`.
-- 2020-05-18: Update `rp_filter` content, and suggest to disable UFW.
-- 2020-04-19: Add suggestions for configuring your internal network across servers.
-- 2020-04-13: Add request to not occupy too much resource space.
-- 2020-04-10: Add more detailed explanation, such as why both IPv4 and IPv6 in a BGP session may cause problems, and why link-local IPv6 is recommended.
-- 2020-03-23: Explain the risk of choosing your own IPv6 ULA (violating RFC4193), and the steps to proceed if you really want to.
-- 2020-03-22: Add "Very Important System Configuration" section, which explains options that may break DN42 when set incorrectly.
-- 2020-03-19: Add guides to create and upload GPG keys, and signing git commits, while registering on DN42 and sending Pull Requests.
-- 2020-03-14: Initial version
+- 2021-05: Add "Skills Required" section; Add iptables firewall rules.
+- 2020-12: Fix peer config path for BIRDv2.
+- 2020-10: No longer recommend using Debian Unstable repo for WireGuard (better ways exist now); Recommend using WSL on Windows.
+- 2020-09: Update to the latest registration procedure.
+- 2020-08: No longer recommend new users to go to Burble, following his policy update.
+- 2020-07: DN42 Git server has changed from `git.dn42.us` to `git.dn42.dev`.
+- 2020-05: Update `rp_filter` content, and suggest to disable UFW.
+- 2020-04: Add suggestions for configuring your internal network across servers, request to not use too much resource, and more detailed explanation of config choices.
+- 2020-03: Explain the risk of choosing your own IPv6 ULA; Add "Very Important System Configuration" section; Add guides to create and upload GPG keys and signing git commits.
+
+Skill Requirements
+------------------
+
+This article assumes that you are already capable of:
+
+1. You have a Linux environment (either dual-boot/virtual machine/VPS is fine).
+2. You know how to use common Linux commands (`cd`, `ls`, etc), know how to install packages on your Linux OS (`apt`, `yum`, etc), and know how to use at least one editor (either graphical editors like `gedit` or `vscode`, or commandline ones like `vim` or `nano`). If you don't know how to do this, please have a look at [this guide](https://ryanstutorials.net/linuxtutorial/).
+3. You know basic usage of Git version control system, like push/pull/commit. If you don't, please have a look at [this guide](https://guides.github.com/introduction/git-handbook/).
+4. You have moderate level of knowledge in networking, know what IP and MAC addresses are, know the working principles of switches and routers, can do basic networking diagnosis under Linux (with `ping`, `traceroute`, etc), have heard of dynamic routing protocols like BGP or OSPF. If you don't please have a look at [this guide (Chapter 1-8)](https://www.cs.unh.edu/cnrg/people/gherrin/linux-net.html).
+
+If you don't fulfill the knowledge required, it's very likely that you cannot understand important aspects in this guide, make mistakes during the configuration process, and cause trouble to other users in DN42.
 
 Registration Procedure
 ----------------------
 
 When I wrote my previous guide in 2017, [Joining DN42 Experimental Network (Chinese Only)](/article/modify-website/join-dn42-experimental-network.lantian), the user information as well as ASN and IP are all managed from a system called Monotone. But in year 2018, DN42 gave up on Monotone and switched to Git.
 
-WARNING: The registration procedure to DN42 is long and complicated, since the procedure to register ASN and IP in real Internet is similar, and DN42's goal is being a replication of real Internet.
+**WARNING:** The registration procedure to DN42 is long and complicated, since the procedure to register ASN and IP in real Internet is similar, and DN42's goal is being a replication of real Internet.
 
 **ATTENTION:**
 
