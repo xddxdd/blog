@@ -16,17 +16,17 @@ import initCallback from 'bootstrap.native/src/util/initCallback.js';
 import componentsInit from 'bootstrap.native/src/util/componentsInit.js';
 // import {Util} from 'bootstrap.native/src/util/util.js';
 
-// import Alert from 'bootstrap.native/src/components/alert-native.js';
-import Button from 'bootstrap.native/src/components/button-native.js';
-// import Carousel from 'bootstrap.native/src/components/carousel-native.js';
-import Collapse from 'bootstrap.native/src/components/collapse-native.js';
-import Dropdown from 'bootstrap.native/src/components/dropdown-native.js';
-// import Modal from 'bootstrap.native/src/components/modal-native.js';
-// import Popover from 'bootstrap.native/src/components/popover-native.js';
-// import ScrollSpy from 'bootstrap.native/src/components/scrollspy-native.js';
-// import Tab from 'bootstrap.native/src/components/tab-native.js';
-// import Toast from 'bootstrap.native/src/components/toast-native.js';
-// import Tooltip from 'bootstrap.native/src/components/tooltip-native.js';
+// import Alert from 'bootstrap.native/src/components-v4/alert-native.js';
+import Button from 'bootstrap.native/src/components-v4/button-native.js';
+// import Carousel from 'bootstrap.native/src/components-v4/carousel-native.js';
+import Collapse from 'bootstrap.native/src/components-v4/collapse-native.js';
+import Dropdown from 'bootstrap.native/src/components-v4/dropdown-native.js';
+// import Modal from 'bootstrap.native/src/components-v4/modal-native.js';
+// import Popover from 'bootstrap.native/src/components-v4/popover-native.js';
+// import ScrollSpy from 'bootstrap.native/src/components-v4/scrollspy-native.js';
+// import Tab from 'bootstrap.native/src/components-v4/tab-native.js';
+// import Toast from 'bootstrap.native/src/components-v4/toast-native.js';
+// import Tooltip from 'bootstrap.native/src/components-v4/tooltip-native.js';
 
 // componentsInit.Alert = [ Alert, '[data-dismiss="alert"]'];
 componentsInit.Button = [Button, '[data-toggle="buttons"]'];
