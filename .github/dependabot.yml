@@ -11,9 +11,6 @@ updates:
   - dependency-name: is-fullwidth-code-point
     versions:
     - "> 3.0.0"
-  - dependency-name: bootstrap.native
-    versions:
-    - "> 3.0.14"
   - dependency-name: bootstrap
     update-types:
     - "major"
