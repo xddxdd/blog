@@ -203,6 +203,10 @@ addLoadEvent(function () {
     });
 
     attempt('Disqus', function() {
+        if (!document.getElementById('disqus_thread')) {
+            return;
+        }
+
         window.disqus_load = function() {
             var d = document,
                 s = d.createElement('script');
