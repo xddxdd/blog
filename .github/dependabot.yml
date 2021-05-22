@@ -11,35 +11,9 @@ updates:
   - dependency-name: is-fullwidth-code-point
     versions:
     - "> 3.0.0"
-  - dependency-name: postcss
+  - dependency-name: bootstrap.native
     versions:
-    - 8.2.11
-  - dependency-name: webpack
-    versions:
-    - 5.34.0
-  - dependency-name: css-loader
-    versions:
-    - 5.2.4
-  - dependency-name: core-js
-    versions:
-    - 3.10.2
-  - dependency-name: cssnano
-    versions:
-    - 5.0.0
-    - 5.0.1
-  - dependency-name: css-minimizer-webpack-plugin
-    versions:
-    - 2.0.0
-  - dependency-name: cssnano-preset-advanced
-    versions:
-    - 5.0.0
-  - dependency-name: "@babel/core"
-    versions:
-    - 7.13.0
-  - dependency-name: "@babel/preset-env"
-    versions:
-    - 7.12.17
-  - dependency-name: sass-loader
-    versions:
-    - 11.0.0
-    - 11.0.1
+    - "> 3.0.14"
+  - dependency-name: bootstrap
+    update-types:
+    - "major"
