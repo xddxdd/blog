@@ -98,9 +98,9 @@ Here are the steps:
         - `auth`: your authentication info. Usually two types of data are accepted: GPG public key and SSH public key.
           - You **MUST** add at least one out of GPG pubkey and SSH pubkey.
           - If you plan to add a GPG pubkey, you need to create one first (assuming you don't have one), for example following [this guide by GitHub](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key). You will also need the pubkey when submitting your registration request.
-            - You also need to upload your GPG pubkey to a public server, aka Keyserver, for other people to obtain. The most widely used option if `SKS-Keyservers`.
+            - You also need to upload your GPG pubkey to a public server, aka Keyserver, for other people to obtain.
             - Run this command:
-              - `gpg --send-keys [GPG Key ID] --keyserver hkp://pool.sks-keyservers.net`
+              - `gpg --keyserver hkp://keyserver.ubuntu.com --send-key [GPG Key ID]`
             - Then fill the key ID to `auth` item, with format like `pgp-fingerprint [GPG Key ID]`, similar to my example above.
           - If you plan to add a SSH pubkey, you need to create one first (assuming you don't have one).
             - Running `ssh-keygen -t ed25519` is usually enough for Mac and Linux, but if you have a rather old version of SSH which doesn't support ED25519 crypto, you may run `ssh-keygen -t rsa` instead to use RSA crypto.
