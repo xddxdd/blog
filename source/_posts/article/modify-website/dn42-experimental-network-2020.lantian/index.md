@@ -99,10 +99,10 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         - `auth`：你的个人认证信息。一般接受两种类型：GPG 公钥和 SSH 公钥。
           - 你**必须**在 GPG 公钥和 SSH 公钥中添加至少一种。
           - 如果你准备添加 GPG 公钥，首先你需要创建一个（如果你之前没有的话），例如参照 [GitHub 的这份教程](https://docs.github.com/cn/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key)操作。后续提交过程也会用到这个公钥。
-            - 你还需要将你的 GPG 公钥上传到公共查询服务器，称为 Keyserver。目前使用最广泛的是 `SKS-Keyservers`。
-            - 上传步骤请参考[阮一峰的这份教程](https://www.ruanyifeng.com/blog/2013/07/gpg.html)，并将 `keyserver` 参数替换成 `hkp://pool.sks-keyservers.net`，例如：
+            - 你还需要将你的 GPG 公钥上传到公共查询服务器，称为 Keyserver。
+            - 上传步骤请参考[阮一峰的这份教程](https://www.ruanyifeng.com/blog/2013/07/gpg.html)，并将 `keyserver` 参数替换成 `hkp://keyserver.ubuntu.com`，例如：
 
-              - `gpg --send-keys [密钥ID] --keyserver hkp://pool.sks-keyservers.net`
+              - `gpg --keyserver hkp://keyserver.ubuntu.com --send-key [密钥ID]`
 
             - 然后将密钥 ID 填写到 `auth` 项中，格式如 `pgp-fingerprint [密钥 ID]`，例如上面例子中的 `pgp-fingerprint` 项。
 
