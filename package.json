@@ -58,7 +58,7 @@
     "hexo-util": "^2.5.0",
     "hexo-webpack": "git+https://github.com/lantian1998/hexo-webpack.git",
     "instant.page": "^5.1.0",
-    "ipfs-deploy": "^8.0.1",
+    "ipfs-deploy": "^8.1.0",
     "is-fullwidth-code-point": "^3.0.0",
     "mini-css-extract-plugin": "^1.6.0",
     "minimist": "^1.2.5",
