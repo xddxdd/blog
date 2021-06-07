@@ -183,34 +183,6 @@ Servers
   - WireGuard Public Key: `DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
   - IPSec Public Key: None yet (will generate one if someone ever needs IPSec)
 
-- Server 5: Oradea, Romania, provider HostSolutions
-  - Domain: `hostsolutions.lantian.pub`
-  - Public IPv4: `193.148.70.208`
-  - Public IPv6: `2001:470:1f1b:bb::1`
-    - This node has **high latency** (~50ms) to HE tunnel broker, so IPv4 is preferred, unless you only have IPv6.
-  - DN42 IPv4: `172.22.76.188`
-  - DN42 IPv6: `fdbc:f9dc:67ad:9::1`
-  - Link-local IPv6: `fe80::2547`
-  - WireGuard Public Key: `o1khch2IZ5IbVgEm8kIKyCtqj1hfkRb+OP51tOBrwSk=`
-  - IPSec Public Key:
-
-    ```bash
-    -----BEGIN PUBLIC KEY-----
-    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAs1pxDctgxMG6oxVOPgO7
-    LXDTBf8V4H2CJAGUBkJaFo5hi6seWDjmyhbtPU6Sop0Bpq/cKoHkWgN5RLpdeeHm
-    y1Hh+75jacjvyZG+KcReRerAzGjwizgeq7te9HySo1vncYnPnU4piJgMl/A2g52/
-    irv/FHP46RPGjky3joUW5Bt35qSQuvBJJB2G2LW2spgUxcBBtviLbHVfFY/Suj8R
-    qYaIP/DV56hggkFEmrxVC5rOc4CIWijYIS5pYxyCk1yZqsH6uCpFLXyOUMt/k8ut
-    5fb/KLdt1HcGTUqfBsJNZzhSEq058YalvWdhz+QFQMELcQe0CB8nRbNH5c4qZAyQ
-    nxiV07Aexa+LYFWIPfbDJZqTwqOTmeRzSXkQt5FTVHuiWihJs7nhGDYtMRWLKGAO
-    xnBkz+O0bwl1HKJ2ddi4h2UAz2pJTruqp8B72Z3VtISdxi7qkUcItsEHZAvY0Hc0
-    uFhDg1ZEgm4ER75b4/GIogZiba7euXWn/jYbDpXy6EkfrVgA7oqMFdY+4/zWQ9wV
-    BwuMCa5KPW3LydVQARPFDs1K59qGrs6JLnv0juM9rtW14YYHF0/wj6syjE5QDcY+
-    4bjsVSByB2ZhMUMLdKusS/oA6CDyF3doGvlzbo70BgKYifagBbw+l3wD0CUzH3Zn
-    bl9kuJhvIz++kAAj7VCLYUECAwEAAQ==
-    -----END PUBLIC KEY-----
-    ```
-
 My Config Templates (Default Parameters)
 ----------------------------------------
 
