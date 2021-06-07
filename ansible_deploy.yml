@@ -2,6 +2,11 @@
   gather_facts: false
   remote_user: root
   tasks:
+    - name: Create directory
+      file:
+        name: "/srv/www/lantian.pub"
+        state: directory
+
     - name: Deploy website file
       synchronize:
         src: public/
