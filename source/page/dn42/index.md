@@ -183,34 +183,6 @@ date: 1970-01-01 00:00:00
   - WireGuard 公钥：`DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
   - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
 
-- 服务器 5：罗马尼亚，HostSolutions 服务商
-  - 域名：`hostsolutions.lantian.pub`
-  - 公网 IPv4：`193.148.70.208`
-  - 公网 IPv6：`2001:470:1f1b:bb::1`
-    - 该节点到 HE 的隧道服务器**延迟较高**（约 50 ms），所以推荐使用 IPv4 地址连接，除非你只有 IPv6。
-  - DN42 IPv4：`172.22.76.188`
-  - DN42 IPv6：`fdbc:f9dc:67ad:9::1`
-  - Link-local IPv6：`fe80::2547`
-  - WireGuard 公钥：`o1khch2IZ5IbVgEm8kIKyCtqj1hfkRb+OP51tOBrwSk=`
-  - IPSec 公钥：
-
-    ```bash
-    -----BEGIN PUBLIC KEY-----
-    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAs1pxDctgxMG6oxVOPgO7
-    LXDTBf8V4H2CJAGUBkJaFo5hi6seWDjmyhbtPU6Sop0Bpq/cKoHkWgN5RLpdeeHm
-    y1Hh+75jacjvyZG+KcReRerAzGjwizgeq7te9HySo1vncYnPnU4piJgMl/A2g52/
-    irv/FHP46RPGjky3joUW5Bt35qSQuvBJJB2G2LW2spgUxcBBtviLbHVfFY/Suj8R
-    qYaIP/DV56hggkFEmrxVC5rOc4CIWijYIS5pYxyCk1yZqsH6uCpFLXyOUMt/k8ut
-    5fb/KLdt1HcGTUqfBsJNZzhSEq058YalvWdhz+QFQMELcQe0CB8nRbNH5c4qZAyQ
-    nxiV07Aexa+LYFWIPfbDJZqTwqOTmeRzSXkQt5FTVHuiWihJs7nhGDYtMRWLKGAO
-    xnBkz+O0bwl1HKJ2ddi4h2UAz2pJTruqp8B72Z3VtISdxi7qkUcItsEHZAvY0Hc0
-    uFhDg1ZEgm4ER75b4/GIogZiba7euXWn/jYbDpXy6EkfrVgA7oqMFdY+4/zWQ9wV
-    BwuMCa5KPW3LydVQARPFDs1K59qGrs6JLnv0juM9rtW14YYHF0/wj6syjE5QDcY+
-    4bjsVSByB2ZhMUMLdKusS/oA6CDyF3doGvlzbo70BgKYifagBbw+l3wD0CUzH3Zn
-    bl9kuJhvIz++kAAj7VCLYUECAwEAAQ==
-    -----END PUBLIC KEY-----
-    ```
-
 我的配置模板（默认参数）
 -------------------
 
