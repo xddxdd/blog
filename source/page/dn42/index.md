@@ -183,42 +183,62 @@ date: 1970-01-01 00:00:00
   - WireGuard 公钥：`DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
   - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
 
-我的配置模板（默认参数）
+推荐配置模板（默认参数）
 -------------------
 
-> 如果你准备在自己那端使用这些模板，记得交换两边的 IP 地址等信息。
+> 以下模板均是以你的视角写成，你在自己的服务器上使用这些模板时不用交换两边。
 
 OpenVPN:
 
 ```bash
 proto         udp
 mode          p2p
-remote        [你的 IP]
-rport         22547
-local         [我的 IP]
-lport         [你的 ASN 后五位]
+
+# 我的（或者你的 Peer 的）服务器 IP
+remote        185.186.147.110
+# 我的（或者你的 Peer 的）隧道端口，一般是你的 ASN 的后五位
+rport         21234
+# 你的服务器 IP
+local         12.34.56.78
+# 你的隧道端口，一般是 22547（或者你的 Peer 的 ASN 的后五位）
+lport         22547
+
 dev-type      tun
 resolv-retry  infinite
-dev           dn42-[昵称]
+dev           dn42-lantian    # 随意修改
 comp-lzo
 persist-key
 persist-tun
 tun-ipv6
 cipher        aes-256-cbc
-ifconfig      [我的 DN42 IPv4 地址] [你的 DN42 IPv4 地址]
-ifconfig-ipv6 fe80::2547 [你的 Link-local IPv6 地址]
+# 第一个是你的 DN42 内的 IP，第二个是我的（或者你的 Peer 的）
+ifconfig      172.21.2.3 172.22.76.185
+# 第一个是你的 Link-local IPv6，第二个是我的（或者你的 Peer 的）
+ifconfig-ipv6 fe80::1234 fe80::2547
 
-# 去除自动生成的隐私保护 IPv6 地址（干扰 Link-local 连接）
+# 隧道启动后运行的脚本：
+# 1. 删除 Stable-privacy IPv6
+# 2. 设置优先使用的对外连接的 IPv6 地址（例如 fd12:3456:7890::1）
 script-security 2
-up "/bin/sh -c '/sbin/sysctl -w net.ipv6.conf.$dev.autoconf=0 && /sbin/sysctl -w net.ipv6.conf.$dev.accept_ra=0 && /sbin/sysctl -w net.ipv6.conf.$dev.addr_gen_mode=1'"
+up "/bin/sh -c '/sbin/sysctl -w net.ipv6.conf.$dev.autoconf=0 && /sbin/sysctl -w net.ipv6.conf.$dev.accept_ra=0 && /sbin/sysctl -w net.ipv6.conf.$dev.addr_gen_mode=1 && /sbin/ip addr add fd12:3456:7890::1/128 dev $dev'"
 
-<secret>[静态密钥]</secret>
+# 设置成我们的隧道的静态密钥
+# 可以用 openvpn --genkey --secret static.key 生成
+<secret>
+-----BEGIN OpenVPN Static key V1-----
+0123456789abcdef0123456789abcdef
+# ...
+# 密钥内容
+# ...
+0123456789abcdef0123456789abcdef
+-----END OpenVPN Static key V1-----
+</secret>
 ```
 
 ipsec.conf:
 
 ```bash
-conn dn42-[昵称]
+conn dn42-lantian # 随意修改
     keyexchange=ikev1
     ike=aes128-sha384-ecp384!
     esp=aes128gcm16-ecp384!
@@ -229,8 +249,36 @@ conn dn42-[昵称]
     type=transport
     auto=start
     keyingtries=%forever
-    left=[我的 IP]
-    right=[你的 IP]
+    # 你的服务器 IP
+    left=12.34.56.78
+    # 我的（或者你的 Peer 的）服务器 IP
+    right=185.186.147.110
     leftrsasigkey=/etc/ipsec.d/public/mykey.pem
-    rightrsasigkey=/etc/ipsec.d/public/[你的 IPSec 公钥].pem	
+    # 我的（或者你的 Peer 的）公钥
+    rightrsasigkey=/etc/ipsec.d/public/lantian.pem
+```
+
+WireGuard 配置（用于 `wg-quick up` 命令）：
+
+```bash
+[Interface]
+# 你的 WireGuard 私钥
+PrivateKey = ABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFA=
+# 你的端口号
+ListenPort = 22547
+Table = off
+# 添加你的 Link-local IPv6（例如 fe80::1234）
+PostUp = ip addr add fe80::1234/64 dev %i
+# 添加你的 DN42 IPv6 地址（例如 fd12:3456:7890::1）
+PostUp = ip addr add fd12:3456:7890::1/128 dev %i
+# 第一个是你的 DN42 内的 IP，第二个是我的（或者你的 Peer 的）
+PostUp = ip addr add 172.21.2.3 peer 172.22.76.185 dev %i
+PostUp = sysctl -w net.ipv6.conf.%i.autoconf=0
+
+[Peer]
+# 我的（或者你的 Peer 的）公钥
+PublicKey = zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=
+# 我的（或者你的 Peer 的）服务器地址和端口号，端口号一般为你的 ASN 的后五位
+Endpoint = hostdare.lantian.pub:21234
+AllowedIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
 ```

@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2021-06: Improve readability of some config files.
 - 2021-05: Add "Skills Required" section; Add iptables firewall rules.
 - 2020-12: Fix peer config path for BIRDv2.
 - 2020-10: No longer recommend using Debian Unstable repo for WireGuard (better ways exist now); Recommend using WSL on Windows.
@@ -617,50 +618,32 @@ DN42 Wiki has a WireGuard configuration guide available. I made minor modificati
 
 First run `wg genkey | tee privatekey | wg pubkey > publickey` to generate your public/private key pair. This is the only authentication info in a WireGuard tunnel, so don't leak the private key.
 
-Then create a configuration file `[PEER_NAME].conf`：
+Then create a configuration file `[PEER_NAME].conf`:
 
 ```bash
 [Interface]
-PrivateKey = [MY_PRIVATE_KEY]
-ListenPort = [LAST_5_DIGITS_OF_YOUR_ASN]
+# Your WireGuard private key
+PrivateKey = ABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFA=
+# Port number on your side
+ListenPort = 22547
+Table = off
+# Add your link-local IPv6 (fe80::1234 in this case)
+PostUp = ip addr add fe80::1234/64 dev %i
+# Add your DN42 IPv6 address (fd12:3456:7890::1 in this case)
+PostUp = ip addr add fd12:3456:7890::1/128 dev %i
+# First IP is your DN42 IPv4, second is mine
+PostUp = ip addr add 172.21.2.3 peer 172.22.76.185 dev %i
+PostUp = sysctl -w net.ipv6.conf.%i.autoconf=0
 
 [Peer]
-PublicKey = [YOUR_PUBLIC_KEY]
-Endpoint = [YOUR_IP]:[LAST_5_DIGITS_OF_MY_ASN]
-AllowedIPs = 0.0.0.0/0,::/0
+# Set to my (or your peer's) public key
+PublicKey = zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=
+# Set to my (or your peer's) node IP and port, the port is last 5 digits of your ASN
+Endpoint = hostdare.lantian.pub:21234
+AllowedIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
 ```
 
-> Here I set AllowedIPs to any IP, since I have additional iptables rules (see below) to limit traffic on the interface. If you don't like iptables, you can set this to:
->
-> dIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
-
-Then create a script `[PEER_NAME].sh`, and `chmod +x [PEER_NAME].sh && ./[PEER_NAME].sh` to run it:
-
-```bash
-#/bin/sh
-ip link add dev dn42-[PEER_NAME] type wireguard
-wg setconf dn42-[PEER_NAME] [PEER_NAME].conf
-ip link set dn42-[PEER_NAME] up
-ip addr add [MY_LINK_LOCAL_IP]/64 dev dn42-[PEER_NAME]
-ip addr add [MY_DN42_IP] peer [YOUR_DN42_IP] dev dn42-[PEER_NAME]
-ip addr add [MY_DN42_IPV6] peer [YOUR_DN42_IPV6] dev dn42-[PEER_NAME]
-ip route add [YOUR_DN42_IPV6]/128 src [MY_DN42_IPV6] dev dn42-[PEER_NAME]
-```
-
-- MY is for yourself, and YOUR is the person you're going to peer with.
-- YOUR_IP and MY_IP is the IP on the public Internet.
-- While choosing ports, most people use last 5 digits of the other side's ASN as port number.
-  - For example if I (4242422547) peer with 4242420001, I will use port 20001 and my peer will use 22547.
-  - It's easy to remember to manage, and won't have conflicts in DN42.
-  - But if you use a public ASN, your last 5 digits may conflict with others. You need to discuss with the other side to use a different port.
-- PEER_NAME is the nickname of other user. This defines the Linux network interface name. Note that the network interface name `dn42-[PEER_NAME]` should be shorter than 15 characters, or extra characters will be cut off.
-- MY_DN42_IP and YOUR_DN42_IP is the IP inside DN42, more specifically the exact server you're peering on and peering with.
-  - If I use server A (172.22.76.185), MY_DN42_IP will be 172.22.76.185; on my other server B (172.22.76.186), MY_DN42_IP will be 172.22.76.186.
-- Similarly, MY_DN42_IPV6 and YOUR_DN42_IPV6 is the IPv6 addresses inside DN42.
-  - Here I added an extra line `ip route add` for an extra route, as on my server (Debian 10), sometimes `ip addr add ... peer ...` doesn't automatically add the route to the other end, so manual specifying is needed.
-- MY_LINK_LOCAL_IP is for exchanging IPv6 routes, and can be chosen to be any value in `fe80::/64`. It can be the same for multiple servers (won't have major problems).
-  - For example I use `fe80::2547` as MY_LINK_LOCAL_IP across all my servers.
-  - Link-local IPv6 is per network interface. You can set a different link-local IPv6 for each connection, but I don't see any use of that.
+Then run `wg-quick up [PEER_NAME].conf` to set up the tunnel.
 
 Tunnel Setup: OpenVPN
 ---------------------
@@ -670,45 +653,58 @@ DN42 Wiki also provided an OpenVPN configuration template. I made minor modifica
 ```bash
 proto         udp
 mode          p2p
-remote        [YOUR_IP]
-rport         [LAST_5_DIGITS_OF_MY_ASN]
-local         [MY_IP]
-lport         [LAST_5_DIGITS_OF_YOUR_ASN]
+
+# my (or your peer's) server IP
+remote        185.186.147.110
+# my (or your peer's) tunnel port, last 5 digits of your ASN
+rport         21234
+# your server IP
+local         12.34.56.78
+# your tunnel port, usually 22547 (or last 5 digits of your peer's ASN)
+lport         22547
+
 dev-type      tun
 resolv-retry  infinite
-dev           dn42-[PEER_NAME]
+dev           dn42-lantian    # change to whatever you want
 comp-lzo
 persist-key
 persist-tun
 tun-ipv6
 cipher        aes-256-cbc
-ifconfig      [MY_DN42_IP] [YOUR_DN42_IP]
-ifconfig-ipv6 [MY_LINK_LOCAL_IP] [YOUR_LINK_LOCAL_IP]
-<secret>[STATIC_KEY]</secret>
+# first is your DN42 IPv4, second is mine (or your peer's)
+ifconfig      172.21.2.3 172.22.76.185
+# first is your link-local IPv6, second is mine (or your peer's)
+ifconfig-ipv6 fe80::1234 fe80::2547
+
+# Post-up script that:
+# 1. Remove stable-privacy IPv6 address
+# 2. Assigns preferred outbound IPv6 address (fd12:3456:7890::1 in this case)
+script-security 2
+up "/bin/sh -c '/sbin/sysctl -w net.ipv6.conf.$dev.autoconf=0 && /sbin/sysctl -w net.ipv6.conf.$dev.accept_ra=0 && /sbin/sysctl -w net.ipv6.conf.$dev.addr_gen_mode=1 && /sbin/ip addr add fd12:3456:7890::1/128 dev $dev'"
+
+# Set to static key for our tunnel
+# Generated with openvpn --genkey --secret static.key
+<secret>
+-----BEGIN OpenVPN Static key V1-----
+0123456789abcdef0123456789abcdef
+# ...
+# key contents
+# ...
+0123456789abcdef0123456789abcdef
+-----END OpenVPN Static key V1-----
+</secret>
 ```
-
-Most people simply copy/paste the template on Wiki when creating an OpenVPN tunnel, so simply put in your information:
-
-- MY is for yourself, and YOUR is the person you're going to peer with.
-- YOUR_IP and MY_IP is the IP on the public Internet.
-- While choosing ports, most people use last 5 digits of the other side's ASN as port number.
-  - For example if I (4242422547) peer with 4242420001, I will use port 20001 and my peer will use 22547.
-  - It's easy to remember to manage, and won't have conflicts in DN42.
-  - But if you use a public ASN, your last 5 digits may conflict with others. You need to discuss with the other side to use a different port.
-- PEER_NAME is the nickname of other user. This defines the Linux network interface name. Note that the network interface name `dn42-[PEER_NAME]` should be shorter than 15 characters, or extra characters will be cut off.
-- MY_DN42_IP and YOUR_DN42_IP is the IP inside DN42, more specifically the exact server you're peering on and peering with.
-  - If I use server A (172.22.76.185), MY_DN42_IP will be 172.22.76.185; on my other server B (172.22.76.186), MY_DN42_IP will be 172.22.76.186.
-- Similarly, MY_DN42_IPV6 and YOUR_DN42_IPV6 is the IPv6 addresses inside DN42.
-  - Here I added an extra line `ip route add` for an extra route, as on my server (Debian 10), sometimes `ip addr add ... peer ...` doesn't automatically add the route to the other end, so manual specifying is needed.
-- STATIC_KEY is the static encryption key that OpenVPN uses. In DN42 very few person create a CA for OpenVPN and issue certificates for peers.
-  - This can be generated with `openvpn --genkey --secret static.key`.
 
 Limit Traffic on DN42 Interfaces
 --------------------------------
 
 The tunnel established during a DN42 peering usually allows traffic to any IP (unless you set AllowedIPs for WireGuard), and this creates a risk: your peer can inject packets destined for public IPs to your tunnel, and your node will forward them to the public Internet, under your name. If your peer is exploiting this for a network attack, you will be in great trouble.
 
-Therefore, it's recommended that you set up iptables rules, to block forwarding from your peers to the Internet. The following rules will restrict traffic to DN42 IP ranges on all interfaces with name starting with `dn42-`:
+Therefore, it's recommended that you set up iptables rules, to block forwarding from your peers to the Internet.
+
+> Note: you don't need this if you only use WireGuard. WireGuard already has IP limitations builtin.
+
+The following rules will restrict traffic to DN42 IP ranges on all interfaces with name starting with `dn42-`:
 
 ```bash
 iptables -N DN42_INPUT
@@ -759,15 +755,19 @@ I will only talk about the configuration of BIRD v1 and v2 since they are the mo
 For BIRD v1, what you need is:
 
 ```bash
-# Add to /etc/bird/peers4/[PEER_NAME].conf
-protocol bgp dn42_[PEER_NAME] from dnpeers {
-    neighbor [YOUR_DN42_IP] as [YOUR_ASN];
+# Add to /etc/bird/peers4/dn42_lantian.conf
+# Rename dn42_lantian to whatever you want
+protocol bgp dn42_lantian from dnpeers {
+    # Set to my (or your peer's) DN42 IPv4 address, and your ASN
+    neighbor 172.22.76.185 as 4242421234;
     direct;
 };
 
-# Add to /etc/bird/peers6/[PEER_NAME].conf
-protocol bgp dn42_[PEER_NAME] from dnpeers {
-    neighbor [YOUR_LINK_LOCAL_IP] % 'dn42-[PEER_NAME]' as [YOUR_ASN];
+# Add to /etc/bird/peers4/dn42_lantian.conf
+# Rename dn42_lantian to whatever you want
+protocol bgp dn42_lantian from dnpeers {
+    # Set to my (or your peer's) link-local IPv6, the tunnel's interface name, and your ASN
+    neighbor fe80::1234 % 'dn42-lantian' as 4242421234;
     direct;
 };
 ```
@@ -775,43 +775,32 @@ protocol bgp dn42_[PEER_NAME] from dnpeers {
 For BIRD v2, what you need is:
 
 ```bash
-# Add to /etc/bird/peers/[PEER_NAME].conf
-protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
-    neighbor [YOUR_DN42_IP] as [YOUR_ASN];
+# Add to /etc/bird/peers/dn42_lantian.conf
+# Rename dn42_lantian_v4 to whatever you want
+protocol bgp dn42_lantian_v4 from dnpeers {
+    # Set to my (or your peer's) DN42 IPv4 address, and your ASN
+    neighbor 172.22.76.185 as 4242421234;
     direct;
-    # Disable IPv6 route exchange in IPv4 BGP, see below
+    # Disable IPv6 route exchange in IPv4 BGP, strongly recommended
     ipv6 {
         import none;
         export none;
     };
 };
 
-protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
-    neighbor [YOUR_LINK_LOCAL_IP] % 'dn42-[PEER_NAME]' as [YOUR_ASN];
+# Rename dn42_lantian_v6 to whatever you want
+protocol bgp dn42_lantian_v6 from dnpeers {
+    # Set to my (or your peer's) link-local IPv6, the tunnel's interface name, and your ASN
+    neighbor fe80::1234 % 'dn42-lantian' as 4242421234;
     direct;
-    # Disable IPv4 route exchange in IPv6 BGP, see below
+    # Disable IPv4 route exchange in IPv6 BGP
+    # You may remove these statements if you want to use "multiprotocol BGP" (MP-BGP)
     ipv4 {
         import none;
         export none;
     };
 };
 ```
-
-- MY is for yourself, and YOUR is the person you're going to peer with.
-- All IP addresses in BIRD are IPs in DN42, rather than public IPs.
-- Compared to DN42 Wiki, I added `direct;`, without which the routes cannot be properly imported to system kernel.
-  - BIRD will look up the network interface to forward packets to from the system routing table, but sometimes it will fail (and `ip route` command will show a lot of `unreachable` entries when this happens)
-  - Here setting `direct` tells BIRD to simply forward packets to the network interface where the BGP session is established.
-  - `direct` is for direct connection between two sides (no routers in between).
-- PEER_NAME is the nickname of other user. This defines the Linux network interface name. Note that the network interface name `dn42-[PEER_NAME]` should be shorter than 15 characters, or extra characters will be cut off.
-- I suggest using Link-local IP when doing IPv6 peering.
-  - When using the complete IPv6 address (in `fd00::/8`), some system will not automatically add a route to the other end, and manual addition to the routing table is required. See `Tunnel Setup: WireGuard` section.
-- In BIRDv2, I **strongly recommend** disabling IPv6 route exchange in an IPv4 session, and you **may** disable IPv4 route exchange in an IPv6 session.
-  - BIRDv2 supports exchanging both IPv4 and IPv6 routes in a BGP session.
-  - In a IPv4 BGP session, BIRDv2 cannot correctly determine the target address (next hop) of IPv6 packet forwarding, and you will see lots of `unreachable`s in `ip -6 route`.
-    - So just disable it.
-  - In a IPv6 BGP session, if a specific combination of BGP routing software is used, `Invalid NEXT_HOP Attribute` error message will appear on one side or both sides' logs, which means that the next hop hasn't been determined correctly.
-    - But exchanging both IPv4 and IPv6 in a IPv6 session is widely used. So I don't recommend disabling IPv4 route exchange in a IPv6 session, until problem arises.
 
 Network Test & Bonus
 --------------------
