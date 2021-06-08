@@ -21,6 +21,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 本文更新日志
 ----------
 
+- 2021-06：提升一些配置文件的易读性。
 - 2021-05：添加《能力需求》一节；添加 iptables 防火墙配置。
 - 2020-12：修正 BIRDv2 Peer 配置文件的路径。
 - 2020-10：不再推荐添加 Debian Unstable 软件源安装 WireGuard（有更好的方法了）；推荐在 Windows 上使用 WSL 完成操作。
@@ -631,46 +632,28 @@ DN42 Wiki 有 WireGuard 的配置步骤，我在此进行少许修改以使其�
 
 ```bash
 [Interface]
-PrivateKey = [MY_PRIVATE_KEY]
-ListenPort = [LAST_5_DIGITS_OF_YOUR_ASN]
+# 你的 WireGuard 私钥
+PrivateKey = ABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFA=
+# 你的端口号
+ListenPort = 22547
+Table = off
+# 添加你的 Link-local IPv6（例如 fe80::1234）
+PostUp = ip addr add fe80::1234/64 dev %i
+# 添加你的 DN42 IPv6 地址（例如 fd12:3456:7890::1）
+PostUp = ip addr add fd12:3456:7890::1/128 dev %i
+# 第一个是你的 DN42 内的 IP，第二个是我的（或者你的 Peer 的）
+PostUp = ip addr add 172.21.2.3 peer 172.22.76.185 dev %i
+PostUp = sysctl -w net.ipv6.conf.%i.autoconf=0
 
 [Peer]
-PublicKey = [YOUR_PUBLIC_KEY]
-Endpoint = [YOUR_IP]:[LAST_5_DIGITS_OF_MY_ASN]
-AllowedIPs = 0.0.0.0/0,::/0
+# 我的（或者你的 Peer 的）公钥
+PublicKey = zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=
+# 我的（或者你的 Peer 的）服务器地址和端口号，端口号一般为你的 ASN 的后五位
+Endpoint = hostdare.lantian.pub:21234
+AllowedIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
 ```
 
-> 这里我把 AllowedIPs 设置为了所有 IP，因为我加了额外的 iptables 规则（见后续）来限制网卡上的流量。如果你不想用 iptables，你也可以设置为：
->
-> AllowedIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
-
-然后创建一个脚本 `[PEER_NAME].sh`，随后 `chmod +x [PEER_NAME].sh && ./[PEER_NAME].sh` 执行：
-
-```bash
-#/bin/sh
-ip link add dev dn42-[PEER_NAME] type wireguard
-wg setconf dn42-[PEER_NAME] [PEER_NAME].conf
-ip link set dn42-[PEER_NAME] up
-ip addr add [MY_LINK_LOCAL_IP]/64 dev dn42-[PEER_NAME]
-ip addr add [MY_DN42_IP] peer [YOUR_DN42_IP] dev dn42-[PEER_NAME]
-ip addr add [MY_DN42_IPV6] peer [YOUR_DN42_IPV6] dev dn42-[PEER_NAME]
-ip route add [YOUR_DN42_IPV6]/128 src [MY_DN42_IPV6] dev dn42-[PEER_NAME]
-```
-
-- MY 指的是你自己，而 YOUR 指的是你将要 Peer 的那个人。
-- YOUR_IP 和 MY_IP 指双方的公网 IP。
-- 端口选择方面，目前多数人默认使用对方 ASN 的后五位作为端口号。
-  - 例如我（4242422547）和一个人（4242420001）建立隧道，我会使用 20001 端口，对方会使用 22547 端口。
-  - 这种方法容易记忆、管理，并且不会重复。
-  - 但如果你是公网 ASN 大佬，后 5 位就有可能和别人产生冲突。你就需要和别人协商决定使用哪一个端口。
-- PEER_NAME 是对方的昵称，这里设置的是 Linux 下的网络设备名。注意整个网络设备名 `dn42-[PEER_NAME]` 不能超过 15 个字符，否则会被截断。
-- MY_DN42_IP 和 YOUR_DN42_IP 指双方连接两端在 DN42 内的 IP，具体而言指的是对接的这台服务器的 IP。
-  - 例如我用服务器 A（172.22.76.185）去对接，MY_DN42_IP 就是 172.22.76.185；我换另一台服务器 B（172.22.76.186）对接，MY_DN42_IP 就是 172.22.76.186。
-- 类似的，MY_DN42_IPV6 和 YOUR_DN42_IPV6 指双方连接两端在 DN42 内的 IPv6 地址。
-  - 这里我额外加了一行 `ip route add` 添加了一条额外的固定路由，是因为在我的服务器（Debian 10）上，有时 `ip addr add ... peer ...` 不会自动添加到对端的路由，需要手动指定。
-- MY_LINK_LOCAL_IP 用于交换 IPv6 路由，在 `fe80::/64` 段中任意选择，多台服务器可以重复（不会出大问题）。
-  - 例如我的服务器 MY_LINK_LOCAL_IP 统一为 `fe80::2547`。
-  - Link-local IPv6 是对于每个网络界面（虚拟网卡）而言的，如果你愿意你可以给每个连接设置不同的 Link-local IPv6，但一般没有意义。
+然后运行 `wg-quick up [PEER_NAME].conf` 启动隧道。
 
 隧道搭建：OpenVPN
 ----------------
@@ -680,45 +663,58 @@ DN42 Wiki 同样提供了 OpenVPN 的配置模板，我在此进行少许修改�
 ```bash
 proto         udp
 mode          p2p
-remote        [YOUR_IP]
-rport         [LAST_5_DIGITS_OF_MY_ASN]
-local         [MY_IP]
-lport         [LAST_5_DIGITS_OF_YOUR_ASN]
+
+# 我的（或者你的 Peer 的）服务器 IP
+remote        185.186.147.110
+# 我的（或者你的 Peer 的）隧道端口，一般是你的 ASN 的后五位
+rport         21234
+# 你的服务器 IP
+local         12.34.56.78
+# 你的隧道端口，一般是 22547（或者你的 Peer 的 ASN 的后五位）
+lport         22547
+
 dev-type      tun
 resolv-retry  infinite
-dev           dn42-[PEER_NAME]
+dev           dn42-lantian    # 随意修改
 comp-lzo
 persist-key
 persist-tun
 tun-ipv6
 cipher        aes-256-cbc
-ifconfig      [MY_DN42_IP] [YOUR_DN42_IP]
-ifconfig-ipv6 [MY_LINK_LOCAL_IP] [YOUR_LINK_LOCAL_IP]
-<secret>[STATIC_KEY]</secret>
+# 第一个是你的 DN42 内的 IP，第二个是我的（或者你的 Peer 的）
+ifconfig      172.21.2.3 172.22.76.185
+# 第一个是你的 Link-local IPv6，第二个是我的（或者你的 Peer 的）
+ifconfig-ipv6 fe80::1234 fe80::2547
+
+# 隧道启动后运行的脚本：
+# 1. 删除 Stable-privacy IPv6
+# 2. 设置优先使用的对外连接的 IPv6 地址（例如 fd12:3456:7890::1）
+script-security 2
+up "/bin/sh -c '/sbin/sysctl -w net.ipv6.conf.$dev.autoconf=0 && /sbin/sysctl -w net.ipv6.conf.$dev.accept_ra=0 && /sbin/sysctl -w net.ipv6.conf.$dev.addr_gen_mode=1 && /sbin/ip addr add fd12:3456:7890::1/128 dev $dev'"
+
+# 设置成我们的隧道的静态密钥
+# 可以用 openvpn --genkey --secret static.key 生成
+<secret>
+-----BEGIN OpenVPN Static key V1-----
+0123456789abcdef0123456789abcdef
+# ...
+# 密钥内容
+# ...
+0123456789abcdef0123456789abcdef
+-----END OpenVPN Static key V1-----
+</secret>
 ```
-
-在建立 OpenVPN 隧道时，绝大多数人都是直接照抄 Wiki 的模板的，因此把你的信息替换进去就可以了：
-
-- MY 指的是你自己，而 YOUR 指的是你将要 Peer 的那个人。
-- YOUR_IP 和 MY_IP 指双方的公网 IP。
-- 端口选择方面，目前多数人默认使用对方 ASN 的后五位作为端口号。
-  - 例如我（4242422547）和一个人（4242420001）建立隧道，我会使用 20001 端口，对方会使用 22547 端口。
-  - 这种方法容易记忆、管理，并且不会重复。
-  - 但如果你是公网 ASN 大佬，后 5 位就有可能和别人产生冲突。你就需要和别人协商决定使用哪一个端口。
-- PEER_NAME 是对方的昵称，这里设置的是 Linux 下的网络设备名。注意整个网络设备名不能超过 15 个字符，否则会被截断。
-- MY_DN42_IP 和 YOUR_DN42_IP 指双方在 DN42 内的 IP，具体而言指的是对接的这台服务器的 IP。
-  - 例如我用服务器 A（172.22.76.185）去对接，MY_DN42_IP 就是 172.22.76.185；我换另一台服务器 B（172.22.76.186）对接，MY_DN42_IP 就是 172.22.76.186。
-- MY_LINK_LOCAL_IP 用于交换 IPv6 路由，在 `fe80::/64` 段中任意选择，多台服务器可以重复（不会出大问题）。
-  - 例如我的服务器 MY_LINK_LOCAL_IP 统一为 `fe80::2547`。
-- STATIC_KEY 是 OpenVPN 使用的静态密钥，在 DN42 内很少有人会去建立一个 CA 给 OpenVPN，然后给每个 Peer 分发证书。
-  - 使用 `openvpn --genkey --secret static.key` 生成。
 
 限制 DN42 相关网卡上的流量
 -----------------------
 
 一般而言，进行 DN42 Peering 时双方建立的隧道可以承载任何 IP 的流量（除非你配置了 WireGuard 的 AllowedIPs），这就造成了风险：你的 Peer 可以向你的隧道传入目标地址是公网 IP 的数据包，此时你的节点会把数据包以你的名义转发到公网。如果你的 Peer 利用此进行网络攻击，你就有大麻烦了。
 
-因此，建议你设置 iptables 防火墙规则，来拒绝转发 Peer 向公网发送的数据。下面的规则会在所有以 `dn42-` 开头的网卡上，只允许已有的 DN42 IP 段的流量：
+因此，建议你设置 iptables 防火墙规则，来拒绝转发 Peer 向公网发送的数据。
+
+> 注：如果你只用 WireGuard 隧道就不用配置这些了，WireGuard 自带了 IP 限制功能。
+
+下面的规则会在所有以 `dn42-` 开头的网卡上，只允许已有的 DN42 IP 段的流量：
 
 ```bash
 iptables -N DN42_INPUT
@@ -769,15 +765,19 @@ BGP 会话配置：BIRD v1 和 v2
 对于 BIRD v1，需要的配置如下：
 
 ```bash
-# 在 /etc/bird/peers4/[PEER_NAME].conf 中填写：
-protocol bgp dn42_[PEER_NAME] from dnpeers {
-    neighbor [YOUR_DN42_IP] as [YOUR_ASN];
+# 在 /etc/bird/peers4/dn42_lantian.conf 中填写：
+# dn42_lantian 可以被改为任意名字
+protocol bgp dn42_lantian from dnpeers {
+    # 设置成我的（或者你的 Peer 的）DN42 IPv4 地址，以及你的 ASN
+    neighbor 172.22.76.185 as 4242421234;
     direct;
 };
 
-# 在 /etc/bird/peers6/[PEER_NAME].conf 中填写：
-protocol bgp dn42_[PEER_NAME] from dnpeers {
-    neighbor [YOUR_LINK_LOCAL_IP] % 'dn42-[PEER_NAME]' as [YOUR_ASN];
+# 在 /etc/bird/peers6/dn42_lantian.conf 中填写：
+# dn42_lantian 可以被改为任意名字
+protocol bgp dn42_lantian from dnpeers {
+    # 设置成我的（或者你的 Peer 的）Link-local IPv6，隧道名称，以及你的 ASN
+    neighbor fe80::1234 % 'dn42-lantian' as 4242421234;
     direct;
 };
 ```
@@ -785,43 +785,32 @@ protocol bgp dn42_[PEER_NAME] from dnpeers {
 对于 BIRD v2，配置如下：
 
 ```bash
-# 在 /etc/bird/peers/[PEER_NAME].conf 中填写：
-protocol bgp dn42_[PEER_NAME]_v4 from dnpeers {
-    neighbor [YOUR_DN42_IP] as [YOUR_ASN];
+# 在 /etc/bird/peers/dn42_lantian.conf 中填写
+# lantian 可以被改为任意名字
+protocol bgp dn42_lantian_v4 from dnpeers {
+    # 设置成我的（或者你的 Peer 的）DN42 IPv4 地址，以及你的 ASN
+    neighbor 172.22.76.185 as 4242421234;
     direct;
-    # 下面这段是在 IPv4 BGP 中禁用 IPv6 路由传递；查看下文以决定你要不要这样做（保留下面的内容）
+    # 在 IPv4 BGP 中禁用 IPv6 路由传递，强烈推荐保留
     ipv6 {
         import none;
         export none;
     };
 };
 
-protocol bgp dn42_[PEER_NAME]_v6 from dnpeers {
-    neighbor [YOUR_LINK_LOCAL_IP] % 'dn42-[PEER_NAME]' as [YOUR_ASN];
+# lantian 可以被改为任意名字
+protocol bgp dn42_lantian_v6 from dnpeers {
+    # 设置成我的（或者你的 Peer 的）Link-local IPv6，隧道名称，以及你的 ASN
+    neighbor fe80::1234 % 'dn42-lantian' as 4242421234;
     direct;
-    # 下面这段是在 IPv6 BGP 中禁用 IPv4 路由传递；查看下文以决定你要不要这样做（保留下面的内容）
+    # 在 IPv6 BGP 中禁用 IPv4 路由传递
+    # 如果你想用 Multiprotocol BGP（MP-BGP），可以删除
     ipv4 {
         import none;
         export none;
     };
 };
 ```
-
-- MY 指的是你自己，而 YOUR 指的是你将要 Peer 的那个人。
-- BIRD 中配置的是 DN42 内的 IP 而非公网 IP。
-- 相比 DN42 Wiki 上的配置，我加了一行 `direct;`，原因是我发现如果缺少这行，路由信息有可能无法被正确的导入系统路由表。
-  - BIRD 默认会根据系统路由表查找要将数据包转发到哪个网络设备，以此设置系统路由表，但有时查找会失败（表现为 `ip route` 中出现大片 `unreachable`）。
-  - 此时指定 `direct`，让 BIRD 将数据包直接转发到 BGP 连接所在的网卡上。
-  - `direct` 的含义是连接双方直接连接（即中间没有间隔其它的路由器）。
-- PEER_NAME 是对方的昵称，这里设置的是 Linux 下的网络设备名，与隧道保持一致。注意整个网络设备名不能超过 15 个字符，否则会被截断。
-- 在 IPv6 Peering 时，我推荐使用 Link-local IP。
-  - 直接使用对方整个节点的 IPv6 地址（指 `fd00::/8` 范围中的那个）时，部分系统不会自动添加到对端的路由，需要手动添加一条；见 `隧道搭建：WireGuard` 一节。
-- 在 BIRDv2 中，**强烈推荐**在 IPv4 BGP 会话中禁用 IPv6 的路由传递，同时**可以**在 IPv6 BGP 中禁用 IPv4 路由传递。
-  - BIRDv2 支持在一个 BGP 会话中同时传递 IPv4 和 IPv6 的路由。
-  - 在 IPv4 BGP 会话中，BIRDv2 难以正确判断 IPv6 数据包转发目标的地址（Next Hop），会导致 `ip -6 route` 中出现大片 `unreachable`。
-    - 因此直接禁用就好了。
-  - 在 IPv6 BGP 会话中传递 IPv4 路由时，如果双方使用特定的 BGP 软件组合，一方或双方的日志中会出现大片 `Invalid NEXT_HOP Attribute`，指 Next Hop 判断出错。
-    - 但 IPv6 BGP 中同时传递 IPv4 和 IPv6 路由的应用还比较广泛，因此一般建议不要禁用 IPv4 路由传递，除非出现了问题。
 
 网络测试及几个加分项
 -----------------
