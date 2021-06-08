@@ -630,28 +630,7 @@ DN42 Wiki 有 WireGuard 的配置步骤，我在此进行少许修改以使其�
 
 然后创建一个配置文件 `[PEER_NAME].conf`：
 
-```bash
-[Interface]
-# 你的 WireGuard 私钥
-PrivateKey = ABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFABCDEFA=
-# 你的端口号
-ListenPort = 22547
-Table = off
-# 添加你的 Link-local IPv6（例如 fe80::1234）
-PostUp = ip addr add fe80::1234/64 dev %i
-# 添加你的 DN42 IPv6 地址（例如 fd12:3456:7890::1）
-PostUp = ip addr add fd12:3456:7890::1/128 dev %i
-# 第一个是你的 DN42 内的 IP，第二个是我的（或者你的 Peer 的）
-PostUp = ip addr add 172.21.2.3 peer 172.22.76.185 dev %i
-PostUp = sysctl -w net.ipv6.conf.%i.autoconf=0
-
-[Peer]
-# 我的（或者你的 Peer 的）公钥
-PublicKey = zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=
-# 我的（或者你的 Peer 的）服务器地址和端口号，端口号一般为你的 ASN 的后五位
-Endpoint = hostdare.lantian.pub:21234
-AllowedIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
-```
+{% insertmd _templates/dn42-experimental-network-2020/wireguard-zh.md %}
 
 然后运行 `wg-quick up [PEER_NAME].conf` 启动隧道。
 
@@ -660,50 +639,7 @@ AllowedIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
 
 DN42 Wiki 同样提供了 OpenVPN 的配置模板，我在此进行少许修改以使其简单明了，如下：
 
-```bash
-proto         udp
-mode          p2p
-
-# 我的（或者你的 Peer 的）服务器 IP
-remote        185.186.147.110
-# 我的（或者你的 Peer 的）隧道端口，一般是你的 ASN 的后五位
-rport         21234
-# 你的服务器 IP
-local         12.34.56.78
-# 你的隧道端口，一般是 22547（或者你的 Peer 的 ASN 的后五位）
-lport         22547
-
-dev-type      tun
-resolv-retry  infinite
-dev           dn42-lantian    # 随意修改
-comp-lzo
-persist-key
-persist-tun
-tun-ipv6
-cipher        aes-256-cbc
-# 第一个是你的 DN42 内的 IP，第二个是我的（或者你的 Peer 的）
-ifconfig      172.21.2.3 172.22.76.185
-# 第一个是你的 Link-local IPv6，第二个是我的（或者你的 Peer 的）
-ifconfig-ipv6 fe80::1234 fe80::2547
-
-# 隧道启动后运行的脚本：
-# 1. 删除 Stable-privacy IPv6
-# 2. 设置优先使用的对外连接的 IPv6 地址（例如 fd12:3456:7890::1）
-script-security 2
-up "/bin/sh -c '/sbin/sysctl -w net.ipv6.conf.$dev.autoconf=0 && /sbin/sysctl -w net.ipv6.conf.$dev.accept_ra=0 && /sbin/sysctl -w net.ipv6.conf.$dev.addr_gen_mode=1 && /sbin/ip addr add fd12:3456:7890::1/128 dev $dev'"
-
-# 设置成我们的隧道的静态密钥
-# 可以用 openvpn --genkey --secret static.key 生成
-<secret>
------BEGIN OpenVPN Static key V1-----
-0123456789abcdef0123456789abcdef
-# ...
-# 密钥内容
-# ...
-0123456789abcdef0123456789abcdef
------END OpenVPN Static key V1-----
-</secret>
-```
+{% insertmd _templates/dn42-experimental-network-2020/openvpn-zh.md %}
 
 限制 DN42 相关网卡上的流量
 -----------------------
@@ -764,53 +700,11 @@ BGP 会话配置：BIRD v1 和 v2
 
 对于 BIRD v1，需要的配置如下：
 
-```bash
-# 在 /etc/bird/peers4/dn42_lantian.conf 中填写：
-# dn42_lantian 可以被改为任意名字
-protocol bgp dn42_lantian from dnpeers {
-    # 设置成我的（或者你的 Peer 的）DN42 IPv4 地址，以及你的 ASN
-    neighbor 172.22.76.185 as 4242421234;
-    direct;
-};
-
-# 在 /etc/bird/peers6/dn42_lantian.conf 中填写：
-# dn42_lantian 可以被改为任意名字
-protocol bgp dn42_lantian from dnpeers {
-    # 设置成我的（或者你的 Peer 的）Link-local IPv6，隧道名称，以及你的 ASN
-    neighbor fe80::1234 % 'dn42-lantian' as 4242421234;
-    direct;
-};
-```
+{% insertmd _templates/dn42-experimental-network-2020/bird1-zh.md %}
 
 对于 BIRD v2，配置如下：
 
-```bash
-# 在 /etc/bird/peers/dn42_lantian.conf 中填写
-# lantian 可以被改为任意名字
-protocol bgp dn42_lantian_v4 from dnpeers {
-    # 设置成我的（或者你的 Peer 的）DN42 IPv4 地址，以及你的 ASN
-    neighbor 172.22.76.185 as 4242421234;
-    direct;
-    # 在 IPv4 BGP 中禁用 IPv6 路由传递，强烈推荐保留
-    ipv6 {
-        import none;
-        export none;
-    };
-};
-
-# lantian 可以被改为任意名字
-protocol bgp dn42_lantian_v6 from dnpeers {
-    # 设置成我的（或者你的 Peer 的）Link-local IPv6，隧道名称，以及你的 ASN
-    neighbor fe80::1234 % 'dn42-lantian' as 4242421234;
-    direct;
-    # 在 IPv6 BGP 中禁用 IPv4 路由传递
-    # 如果你想用 Multiprotocol BGP（MP-BGP），可以删除
-    ipv4 {
-        import none;
-        export none;
-    };
-};
-```
+{% insertmd _templates/dn42-experimental-network-2020/bird2-zh.md %}
 
 网络测试及几个加分项
 -----------------
