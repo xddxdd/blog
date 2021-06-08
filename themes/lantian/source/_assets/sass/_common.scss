@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import "~@fortawesome/fontawesome-free/scss/variables";
 @import "~@fortawesome/fontawesome-free/scss/mixins";
 @import "~sass-material-colors";
@@ -32,4 +34,4 @@ $h6-font-size: $font-size-base * 0.75;
 
 $headings-font-weight: 700;
 
-$px-in-rem: 16px / 1rem;
+$px-in-rem: math.div(16px, 1rem);

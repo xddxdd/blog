@@ -1,9 +1,5 @@
 #!/bin/sh
 
-if [ ! -e node_modules/node-sass/vendor ]; then
-    npm rebuild node-sass
-fi
-
 # Cache folder
 CACHEDIR=/tmp/hexo-blog
 mkdir -p $CACHEDIR
@@ -13,7 +9,7 @@ RECENT_COMMENTS=$(wget -O- https://lantian.disqus.com/recent_comments_widget.js\
 RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | sed "s/document.write/process.stdout.write/g")
 RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | node)
 RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | python3 disqus_comments.py)
-echo $RECENT_COMMENTS > themes/lantian/layout/_partial/disqus-recent.ejs
+echo "$RECENT_COMMENTS" > themes/lantian/layout/_partial/disqus-recent.ejs
 
 # Regenerate everything
 rm -rf public .deploy_git
@@ -60,28 +56,28 @@ node_modules/ipfs-deploy/bin/ipfs-deploy.js public/ -p pinata -d cloudflare -C -
 echo Preparing parallel jobs...
 echo > parallel_jobs.lst
 for FILE in $(find public -type f \( -name "*.html" -or -name "*.css" -or -name "*.js" -or -name "*.ttf" -or -name "*.atom" -or -name "*.stl" -or -name "*.xml" -or -name "*.svg" -or -name "*.eot" -or -name "*.json" -or -name "*.txt" \)); do
-    if [ ! -f $FILE.gz ]; then
-        echo gzip -9 -k -f $FILE >> parallel_jobs.lst
+    if [ ! -f "$FILE.gz" ]; then
+        echo "gzip -9 -k -f \"$FILE\"" >> parallel_jobs.lst
     fi
-    if [ ! -f $FILE.br ]; then
-        echo brotli -9 -k -f $FILE >> parallel_jobs.lst
+    if [ ! -f "$FILE.br" ]; then
+        echo "brotli -9 -k -f \"$FILE\"" >> parallel_jobs.lst
     fi
-    if [ ! -f $FILE.zst ]; then
-        echo "sh -c \"zstd --no-progress -19 -k -f $FILE 2>/dev/null\"" >> parallel_jobs.lst
+    if [ ! -f "$FILE.zst" ]; then
+        echo "sh -c \"zstd --no-progress -19 -k -f \"$FILE\" 2>/dev/null\"" >> parallel_jobs.lst
     fi
 done
 for FILE in $(find public -type f \( -name "*.gif" -or -name "*.jpg" -or -name "*.png" \)); do
-    if [ ! -f $FILE.webp ]; then
-        SHA256=$(sha256sum $FILE | cut -d' ' -f1)
-        if [ -f $CACHEDIR/$SHA256.webp ]; then
-            cp $CACHEDIR/$SHA256.webp $FILE.webp
+    if [ ! -f "$FILE.webp" ]; then
+        SHA256=$(sha256sum "$FILE" | cut -d' ' -f1)
+        if [ -f "$CACHEDIR/$SHA256.webp" ]; then
+            cp "$CACHEDIR/$SHA256.webp" "$FILE.webp"
         else
             echo "sh -c \"convert -quality 100 $FILE $FILE.webp && cp $FILE.webp $CACHEDIR/$SHA256.webp\"" >> parallel_jobs.lst
         fi
     fi
 done
 echo Executing parallel jobs...
-parallel -j$(nproc) < parallel_jobs.lst
+parallel "-j$(nproc)" < parallel_jobs.lst
 
 # Deploy to my site system
 python3 -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)"
