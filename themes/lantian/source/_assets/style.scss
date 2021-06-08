@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@use "sass:math";
+
 @import 'sass/common';
 @import 'sass/fonts.scss';
 @import 'sass/bootstrap.scss';
@@ -182,7 +184,7 @@ article {
             li {
                 background-color: material-color('grey', '200');
                 padding: 2px 8px;
-                margin: ($tag-separation / 2) 0;
+                margin: math.div($tag-separation, 2) 0;
 
                 a {
                     color: $body-color;
