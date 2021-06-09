@@ -21,7 +21,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 本文更新日志
 ----------
 
-- 2021-06：提升一些配置文件的易读性。
+- 2021-06：提升一些配置文件的易读性，区分 `contact` 和 `e-mail`。
 - 2021-05：添加《能力需求》一节；添加 iptables 防火墙配置。
 - 2020-12：修正 BIRDv2 Peer 配置文件的路径。
 - 2020-10：不再推荐添加 Debian Unstable 软件源安装 WireGuard（有更好的方法了）；推荐在 Windows 上使用 WSL 完成操作。
@@ -120,7 +120,8 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
       ```bash
       person:             Lan Tian
-      contact:            b980120@hotmail.com
+      e-mail:             b980120@hotmail.com
+      contact:            telegram:lantian1998
       nic-hdl:            LANTIAN-DN42
       mnt-by:             LANTIAN-MNT
       source:             DN42
@@ -128,7 +129,8 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
       - 各项含义如下：
         - `person`：你的昵称。
-        - `contact`：你的联系方式，一般是你的邮箱。
+        - `e-mail`：你的邮箱。
+        - `contact`：可选，你的其它联系方式，例如 IRC、Telegram 等。
         - `nic-hdl`：`NIC handle`，指向文件本身，与文件名相同，`[昵称]-DN42`。
         - `mnt-by`：`maintain by（由谁维护）`，由谁维护，指向你之前的 mntner 文件，`[昵称]-MNT`。
         - `source`：固定为 `DN42`。
