@@ -3,7 +3,7 @@ all:
 	@node_modules/hexo/bin/hexo generate
 
 build:
-	@sh build.sh
+	@bash scripts/build.sh
 
 clean:
 	@node_modules/hexo/bin/hexo clean
