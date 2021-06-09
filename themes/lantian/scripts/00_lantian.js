@@ -31,43 +31,10 @@ hexo.extend.helper.register('lantian_git_rev', function () {
     return gitRevision;
 });
 
-function markdown_render(content) {
-    const MdIt = require('markdown-it');
-    const {
-        preset,
-        render,
-        enable_rules,
-        disable_rules,
-        plugins,
-    } = hexo.config.markdown;
-    let parser = new MdIt(preset, render);
-
-    if (enable_rules) {
-        parser.enable(enable_rules);
-    }
-
-    if (disable_rules) {
-        parser.disable(disable_rules);
-    }
-
-    if (plugins) {
-        parser = plugins.reduce((parser, pugs) => {
-            if (pugs instanceof Object && pugs.name) {
-                return parser.use(require(pugs.name), pugs.options);
-            }
-            return parser.use(require(pugs));
-        }, parser);
-    }
-
-    hexo.execFilterSync('markdown-it:renderer', parser, { context: hexo });
-
-    return parser.render(content);
-}
-
 hexo.extend.tag.register(
     'interactive',
     function (args, content) {
-        var rendered = markdown_render(content);
+        var rendered = hexo.render.renderSync({text: content, engine: 'markdown'})
         return `<div id="lt-interactive-content-${args[0]}" class="lt-interactive-content">${rendered}</div>`;
     },
     { ends: true },

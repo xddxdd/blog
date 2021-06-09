@@ -48,32 +48,31 @@ future: true
 markdown:
   render:
     html: true
-    xhtmlOut: true
+    xhtmlOut: false
     breaks: true
     linkify: true
     typographer: false
   plugins:
-    - markdown-it-abbr
-    - markdown-it-footnote
-    - '@lantian1998/markdown-it-graphviz'
-    - name: '@lantian1998/markdown-it-highlightjs'
-      options:
-        auto: true
-        code: false
-        inline: true
-    - markdown-it-ins
-    - "@iktakahiro/markdown-it-katex"
-    - markdown-it-sub
-    - markdown-it-sup
-  anchors:
-    level: 1
-    collisionSuffix: 'no'
-    permalink: true
-    permalinkClass: 'header-anchor'
-    permalinkSide: 'right'
-    permalinkSymbol: '¶'
-    case: 0
-    separator: '-'
+    markdown-it-anchor:
+      level: 1
+      collisionSuffix: 'no'
+      permalink: true
+      permalinkClass: 'header-anchor'
+      permalinkSide: 'right'
+      permalinkSymbol: '¶'
+      case: 0
+      separator: '-'
+    markdown-it-footnote:
+    markdown-it-ins:
+    markdown-it-mark:
+    markdown-it-sub:
+    markdown-it-sup:
+    '@iktakahiro/markdown-it-katex':
+    '@lantian1998/markdown-it-graphviz':
+    markdown-it-highlightjs:
+      auto: true
+      code: false
+      inline: true
 
 highlight:
   enable: false
