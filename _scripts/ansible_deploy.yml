@@ -9,7 +9,7 @@
 
     - name: Deploy website file
       synchronize:
-        src: public/
+        src: ../public/
         dest: /srv/www/lantian.pub/
         checksum: yes
         delete: yes
