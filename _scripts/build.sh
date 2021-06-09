@@ -10,7 +10,7 @@ RECENT_COMMENTS=$(wget -O- "https://lantian.disqus.com/recent_comments_widget.js
 # NodeJS preprocessing
 RECENT_COMMENTS=${RECENT_COMMENTS//document.write/process.stdout.write}
 RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | node)
-RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | python3 scripts/disqus_comments.py)
+RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | python3 _scripts/disqus_comments.py)
 echo "$RECENT_COMMENTS" > themes/lantian/layout/_partial/disqus-recent.ejs
 
 # Regenerate everything
@@ -63,4 +63,4 @@ echo Executing parallel jobs...
 parallel "-j$(nproc)" < parallel_jobs.lst
 
 # Deploy to my site system
-ansible-playbook scripts/ansible_deploy.yml
+ansible-playbook _scripts/ansible_deploy.yml
