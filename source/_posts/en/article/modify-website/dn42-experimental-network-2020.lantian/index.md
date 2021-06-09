@@ -21,7 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
-- 2021-06: Improve readability of some config files.
+- 2021-06: Improve readability of some config files, differ `contact` from `e-mail`.
 - 2021-05: Add "Skills Required" section; Add iptables firewall rules.
 - 2020-12: Fix peer config path for BIRDv2.
 - 2020-10: No longer recommend using Debian Unstable repo for WireGuard (better ways exist now); Recommend using WSL on Windows.
@@ -116,7 +116,8 @@ Here are the steps:
 
       ```bash
       person:             Lan Tian
-      contact:            b980120@hotmail.com
+      e-mail:             b980120@hotmail.com
+      contact:            telegram:lantian1998
       nic-hdl:            LANTIAN-DN42
       mnt-by:             LANTIAN-MNT
       source:             DN42
@@ -124,7 +125,8 @@ Here are the steps:
 
       - The items in the file are:
         - `person`: your nickname.
-        - `contact`: your contact information, most likely your mailbox.
+        - `e-mail`: your e-mail address.
+        - `contact`: optional, your contact information other than e-mail, e.g. IRC or Telegram.
         - `nic-hdl`: `NIC handle`, points to the file itself, and is the same as file name, `[NICKNAME]-DN42`.
         - `mnt-by`: `maintain by`, points to the `mntner` file you previously created, `[NICKNAME]-MNT`.
         - `source`: has a fixed value of `DN42`.
