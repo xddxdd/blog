@@ -6,6 +6,7 @@ module.exports = {
     entry: {
         main: '_assets/script.main.js',
         style: '_assets/script.style.js',
+        style_twine: '_assets/script.style.twine.js',
         style_bigscreen_indihome: '_assets/bigscreen/indihome/script.style.js',
     },
     output: {
