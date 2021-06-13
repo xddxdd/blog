@@ -97,7 +97,6 @@ addLoadEvent(function () {
     attempt('Dark Color Scheme', function () {
         /* https://blog.skk.moe/post/hello-darkmode-my-old-friend/ */
 
-        const rootElement = document.documentElement; // <html>
         const darkModeStorageKey = 'user-color-scheme'; // 作为 localStorage 的 key
         const darkModeMediaQueryKey = '--color-mode';
         const rootElementDarkModeAttributeName = 'data-user-color-scheme';
@@ -124,7 +123,7 @@ addLoadEvent(function () {
         };
 
         const getModeFromCSSMediaQuery = () => {
-            const res = getComputedStyle(rootElement).getPropertyValue(
+            const res = getComputedStyle(document.documentElement).getPropertyValue(
                 darkModeMediaQueryKey,
             );
             if (res.length) return res.replace(/\"/g, '').trim();
@@ -132,11 +131,6 @@ addLoadEvent(function () {
 
             // 使用 matchMedia API 的写法会优雅的多
             // return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-        };
-
-        const resetRootDarkModeAttributeAndLS = () => {
-            rootElement.removeAttribute(rootElementDarkModeAttributeName);
-            removeLS(darkModeStorageKey);
         };
 
         const applyCustomDarkModeSettings = (mode) => {
@@ -150,17 +144,39 @@ addLoadEvent(function () {
 
             if (currentSetting === getModeFromCSSMediaQuery()) {
                 // 当用户自定义的显示模式和 prefers-color-scheme 相同时重置、恢复到自动模式
-                resetRootDarkModeAttributeAndLS();
+                document.documentElement.removeAttribute(
+                    rootElementDarkModeAttributeName
+                );
+                if (document.getElementById('twine')) {
+                    document.getElementById('twine').contentWindow.document.documentElement.removeAttribute(
+                        rootElementDarkModeAttributeName
+                    );
+                }
+                removeLS(darkModeStorageKey);
             } else if (validColorModeKeys[currentSetting]) {
                 // 相比 Array#indexOf，这种写法 Uglify 后字节数更少
-                rootElement.setAttribute(
+                document.documentElement.setAttribute(
                     rootElementDarkModeAttributeName,
                     currentSetting,
                 );
+                if (document.getElementById('twine')) {
+                    document.getElementById('twine').contentWindow.document.documentElement.setAttribute(
+                        rootElementDarkModeAttributeName,
+                        currentSetting,
+                    );
+                }
             } else {
                 // 首次访问或从未使用过开关、localStorage 中没有存储的值，currentSetting 是 null
                 // 或者 localStorage 被篡改，currentSetting 不是合法值
-                resetRootDarkModeAttributeAndLS();
+                document.documentElement.removeAttribute(
+                    rootElementDarkModeAttributeName
+                );
+                if (document.getElementById('twine')) {
+                    document.getElementById('twine').contentWindow.document.documentElement.removeAttribute(
+                        rootElementDarkModeAttributeName
+                    );
+                }
+                removeLS(darkModeStorageKey);
             }
         };
 
@@ -219,85 +235,18 @@ addLoadEvent(function () {
 
     attempt('Interactive Content', function () {
         'use strict';
+        window.addEventListener('message', function(e) {
+            var eventName = e.data[0];
+            var data = e.data[1];
 
-        let interactive_update = function (element) {
-            let this_tag = element.dataset.tag;
-            let child = document.getElementById(
-                `lt-interactive-content-${this_tag}`,
-            );
-            if (!child) {
-                return;
+            var twine = document.getElementById("twine");
+            if (!twine) return;
+
+            switch(eventName) {
+            case 'setHeight':
+                twine.style.height = data + "px";
+                break;
             }
-
-            if (element.checked) {
-                child.classList.remove('d-none');
-                return;
-            }
-
-            child.classList.add('d-none');
-
-            let child_options = child.getElementsByClassName(
-                'lt-interactive-option',
-            );
-            if (!child_options) {
-                return;
-            }
-
-            /* bootstrap native js will handle state save & restore */
-            Array.prototype.slice.call(child_options).forEach(function (e) {
-                e.parentElement.classList.remove('active');
-                e.checked = false;
-                // interactive_onclick(e);
-            });
-
-            if (child_options.length) {
-                interactive_recurse(
-                    child_options.item(0).parentElement.parentElement,
-                );
-            }
-        };
-
-        let interactive_recurse = function (container) {
-            let option_list = container.getElementsByClassName(
-                'lt-interactive-option',
-            );
-            if (!option_list) {
-                return;
-            }
-
-            let option_array = Array.prototype.slice.call(option_list);
-
-            // first go through the unselected options
-            option_array
-                .filter((e) => {
-                    return !e.checked;
-                })
-                .forEach(interactive_update);
-
-            // then handle the selected one
-            option_array
-                .filter((e) => {
-                    return e.checked;
-                })
-                .forEach(interactive_update);
-        };
-
-        let interactive_onclick = function () {
-            interactive_recurse(this.parentElement.parentElement);
-        };
-
-        let options = Array.prototype.slice.call(
-            document.getElementsByClassName('lt-interactive-option'),
-        );
-        options.forEach((option) => {
-            option.onclick = interactive_onclick;
-        });
-
-        let contents = Array.prototype.slice.call(
-            document.getElementsByClassName('lt-interactive-content'),
-        );
-        contents.forEach((content) => {
-            content.classList.add('d-none');
-        });
+        }, false);
     });
 });

@@ -32,46 +32,8 @@ hexo.extend.helper.register('lantian_git_rev', function () {
 });
 
 hexo.extend.tag.register(
-    'interactive',
+    'twine',
     function (args, content) {
-        var rendered = hexo.render.renderSync({text: content, engine: 'markdown'})
-        return `<div id="lt-interactive-content-${args[0]}" class="lt-interactive-content">${rendered}</div>`;
+        return `<div class="twine-container"><iframe id="twine" src="${args[0]}" scrolling="no"></iframe></div>`;
     },
-    { ends: true },
-);
-
-hexo.extend.tag.register(
-    'interactive_buttons',
-    function (args, content) {
-        var i = Math.floor(Math.random() * 10000000);
-
-        var class_name = 'btn-group';
-        if (args.indexOf('vertical') != -1) {
-            class_name = 'btn-group-vertical';
-        }
-
-        if (args.indexOf('lg') != -1) {
-            class_name += ' btn-group-lg';
-        } else if (args.indexOf('sm') != -1) {
-            class_name += ' btn-group-sm';
-        }
-
-        var s = `<div class="${class_name} btn-group-toggle" data-toggle="buttons" id="lt-interactive-group-${i}" class="lt-interactive">`;
-
-        content.split('\n').forEach((v) => {
-            var splitted = v.split(' ');
-            var tag = splitted[0];
-            var label = splitted.slice(1).join(' ');
-
-            s += `
-<label class="btn btn-outline-primary">
-    <input type="radio" name="lt-interactive-group-${i}" id="lt-interactive-${tag}" class="lt-interactive-option" data-group="${i}" data-tag="${tag}">${label}</input>
-</label>`;
-        });
-
-        s += `</div>`;
-
-        return s;
-    },
-    { ends: true },
 );
