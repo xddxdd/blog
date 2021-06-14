@@ -98,10 +98,22 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Test" startnode="1" creator="Twine" creator-version="2.3.14" ifid="B52CA39F-258C-4E22-AED2-8132D3495651" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import "/assets/style_twine.css";</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="First Page" tags="" position="775,400" size="100,100">Example text.
+	<tw-storydata name="Test" startnode="1" creator="Twine" creator-version="2.3.14" ifid="B52CA39F-258C-4E22-AED2-8132D3495651" zoom="1" format="SugarCube" format-version="2.34.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import "/assets/style_twine.css";</style><script role="script" id="twine-user-script" type="text/twine-javascript">function updateParentHeight(){
+    var newHeight = $('#story').height();
+    if (newHeight == 0) {
+        setTimeout(updateParentHeight, 50);
+        return;
+    }
+    window.parent.postMessage(["setHeight", newHeight], "*");
+}
+
+$('body').on('DOMSubtreeModified', '#story', updateParentHeight);
+</script><tw-passagedata pid="1" name="First Page" tags="" position="775,400" size="100,100">Example text.
 [[Option A]]
 [[Option B]] 
-</tw-passagedata><tw-passagedata pid="2" name="Option A" tags="" position="1090,358" size="100,100">Option A.</tw-passagedata><tw-passagedata pid="3" name="Option B" tags="" position="1070,480" size="100,100">Option B.</tw-passagedata><tw-passagedata pid="4" name="PassageHeader" tags="" position="719,625" size="100,100">&lt;div id=&quot;topbar&quot;&gt;&lt;span id=&quot;backbtn&quot;&gt;&lt;&lt;button &quot;&amp;laquo; Back&quot;&gt;&gt;
+&lt;&lt;linkreplace &quot;Reveal&quot; t8n&gt;&gt;
+	Stuff revealed after click on link.
+&lt;&lt;/linkreplace&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Option A" tags="" position="1090,358" size="100,100">Option A.</tw-passagedata><tw-passagedata pid="3" name="Option B" tags="" position="1070,480" size="100,100">Option B.</tw-passagedata><tw-passagedata pid="4" name="PassageHeader" tags="" position="719,625" size="100,100">&lt;div id=&quot;topbar&quot;&gt;&lt;span id=&quot;backbtn&quot;&gt;&lt;&lt;button &quot;&amp;laquo; Back&quot;&gt;&gt;
 	&lt;&lt;run Engine.backward()&gt;&gt;
 &lt;&lt;/button&gt;&gt;&lt;/span&gt; &lt;span id=&quot;fwdbtn&quot;&gt;&lt;&lt;button &quot;Forward &amp;raquo;&quot;&gt;&gt;
 	&lt;&lt;run Engine.forward()&gt;&gt;
@@ -113,17 +125,6 @@ $(document).one(&quot;:passagedisplay&quot;, function (event) {
 	if (State.length === State.size) {
 		$(&quot;#fwdbtn button&quot;).prop(&quot;disabled&quot;, true);
 	}
-	function updateParentHeight(){
-		var story = document.getElementById(&#39;story&#39;);
-		var newHeight = story.offsetHeight;
-		if (newHeight == 0) {
-		  setTimeout(updateParentHeight, 50);
-		  return;
-		}
-		window.parent.postMessage([&quot;setHeight&quot;, newHeight], &quot;*&quot;); 
-	}
-
-	updateParentHeight();
 });
 &lt;&lt;/script&gt;&gt;\</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
