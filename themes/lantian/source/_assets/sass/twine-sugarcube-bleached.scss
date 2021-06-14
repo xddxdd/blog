@@ -47,25 +47,6 @@ hr {
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
-#ui-bar {
-	border-color: #ccc;
-}
-#ui-bar hr {
-	border-color: #ccc;
-}
-#ui-bar-toggle,
-#ui-bar-history [id|="history"] {
-	color: #111;
-	border-color: #ccc;
-}
-#ui-bar-toggle:hover,
-#ui-bar-history [id|="history"]:hover {
-	border-color: #111;
-}
-#ui-bar-history [id|="history"]:disabled {
-	color: #ccc;
-	border-color: #ccc;
-}
 #menu ul {
 	border-color: #ccc;
 }
@@ -136,62 +117,4 @@ hr {
 #ui-dialog-body.settings button[id|="setting-control"].enabled:hover {
 	background-color: #7c7;
 	border-color: #5a5;
-}
-
-/* Debug bar styling */
-#debug-bar,
-#debug-bar-toggle,
-#debug-bar-watch {
-	background-color: #eee;
-	border-color: #ccc;
-}
-#debug-bar-watch div {
-	color: #777;
-}
-#debug-bar-toggle,
-#debug-bar-watch-toggle,
-#debug-bar-views-toggle {
-	color: #111;
-	border-color: #ccc;
-}
-#debug-bar-toggle:hover,
-#debug-bar-watch-toggle:hover,
-#debug-bar-views-toggle:hover {
-	background-color: #ddd;
-	border-color: #111;
-}
-#debug-bar-watch:not([hidden]) ~ div #debug-bar-watch-toggle,
-html[data-debug-view] #debug-bar-views-toggle {
-	background-color: #9e9;
-	border-color: #7c7;
-}
-#debug-bar-watch:not([hidden]) ~ div #debug-bar-watch-toggle:hover,
-html[data-debug-view] #debug-bar-views-toggle:hover {
-	background-color: #7c7;
-	border-color: #5a5;
-}
-
-/* Debug view styling */
-html:not([data-debug-view]) #debug-view-toggle {
-	color: #111;
-	border-color: #ccc;
-}
-html:not([data-debug-view]) #debug-view-toggle:hover {
-	background-color: #eee;
-	border-color: #111;
-}
-html[data-debug-view] #debug-view-toggle {
-	background-color: #9e9;
-	border-color: #7c7;
-}
-html[data-debug-view] #debug-view-toggle:hover {
-	background-color: #7c7;
-	border-color: #5a5;
-}
-html[data-debug-view] .debug {
-	background-color: #dc9;
-}
-html[data-debug-view] .debug.hidden,
-html[data-debug-view] .debug.hidden .debug {
-	background-color: #bbb;
 }
