@@ -14,7 +14,7 @@ hexo.extend.helper.register('remove_trailing_slash', function (s) {
 });
 
 hexo.extend.helper.register('lantian_excerpt', function (input, length) {
-    var excerpt_length = length ? length : 400;
+    var excerpt_length = length ? length : 600;
     var stripped = input.replace(LANTIAN.EXCERPT_REGEX, '');
     var separators = ['。', '，', '.', ',', '：', ':', ')', '）'];
     var output_until = excerpt_length;
