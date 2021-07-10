@@ -64,13 +64,13 @@ addLoadEvent(function () {
 
     attempt('Simple Lightbox', function () {
         'use strict';
-        let lightbox_onclick = function () {
+        let lightbox_onclick = function (e) {
             SimpleLightbox.open({
                 items: [this.getAttribute('src') || this.getAttribute('href')],
             });
             try {
-                this.preventDefault();
-            } catch (e) {}
+                e.preventDefault();
+            } catch (err) {}
             return false;
         };
 
