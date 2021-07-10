@@ -6,8 +6,6 @@
 @import 'sass/fonts.scss';
 @import 'sass/bootstrap.scss';
 
-$post-info-padding: 5px;
-
 @include media-breakpoint-down(sm) {
     html,
     body {
@@ -80,28 +78,79 @@ article {
         margin: 5px 0;
     }
 
-    .post-info {
-        padding: $post-info-padding;
-        ul li {
-            color: $body-color;
-            .fas {
-                color: $primary;
-            }
-            img {
-                max-width: 100%;
-                max-height: 200px;
-            }
+    .post-info-wrap {
+        flex: 0 0 2.5em;
+        background-color: material-color('grey', '200');
+    }
+
+    @include media-breakpoint-up(md) {
+        .post-info {
+            position: sticky;
+            top: 0;
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        .post-info {
+            position: absolute;
+        }
+    }
+
+    .post-meta-wrap {
+        height: 2.5em;
+        width: 2.5em;
+        margin-top: 1px;
+        background-color: material-color('grey', '200');
+    }
+
+    .post-meta {
+        height: 2.5em;
+        width: 2.5em;
+        min-height: 2.5em;
+        overflow: hidden;
+        line-height: 2.5;
+
+        background-color: material-color('grey', '200');
+        color: $primary;
+        a {
+            color: $primary;
         }
 
-        @include media-breakpoint-down(sm) {
-            padding-bottom: 0;
-            ul {
-                margin-left: 13px;
+        .fas {
+            width: 2em;
+            text-align: center;
+            font-size: 1.25em;
+            padding: 0.5em;
+            vertical-align: middle;
+        }
+
+        &:hover, &:active {
+            width: 300px;
+            height: auto;
+            background-color: $primary;
+            color: white;
+            a {
+                color: white;
             }
-            ul li {
-                float: left;
-                margin-left: 5px;
-            }
+        }
+    }
+
+    .qrcode {
+        width: 100%;
+        padding: 0 2.5em;
+    }
+
+    .post-wrap {
+        flex: auto;
+        width: 0;
+        padding: 0 5px;
+    }
+
+    .post-image-wrap {
+        flex: 0 0 200px;
+        padding: 10px 0 0 10px;
+        img {
+            max-width: 200px;
         }
     }
 
@@ -135,9 +184,7 @@ article {
         h4,
         h5,
         h6 {
-            @include media-breakpoint-up(md) {
-                margin-left: -1em;
-            }
+            margin-left: -1em;
             &:before {
                 @include font-awesome;
                 float: left;
@@ -165,6 +212,12 @@ article {
             color: black;
         }
 
+        @include media-breakpoint-down(md) {
+            ol ol, ol ul, ul ol, ul ul {
+                padding-left: 1em;
+            }
+        }
+
         .header-anchor {
             margin-left: 0.25em;
         }
@@ -172,38 +225,6 @@ article {
         #twine {
             width: 100%;
             border: none;
-        }
-    }
-
-    .post-wrap {
-        @include media-breakpoint-down(md) {
-            padding: 0 (15px + 0.5rem * $px-in-rem);
-        }
-    }
-
-    .read {
-        $tag-separation: 6px;
-        ul {
-            width: 100%;
-            margin-bottom: $tag-separation;
-            li {
-                background-color: material-color('grey', '200');
-                padding: 2px 8px;
-                margin: math.div($tag-separation, 2) 0;
-
-                a {
-                    color: $body-color;
-                }
-            }
-            &:first-child li:first-child {
-                background-color: $primary;
-                a {
-                    color: white;
-                }
-            }
-            &:first-child li:not(:last-child) {
-                margin-right: $tag-separation;
-            }
         }
     }
 }
@@ -306,55 +327,37 @@ footer.lantian {
 }
 
 #content {
+    flex: 3;
+    width: 0;
+
     #post-navi {
         border-bottom: 1px solid material-color('grey', '400');
     }
 }
 
+aside {
+    flex: 1;
+    width: 0;
+}
+
 #quicklink {
-    padding: 0 0 0 15px;
-    position: sticky;
-    top: -1px;
+    line-height: 1;
+    padding-left: 2.5em;
 
-    li {
-        margin: 0;
-        padding: 0;
-        border-top: $border-dotted;
-        overflow: hidden;
-        word-break: break-all;
-
-        .fas {
-            color: black;
-        }
-    }
-    li:last-child {
-        border-bottom: $border-default;
-    }
-
-    &.quicklink-float {
-        position: fixed;
-        top: 0;
-        width: 300px;
-    }
-    &.quicklink-over-position {
-        visibility: hidden;
+    .toc-item {
+        list-style: none;
     }
 
     .toc,
     .toc-child {
         padding: 0;
-        margin-bottom: -1px;
     }
 
     .toc-link {
         display: block;
-        height: 26px;
-        overflow: hidden;
+        padding: 0.25em 0;
+        margin-left: 1em;
     }
-    .toc-text {
-        word-break: break-all;
-    }
-
     .toc-level-1,
     .toc-level-2,
     .toc-level-3,
@@ -364,6 +367,8 @@ footer.lantian {
         &:before {
             @include font-awesome;
             float: left;
+            text-align: center;
+            padding: 0.25em 0;
         }
     }
 
@@ -447,7 +452,7 @@ footer.lantian {
             color: white;
         }
     }
-    a:hover {
+    a:hover, a:active {
         background-color: material-color('grey', '400');
     }
 }

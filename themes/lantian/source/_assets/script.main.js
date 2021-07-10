@@ -2,7 +2,6 @@ import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
 
 import attempt from './js/attempt';
-import elderClock from './js/elderclock';
 
 import cfga from './js/cfga';
 
@@ -87,11 +86,6 @@ addLoadEvent(function () {
         for (let i = 0; i < qrcodes.length; i++) {
             qrcodes[i].onclick = lightbox_onclick;
         }
-    });
-
-    attempt('ElderClock', function () {
-        'use strict';
-        elderClock();
     });
 
     attempt('Dark Color Scheme', function () {

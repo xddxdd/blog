@@ -35,8 +35,8 @@ if (is_archive()){
 
     <div id="container" class="<%- (page.bigscreen ? 'bigscreen' : '') %>">
         <%- partial('_partial/header') %>
-        <div class="row">
-            <div id="content" class="col-12 col-lg-9">
+        <div class="d-flex">
+            <div id="content">
                 <%- body %>
             </div>
             <%- partial('_partial/sidebar') %>
