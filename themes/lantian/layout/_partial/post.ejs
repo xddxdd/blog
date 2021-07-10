@@ -1,34 +1,56 @@
 <article>
-    <div class="row">
-        <div class="post-info col-md-3 col-12">
-            <ul class="list-unstyled text-right">
+    <div class="d-flex">
+        <div class="post-info-wrap">
+            <div class="post-info">
                 <% if(post.date && post.date.unix() > 43200 /* Filter out posts before UTC & handle timezone which may be 12h off */) { %>
-                    <li><%- date(post.date, 'YYYY-MM-DD') %> <span class="fas fa-fw fa-calendar"></span></li>
-                    <li><%- date(post.date, 'HH:mm') %> <span class="fas fa-fw fa-clock"></span></li>
+                    <div class="post-meta-wrap"><div class="post-meta">
+                        <span class="fas fa-clock"></span>
+                        <%- date(post.date, 'YYYY-MM-DD HH:mm') %>
+                        &nbsp;
+                    </div></div>
                 <% } %>
                 <% if (post.categories && post.categories.length) { %>
-                    <li>
-                    <% (post._categories || post.categories).forEach(category => { %>
-                        <a href="<%- url_for(remove_trailing_slash(category.path)) %>"><%= category.name %></a>
-                    <% }) %>
-                    <span class="fas fa-fw fa-file-alt"></span>
-                    </li>
+                    <div class="post-meta-wrap"><div class="post-meta">
+                        <span class="fas fa-file-alt"></span>
+                        <% (post._categories || post.categories).forEach(category => { %>
+                            <a href="<%- url_for(remove_trailing_slash(category.path)) %>"><%= category.name %></a>
+                        <% }) %>
+                        &nbsp;
+                    </div></div>
                 <% } %>
-                <% if(post.image) { %>
-                <li class="d-none d-md-block">
-                    <img src="<%= image_version(post.image, {prefix: 'thumb'}) %>" alt="<%- __('illustration') %>" height="150" width="200"/>
-                </li>
+                <% if(post.tags && post.tags.length) { %>
+                    <div class="post-meta-wrap"><div class="post-meta">
+                        <span class="fas fa-tag"></span>
+                        <% (post._tags || post.tags).forEach(tag => { %>
+                            <a href="<%- url_for(remove_trailing_slash(tag.path)) %>"><%= tag.name %></a>
+                        <% }) %>
+                        &nbsp;
+                    </div></div>
                 <% } %>
-            </ul>
-            <% if(!index) { %>
-                <ol id="quicklink" class="d-none d-md-block">
-                    <%- toc(page.content, {
-                        list_number: false
-                    }) %>
-                </ol>
-            <% } %>
+                <div class="post-meta-wrap"><div class="post-meta">
+                    <span class="fas fa-qrcode"></span>
+                    <%- __('show_qrcode') %>
+                    <img class="qrcode" src="<%- qrcode(post.permalink) %>" alt="<%- __('show_qrcode') %>"/>
+                </div></div>
+                <% if(!index) { %>
+                    <div class="post-meta-wrap"><div class="post-meta">
+                        <span class="fas fa-list"></span>
+                        <%- __('table_of_contents') %>
+                        <ol id="quicklink">
+                            <%- toc(page.content, {
+                                list_number: false
+                            }) %>
+                        </ol>
+                    </div></div>
+                <% } %>
+            </div>
         </div>
-        <div class="col-md-9 col-12 post-wrap">
+        <% if(index && post.image) { %>
+            <div class="post-image-wrap d-none d-md-block">
+                <img src="<%= image_version(post.image, {prefix: 'thumb'}) %>" alt="<%- __('illustration') %>" height="150" width="200"/>
+            </div>
+        <% } %>
+        <div class="post-wrap">
             <h1 class="post-title"><a href="<%- url_for(remove_trailing_slash(post.path)) %>" rel="bookmark" title="<%= post.title %>"><%= post.title %></a></h1>
             <div class="post-text">
                 <% if(index) { %>
@@ -38,39 +60,18 @@
                     <%- (post.special ? partial('../_special/' + post.special, {post: post, index: index}) : '') %>
                 <% } %>
             </div>
-            <div class="read">
-                <ul class="list-inline float-left">
-                    <li class="list-inline-item">
-                        <a href="<%- url_for(remove_trailing_slash(post.path)) %>#comments">
-                            <span class="fas fa-fw fa-comment"></span>
-                        </a>
-                    </li>
-                    <% if(post.tags && post.tags.length) { %>
-                        <% (post._tags || post.tags).forEach(tag => { %>
-                            <li class="list-inline-item">
-                                <a href="<%- url_for(remove_trailing_slash(tag.path)) %>"><span class="fas fa-fw fa-tag"></span> <%= tag.name %></a>
-                            </li>
-                        <% }) %>
+
+            <% if(!index && (page.next || page.prev)) { %>
+                <div class="clearfix" id="post-navi">
+                    <% if(page.next) { %>
+                        <div class="float-right text-right"><a href="<%- url_for(remove_trailing_slash(page.next.path)) %>" title="<%= page.next.title %>"><%= page.next.title %></a><br><%- __('next_post') %> &raquo;</div>
                     <% } %>
-                    <li class="list-inline-item float-right">
-                        <a title="<%- __('show_qrcode') %>" class="qrcode-box" href="<%- qrcode(post.permalink) %>" rel="nofollow">
-                            <span class="fas fa-fw fa-qrcode"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                    <% if(page.prev) { %>
+                        <div class="float-left text-left position-absolute">&laquo; <%- __('previous_post') %><br><a href="<%- url_for(remove_trailing_slash(page.prev.path)) %>" title="<%= page.prev.title %>"><%= page.prev.title %></a></div>
+                    <% } %>
+                </div>
+                <%- partial('_partial/comments') %>
+            <% } %>
         </div>
     </div>
 </article>
-
-<% if(!index && (page.next || page.prev)) { %>
-    <div class="clearfix" id="post-navi">
-        <% if(page.next) { %>
-            <div class="float-right text-right"><a href="<%- url_for(remove_trailing_slash(page.next.path)) %>" title="<%= page.next.title %>"><%= page.next.title %></a><br><%- __('next_post') %> &raquo;</div>
-        <% } %>
-        <% if(page.prev) { %>
-            <div class="float-left text-left position-absolute">&laquo; <%- __('previous_post') %><br><a href="<%- url_for(remove_trailing_slash(page.prev.path)) %>" title="<%= page.prev.title %>"><%= page.prev.title %></a></div>
-        <% } %>
-    </div>
-    <%- partial('_partial/comments') %>
-<% } %>
