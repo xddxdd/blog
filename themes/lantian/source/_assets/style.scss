@@ -104,9 +104,6 @@ article {
     }
 
     .post-meta {
-        height: 2.5em;
-        width: 2.5em;
-        min-height: 2.5em;
         overflow: hidden;
         line-height: 2.5;
 
@@ -122,6 +119,12 @@ article {
             font-size: 1.25em;
             padding: 0.5em;
             vertical-align: middle;
+            float: left;
+        }
+
+        .post-meta-value {
+            display: none;
+            margin-left: 2.5em;
         }
 
         &:hover, &:active {
@@ -132,12 +135,15 @@ article {
             a {
                 color: white;
             }
+            .post-meta-value {
+                display: block;
+            }
         }
     }
 
     .qrcode {
         width: 100%;
-        padding: 0 2.5em;
+        padding: 0 1em 1em 1em;
     }
 
     .post-wrap {
