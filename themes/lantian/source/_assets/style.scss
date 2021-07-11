@@ -101,6 +101,16 @@ article {
         width: 2.5em;
         margin-top: 1px;
         background-color: material-color('grey', '200');
+
+        p {
+            width: 2.5em;
+            height: 2.5em;
+            line-height: 1;
+            text-align: center;
+            margin: 0;
+            float: left;
+            padding-top: 0.25em;
+        }
     }
 
     .post-meta {
@@ -111,15 +121,6 @@ article {
         color: $primary;
         a {
             color: $primary;
-        }
-
-        .fas {
-            width: 2em;
-            text-align: center;
-            font-size: 1.25em;
-            padding: 0.5em;
-            vertical-align: middle;
-            float: left;
         }
 
         .post-meta-value {
@@ -143,7 +144,7 @@ article {
 
     .qrcode {
         width: 100%;
-        padding: 0 1em 1em 1em;
+        padding: 0.5em 0.5em 0.5em 0;
     }
 
     .post-wrap {
@@ -348,7 +349,8 @@ aside {
 
 #quicklink {
     line-height: 1;
-    padding-left: 2.5em;
+    margin: 0;
+    padding: 0;
 
     .toc-item {
         list-style: none;
