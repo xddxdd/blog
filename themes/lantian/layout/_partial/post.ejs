@@ -5,42 +5,52 @@
                 <% if(post.date && post.date.unix() > 43200 /* Filter out posts before UTC & handle timezone which may be 12h off */) { %>
                     <div class="post-meta-wrap"><div class="post-meta">
                         <span class="fas fa-clock"></span>
-                        <%- date(post.date, 'YYYY-MM-DD HH:mm') %>
-                        &nbsp;
+                        <div class="post-meta-value">
+                            <%- date(post.date, 'YYYY-MM-DD HH:mm') %>
+                            &nbsp;
+                        </div>
                     </div></div>
                 <% } %>
                 <% if (post.categories && post.categories.length) { %>
                     <div class="post-meta-wrap"><div class="post-meta">
                         <span class="fas fa-file-alt"></span>
-                        <% (post._categories || post.categories).forEach(category => { %>
-                            <a href="<%- url_for(remove_trailing_slash(category.path)) %>"><%= category.name %></a>
-                        <% }) %>
-                        &nbsp;
+                        <div class="post-meta-value">
+                            <% (post._categories || post.categories).forEach(category => { %>
+                                <a href="<%- url_for(remove_trailing_slash(category.path)) %>"><%= category.name %></a>
+                            <% }) %>
+                            &nbsp;
+                        </div>
                     </div></div>
                 <% } %>
                 <% if(post.tags && post.tags.length) { %>
                     <div class="post-meta-wrap"><div class="post-meta">
                         <span class="fas fa-tag"></span>
-                        <% (post._tags || post.tags).forEach(tag => { %>
-                            <a href="<%- url_for(remove_trailing_slash(tag.path)) %>"><%= tag.name %></a>
-                        <% }) %>
-                        &nbsp;
+                        <div class="post-meta-value">
+                            <% (post._tags || post.tags).forEach(tag => { %>
+                                <a href="<%- url_for(remove_trailing_slash(tag.path)) %>"><%= tag.name %></a>
+                            <% }) %>
+                            &nbsp;
+                        </div>
                     </div></div>
                 <% } %>
                 <div class="post-meta-wrap"><div class="post-meta">
                     <span class="fas fa-qrcode"></span>
-                    <%- __('show_qrcode') %>
-                    <img class="qrcode" src="<%- qrcode(post.permalink) %>" alt="<%- __('show_qrcode') %>"/>
+                    <div class="post-meta-value">
+                        <%- __('show_qrcode') %>
+                        <img class="qrcode" src="<%- qrcode(post.permalink) %>" alt="<%- __('show_qrcode') %>"/>
+                    </div>
                 </div></div>
                 <% if(!index) { %>
                     <div class="post-meta-wrap"><div class="post-meta">
                         <span class="fas fa-list"></span>
-                        <%- __('table_of_contents') %>
-                        <ol id="quicklink">
-                            <%- toc(page.content, {
-                                list_number: false
-                            }) %>
-                        </ol>
+                        <div class="post-meta-value">
+                            <%- __('table_of_contents') %>
+                            <ol id="quicklink">
+                                <%- toc(page.content, {
+                                    list_number: false
+                                }) %>
+                            </ol>
+                        </div>
                     </div></div>
                 <% } %>
             </div>
