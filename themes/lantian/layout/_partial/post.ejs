@@ -4,7 +4,11 @@
             <div class="post-info">
                 <% if(post.date && post.date.unix() > 43200 /* Filter out posts before UTC & handle timezone which may be 12h off */) { %>
                     <div class="post-meta-wrap"><div class="post-meta">
-                        <span class="fas fa-clock"></span>
+                        <p>
+                            <span class="fas fa-clock"></span>
+                            <br>
+                            <small><%- date(post.date, 'MM-DD') %></small>
+                        </p>
                         <div class="post-meta-value">
                             <%- date(post.date, 'YYYY-MM-DD HH:mm') %>
                             &nbsp;
@@ -13,7 +17,15 @@
                 <% } %>
                 <% if (post.categories && post.categories.length) { %>
                     <div class="post-meta-wrap"><div class="post-meta">
-                        <span class="fas fa-file-alt"></span>
+                        <p>
+                            <span class="fas fa-file-alt"></span>
+                            <br>
+                            <small>
+                                <% (post._categories || post.categories).forEach(category => { %>
+                                    <%= category.name %>
+                                <% }) %>
+                            </small>
+                        </p>
                         <div class="post-meta-value">
                             <% (post._categories || post.categories).forEach(category => { %>
                                 <a href="<%- url_for(remove_trailing_slash(category.path)) %>"><%= category.name %></a>
@@ -24,7 +36,11 @@
                 <% } %>
                 <% if(post.tags && post.tags.length) { %>
                     <div class="post-meta-wrap"><div class="post-meta">
-                        <span class="fas fa-tag"></span>
+                        <p>
+                            <span class="fas fa-tag"></span>
+                            <br>
+                            <small><%- post.tags.length %> <%- __('n_tags') %></small>
+                        </p>
                         <div class="post-meta-value">
                             <% (post._tags || post.tags).forEach(tag => { %>
                                 <a href="<%- url_for(remove_trailing_slash(tag.path)) %>"><%= tag.name %></a>
@@ -34,17 +50,23 @@
                     </div></div>
                 <% } %>
                 <div class="post-meta-wrap"><div class="post-meta">
-                    <span class="fas fa-qrcode"></span>
+                    <p>
+                        <span class="fas fa-qrcode"></span>
+                        <br>
+                        <small><%- __('qrcode') %></small>
+                    </p>
                     <div class="post-meta-value">
-                        <%- __('show_qrcode') %>
-                        <img class="qrcode" src="<%- qrcode(post.permalink) %>" alt="<%- __('show_qrcode') %>"/>
+                        <img class="qrcode" src="<%- qrcode(post.permalink) %>" alt="<%- __('qrcode') %>"/>
                     </div>
                 </div></div>
                 <% if(!index) { %>
                     <div class="post-meta-wrap"><div class="post-meta">
-                        <span class="fas fa-list"></span>
+                        <p>
+                            <span class="fas fa-list"></span>
+                            <br>
+                            <small><%- __('table_of_contents') %></small>
+                        </p>
                         <div class="post-meta-value">
-                            <%- __('table_of_contents') %>
                             <ol id="quicklink">
                                 <%- toc(page.content, {
                                     list_number: false
