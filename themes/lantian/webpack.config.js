@@ -1,6 +1,7 @@
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const miniSVGDataURI = require('mini-svg-data-uri');
 
 module.exports = {
     entry: {
@@ -102,13 +103,24 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(woff(2)?|ttf|eot|svg)$/i,
+                test: /\.(woff(2)?|ttf|eot)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.svg$/i,
                 type: 'asset',
                 parser: {
                     dataUrlCondition: {
                         maxSize: 16 * 1024,
                     },
                 },
+                generator: {
+                    dataUrl(content) {
+                        content = content.toString();
+                        return miniSVGDataURI(content);
+                    },
+                },
+                use: 'svgo-loader',
             },
         ],
     },
