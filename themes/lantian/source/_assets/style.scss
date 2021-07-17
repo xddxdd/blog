@@ -140,6 +140,16 @@ article {
                 display: block;
             }
         }
+
+        small {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            display: block;
+            font-size: 75%;
+            margin-top: 0.2em;
+        }
     }
 
     .qrcode {
