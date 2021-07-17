@@ -103,16 +103,13 @@ module.exports = {
             },
             {
                 test: /\.(woff(2)?|ttf|eot|svg)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'res',
-                        },
+                type: 'asset',
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 16 * 1024,
                     },
-                ],
-            }
+                },
+            },
         ],
     },
     stats: {
