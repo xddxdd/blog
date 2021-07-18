@@ -1,5 +1,5 @@
 ---
-title: 'Lookup Any WHOIS with this nginx-based Server'
+title: 'Lookup Any Public WHOIS with this nginx-based Server'
 categories: 'Website and Servers'
 tags: [nginx, WHOIS]
 date: 2021-07-18 01:52:18
