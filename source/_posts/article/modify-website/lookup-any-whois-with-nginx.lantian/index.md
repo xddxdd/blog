@@ -1,5 +1,5 @@
 ---
-title: '用 nginx 搭建一个能查询一切的 WHOIS 服务器'
+title: '用 nginx 搭建能查询任意公网 WHOIS 的服务器'
 categories: 网站与服务端
 tags: [nginx, WHOIS]
 date: 2021-07-18 01:52:18
