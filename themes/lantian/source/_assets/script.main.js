@@ -94,7 +94,8 @@ addLoadEvent(function () {
         const darkModeStorageKey = 'user-color-scheme'; // 作为 localStorage 的 key
         const darkModeMediaQueryKey = '--color-mode';
         const rootElementDarkModeAttributeName = 'data-user-color-scheme';
-        const darkModeTogglebuttonElement = document.getElementById("dark-mode");
+        const darkModeTogglebuttonElement =
+            document.getElementById('dark-mode');
 
         const setLS = (k, v) => {
             try {
@@ -117,9 +118,9 @@ addLoadEvent(function () {
         };
 
         const getModeFromCSSMediaQuery = () => {
-            const res = getComputedStyle(document.documentElement).getPropertyValue(
-                darkModeMediaQueryKey,
-            );
+            const res = getComputedStyle(
+                document.documentElement,
+            ).getPropertyValue(darkModeMediaQueryKey);
             if (res.length) return res.replace(/\"/g, '').trim();
             return res === 'dark' ? 'dark' : 'light';
 
@@ -139,12 +140,14 @@ addLoadEvent(function () {
             if (currentSetting === getModeFromCSSMediaQuery()) {
                 // 当用户自定义的显示模式和 prefers-color-scheme 相同时重置、恢复到自动模式
                 document.documentElement.removeAttribute(
-                    rootElementDarkModeAttributeName
+                    rootElementDarkModeAttributeName,
                 );
                 if (document.getElementById('twine')) {
-                    document.getElementById('twine').contentWindow.document.documentElement.removeAttribute(
-                        rootElementDarkModeAttributeName
-                    );
+                    document
+                        .getElementById('twine')
+                        .contentWindow.document.documentElement.removeAttribute(
+                            rootElementDarkModeAttributeName,
+                        );
                 }
                 removeLS(darkModeStorageKey);
             } else if (validColorModeKeys[currentSetting]) {
@@ -154,21 +157,25 @@ addLoadEvent(function () {
                     currentSetting,
                 );
                 if (document.getElementById('twine')) {
-                    document.getElementById('twine').contentWindow.document.documentElement.setAttribute(
-                        rootElementDarkModeAttributeName,
-                        currentSetting,
-                    );
+                    document
+                        .getElementById('twine')
+                        .contentWindow.document.documentElement.setAttribute(
+                            rootElementDarkModeAttributeName,
+                            currentSetting,
+                        );
                 }
             } else {
                 // 首次访问或从未使用过开关、localStorage 中没有存储的值，currentSetting 是 null
                 // 或者 localStorage 被篡改，currentSetting 不是合法值
                 document.documentElement.removeAttribute(
-                    rootElementDarkModeAttributeName
+                    rootElementDarkModeAttributeName,
                 );
                 if (document.getElementById('twine')) {
-                    document.getElementById('twine').contentWindow.document.documentElement.removeAttribute(
-                        rootElementDarkModeAttributeName
-                    );
+                    document
+                        .getElementById('twine')
+                        .contentWindow.document.documentElement.removeAttribute(
+                            rootElementDarkModeAttributeName,
+                        );
                 }
                 removeLS(darkModeStorageKey);
             }
@@ -212,12 +219,12 @@ addLoadEvent(function () {
         });
     });
 
-    attempt('Disqus', function() {
+    attempt('Disqus', function () {
         if (!document.getElementById('disqus_thread')) {
             return;
         }
 
-        window.disqus_load = function() {
+        window.disqus_load = function () {
             var d = document,
                 s = d.createElement('script');
             s.src = 'https://lantian.disqus.com/embed.js';
@@ -238,6 +245,7 @@ addLoadEvent(function () {
             if (!child) {
                 return;
             }
+            ``;
 
             if (element.checked) {
                 child.classList.remove('d-none');
@@ -313,18 +321,22 @@ addLoadEvent(function () {
 
     attempt('Interactive Content (Twine)', function () {
         'use strict';
-        window.addEventListener('message', function(e) {
-            var eventName = e.data[0];
-            var data = e.data[1];
-
-            var twine = document.getElementById("twine");
-            if (!twine) return;
-
-            switch(eventName) {
-            case 'setHeight':
-                twine.style.height = data + "px";
-                break;
+        window.iframeResizer = () => {
+            var iframes = document.querySelectorAll('iframe');
+            if (iframes.length == 0) {
+                return;
             }
-        }, false);
+
+            for (let i = 0; i < iframes.length; i++) {
+                try {
+                    iframes[i].height =
+                        iframes[i].contentWindow.document.body.scrollHeight;
+                } catch (e) {}
+            }
+
+            setTimeout(iframeResizer, 100);
+        };
+
+        window.iframeResizer();
     });
 });
