@@ -122,6 +122,15 @@ module.exports = {
                 },
                 use: 'svgo-loader',
             },
+            {
+                test: /\.(jp(e)?g|png|gif|webp)$/i,
+                type: 'asset',
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 16 * 1024,
+                    },
+                },
+            },
         ],
     },
     stats: {

@@ -29,7 +29,7 @@ $flag-icon-css-path: '~flag-icon-css/flags';
 
 @mixin flag-icon($country) {
     .flag-icon-#{$country} {
-        background-image: url("#{$flag-icon-css-path}#{$flag-icon-rect-path}/#{$country}.svg");
+        background-image: url('#{$flag-icon-css-path}#{$flag-icon-rect-path}/#{$country}.svg');
     }
 }
 
@@ -37,4 +37,3 @@ $flag-icon-css-path: '~flag-icon-css/flags';
 @include flag-icon(hk);
 @include flag-icon(us);
 @include flag-icon(de);
-@include flag-icon(ro);
