@@ -258,13 +258,6 @@ footer.lantian {
     }
 }
 
-#bigscreen-placeholder {
-    height: 100vh;
-    @include media-breakpoint-down(sm) {
-        display: none;
-    }
-}
-
 #bg {
     @include media-breakpoint-down(sm) {
         display: none;
@@ -284,7 +277,7 @@ footer.lantian {
         box-shadow: 0 0 50px material-color('grey', '600');
 
         &.bigscreen {
-            margin-top: -40vh;
+            margin-top: 60vh;
         }
     }
 }

@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import "common";
+@import 'common';
 
 $enable-rounded: false;
 $enable-transitions: false;
@@ -16,6 +16,6 @@ $line-height-lg: 1.75;
 $line-height-sm: 1.75;
 $line-height-base: 1.75;
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';

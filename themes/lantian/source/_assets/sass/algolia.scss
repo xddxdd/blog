@@ -1,5 +1,5 @@
-@import "_common";
-@import "bootstrap.scss";
+@import '_common';
+@import 'bootstrap.scss';
 
 .algolia-autocomplete {
     width: 100%;
@@ -11,7 +11,7 @@
     .aa-dropdown-menu {
         background-color: white;
         border: $input-border-width solid $input-focus-border-color;
-        border-top:none;
+        border-top: none;
         width: 100%;
 
         .aa-suggestion {
