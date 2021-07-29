@@ -34,8 +34,8 @@ date: 1970-01-01 00:00:00
 1. 从下面的列表中选择一个服务器。一般你应该选择到你那边延迟（Ping）最低的服务器。
    - 如果你有多台服务器加入 DN42，并且愿意的话，我可以同时建立多个 Peering。
 2. 选择一种 VPN 建立隧道。
-   - 我偏好使用 WireGuard 和 OpenVPN，但 GRE/IPSec，明文 GRE 和 ZeroTier One 也可以。
-     - **建议尽量避免 GRE/IPSec 隧道**，除非这是你唯一能用的方式。不同的 IPSec 实现之间常常有严重的兼容性问题，需要耗费几天甚至几周来调试。
+   - 我偏好使用 WireGuard 和 OpenVPN，但明文 GRE 和 ZeroTier One 也可以。
+     - 由于 GRE/IPSec 配置非常复杂，而且不同的 IPSec 实现之间常常有严重的兼容性问题，需要耗费几天甚至几周来调试，**我不再接受 GRE/IPSec 隧道**，已有隧道也可能随时中断。
    - **注意：我不**与中国大陆的服务器 Peer，以避免可能的法律问题。
    - 我也愿意尝试其它种类的 VPN，只要你询问就可以了。
 3. 在你那边配置好 VPN 隧道和 BGP 客户端。你可以假设我会使用以下的配置：
@@ -54,8 +54,7 @@ date: 1970-01-01 00:00:00
      - WireGuard/OpenVPN 我这端的端口号：**你的 ASN 的后五位**
        - 例如 4242420001 意味着我会使用 20001 端口
      - OpenVPN 预共享密钥：你来生成，之后发送给我
-     - GRE/IPSec 公钥：见以下列表
-     - OpenVPN/IPSec 默认设置：见下
+     - OpenVPN 默认设置：见下
        - 如果你无法使用我的默认参数，请设置好你可以接受的参数，然后发送给我。
      - ZeroTier One：我会申请加入你的网络
        - 如果可以的话，你可以尝试发送加入网络的邀请。
@@ -72,9 +71,8 @@ date: 1970-01-01 00:00:00
      - WireGuard/OpenVPN 你那端的端口号
        - 如果你不写明，我会假设你使用 22547 端口
      - OpenVPN 预共享密钥：由你生成
-     - GRE/IPSec 公钥
      - ZeroTier One：你的网络 ID（我会申请加入）
-     - OpenVPN/IPSec 设置参数（如果你无法使用我的默认参数）
+     - OpenVPN 设置参数（如果你无法使用我的默认参数）
 5. 等我设置好 VPN 隧道和 Peering，然后回复邮件。一般这时 Peering 就已经成功了。
    - 你可以使用[我的 Looking Glass](https://lg.lantian.pub/) 来调试连接。
 
@@ -100,24 +98,6 @@ date: 1970-01-01 00:00:00
   - DN42 IPv6：`fdbc:f9dc:67ad:1::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
-  - IPSec 公钥：
-
-    ```bash
-    -----BEGIN PUBLIC KEY-----
-    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAzy8ZqMazr2Ur6jiEoVdr
-    1d8WJaWTySaSwQqhkMnWKNv9Zuk4aITyBxHmtNfVexJGploAeby0zCqLS8CiNbor
-    odPgOPjJdVzkgu6nS+mq1mrjMtrUYJE+GkoILpFoz3z5zS40q2eLh1TJUGQdhSai
-    dTkLiAB6XbBXUBZUPDdBGeKQ72EYBck2oJKpe8B/gXXGwyZqlM7h3h4w8XkOYcrF
-    CI6wbpusiPKaSOW1TkgHHBlIo0qje+Hbax+HcBlrRiftWl5cgVxyS5G7FvNgFVj5
-    H3Tlvhh+wnhdaYQcsaWvcUDHZhOGqeIO1OJMXZ1oi55Mhr7/gFEw1ELk9VWVM+Mj
-    KmAY/7X7l2fupt7QqFHh453kT1P6v75GnLyGLcbgIkAFJyqWiGUT0/TcTEtXimDn
-    +e4Tt5XBYr6YoKsF2YZtcQbQp0UyUGECvKbU1JAmpJoZl+6nUdv89RCOTxvyxpv9
-    0cSX2NLt05nA93BBKm5wwjClIrablF6nnvuWY3pQrneZFgz9iDaBRqQJWpcfw8Qa
-    v1Oi/Uug7kl/v/OZEV7xMV71e5OnQlWjwp5dhmIgmkUMEsEviFoVwUPnDsgamzF4
-    p1iBnYAPBVbJm2pTv/AerKdCBOj6XwGu2N12bZNtSuDFbZR7tOTytB+/tcQBXaPu
-    2DslNqlf/ddRj0Avj5pV/5UCAwEAAQ==
-    -----END PUBLIC KEY-----
-    ```
 
 - 服务器 2：美国洛杉矶，HostDare 服务商
   - 域名：`hostdare.lantian.pub`
@@ -127,24 +107,6 @@ date: 1970-01-01 00:00:00
   - DN42 IPv6：`fdbc:f9dc:67ad:3::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
-  - IPSec 公钥：
-
-    ```bash
-    -----BEGIN PUBLIC KEY-----
-    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAw5uRE2augI9l4pCKG6Kh
-    qFTXGIcxtp367yLnKb5SPlYt3p2evpo58KNYMZtB50/iaUy/jkBDWEYPuwXMmKc1
-    hjWC3C1/ZS5KLlM8zY3S7LCc+GhJw5DuC7dQpeadLzpKpIOqzcIOUh0qe0mkOXCS
-    f+ulgCYTH1nh5xENvfV0ulxv37SjdZFjORGwIYpARvdJ6DsyEbyNyDsm8Va8XLen
-    DQrVZjQM0Dw8BcFqIysVpPsjGzddO58KUCln02Y+l9OUXuH46z5i4SdpqpAS60q3
-    hhJNzSSZCvfs38/fEelq3rAn+73lXBJKKtBgmYku+t2/stfQuV3Jem7EcM21nnWJ
-    aKBem8+WRmWvYbr1eJZBYSbIQNaPgN8kcnapUq0VPS8jS2vmx63uATnetc0ZN5yG
-    1t8HMmkAN2QB9+Hl28iVvYCgwK3R0wRfZNlIMLechMjHlyi2Pp9+0hMB1yRH6+tq
-    isYGJtm2ZqQ+1+Z17FLb1zNBoMniV+rdkMXxJT7sac5dFv3J4nbxdDYQzdK2gUq+
-    6ZOtBjgJF66GogwaclL0XdU8PANwfzOSapsnjeo3O7EOteEc/1Tf2sFU0KzcxY2B
-    3rKqHX/sThD3xaBbF1sS/JvN9yTrPcCOIzAePlKA+3+n7JabtKRtVvJXUwmidwja
-    OLIBFYyHNksKOBYLkeFhrAMCAwEAAQ==
-    -----END PUBLIC KEY-----
-    ```
 
 - 服务器 3：美国纽约，VirMach 服务商
   - 域名：`virmach-ny1g.lantian.pub`
@@ -154,24 +116,6 @@ date: 1970-01-01 00:00:00
   - DN42 IPv6：`fdbc:f9dc:67ad:8::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
-  - IPSec 公钥：
-
-    ```bash
-    -----BEGIN PUBLIC KEY-----
-    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvi/9B2Ms73OqyITx7fmF
-    euImT7rHexwQ8Xz6Hdn8O6FfPK9XLBYRnxYxOT616PNfwHxZpddQgE9ilgmCmGH/
-    W/7+gF+Ub0WfPPsmCjQ0XoYB32bEv9FTuF0Z94A2HGB4DW7b4zRcwC63NgTWLZ1t
-    S+josno+1Q4pwmffNipPm/Z3jH+DMoJep8ShqANG3JKnzAR40X1XHv9KpYIgyIgZ
-    QGChXK55rY7zprQQ+Hab2sHZ1vAlsfQ0OitgIYqc770Tewfz9AWbOLqz6WIPifKg
-    9Mhzli1dsO5rBG3VG3KAuJOejiEZKrG1EteWW24Zv5iRCh2qTbiyZmHHlKpwukOw
-    UwLyE3k8b8ZnAF0rpZ3Amq0W1zZXI6M9VXtcyHUPUCFICdTluE9UHHpFDCQvolqO
-    UuEzqJ6FyAXMhH14JG19uM+uGcbLEtFOQR13iQK8LnVWVl3nF3AqHUthdXCmWqb/
-    IjfcThEFvno4qE95ByOzIW3/AR+IWSU1XDEQZieIztQqJvUADUl60j4lbM5+SbLw
-    uBcAjWSK8wLeUqy8CLeIv41olKnpPXTNbouu+E/7qxOLEfjkx6QZ3DhN1UGtPFQS
-    Xt1p+DuItBlcE2vJzADHTCb3LsdhMQ3q3reH9DVbDxyIxrKxpcVJHHI37rboBDl9
-    BWxEF0pSRIaVU2DExNVLz6ECAwEAAQ==
-    -----END PUBLIC KEY-----
-    ```
 
 - 服务器 4：德国法兰克福，Virtono 服务商
   - 域名：`virtono.lantian.pub`
@@ -181,7 +125,6 @@ date: 1970-01-01 00:00:00
   - DN42 IPv6：`fdbc:f9dc:67ad:2::1`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
-  - IPSec 公钥：暂无（等有人需要 IPSec 再生成）
 
 推荐配置模板（默认参数）
 -------------------
@@ -191,10 +134,6 @@ date: 1970-01-01 00:00:00
 OpenVPN:
 
 {% insertmd _templates/dn42-experimental-network-2020/openvpn-zh.md %}
-
-ipsec.conf:
-
-{% insertmd _templates/dn42-experimental-network-2020/ipsec-zh.md %}
 
 WireGuard 配置（用于 `wg-quick up` 命令）：
 
