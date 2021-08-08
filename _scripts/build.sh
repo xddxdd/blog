@@ -64,3 +64,5 @@ parallel "-j$(nproc)" < parallel_jobs.lst
 
 # Deploy to my site system
 ansible-playbook _scripts/ansible_deploy.yml
+
+exit 0
