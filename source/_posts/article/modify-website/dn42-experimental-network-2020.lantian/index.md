@@ -80,6 +80,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 4. 在 Clone 下的仓库里创建一系列的文件，包括：
    1. 在 `data/mntner` 文件夹下创建一个名为 `[昵称]-MNT` 的文件，这个文件代表你的账户，用来认证你以后的操作。例如我的 mntner 文件如下（也可以在 `data/mntner/LANTIAN-MNT` 看到）：
 
+      {% interactive_buttons vertical %}
+      noop 以下代码是我的注册信息，仅供参考。
+      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code1 我确认我已阅读以上内容，查看代码。
+      {% endinteractive_buttons %}
+
+      {% interactive code1 %}
       ```bash
       mntner:             LANTIAN-MNT
       admin-c:            LANTIAN-DN42
@@ -90,6 +97,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       auth:               ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCulLscvKjEeroKdPE207W10MbZ3+ZYzWn34EnVeIG0GzfZ3zkjQJVfXFahu97P68Tw++N6zIk7htGic9SouQuAH8+8kzTB8/55Yjwp7W3bmqL7heTmznRmKehtKg6RVgcpvFfciyxQXV/bzOkyO+xKdmEw+fs92JLUFjd/rbUfVnhJKmrfnohdvKBfgA27szHOzLlESeOJf3PuXV7BLge1B+cO8TJMJXv8iG8P5Uu8UCr857HnfDyrJS82K541Scph3j+NXFBcELb2JSZcWeNJRVacIH3RzgLvp5NuWPBCt6KET1CCJZLsrcajyonkA5TqNhzumIYtUimEnAPoH51hoUD1BaL4wh2DRxqCWOoXn0HMrRmwx65nvWae6+C/7l1rFkWLBir4ABQiKoUb/MrNvoXb+Qw/ZRo6hVCL5rvlvFd35UF0/9wNu1nzZRSs9os2WLBMt00A4qgaU2/ux7G6KApb7shz1TXxkN1k+/EKkxPj/sQuXNvO6Bfxww1xEWFywMNZ8nswpSq/4Ml6nniS2OpkZVM2SQV1q/VdLEKYPrObtp2NgneQ4lzHmAa5MGnUCckES+qOrXFZAcpI126nv1uDXqA2aytN6WHGfN50K05MZ+jA8OM9CWFWIcglnT+rr3l+TI/FLAjE13t6fMTYlBH0C8q+RnQDiIncNwyidQ==
       remarks:            pin-sha256:o1lfYvcdcYy81UIuZMZO1CkCLX+vJOdD5GLw1cmeStU=
       ```
+      {% endinteractive %}
 
       - 其中各项的含义如下：
         - `mntner`：即 `maintainer（维护者）`，说明这个账户的名称，与文件名相同。
@@ -118,6 +126,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
    2. 在 `data/person` 文件夹下创建一个 `[昵称]-DN42` 的文件，代表你的个人信息。说是个人信息，但其实只需要一个邮箱。例如我的 person 文件如下（`data/person/LANTIAN-DN42`）：
 
+      {% interactive_buttons vertical %}
+      noop 以下代码是我的注册信息，仅供参考。
+      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code2 我确认我已阅读以上内容，查看代码。
+      {% endinteractive_buttons %}
+
+      {% interactive code2 %}
       ```bash
       person:             Lan Tian
       e-mail:             b980120@hotmail.com
@@ -126,6 +141,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
+      {% endinteractive %}
 
       - 各项含义如下：
         - `person`：你的昵称。
@@ -137,6 +153,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
    3. 接下来你要给自己选择一个 AS 编号，即 ASN。在国际互联网上，ASN 范围 4200000000 - 4294967294 是被保留作私下使用（private use）的，DN42 占用的就是其中的一块，424242**0000** - 424242**3999**。**（注意范围是 4000 个，不是 10000 个，剩下 6000 个暂未开放注册）** 在这 4000 个号码中挑选一个你喜欢的，并且没有被占用的，然后进入 `data/aut-num` 文件夹，创建文件。例如我是 AS4242422547, 文件就是 `data/aut-num/AS4242422547`：
 
+      {% interactive_buttons vertical %}
+      noop 以下代码是我的注册信息，仅供参考。
+      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code3 我确认我已阅读以上内容，查看代码。
+      {% endinteractive_buttons %}
+
+      {% interactive code3 %}
       ```bash
       aut-num:            AS4242422547
       as-name:            LANTIAN-AS
@@ -146,6 +169,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
+      {% endinteractive %}
 
       - 各项含义如下：
         - `aut-num`：AS 号。
@@ -194,6 +218,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
       - 选好地址块之后，在 `data/inetnum` 文件夹创建 IPv4 地址对应的文件。例如我的其中一个地址块是 `172.22.76.184/29`，对应的文件就是 `data/inetnum/172.22.76.184_29`：
 
+        {% interactive_buttons vertical %}
+        noop 以下代码是我的注册信息，仅供参考。
+        noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+        code4 我确认我已阅读以上内容，查看代码。
+        {% endinteractive_buttons %}
+
+        {% interactive code4 %}
         ```bash
         inetnum:            172.22.76.184 - 172.22.76.191
         netname:            LANTIAN-IPV4
@@ -209,6 +240,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         cidr:               172.22.76.184/29
         source:             DN42
         ```
+        {% endinteractive %}
 
       - 各项含义如下：
         - `inetnum`：你的这个地址块的范围，如果你不会算，那么可以根据你的地址块前后的用户推出，或者直接用 [IP 地址计算器](https://ipjisuanqi.com/)。
@@ -226,6 +258,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
    5. 注册 IP 的过程还没结束，你还需要创建一个 route 对象，授权某个 AS 使用这个地址。在 `data/route` 文件夹创建对应文件，例如我的是 `data/route/172.22.76.184_29`：
 
+      {% interactive_buttons vertical %}
+      noop 以下代码是我的注册信息，仅供参考。
+      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code5 我确认我已阅读以上内容，查看代码。
+      {% endinteractive_buttons %}
+
+      {% interactive code5 %}
       ```bash
       route:              172.22.76.184/29
       descr:              Peer with me at b980120@hotmail.com
@@ -233,6 +272,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
+      {% endinteractive %}
 
       - 各项含义如下：
         - `route`：你的这个地址块的范围。
@@ -268,6 +308,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
       - 生成完地址块后，类似的在 `data/inet6num` 中创建文件，例如我的地址块是 `fdbc:f9dc:67ad::/48`，文件名就是 `data/inet6num/fdbc:f9dc:67ad::_48`：
 
+        {% interactive_buttons vertical %}
+        noop 以下代码是我的注册信息，仅供参考。
+        noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+        code6 我确认我已阅读以上内容，查看代码。
+        {% endinteractive_buttons %}
+
+        {% interactive code6 %}
         ```bash
         inet6num:           fdbc:f9dc:67ad:0000:0000:0000:0000:0000 - fdbc:f9dc:67ad:ffff:ffff:ffff:ffff:ffff
         netname:            LANTIAN-IPV6
@@ -282,6 +329,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         cidr:               fdbc:f9dc:67ad::/48
         source:             DN42
         ```
+        {% endinteractive %}
 
       - 各项含义如下：
         - `inet6num`：你的这个地址块的范围。IPv6 的范围算起来很简单，从全 0 到全 f。
@@ -299,6 +347,13 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
    7. 然后在 `data/route6` 创建一个 route6 对象，授权你自己的 AS 使用这个 IP 段，例如我的是 `data/route6/fdbc:f9dc:67ad::_48`：
 
+      {% interactive_buttons vertical %}
+      noop 以下代码是我的注册信息，仅供参考。
+      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code7 我确认我已阅读以上内容，查看代码。
+      {% endinteractive_buttons %}
+
+      {% interactive code7 %}
       ```bash
       route6:             fdbc:f9dc:67ad::/48
       descr:              Peer with me at b980120@hotmail.com
@@ -306,6 +361,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
+      {% endinteractive %}
 
       - 各项含义如下：
         - `route6`：你的这个地址块的范围。
