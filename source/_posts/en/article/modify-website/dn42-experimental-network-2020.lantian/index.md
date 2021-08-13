@@ -79,6 +79,13 @@ Here are the steps:
 4. Now you need to create a series of files in the cloned repo, including:
    1. Create a file `[NICKNAME]-MNT` under `data/mntner` directory, this file is your account that authorizes your further operations. For example, this is my `mntner` file (available under `data/mntner/LANTIAN-MNT`):
 
+      {% interactive_buttons vertical %}
+      noop Here are my registration info for reference only.
+      noop Read the document carefully and replace EVERYTHING with YOUR information.
+      code1 I acknowledge the notes above and I want to see the code.
+      {% endinteractive_buttons %}
+
+      {% interactive code1 %}
       ```bash
       mntner:             LANTIAN-MNT
       admin-c:            LANTIAN-DN42
@@ -89,6 +96,7 @@ Here are the steps:
       auth:               ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCulLscvKjEeroKdPE207W10MbZ3+ZYzWn34EnVeIG0GzfZ3zkjQJVfXFahu97P68Tw++N6zIk7htGic9SouQuAH8+8kzTB8/55Yjwp7W3bmqL7heTmznRmKehtKg6RVgcpvFfciyxQXV/bzOkyO+xKdmEw+fs92JLUFjd/rbUfVnhJKmrfnohdvKBfgA27szHOzLlESeOJf3PuXV7BLge1B+cO8TJMJXv8iG8P5Uu8UCr857HnfDyrJS82K541Scph3j+NXFBcELb2JSZcWeNJRVacIH3RzgLvp5NuWPBCt6KET1CCJZLsrcajyonkA5TqNhzumIYtUimEnAPoH51hoUD1BaL4wh2DRxqCWOoXn0HMrRmwx65nvWae6+C/7l1rFkWLBir4ABQiKoUb/MrNvoXb+Qw/ZRo6hVCL5rvlvFd35UF0/9wNu1nzZRSs9os2WLBMt00A4qgaU2/ux7G6KApb7shz1TXxkN1k+/EKkxPj/sQuXNvO6Bfxww1xEWFywMNZ8nswpSq/4Ml6nniS2OpkZVM2SQV1q/VdLEKYPrObtp2NgneQ4lzHmAa5MGnUCckES+qOrXFZAcpI126nv1uDXqA2aytN6WHGfN50K05MZ+jA8OM9CWFWIcglnT+rr3l+TI/FLAjE13t6fMTYlBH0C8q+RnQDiIncNwyidQ==
       remarks:            pin-sha256:o1lfYvcdcYy81UIuZMZO1CkCLX+vJOdD5GLw1cmeStU=
       ```
+      {% endinteractive %}
 
       - The items in the file are:
         - `mntner`: `maintainer`, the name for your account. Same as file name.
@@ -114,6 +122,13 @@ Here are the steps:
 
    2. Create `[NICKNAME]-DN42` under `data/person`. This stands for your personal information, but what's actually needed is simply a mailbox. Here's my `person` file for example (`data/person/LANTIAN-DN42`):
 
+      {% interactive_buttons vertical %}
+      noop Here are my registration info for reference only.
+      noop Read the document carefully and replace EVERYTHING with YOUR information.
+      code2 I acknowledge the notes above and I want to see the code.
+      {% endinteractive_buttons %}
+
+      {% interactive code2 %}
       ```bash
       person:             Lan Tian
       e-mail:             b980120@hotmail.com
@@ -122,6 +137,7 @@ Here are the steps:
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
+      {% endinteractive %}
 
       - The items in the file are:
         - `person`: your nickname.
@@ -133,6 +149,13 @@ Here are the steps:
 
    3. Next you need to choose yourself a Autonomous System Number, or ASN. On the real/global Internet, the ASN range 4200000000 - 4294967294 is reserved for private use, and DN42 occupies one small block in it, 424242**0000** - 424242**3999**. **(Note that the range contains 4000 ASNs rather than 10000! The other 6000 ASNs aren't open to registration yet.)** Pick yourself an ASN in the range that you like and is not occupied, and create a file for it under `data/aut-num`. For example, I'm running AS4242422547, so I have the file `data/aut-num/AS4242422547`:
 
+      {% interactive_buttons vertical %}
+      noop Here are my registration info for reference only.
+      noop Read the document carefully and replace EVERYTHING with YOUR information.
+      code3 I acknowledge the notes above and I want to see the code.
+      {% endinteractive_buttons %}
+
+      {% interactive code3 %}
       ```bash
       aut-num:            AS4242422547
       as-name:            LANTIAN-AS
@@ -142,6 +165,7 @@ Here are the steps:
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
+      {% endinteractive %}
 
       - The items in the file are:
         - `aut-num`: Your ASN.
@@ -188,6 +212,13 @@ Here are the steps:
 
       - When you finally finish choosing your IP block, create the file under `data/inetnum`. For example one of my blocks is `172.22.76.184/29`, and the corresponding file is `data/inetnum/172.22.76.184_29`:
 
+        {% interactive_buttons vertical %}
+        noop Here are my registration info for reference only.
+        noop Read the document carefully and replace EVERYTHING with YOUR information.
+        code4 I acknowledge the notes above and I want to see the code.
+        {% endinteractive_buttons %}
+
+        {% interactive code4 %}
         ```bash
         inetnum:            172.22.76.184 - 172.22.76.191
         netname:            LANTIAN-IPV4
@@ -203,6 +234,7 @@ Here are the steps:
         cidr:               172.22.76.184/29
         source:             DN42
         ```
+        {% endinteractive %}
 
       - The items in the file are:
         - `inetnum`: range of your IP block. If you don't know how to calculate this, you may deduce it from nearby blocks, or use a [calculator](https://mxtoolbox.com/subnetcalculator.aspx).
@@ -220,6 +252,13 @@ Here are the steps:
 
    5. IP registration is not done yet. You also need a `route` object to authorize your AS to use the address. Create a file under `data/route`, `data/route/172.22.76.184_29` for example:
 
+      {% interactive_buttons vertical %}
+      noop Here are my registration info for reference only.
+      noop Read the document carefully and replace EVERYTHING with YOUR information.
+      code5 I acknowledge the notes above and I want to see the code.
+      {% endinteractive_buttons %}
+
+      {% interactive code5 %}
       ```bash
       route:              172.22.76.184/29
       descr:              Peer with me at b980120@hotmail.com
@@ -227,6 +266,7 @@ Here are the steps:
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
+      {% endinteractive %}
 
       - The items in the file are:
         - `route`: range of your IP block.
@@ -260,6 +300,13 @@ Here are the steps:
 
       - After generating your IPv6 block, create a file in `data/inet6num` similar to IPv4. For example I have `data/inet6num/fdbc:f9dc:67ad::_48` for `fdbc:f9dc:67ad::/48`:
 
+        {% interactive_buttons vertical %}
+        noop Here are my registration info for reference only.
+        noop Read the document carefully and replace EVERYTHING with YOUR information.
+        code6 I acknowledge the notes above and I want to see the code.
+        {% endinteractive_buttons %}
+
+        {% interactive code6 %}
         ```bash
         inet6num:           fdbc:f9dc:67ad:0000:0000:0000:0000:0000 - fdbc:f9dc:67ad:ffff:ffff:ffff:ffff:ffff
         netname:            LANTIAN-IPV6
@@ -274,6 +321,7 @@ Here are the steps:
         cidr:               fdbc:f9dc:67ad::/48
         source:             DN42
         ```
+        {% endinteractive %}
 
       - The items in the file are:
         - `inet6num`: range of your IP block. IPv6 ranges are easy to calculate, from all 0 to all f.
@@ -291,6 +339,13 @@ Here are the steps:
 
    7. Then create a `route6` object under `data/route6`, to authorize your AS to use the IP range. For example I have `data/route6/fdbc:f9dc:67ad::_48`:
 
+      {% interactive_buttons vertical %}
+      noop Here are my registration info for reference only.
+      noop Read the document carefully and replace EVERYTHING with YOUR information.
+      code7 I acknowledge the notes above and I want to see the code.
+      {% endinteractive_buttons %}
+
+      {% interactive code7 %}
       ```bash
       route6:             fdbc:f9dc:67ad::/48
       descr:              Peer with me at b980120@hotmail.com
@@ -298,6 +353,7 @@ Here are the steps:
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
+      {% endinteractive %}
 
       - The items in the file are:
         - `route6`: range of your IP block.
