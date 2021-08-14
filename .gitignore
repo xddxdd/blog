@@ -7,3 +7,4 @@ public/
 .deploy*/
 .parallel_jobs.lst
 log.txt
+img_cache/
