@@ -1,0 +1,180 @@
+kind: secret
+name: id_ed25519
+get:
+  path: kv/data/ssh
+  name: id_ed25519
+
+---
+
+kind: secret
+name: tg_token
+get:
+  path: kv/data/telegram
+  name: token
+
+---
+
+kind: secret
+name: tg_target
+get:
+  path: kv/data/telegram
+  name: target
+
+---
+
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: restore cache
+    image: meltwater/drone-cache:dev
+    settings:
+      backend: "filesystem"
+      restore: true
+      cache_key: "volume"
+      archive_format: "gzip"
+      filesystem_cache_root: "/cache"
+      mount:
+        - 'node_modules'
+        - 'img_cache'
+    volumes:
+      - name: cache
+        path: /cache
+
+  - name: hexo generate
+    image: node:15-alpine
+    commands:
+      - apk add --no-cache build-base bash git openssh wget python3 gzip brotli zstd parallel imagemagick
+      - npm install
+      - bash _scripts/update_recent_comments.sh
+      - node_modules/hexo/bin/hexo generate
+      - node_modules/acorn/bin/acorn --ecma2020 --silent public/assets/script.main.bundle.js
+
+  - name: hexo deploy
+    image: node:15-alpine
+    environment:
+      SSH_KEY:
+        from_secret: id_ed25519
+    commands:
+      # Install SSH key
+      - mkdir -p /root/.ssh/
+      - echo "$SSH_KEY" > /root/.ssh/id_ed25519
+      - chmod 600 /root/.ssh/id_ed25519
+
+      # Set SSH config
+      - |
+        cat <<EOF >/root/.ssh/config
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+        VerifyHostKeyDNS yes
+        LogLevel ERROR
+        EOF
+
+      - apk add --no-cache build-base bash git openssh wget python3 gzip brotli zstd parallel imagemagick
+      - node_modules/hexo/bin/hexo deploy
+      # Parallel jobs aren't used for hexo deploy targets, only my own site system
+      - bash _scripts/parallel_jobs.sh
+    when:
+      branch:
+        - master
+
+  - name: rebuild cache
+    image: meltwater/drone-cache:dev
+    settings:
+      backend: "filesystem"
+      rebuild: true
+      cache_key: "volume"
+      archive_format: "gzip"
+      filesystem_cache_root: "/cache"
+      mount:
+        - 'node_modules'
+        - 'img_cache'
+    volumes:
+      - name: cache
+        path: /cache
+
+  - name: get host list
+    image: alpine
+    commands:
+      - nslookup -type=txt hosts.lantian.pub | grep -E -o "\"(.*)\"" | tr -d "\"" > ansible_hosts
+      - cat ansible_hosts
+    when:
+      branch:
+        - master
+
+  - name: ansible deploy
+    image: parusesp/ansible
+    environment:
+      SSH_KEY:
+        from_secret: id_ed25519
+    failure: ignore
+    commands:
+      # Install SSH key
+      - mkdir -p /root/.ssh/
+      - echo "$SSH_KEY" > /root/.ssh/id_ed25519
+      - chmod 600 /root/.ssh/id_ed25519
+
+      # Set SSH config
+      - |
+        cat <<EOF >/root/.ssh/config
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+        VerifyHostKeyDNS yes
+        LogLevel ERROR
+        User root
+        Port 2222
+        EOF
+
+      # Set up mitogen
+      - |
+        cat <<EOF >/etc/ansible/ansible.cfg
+        [default]
+        gathering = explicit
+        host_key_checking = False
+        strategy_plugins = /usr/lib/python3.7/site-packages/ansible_mitogen/plugins/strategy
+        strategy = mitogen_linear
+        interpreter_python = auto_silent
+        [ssh_connection]
+        pipelining = True
+        transfer_method = scp
+        retries = 3
+        EOF
+
+      # Run ansible
+      - ansible-playbook -i ansible_hosts _scripts/ansible_deploy.yml
+    when:
+      branch:
+        - master
+
+  - name: telegram notification for failure
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: tg_token
+      to:
+        from_secret: tg_target
+    when:
+      status:
+        - failure
+
+  - name: telegram notification for success
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: tg_token
+      to:
+        from_secret: tg_target
+    when:
+      branch:
+        - master
+      status:
+        - success
+      event:
+        exclude:
+          - cron
+
+volumes:
+  - name: cache
+    host:
+      path: /cache

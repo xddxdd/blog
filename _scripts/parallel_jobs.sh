@@ -2,35 +2,10 @@
 
 cd "$(dirname "$0")/.." || exit 1
 
-# Cache folder
-CACHEDIR=/tmp/hexo-blog
+CACHEDIR=$(pwd)/img_cache
 mkdir -p $CACHEDIR
 
-RECENT_COMMENTS=$(wget -O- "https://lantian.disqus.com/recent_comments_widget.js?num_items=10&hide_mods=0&hide_avatars=1&excerpt_length=100")
-# NodeJS preprocessing
-RECENT_COMMENTS=${RECENT_COMMENTS//document.write/process.stdout.write}
-RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | node)
-RECENT_COMMENTS=$(echo "$RECENT_COMMENTS" | python3 _scripts/disqus_comments.py)
-echo "$RECENT_COMMENTS" > themes/lantian/layout/_partial/disqus-recent.ejs
-
-# Regenerate everything
-rm -rf public .deploy_git
-node_modules/hexo/bin/hexo clean
-node_modules/hexo/bin/hexo generate
-
-# Verify generated javascript
-node_modules/acorn/bin/acorn --ecma2020 --silent public/assets/script.main.bundle.js || exit 1
-
-# Do not deploy if not on master branch
-if [ "${GIT_BRANCH}" != "origin/master" ]; then
-    exit 0
-fi
-
-# Hexo deploy takes care of git, and baidu_url_submit
-node_modules/hexo/bin/hexo deploy
-
 # Compress to gzip, brotli, zstd and webp only for my own site system
-# Useless on other hosts, e.g. GitHub Pages
 echo Preparing parallel jobs...
 echo > parallel_jobs.lst
 
@@ -61,8 +36,5 @@ done
 
 echo Executing parallel jobs...
 parallel "-j$(nproc)" < parallel_jobs.lst
-
-# Deploy to my site system
-ansible-playbook _scripts/ansible_deploy.yml
 
 exit 0
