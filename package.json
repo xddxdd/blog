@@ -78,7 +78,7 @@
     "remark-inline-links": "^5.0.0",
     "remark-stringify": "^9.0.1",
     "resolve-url-loader": "^4.0.0",
-    "sass": "^1.38.0",
+    "sass": "^1.38.1",
     "sass-loader": "^12.1.0",
     "sass-material-colors": "0.0.5",
     "sass-migrator": "^1.5.1",
