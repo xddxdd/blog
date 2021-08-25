@@ -81,7 +81,7 @@
     "sass": "^1.38.1",
     "sass-loader": "^12.1.0",
     "sass-material-colors": "0.0.5",
-    "sass-migrator": "^1.5.1",
+    "sass-migrator": "^1.5.2",
     "simple-lightbox": "^2.1.0",
     "style-loader": "^3.2.1",
     "svgo-loader": "^3.0.0",
