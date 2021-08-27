@@ -24,7 +24,7 @@
     "@lantian1998/hexo-generator-json-feed-org": "github:lantian1998/hexo-generator-json-feed-org",
     "@lantian1998/markdown-it-graphviz": "github:lantian1998/markdown-it-graphviz",
     "acorn": "^8.4.1",
-    "autoprefixer": "^10.3.2",
+    "autoprefixer": "^10.3.3",
     "babel-loader": "^8.2.2",
     "bootstrap": "^4.6.0",
     "bootstrap.native": "^4.0.5",
