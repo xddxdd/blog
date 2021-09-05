@@ -51,7 +51,6 @@ steps:
     commands:
       - apk add --no-cache build-base bash git openssh wget python3 gzip brotli zstd parallel imagemagick
       - npm install
-      - bash _scripts/update_recent_comments.sh
       - node_modules/hexo/bin/hexo generate
       - node_modules/acorn/bin/acorn --ecma2020 --silent public/assets/script.main.bundle.js
 

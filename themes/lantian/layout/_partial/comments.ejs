@@ -1,14 +1,18 @@
 <% if (page_language() == 'zh') { %>
-<p class="text-center">本站使用 Disqus 评论系统，中国大陆访问可能不稳定。</p>
+<p class="text-center">本站使用运行在 Vercel 上的 Waline 评论系统，中国大陆访问可能不稳定。</p>
 <% } %>
 
-<div id="disqus_thread"></div>
+<div id="waline"></div>
 <script>
-    var disqus_config = function () {
-        this.page.url = '<%= remove_trailing_slash(page.permalink) %>';
-        this.page.identifier = '/<%= remove_trailing_slash(page.path) %>';
+    var waline_config = {
+        el: '#waline',
+        serverURL: 'https://comments.lantian.pub',
+        path: '/<%= remove_trailing_slash(page.path) %>',
+        lang: '<% if (page_language() == "zh") { %>zh-CN<% } else { %>en-US<% } %>',
+        requiredMeta: ['nick', 'mail'],
+        emoji: [
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba',
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
+        ],
     };
 </script>
-<noscript>
-    <%- __('disqus_noscript').replace('{0}', '<a href="https://disqus.com/?ref_noscript">Disqus</a>') %>
-</noscript>

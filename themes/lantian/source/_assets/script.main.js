@@ -4,6 +4,7 @@ import SimpleLightbox from 'simple-lightbox';
 import attempt from './js/attempt';
 
 import cfga from './js/cfga';
+import Waline from '@waline/client/dist/Waline.noStyle';
 
 /*****************************************
  * Bootstrap Native
@@ -212,26 +213,13 @@ addLoadEvent(function () {
         darkModeTogglebuttonElement.addEventListener('click', () => {
             // 当用户点击「开关」时，获得新的显示模式、写入 localStorage、并在页面上生效
             applyCustomDarkModeSettings(toggleCustomDarkMode());
-            if (window.disqus_load) {
-                document.getElementById('disqus_thread').innerHTML = '';
-                window.disqus_load();
-            }
         });
     });
 
-    attempt('Disqus', function () {
-        if (!document.getElementById('disqus_thread')) {
-            return;
+    attempt('Waline', function () {
+        if (typeof waline_config !== 'undefined') {
+            Waline(waline_config);
         }
-
-        window.disqus_load = function () {
-            var d = document,
-                s = d.createElement('script');
-            s.src = 'https://lantian.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        };
-        setTimeout(window.disqus_load, 1000);
     });
 
     attempt('Interactive Content (Custom)', function () {
