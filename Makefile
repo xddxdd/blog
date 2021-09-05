@@ -2,9 +2,6 @@
 all:
 	@node_modules/hexo/bin/hexo generate
 
-build:
-	@bash _scripts/build.sh
-
 clean:
 	@node_modules/hexo/bin/hexo clean
 
