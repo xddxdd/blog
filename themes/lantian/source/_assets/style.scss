@@ -351,7 +351,7 @@ aside {
 }
 
 #quicklink {
-    line-height: 1;
+    line-height: 1.5;
     margin: 0;
     padding: 0;
 
@@ -500,6 +500,9 @@ ul ul {
     background: none !important;
     color: inherit !important;
 }
+
+// Waline css selectors are special
+@import 'sass/waline.scss';
 
 :root {
     --color-mode: 'light';

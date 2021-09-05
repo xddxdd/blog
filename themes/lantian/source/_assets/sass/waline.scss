@@ -1,0 +1,118 @@
+@charset "utf-8";
+@import 'common';
+
+:root {
+    /* 字体大小 */
+    --waline-font-size: 1rem;
+
+    /* 常规颜色 */
+    --waline-white: #fff;
+    --waline-light-grey: #{material-color('grey', '300')};
+    --waline-dark-grey: #{material-color('grey', '500')};
+
+    /* 主题色 */
+    --waline-theme-color: #{$primary};
+    --waline-active-color: #{$primary};
+
+    /* 布局颜色 */
+    --waline-text-color: #{$body-color};
+    --waline-bgcolor: #fff;
+    --waline-bgcolor-light: #fff;
+    --waline-bgcolor-hover: #fff;
+    --waline-border-color: #{material-color('grey', '400')};
+    --waline-disable-bgcolor: #{material-color('grey', '100')};
+    --waline-disable-color: #{material-color('grey', '400')};
+    --waline-code-bgcolor: transparent;
+
+    /* 特殊颜色 */
+    --waline-bq-color: #{material-color('grey', '200')};
+
+    /* 头像 */
+    --waline-avatar-size: 4rem;
+    --waline-mobile-avatar-size: 3rem;
+
+    /* 徽章 */
+    --waline-badge-color: #{$primary};
+    --waline-badge-font-size: 0.8rem;
+
+    /* 信息 */
+    --waline-info-bgcolor: #{material-color('grey', '100')};
+    --waline-info-color: #{material-color('grey', '500')};
+    --waline-info-font-size: 0.625em;
+
+    /* 渲染选择 */
+    --waline-border: 1px solid var(--waline-border-color);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-user-color-scheme]) {
+        /* 常规颜色 */
+        --waline-white: #000;
+        --waline-light-grey: #{material-color('grey', '700')};
+        --waline-dark-grey: #{material-color('grey', '500')};
+
+        /* 布局颜色 */
+        --waline-text-color: #{$body-color-dark};
+        --waline-bgcolor: #{material-color('grey', '800')};
+        --waline-bgcolor-light: #{material-color('grey', '800')};
+        --waline-bgcolor-hover: #{material-color('grey', '800')};
+        --waline-disable-bgcolor: #{material-color('grey', '900')};
+        --waline-disable-color: #{material-color('grey', '600')};
+
+        /* 特殊颜色 */
+        --waline-bq-color: #{material-color('grey', '800')};
+
+        /* 其他颜色 */
+        --waline-info-bgcolor: #{material-color('grey', '800')};
+        --waline-info-color: #{material-color('grey', '500')};
+    }
+}
+
+[data-user-color-scheme='dark'] {
+    :root {
+        /* 常规颜色 */
+        --waline-white: #000;
+        --waline-light-grey: #{material-color('grey', '700')};
+        --waline-dark-grey: #{material-color('grey', '300')};
+
+        /* 布局颜色 */
+        --waline-text-color: #{$body-color-dark};
+        --waline-bgcolor: #{material-color('grey', '800')};
+        --waline-bgcolor-light: #{material-color('grey', '800')};
+        --waline-bgcolor-hover: #{material-color('grey', '800')};
+        --waline-disable-bgcolor: #{material-color('grey', '900')};
+        --waline-disable-color: #{material-color('grey', '600')};
+
+        /* 特殊颜色 */
+        --waline-bq-color: #{material-color('grey', '800')};
+
+        /* 其他颜色 */
+        --waline-info-bgcolor: #{material-color('grey', '800')};
+        --waline-info-color: #{material-color('grey', '500')};
+    }
+}
+
+@import 'waline/base.scss';
+@import 'waline/animation.scss';
+
+@import 'waline/panel.scss';
+@import 'waline/card.scss';
+@import 'waline/layout.scss';
+
+.v[data-class='v'] {
+    @import 'prism-themes/themes/prism-one-light.css';
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --color-mode: 'dark';
+        }
+
+        :root:not([data-user-color-scheme]) {
+            @import 'prism-themes/themes/prism-one-dark.css';
+        }
+    }
+
+    [data-user-color-scheme='dark'] {
+        @import 'prism-themes/themes/prism-one-dark.css';
+    }
+}
