@@ -47,15 +47,16 @@ steps:
         path: /cache
 
   - name: hexo generate
-    image: node:15-alpine
+    image: node:16
     commands:
-      - apk add --no-cache build-base bash git openssh wget python3 gzip brotli zstd parallel imagemagick
+      - apt-get update
+      - DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git openssh-client gzip brotli zstd parallel imagemagick
       - npm install
       - node_modules/hexo/bin/hexo generate
       - node_modules/acorn/bin/acorn --ecma2020 --silent public/assets/script.main.bundle.js
 
   - name: hexo deploy
-    image: node:15-alpine
+    image: node:16
     environment:
       SSH_KEY:
         from_secret: id_ed25519
@@ -74,7 +75,8 @@ steps:
         LogLevel ERROR
         EOF
 
-      - apk add --no-cache build-base bash git openssh wget python3 gzip brotli zstd parallel imagemagick
+      - apt-get update
+      - DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git openssh-client gzip brotli zstd parallel imagemagick
       - node_modules/hexo/bin/hexo deploy
       # Parallel jobs aren't used for hexo deploy targets, only my own site system
       - bash _scripts/parallel_jobs.sh
