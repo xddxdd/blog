@@ -74,7 +74,7 @@
     "minimist": "^1.2.5",
     "postcss": "^8.3.6",
     "prettier": "^2.4.1",
-    "prism-themes": "github:PrismJS/prism-themes",
+    "prism-themes": "^1.9.0",
     "remark": "^13.0.0",
     "remark-frontmatter": "^3.0.0",
     "remark-gfm": "^1.0.0",
