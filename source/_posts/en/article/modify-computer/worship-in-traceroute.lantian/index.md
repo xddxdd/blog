@@ -1,5 +1,5 @@
 ---
-title: 'Writing Essays in Traceroute'
+title: 'Writing Stories in Traceroute'
 categories: 'Computers and Clients'
 tags: [Traceroute,DN42]
 date: 2018-08-15 19:46:00
@@ -9,7 +9,7 @@ image: /usr/uploads/2018/08/2301166997.png
 2020-10-11 Update
 -----------------
 
-Now a better way exists that doesn't involve a bunch of Docker containers. Please refer to [Writing Essays in Traceroute, Elegantly](/en/article/creations/traceroute-chain.lantian).
+Now a better way exists that doesn't involve a bunch of Docker containers. Please refer to [Writing Stories in Traceroute, Elegantly](/en/article/creations/traceroute-chain.lantian).
 
 Intro
 -----
