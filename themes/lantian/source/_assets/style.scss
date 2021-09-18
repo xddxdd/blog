@@ -266,14 +266,10 @@ footer.lantian {
 
 #container {
     background: white;
-    margin: 50px 5%;
     padding: 0;
 
-    @include media-breakpoint-down(sm) {
-        margin: 0;
-    }
-
     @include media-breakpoint-up(md) {
+        margin: 50px auto;
         box-shadow: 0 0 50px material-color('grey', '600');
 
         &.bigscreen {

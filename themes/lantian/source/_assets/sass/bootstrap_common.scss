@@ -16,6 +16,23 @@ $line-height-lg: 1.75;
 $line-height-sm: 1.75;
 $line-height-base: 1.75;
 
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1280px,
+  xxl: 1600px
+);
+
+$container-max-widths: (
+  sm: 768px,
+  md: 768px,
+  lg: 960px,
+  xl: 1200px,
+  xxl: 1440px
+);
+
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
