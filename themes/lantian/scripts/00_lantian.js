@@ -14,17 +14,26 @@ hexo.extend.helper.register('remove_trailing_slash', function (s) {
 });
 
 hexo.extend.helper.register('lantian_excerpt', function (input, length) {
-    var excerpt_length = length ? length : 600;
+    var excerpt_length = length ? length : 800;
     var stripped = input.replace(LANTIAN.EXCERPT_REGEX, '');
     var separators = ['。', '，', '.', ',', '：', ':', ')', '）'];
-    var output_until = excerpt_length;
-    for (var i = excerpt_length; i > 0; i--) {
-        if (separators.includes(stripped[i])) {
+
+    var output = "";
+    var len = 0, i = 0;
+    while (len < excerpt_length && i < stripped.length) {
+        output += stripped[i];
+        len += (stripped[i].codePointAt() > 255) ? 2 : 1;
+        i++;
+    }
+
+    var output_until = output.length;
+    for (i = output.length; i > 0; i--) {
+        if (separators.includes(output[i])) {
             output_until = i + 1;
             break;
         }
     }
-    return stripped.substr(0, output_until) + '...';
+    return output.substr(0, output_until) + '...';
 });
 
 hexo.extend.helper.register('lantian_git_rev', function () {
