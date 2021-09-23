@@ -32,6 +32,14 @@ while IFS= read -r FILE; do
             echo "sh -c \"convert -quality 100 $FILE $FILE.webp && cp $FILE.webp $CACHEDIR/$SHA256.webp\"" >> parallel_jobs.lst
         fi
     fi
+    if [ ! -f "$FILE.avif" ]; then
+        SHA256=$(sha256sum "$FILE" | cut -d' ' -f1)
+        if [ -f "$CACHEDIR/$SHA256.avif" ]; then
+            cp "$CACHEDIR/$SHA256.avif" "$FILE.avif"
+        else
+            echo "sh -c \"convert -quality 100 $FILE $FILE.avif && cp $FILE.avif $CACHEDIR/$SHA256.avif\"" >> parallel_jobs.lst
+        fi
+    fi
 done
 
 echo Executing parallel jobs...
