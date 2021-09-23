@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@use "sass:math";
+@use 'sass:math';
 
 @import 'sass/common';
 @import 'sass/fonts.scss';
@@ -26,9 +26,6 @@ a {
     color: $primary;
 }
 
-p:last-child {
-    margin-bottom: 0;
-}
 #textarea {
     resize: none;
 }
@@ -128,7 +125,8 @@ article {
             margin-left: 2.5em;
         }
 
-        &:hover, &:active {
+        &:hover,
+        &:active {
             width: 300px;
             height: auto;
             background-color: $primary;
@@ -174,6 +172,14 @@ article {
     .post-text {
         background-color: white;
 
+        > *:first-child {
+            margin-top: 0 !important;
+        }
+
+        > *:last-child {
+            margin-bottom: 0 !important;
+        }
+
         p {
             word-wrap: break-word;
             word-break: normal;
@@ -195,21 +201,10 @@ article {
             border-bottom: 3px solid material-color('grey', '200');
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            margin-left: -1em;
-            &:before {
-                @include font-awesome;
-                float: left;
-            }
-        }
-
         h1 {
             &:before {
+                @include font-awesome;
+                display: inline-block;
                 content: fa-content($fa-var-angle-double-right);
             }
         }
@@ -219,6 +214,8 @@ article {
         h5,
         h6 {
             &:before {
+                @include font-awesome;
+                display: inline-block;
                 content: fa-content($fa-var-angle-right);
             }
         }
@@ -230,8 +227,44 @@ article {
         }
 
         @include media-breakpoint-down(md) {
-            ol ol, ol ul, ul ol, ul ul {
+            ol ol,
+            ol ul,
+            ul ol,
+            ul ul {
                 padding-left: 1em;
+            }
+        }
+
+        table {
+            display: block;
+            width: 100%; // keep for backwards compatibility
+            width: max-content;
+            max-width: 100%;
+            overflow: auto;
+
+            margin-bottom: 1rem;
+
+            th {
+                font-weight: 700;
+            }
+
+            th,
+            td {
+                // stylelint-disable-next-line primer/spacing
+                padding: 6px 13px;
+                border: $border-default;
+            }
+
+            thead {
+                background-color: material-color('grey', '200');
+            }
+
+            tr {
+                border-top: $border-default;
+
+                &:nth-child(2n) {
+                    background-color: material-color('grey', '100');
+                }
             }
         }
 
@@ -395,48 +428,6 @@ aside {
     }
 }
 
-.dsq-widget-list {
-    padding-left: 0;
-    list-style: none;
-
-    .dsq-widget-comment p {
-        display: inline;
-        white-space: nowrap;
-
-        br {
-            display: none;
-        }
-        &:not(:first-child) {
-            display: none;
-        }
-    }
-
-    .dsq-widget-item::before {
-        @include font-awesome;
-        float: left;
-        content: fa-content($fa-var-angle-right);
-    }
-
-    .dsq-widget-meta {
-        font-size: 12px;
-        padding-left: 1em;
-
-        a {
-            &:first-child {
-                &::before {
-                    content: '《';
-                }
-                &::after {
-                    content: '》';
-                }
-            }
-            &:not(:first-child) {
-                display: none;
-            }
-        }
-    }
-}
-
 #post-navi {
     padding: 5px;
 }
@@ -459,7 +450,8 @@ aside {
             color: white;
         }
     }
-    a:hover, a:active {
+    a:hover,
+    a:active {
         background-color: material-color('grey', '400');
     }
 }
