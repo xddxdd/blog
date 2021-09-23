@@ -35,7 +35,8 @@ article {
             color: $body-color-dark;
         }
 
-        &:hover, &:active {
+        &:hover,
+        &:active {
             background-color: material-color('grey', '800');
         }
     }
@@ -59,6 +60,25 @@ article {
         }
         code {
             border-bottom: 3px solid material-color('grey', '800');
+        }
+
+        table {
+            th,
+            td {
+                border: $border-default;
+            }
+
+            thead {
+                background-color: material-color('grey', '800');
+            }
+
+            tr {
+                border-top: $border-default;
+
+                &:nth-child(2n) {
+                    background-color: material-color('grey', '800');
+                }
+            }
         }
 
         .header-anchor {
