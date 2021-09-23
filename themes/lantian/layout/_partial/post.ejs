@@ -10,8 +10,10 @@
                             <small><%- date(post.date, 'MM-DD') %></small>
                         </p>
                         <div class="post-meta-value">
+                            <%- __('date') %>
+                            <span class="badge badge-tag">
                             <%- date(post.date, 'YYYY-MM-DD HH:mm') %>
-                            &nbsp;
+                            </span>
                         </div>
                     </div></div>
                 <% } %>
@@ -27,8 +29,10 @@
                             </small>
                         </p>
                         <div class="post-meta-value">
+                            <%- __('category') %>
                             <% (post._categories || post.categories).forEach(category => { %>
-                                <a href="<%- url_for(remove_trailing_slash(category.path)) %>"><%= category.name %></a>
+                                <a class="badge badge-tag" href="<%- url_for(remove_trailing_slash(category.path)) %>"><%= category.name %></a>
+                                &nbsp;
                             <% }) %>
                             &nbsp;
                         </div>
@@ -42,8 +46,10 @@
                             <small><%- post.tags.length %> <%- __('n_tags') %></small>
                         </p>
                         <div class="post-meta-value">
+                            <%- __('tags') %>
                             <% (post._tags || post.tags).forEach(tag => { %>
-                                <a href="<%- url_for(remove_trailing_slash(tag.path)) %>"><%= tag.name %></a>
+                                <a class="badge badge-tag" href="<%- url_for(remove_trailing_slash(tag.path)) %>"><%= tag.name %></a>
+                                &nbsp;
                             <% }) %>
                             &nbsp;
                         </div>

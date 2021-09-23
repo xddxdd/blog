@@ -148,6 +148,16 @@ article {
             font-size: 75%;
             margin-top: 0.2em;
         }
+
+        .badge-tag {
+            font-size: 100%;
+            font-weight: 400;
+
+            background-color: material-color('light-blue', '700');
+            &:hover {
+                background-color: material-color('light-blue', '800');
+            }
+        }
     }
 
     .qrcode {

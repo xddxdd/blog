@@ -39,6 +39,13 @@ article {
         &:active {
             background-color: material-color('grey', '800');
         }
+
+        .badge-tag {
+            background-color: material-color('grey', '700');
+            &:hover {
+                background-color: material-color('grey', '600');
+            }
+        }
     }
 
     .post-text {
