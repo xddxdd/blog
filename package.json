@@ -33,7 +33,7 @@
     "browserslist": "^4.17.3",
     "core-js": "^3.18.2",
     "css-loader": "^6.3.0",
-    "css-minimizer-webpack-plugin": "^3.1.0",
+    "css-minimizer-webpack-plugin": "^3.1.1",
     "cssnano": "^5.0.8",
     "cssnano-preset-advanced": "^5.1.4",
     "deepmerge": "^4.2.2",
