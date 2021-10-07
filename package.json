@@ -90,7 +90,7 @@
     "svgo-loader": "^3.0.0",
     "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.57.1",
-    "webpack-cli": "4.8",
+    "webpack-cli": "4.9",
     "yargs-parser": "^20.2.9"
   }
 }
