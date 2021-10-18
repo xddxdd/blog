@@ -13,3 +13,15 @@
         dest: /srv/www/lantian.pub/
         checksum: yes
         delete: yes
+
+    - name: Create directory 2
+      file:
+        name: "/var/www/lantian.pub"
+        state: directory
+
+    - name: Deploy website file 2
+      synchronize:
+        src: ../public/
+        dest: /var/www/lantian.pub/
+        checksum: yes
+        delete: yes
