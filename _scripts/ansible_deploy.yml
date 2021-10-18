@@ -4,22 +4,10 @@
   tasks:
     - name: Create directory
       file:
-        name: "/srv/www/lantian.pub"
-        state: directory
-
-    - name: Deploy website file
-      synchronize:
-        src: ../public/
-        dest: /srv/www/lantian.pub/
-        checksum: yes
-        delete: yes
-
-    - name: Create directory 2
-      file:
         name: "/var/www/lantian.pub"
         state: directory
 
-    - name: Deploy website file 2
+    - name: Deploy website file
       synchronize:
         src: ../public/
         dest: /var/www/lantian.pub/
