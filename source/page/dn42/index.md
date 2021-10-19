@@ -117,10 +117,10 @@ date: 1970-01-01 00:00:00
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
 
-- 服务器 4：德国法兰克福，Virtono 服务商
-  - 域名：`virtono.lantian.pub`
-  - 公网 IPv4：`45.138.97.165`
-  - 公网 IPv6：`2001:ac8:20:3::433a:a05d`
+- 服务器 4：卢森堡国 Bissen 市 Roost 村，BuyVM 服务商
+  - 域名：`buyvm.lantian.pub`
+  - 公网 IPv4：`107.189.12.254`
+  - 公网 IPv6：`2605:6400:30:f22f::1`
   - DN42 IPv4：`172.22.76.187`
   - DN42 IPv6：`fdbc:f9dc:67ad:2::1`
   - Link-local IPv6：`fe80::2547`
