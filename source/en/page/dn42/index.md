@@ -117,10 +117,10 @@ Servers
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
 
-- Server 4: Frankfurt, Germany, provider Virtono
-  - Domain: `virtono.lantian.pub`
-  - Public IPv4: `45.138.97.165`
-  - Public IPv6: `2001:ac8:20:3::433a:a05d`
+- Server 4: Roost, Bissen, Luxemborg, provider BuyVM
+  - Domain: `buyvm.lantian.pub`
+  - Public IPv4: `107.189.12.254`
+  - Public IPv6: `2605:6400:30:f22f::1`
   - DN42 IPv4: `172.22.76.187`
   - DN42 IPv6: `fdbc:f9dc:67ad:2::1`
   - Link-local IPv6: `fe80::2547`
