@@ -10,6 +10,13 @@
     </section>
     <% } %>
 
+    <section class="widget">
+        <h3><%- __('latest_comments') %></h3>
+        <ul class="list-unstyled" id="recent-comments">
+            <li><a href="#">Loading...</a></li>
+        </ul>
+    </section>
+
     <% if(theme_config(page_language()).others) { %>
     <section class="widget">
         <h3><%- __('others') %></h3>
