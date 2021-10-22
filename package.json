@@ -72,7 +72,7 @@
     "mini-css-extract-plugin": "^2.4.2",
     "mini-svg-data-uri": "^1.4.3",
     "minimist": "^1.2.5",
-    "postcss": "^8.3.10",
+    "postcss": "^8.3.11",
     "prettier": "^2.4.1",
     "prism-themes": "^1.9.0",
     "remark": "^13.0.0",
