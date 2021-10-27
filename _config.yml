@@ -19,7 +19,7 @@ root: /
 permalink: :title.html
 pretty_urls:
   trailing_index: false
-  trailing_html: false
+  trailing_html: true
 
 
 # Directory
@@ -94,12 +94,6 @@ feed:
 jsonFeed:
   limit: 10
 
-baidu_url_submit:
-  count: 10
-  host: lantian.pub
-  token: ***REMOVED***
-  path: baidu_urls.txt
-
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -163,4 +157,3 @@ theme_config:
 deploy:
 - type: git
   repo: git@github.com:lantian1998/lantian1998.github.io.git
-- type: baidu_url_submitter
