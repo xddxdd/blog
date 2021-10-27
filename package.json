@@ -76,7 +76,7 @@
     "prettier": "^2.4.1",
     "prism-themes": "^1.9.0",
     "remark": "^13.0.0",
-    "remark-frontmatter": "^3.0.0",
+    "remark-frontmatter": "^4.0.1",
     "remark-gfm": "^1.0.0",
     "remark-inline-links": "^5.0.0",
     "remark-stringify": "^9.0.1",
