@@ -1,6 +1,6 @@
 .PHONY: all
 all:
-	@node_modules/hexo/bin/hexo generate
+	@node_modules/hexo/bin/hexo generate 2>&1 | tee hexo.log
 
 clean:
 	@node_modules/hexo/bin/hexo clean
