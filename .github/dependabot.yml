@@ -5,12 +5,15 @@ updates:
   schedule:
     interval: daily
     time: "08:00"
-    timezone: Asia/Shanghai
+    timezone: America/Chicago
   open-pull-requests-limit: 10
   ignore:
   - dependency-name: is-fullwidth-code-point
-    versions:
-    - "> 3.0.0"
+    update-types:
+    - "version-update:semver-major"
   - dependency-name: bootstrap
     update-types:
-    - "major"
+    - "version-update:semver-major"
+  - dependency-name: flag-icon-css
+    update-types:
+    - "version-update:semver-major"
