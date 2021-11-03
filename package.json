@@ -34,7 +34,7 @@
     "core-js": "^3.19.0",
     "css-loader": "^6.5.0",
     "css-minimizer-webpack-plugin": "^3.1.1",
-    "cssnano": "^5.0.8",
+    "cssnano": "^5.0.9",
     "cssnano-preset-advanced": "^5.1.4",
     "deepmerge": "^4.2.2",
     "flag-icon-css": "^3.5.0",
