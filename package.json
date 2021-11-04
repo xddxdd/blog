@@ -32,7 +32,7 @@
     "bourbon": "^7.0.0",
     "browserslist": "^4.17.6",
     "core-js": "^3.19.1",
-    "css-loader": "^6.5.0",
+    "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.1.1",
     "cssnano": "^5.0.9",
     "cssnano-preset-advanced": "^5.1.5",
