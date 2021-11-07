@@ -33,6 +33,8 @@ $container-max-widths: (
   xxl: 1440px
 );
 
+$link-decoration: none;
+
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
