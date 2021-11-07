@@ -277,6 +277,10 @@ article {
             }
         }
 
+        .btn-group-vertical > .btn-group, .btn-group-vertical > .btn {
+            margin-left: 0 !important;
+        }
+
         .header-anchor {
             margin-left: 0.25em;
         }
