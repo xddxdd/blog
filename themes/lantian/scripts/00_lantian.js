@@ -44,7 +44,7 @@ hexo.extend.tag.register(
     'interactive',
     function (args, content) {
         var rendered = hexo.render.renderSync({text: content, engine: 'markdown'})
-        return `<div id="lt-interactive-content-${args[0]}" class="lt-interactive-content">${rendered}</div>`;
+        return `<div id="lti-content-${args[0]}" class="lti-content">${rendered}</div>`;
     },
     { ends: true },
 );
@@ -65,17 +65,18 @@ hexo.extend.tag.register(
             class_name += ' btn-group-sm';
         }
 
-        var s = `<div class="${class_name} btn-group-toggle" data-toggle="buttons" id="lt-interactive-group-${i}" class="lt-interactive">`;
+        var s = `<div class="${class_name} btn-group" role="group" id="lti-g${i}" class="lt-interactive">`;
 
         content.split('\n').forEach((v) => {
             var splitted = v.split(' ');
             var tag = splitted[0];
+            var identifier = i + '-' + Math.floor(Math.random() * 10000000);
             var label = splitted.slice(1).join(' ');
 
             s += `
-<label class="btn btn-outline-primary">
-    <input type="radio" name="lt-interactive-group-${i}" id="lt-interactive-${tag}" class="lt-interactive-option" data-group="${i}" data-tag="${tag}">${label}</input>
-</label>`;
+<input type="radio" name="lti-g${i}" id="lti-${identifier}" class="btn-check lti-option" autocomplete="off" data-lti-tag="${tag}"/>
+<label class="btn btn-outline-primary" for="lti-${identifier}">${label}</label>
+`;
         });
 
         s += `</div>`;

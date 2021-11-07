@@ -84,7 +84,7 @@
             </div>
         </div>
         <% if(index && post.image) { %>
-            <div class="post-image-wrap d-none d-md-block">
+            <div class="post-image-wrap d-none d-lg-block">
                 <img src="<%= image_version(post.image, {prefix: 'thumb'}) %>" alt="<%- __('illustration') %>" height="150" width="200"/>
             </div>
         <% } %>
@@ -102,10 +102,10 @@
             <% if(!index && (page.next || page.prev)) { %>
                 <div class="clearfix" id="post-navi">
                     <% if(page.next) { %>
-                        <div class="float-right text-right"><a href="<%- url_for(remove_trailing_slash(page.next.path)) %>" title="<%= page.next.title %>"><%= page.next.title %></a><br><%- __('next_post') %> &raquo;</div>
+                        <div class="float-end text-end"><a href="<%- url_for(remove_trailing_slash(page.next.path)) %>" title="<%= page.next.title %>"><%= page.next.title %></a><br><%- __('next_post') %> &raquo;</div>
                     <% } %>
                     <% if(page.prev) { %>
-                        <div class="float-left text-left position-absolute">&laquo; <%- __('previous_post') %><br><a href="<%- url_for(remove_trailing_slash(page.prev.path)) %>" title="<%= page.prev.title %>"><%= page.prev.title %></a></div>
+                        <div class="float-start text-start position-absolute">&laquo; <%- __('previous_post') %><br><a href="<%- url_for(remove_trailing_slash(page.prev.path)) %>" title="<%= page.prev.title %>"><%= page.prev.title %></a></div>
                     <% } %>
                 </div>
                 <%- partial('_partial/comments') %>

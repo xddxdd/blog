@@ -10,35 +10,7 @@ import Waline from '@waline/client/dist/Waline.noStyle';
  * Bootstrap Native
  *****************************************/
 
-import initCallback from 'bootstrap.native/src/util/initCallback.js';
-// import removeDataAPI from 'bootstrap.native/src/util/removeDataAPI.js';
-
-import componentsInit from 'bootstrap.native/src/util/componentsInit.js';
-// import {Util} from 'bootstrap.native/src/util/util.js';
-
-// import Alert from 'bootstrap.native/src/components-v4/alert-native.js';
-import Button from 'bootstrap.native/src/components-v4/button-native.js';
-// import Carousel from 'bootstrap.native/src/components-v4/carousel-native.js';
-import Collapse from 'bootstrap.native/src/components-v4/collapse-native.js';
-import Dropdown from 'bootstrap.native/src/components-v4/dropdown-native.js';
-// import Modal from 'bootstrap.native/src/components-v4/modal-native.js';
-// import Popover from 'bootstrap.native/src/components-v4/popover-native.js';
-// import ScrollSpy from 'bootstrap.native/src/components-v4/scrollspy-native.js';
-// import Tab from 'bootstrap.native/src/components-v4/tab-native.js';
-// import Toast from 'bootstrap.native/src/components-v4/toast-native.js';
-// import Tooltip from 'bootstrap.native/src/components-v4/tooltip-native.js';
-
-// componentsInit.Alert = [ Alert, '[data-dismiss="alert"]'];
-componentsInit.Button = [Button, '[data-toggle="buttons"]'];
-// componentsInit.Carousel = [ Carousel, '[data-ride="carousel"]' ];
-componentsInit.Collapse = [Collapse, '[data-toggle="collapse"]'];
-componentsInit.Dropdown = [Dropdown, '[data-toggle="dropdown"]'];
-// componentsInit.Modal = [ Modal, '[data-toggle="modal"]' ];
-// componentsInit.Popover = [ Popover, '[data-toggle="popover"],[data-tip="popover"]' ];
-// componentsInit.ScrollSpy = [ ScrollSpy, '[data-spy="scroll"]' ];
-// componentsInit.Tab = [ Tab, '[data-toggle="tab"]' ];
-// componentsInit.Toast = [ Toast, '[data-dismiss="toast"]' ];
-// componentsInit.Tooltip = [ Tooltip, '[data-toggle="tooltip"],[data-tip="tooltip"]' ];
+import { initCallback } from 'bootstrap.native/src/util/init.js';
 
 /*****************************************
  * Page Onload Logic
@@ -244,8 +216,8 @@ addLoadEvent(function () {
     'use strict';
 
     let interactive_update = function (element) {
-      let this_tag = element.dataset.tag;
-      let child = document.getElementById(`lt-interactive-content-${this_tag}`);
+      let this_tag = element.dataset.ltiTag;
+      let child = document.getElementById(`lti-content-${this_tag}`);
       if (!child) {
         return;
       }
@@ -258,26 +230,26 @@ addLoadEvent(function () {
 
       child.classList.add('d-none');
 
-      let child_options = child.getElementsByClassName('lt-interactive-option');
+      let child_options = child.getElementsByClassName('lti-option');
       if (!child_options) {
         return;
       }
 
       /* bootstrap native js will handle state save & restore */
       Array.prototype.slice.call(child_options).forEach(function (e) {
-        e.parentElement.classList.remove('active');
+        e.classList.remove('active');
         e.checked = false;
         // interactive_onclick(e);
       });
 
       if (child_options.length) {
-        interactive_recurse(child_options.item(0).parentElement.parentElement);
+        interactive_recurse(child_options.item(0).parentElement);
       }
     };
 
     let interactive_recurse = function (container) {
       let option_list = container.getElementsByClassName(
-        'lt-interactive-option',
+        'lti-option',
       );
       if (!option_list) {
         return;
@@ -301,18 +273,18 @@ addLoadEvent(function () {
     };
 
     let interactive_onclick = function () {
-      interactive_recurse(this.parentElement.parentElement);
+      interactive_recurse(this.parentElement);
     };
 
     let options = Array.prototype.slice.call(
-      document.getElementsByClassName('lt-interactive-option'),
+      document.getElementsByClassName('lti-option'),
     );
     options.forEach((option) => {
       option.onclick = interactive_onclick;
     });
 
     let contents = Array.prototype.slice.call(
-      document.getElementsByClassName('lt-interactive-content'),
+      document.getElementsByClassName('lti-content'),
     );
     contents.forEach((content) => {
       content.classList.add('d-none');

@@ -8,7 +8,7 @@ export default function (name, func) {
         func();
         console.log('%c[  OK  ] ' + name, 'color:green');
     } catch (e) {
-        console.log('%c[ FAIL ] ' + name, 'color:red');
+        console.log('%c[ FAIL ] ' + name + ': ' + e.message, 'color:red');
         console.log(e.stack);
     }
 }
