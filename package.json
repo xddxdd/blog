@@ -17,7 +17,7 @@
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
-    "@fontsource/fira-code": "^4.5.1",
+    "@fontsource/fira-code": "^4.5.2",
     "@fontsource/ubuntu": "^4.5.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@iktakahiro/markdown-it-katex": "^4.0.1",
@@ -34,8 +34,8 @@
     "core-js": "^3.19.1",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.1.1",
-    "cssnano": "^5.0.9",
-    "cssnano-preset-advanced": "^5.1.5",
+    "cssnano": "^5.0.10",
+    "cssnano-preset-advanced": "^5.1.6",
     "deepmerge": "^4.2.2",
     "flag-icon-css": "^3.5.0",
     "hexo": "^5.4.0",
@@ -88,7 +88,7 @@
     "style-loader": "^3.3.1",
     "svgo-loader": "^3.0.0",
     "terser-webpack-plugin": "^5.2.4",
-    "webpack": "^5.61.0",
+    "webpack": "^5.62.1",
     "webpack-cli": "4.9",
     "yargs-parser": "^20.2.9"
   }
