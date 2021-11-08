@@ -10,6 +10,7 @@
         path: '/<%= remove_trailing_slash(page.path) %>',
         lang: '<% if (page_language() == "zh") { %>zh-CN<% } else { %>en-US<% } %>',
         requiredMeta: ['nick', 'mail'],
+        login: 'disable',
         emoji: [
             'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba',
             'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
