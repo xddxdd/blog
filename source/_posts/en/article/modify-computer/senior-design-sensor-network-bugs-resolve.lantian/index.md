@@ -31,7 +31,7 @@ This time I will be talking about my graduate design project, an air quality sen
 - Display data and short predictions on web page
   - Professor already has a weather station device that measures wind conditions
 
-This article is a record of pitfalls we've met during the development.
+This post is a record of pitfalls we've met during the development.
 
 Choosing Appropriate MCU
 ========================
@@ -300,9 +300,9 @@ The MH-CD42 power module is originally designed as a battery management module f
 
 For power bank users this is a useful feature, but for us with a sleep mode current of a few mA, this functionality greatly interferes with normal operation. What's more complicated is that, since MH-CD42 is a highly integrated module, there is no power pin we can forcefully pull up to keep the power on.
 
-We first searched for the datasheet of MH-CD42 but almost found no useful information. But we did find [an article on MH-CD42](https://techobsessed.net/tag/mh-cd42/), in which the author found that the MH-CD42 module has the same external circuit as another IP5306 chip, and confirmed that they have equivalent functionality.
+We first searched for the datasheet of MH-CD42 but almost found no useful information. But we did find [an post on MH-CD42](https://techobsessed.net/tag/mh-cd42/), in which the author found that the MH-CD42 module has the same external circuit as another IP5306 chip, and confirmed that they have equivalent functionality.
 
-[This article (Chinese)](https://www.jianshu.com/p/25fa6ec89953) introduces a way to keep the output of IP5306 on, specificaaly to connect an output of the MCU to the button of the power module, and send a low signal every ten seconds. This simulates pressing the power button every few seconds and keeps the power on.
+[This post (Chinese)](https://www.jianshu.com/p/25fa6ec89953) introduces a way to keep the output of IP5306 on, specificaaly to connect an output of the MCU to the button of the power module, and send a low signal every ten seconds. This simulates pressing the power button every few seconds and keeps the power on.
 
 So we soldered a wire from STM32 to the soldering pad on the power module, and wrote some code:
 

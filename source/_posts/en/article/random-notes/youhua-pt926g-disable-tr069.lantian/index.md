@@ -5,11 +5,11 @@ tags: [Youhua PT926G, Fiber Optic Modem, TR069]
 date: 2020-10-03 15:40:30
 ---
 
-This article explains the procedure to disable TR069 on a Youhua PT926G fiber optic modem, to prevent China Telecom from pushing config/firmware updates, and void your changes of switching to bridging mode, or setting port forward rules.
+This post explains the procedure to disable TR069 on a Youhua PT926G fiber optic modem, to prevent China Telecom from pushing config/firmware updates, and void your changes of switching to bridging mode, or setting port forward rules.
 
 In the WAN settings of the management portal of this modem, the TR069 connection can neither be modified or removed. But with a simple patch on the management portal's code, you can break the limitation on the modem.
 
-First, you should follow my previous article: [Hacking a Youhua PT926G Fiber Optic Modem](/en/article/random-notes/youhua-pt926g-fiber-modem-crack.lantian/), to obtain the Telnet Root password.
+First, you should follow my previous post: [Hacking a Youhua PT926G Fiber Optic Modem](/en/article/random-notes/youhua-pt926g-fiber-modem-crack.lantian/), to obtain the Telnet Root password.
 
 Then Telnet in, run `su` and type in the password to get to Root Shell. When you do that correctly, the commandline will prompt `#`.
 

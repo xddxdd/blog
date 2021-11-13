@@ -7,7 +7,7 @@ date: 2018-03-31 09:44:00
 
 Our school organized a RoboMaster team and plans to attend the competition this year. Since we are all new students at a new campus, we do not have any reference materials available from previous students, and we have to figure out bugs after bugs on our own.
 
-This article describes some of the problems we met during software development.
+This post describes some of the problems we met during software development.
 
 > Hardware: RoboMaster Official Development Board
 > MCU Model: STM32F427IIHx

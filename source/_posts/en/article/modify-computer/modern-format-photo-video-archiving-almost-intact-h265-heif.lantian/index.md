@@ -11,7 +11,7 @@ Speaking of compression, a common method is to reduce the resolution of images. 
 
 Therefore, I wish that the quality is almost not affected at all while compressing photos and videos. To do this, help from modern video and image compression algorithms are needed. Early compression algorithms come with limitations from their era, since due to the CPU performance and RAM size limits, they are unable to perform complicated compression or decompression operations, and produce worsely compressed files (larger in file size). Modern algorithms, on the other hand, are designed with multicore processors and large RAMs in mind, and can compress the files to a smaller size. For example, the most popular JPEG image format is invented back in 1992, and its compression rate is being laughed at by WebP, invented in 2010. According to [this study by Google](https://developers.google.com/speed/webp/docs/webp_study), WebP is 25% smaller than JPEG for a set of sample files used. Another example is LZMA used by 7-Zip, which fully utilizes multicore processors and eats a few gigs of RAM, and in turn produces results much smaller than Zip files' Deflate algorithm.
 
-In this article, I will use FFmpeg and ImageMagick, to convert all my videos to H265 (HEVC) encoded MP4 files, and my photos to HEIF.
+In this post, I will use FFmpeg and ImageMagick, to convert all my videos to H265 (HEVC) encoded MP4 files, and my photos to HEIF.
 
 Changelog
 ---------

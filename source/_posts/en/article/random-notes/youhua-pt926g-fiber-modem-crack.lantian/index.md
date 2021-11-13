@@ -5,7 +5,7 @@ tags: [Youhua PT926G, Fiber Optic Modem, Hack]
 date: 2020-08-13 20:43:26
 ---
 
-This article explains the prodecure to obtain such privileges from a Youhua PT926G fiber optic modem, without disassembling the device or using serial port converters.
+This post explains the prodecure to obtain such privileges from a Youhua PT926G fiber optic modem, without disassembling the device or using serial port converters.
 
 - Super Admin users on Web UI (telecomadmin)
 - Telnet's root user access
@@ -62,7 +62,7 @@ And I'm in. China Telecom Shenzhen simply don't change that password.
 > - Record the modem's LOID, pull out the fiber optic cable, reset the modem to factory default, log in with the default password and disable config updates, and finally type in LOID to connect to the Internet.
 > - Disassemble the modem and use a serial port converter to log in.
 >
-> I'm not covering these options in this article, you need to do your own research.
+> I'm not covering these options in this post, you need to do your own research.
 
 Turn on Telnet
 --------------

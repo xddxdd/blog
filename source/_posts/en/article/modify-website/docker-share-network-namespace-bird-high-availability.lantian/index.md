@@ -92,7 +92,7 @@ Therefore, I need a container that is always running and never updated for the n
 Scheme 2: Three Containers
 --------------------------
 
-I chose the [Busybox container](https://hub.docker.com/_/busybox?tab=tags) to run forever, since it's small enough and occupies negligible memory space. The latest version of Busybox is 1.31.1 when I am writing this article, but since images of 1.31.1 is still updated periodically, I chose the image for 1.31.0, which was last updated 3 months ago.
+I chose the [Busybox container](https://hub.docker.com/_/busybox?tab=tags) to run forever, since it's small enough and occupies negligible memory space. The latest version of Busybox is 1.31.1 when I am writing this post, but since images of 1.31.1 is still updated periodically, I chose the image for 1.31.0, which was last updated 3 months ago.
 
 I run `tail -f /dev/null` with Busybox, so it will run forever without eating CPU cycles. In addition, I set labels to the container to prevent Watchtower from auto updating it.
 

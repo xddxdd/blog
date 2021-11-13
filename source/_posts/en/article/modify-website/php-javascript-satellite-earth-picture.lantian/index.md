@@ -80,6 +80,6 @@ The following Javascript (needs jQuery) outputs an 1d image, result can be seen 
 
 While using the images, please note that since the satellite photo project is non-profit, there is no guarantee for availability. It is possible that an API change or excess bandwidth consumption will kill the website. Other projects that use the images here, including [EarthLiveSharp](https://github.com/bitdust/EarthLiveSharp) and [Mantou Earth (Chinese Page)](http://www.coolapk.com/apk/ooo.oxo.apps.earth), have their own CDNs to reduce the load on original servers.
 
-Therefore I built my own CDN that caches images and convert then to WebP. To support WebP on IE and Firefox, you may read [this article](/en/article/modify-website/ie-firefox-webp-support.lantian).
+Therefore I built my own CDN that caches images and convert then to WebP. To support WebP on IE and Firefox, you may read [this post](/en/article/modify-website/ie-firefox-webp-support.lantian).
 
 The source website, `himawari8-dl.nict.go.jp`, can be simply CNAMEd to your own domain, where you can add a CDN to it. Therefore, please pay attention to the request frequency, and set up your own CDN if possible.

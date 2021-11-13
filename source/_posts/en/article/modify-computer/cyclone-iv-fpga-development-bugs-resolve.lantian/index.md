@@ -32,12 +32,12 @@ Here is the demonstration video (in Chinese):
 
 We used the `DE2-115` development board with FPGA chip of `Cyclone IV EP4CE115F29C7`, and `Quartus Prime 18.1 Free Edition` as development software.
 
-Thie article is a record of problems I encountered and resolved when implementing the extra features.
+Thie post is a record of problems I encountered and resolved when implementing the extra features.
 
 Academic Integrity Alert & Open Source
 ======================================
 
-**WARNING:** This article do not contain any materials covered in the course, and is **NOT HELPFUL** to other projects except the final project. If you referenced this article or our code, you **MUST** list it in your report, or you may be punished for plagiarism.
+**WARNING:** This post do not contain any materials covered in the course, and is **NOT HELPFUL** to other projects except the final project. If you referenced this post or our code, you **MUST** list it in your report, or you may be punished for plagiarism.
 
 We open sourced the code at [https://github.com/xddxdd/zjui-ece385-final][3].
 

@@ -8,7 +8,7 @@ image: /usr/uploads/2018/04/2335363675.png
 
 DN42, aka Decentralized Network 42, is a large VPN network. Unlike traditional VPNs, DN42 uses a lot of technology involved in Internet backbones (such as BGP), and is a great simulation of a realistic network environment.
 
-[In a previous article (Chinese only)][1], I joined DN42 and connected most of my VPSes to it. (The ones left are OpenVZ VPSes without Tun/Tap support.) I knew from the beginning that DN42 has its own domain name system, for example DN42's wiki ([https://wiki.dn42.us/Home][2]) can be accessed as [https://internal.dn42][3] in DN42. I didn't register a domain back then since I didn't have time, and I didn't have much knowledge on DN42. I finished the registration this month, and would like to share my experience.
+[In a previous post (Chinese only)][1], I joined DN42 and connected most of my VPSes to it. (The ones left are OpenVZ VPSes without Tun/Tap support.) I knew from the beginning that DN42 has its own domain name system, for example DN42's wiki ([https://wiki.dn42.us/Home][2]) can be accessed as [https://internal.dn42][3] in DN42. I didn't register a domain back then since I didn't have time, and I didn't have much knowledge on DN42. I finished the registration this month, and would like to share my experience.
 
 Building Authoritative DNS
 --------------------------

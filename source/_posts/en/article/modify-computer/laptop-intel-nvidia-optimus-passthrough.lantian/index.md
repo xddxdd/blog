@@ -179,7 +179,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
 My Environment
 --------------
 
-When writing this article I'm using this laptop and OS;
+When writing this post I'm using this laptop and OS;
 
 - Lenovo Legion R720-15IKBN (i7-7700HQ, GTX1050)
   - The first Optimus MUXless scheme, with the iGPU connected to monitor.
@@ -535,7 +535,7 @@ Therefore, currently Optimus GPU passthrough is more for tinkerers than for actu
 References
 ----------
 
-Huge thanks to previous explorers on the topic of GPU passthrough. Without their effort this article won't have existed in the first place.
+Huge thanks to previous explorers on the topic of GPU passthrough. Without their effort this post won't have existed in the first place.
 
 Here are the sources I referenced when I did my configuration:
 

@@ -8,9 +8,9 @@ date: 2019-03-14 22:54:00
 2020-03-16 Notes
 ---------------
 
-There is an updated scheme compared to this article, see [Sharing Network Namespace Among Docker Containers for Bird Anycasting](/en/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian).
+There is an updated scheme compared to this post, see [Sharing Network Namespace Among Docker Containers for Bird Anycasting](/en/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian).
 
-It is suggested to read only the concept explanations in this article, and use the above scheme instead for deployment.
+It is suggested to read only the concept explanations in this post, and use the above scheme instead for deployment.
 
 ---
 

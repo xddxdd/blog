@@ -5,7 +5,7 @@ tags: [nginx, WHOIS, DN42]
 date: 2021-04-19 02:12:15
 ---
 
-In my previous article "[Setting up Gopher Site with nginx](/en/article/modify-website/serve-gopher-with-nginx.lantian/)", I mentioned that the Gopher service is a byproduct of my original plan: modifying nginx into a WHOIS server for DN42. This article will explore into details of that process.
+In my previous post "[Setting up Gopher Site with nginx](/en/article/modify-website/serve-gopher-with-nginx.lantian/)", I mentioned that the Gopher service is a byproduct of my original plan: modifying nginx into a WHOIS server for DN42. This post will explore into details of that process.
 
 The WHOIS Protocol
 ------------------

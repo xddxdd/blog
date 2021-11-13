@@ -5,7 +5,7 @@ tags: ['Scripture of Safety', 'Elegant']
 date: 2020-08-01 23:36:16
 ---
 
-> This article is about a meme in China that may require some cultural background to understand.
+> This post is about a meme in China that may require some cultural background to understand.
 >
 > Since the content is related to the specific language used, there are minor differences between the Chinese and English versions.
 

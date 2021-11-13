@@ -177,4 +177,4 @@ Full example
 All code above are taken from by [Bird Looking Glass Written in Go](/en/article/modify-website/go-bird-looking-glass.lantian), with the full code available at:
 
 - Latest version: [https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go)
-- Version when writing this article: [https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go)
+- Version when writing this post: [https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go)

@@ -20,11 +20,11 @@ Traceroute is one of the popular tools for network inspection. It shows the IP a
 
 Domains are shown on the last 2 hops, which is the IP's reverse DNS record. Reverse DNS records exist as PTR records in the format of `4.3.2.1.in-addr.arpa`. For more information, you may refer to [Setting IP Reverse Records in DN42 (Chinese Only)](/article/modify-website/dn42-ip-reverse-record.lantian).
 
-However, PTR records need not to be real domains. They can be any string that "looks like" a domain. With this, we can write one sentence on each hop of a Traceroute path, to make an article:
+However, PTR records need not to be real domains. They can be any string that "looks like" a domain. With this, we can write one sentence on each hop of a Traceroute path, to make a story:
 
-![Traceroute Article Example][3]
+![Traceroute Story Example][3]
 
-This article is set up in DN42. If you already joined DN42, you may `ping` or `traceroute` IPs in this article. However, this configuration is not limited to DN42. If you have a public IP block with control on reverse DNS, you may use the same method.
+This story is set up in DN42. If you already joined DN42, you may `ping` or `traceroute` IPs in this post. However, this configuration is not limited to DN42. If you have a public IP block with control on reverse DNS, you may use the same method.
 
 Prepare Routes
 --------------
@@ -109,7 +109,7 @@ The fill it to PTR records for the IPs on the path:
 
 Save and wait for DNS updates to propagate:
 
-![Traceroute Article Example][3]
+![Traceroute Story Example][3]
 
 You will see your small essay in Traceroute.
 

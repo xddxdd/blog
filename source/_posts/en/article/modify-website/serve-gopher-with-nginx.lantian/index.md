@@ -9,7 +9,7 @@ image: /usr/uploads/202103/gopher-gopherus-en.png
 Changelog
 ---------
 
-- 2021-03-24: Improve article processing, add scripts for parsing links and images.
+- 2021-03-24: Improve post processing, add scripts for parsing links and images.
 - 2021-03-21: Initial version.
 
 What's Gopher
@@ -160,7 +160,7 @@ Remember to enable `--with-http_plain_module` while compiling nginx, and remembe
 Generating Gophermaps
 ---------------------
 
-Now that we have a server, the next thing we need is files for the website. Since I use Hexo, a static site generator, and all my articles are written in Markdown, I simply went the lazy way of reformatting Markdown files with [Remark](https://github.com/remarkjs/remark), capping to 70 characters per line with [Prettier](https://github.com/prettier/prettier). Then I search for all links and images with a regex, put them to their own lines as link (`1`) or image (`I`), since Gophermap doesn't support mixing text and link in the same line. All other texts are set as `i`:
+Now that we have a server, the next thing we need is files for the website. Since I use Hexo, a static site generator, and all my posts are written in Markdown, I simply went the lazy way of reformatting Markdown files with [Remark](https://github.com/remarkjs/remark), capping to 70 characters per line with [Prettier](https://github.com/prettier/prettier). Then I search for all links and images with a regex, put them to their own lines as link (`1`) or image (`I`), since Gophermap doesn't support mixing text and link in the same line. All other texts are set as `i`:
 
 ```javascript
 const crlf = '\r\n';
@@ -285,7 +285,7 @@ location / {
 }
 ```
 
-With articles ready, I need a list of contents as my index page. I simply wrote a `for` loop, generating a link and two lines of summary for each article. The key logic is as below:
+With posts ready, I need a list of contents as my index page. I simply wrote a `for` loop, generating a link and two lines of summary for each post. The key logic is as below:
 
 ```javascript
 const crlf = '\r\n';
@@ -356,7 +356,7 @@ Chinese contents layout is much better than Gopherus. Of course, English content
 
 ![Firefox + Overbite on English contents](../../../../../usr/uploads/202103/gopher-overbite-en.png)
 
-Let's try browsing an article. Although it's just plain Markdown without much extra processing, the article itself is readable:
+Let's try browsing an post. Although it's just plain Markdown without much extra processing, the post itself is readable:
 
 ![Firefox + Overbite on Chinese contents](../../../../../usr/uploads/202103/gopher-overbite-article.png)
 

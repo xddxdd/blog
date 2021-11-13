@@ -27,7 +27,7 @@ The author only provided DEB packages, but among them are debug symbols, etc tha
 The author suggests to build a simple package repository locally before using it, with the following steps:
 
 ```bash
-# Download the latest version of modified glibc, due by the date this article is posted
+# Download the latest version of modified glibc, due by the date this post is posted
 wget https://github.com/sdwru/glibc-debian-10/releases/download/2.28-9910.0/glibc_2.28-9910.0+custom1.1_amd64.deb.zip
 unzip glibc_2.28-9910.0+custom1.1_amd64.deb.zip
 # Create a package repo at /opt/packages

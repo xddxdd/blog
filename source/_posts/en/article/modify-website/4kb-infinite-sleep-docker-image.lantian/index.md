@@ -5,7 +5,7 @@ tags: [Docker]
 date: 2020-12-27 23:39:07
 ---
 
-In my network configuration, some of my Docker containers, for example DNS, need to achieve high availability with Anycast. [In my previous article](/en/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian/), I created a Busybox container and run `tail -f /dev/null`, in order to let it persist infinitely, but without using any CPU cycles, to maintain a network namespace used by both the server application and BIRD.
+In my network configuration, some of my Docker containers, for example DNS, need to achieve high availability with Anycast. [In my previous post](/en/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian/), I created a Busybox container and run `tail -f /dev/null`, in order to let it persist infinitely, but without using any CPU cycles, to maintain a network namespace used by both the server application and BIRD.
 
 In short: I invented a Pod in Kubernetes on my own.
 

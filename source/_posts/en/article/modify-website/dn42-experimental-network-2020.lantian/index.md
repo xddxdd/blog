@@ -35,7 +35,7 @@ Changelog
 Skill Requirements
 ------------------
 
-This article assumes that you are already capable of:
+This post assumes that you are already capable of:
 
 1. You have a Linux environment (either dual-boot/virtual machine/VPS is fine).
 2. You know how to use common Linux commands (`cd`, `ls`, etc), know how to install packages on your Linux OS (`apt`, `yum`, etc), and know how to use at least one editor (either graphical editors like `gedit` or `vscode`, or commandline ones like `vim` or `nano`). If you don't know how to do this, please have a look at [this guide](https://ryanstutorials.net/linuxtutorial/).
@@ -771,11 +771,11 @@ You can also challenge yourself and change your tunnel and BGP config, add more 
   - For Bird1 refer to [DN42 Wiki's Bird Communities Page](https://wiki.dn42.us/howto/Bird-communities). For Bird2 changes are needed, and you may try out yourself
 - Anycast, or multiple servers announcing the same IP, and external requests will be directed to the nearest server
   - Usually used for DNS on global Internet, but in DN42, the Wiki (172.23.0.80) is also anycasted.
-  - I've written two articles on this, one in last year and one in this year: see [Building Anycast DNS with Docker in DN42](/en/article/modify-website/dn42-docker-anycast-dns.lantian) and [Sharing Network Namespace Among Docker Containers for Bird Anycasting](/en/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian).
+  - I've written two posts on this, one in last year and one in this year: see [Building Anycast DNS with Docker in DN42](/en/article/modify-website/dn42-docker-anycast-dns.lantian) and [Sharing Network Namespace Among Docker Containers for Bird Anycasting](/en/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian).
 - Build your own recursive or authoritative DNS server
   - You may even apply to join DN42's DNS Anycast and become a DN42 official DNS server.
 - Register a domain and create a website
-  - See my article in 2018: [Register Domain in DN42](/en/article/modify-website/register-own-domain-in-dn42.lantian)
+  - See my post in 2018: [Register Domain in DN42](/en/article/modify-website/register-own-domain-in-dn42.lantian)
 - Or register a AS on the real Internet with RIPE, rent a public IPv4 and IPv6 address pool, and start doing it for real.
 
 Need Help?

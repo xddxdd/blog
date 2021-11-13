@@ -12,7 +12,7 @@ But this does not mark the death of OS/2. After official tech support ended, Sen
 
 At the same time, the open source community is providing some support to OS/2. They cross compiled common Unix tools (including `ls`, `rm`, etc), RPM/YUM package manager, and a series of libraries on OS/2. This makes OS/2 Warp 4, which was released back in 1996, still able to run some (relatively) modern software, such as Firefox 45.9.
 
-In this article, I'm going to install OS/2 Warp 4 on VirtualBox, and install Firefox.
+In this post, I'm going to install OS/2 Warp 4 on VirtualBox, and install Firefox.
 
 Installing OS
 -------------

@@ -127,7 +127,7 @@ Open Quantum Safe also [provides a guide to compile Chromium that is availale he
 
 Then proceed to compile Chromium as normal.
 
-I also modified a Chromium `PKGBUILD` file that Arch Linux users can use directly. The latest PKGBUILD [is available here](https://github.com/xddxdd/pkgbuild/tree/master/chromium-vaapi-oqs), while the version when I wrote this article [is available here (241cfaa)](https://github.com/xddxdd/pkgbuild/tree/241cfaad1d4e0c245efdfb345d9245ef57a07c82/chromium-vaapi-oqs).
+I also modified a Chromium `PKGBUILD` file that Arch Linux users can use directly. The latest PKGBUILD [is available here](https://github.com/xddxdd/pkgbuild/tree/master/chromium-vaapi-oqs), while the version when I wrote this post [is available here (241cfaa)](https://github.com/xddxdd/pkgbuild/tree/241cfaad1d4e0c245efdfb345d9245ef57a07c82/chromium-vaapi-oqs).
 
 > Note that compiling Chromium takes a really long time. It took 8 hours on my i7-7700HQ. If you have a weaker CPU, be prepared for waiting all day long.
 

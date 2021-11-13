@@ -5,7 +5,7 @@ tags: [Linux, 摄像头]
 date: 2020-03-11 15:50:47
 ---
 
-This article will explain the way to disable your webcam on Windows and Linux, so:
+This post will explain the way to disable your webcam on Windows and Linux, so:
 
 1. On the OS level, prevent you from turning on the webcam by mistake, and live stream your footage of ~~having a meal~~ ~~lying on the bed~~ ~~playing games~~ ~~(NSFW)~~
 2. Prevent certain online lecturing software from secretly turning on the webcam.
