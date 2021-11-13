@@ -1,10 +1,12 @@
 ---
-title: 'NixOS 系列（一）：为什么我心动了'
+title: 'NixOS 系列（一）：我为什么心动了'
 categories: 网站与服务端
 tags: [NixOS]
 date: 2021-10-11 16:06:58
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
+
+{% insertmd _templates/nixos-series/toc-zh.md %}
 
 我正在将我的各个服务器逐步从 Devuan Linux 迁移到 [NixOS](https://nixos.org/)。NixOS 是一个以 Nix 配置文件为中心的 Linux 发行版，通过 `/etc/nixos` 的一份配置文件安装配置整个系统。这份配置文件指定了系统上的**所有**配置文件和软件包配置，因此你用同一份配置文件装出来的一定是一模一样的操作系统。Nix 语言是图灵完备的，所以理论上无论你用的软件配置多复杂，你都能用 Nix 生成对应的配置文件。
 

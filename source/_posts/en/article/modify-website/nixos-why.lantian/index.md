@@ -1,16 +1,18 @@
 ---
-title: 'NixOS Series 1: Why do I fall in love'
+title: 'NixOS Series 1: Why I fell in love'
 categories: 'Website and Servers'
 tags: [NixOS]
 date: 2021-10-11 16:06:58
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
+{% insertmd _templates/nixos-series/toc-en.md %}
+
 Right now I'm gradually migrating my servers from Devuan Linux to [NixOS](https://nixos.org/). NixOS is a Linux distribution centered on a set of Nix configuration files located in `/etc/nixos`, which is used to install and configure the whole operating system. Because this configuration set defines **ALL** config files and packages on the system, as long as you use the same config files, you will absolutely get the same operating system every time you reinstall. Nix configuration language is also Turing complete, so you will be able to generate config files with Nix, no matter how complicated that software is.
 
 Another important feature of Nix package manager is reproducible builds. Every package in NixOS is defined with Nix config files, and Nix package manager can promise that, (as long as the software doesn't deliberately fight back), you will get binaries with the exact same functionality, and in most cases, get binaries with the same hash values (such as MD5 and SHA256).
 
-Since NixOS the Linux distribution is quite unfriendly to beginners, I will write a series of articles on my whole transition process. This is the first article in the series, and mainly focuses on the reason I fall in love with it.
+Since NixOS the Linux distribution is quite unfriendly to beginners, I will write a series of posts on my whole transition process. This is the first post in the series, and mainly focuses on the reason I fall in love with it.
 
 # Before I use NixOS
 
@@ -153,4 +155,4 @@ Therefore, NixOS doesn't need a rescue system in most cases, as it can recover i
 
 # Conclusion and Followups
 
-This article mainly focuses on introducing the advantages of NixOS and its package management system over other Linux distros. In the followup articles, I will explain the process of configuring everything in NixOS and replacing my nodes step by step.
+This post mainly focuses on introducing the advantages of NixOS and its package management system over other Linux distros. In the followup posts, I will explain the process of configuring everything in NixOS and replacing my nodes step by step.
