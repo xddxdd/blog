@@ -35,7 +35,7 @@
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
     "cssnano": "^5.0.12",
-    "cssnano-preset-advanced": "^5.1.7",
+    "cssnano-preset-advanced": "^5.1.8",
     "deepmerge": "^4.2.2",
     "flag-icon-css": "^3.5.0",
     "hexo": "^5.4.0",
