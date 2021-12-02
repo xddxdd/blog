@@ -92,8 +92,8 @@ Servers
 
 - Server 1: Hong Kong, China, provider IDC.wiki (originally 50KVM)
   - Domain: `50kvm.lantian.pub`
-  - Public IPv4: `23.226.61.104`
-  - Public IPv6: `2001:470:19:10bd::1`
+  - Public IPv4: `23.226.61.104` / `v4.50kvm.lantian.pub`
+  - Public IPv6: `2001:470:19:10bd::1` / `v6.50kvm.lantian.pub`
   - DN42 IPv4: `172.22.76.186`
   - DN42 IPv6: `fdbc:f9dc:67ad:1::1`
   - Link-local IPv6: `fe80::2547`
@@ -101,8 +101,8 @@ Servers
 
 - Server 2：Los Angeles, United States, provider HostDare
   - Domain: `hostdare.lantian.pub`
-  - Public IPv4: `185.186.147.110`
-  - Public IPv6: `2607:fcd0:100:b100::198a:b7f6`
+  - Public IPv4: `185.186.147.110` / `v4.hostdare.lantian.pub`
+  - Public IPv6: `2607:fcd0:100:b100::198a:b7f6` / `v6.hostdare.lantian.pub`
   - DN42 IPv4: `172.22.76.185`
   - DN42 IPv6: `fdbc:f9dc:67ad:3::1`
   - Link-local IPv6: `fe80::2547`
@@ -110,8 +110,8 @@ Servers
 
 - Server 3: New York, United States, provider VirMach
   - Domain: `virmach-ny1g.lantian.pub`
-  - Public IPv4: `107.172.134.89`
-  - Public IPv6: `2001:470:1f07:54d::1`
+  - Public IPv4: `107.172.134.89` / `v4.virmach-ny1g.lantian.pub`
+  - Public IPv6: `2001:470:1f07:54d::1` / `v6.virmach-ny1g.lantian.pub`
   - DN42 IPv4: `172.22.76.190`
   - DN42 IPv6: `fdbc:f9dc:67ad:8::1`
   - Link-local IPv6: `fe80::2547`
@@ -119,8 +119,8 @@ Servers
 
 - Server 4: Roost, Bissen, Luxemborg, provider BuyVM
   - Domain: `buyvm.lantian.pub`
-  - Public IPv4: `107.189.12.254`
-  - Public IPv6: `2605:6400:30:f22f::1`
+  - Public IPv4: `107.189.12.254` / `v4.buyvm.lantian.pub`
+  - Public IPv6: `2605:6400:30:f22f::1` / `v6.buyvm.lantian.pub`
   - DN42 IPv4: `172.22.76.187`
   - DN42 IPv6: `fdbc:f9dc:67ad:2::1`
   - Link-local IPv6: `fe80::2547`
