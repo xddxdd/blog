@@ -94,8 +94,8 @@ Servers
   - Domain: `50kvm.lantian.pub`
   - Public IPv4: `23.226.61.104` / `v4.50kvm.lantian.pub`
   - Public IPv6: `2001:470:19:10bd::1` / `v6.50kvm.lantian.pub`
-  - DN42 IPv4: `172.22.76.186`
-  - DN42 IPv6: `fdbc:f9dc:67ad:1::1`
+  - DN42 IPv4: `172.22.76.186` / `v4.50kvm.dn42.lantian.pub`
+  - DN42 IPv6: `fdbc:f9dc:67ad:1::1` / `v6.50kvm.dn42.lantian.pub`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
 
@@ -103,8 +103,8 @@ Servers
   - Domain: `hostdare.lantian.pub`
   - Public IPv4: `185.186.147.110` / `v4.hostdare.lantian.pub`
   - Public IPv6: `2607:fcd0:100:b100::198a:b7f6` / `v6.hostdare.lantian.pub`
-  - DN42 IPv4: `172.22.76.185`
-  - DN42 IPv6: `fdbc:f9dc:67ad:3::1`
+  - DN42 IPv4: `172.22.76.185` / `v4.hostdare.dn42.lantian.pub`
+  - DN42 IPv6: `fdbc:f9dc:67ad:3::1` / `v6.hostdare.dn42.lantian.pub`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
 
@@ -112,8 +112,8 @@ Servers
   - Domain: `virmach-ny1g.lantian.pub`
   - Public IPv4: `107.172.134.89` / `v4.virmach-ny1g.lantian.pub`
   - Public IPv6: `2001:470:1f07:54d::1` / `v6.virmach-ny1g.lantian.pub`
-  - DN42 IPv4: `172.22.76.190`
-  - DN42 IPv6: `fdbc:f9dc:67ad:8::1`
+  - DN42 IPv4: `172.22.76.190` / `v4.virmach-ny1g.dn42.lantian.pub`
+  - DN42 IPv6: `fdbc:f9dc:67ad:8::1` / `v6.virmach-ny1g.dn42.lantian.pub`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
 
@@ -121,8 +121,8 @@ Servers
   - Domain: `buyvm.lantian.pub`
   - Public IPv4: `107.189.12.254` / `v4.buyvm.lantian.pub`
   - Public IPv6: `2605:6400:30:f22f::1` / `v6.buyvm.lantian.pub`
-  - DN42 IPv4: `172.22.76.187`
-  - DN42 IPv6: `fdbc:f9dc:67ad:2::1`
+  - DN42 IPv4: `172.22.76.187` / `v4.buyvm.dn42.lantian.pub`
+  - DN42 IPv6: `fdbc:f9dc:67ad:2::1` / `v6.buyvm.dn42.lantian.pub`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
 
