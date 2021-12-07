@@ -81,7 +81,7 @@
     "remark-stringify": "^9.0.1",
     "resolve-url-loader": "^4.0.0",
     "sass": "^1.44.0",
-    "sass-loader": "^12.3.0",
+    "sass-loader": "^12.4.0",
     "sass-material-colors": "0.0.5",
     "sass-migrator": "^1.5.3",
     "simple-lightbox": "^2.1.0",
