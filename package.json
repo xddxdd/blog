@@ -80,7 +80,7 @@
     "remark-inline-links": "^5.0.0",
     "remark-stringify": "^9.0.1",
     "resolve-url-loader": "^4.0.0",
-    "sass": "^1.44.0",
+    "sass": "^1.45.0",
     "sass-loader": "^12.4.0",
     "sass-material-colors": "0.0.5",
     "sass-migrator": "^1.5.3",
