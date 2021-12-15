@@ -3,6 +3,7 @@ title: '我把硬盘换到了新电脑上，这是 Btrfs 上的数据发生的�
 categories: 闲聊
 tags: [Btrfs]
 date: 2021-12-15 02:07:09
+image: /usr/uploads/202112/chubbyemu.jpg
 ---
 
 ## 发生甚么事了
@@ -35,7 +36,7 @@ date: 2021-12-15 02:07:09
 
 问题不大
 
-我挂载上 Btrfs 分区，把 Intel-Undervolt 的配置连带它的二进制文件都删了，再次重启。这次没有 Panic，只是 Btrfs 提示了一堆 Metadata 损坏的信息，然后没能挂载上 `/home` 的 Subvolume。
+我挂载上 Btrfs 分区，把 Intel-Undervolt 的配置连带它的二进制文件都删了，再次重启。虽然这次没有 Kernel Panic，但是 Btrfs 提示了一堆 Metadata 损坏的信息，然后没能挂载上 `/home` 的 Subvolume。
 
 问题有亿点大
 
@@ -52,7 +53,7 @@ date: 2021-12-15 02:07:09
 接下来就是冗长的重装系统过程了。
 
 ## 回顾
-应该也shi yong
+
 Btrfs 分区的 Metadata 大概率是在第二次尝试进入系统、Btrfs Kernel Panic 的时候损坏的，原因应该是 CPU 过度降压导致与内存或者固态硬盘的通信不稳定，或者校验码计算错误。
 
 只要电脑不完全断电，Intel-Undervolt 的配置都是不会失效的。但因为我每次 U 盘启动前都是长按电源关机，电脑都是冷启动，所以在 U 盘的安装环境里，CPU 的电压是正常的，可以正常稳定地进行操作。
