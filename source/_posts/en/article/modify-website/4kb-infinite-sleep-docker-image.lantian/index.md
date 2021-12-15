@@ -189,7 +189,7 @@ SYMBOL TABLE:
 0000000000404050 g     O .bss   0000000000000008 __progname_full
 ```
 
-This is because a portion of Musl is copied over in static linking process. But for a program that does nothing other than waiting forever, it doesn't need any of them. Can we remove them:
+This is because a portion of Musl is copied over in the static linking process. But for a program that does nothing other than waiting forever, it doesn't need any of them. Can we remove them:
 
 Sure. One way is to call the system call for `pause` directly in assembly. Don't be frightened by assembly though, our program is only 6 lines long:
 
@@ -203,9 +203,9 @@ _start:
 ```
 
 - Line 1 indicates that all the code should be put to the `.text` section (executable code section) of the Linux ELF executable.
-- Line 2 and Line 3 defines a `_start` function.
-  - Although the main function is `main` when we write C code, it's not the first function that Linux calls when it starts the program. Instead, it runs the `_start` function copied over from C standard library. It will load some environment settings (such as parsing commandline arguments) and call our `main` function. But we don't need all these steps. We just need to `sleep` forever.
-- Line 4 and Line 5 calls the system call numbered 34, or the `pause` call for Linux. It's the one that I mentioned before, sleep indefinitely until a signal is received.
+- Line 2 and Line 3 define a `_start` function.
+  - Although the main function is `main` when we write C code, it's not the first function that Linux calls when it starts the program. Instead, it runs the `_start` function copied over from C standard library. It will load some environment settings (such as parsing command-line arguments) and call our `main` function. But we don't need all these steps. We just need to `sleep` forever.
+- Line 4 and Line 5 call the system call numbered 34, or the `pause` call for Linux. It's the one that I mentioned before, sleep indefinitely until a signal is received.
 - Line 6 jumps to the beginning of `_start` to create an infinite loop.
 
 "Compile" it (technically it's not, it's only translating to machine code):
@@ -217,18 +217,18 @@ ld -s -o sleep sleep.obj
 
 And we have a 4.3 KB executable that does sleep forever.
 
-But problems arise again: The code we just created, as well as the executable, only supports x86_64. I have a Raspberry Pi and a Tinker Board, which means I need to support ARM. And if I ever come acorss a machine that only do x86 32 bits, or RISC-V got popular somehow in the future, I'll have to install a assembler and write a version of code for each and every architecture.
+But problems arise again: The code we just created, as well as the executable, only supports x86_64. I have a Raspberry Pi and a Tinker Board, which means I need to support ARM. And if I ever come across a machine that only does x86 32 bits, or RISC-V got popular somehow in the future, I'll have to install an assembler and write a version of code for each and every architecture.
 
-To make matters worse, Linux numbers its system calls differently under different architecures. I'll have to look up them for each architecture.
+To make matters worse, Linux numbers its system calls differently under different architectures. I'll have to look them up for each architecture.
 
 Can this be simplified?
 
 Plan C: Use Musl's Source Code
 ------------------------------
 
-Remember the C standard libraries like Musl? One of their jobs is to wrap up Linux system calls, so programmers can use them without writing assembly. Wouldn't it be better if we can reuse the wrapping part, without other junks that we don't need?
+Remember the C standard libraries like Musl? One of their jobs is to wrap up Linux system calls, so programmers can use them without writing assembly. Wouldn't it be better if we could reuse the wrapping part, without other junks that we don't need?
 
-First we need to grab a copy of Musl's code:
+First, we need to grab a copy of Musl's code:
 
 ```bash
 wget https://musl.libc.org/releases/musl-1.2.1.tar.gz
@@ -236,7 +236,7 @@ tar xvf musl-1.2.1.tar.gz
 mv musl-1.2.1 musl
 ```
 
-Musl has assembly code, inlined in C files, for system calls in different architecutres, under the `arch` folder. For example, the code for x86_64 is at `arch/x86_64/syscall_arch.h`:
+Musl has assembly code, inlined in C files, for system calls in different architectures, under the `arch` folder. For example, the code for x86_64 is at `arch/x86_64/syscall_arch.h`:
 
 ```c
 static __inline long __syscall0(long n)
@@ -253,11 +253,11 @@ In addition, there's a system call table in `cat arch/x86_64/bits/syscall.h.in`:
 #define __NR_pause 34
 ```
 
-Neither of them depend on external stuff, and we can include them directly. Therefore we can create this piece of code:
+Neither of them depends on external stuff, and we can include them directly. Therefore we can create this piece of code:
 
-> `pause` system call isn't supported on all architectures. When this happens I use `sched_yield` instead, to tell the OS to allocate CPU cycles to other programs. This consumes more CPU cycles than `pause`.
+> `pause` system call isn't supported on all architectures. When this happens, I use `sched_yield` instead to tell the OS to allocate CPU cycles to other programs. This consumes more CPU cycles than `pause`.
 >
-> Like aseembly, a `_start` function is created. We don't need other stuff from C standard libraries.
+> Like assembly, a `_start` function is created. We don't need other stuff from C standard libraries.
 
 ```c
 #include "bits/syscall.h"
@@ -289,7 +289,7 @@ Which will give us a `sleep` file that's 8.9 KB in size:
 -rwxr-xr-x 1 lantian lantian 8.9K Dec 27 23:00 sleep
 ```
 
-This is not the limit. If assembly can get us to 4.3 KB, we can do similar with C. Let's run `objdump -x sleep` to see the ELF Sections:
+That is not the limit. If some assembly can get us to 4.3 KB, we can do similar with C. Let's run `objdump -x sleep` to see the ELF Sections:
 
 ```bash
 Sections:
@@ -316,7 +316,7 @@ Now the file is sized at 4.7 KB. We can further remove `.comment`:
 strip -s -R ".comment" sleep
 ```
 
-And we got to 4.3 KB, exactly the same as assembly. Let's check by doing a disassembly:
+And we got to 4.3 KB, exactly the same as that assembly. Let's check by doing a disassembly:
 
 ```bash
 > objdump -D sleep
@@ -333,11 +333,11 @@ Disassembly of section .text:
   40100a:       eb f9                   jmp    0x401005
 ```
 
-Almost the same as the assembly code. If you take a look with hexdump, you will see tons of 0s in the file. But they cannot be removed, since a memory page in x86 is 4KB, and ELF file sections have to be aligned to 4KB.
+It's almost the same size as the assembly code. If you take a look with hexdump, you will see tons of 0s in the file. But they cannot be removed since a memory page in x86 is 4KB, and ELF file sections have to be aligned to 4KB.
 
-Finally, put all of them into a Dockerfile, and we have a Docker image. [You can take a look of my Dockerfile here at this commit.](https://github.com/xddxdd/dockerfiles/tree/eecbb766176852ead16a6066017772161c59e502/dockerfiles/sleep/template.Dockerfile)
+Finally, put all of them into a Dockerfile, and we have a Docker image. [You can take a look at my Dockerfile here at this commit.](https://github.com/xddxdd/dockerfiles/tree/eecbb766176852ead16a6066017772161c59e502/dockerfiles/sleep/template.Dockerfile)
 
 But Was It Worth It?
 --------------------
 
-Good question, I want to find out too.
+Good question. I want to find out too.

@@ -30,7 +30,7 @@ Upon seeing this format I immediately realized it is suitable for a tag cloud. S
 The Most Simple Version
 -----------------------
 
-Since I'm using the Hexo static site generator, I created a new template file `ping-an-jing.ejs` in the `layout` folder of my theme, and insert the following code at appropriate position:
+Since I'm using the Hexo static site generator, I created a new template file `ping-an-jing.ejs` in the `layout` folder of my theme, and insert the following code at an appropriate position:
 
 ```javascript
 <% site.tags.forEach(tag => { %>
@@ -38,7 +38,7 @@ Since I'm using the Hexo static site generator, I created a new template file `p
 <% }) %>
 ```
 
-And we have the most simple _Scripture of Safety_! Isn't it easy?
+And we have the most simple _Scripture of Safety_! Isn't that easy?
 
 But the result it provides is far from optimal:
 
@@ -78,7 +78,7 @@ var total_tag_counter = 0;
 </p>
 ```
 
-Here we count the number of tags already displayed. If the tag to be shown is the first one, "Wish" is inserted. Similarly, if the tag is the last one, period is used instead of comma.
+Here we count the number of tags already displayed. If the tag to be shown is the first one, "Wish" is inserted. Similarly, if the tag is the last one, a period is used instead of a comma.
 
 But that's not all. If your site has a lot of tags, all of them will be in a large block. For example this is what I get with my blog:
 
@@ -89,22 +89,22 @@ But that's not all. If your site has a lot of tags, all of them will be in a lar
 Splitting the Block
 -------------------
 
-We need to split the whole block into multiple paragraphs for aesthetics. So we need a mean to decide the number of tags in each paragraph, and start a new one when the limit is reached.
+We need to split the whole block into multiple paragraphs for aesthetics. So we need means to decide the number of tags in each paragraph and start a new one when the limit is reached.
 
-Obviously that number can be set randomly, for example with Javascript's `Math.random()` function. However, in this case the page layout will change every time we regenerate the page, even when the tags did not change. This is not what we want.
+Obviously, that number can be set randomly, with Javascript's `Math.random()` function for example. However, in this case the page layout will change every time we regenerate the page, even when the tags did not change. This is not what we want.
 
-So we need some way to set the random seed, but Javascript doesn't support this. Therefore, we need our own random number generator (RNG).
+So we need some way to set the random seed, but Javascript doesn't support this. Therefore, we need to roll our own random number generator (RNG).
 
 A most simple RNG is LCG (Linear congruential generator), which performs the following operation each time a new number is requested:
 
 $$X \leftarrow (A \cdot X + B) \bmod M$$
 
-A, B and M are constants, and X is the seed or the last result. Common constant values are available on [Wikipedia](https://en.wikipedia.org/wiki/Linear_congruential_generator). I'm using the constants of glibc:
+A, B, and M are constants, and X is the seed or the last result. Common constant values are available on [Wikipedia](https://en.wikipedia.org/wiki/Linear_congruential_generator). I'm using the constants of glibc:
 
 - $A = 1103515245$
 - $B = 12345$
 - $M = 2^{31}$
-  - Later I changed it to `32`, since a paragraph with 32 tags is already long enough. In addition `32 = 2 ^ 5`, so it won't impact the randomness much.
+  - Later, I changed it to `32`, since a paragraph with 32 tags is already long enough. In addition, `32 = 2 ^ 5`, so it won't impact the randomness much.
 
 Note that the results of this RNG still follow some form of rules, which means its results can be predicted, and is not appropriate for security related areas such as cryptography. But since we're only splitting paragraphs, we're fine.
 

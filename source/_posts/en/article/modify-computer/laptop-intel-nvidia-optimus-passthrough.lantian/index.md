@@ -11,40 +11,40 @@ Abstract (Spoiler Alert!)
 
 I successfully passed through Intel's GVT-g virtual GPU, as well as the dedicated NVIDIA GPU itself, into a virtual machine on Lenovo R720 gaming laptop.
 
-However, due to the limitation of the architecture itself, this GPU passthrough scheme is severely limited. For example, the dGPU is unusable in many games, and the peformance is still relatively worse despite the complicated setup it needs.
+However, due to the limitation of the architecture itself, this GPU passthrough scheme is severely limited. For example, the dGPU is unusable in many games, and the performance is still relatively worse despite the complicated setup it needs.
 
 Therefore, you may attempt the passthrough purely for the fun of tinkering, but I don't recommend using it for anything important.
 
 Why?
 ----
 
-I do my daily routines, including as web browsing and coding, on Arch Linux, and I rarely boot into the dual-booted Windows that exists alongside Linux. But sometimes I had to boot to Windows when, for example, I want to play games with my friends.
+I do my daily routines, including web browsing and coding, on Arch Linux, and I rarely boot into the dual-booted Windows that exists alongside Linux. But sometimes I had to boot to Windows when, for example, I wanted to play games with my friends.
 
-> Although there are compatibility layers, such as Wine and Proton, to run Windows programs, as well as DXVK that translates DirectX commands to Vulkan for 3D performance boost, there are still lots of games that won't work under Wine, such as those games with DRM or anti-cheat protection, or some games that call ~~strange~~ private Windows APIs.
+> Although there are compatibility layers, such as Wine and Proton, to run Windows programs, as well as DXVK that translates DirectX commands to Vulkan for some 3D performance boost, there are still lots of games that won't work under Wine, such as those games with DRM or anti-cheat protection, or some games that call ~~strange~~ private Windows APIs.
 
-But dual-booting means I have to maintain two operating systems, including their system updates, data sharing and synchronization. For instance, I had to run a Hyper-V virtual machine with Linux and passthrough the disk with Linux ZFS partition, and share the files with Samba, in order to access then from Windows.
+But dual-booting means I have to maintain two operating systems, including their system updates, data sharing, and synchronization. For instance, I had to run a Hyper-V virtual machine running Linux and passthrough the disk with the Linux ZFS partition and share the files over Samba in order to access them from Windows.
 
 > Memory -1G, and it takes 2-3 minutes to connect to the share after logging on.
 
-On the other hand, traditional virtual machine hypervisors (QEMU, VirtualBox, VMware, etc) have **horrible** 3D performance.
+On the other hand, traditional virtual machine hypervisors (QEMU, VirtualBox, VMware, etc.) have **horrible** 3D performance.
 
 - QEMU: What is 3D acceleration anyway?
   - For QXL, which only supports 2D acceleration
-  - There is an attempt in 3D acceleration called Virtio-GPU, but it's incomplete and don't support Windows (yet)
+  - There is an attempt in 3D acceleration called Virtio-GPU, but it's incomplete and doesn't support Windows (yet)
 - VirtualBox: Better than nothing
-  - It supports a fraction of DirectX APIs, but not complete
-  - And on my system VirtualBox sometimes outputs corrupted image, when 2D acceleration is used
+  - It supports a fraction of DirectX APIs but is incomplete
+  - And on my system VirtualBox sometimes outputs corrupted images with 2D acceleration
   - And on my system VirtualBox sometimes freezes (compatibility problem with ZFS?)
 - VMware: Best among the three
   - Still, not enough
-  - And it's closed source, and requires a fee
+  - And it's closed source and requires a fee
 
-Another common solution is the PCIe passthrough functionality of the VM hypervisor, which gives full control of the high performance GPU to the VM, where it directly runs the official drivers and talks to the GPU directly.
+Another common solution is the PCIe passthrough functionality of the VM hypervisor, which gives full control of the high-performance GPU to the VM, where it directly runs the official drivers and talks to the GPU.
 
 - You'll need a CPU that supports either VT-d (Intel) or AMD-Vi (AMD), but you'd be fine with CPUs made in recent years
-  - Unless you are ~~shooting Scrapyard Wars~~ picking up old PC components
+  - Unless you are ~~filming Scrapyard Wars~~ picking up old PC components
 - And you'll need at least 2 GPUs (including integrated ones)
-  - Since the high performance GPU is taken by the VM, the host system cannot display anything without another GPU
+  - Since the high-performance GPU is taken by the VM, the host system cannot display anything without another GPU
 - And you'll need a hypervisor that supports PCIe passthrough
   - VirtualBox and VMware Workstation can't do this (as far as I know)
   - VMware ESXi (an OS dedicated to virtualization) can do this
@@ -52,10 +52,10 @@ Another common solution is the PCIe passthrough functionality of the VM hypervis
     - But closed-source, picky on network cards, and is a resource hog (on RAM, for example)
   - Proxmox VE can do this as well
     - A Debian-based OS for virtualization
-    - System itself is open source and free, charges fee on technical support
+    - The system itself is open source and free, but it charges a fee on technical support
     - Based on QEMU
   - Or simply install QEMU on your Linux distribution
-    - QEMU: free, open source, ~~the chosen one (by multiple Linux VM solutions)~~
+    - QEMU: free and open-source, ~~the chosen one (by multiple Linux VM solutions)~~
     - You need to type a long command to start the VM, but easier management is possible with Libvirt and Virt-manager
 
 But for NVIDIA GPUs and laptops, things are more complicated:
@@ -63,11 +63,11 @@ But for NVIDIA GPUs and laptops, things are more complicated:
 - NVIDIA drivers refuse to load in VMs
   - NVIDIA doesn't want you to go with a consumer card that costs a mere few hundred dollars. They want you to spend thousands on a GRID GPU dedicated to virtualization.
     - ![Linus Torvalds Fxxk Nvidia](../../../../../usr/uploads/202007/linus-torvalds-nvidia.png)
-  - Therefore you need a lot of hacks to hide the fact that you're running a VM, and let NVIDIA drivers load.
+  - Therefore, you need a lot of hacks to hide the fact that you're running a VM and make NVIDIA drivers load.
     - Will be discussed in detail later.
 - Laptop NVIDIA GPUs are different from desktop GPUs
   - No, I don't just mean performance. The overall architecture is also different.
-  - On a desktop the GPU is connected in the following scheme:
+  - On a desktop, the GPU is connected in the following scheme:
 
     ```graphviz
     digraph {
@@ -80,9 +80,9 @@ But for NVIDIA GPUs and laptops, things are more complicated:
     }
     ```
 
-    The GPU only connects to the CPU and monitors, and don't care about other components.
-  - But on laptops things are different, and they even differ between laptops.
-    - If you spent a few hundred dollars on a low-to-mid-range gaming laptop, the connection may look like:
+    The GPU only connects to the CPU and monitors and doesn't care about other components.
+  - But on laptops, things are different. They even differ between laptops.
+    - If you spent a few hundred dollars on a low-to-mid-range gaming laptop, the connections may look like:
 
       ```graphviz
       digraph {
@@ -99,7 +99,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
 
       The difference is, instead of directly connecting to the monitor, the dGPU transfers the rendered image to iGPU, which in turn sends them to the monitor.
 
-      This is called the MUXless scheme of NVIDIA Optimus.
+      It is called the MUXless scheme of NVIDIA Optimus.
 
       - Pros:
         - Saves battery juice (dGPU turns off when not needed)
@@ -108,10 +108,10 @@ But for NVIDIA GPUs and laptops, things are more complicated:
         - High latency when rendering game frames (since an extra transfer is required)
         - Severe technical difficulty when passing through the GPU:
           - Windows prefers to run games on the GPU connected to the current monitor.
-            - Since the dGPU isn't connected to any monitors, games won't prefer to use the dGPU. Instead they will use the low performance virtualized GPU (ex. QXL) or the Intel GVT-g virtual GPU (with Intel-level performance).
+            - Since the dGPU isn't connected to any monitor, games won't prefer to use the dGPU. Instead, they will use the low-performance virtualized GPU (ex. QXL) or the Intel GVT-g virtual GPU (with Intel-level performance).
           - In the combination of Intel + NVIDIA Optimus, NVIDIA drivers are in charge of moving the workload to dGPU.
             - But NVIDIA drivers won't accept Intel GVT-g into the combination, and Optimus won't be enabled.
-          - Which means games will run on the integrated graphics, unless the game engine proactively detects and uses the dGPU.
+          - This means games will run on the integrated graphics unless the game engine proactively detects and uses the dGPU.
     - If you spent a bit more than a thousand on a mid-to-higher-range laptop, you may get:
 
       ```graphviz
@@ -129,7 +129,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
       }
       ```
 
-      Compared to the last scheme, there is a switch on the motherboard circuit, and the HDMI port and the monitor can be allocated to different GPUs on demand.
+      Compared to the last scheme, there is a switch on the motherboard circuit, and the HDMI port and the monitor can be allocated to different GPUs on-demand.
 
       This is another scheme of NVIDIA Optimus, called MUXed scheme.
 
@@ -153,9 +153,9 @@ But for NVIDIA GPUs and laptops, things are more complicated:
       }
       ```
 
-      You're asking where had the iGPU gone? How come you need it on a multi-thousand-dollar laptop for gaming?
+      Wonder where the iGPU had gone? How come you need it on a multi-thousand-dollar laptop for gaming?
 
-      Under this scheme the manufacturer cuts power to the iGPU component, so all the power budget can be allocated to CPU and dGPU for better performance. This is basically the same as a desktop computer.
+      Under this scheme, the manufacturer cuts power to the iGPU component, so all the power budget can be allocated to CPU and dGPU for better performance. This is basically the same as a desktop computer.
 
       - Pros:
         - High performance with low latency (direct connection from dGPU to monitor, and no unnecessary power budget on iGPU)
@@ -165,7 +165,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
           - But you likely don't need it anyway with a multi-thousand-dollar laptop.
         - Catastrophic for GPU passthrough
           - Since you only have one GPU, your host OS won't get to use any GPU when it is passed through.
-          - If you insist, you need to code your own switching scripts, and find your way to debug without any display output.
+          - If you insist, you need to code your own switching scripts and find your way to debug without any display output.
           - Try this if you are brave enough (YOLO!)
 
     - How to determine the actual scheme:
@@ -173,16 +173,16 @@ But for NVIDIA GPUs and laptops, things are more complicated:
       Run `lspci` on the Linux OS, and look for entries about Intel HD Graphics or NVIDIA.
 
       - If the dGPU starts with `3D Controller`, you have the first Optimus scheme (iGPU connected to monitor).
-      - If the dGPU starts with `VGA Controller`, and there is a `HD Graphics` GPU, you have the second Optimus scheme (switching between two GPUs).
+      - If the dGPU starts with `VGA Controller`, and there is an `HD Graphics` GPU, you have the second Optimus scheme (switching between two GPUs).
       - If the dGPU starts with `VGA Controller`, and there is no `HD Graphics` GPU, you have the last scheme without iGPU.
 
 My Environment
 --------------
 
-When writing this post I'm using this laptop and OS;
+When writing this post, I'm using this laptop and OS;
 
 - Lenovo Legion R720-15IKBN (i7-7700HQ, GTX1050)
-  - The first Optimus MUXless scheme, with the iGPU connected to monitor.
+  - The first Optimus MUXless scheme, with the iGPU connected to the monitor.
 - Host OS is Arch Linux, up to date when writing this article
 - QEMU hypervisor with Libvirt and Virt-Manager for graphical management
 - Windows 10 LTSC 2019 in VM
@@ -192,22 +192,22 @@ And here are my goals:
 - Create an Intel GVT-g virtual GPU and pass it to VM
 - Disable NVIDIA GPU on the host, and hand it over completely to VM
 
-Before starting you need to prepare:
+Before starting, you need to prepare:
 
 - A QEMU (Libvirt) virtual machine with Windows 10 installed
   - With UEFI (OVMF) firmware. Not guaranteed to work with BIOS (SeaBIOS) firmware.
   - With QXL virtual GPU.
 - A Windows that boots on the physical computer
   - Dual boot, Windows To Go, etc.
-  - Windows PE may work, as long as you can use the Device Manager.
+  - Windows PE may work as long as you can use the Device Manager.
 - Host OS displaying contents with the iGPU. dGPU either disabled or driver unloaded.
   - Or you cannot passthrough the GVT-g GPU (Virt-Manager will crash).
   - And you cannot passthrough the dGPU (taken by Host OS).
 
 Important tips:
 
-- Multiple reboots of the host OS is required, and your host OS may crash! Backup your data.
-- You don't need to download any drivers manually, Windows will do it for you automatically.
+- Multiple reboots of the host OS is required, and your host OS may crash! Back up your data.
+- You don't need to download any drivers manually. Windows will do it for you automatically.
   - If it doesn't, don't go any further than downloading the driver EXE and double-clicking
   - **Never** specify the exact driver to be used in Device Manager
   - Debugging will be harder if you do this
@@ -217,9 +217,9 @@ Stop Host OS from Tampering with NVIDIA GPU
 
 The NVIDIA driver on the Host OS will hold control of the dGPU, and stop VM from using it. Therefore you need to replace the driver with `vfio-pci`, built solely for PCIe passthrough.
 
-Even if you don't plan to passthrough the dGPU, you need to switch the graphics display of Host OS to the iGPU, or later Virt-Manager will crash. You may disable NVIDIA drivers with the steps below, or use software such as `optimus-manager` for management.
+Even if you don't plan to passthrough the dGPU, you need to switch the graphics display of Host OS to the iGPU, or later Virt-Manager will crash. You may disable NVIDIA drivers with the steps below or use software such as `optimus-manager` for management.
 
-Here are the steps for disabling the NVIDIA driver and passing control to PCIe passthrough module:
+Here are the steps for disabling the NVIDIA driver and passing control to the PCIe passthrough module:
 
 1. Run `lspci -nn | grep NVIDIA` and obtain an output similar to:
 
@@ -227,7 +227,7 @@ Here are the steps for disabling the NVIDIA driver and passing control to PCIe p
    01:00.0 3D controller [0302]: NVIDIA Corporation GP107M [GeForce GTX 1050 Mobile] [10de:1c8d] (rev a1)
    ```
 
-   Here `[10de:1c8d]` is the vendor ID and device ID of the dGPU, where `10de` means this device is manufacturered by NVIDIA, and `1c8d` means this is an GTX 1050.
+   Here `[10de:1c8d]` is the vendor ID and device ID of the dGPU, where `10de` means this device is manufactured by NVIDIA, and `1c8d` means this is a GTX 1050.
 
 2. Create `/etc/modprobe.d/lantian.conf` with the following content:
 
@@ -244,19 +244,19 @@ Here are the steps for disabling the NVIDIA driver and passing control to PCIe p
 
    And remove anything related to NVIDIA drivers (such as `nvidia`)
 
-   Now PCIe passthrough module will take control of the dGPU in early booting process, preventing NVIDIA drivers from taking control.
-4. Run `mkinitcpio -P` to update initramfs.
+   Now PCIe passthrough module will take control of the dGPU in the early booting process, preventing NVIDIA drivers from taking control.
+4. Run `mkinitcpio -P` to update the initramfs.
 5. Reboot.
    - Or you may wait until the first step of iGPU passthrough.
 
 Setting up Intel GVT-g Virtual iGPU
 -----------------------------------
 
-Remember the multi-thousand-dollar NVIDIA GRID GPUs? If you get hold on one of these, the GPU driver itself will support creating multiple virtual GPUs to be used on different VMs, just like the CPU virtualization technology.
+Remember the multi-thousand-dollar NVIDIA GRID GPUs? If you get hold of one of these, the GPU driver itself will support creating multiple virtual GPUs to be used on different VMs, just like the CPU virtualization technology.
 
 But different from NVIDIA, 5th gen and later Intel CPUs support this out of the box, and you don't need to pay the ransom for an expensive GPU. Although iGPU is weak, at least it allows for smooth web browsing in VM compared to QXL, etc.
 
-And passing through this virtual Intel GPU is relatively easy, and may serve as a practice.
+Passing through this virtual Intel GPU is also relatively easy and may serve as a practice.
 
 1. Enable kernel parameters for GVT-g, and load kernel modules
    - Modify your kernel parameters (Usually located at `/boot/loader/entries/arch.conf` if you use Systemd-boot), and add:
@@ -273,16 +273,16 @@ And passing through this virtual Intel GPU is relatively easy, and may serve as 
      vfio-mdev
      ```
 
-     These 3 lines correspond to required kernel modules.
+     These 3 lines correspond to the required kernel modules.
    - Reboot.
 2. Create virtual GPU
-   - Run `lspci | grep "HD Graphics"` to look for PCIe address of iGPU. I get this output for example:
+   - Run `lspci | grep "HD Graphics"` to look for the PCIe address of the iGPU. I get this output for example:
 
      ```bash
      00:02.0 VGA compatible controller: Intel Corporation HD Graphics 630 (rev 04)
      ```
 
-     In this case iGPU is located at `00:02.0` on PCIe bus.
+     In this case, iGPU is located at `00:02.0` on the PCIe bus.
    - Run the following command to create the virtual GPU:
 
      ```bash
@@ -293,7 +293,7 @@ And passing through this virtual Intel GPU is relatively easy, and may serve as 
 
      Pay attention to the iGPU PCIe bus location. In addition you can optionally replace the UUID.
 3. Modify the VM configuration to expose the virtual GPU
-   - Run `virsh edit Win10`, where `Win10` is the name of your VM. Insert the following contens above `</devices>`:
+   - Run `virsh edit Win10`, where `Win10` is the name of your VM. Insert the following contents above `</devices>`:
 
      ```xml
      <hostdev mode='subsystem' type='mdev' managed='no' model='vfio-pci' display='off'>
@@ -303,13 +303,13 @@ And passing through this virtual Intel GPU is relatively easy, and may serve as 
      </hostdev>
      ```
 
-     Replace the UUID to match the last step. Also `display` here is set to `off` which is intentional (normal).
+     Replace the UUID to match the last step. Also, `display` here is set to `off`, which is intentional (normal).
    - Do not remove the QXL GPU yet.
    - Start the VM and open Device Manager. You should see a `Microsoft Basic Display Adapter`.
    - Connect the VM to the Internet and wait. Windows will automatically install the iGPU drivers, and you will see the Intel Control Panel in Start Menu.
-     - If the driver isn't installed after a long time, you may download the iGPU driver (just the regular ones) from Intel website, copy it to the VM, and try to install it.
+     - If the driver isn't installed after a long time, you may download the iGPU driver (just the regular ones) from the Intel website, copy it to the VM, and try to install it.
      - If it still doesn't work, it means you've done something wrong, or there is a hypervisor bug.
-   - After driver is installed, the VM can use the Intel GPU now. But since the current monitor is displaying images from QXL GPU, and Intel GPU is not the primary GPU, Windows hasn't set any program to run on Intel GPU yet.
+   - After the driver is installed, the VM can use the Intel GPU now. But since the current monitor is displaying images from QXL GPU, and Intel GPU is not the primary GPU, Windows hasn't set any program to run on Intel GPU yet.
      - We will disable the QXL GPU next.
 4. Shut down the VM and edit the configuration again:
    - In the `<hostdev>` added above, change `display='off'` to `display='on'`.
@@ -348,19 +348,19 @@ And passing through this virtual Intel GPU is relatively easy, and may serve as 
 
      The `vbios_gvt_uefi.rom` can be downloaded from [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom), or [from this site](../../../../../usr/uploads/202007/vbios_gvt_uefi.rom), and should be put to root folder. If you moved it elsewhere, you need to modify the `romfile` parameter correspondingly.
    - Change the first line of the configuration file, `<domain type='kvm'>`, to `<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>`.
-5. Reboot the VM and you should see normal graphics output. Now the VM is using the GVT-g virtual GPU.
+5. Reboot the VM, and you should see normal graphics output. Now the VM is using the GVT-g virtual GPU.
 
 Setting up NVIDIA dGPU Passthrough
 ----------------------------------
 
-In previous steps the official NVIDIA drivers on the host OS are disabled, and the dGPU is managed by `vfio-pci` for PCIe passthrough.
+In previous steps, the official NVIDIA drivers on the host OS are disabled, and the dGPU is managed by `vfio-pci` for PCIe passthrough.
 
 Passing through the dGPU itself is simple, but NVIDIA added a lot of driver limitations for money:
 
 - GPU must be on the correct PCIe bus location.
 - System should not expose VM characteristics.
 - System must have a battery.
-- GPU BIOS must be available in ACPI table.
+- GPU BIOS must be available in the ACPI table.
 - etc...
 
 So we have to hack through all these pitfalls.
@@ -406,7 +406,7 @@ So we have to hack through all these pitfalls.
 
 3. Then add the vBIOS to VM's UEFI firmware (or OVMF).
 
-   On an Optimus laptop, NVIDIA drivers will search for the vBIOS from system's ACPI table, and load it to the GPU. The ACPI table is managed by the UEFI firmware, so it needs to be modified to add the vBIOS.
+   On an Optimus laptop, NVIDIA drivers will search for the vBIOS from the system's ACPI table and load it to the GPU. The ACPI table is managed by the UEFI firmware, so it needs to be modified to add the vBIOS.
 
    ```bash
    # Based on reports on GitHub, UEFI firmware shouldn't be moved once built
@@ -494,9 +494,9 @@ So we have to hack through all these pitfalls.
    <qemu:arg value='file=/ssdt1.dat'/>
    ```
 
-   The IDs here shoudl match the hardware ID from Device Manager, `PCI\VEN_10DE&DEV_1C8D&SUBSYS_39D117AA&REV_A1`. Replace accordingly.
+   The IDs here should match the hardware ID from Device Manager, `PCI\VEN_10DE&DEV_1C8D&SUBSYS_39D117AA&REV_A1`. Replace accordingly.
 
-   The ssdt1.dat corresponds to the Base64 below, which can be converted to binary file with [Base64 decoding website](https://base64.guru/converter/decode/file) and put to root folder, or [download from this site](../../../../../usr/uploads/202007/ssdt1.dat). If you moved its location, you should modify the file parameter accordingly. This is also an ACPI table that emulates a fully-charged battery, but instead of being merged to OVMF, it simply works as an QEMU argument addition.
+   The ssdt1.dat corresponds to the Base64 below. It can be converted to a binary file with [Base64 decoding website](https://base64.guru/converter/decode/file) or [downloaded from this site](../../../../../usr/uploads/202007/ssdt1.dat). Put it in the root folder. If you moved its location, you should modify the file parameter accordingly. It's also an ACPI table, and it emulates a fully-charged battery, but instead of being merged to OVMF, it simply works as a QEMU argument addition.
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
@@ -507,26 +507,26 @@ So we have to hack through all these pitfalls.
    **Do not miss any steps, or you will be welcomed by Code 43 (Driver load failure).**
 
 5. Start the VM and wait a while. Windows will automatically install NVIDIA drivers.
-   - If Device Manager shows the dGPU with an exclamation sign and code 43, or driver load failure, you need to check if you've missed any steps, and if you've configured everything correctly.
+   - If Device Manager shows the dGPU with an exclamation sign and code 43 or driver load failure, you need to check if you've missed any steps and if you've configured everything correctly.
      - Switch Device Manager to `Device by Connection`, and verify that dGPU is at Bus 1, Slot 0, Function 0. The parent PCIe port to the dGPU should be at Bus 0, Slot 1, Function 0.
      - Yes, that's how harsh NVIDIA drivers' checks are.
      - If they don't match, you need to reallocate PCIe addresses with the method above.
    - If the OS didn't automatically install the NVIDIA driver, and your manually downloaded driver installer also shows that the system is incompatible, or the GPU cannot be found, you need to check if the hardware ID matches what's found on the host.
-   - Even if dGPU is working correctly, you still won't be able to open NVIDIA Control Panel (which tells you monitors aren't found), this is normal.
+   - Even if dGPU is working correctly, you still won't be able to open NVIDIA Control Panel (which tells you monitors aren't found). This is normal.
 
 What's Next?
 ------------
 
-Even if you've done every step above, and got both iGPU and dGPU working in VM, this is still not very helpful to gaming:
+Even if you've done every step above and got both iGPU and dGPU working in VM, this is still not very helpful to gaming:
 
 - Since Windows thinks the primary monitor is connected to GVT-g virtual iGPU, the OS will let the weak iGPU handle all 3D applications.
   - If you didn't passthrough the GVT-g iGPU, then QXL will be in charge.
   - Exceptions: it is reported that some Unreal Engine games will actively detect and use the dGPU.
 - Since a MUXless Optimus dGPU isn't connected to monitors, there is no way to select dGPU as the primary GPU.
 - Since GVT-g iGPU and NVIDIA dGPU cannot form Optimus configuration, NVIDIA drivers won't move game workloads to dGPU.
-- If you only leave the dGPU in VM, although Windows will put render works on the dGPU (there's no other choices), the resolution will be limited to 640x480, and you will have to rely on remote desktop software.
+- If you only leave the dGPU in VM, although Windows will put render works on the dGPU (there were no other choices), the resolution will be limited to 640x480, and you will have to rely on remote desktop software.
 
-Therefore, currently Optimus GPU passthrough is more for tinkerers than for actual gamers. If you are experienced in driver development, you may research in the following directions;
+Therefore, Optimus GPU passthrough is currently more for tinkerers than actual gamers. If you are experienced in driver development, you may research in the following directions;
 
 1. Let GVT-g iGPU and NVIDIA dGPU form Optimus configuration normally
 2. Let QXL and NVIDIA dGPU form Optimus configuration
@@ -535,7 +535,7 @@ Therefore, currently Optimus GPU passthrough is more for tinkerers than for actu
 References
 ----------
 
-Huge thanks to previous explorers on the topic of GPU passthrough. Without their effort this post won't have existed in the first place.
+Huge thanks to previous explorers on the topic of GPU passthrough. Without their efforts, this post won't have existed in the first place.
 
 Here are the sources I referenced when I did my configuration:
 

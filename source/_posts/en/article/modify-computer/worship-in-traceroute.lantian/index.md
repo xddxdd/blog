@@ -20,11 +20,11 @@ Traceroute is one of the popular tools for network inspection. It shows the IP a
 
 Domains are shown on the last 2 hops, which is the IP's reverse DNS record. Reverse DNS records exist as PTR records in the format of `4.3.2.1.in-addr.arpa`. For more information, you may refer to [Setting IP Reverse Records in DN42 (Chinese Only)](/article/modify-website/dn42-ip-reverse-record.lantian).
 
-However, PTR records need not to be real domains. They can be any string that "looks like" a domain. With this, we can write one sentence on each hop of a Traceroute path, to make a story:
+However, PTR records need not be real domains. They can be any string that "looks like" a domain. With this, we can write one sentence on each hop of a Traceroute path to make a story:
 
 ![Traceroute Story Example][3]
 
-This story is set up in DN42. If you already joined DN42, you may `ping` or `traceroute` IPs in this post. However, this configuration is not limited to DN42. If you have a public IP block with control on reverse DNS, you may use the same method.
+This story is set up in DN42. If you have already joined DN42, you may `ping` or `traceroute` IPs in this post. However, this configuration is not limited to DN42. If you have a public IP block with control on reverse DNS, you may use the same method.
 
 Prepare Routes
 --------------
@@ -41,9 +41,9 @@ ip route add [Target IP]/32 via [Next Hop IP]
 
 Packets to the destination IP will be forwarded through each VM to create a path.
 
-Next, I need to think of a way to create the VMs. I have ESXi on Kimsufi, and it shouldn't be that resource intensive to start a bunch of Alpine Linux VMs. But I'll have to do manual configuration for each of them, which is too much of a hassle!
+Next, I need to think of a way to create the VMs. I have ESXi on Kimsufi, and it shouldn't be that resource-intensive to start a bunch of Alpine Linux VMs. But I'd have to do manual configuration for each of them, which is too much of a hassle!
 
-From another prospective, Docker is a management tool for LXC containers, and LXC containers have their independent network namespaces with their own IPs and routes. For my purpose, they are perfect replacements for full Linux VMs.
+From another perspective, Docker is a management tool for LXC containers, and LXC containers have their independent network namespaces with their own IPs and routes. For my purpose, they are perfect replacements for full Linux VMs.
 
 So I went to create Docker images. All I need is an Alpine image that runs the following script on startup:
 
@@ -64,11 +64,11 @@ ping 127.0.0.1 -q
 
 The last `ping` keeps the container running, or it will exit. The full Dockerfile is available at [https://github.com/xddxdd/dockerfiles/tree/25625c20fd1b47b3057cf59b6b84b8401d1b3e1e/dockerfiles/route-next][4].
 
-Then I need to generate a `docker-compose.yml` for simpler management. An example is available on the repo above. Or, you can use the `mk-compose.py` tool to quickly generate a `docker-compose.yml`, but you'll still have to change the network information manually in the file.
+Then I need to generate a `docker-compose.yml` for simpler management. An example is available on the repo above. Or, you can use the `mk-compose.py` tool to quickly generate a `docker-compose.yml`, but you would still have to change the network information manually in the file.
 
 Then copy it onto the server, and run `docker-compose up -d` to start the containers.
 
-Finally run this command on the Docker host:
+Finally, run this command on the Docker host:
 
 ```bash
 ip route add 172.22.76.102/32 via 172.22.76.98
@@ -87,7 +87,7 @@ Since PTR records are limited to English, I'll need a short English essay. Since
 > do things just to pursue his personal gains and he should not evade
 > responsibilities for fear of personal loss.
 
-The path I created has 5 hops, so I split the essay to 5 sentences, and remove punctuations which PTR records aren't allowed to have:
+The path I created has 5 hops, so I split the essay to 5 sentences, and removed punctuations PTR records aren't allowed to have:
 
 - one should uphold his country s interest with his life
 - he should not do things
