@@ -3,7 +3,7 @@ title: Himawari Satellite's Earth Images
 date: 1970-01-01 00:00:00
 ---
 
-This page contains a Javascript snippet to dynamically load photos taken from Japan's Himawari 8 Satellite. The data comes from [http://himawari8.nict.go.jp/](http://himawari8.nict.go.jp/) and is updated every 10 minutes, with a 1-hour delay.
+This page contains a Javascript snippet to dynamically load photos taken from Japan's Himawari 8 satellite. The data comes from [http://himawari8.nict.go.jp/](http://himawari8.nict.go.jp/) and is updated every 10 minutes, with a 1-hour delay.
 
 Detailed information and implementation can be found at [/en/article/modify-website/php-javascript-satellite-earth-picture.lantian](/en/article/modify-website/php-javascript-satellite-earth-picture.lantian).
 

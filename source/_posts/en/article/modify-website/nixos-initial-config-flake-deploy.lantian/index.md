@@ -8,9 +8,9 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 {% insertmd _templates/nixos-series/toc-en.md %}
 
-This is the second post in my NixOS series, and mainly focuses on:
+This is the second post in my NixOS series and mainly focuses on:
 
-- Basic format of NixOS config files, and how to edit them
+- Basic format of NixOS config files and how to edit them
 - Flake functionality of Nix package manager
 - Deploy-RS deployment tool
 
@@ -42,9 +42,9 @@ During NixOS's installation process, the `nixos-generate-config` tool should hav
 }
 ```
 
-This file defines your whole NixOS operating system, include all software packages and their config. This file is in Nix format, a "functional programming" language created by NixOS's Nix package manager. But since we're doing basic config, we don't need its programming functionalities yet. Let's ignore the first line `{ config, pkgs, ... }:` for the moment and **treat the rest part as a JSON file**.
+This file defines your whole NixOS operating system, including all software packages and their config. This file is in Nix format, a "functional programming" language created by NixOS's Nix package manager. But since we're doing basic config, we don't need its programming functionalities yet. Let's ignore the first line `{ config, pkgs, ... }:` for the moment and **treat the rest part as a JSON file**.
 
-The Nix language has the same 6 data types as JSON: number, boolean, string, object, array and null. Their format is also quite similar. In addition, the Nix language has a "path" data type:
+The Nix language has the same 6 data types as JSON: number, boolean, string, object, array, and null. Their format is also quite similar. In addition, the Nix language has a "path" data type:
 
 ```bash
 {
@@ -78,7 +78,7 @@ The Nix language has the same 6 data types as JSON: number, boolean, string, obj
     })
   ];
 
-  # Path, doesn't have double quotes like a string
+  # A Path, doesn't have double quotes like a string
   #
   # Note:
   #
@@ -88,15 +88,15 @@ The Nix language has the same 6 data types as JSON: number, boolean, string, obj
   #
   # - A file pointed by a string won't be copied, but its contents aren't part of
   #   the config. They aren't managed by Nix and cannot be read by Nix, but the
-  #   path itself can be copied to the program's config file, and be read by the
-  #   program. Usually for files independent from the config, like the code of
+  #   path itself can be copied to the program's config file and be read by the
+  #   program. Usually, for files independent from the config, like the code of
   #   your website.
   file = ./somefile.txt;    # Will be copied to /nix/store/[hash]-somefile.txt
   file2 = "./somefile.txt"; # Won't be read or processed by Nix
 }
 ```
 
-Now suppose we want to install a SSH server for remote login. We can add these two lines of config:
+Now suppose we want to install an SSH server for remote login. We can add these two lines of config:
 
 ```bash
 { config, pkgs, ... }:
@@ -169,7 +169,7 @@ Or search for packages at [the Packages page](https://search.nixos.org/packages)
 
 ## That Config is a Function
 
-Until now we've ignored the first line `{ config, pkgs, ... }:`. In fact, the whole `configuration.nix` is a Nix function, and `config` and `pkgs` are input parameters.
+Until now, we've ignored the first line `{ config, pkgs, ... }:`. In fact, the whole `configuration.nix` is a Nix function, and `config` and `pkgs` are input parameters.
 
 Here's how NixOS defines functions:
 
@@ -198,7 +198,7 @@ a: {
 
 # This is the same function as the last one,
 # just with "..." added to the parameter list,
-# so it accepts (and ignores) unknown parameters.
+# so, it accepts (and ignores) unknown parameters.
 #
 # Assuming input is { a = 1; b = 2; c = 3; },
 # the last function will error out since it doesn't recognize "c",
@@ -223,13 +223,13 @@ Back to the config to install `nyancat`:
 
 It adds the subobject `nyancat` of parameter `pkgs` (also an object) to the list of `environment.systemPackages`. `pkgs` is the collection of all packages in the NixOS package repository, defined at <https://github.com/NixOS/nixpkgs>. Similarly, `config` is the collection of all config parameters. If you want the list of all installed packages, you can use `config.environment.systemPackages`.
 
-> Nix language uses lazy evaluation. NixOS won't do anything right after loading the config file. A config item (e.g. `environment.systemPackages`) will only have its value parsed (the array, as well as object `pkgs.nyancat`) when it's referenced.
+> Nix language uses lazy evaluation. NixOS won't do anything right after loading the config file. A config item (e.g. `environment.systemPackages`) will only have its value parsed (the array, as well as the object `pkgs.nyancat`) when it's referenced.
 >
-> By the way, the Nix language doesn't support circular references. Config like `{ a = config.b; b = config.a; }` won't work, and will error out with `infinite recursion encountered`.
+> By the way, the Nix language doesn't support circular references. Config like `{ a = config.b; b = config.a; }` won't work and will error out with `infinite recursion encountered`.
 
 ## Splitting Config to Many Files
 
-After you've used NixOS for a while, you may have installed a lot of packages, and have a very long, hard to read config file. NixOS supports importing a config file from another, so you can put a subset the configuration (like the desktop environment, or the nginx + PHP + MySQL stack, etc) to a separate file for easier lookup.
+After you've used NixOS for a while, you may have installed a lot of packages and have a very long, hard-to-read config file. NixOS supports importing a config file from another, so you can put a subset the configuration (like the desktop environment, or the Nginx + PHP + MySQL stack, etc.) to a separate file for easier lookup.
 
 Suppose I want to put the SSH config to another file. First create `/etc/nixos/ssh.nix`:
 
@@ -258,7 +258,7 @@ The add `ssh.nix` to `imports` in `/etc/nixos/configuration.nix`, and remove pre
 }
 ```
 
-Then run `nixos-rebuild switch`. Note that this rebuild neither generated any new stuff nor started/stopped any service, as all we did was moving some SSH config statements to another file, with no actual config change.
+Then run `nixos-rebuild switch`. Note that this rebuild neither generated any new stuff nor started/stopped any service, as all we did was move some SSH config statements to another file, with no actual config change.
 
 ![NixOS Rebuild](../../../../../usr/uploads/202111/nixos-rebuild-noop.png)
 
@@ -286,17 +286,17 @@ Back to `ssh.nix`, notice that it never used `config` nor `pkgs`, so we can remo
 
 Since all NixOS configurations are defined by `configuration.nix`, we can copy the files to another machine, run `nixos-rebuild switch` and get an exactly same system. I also stated in [the first post of this series](/en/article/modify-website/nixos-why.lantian/):
 
-> (...) one important feature of NixOS is managing each and every package and config with a set of Nix config files. Therefore, we can use any tools we like, for example Ansible, Rsync, or even Git, to manage the config at `/etc/nixos`. Since this is the only config file we care about, we no longer need a bunch of complicated Ansible playbooks or dozens of Rsync commands. We only need to overwrite `/etc/nixos`, run `nixos-rebuild switch`, and call it a day.
+> (...) one important feature of NixOS is managing each and every package and config with a set of Nix config files. Therefore, we can use any tools we like, for example, Ansible, Rsync, or even Git, to manage the config at `/etc/nixos`. Since this is the only config file we care about, we no longer need a bunch of complicated Ansible playbooks or dozens of Rsync commands. We only need to overwrite `/etc/nixos`, run `nixos-rebuild switch`, and call it a day.
 
 Now I'm gonna tell you that **what I said just now was all wrong.**
 
-Up until now I introduced the ways to change your system config and install packages, but I never talked about how to upgrade stuff. This is because NixOS package repositories are managed with another command `nix-channel`:
+Up until now I introduced the ways to change your system config and install packages, but I never talked about how to upgrade stuff. This is because NixOS package repositories are managed with another command, `nix-channel`:
 
 ![NixOS nix-channel command](../../../../../usr/uploads/202111/nixos-channels.png)
 
 Here the `nix-channel --list` command lists all configured repositories, and `nix-channel --update` updates them to the latest version. However, `nix-channel` is not managed with `configuration.nix`, and there's no way for `configuration.nix` to define the URLs and revisions of the package repos. Since package repos are constantly updated, this means that two systems installed one month apart may have software version differences, even with the same config. This is contrary to NixOS's "one config for everything" promise.
 
-To solve this issue, Nix introduced the Flake functionality, which allows defining  repo URLs and revisions. First, let's edit `configuration.nix` followed by `nixos-rebuild switch`, to upgrade Nix package manager to a beta version supporting Flake:
+To solve this issue, Nix introduced the Flake functionality, which allows defining repo URLs and revisions. First, let's edit `configuration.nix` followed by `nixos-rebuild switch` to upgrade the Nix package manager to a beta version supporting Flake:
 
 ```bash
 { config, pkgs, ... }:
@@ -313,7 +313,7 @@ To solve this issue, Nix introduced the Flake functionality, which allows defini
 }
 ```
 
-> At the time of writing, NixOS 21.05 is the latest stable version, and its Nix package manager doesn't come with Flake functionality yet. NixOS 21.11 and future versions will have Flake built in, and by then these config changes will no longer be needed.
+> At the time of writing, NixOS 21.05 is the latest stable version, and its Nix package manager doesn't come with Flake functionality yet. NixOS 21.11 and future versions will have Flake built-in, and by then, these config changes will no longer be needed.
 
 Then create a `flake.nix` file in `/etc/nixos`. This `flake.nix` defines a package repo (`input`), the `unstable` branch (equivalent to `master` branch) of <https://github.com/NixOS/nixpkgs>.
 
@@ -392,25 +392,25 @@ A `flake.lock` JSON file is generated:
 
 `flake.lock` defines the commit ID and SHA256 checksum for `nixpkgs`, so even if the config file is copied to another machine, the Nix package manager there will download this specific revision of `nixpkgs` and install software accordingly, so you'll have exactly the same versions of software.
 
-Finally run `nixos-rebuild switch`. NixOS will automatically prefer `flake.nix` to `configuration.nix`, and upgrade (or downgrade) all packages to this specific version. But since we added the `configuration.nix` file to the `modules` array in `flake.nix`, the system configuration will remain unchanged.
+Finally, run `nixos-rebuild switch`. NixOS will automatically prefer `flake.nix` to `configuration.nix`, and upgrade (or downgrade) all packages to this specific version. But since we added the `configuration.nix` file to the `modules` array in `flake.nix`, the system configuration will remain unchanged.
 
-> If you enabled Flake and manage your files with Git, note that NixOS will ignore files not managed by Git, and only read those files previouslly staged or committed. If you created a new file, remember to stage it, or NixOS will report that the file cannot be found.
+> If you enabled Flake and manage your files with Git, note that NixOS will ignore files not managed by Git and only read those files previously staged or committed. If you created a new file, remember to stage it, or NixOS will report that the file cannot be found.
 
 ## Batch Deployment with Deploy-RS
 
-Now we have one machine configured, but as I mentioned in [the first post of this series](/en/article/modify-website/nixos-why.lantian/), I have 10 machines. Of course I can write an Ansible script to copy the config to `/etc/nixos` of all nodes and run `nixos-rebuild switch`, but that approach will have a few problems:
+Now we have one machine configured, but as I mentioned in [the first post of this series](/en/article/modify-website/nixos-why.lantian/), I have 10 machines. Of course, I can write an Ansible script to copy the config to `/etc/nixos` of all nodes and run `nixos-rebuild switch`, but that approach will have a few problems:
 
-1. If a package in the repo doesn't have prebuilt binary files, I'll have to compile on each and every machine. But since I use cheap VPSes without much resources available, I can easily run out of RAM, or get suspended for excessive CPU usage.
+1. If a package in the repo doesn't have prebuilt binary files, I'll have to run the compilation on each and every machine. But since I use cheap VPSes without many resources available, I can easily run out of RAM or get suspended for excessive CPU usage.
 
-   The package repo of NixOS is somewhat similar to Gentoo. Unlike other Linux distributions, a package being in the repo doesn't equate to it having binary download available. A NixOS "package" is a set of Nix language definitions, describing the whole process of download, compilation, and packaging.
+   The package repo of NixOS is somewhat similar to Gentoo. Unlike other Linux distributions, a package being in the repo doesn't equate to it having binary download available. A NixOS "package" is a set of Nix language definitions describing the whole process of download, compilation, and packaging.
 
-   Usually official NixOS will build software for us and upload them to a Binary Cache. But if we ever change the compilation process (usually some compilation parameters) or created a new package on our own (the process will be explained in a future post), we're on our own.
+   Usually, official NixOS will build software for us and upload them to a Binary Cache. But if we ever change the compilation process (usually some compilation parameters) or create a new package on our own (the process will be explained in a future post), we're on our own.
 
 2. The Nix package manager itself also takes a considerable amount of RAM and CPU resources when parsing config files, especially when the config is complicated.
 
-In an ideal world, I will be able to parse the config on a high performance machine (like my personal computer, or a dedicated server), download or compile all packages and config, and copy them to all machines so they don't need to spare resources for that... Oh wait, this is exactly what [Deploy-RS](https://github.com/serokell/deploy-rs) does.
+In an ideal world, I will be able to parse the config on a high-performance machine (like my personal computer or a dedicated server), download or compile all packages and config, and copy them to all machines, so they don't need to spare resources for that... Oh wait, this is what [Deploy-RS](https://github.com/serokell/deploy-rs) exactly does.
 
-To use Deploy-RS, we need a machine with a Nix installation. Note that I didn't ask you to reinstall your machine into NixOS, because Nix package manager can be installed on another Linux distribution. For example, as I run Arch Linux on my computer, I set up Nix according to the guide on [Arch Linux Wiki](https://wiki.archlinux.org/title/Nix). Users of other distributions can use Nix's official quick installation script:
+To use Deploy-RS, we need a machine with a Nix installation. Note that I didn't ask you to reinstall your machine into NixOS because the Nix package manager can be installed on another Linux distribution. For example, as I run Arch Linux on my computer, I set up Nix according to the guide on [Arch Linux Wiki](https://wiki.archlinux.org/title/Nix). Users of other distributions can use Nix's official quick installation script:
 
 ```bash
 # Copied from https://nixos.org/download.html
@@ -466,8 +466,8 @@ Back to `flake.nix` created in the last part, we need to add the repository of D
       #
       # Rollback when your new config killed the Internet connection,
       # so you don't have to use VNC or IPMI from your service provider.
-      # But if you're adjusting firewall or IP settings, chances are while
-      # the Internet is down atm, a simple reboot will make everything work.
+      # But if you're adjusting firewall or IP settings, chances are
+      # although the Internet is down atm, a simple reboot will make everything work.
       # Magic rollback works against that, so you should keep that off.
       magicRollback = false;
 

@@ -8,13 +8,13 @@ image: /usr/uploads/202008/i-love-niantic-network.png
 
 > DN42 is an **experimental network**, where everyone helps everyone. Nobody is going to blame you if you screwed up. You may seek help at DN42's [IRC channel](https://wiki.dn42.us/services/IRC), [mailing list](https://wiki.dn42.us/contact#contact_mailing-list) or the [unofficial Telegram group](https://t.me/Dn42Chat).
 
-Since DN42 is a network for experimentation, a lot of relatively inexperienced users also participate in it. Therefore, occasionally an inexperienced user may misconfigure his/her system and impact the whole DN42 network, or even shut it down.
+Since DN42 is a network for experimentation, a lot of relatively inexperienced users also participate in it. Therefore, occasionally an inexperienced user may misconfigure his/her system and impact the whole DN42 network or even shut it down.
 
-As a more experienced user, here I will teach new users about some operations that can kill the network, and about defense against such misconfigurations that everyone can set up against peers.
+As a more experienced user, here I will teach new users about some operations that can kill the network and about defense against such misconfigurations that everyone can set up against peers.
 
 > WARNING: You should not actually perform these operations in DN42. You should focus more on protecting yourself against them.
 >
-> Malicious actions will cause you to be kicked from DN42.
+> Malicious actions will make you kicked from DN42.
 
 The stories are based on **real disasters** in the Telegram group and IRC channel.
 
@@ -22,13 +22,13 @@ Changelog
 =========
 
 - 2020-08-27: Format changes, add full IRC logs, add another netmask error content, and add content on missing digit in ASN.
-- 2020-07-13: Add a IPv6 netmask error in registry, and Bird's conflicts between different protocols.
-- 2020-05-30：Initial version, including OSPF, Babel and route flaps.
+- 2020-07-13: Add an IPv6 netmask error in the registry and Bird's conflicts between different protocols.
+- 2020-05-30：Initial version, including OSPF, Babel, and route flaps.
 
 OSPF is Fun
 ===========
 
-You just joined DN42, and plan to connect all of your servers. You've already peered with a few others on several of your nodes, but you haven't finished on your internal routing yet.
+You just joined DN42 and plan to connect all of your servers. You've already peered with a few others on several of your nodes, but you haven't finished on your internal routing yet.
 
 So you plan to configure OSPF. You opened Bird's configuration file and added a protocol:
 
@@ -56,14 +56,14 @@ Suddenly a message box pops up on your IRC client / Telegram. You clicked on it:
 <he**> yup, I see some roa fails for them as well
 ```
 
-Congratulations! You've successfully hijacking (part of) DN42.
+Congratulations! You've successfully hijacked (part of) DN42.
 
 What's Going On
 ---------------
 
-When your server peer with others via BGP protocol, each route contains a path information, including the origin as well as list of nodes it went through. For example, the route `172.22.76.184/29` may have the path information of `4242422547 -> 4242422601 -> 424242****`, where `4242422547` is the origin (me by the way), and `4242422601` is your neighbor (Burble here, as an example).
+When your server peers with others via BGP protocol, each route contains path information, including the origin as well as the list of nodes it went through. For example, the route `172.22.76.184/29` may have the path information of `4242422547 -> 4242422601 -> 424242****`, where `4242422547` is the origin (me by the way), and `4242422601` is your neighbor (Burble here, as an example).
 
-But since your internal networking uses OSPF, it doesn't preserve BGP paths while passing routes around, since OSPF has no idea what it is. Now your another node obtained `172.22.76.184/29` via OSPF, yet without any path information. It will then proceed to announce the route with your own ASN to your peers, causing a hijack.
+But since your internal networking uses OSPF, which has no idea what BGP paths are, it doesn't preserve them while passing routes around. Now another node of yours obtained `172.22.76.184/29` via OSPF, yet without any path information. It will then proceed to announce the route with your own ASN to your peers, causing a hijack.
 
 Here is a graph of what's going on:
 
@@ -82,9 +82,9 @@ Those in the Telegram group are really nice guys. As they help you in fixing the
 - Babel automatically selects the shortest path by latency.
 - Babel is extremely simple to configure.
 
-But they don't recommend you to use Bird's builtin Babel support, since it doesn't support selecting path by latency.
+But they don't recommend Bird's built-in Babel support since it doesn't support selecting paths by latency.
 
-You are persuaded, removed the OSPF configuration, and installed Babeld. Soon each of your nodes is getting Babel routes. You waited for a few minutes. No sign of catastrophe.
+You are persuaded, removed the OSPF configuration, and installed Babeld. Soon each of your nodes is getting Babel routes. You waited for a few minutes. No sign of catastrophe yet.
 
 But you do notice that Bird isn't announcing the routes via BGP. The Telegram guys instigated you to enable the `learn` option of Bird's kernel protocol:
 
@@ -97,12 +97,12 @@ protocol kernel sys_kernel_v4 {
 };
 ```
 
-You do this. A few minutes later, you are ATed again by people in IRC and Telegram. Yes, you hijacked other's network. Again.
+You do this. A few minutes later, you are called out again by people in IRC and Telegram. Yes, you hijacked other's networks. Again.
 
 What's Going On
 ---------------
 
-This is actually the same problem as the OSPF one, Babel dropped all BGP path information while passing routes around. However by default, Bird ignores routing information that are installed to the system by other routing software, until you enabled `learn`.
+It is actually the same problem as the OSPF one since Babel also dropped all BGP path information while passing routes around. However, Bird ignores routing information installed to the system by other routing software by default, until you enabled `learn`.
 
 Correct Way to Do This
 ----------------------
@@ -125,38 +125,38 @@ Defensive Measures
 ------------------
 
 - The best countermeasure is ROA, or Route Origin Authorization. It restricts the source ASN of each route.
-  - For DN42, ROA configuration is generated automatically based on Registry data. They can be downloaded from [DN42 Wiki's Bird Config Page](https://wiki.dn42.us/howto/Bird#route-origin-authorization), and can be automatically updated with a cron job.
+  - For DN42, ROA configuration is generated automatically based on registry data. They can be downloaded from [DN42 Wiki's Bird Config Page](https://wiki.dn42.us/howto/Bird#route-origin-authorization), and can be automatically updated with a cron job.
 - If you don't want to configure ROA, you may try to peer with more people.
-  - Since BGP chooses the path with least number of ASes, if you're directly connected to a lot of people, your network will prefer these direct routes even if someone is hijacking.
+  - Since BGP chooses the path with the least number of ASes, if you're directly connected to a lot of people, your network will prefer these direct routes even if someone is hijacking.
   - But this **doesn't guarantee** full defense against the problem, for example:
-    - The path from hijacker to you is shorter than the real AS.
-    - The path from hijacker and from real AS is of equal length, and your routing software will likely choose one randomly.
-    - You have DN42 Community Filter, and for some reason prefers hijacker's route over the real ones.
+    - The path from the hijacker to you is shorter than the real AS.
+    - The path from the hijacker and from real AS is of equal length, and your routing software chooses one randomly.
+    - You have DN42 Community Filter, and for some reason, prefers the hijacker's route over the real ones.
 
 Route Flapping
 ==============
 
-Route flapping is a whole range of errors that cause one problem: they cause the BGP routing software to frequently switch (or flap) the best route they chose. Since the best route gets announced to other nodes via peering, the flapping sets off a chained reaction, where multiple connected nodes will flap together for one node's mistake. Eventually the problem will be distributed to the whole network.
+Route flapping is a whole range of errors that cause one problem: they cause the BGP routing software to frequently switch (or flap) the best route they chose. Since the best route gets announced to other nodes via peering, the flapping sets off a chained reaction, where multiple connected nodes will flap together for one node's mistake. Eventually, the problem will be distributed to the whole network.
 
-This process consumes a significant amount of bandwidth / traffic. Since many people in DN42 use cheap VPSes for nodes, eventually there are only two possible outcomes:
+This process consumes a significant amount of bandwidth or traffic. Since many people in DN42 use cheap VPSes for nodes, there are only two possible outcomes eventually:
 
 1. Your peer found out about the abnormal traffic and cut the peering to you.
-2. Your hosting provider (or even your peer's provider) found out of your high bandwidth consumption (or using up traffic limit), and shut down the VPS.
+2. Your hosting provider (or even your peer's provider) found out of your high bandwidth consumption (or using up your traffic limit) and shut down the VPS.
 
 In addition, route flapping may cause severe impacts:
 
 - If the problematic AS peered with many other ASes, even if you disconnected from it, the route flap may still be passed from another AS to your AS again.
   - To fix the problem of one problematic AS, you may have to cut off multiple ASes.
 
-For example, one user in Telegram group had a misconfiguration while transitioning from Fullmesh + Direct connections to Multihop.
+For example, one user in the Telegram group had a misconfiguration while transitioning from Full-mesh + Direct connections to Multihop.
 
 ![I Always Love Niantic Network](../../../../../usr/uploads/202008/i-love-niantic-network.png)
 
-He didn't disconnect BGP in the process, and the Babel configuration error caused large amounts of routes to be announced and withdrawed.
+He didn't disconnect BGP in the process, and the Babel configuration error caused large amounts of routes to be announced and withdrawn.
 
-Because of the chain reaction, and the large number of peerings the guy has set up, multiple large ASes had to disconnect from each other to control the problem (before he woke up).
+Because of the chain reaction and the number of peerings the guy has set up, multiple large ASes had to disconnect from each other to control the problem (before he woke up).
 
-By the way, this guy had a number of similar accidents before at a smaller scale, which this margin is too narrow to contain.
+> By the way, this guy had a number of similar accidents before at a smaller scale, which this margin is too narrow to contain.
 
 Case Review
 -----------
@@ -278,9 +278,9 @@ Defensive Measures
 
 - The best solution is Route Dampening, which restricts the number of routing updates to be accepted in a time range.
   - But Bird doesn't support this. You'd have to put up with it.
-- Alternatively you can monitor your nodes with Prometheus, Grafana, etc, so you get an alarm that something's off, and handle it manually.
+- Alternatively, you can monitor your nodes with Prometheus, Grafana, etc., so you get an alarm that something's off and handle it manually.
   - But obviously, if you aren't online at that time, you may have already used a few gigs of traffic before you're aware.
-- Next solution is to rate limit the peering connection.
+- Next solution is to rate-limit the peering connection.
   - Since there is almost no application that requires lots of bandwidth in DN42, this is a viable solution that ensures safety.
   - But the downside is also obvious: degradation of performance.
 - If you're rich enough, get a server with uncapped traffic.
@@ -288,9 +288,9 @@ Defensive Measures
 How Long is That IP Block?
 ==========================
 
-Since it's year 2020, you plan to add a IPv6 block to your network. With [my DN42 registration guide](/en/article/modify-website/dn42-experimental-network-2020.lantian), you registered yourself a IPv6 block, which quickly got merged to registry.
+Since it's the year 2020, you plan to add an IPv6 block to your network. With [my DN42 registration guide](/en/article/modify-website/dn42-experimental-network-2020.lantian), you registered yourself a IPv6 block, which quickly got merged to registry.
 
-From your perspective everything is normal. Yet on the other side of the planet, a message pops up on one person's phone/computer that his DN42 ROA generator is malfunctioning. He opens the registry page, facepalms, and commits this change:
+From your perspective, everything is normal. Yet on the other side of the planet, a message pops up on one person's phone/computer that his DN42 ROA generator is malfunctioning. He opens the registry page, facepalms, and commits this change:
 
 ![Errorneous IPv6 Block in DN42 Registry](../../../../../usr/uploads/202007/dn42-registry-error.png)
 
@@ -299,11 +299,11 @@ From your perspective everything is normal. Yet on the other side of the planet,
 What's Going On
 ---------------
 
-This user added a IPv6 block, `fd37:03b3:cae6:5158::/48`. Since a IPv6 address consists of 32 hex numbers (128 bits total), and this block defined the first 16 digits (or 64 bits), the corresponding netmask should be `/64` or higher.
+This user added a IPv6 block, `fd37:03b3:cae6:5158::/48`. Since an IPv6 address consists of 32 hex numbers (128 bits total), and this block defined the first 16 digits (or 64 bits), the corresponding netmask should be `/64` or higher.
 
-But for some reason, this error wasn't detected by DN42 Registry's schema checker, nor by the admin who inspected and merged the change, and successfully ended up in the Registry.
+But for some reason, this error wasn't detected by DN42 Registry's schema checker, nor by the admin who inspected and merged the change, so it successfully ended up in the registry.
 
-Later, the ROA generator found the errorneous IP block while parsing the Registry, and crashed.
+Later, the ROA generator found the erroneous IP block while parsing the registry and crashed.
 
 And It Happened Again
 =====================
@@ -315,11 +315,11 @@ And It Happened Again
 Correct Way to Do This
 ----------------------
 
-- While registering for a IP block, user should check the validity of netmasks and address blocks.
+- While registering for an IP block, the user should check the validity of netmasks and address blocks.
 - The DN42 Registry schema checker, or the admin performing the merge operation, should have found out the problem.
-- ROA generator should skip the problematic record and properly handle rest of the data, instead of crashing.
+- ROA generator should skip the problematic record and properly handle the rest of the data instead of crashing.
 
-Fortunately except that the ROA update was delayed by a few hours, this error didn't impact the network itself much.
+Fortunately, except that the ROA update was delayed by a few hours, this error didn't impact the network itself much.
 
 Defensive Measures
 ------------------
@@ -337,20 +337,20 @@ The story starts with my friend Joe... Fine. The story starts with me.
 
 Since my network is connected to both DN42 and NeoNetwork, as well as my internal network with a private IP range, to prevent announcing my internal network to DN42 and NeoNetwork, I did this:
 
-- All routes from Kernel protocol (from OS routing table) and Direct protocol (from network interface addresses) are labeled with a BGP community.
+- All routes from the Kernel protocol (from OS routing table) and the Direct protocol (from network interface addresses) are labeled with a BGP community.
 - Routes with the community are filtered in exterior peerings with DN42 and NeoNetwork.
 - This way, my internal IPs won't be announced to other networks, but since my DN42 and NeoNetwork IP blocks are configured in Static protocol, they won't be impacted.
 
-Initially everything looks normal, until a few days later when some users in Telegram found that my looking glass bot times out on any IP in DN42.
+Initially, everything looked normal, until a few days later when some users on Telegram found that my looking glass bot times out on any IP in DN42.
 
 What's Going On
 ---------------
 
-Initially everything is indeed normal, and my IP block `172.22.76.184/29` is announced correctly. Until Direct protocol performed a refresh and obtained `172.22.76.184/29` from one of the network interfaces, and sent the route to Bird routing table again.
+Initially, everything is indeed normal, and my IP block `172.22.76.184/29` is announced correctly. Until Direct protocol performed a refresh and obtained `172.22.76.184/29` from one of the network interfaces, and sent the route to Bird routing table again.
 
-The new route overwrote the previous route, and since it comes from Direct protocol, it's labeled with the community and won't be broadcasted. Static protocol, on the other hand, is indeed "static", and won't overwrite the route again.
+The new route overwrote the previous route, and since it comes from Direct protocol, it's labeled with the community and wasn't broadcasted. Static protocol, on the other hand, is indeed "static", and won't overwrite the route again.
 
-At this time I effectly stopped announcing my IP range. Of course I cannot receive any packets coming back to my nodes now.
+At this time, I effectively stopped announcing my IP range. No wonder I cannot receive any packets coming back to my nodes now.
 
 Correct Way to Do This
 ----------------------
@@ -383,7 +383,7 @@ This is what happened to DN42:
    <KaiKai> https://net-info.nia.ac.cn/#424242236
    <KaiKai> Really, it exists
    <Pastel> Burble didn't spot the error?
-   <Pastel> Like the /64 which crashed the ROA generator
+   <Pastel> Like the /64, which crashed the ROA generator
   ```
 
 - IRC：
@@ -425,12 +425,12 @@ This is what happened to DN42:
 Defensive Measures
 ------------------
 
-- Just have fun, this is so rare:
+- Just have fun, as this is so rare:
 
   ```html
   <Kai*> once in a blue moon that bur* made mistake
   ```
 
 - But while having fun, remember to point out the problem on IRC.
-- Double check your peer's information when peering.
-- Check [DN42 New ASN](https://t.me/DN42new), a Telegram channel that notifies on new DN42 ASNs, in your free time.
+- Double-check your peer's information when peering.
+- Check [DN42 New ASN](https://t.me/DN42new), a Telegram channel that notifies of new DN42 ASNs, in your free time.

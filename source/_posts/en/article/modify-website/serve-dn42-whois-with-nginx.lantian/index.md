@@ -1,16 +1,16 @@
 ---
-title: 'Setting up DN42 WHOIS Server with nginx'
+title: 'Setting up DN42 WHOIS Server with Nginx'
 categories: 'Website and Servers'
 tags: [nginx, WHOIS, DN42]
 date: 2021-04-19 02:12:15
 ---
 
-In my previous post "[Setting up Gopher Site with nginx](/en/article/modify-website/serve-gopher-with-nginx.lantian/)", I mentioned that the Gopher service is a byproduct of my original plan: modifying nginx into a WHOIS server for DN42. This post will explore into details of that process.
+In my previous post, "[Setting up Gopher Site with Nginx](/en/article/modify-website/serve-gopher-with-nginx.lantian/)", I mentioned that the Gopher service is a byproduct of my original plan: modifying Nginx into a WHOIS server for DN42. This post will explore into details of that process.
 
 The WHOIS Protocol
 ------------------
 
-First, we can find a WHOIS server to observe its response. Choose the WHOIS server for `.pub` domain for example, and run `telnet whois.nic.pub 43`:
+First, we can find a WHOIS server to observe its response. Choose the WHOIS server for `.pub` domain as an example, and run `telnet whois.nic.pub 43`:
 
 ```bash
 # Type following line and hit enter
@@ -28,12 +28,12 @@ Registrar: DNSPod, Inc.
 # Then WHOIS server closes connection
 ```
 
-This is exactly the same as Gopher, another protocol that creates one response to each request. Therefore, I can simply reuse my Gopher codebase for my WHOIS server, instead of adding extra modifications.
+This is exactly the same as Gopher, another protocol that creates one response to each request. Therefore, I can simply reuse my Gopher codebase for my WHOIS server instead of adding extra modifications.
 
 Categorizing Queries
 --------------------
 
-Since our nginx already had support for WHOIS, all we have to do is to add data. However, "adding data" to a WHOIS server is not an easy task. Take the [DN42 Registry](https://git.dn42.dev/dn42/registry) for example, its data is categorized into:
+Since our nginx already had support for WHOIS, all we have to do is to add data. However, "adding data" to a WHOIS server is not an easy task. Take the [DN42 Registry](https://git.dn42.dev/dn42/registry) for example. Its data is categorized into:
 
 - `as-block`: Range of ASN, defining allocation policies.
 - `as-set`: Group of ASNs, managed by each AS individually. It's used to label peered AS and downstream customers for automated routing policy generation on the Internet, but is not that useful in DN42.
@@ -45,7 +45,7 @@ Since our nginx already had support for WHOIS, all we have to do is to add data.
 - `mntner`: Information of network maintainers.
 - `organisation`: Information of organizations. For example, there's a professor participating in DN42, who asks his students to peer in DN42 as networking practices. He can form an organization with his students in this case.
 - `person`: Information of users. What's different from `mntner` it that `person` is more focused on contact information.
-- `registry`: Information of registrys. A "registry", including RIPE or APNIC, manages IP and ASN. Information of interconnected networks is also here, for example ChaosVPN and NeoNetwork.
+- `registry`: Information of registries. A "registry", including RIPE or APNIC, manages IP and ASN. Information of interconnected networks is also here, for example ChaosVPN and NeoNetwork.
 - `role`: User role information for permission granting purposes. Rarely used in DN42.
 - `route`: **Routing** information for IPv4 blocks. An IP block can be split to smaller blocks for announcements.
 - `route6`: Routing information for IPv6 blocks.
@@ -53,9 +53,9 @@ Since our nginx already had support for WHOIS, all we have to do is to add data.
 - `schema`: Defines file format in the registry.
 - `tinc-key`: Public keys of Tinc VPN.
 
-When users perform a query, they will only provide the query target itself, not category/type information. Example queries are `lantian.dn42`, `172.22.76.185` or `LANTIAN-MNT`. Luckily, files in DN42 registry are named after conventions different for each type, so a query type can be inferred, and we will know which folder to look at.
+When users perform a query, they will only provide the query target itself, not category/type information. Example queries are `lantian.dn42`, `172.22.76.185` or `LANTIAN-MNT`. Luckily, files in the DN42 registry are named after conventions different for each type, so a query type can be inferred, and we will know which folder to check.
 
-> Of course, no one's stopping you from putting everything into a single folder. It will definitely create a mess though.
+> Of course, no one's stopping you from putting everything into a single folder. It will definitely create a mess, though.
 
 So I wrote a tiny bit of regular expressions:
 
@@ -87,9 +87,9 @@ rewrite "^/([^/]+)$" /dns/$1 last;
 
 We aren't done yet, since the ext4 filesystem of Linux is case sensitive. If a file is named `LANTIAN-MNT` in the registry, you will get 404 when you look for `lantian-mnt`. The WHOIS client in Linux, for example, converts all queries to lower case. Therefore, we have to convert upper/lower case for each folder, for example:
 
-> I'm using Lua here, since nginx itself isn't capable of transforming upper/lower cases.
+> I'm using Lua here since Nginx itself isn't capable of transforming upper/lower cases.
 >
-> You will need to replace nginx with [OpenResty](https://openresty.org) to use Lua.
+> You will need to replace Nginx with [OpenResty](https://openresty.org) to use Lua.
 
 ```bash
 location ~* "^/(dns)/(.*)$" {
@@ -165,4 +165,4 @@ country:            CN
 # Snip
 ```
 
-You may have a try yourself, to lookup DN42 IPs, domains and users with the WHOIS server.
+You may have a try yourself, to lookup DN42 IPs, domains, and users with the WHOIS server.

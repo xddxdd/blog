@@ -1,5 +1,5 @@
 ---
-title: 'Setting up Gopher Site with nginx'
+title: 'Setting up Gopher Site with Nginx'
 categories: 'Website and Servers'
 tags: [nginx, Gopher]
 date: 2021-03-21 22:16:44
@@ -9,26 +9,26 @@ image: /usr/uploads/202103/gopher-gopherus-en.png
 Changelog
 ---------
 
-- 2021-03-24: Improve post processing, add scripts for parsing links and images.
+- 2021-03-24: Improve post-processing, add scripts for parsing links and images.
 - 2021-03-21: Initial version.
 
 What's Gopher
 -------------
 
-Gopher is a protocol born in the early ages of Internet. It was invented at University of Minnesota on 1991, with a purpose similar to HTTP today. The protocol itself is extremely simple:
+Gopher is a protocol born in the early ages of the Internet. It was invented at the University of Minnesota in 1991, with a purpose similar to HTTP today. The protocol itself is extremely simple:
 
-1. Client connects to TCP port 70 of server, and send one line of URL ending with CRLF, e.g. `some_dir/hello.txt`
-2. Server sends data of the requested file and closes connection.
+1. Client connects to TCP port 70 of the server, and send one line of URL ending with CRLF, e.g. `some_dir/hello.txt`
+2. Server sends data of the requested file and closes the connection.
 3. And we're done.
 
 The server could be returning a text file, a picture, a binary file, or a Gopher list file called `Gophermap` with special formatting. Each line of the file is composed of the following fields:
 
-1. A character representing the type of this line, may it be text (`i`), a link to text file (`0`), a link to another Gophermap (`1`), a picture (`I`), or a binary (`9`). Of course there are other types for protocols no longer used today, see [RFC1436 Section 3.8](https://tools.ietf.org/html/rfc1436#section-3.8) for more details.
-2. A line of message to be shown for this line, e.g. `Hello World`.
+1. A character representing the type of this line, may it be text (`i`), a link to a text file (`0`), a link to another Gophermap (`1`), a picture (`I`), or a binary (`9`). Of course, there are other types meant for protocols no longer used today. See [RFC1436 Section 3.8](https://tools.ietf.org/html/rfc1436#section-3.8) for more details.
+2. A message line to be shown for this line, e.g., `Hello World`.
 3. A TAB character.
-4. Target path of the link, e.g. `/some_dir/hello.txt`.
+4. Target path of the link, e.g., `/some_dir/hello.txt`.
 5. A TAB character.
-6. Target host name of the link, e.g. `gopher.lantian.pub`.
+6. Target hostname of the link, e.g., `gopher.lantian.pub`.
 7. A TAB character.
 8. Target port of the link, usually `70`.
 9. CR+LF as line ending.
@@ -38,7 +38,7 @@ At the end of the `Gophermap` there is a single period on its own line, marking 
 Take a look at these examples:
 
 ```bash
-# A line of information. It has no link target for part 4, and you may fill anything for target host and port
+# A line of information. It has no link target for part 4, and you may fill anything for the target host and port
 iHello World[TAB][TAB]invalid.host[TAB]70[CR][LF]
 # Example of a link
 iProject Description[TAB]/project/description.txt[TAB]gopher.lantian.pub[TAB]70[CR][LF]
@@ -48,23 +48,23 @@ iScreenshot[TAB]/project/screenshot.jpg[TAB]gopher.lantian.pub[TAB]70[CR][LF]
 .[CR][LF]
 ```
 
-Under the background of lacking computing power, Gopher protocol was widely used in the 1990s due to its extreme simplicity. But since the only thing a client can do is to send a URL, it is much more complicated to allow the client to post data onto the server, for searching or comment sections as example. In addition, the server can only return the file itself but nothing else, unlike HTTP where additional response headers are allowed. This means the client need to find out the type of response based on previous Gophermaps, or even guess on its own. Therefore, Gopher was eventually replaced with functionally superior HTTP.
+Under the background of lacking computing power, the Gopher protocol was widely used in the 1990s due to its extreme simplicity. But since the only thing a client can do is to send a URL, it is much more complicated to allow the client to post data onto the server, like for searching or comment sections. In addition, the server can only return the file itself but nothing else, unlike HTTP where additional response headers are allowed. This means the client needs to find out the type of response based on previous Gophermaps, or even guess on its own. Therefore, Gopher was eventually replaced with functionally superior HTTP.
 
-But Gopher protocol isn't dead. As of now (year 2021), there are still actively maintained Gopher server software such as [Gophernicus](https://github.com/gophernicus/gophernicus), and there are sites serving over Gopher.
+But Gopher protocol isn't dead. As of now (the year 2021), there are still actively maintained Gopher server software such as [Gophernicus](https://github.com/gophernicus/gophernicus), and there are sites serving over Gopher.
 
 If you want to try visiting Gopher sites, you may try [Overbite extension for Firefox](https://gopher.floodgap.com/overbite/), or client software like [Gopherus](http://gopherus.sourceforge.net/).
 
-Why nginx?
+Why Nginx?
 ----------
 
-Compared to a software designed specifically for Gopher, such as Gophernicus, nginx has better support for modern dynamic web pages. For example, it can dynamically generate response based on PHP and ASP.NET (Mono) over FastCGI, or proxy requests to other HTTP servers, effectively making it a Gopher gateway. Comparatively, Gophernicus only supports classic CGI and no proxy functionality. In addition, nginx is well known for its high performance.
+Compared to some software designed specifically for Gopher, such as Gophernicus, Nginx has better support for modern dynamic web pages. For example, it can dynamically generate responses based on PHP and ASP.NET (Mono) over FastCGI, or proxy requests to other HTTP servers, effectively making it a Gopher gateway. Comparatively, Gophernicus only supports classic CGI and no proxy functionality. In addition, Nginx is well known for its high performance.
 
-But there is one more reason I chose nginx: I was [modifying nginx to use it as a WHOIS server](/en/article/modify-website/serve-dn42-whois-with-nginx.lantian/) (for DN42), and WHOIS protocol is almost the same as Gopher: one request and one response. With minor adjustments, I can make my new feature work with Gopher.
+But there is one more reason I chose Nginx: I was [modifying Nginx to use it as a WHOIS server](/en/article/modify-website/serve-dn42-whois-with-nginx.lantian/) (for DN42), and WHOIS protocol is almost the same as Gopher: one request and one response. With minor adjustments, I can make my new feature work with Gopher.
 
-Let nginx support Gopher
+Let Nginx support Gopher
 ------------------------
 
-nginx, by itself, is an HTTP server. Let us ignore for a moment the modern HTTP/2.0 with binary commands, or UDP-based QUIC or HTTP/3.0, and look back at the HTTP/1.1 which was once widely used. Back then a request looks like this:
+Nginx, by itself, is an HTTP server. Let us ignore for a moment the modern HTTP/2.0 with binary commands, or UDP-based QUIC or HTTP/3.0, and look back at the HTTP/1.1, which was once widely used. Back then, a request looks like this:
 
 ```bash
 GET /test.php HTTP/1.1
@@ -83,7 +83,7 @@ X-Powered-By: PHP/8.0.3
 
 The first part is the client request, of which `GET http://localhost/ HTTP/1.1` and `Host: localhost` are necessary. They tell the server the path (`/test.php`) and domain (`localhost`) the client is trying to access.
 
-The other parts, such as User-Agent headers commonly seen, are not an essential part for HTTP protocol. We can connect to the server manually with `telnet localhost 80` and only send the first two lines:
+The other parts, such as User-Agent headers commonly seen, are not an essential part of the HTTP protocol. We can connect to the server manually with `telnet localhost 80` and only send the first two lines:
 
 ```bash
 GET /test.php HTTP/1.1
@@ -109,9 +109,9 @@ The server still gave back contents for the page, but there are things more than
 
 - Gopher clients won't recognize the 200 status code of HTTP;
 - There are extra response headers including Date, Content-Type, etc.;
-- nginx's reponse are encoded with `Transfer-Encoding: chunked`, which Gopher clients have no idea about;
-- We need to press Enter twice after the `Host:` line before nginx sends the response. Gopher clients will only do it once;
-- Most importantly, did you notice the `^C`? It's there because I manually pressed `Ctrl+C` to terminate the connection. nginx has `Connection: keep-alive` enabled by default, and won't actively close the connection after the request is completed. Instead, it will wait for the client to send a second request. A Gopher client in this case will wait forever.
+- The responses of Nginx are encoded with `Transfer-Encoding: chunked`, which Gopher clients have no idea about;
+- We need to press Enter twice after the `Host:` line before Nginx sends the response. Gopher clients will only do it once;
+- Most importantly, have you noticed the `^C`? It's there because I manually pressed `Ctrl+C` to terminate the connection. Nginx has `Connection: keep-alive` enabled by default and won't actively close the connection after the request is completed. Instead, it will wait for the client to send a second request. A Gopher client, in this case, will wait forever.
 
 Therefore, there's too much to change based on HTTP/1.1. But if there's 1.1, there's also 1.0. How about we have a try of HTTP/1.0?
 
@@ -128,7 +128,7 @@ X-Powered-By: PHP/8.0.3
 Hello World
 ```
 
-This time, the server actively closed the connection, and returned raw data instead of `chunk` encoded ones, which is good. But there are still extra HTTP response headers. Do we need to disable all logic related to HTTP headers? That's still a lot to do. And we still need to press Enter twice, by the way.
+This time, the server actively closed the connection, and returned raw data instead of `chunk` encoded ones, which is good. But there are still extra HTTP response headers. Do we need to disable all logic related to HTTP headers? There's still a lot to do. And we still need to press Enter twice, by the way.
 
 Here's some good news: there was an extremely simple version of HTTP/0.9 before HTTP/1.0, and it is just a single line:
 
@@ -137,25 +137,25 @@ GET /test.php
 Hello World
 ```
 
-The client only sent the first `GET` line. Once it send a line feed, nginx replied back `Hello World` without needing the second line feed, without status code 200 or other headers, and not forgetting to close the connection. This is very close to what we want: the HTTP client sent `GET /test.php[ENTER]` this time, while a Gopher client will probably send `test.php[ENTER]`.
+The client only sent the first `GET` line. Once it sends a line feed, Nginx replies back `Hello World` without needing the second line feed, without status code 200 or other headers, and not forgetting to close the connection. This is very close to what we want: the HTTP client sent `GET /test.php[ENTER]` this time, while a Gopher client will probably send `test.php[ENTER]`.
 
 Now we have a plan: add a protocol to parse Gopher requests, set the request type to GET, add a slash `/` before the URL, and copy/reuse HTTP/0.9 logic for the rest part.
 
 nginx Patch and Usage
 ---------------------
 
-I made a patch using the method above, which can be directly applied to the source code of nginx 1.19.7. The patch can be obtained from [https://gist.github.com/xddxdd/293becc41d805d7b8cfb5d11b6e326e1](https://gist.github.com/xddxdd/293becc41d805d7b8cfb5d11b6e326e1)
+I made a patch using the method above, which can be directly applied to the source code of Nginx 1.19.7. The patch can be obtained from [https://gist.github.com/xddxdd/293becc41d805d7b8cfb5d11b6e326e1](https://gist.github.com/xddxdd/293becc41d805d7b8cfb5d11b6e326e1)
 
 Overall, this patch did three changes:
 
-1. A new option `plain` is added to `listen`, meaning this port will be used to receive Gopher connections without the GET part.
+1. A new option, `plain`, is added to `listen`, meaning this port will be used to receive Gopher connections without the GET part.
    - Use it like `listen 70 plain default_server;`
    - Attention: a `plain` port cannot receive normal HTTP requests! So do not add it to the `listen` for port 80, and never use it with other protocols like `http2`.
    - SSL is theoretically supported, but I never tried.
-2. A state machine for parsing `plain` URLs is added. Compared to HTTP state machines, everything related to parsing request type (`GET`), domain (`http://localhost`) and HTTP version (`HTTP/1.1`) is removed. The request type is hardcoded to `GET`, domain set to `null` (just like HTTP/1.0), and the HTTP version is set to 0.9.
-3. Before starting to receive requests from the client, a slash `/` is stored into the receiving buffer, to insert it to the beginning of the URL. nginx will use the pointers to the URL many times during the entire process, and compared to changing all URL-related logic, inserting a slash directly is simple, effective and reliable.
+2. A state machine for parsing `plain` URLs is added. Compared to HTTP state machines, everything related to parsing request type (`GET`), domain (`http://localhost`), and HTTP version (`HTTP/1.1`) is removed. The request type is hardcoded to `GET`, the domain set to `null` (just like HTTP/1.0), and the HTTP version is set to 0.9.
+3. Before starting to receive requests from the client, a slash `/` is stored into the receiving buffer to insert it to the beginning of the URL. Nginx will use the pointers to the URL many times during the entire process, and compared to changing all URL-related logic, inserting a slash is simple, effective, and reliable.
 
-Remember to enable `--with-http_plain_module` while compiling nginx, and remember to set `index gophermap;` so nginx looks for the Gophermap by default.
+Remember to enable `--with-http_plain_module` while compiling Nginx, and remember to set `index gophermap;` so Nginx looks for the Gophermap by default.
 
 Generating Gophermaps
 ---------------------
@@ -340,15 +340,15 @@ I posted my logic of generating Gophermaps in Hexo to [https://gist.github.com/x
 Final Results
 -------------
 
-First, let's take a look of how things look like with Gopherus browser under Linux terminal:
+First, let's take a look at how things look like with Gopherus browser under the Linux terminal:
 
 ![Gopherus on Chinese contents](../../../../../usr/uploads/202103/gopher-gopherus.png)
 
-The site is displayed normally, but it's a bit different from expected: Gopherus cut each line at 80 bytes, but Chinese characters are 3 bytes each in UTF-8 encoding. This means approximately $\frac{1}{3}$ of the content each line are wrapped to the next line. My English site is shown correctly:
+The site is displayed normally, but it's a bit different from expected: Gopherus cut each line at 80 bytes, but Chinese characters are 3 bytes each in UTF-8 encoding. This means approximately $\frac{1}{3}$ of the content each line wraps to the next line. My English site is shown correctly:
 
 ![Gopherus on English contents](../../../../../usr/uploads/202103/gopher-gopherus-en.png)
 
-There are modern solutions compared to Gopherus, which is Firefox browser with Overbite plugin:
+There are modern solutions compared to Gopherus, which is the Firefox browser with Overbite plugin:
 
 ![Firefox + Overbite on Chinese contents](../../../../../usr/uploads/202103/gopher-overbite.png)
 
@@ -356,7 +356,7 @@ Chinese contents layout is much better than Gopherus. Of course, English content
 
 ![Firefox + Overbite on English contents](../../../../../usr/uploads/202103/gopher-overbite-en.png)
 
-Let's try browsing an post. Although it's just plain Markdown without much extra processing, the post itself is readable:
+Let's try browsing a post. Although it's just plain Markdown without much extra processing, the post itself is readable:
 
 ![Firefox + Overbite on Chinese contents](../../../../../usr/uploads/202103/gopher-overbite-article.png)
 

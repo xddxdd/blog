@@ -68,7 +68,7 @@ hexo.extend.tag.register(
         var s = `<div class="${class_name} btn-group" role="group" id="lti-g${i}" class="lt-interactive">`;
 
         content.split('\n').forEach((v) => {
-            var splitted = v.split(' ');
+            var splitted = v.split('|');
             var tag = splitted[0];
             var identifier = i + '-' + Math.floor(Math.random() * 10000000);
             var label = splitted.slice(1).join(' ');

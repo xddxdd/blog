@@ -11,20 +11,20 @@ What's BIRD? And What's Bird-lg?
 
 BIRD is a popular BGP routing software used on Linux. I mainly use [Bird in the DN42 network][1], to establish connections with other users.
 
-[Bird-lg][2] is a Python 2 based program developed by GitHub user sileht. It provides a web interface to show status of BIRD routing software on each server, and query routes to specified IPs.
+[Bird-lg][2] is a Python 2 based program developed by GitHub user sileht. It provides a web interface to show the status of BIRD routing software on each server, as well as query routes to specified IPs.
 
 Why Rewrite in Go?
 ------------------
 
-- Bird-lg is based on Python 2 and Flask, and takes more memory (20-30 MB).
+- Bird-lg is based on Python 2 and Flask and takes more memory (20-30MB).
 
-  Bird-lgproxy also takes around 20 MB, and is required on every server. On the 512 MB VPS where this site is hosted, there had been multiple cases where memory ran out and the on-disk SWAP is too slow. In this case Docker, nginx, MySQL, PHP would crash one after one and a reboot is necessary.
+  Bird-lgproxy also takes around 20MB and is required on every server. On the 512MB VPS where this site is hosted, there had been multiple cases where memory ran out, and the on-disk SWAP was too slow. In this case, Docker, Nginx, MySQL, PHP would crash one after one, and a reboot would be necessary.
 
 - The rewritten version in Go takes only 6 MB.
 
-- Bird-lg queries status of multipl servers in **series** rather than parallel. Sometimes when the network condition of a server is bad, or ZeroTier One is having a glitch, it will take a long time to read all the statuses.
+- Bird-lg queries status of multiple servers in **series** rather than parallel. Sometimes when the network condition was being subpar, or ZeroTier One had a glitch, it would take a long time to read all the statuses.
 
-- The rewritten version in Go use Goroutines to query multiple servers in **parallel** rather than serial. Page loading speed is reduced by magnitudes when there are many servers and the network is bad.
+- The rewritten version in Go uses Goroutines to query multiple servers in **parallel** rather than serial. Page loading latency is reduced by magnitudes when there are many servers or when the network is bad.
 
 - This is also my practice in programming in Go.
 
@@ -67,7 +67,7 @@ Bird-lg lacks:
 
 - Query history on the right of the page
 
-I don't implement these features since I don't need them. For example, I simply set Bird-lgproxy to listen on a specific network interface, and use this as a way of source restriction.
+I don't implement these features since I don't need them. For example, I simply set Bird-lgproxy to listen on a specific network interface and use this as a way of source restriction.
 
 Demonstration
 -------------
@@ -78,7 +78,7 @@ Simply `go build` in the corresponding directory. Use `-h` parameter to see avai
 
 Demo site: [https://lg.lantian.pub][10]
 
-I also modified the Python bird-lg and added parallel requests with `grequests`. The project is available at: [https://github.com/xddxdd/bird-lg][11]
+I also modified the Python bird-lg and added parallel requests with `grequests`. The project is available at [https://github.com/xddxdd/bird-lg][11]
 
 By the way, the Go Bird-lgproxy is a direct replacement for Python Bird-lgproxy, and can work together with the Python Bird-lg.
 

@@ -16,18 +16,18 @@ Twine 系统
 请做出你的选择：
 
 {% interactive_buttons %}
-next1 我要一个 /18
-next1 我要一个 /20
-next1 我要一个 /24
-end1 我要一个 /27
+next1|我要一个 /18
+next1|我要一个 /20
+next1|我要一个 /24
+end1|我要一个 /27
 {% endinteractive_buttons %}
 
 {% interactive next1 %}
 你突然发现，有一个和 DN42 相连的、叫 NeoNetwork 的网络，看起来有更充裕的地址。你决定：
 
 {% interactive_buttons %}
-next2 继续申请 DN42 地址
-next2 去 NeoNetwork 玩了
+next2|继续申请 DN42 地址
+next2|去 NeoNetwork 玩了
 {% endinteractive_buttons %}
 {% endinteractive %}
 
@@ -35,10 +35,10 @@ next2 去 NeoNetwork 玩了
 你提交了 Pull Request，管理员要求你提供要这么一大块地址的理由。你说：
 
 {% interactive_buttons vertical %}
-next3 要和我签订契约吗？（指 NDA）
-next4 我在公网已经有 /20 了
-next4 我开了一家计算机博物馆
-next5 我有一万个子网，各连了一万个设备
+next3|要和我签订契约吗？（指 NDA）
+next4|我在公网已经有 /20 了
+next4|我开了一家计算机博物馆
+next5|我有一万个子网，各连了一万个设备
 {% endinteractive_buttons %}
 {% endinteractive %}
 
@@ -46,8 +46,8 @@ next5 我有一万个子网，各连了一万个设备
 邮件列表里的同志们指出，用 NDA 的方式保护网络安全没什么用。你说：
 
 {% interactive_buttons vertical %}
-next5 我是有底线的人！（指防火墙）
-next6 我就是喜欢，咋地？
+next5|我是有底线的人！（指防火墙）
+next6|我就是喜欢，咋地？
 {% endinteractive_buttons %}
 {% endinteractive %}
 
@@ -55,8 +55,8 @@ next6 我就是喜欢，咋地？
 邮件列表里的同志扫了一下你的公网网段，发现没几台机器是通的。你说：
 
 {% interactive_buttons vertical %}
-next5 我是有底线的人！（指防火墙）
-next6 这有什么问题吗？（滑稽）
+next5|我是有底线的人！（指防火墙）
+next6|这有什么问题吗？（滑稽）
 {% endinteractive_buttons %}
 {% endinteractive %}
 
@@ -64,9 +64,9 @@ next6 这有什么问题吗？（滑稽）
 邮件列表里的同志问你能否用 NAT 来节省地址。你说：
 
 {% interactive_buttons vertical %}
-next6 我问 ARIN 要 /20 都没这么麻烦！
-next6 我讨厌 NAT，就是不用！
-end1 算了，又不是不能用
+next6|我问 ARIN 要 /20 都没这么麻烦！
+next6|我讨厌 NAT，就是不用！
+end1|算了，又不是不能用
 {% endinteractive_buttons %}
 {% endinteractive %}
 
@@ -76,8 +76,8 @@ end1 算了，又不是不能用
 你决定：
 
 {% interactive_buttons vertical %}
-next7 我就要大块地址怎么了？
-end1 算了，/24 也不是不能用
+next7|我就要大块地址怎么了？
+end1|算了，/24 也不是不能用
 {% endinteractive_buttons %}
 {% endinteractive %}
 
@@ -87,9 +87,9 @@ end1 算了，/24 也不是不能用
 你决定：
 
 {% interactive_buttons %}
-end2 上邮件列表骂街
-end2 这个管理员够不够格啊？
-end2 Telegram 私聊骚扰管理员
+end2|上邮件列表骂街
+end2|这个管理员够不够格啊？
+end2|Telegram 私聊骚扰管理员
 {% endinteractive_buttons %}
 {% endinteractive %}
 

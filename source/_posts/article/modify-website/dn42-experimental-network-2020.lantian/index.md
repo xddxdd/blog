@@ -81,9 +81,9 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
    1. 在 `data/mntner` 文件夹下创建一个名为 `[昵称]-MNT` 的文件，这个文件代表你的账户，用来认证你以后的操作。例如我的 mntner 文件如下（也可以在 `data/mntner/LANTIAN-MNT` 看到）：
 
       {% interactive_buttons vertical %}
-      noop 以下代码是我的注册信息，仅供参考。
-      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
-      code1 我确认我已阅读以上内容，查看代码。
+      noop|以下代码是我的注册信息，仅供参考。
+      noop|请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code1|我确认我已阅读以上内容，查看代码。
       {% endinteractive_buttons %}
 
       {% interactive code1 %}
@@ -127,9 +127,9 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
    2. 在 `data/person` 文件夹下创建一个 `[昵称]-DN42` 的文件，代表你的个人信息。说是个人信息，但其实只需要一个邮箱。例如我的 person 文件如下（`data/person/LANTIAN-DN42`）：
 
       {% interactive_buttons vertical %}
-      noop 以下代码是我的注册信息，仅供参考。
-      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
-      code2 我确认我已阅读以上内容，查看代码。
+      noop|以下代码是我的注册信息，仅供参考。
+      noop|请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code2|我确认我已阅读以上内容，查看代码。
       {% endinteractive_buttons %}
 
       {% interactive code2 %}
@@ -154,9 +154,9 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
    3. 接下来你要给自己选择一个 AS 编号，即 ASN。在国际互联网上，ASN 范围 4200000000 - 4294967294 是被保留作私下使用（private use）的，DN42 占用的就是其中的一块，424242**0000** - 424242**3999**。**（注意范围是 4000 个，不是 10000 个，剩下 6000 个暂未开放注册）** 在这 4000 个号码中挑选一个你喜欢的，并且没有被占用的，然后进入 `data/aut-num` 文件夹，创建文件。例如我是 AS4242422547, 文件就是 `data/aut-num/AS4242422547`：
 
       {% interactive_buttons vertical %}
-      noop 以下代码是我的注册信息，仅供参考。
-      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
-      code3 我确认我已阅读以上内容，查看代码。
+      noop|以下代码是我的注册信息，仅供参考。
+      noop|请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code3|我确认我已阅读以上内容，查看代码。
       {% endinteractive_buttons %}
 
       {% interactive code3 %}
@@ -219,9 +219,9 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       - 选好地址块之后，在 `data/inetnum` 文件夹创建 IPv4 地址对应的文件。例如我的其中一个地址块是 `172.22.76.184/29`，对应的文件就是 `data/inetnum/172.22.76.184_29`：
 
         {% interactive_buttons vertical %}
-        noop 以下代码是我的注册信息，仅供参考。
-        noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
-        code4 我确认我已阅读以上内容，查看代码。
+        noop|以下代码是我的注册信息，仅供参考。
+        noop|请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+        code4|我确认我已阅读以上内容，查看代码。
         {% endinteractive_buttons %}
 
         {% interactive code4 %}
@@ -259,9 +259,9 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
    5. 注册 IP 的过程还没结束，你还需要创建一个 route 对象，授权某个 AS 使用这个地址。在 `data/route` 文件夹创建对应文件，例如我的是 `data/route/172.22.76.184_29`：
 
       {% interactive_buttons vertical %}
-      noop 以下代码是我的注册信息，仅供参考。
-      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
-      code5 我确认我已阅读以上内容，查看代码。
+      noop|以下代码是我的注册信息，仅供参考。
+      noop|请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code5|我确认我已阅读以上内容，查看代码。
       {% endinteractive_buttons %}
 
       {% interactive code5 %}
@@ -309,9 +309,9 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       - 生成完地址块后，类似的在 `data/inet6num` 中创建文件，例如我的地址块是 `fdbc:f9dc:67ad::/48`，文件名就是 `data/inet6num/fdbc:f9dc:67ad::_48`：
 
         {% interactive_buttons vertical %}
-        noop 以下代码是我的注册信息，仅供参考。
-        noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
-        code6 我确认我已阅读以上内容，查看代码。
+        noop|以下代码是我的注册信息，仅供参考。
+        noop|请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+        code6|我确认我已阅读以上内容，查看代码。
         {% endinteractive_buttons %}
 
         {% interactive code6 %}
@@ -348,9 +348,9 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
    7. 然后在 `data/route6` 创建一个 route6 对象，授权你自己的 AS 使用这个 IP 段，例如我的是 `data/route6/fdbc:f9dc:67ad::_48`：
 
       {% interactive_buttons vertical %}
-      noop 以下代码是我的注册信息，仅供参考。
-      noop 请仔细阅读文档，并将代码中的全部信息替换成你的信息。
-      code7 我确认我已阅读以上内容，查看代码。
+      noop|以下代码是我的注册信息，仅供参考。
+      noop|请仔细阅读文档，并将代码中的全部信息替换成你的信息。
+      code7|我确认我已阅读以上内容，查看代码。
       {% endinteractive_buttons %}
 
       {% interactive code7 %}
@@ -633,51 +633,7 @@ DN42 中多数用户处在美国或者欧洲，当我们从中国与他们联系
 
 在此，我将步骤列表复制一遍，以供参考：
 
-1. 从下面的列表中选择一个服务器。一般你应该选择到你那边延迟（Ping）最低的服务器。
-   - 如果你有多台服务器加入 DN42，并且愿意的话，我可以同时建立多个 Peering。
-2. 选择一种 VPN 建立隧道。
-   - 我偏好使用 WireGuard 和 OpenVPN，但 GRE/IPSec，明文 GRE 和 ZeroTier One 也可以。
-   - **注意：我不**与中国大陆的服务器 Peer，以避免可能的法律问题。
-   - 我也愿意尝试其它种类的 VPN，只要你询问就可以了。
-3. 在你那边配置好 VPN 隧道和 BGP 客户端。你可以假设我会使用以下的配置：
-   - 基础信息：
-     - ASN：**4242422547**
-     - 公网 IP：见以下列表
-     - DN42 IPv4（隧道我这端的地址）：见以下列表
-       - 如果你需要为隧道设置一个地址块（例如 /30），这个地址块将来自你的地址池（由你分配给我）。
-       - 以上设置常见于 Mikrotik 等硬件路由器。
-     - DN42 IPv6: **fe80::2547**，用于本地链路（Link-local）连接
-       - 如果你需要为隧道设置一个地址块（例如 /64），这个地址块将来自你的地址池（由你分配给我）。
-     - Multiprotocol BGP（MP-BGP）：
-       - 虽然我支持 MP-BGP，但我默认仍会同时配置 v4、v6 两条 BGP 会话。
-       - 如果你也支持 MP-BGP，只需要一条会话，直接告诉我就行。
-   - 建立 VPN 隧道：
-     - WireGuard/OpenVPN 我这端的端口号：**你的 ASN 的后五位**
-       - 例如 4242420001 意味着我会使用 20001 端口
-     - OpenVPN 预共享密钥：你来生成，之后发送给我
-     - GRE/IPSec 公钥：见以下列表
-     - OpenVPN/IPSec 默认设置：见下
-       - 如果你无法使用我的默认参数，请设置好你可以接受的参数，然后发送给我。
-     - ZeroTier One：我会申请加入你的网络
-       - 如果可以的话，你可以尝试发送加入网络的邀请。
-4. 将以下信息发邮件给 **b980120@hotmail.com**:
-   - 基础信息：
-     - ASN
-     - 公网 IP
-       - 我偏好 IPv4 地址，因为在我的一些服务器上，IPv6 是由隧道提供的（即 HE.NET Tunnelbroker）
-     - DN42 IPv4 and IPv6（隧道你那端的地址）
-       - 或者地址块，如果你需要的话
-       - 对于 IPv6 Peering，需要包括本地链路（Link-local）地址
-     - 你想和哪台服务器连接
-   - 建立 VPN 隧道：
-     - WireGuard/OpenVPN 你那端的端口号
-       - 如果你不写明，我会假设你使用 22547 端口
-     - OpenVPN 预共享密钥：由你生成
-     - GRE/IPSec 公钥
-     - ZeroTier One：你的网络 ID（我会申请加入）
-     - OpenVPN/IPSec 设置参数（如果你无法使用我的默认参数）
-5. 等我设置好 VPN 隧道和 Peering，然后回复邮件。一般这时 Peering 就已经成功了。
-   - 你可以使用[我的 Looking Glass](https://lg.lantian.pub/) 来调试连接。
+{% insertmd _templates/dn42-experimental-network-2020/peer-zh.md %}
 
 隧道搭建：WireGuard
 -----------------

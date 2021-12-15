@@ -8,75 +8,32 @@ If you need assistance on DN42 configuration, you may refer to [DN42 Experimenta
 Some Helpful Links for Debugging
 --------------------------------
 
-Here's some links that may assist you in diagnosing problems with our peering.
+Here are some links that may assist you in diagnosing problems with our peering.
 
 - [My Looking Glass](https://lg.lantian.pub/)
-  - You can see BIRD routing software status across my nodes, including whether BGP session is established, and whether route is received.
+  - You can see BIRD routing software status across my nodes, including whether BGP session is established and whether any route is received.
   - You can perform traceroute to either public IP addresses or DN42 ones.
 - Route ROA filtering stats
   - My network only accepts routes that are registered in DN42. Received invalid or unknown routes will be listed here.
-  - Invalid route: this IP block is registerd in DN42, but the actual source of route is different from the registration.
-    - For example, I registered IP block `172.22.76.184/29` and allow 4242422547 (my AS) to announce it. If you tried to announce this route, your announcement will be shown here.
+  - Invalid route: this IP block is registered in DN42, but the actual source of the route is different from the registration.
+    - For example, I registered IP block `172.22.76.184/29` and allowed 4242422547 (my AS) to announce it. If you tried to announce this route, your announcement would be shown here.
     - See the [list of invalid IPv4 routes](https://lg.lantian.pub/route_generic/hostdare/table%20roa_fail_v4), and the [list of invalid IPv6 routes](https://lg.lantian.pub/route_generic/hostdare/table%20roa_fail_v6).
   - Unknown route: this IP block isn't registered in DN42.
     - It usually means you announced your personal intranet (such as `192.168.0.0/16` or `10.0.0.0/8`) to others by mistake.
-    - Or maybe you just registrated and my ROA information isn't updated yet. Please wait 4-8 hours and restart our peering.
+    - Or maybe you just registered, and my ROA information isn't updated yet. Please wait 4-8 hours and restart our peering.
     - Or maybe you only created inetnum/inet6num objects, but not route/route6 objects.
     - See the [list of unknown IPv4 routes](https://lg.lantian.pub/route_generic/hostdare/table%20roa_unknown_v4), and the [list of unknown IPv6 routes](https://lg.lantian.pub/route_generic/hostdare/table%20roa_unknown_v6).
 
 "1xRTT" Peering
 ---------------
 
-I live in China, and (many of) you may be on the opposite side of the planet. This means that due to timezone differences, one round of information exchange (you send an email, I respond while you sleep, you see my reply after wake up) may need 24 hours or even more.
+I live in China, and (many of) you may be on the opposite side of the planet. This means that due to timezone differences, one round of information exchange (you send an e-mail, I respond while you sleep, you see my reply after waking up) may need 24 hours or even more.
 
-Here I provide instructions to perform "1xRTT" peering, which means we can peer with only one email from you and one email from me. Even if you and me are in the same timezone, this will still simplify things.
+Here I provide instructions to perform "1xRTT" peering, which means we can peer with only one e-mail from you and one e-mail from me. Even if you and I are in the same time zone, this will still simplify things.
 
-1. Choose a server from the list below. Usually this will be the one with lowest latency (ping) to your server.
-   - If you have multiple servers in DN42, I'm open to peering with all of them at once.
-2. Choose a type of VPN for tunneling.
-   - I usually prefer WireGuard and OpenVPN, but others such as GRE/Plain and ZeroTier will also work.
-     - GRE/IPSec configuration is extremely complicated, and different IPSec implementations usually have severe compatibility issues, it may take days or even weeks to debug. Therefore, **I no longer accept GRE/IPSec tunnels**, and existing tunnels may be disconnected any time.
-   - **WARN: I DO NOT** peer with servers in mainland China, to avoid possible legal issues.
-   - I'm also willing to try new types of VPNs - just ask!
-3. Configure BGP daemon and VPN software on your side. You may assume I will use the following configuration:
-   - My General Information:
-     - ASN: **4242422547**
-     - Public IP: listed below
-     - DN42 IPv4 (IP used in tunnel on my end): listed below
-       - If you need an address block (such as /30) for IPv4 tunnel, it will come out of your address space.
-       - This is usually needed for hardware routers, such as Mikrotik.
-     - DN42 IPv6: **fe80::2547** for peering over link-local addresses
-       - If you need an address block (such as /64) for IPv6 tunnel, it will come out of your address space.
-     - Multiprotocol BGP (MP-BGP):
-       - Although I support MP-BGP, I still configure two BGP sesssions (1 IPv4 & 1 IPv6) by default.
-       - If you also support MP-BGP and only need one session, just let me know.
-   - For creating a tunnel connection:
-     - WireGuard/OpenVPN port on my side: **last 5 digits of your ASN**
-       - e.g. 4242420001 means I will use port 20001
-     - OpenVPN static key: generated by you, send to me later
-     - OpenVPN default configuration: show below
-       - If you can't use my default configuration, set something suitable for you and send it to me
-     - ZeroTier One: I will request to join your network
-       - You may try to invite my server to your network, if possible
-4. Send the following information via email to **b980120@hotmail.com**:
-   - Your General Information:
-     - ASN
-     - Public IP
-       - I prefer IPv4 since IPv6 is tunnelled on some of my servers (HE.NET Tunnelbroker)
-     - DN42 IPv4 and IPv6 (IP used in tunnel on your end)
-       - Or address blocks, if you need them for the tunnel
-       - Including link-local address for IPv6 peering
-     - Which server you want to peer with
-   - For creating a tunnel connection:
-     - WireGuard/OpenVPN port on your side
-       - I will assume 22547 if you don't specify
-     - OpenVPN static key (generated by you)
-     - ZeroTier One: Your network ID (I will request to join your network)
-     - OpenVPN custom configuration (if necessary)
-5. Wait till I set up the tunnel and peering, and respond to your email. Usually peering is successful by now.
-   - You may use [my Looking Glass](https://lg.lantian.pub/) to debug our connection.
+{% insertmd _templates/dn42-experimental-network-2020/peer-en.md %}
 
-PS: It's not recommended to contact me over IRC. Although I leave my IRC client running, I only read messages once or twice per month, unless you ask me to do so in email. And IRC chat is unlikely to be instant due to timezone differences.
+PS: It's not recommended to contact me over IRC. Although I leave my IRC client running, I only read messages once or twice per month, unless you ask me to do so in your e-mail. And IRC chat is unlikely to be instant due to timezone differences.
 
 My Network
 ----------
@@ -129,7 +86,7 @@ Servers
 Recommended Config Templates (Default Parameters)
 -------------------------------------------------
 
-> These templates are from your perspective, you don't need to swap sides when using them on your server.
+> These templates are from your perspective, and you don't need to swap sides when using them on your server.
 
 OpenVPN:
 

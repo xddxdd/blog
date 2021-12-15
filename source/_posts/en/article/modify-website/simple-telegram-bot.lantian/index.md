@@ -7,22 +7,22 @@ date: 2020-04-23 16:02:50
 
 Based on the requests of [DN42 Telegram Group](https://t.me/Dn42Chat) members, I plan to add Telegram Bot support to my [Bird Looking Glass](/en/article/modify-website/go-bird-looking-glass.lantian), so it is easier for them to look up whois information, testing networks and finding sources of route leaks. The bot is supposed to recognize commands starting with `/`, and respond to the message.
 
-My Looking Glass is written in Go, so at the beginning I looked for Telegram Bot APIs in Go language. However those popular API libraries all use the same scheme for handling requests:
+My Looking Glass is written in Go, so at the beginning, I looked for Telegram Bot APIs in the Go language. However, those popular API libraries all use the same scheme for handling requests:
 
 - Telegram server sends a callback to my own server;
-- My program handles the request, and may send multiple requests actively to Telegram server, authenticated with a locally configured Token;
-- Finally the program actively sends a request to Telegram server to send the response.
+- My program handles the request and may send multiple requests actively to the Telegram server, authenticated with a locally configured Token;
+- Finally, the program actively sends a request to the Telegram server to send the response.
 
 While powerful, this scheme is a bit too complicated, and I don't need the extra functionalities anyway. I rather prefer to use [the other way provided by Telegram](https://core.telegram.org/bots/faq#how-can-i-make-requests-in-response-to-updates), by directly responding to the callback HTTP request:
 
 - Telegram server sends a callback to my own server;
-- My program handles the request, and replies to the callback request directly to sends the response message.
+- My program handles the request and replies to the callback request directly to send the response message.
 
-Although this has the limitation of one reply (or action) per request (or message), but this is enough for me, considering that my bot only needs to reply once anyway. In addition this scheme has the following benefits:
+Although this has the limitation of one reply (or action) per request (or message), this is enough for me, considering that my bot only needs to reply once anyway. In addition, this scheme has the following benefits:
 
-1. Extremely easy to program, and no dependency on third party libraries.
-2. The server no longer need the token, which reduced needed configuration efforts and improved security. It's also much easier to configure multiple bots which perform different tasks based on callback URLs.
-3. No CPU cycle, network bandwidth and latency spent on the extra HTTP requests.
+1. Extremely easy to program, and no dependency on third-party libraries.
+2. The server no longer needs the token, which reduces needed configuration efforts and improved security. It's also much easier to configure multiple bots which perform different tasks based on callback URLs.
+3. No CPU cycle, network bandwidth, and latency spent on the extra HTTP requests.
 
 Parsing Callback Requests
 -------------------------
@@ -58,7 +58,7 @@ As a bot that only cares about the command itself, we only need to extract the f
 - `message/chat/id`: ID of the chat window.
 - `message/text`: Command from the user.
 
-Compared to Python which parses JSON directly and formats it into a `dict`, Go's approach is more complicated, where we have to set up data structures to store the needed messages. Therefore the following structure is needed:
+Compared to Python, which parses JSON directly and formats it into a `dict`, Go's approach is more complicated, where we have to set up data structures to store the needed messages. Therefore the following structure is needed:
 
 ```go
 type tgChat struct {
@@ -130,9 +130,9 @@ Construct Reply
 The response message to Telegram's callback is also a JSON, containing the following contents:
 
 - `method`: Type of response, hardcoded to `sendMessage` in my case.
-- `chat_id`: ID of chat window, same as request.
-- `text`: Content of message, set in program as needed.
-- `reply_to_message_id`: ID of message to be replied, set to `message_id` in request.
+- `chat_id`: ID of the chat window, same as the request.
+- `text`: Content of the message, set in the processing logic as needed.
+- `reply_to_message_id`: ID of the message to be replied, set to `message_id` in request.
 - `parse_mode`: Set to `Markdown` so Telegram parses your message as Markdown. Or remove if you don't want this.
 
 The structure in Go is:
@@ -147,7 +147,7 @@ type tgWebhookResponse struct {
 }
 ```
 
-Then serialize JSON and output it as a HTTP request. Note that you should set `Content-Type: application/json`, or Telegram won't parse this JSON, nor would it perform any operation.
+Then serialize JSON and output it as an HTTP request. Note that you should set `Content-Type: application/json`, or Telegram won't parse this JSON, nor would it perform any operation.
 
 ```go
 commandResult = "Hello World"

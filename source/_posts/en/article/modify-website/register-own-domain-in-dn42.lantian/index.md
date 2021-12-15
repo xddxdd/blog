@@ -6,21 +6,19 @@ date: 2018-04-26 21:54:00
 image: /usr/uploads/2018/04/2335363675.png
 ---
 
-DN42, aka Decentralized Network 42, is a large VPN network. Unlike traditional VPNs, DN42 uses a lot of technology involved in Internet backbones (such as BGP), and is a great simulation of a realistic network environment.
+DN42, aka Decentralized Network 42, is a large VPN network. Unlike traditional VPNs, DN42 uses a lot of technology involved in Internet backbones (such as BGP) and is a great simulation of a realistic network environment.
 
-[In a previous post (Chinese only)][1], I joined DN42 and connected most of my VPSes to it. (The ones left are OpenVZ VPSes without Tun/Tap support.) I knew from the beginning that DN42 has its own domain name system, for example DN42's wiki ([https://wiki.dn42.us/Home][2]) can be accessed as [https://internal.dn42][3] in DN42. I didn't register a domain back then since I didn't have time, and I didn't have much knowledge on DN42. I finished the registration this month, and would like to share my experience.
+[In a previous post (Chinese only)][1], I joined DN42 and connected most of my VPSes to it. (The ones left are OpenVZ VPSes without Tun/Tap support.) I knew from the beginning that DN42 has its own domain name system. For example, DN42's wiki ([https://wiki.dn42.us/Home][2]) can be accessed as [https://internal.dn42][3] in DN42. I didn't register a domain back then since I didn't have time, and I didn't have much knowledge of DN42. I finished the registration this month and would like to share my experience.
 
 Building Authoritative DNS
 --------------------------
 
-An authoritative DNS is responsible for a domain's records. For example, the domain for this blog, `lantian.pub`, has authoritative servers `lv3ns[1-4].ffdns.net` from CloudXNS. While registring domains on the Internet, we can use existing free DNS services, such as Cloudflare or CloudXNS. But in DN42, although there are people providing such services, communication over IRC is usually required. I find it not worth it, and decided to selfhost one.
+An authoritative DNS is responsible for a domain's records. For example, the domain for this blog, `lantian.pub`, has authoritative servers `lv3ns[1-4].ffdns.net` from CloudXNS. While registering domains on the Internet, we can use existing free DNS services, such as Cloudflare or CloudXNS. But in DN42, although there were people providing such services, communication over IRC is usually required. I found it not worth the hassle and decided to self-host one.
 
 Bind or PowerDNS is usually used when setting up an authoritative DNS server on Linux. Bind stores DNS records as files, which are a bit hard to manage when synchronization across servers is needed. For PowerDNS though, in addition to files, the records can also be stored in a database like MySQL. By the way, PowerDNS also provides its own synchronization mechanisms.
 
 Since I never succeeded in setting up PowerDNS's native sync, and I haven't figured out why, I simply set up a MySQL source/replica replication.
 
-> To support current movement against racial discrimination, I will use terms source/replica in place of master/slave.
->
 > The server serving "standard" data is called "Primary DNS server / MySQL replication source", and other servers synchronizing from it are called "Secondary DNS server / MySQL replica".
 
 Setting up DNS: MySQL Master/Slave Sync
@@ -38,7 +36,7 @@ log_bin=mysql-bin
 log_error=mysql-bin.err
 ```
 
-Then login to the source MySQL server with phpMyAdmin, set the server to source (master) on the "Replication" page, and create a user for replication (with permissions `REPLICATION SLAVE` and `REPLICATION CLIENT`).
+Then login to the source MySQL server with phpMyAdmin, and set the server to source (master) on the "Replication" page, and create a user for replication (with permissions of `REPLICATION SLAVE` and `REPLICATION CLIENT`).
 
 When you've finished the setup, you should see a similar status as:
 
@@ -46,7 +44,7 @@ When you've finished the setup, you should see a similar status as:
 
 The "File" is the filename for the MySQL binary log, and "Position" is the current line position. Record these two values.
 
-Then, shutdown MySQL on all servers. Use `rsync` or similar methods to copy the database to replica servers, replacing the data directories. Then restart all MySQL services. If you don't have much database writes, like for a personal blog, you may try to do this without shutting down the source server, but keep in mind that in this case the copied data may be corrupted.
+Then, shut down MySQL on all servers. Use `rsync` or similar tools to copy the database to replica servers, replacing the data directories. Then restart all MySQL services. If you don't have much database writes, like for a personal blog, you may try to do this without shutting down the source server, but keep in mind that in this case, the copied data may be corrupted.
 
 Then use phpMyAdmin to log on to replica MySQL servers. Since I met a strange problem while setting up a replica with its wizards, I'm executing an SQL instead:
 
@@ -66,7 +64,7 @@ Then go to the "Replication" page, click "See slave status table", and confirm t
 Setting up DNS: Configuring PowerDNS
 ------------------------------------
 
-After done with the database, we can set up PowerDNS. First create a user and database in MySQL for PowerDNS.
+After done with the database, we can set up PowerDNS. First, create a user and database in MySQL for PowerDNS.
 
 Then, install PowerDNS. Since I'm a Docker user, I simply downloaded and started a container with `docker-compose`:
 
@@ -90,7 +88,7 @@ Here PowerDNS may fail to start, telling you that some columns are too long when
 
 Instead of changing the database config, we can simply reduce the length from 64000 to 16000, for example, and manually create the tables:
 
-> This schema may be out of date for newer PowerDNS. See [https://doc.powerdns.com/authoritative/backends/generic-mysql.html](https://doc.powerdns.com/authoritative/backends/generic-mysql.html) for latest schema, and change length accordingly.
+> This schema may be out of date for newer PowerDNS. See [https://doc.powerdns.com/authoritative/backends/generic-mysql.html](https://doc.powerdns.com/authoritative/backends/generic-mysql.html) for the latest schema, and change length accordingly.
 
 ```sql
 CREATE TABLE domains (
@@ -201,14 +199,14 @@ Initially, after installing PowerAdmin, the SOA record will not contain a simila
 - `ns1.lantian.dn42`: Name of the main DNS server, usually the domain name of the server you're operating on.
 - `lantian.lantian.dn42`: Mailbox of the DNS server administrator, with `@` at symbol replaced with `.` dot symbol. Here this value implies `lantian@lantian.dn42`. This doesn't have to be a real address in DN42.
 - `0`: Record version ID, used to determine if records are changed if AXFR is used. Since we use MySQL replication, this is not that important. Set to 0 tells PowerDNS to manage it automatically without manual intervention.
-- `28800`: Refresh time, interval for secondary DNS server to pull from primary server with AXFR. Not important here.
+- `28800`: Refresh time, the interval for the secondary DNS server to pull from the primary server with AXFR. Not important here.
 - `7200`: Retry time, time to wait if a previous AXFR attempt failed. Also not important here.
-- `604800`: Expiration time, time for a secondary DNS server to serve records since the last successful AXFR. After this time the secondary DNS server will stop serving this zone. Also not important here.
+- `604800`: Expiration time, time for a secondary DNS server to serve records since the last successful AXFR. After this period of time, the secondary DNS server will stop serving this zone. Also not important here.
 - `60`: Minimal TTL for all records. Minimum time to refresh record data.
 
 Click on the edit button to the left of SOA record, set the values, and save.
 
-Then we need to set NS records, specifying that your domain will be served by these DNS servers. I will configure 3 servers, `ns[1-3].lantian.dn42`. A NS record is necessary for each of them:
+Then we need to set NS records, specifying that your domain will be served by these DNS servers. I will configure 3 servers, `ns[1-3].lantian.dn42`. An NS record is necessary for each of them:
 
 ![Filling in NS Records][9]
 
@@ -279,11 +277,11 @@ Then `git add`, `git commit`, `git push`, send a Pull Request and wait for mergi
 
 ![DN42 Pull Request Record][14]
 
-Since DN42 uses Anycast DNS, anyone can a DNS recursive server. With different people polling updates from the central registry at different intervals, it may take up to a week for your domain to fully work.
+Since DN42 uses Anycast DNS, anyone can host a DNS recursive server. With different people polling updates from the central registry at different intervals, it may take up to a week for your domain to fully work.
 
 ![Domain Activated][15]
 
-Finally we've registered a domain in DN42. Now you can set up your website, mail, IRC, game server, or whatever you want.
+Finally, we've registered a domain in DN42. Now you can set up your website, mail, IRC, game server, or whatever you want.
 
   [1]: /article/modify-website/join-dn42-experimental-network.lantian
   [2]: https://wiki.dn42.us/Home

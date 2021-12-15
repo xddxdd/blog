@@ -5,7 +5,7 @@ tags: [Docker, Bird]
 date: 2020-03-13 20:23:20
 ---
 
-At exactly one year ago, I [set up an Anycast service with Docker in the DN42 network (Chinese only atm)](/article/modify-website/dn42-docker-anycast-dns.lantian). Back then, I customized the container's image and added a Bird installation to it, then put in a config file to broadcast Anycast routes via OSPF. However, as time went by, a few problems are exposed:
+At exactly one year ago, I [set up an Anycast service with Docker in the DN42 network (Chinese only atm)](/article/modify-website/dn42-docker-anycast-dns.lantian). Back then, I customized the container's image and added a Bird installation to it, then put in a config file to broadcast Anycast routes via OSPF. However, as time went by, a few problems were exposed:
 
 1. The process of installing Bird takes time. Instead of installing Bird with `apt-get`, since [my Dockerfiles need to support multiple architectures (Chinese only atm)](/article/modify-website/gpp-preprocess-dockerfile-include-if.lantian), and Bird isn't available in some architecture's repos for Debian. And since my building server is AMD64, and [is running images of other architectures with `qemu-user-static` (Chinese only atm)](/article/modify-computer/build-arm-docker-image-on-x86-docker-hub-travis-automatic-build.lantian), a lot of instruction translation is needed in the image building and software compilation progress, which is extremely inefficient. It may take more than 2 hours to build an image for different architectures, while if I installed it with Bird, it will take less than 5 minutes.
 2. Customizing image also takes time. Since both the target application (such as PowerDNS) and Bird need to be run simultaneously, I cannot simply use the target app as the ENTRYPOINT. Adding other managing software (supervisord, s6-supervise, tini, or a custom Bash script) adds extra complexity to the image (and therefore increases chances of error), and other factors such as signals, return values and zombie processes need to be taken into account.
@@ -56,7 +56,7 @@ services:
 networks: [Redacted...]
 ```
 
-Here I set all networking related configuration (including IP and ports) on the PowerDNS container, and set `network_mode: service:powerdns` on the Bird container, so they share the network namespace. Here `NET_ADMIN` capability is still required by Bird to handle broadcasting and routing, but no longer assigned to PowerDNS. Hence security is improved a bit?
+Here I set all networking-related configuration (including IP and ports) on the PowerDNS container, and set `network_mode: service:powerdns` on the Bird container, so they share the network namespace. Here `NET_ADMIN` capability is still required by Bird to handle the broadcasting and routing, but no longer assigned to PowerDNS. Hence security is improved a bit?
 
 Then run `docker-compose up -d` to start both containers.
 
@@ -83,18 +83,18 @@ Not long has passed before the host cannot receive OSPF broadcasts from the Bird
 
 The IP allocation is gone. Upon further inspection on the PowerDNS container, I realized that since I have [Watchtower](https://github.com/containrrr/watchtower) automatically updating images to the latest version, and my building server updated PowerDNS's image, the PowerDNS container has been recreated.
 
-Since `service` in `network_mode` is in fact a convenience function provided by `docker-compose`, and is assigned by container ID on Docker level, when PowerDNS container was recreated, the network namespace for Bird container is lost as well.
+Since `service` in `network_mode` is, in fact, a convenience function provided by `docker-compose`, and is assigned by container ID on Docker level, when PowerDNS container was recreated, the network namespace for Bird container is lost as well.
 
-Now if I attempt to restart the Bird container, Docker will show an error about unable to find the container with the original ID. Here the complexity arises: if I run `docker-compose up -d` again, instead of recreating containers, `docker-compose` simply tries to start existing containers, which will fail.
+Now, if I attempt to restart the Bird container, Docker will show an error about unable to find the container with the original ID. Here the complexity arises: if I run `docker-compose up -d` again, instead of recreating containers, `docker-compose` simply tries to start existing containers, which will fail.
 
-Therefore, I need a container that is always running and never updated for the network namespace, and attach PowerDNS and Bird containers, which may be updated any time, onto the long running container, to avoid issues when updating containers.
+Therefore, I need a container that is always running and never updated for the network namespace, and attach PowerDNS and Bird containers, which may be updated any time, onto the long-running container, to avoid issues when updating containers.
 
 Scheme 2: Three Containers
 --------------------------
 
-I chose the [Busybox container](https://hub.docker.com/_/busybox?tab=tags) to run forever, since it's small enough and occupies negligible memory space. The latest version of Busybox is 1.31.1 when I am writing this post, but since images of 1.31.1 is still updated periodically, I chose the image for 1.31.0, which was last updated 3 months ago.
+I chose the [Busybox container](https://hub.docker.com/_/busybox?tab=tags) to run forever since it's small enough and occupies negligible memory space. The latest version of Busybox was 1.31.1 when I was writing this post, but since images of 1.31.1 was still updated periodically, I chose the image for 1.31.0, which was last updated 3 months ago.
 
-I run `tail -f /dev/null` with Busybox, so it will run forever without eating CPU cycles. In addition, I set labels to the container to prevent Watchtower from auto updating it.
+I run `tail -f /dev/null` forever with Busybox without it eating CPU cycles. In addition, I set labels to the container to prevent Watchtower from auto-updating it.
 
 Here is my updated config file:
 
@@ -148,7 +148,7 @@ services:
 networks: [Redacted...]
 ```
 
-Here the Busybox container will run forever stably to keep the network namespace running, and PowerDNS and Bird will attach to it and provide services. Either PowerDNS or Bird can be updated any time without affecting the existence of the whole network namespace.
+Here the Busybox container will run forever stably to keep the network namespace running, and PowerDNS and Bird will attach to it and provide services. Either PowerDNS or Bird can be updated at any time without affecting the existence of the whole network namespace.
 
 As for resource consumptions of Busybox:
 
@@ -160,4 +160,4 @@ CONTAINER ID        NAME                     CPU %               MEM USAGE / LIM
 ...
 ```
 
-It's merely 384KB, and can be simply ignored.
+The size is merely 384KB and can be simply ignored.
