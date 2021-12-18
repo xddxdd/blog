@@ -16,6 +16,10 @@ This is the second post in my NixOS series and mainly focuses on:
 
 This post assumes that you've installed NixOS with [NixOS's official installation manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation).
 
+## Changelog
+
+- 2021-12-18: NixOS 21.11 still doesn't come with Flake functionality by default. Relevant information is updated.
+
 ## Basic config
 
 During NixOS's installation process, the `nixos-generate-config` tool should have generated an initial config file for you under `/etc/nixos`, with two files `configuration.nix` and `hardware-configuration.nix`. Ignore `hardware-configuration.nix` for the moment, as it's automatically generated based on your hardware and disk partition scheme. Let's open `configuration.nix`:

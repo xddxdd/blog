@@ -16,6 +16,10 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 本文假设你已经按照 [NixOS 官方安装教程](https://nixos.org/manual/nixos/stable/index.html#sec-installation)装好了一个系统。
 
+## 更新日志
+
+- 2021-12-18：NixOS 21.11 仍没有默认启用 Flake 功能，更新文章中相关说明。
+
 ## 基础配置
 
 在 NixOS 的安装过程中，`nixos-generate-config` 工具在 `/etc/nixos` 目录下生成了一份初始配置文件，`configuration.nix` 和 `hardware-configuration.nix` 两份文件。我们先不管 `hardware-configuration.nix` 这份文件，它是根据系统的硬件设备、硬盘分区等自动生成的配置文件。先打开 `configuration.nix`：
@@ -300,7 +304,7 @@ a: {
 }
 ```
 
-> 本文写成时 NixOS 的最新稳定版本是 21.05，其 Nix 包管理器（2.3 版本）还默认禁用 Flake 功能。~~NixOS 21.11 及以后的版本将默认开启 Flake 功能，届时将不需要这里对 `configuration.nix` 的修改。~~由于担心 Nix 2.4 功能变化过大，尤其是会与旧版 Nix 的行为不兼容，NixOS 21.11 仍将使用 Nix 2.3，将默认禁用 Flake 功能。相关讨论在 <https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257> 和 <https://github.com/NixOS/nixpkgs/pull/147511>。
+> 本文写成时 NixOS 的最新稳定版本是 21.05，其 Nix 包管理器（2.3 版本）还默认禁用 Flake 功能。 ~~NixOS 21.11 及以后的版本将默认开启 Flake 功能，届时将不需要这里对 `configuration.nix` 的修改。~~ 由于担心 Nix 2.4 功能变化过大，尤其是会与旧版 Nix 的行为不兼容，NixOS 21.11 仍将使用 Nix 2.3，将默认禁用 Flake 功能。相关讨论在 <https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257> 和 <https://github.com/NixOS/nixpkgs/pull/147511>。
 
 然后在 `/etc/nixos` 里创建一个 `flake.nix` 文件。这份 `flake.nix` 定义了一个软件源（`input`），是 <https://github.com/NixOS/nixpkgs> 的 `unstable` 分支（也就是 `master` 分支）。
 
