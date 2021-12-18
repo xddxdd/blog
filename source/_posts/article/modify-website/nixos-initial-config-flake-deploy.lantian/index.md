@@ -300,7 +300,7 @@ a: {
 }
 ```
 
-> 本文写成时 NixOS 的最新稳定版本是 21.05，其 Nix 包管理器还不带 Flake 功能。NixOS 21.11 及以后的版本将带有 Flake 功能，届时将不需要这里对 `configuration.nix` 的修改。
+> 本文写成时 NixOS 的最新稳定版本是 21.05，其 Nix 包管理器（2.3 版本）还默认禁用 Flake 功能。~~NixOS 21.11 及以后的版本将默认开启 Flake 功能，届时将不需要这里对 `configuration.nix` 的修改。~~由于担心 Nix 2.4 功能变化过大，尤其是会与旧版 Nix 的行为不兼容，NixOS 21.11 仍将使用 Nix 2.3，将默认禁用 Flake 功能。相关讨论在 <https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257> 和 <https://github.com/NixOS/nixpkgs/pull/147511>。
 
 然后在 `/etc/nixos` 里创建一个 `flake.nix` 文件。这份 `flake.nix` 定义了一个软件源（`input`），是 <https://github.com/NixOS/nixpkgs> 的 `unstable` 分支（也就是 `master` 分支）。
 

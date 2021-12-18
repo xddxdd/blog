@@ -313,7 +313,7 @@ To solve this issue, Nix introduced the Flake functionality, which allows defini
 }
 ```
 
-> At the time of writing, NixOS 21.05 is the latest stable version, and its Nix package manager doesn't come with Flake functionality yet. NixOS 21.11 and future versions will have Flake built-in, and by then, these config changes will no longer be needed.
+> At the time of writing, NixOS 21.05 is the latest stable version, and its Nix package manager (version 2.3) doesn't enable Flake functionality by default yet. ~~NixOS 21.11 and future versions will have Flake enabled by default, and by then, these config changes will no longer be needed.~~ Due to concerns about significant changes in Nix 2.4, especially about those behaviors incompatible with previous versions, NixOS 21.11 still uses Nix 2.3, which disables Flake by default. See <https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257> and <https://github.com/NixOS/nixpkgs/pull/147511> for the relevant discussion.
 
 Then create a `flake.nix` file in `/etc/nixos`. This `flake.nix` defines a package repo (`input`), the `unstable` branch (equivalent to `master` branch) of <https://github.com/NixOS/nixpkgs>.
 
