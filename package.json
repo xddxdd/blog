@@ -51,7 +51,7 @@
     "hexo-html-minifier": "^1.0.0",
     "hexo-insert-markdown": "github:bennycode/hexo-insert-markdown",
     "hexo-pangu": "^0.2.1",
-    "hexo-renderer-ejs": "^1.0.0",
+    "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-markdown": "github:lantian1998/hexo-renderer-markdown",
     "hexo-renderer-stylus": "^2.0.1",
     "hexo-spoiler": "^1.7.3",
@@ -90,6 +90,6 @@
     "terser-webpack-plugin": "^5.3.0",
     "webpack": "^5.65.0",
     "webpack-cli": "4.9",
-    "yargs-parser": "^20.2.9"
+    "yargs-parser": "^21.0.0"
   }
 }

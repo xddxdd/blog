@@ -53,7 +53,7 @@ steps:
       - DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git openssh-client gzip brotli zstd parallel imagemagick
       - npm install
       - node_modules/hexo/bin/hexo generate
-      - node_modules/acorn/bin/acorn --ecma2020 --silent public/assets/script.main.bundle.js
+      - bash _scripts/verify.sh
 
   - name: hexo deploy
     image: node:16
