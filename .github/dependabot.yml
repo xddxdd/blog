@@ -4,16 +4,10 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-    time: "08:00"
+    time: "12:00"
     timezone: America/Chicago
   open-pull-requests-limit: 10
   ignore:
   - dependency-name: is-fullwidth-code-point
-    update-types:
-    - "version-update:semver-major"
-  - dependency-name: bootstrap
-    update-types:
-    - "version-update:semver-major"
-  - dependency-name: flag-icon-css
     update-types:
     - "version-update:semver-major"
