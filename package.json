@@ -76,7 +76,7 @@
     "prism-themes": "^1.9.0",
     "remark": "^13.0.0",
     "remark-frontmatter": "^3.0.0",
-    "remark-gfm": "^1.0.0",
+    "remark-gfm": "^3.0.1",
     "remark-inline-links": "^5.0.0",
     "remark-stringify": "^9.0.1",
     "resolve-url-loader": "^4.0.0",
