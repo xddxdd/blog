@@ -24,7 +24,7 @@
     "@lantian1998/markdown-it-graphviz": "github:lantian1998/markdown-it-graphviz",
     "@waline/client": "^1.5.2",
     "acorn": "^8.7.0",
-    "autoprefixer": "^10.4.0",
+    "autoprefixer": "^10.4.1",
     "babel-loader": "^8.2.3",
     "bootstrap": "^5.1.3",
     "bootstrap.native": "^4.0.7",
