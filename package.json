@@ -76,6 +76,6 @@
     "style-loader": "^3.3.1",
     "svgo-loader": "^3.0.0",
     "terser-webpack-plugin": "^5.3.0",
-    "webpack": "^5.65.0"
+    "webpack": "^5.66.0"
   }
 }
