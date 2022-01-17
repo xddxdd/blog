@@ -2,17 +2,18 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const miniSVGDataURI = require('mini-svg-data-uri');
+const path = require('path');
 
 module.exports = {
     entry: {
-        main: '_assets/script.main.js',
-        style: '_assets/script.style.js',
-        style_twine: '_assets/script.style.twine.js',
-        style_bigscreen_indihome: '_assets/bigscreen/indihome/script.style.js',
+        main: path.join(__dirname, 'assets/script.main.js'),
+        style: path.join(__dirname, 'assets/script.style.js'),
+        style_twine: path.join(__dirname, 'assets/script.style.twine.js'),
+        style_bigscreen_indihome: path.join(__dirname, 'assets/bigscreen/indihome/script.style.js'),
     },
     output: {
         filename: 'script.[name].bundle.js',
-        path: 'assets',
+        path: path.join(__dirname, '../source/assets'),
         publicPath: '',
     },
 

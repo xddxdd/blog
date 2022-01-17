@@ -52,8 +52,7 @@ steps:
       - apt-get update
       - DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git openssh-client gzip brotli zstd parallel imagemagick
       - npm install
-      - node_modules/hexo/bin/hexo generate
-      - bash _scripts/verify.sh
+      - make
 
   - name: hexo deploy
     image: node:16
