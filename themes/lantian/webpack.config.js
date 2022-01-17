@@ -88,9 +88,7 @@ module.exports = {
                     'css-loader',
 
                     // Translate resource path
-                    {
-                        loader: 'resolve-url-loader',
-                    },
+                    'resolve-url-loader',
 
                     // Compiles Sass to CSS
                     {
