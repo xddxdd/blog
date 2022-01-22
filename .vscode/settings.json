@@ -1,0 +1,18 @@
+{
+    "grammarly.overrides": [
+        {
+            "files": [
+                "**/source/_posts/en/article/modify-computer/laptop-muxed-nvidia-passthrough.lantian/index.md"
+            ],
+            "config": {
+                "audience": "general",
+                "dialect": "american",
+                "domain": "general",
+                "emotions": [
+                    "neutral"
+                ],
+                "goals": []
+            }
+        }
+    ]
+}
