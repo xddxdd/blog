@@ -6,6 +6,13 @@ date: 2020-06-25 23:59:41
 image: /usr/uploads/202007/linus-torvalds-nvidia.png
 ---
 
+更新记录
+-------
+
+2022-01-22：根据 NVIDIA 驱动更新、评论区反馈更新内容。
+
+> [我在新电脑上成功完成了 Optimus MUXed 显卡直通。](/article/modify-computer/laptop-muxed-nvidia-passthrough.lantian)
+
 摘要（剧透）
 ----------
 
@@ -24,7 +31,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
 但双系统意味着需要维护两套系统，包括分别的系统更新、数据的共享和同步等等。例如我为了在 Windows 下正常访问自己的文件，不得不开了台 Hyper-V 虚拟机装上 Linux，然后把 Linux ZFS 分区所在的硬盘直通进去，再用 Samba 共享出来。
 
-> 内存 -1G，而且启动还慢，进桌面后过两三分钟网络驱动器才连接上。
+> 内存立减 1G，而且启动还慢，进桌面后过两三分钟网络驱动器才连接上。
 
 而传统的虚拟机软件（QEMU，VirtualBox，VMware）等的 3D 图形性能都很差。
 
@@ -366,6 +373,24 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 - 等等……
 
 因此我们必须一步步绕过这些坑。
+
+> 2022-01-22 更新：
+>
+> [从 465 版本开始，NVIDIA 解除了大部分的限制](https://nvidia.custhelp.com/app/answers/detail/a_id/5173)，理论上来说现在直接把显卡直通进虚拟机就能用。
+>
+> 但也只是理论上而已。
+>
+> 我依然建议大家做完所有的隐藏虚拟机的步骤，因为：
+>
+> 1. 对于笔记本电脑来说，NVIDIA 并没有解除所有的限制。
+>
+>    - 至少在我测试时，显卡的 PCIe 总线位置和系统是否存在电池依然会导致直通失败、驱动报错代码 43。
+>
+> 2. 即使 NVIDIA 驱动不检测虚拟机，你运行的程序也会检测虚拟机，隐藏虚拟机特征可以提高成功运行这些程序的概率。
+>
+>    - 典型例子包括带有反作弊系统的网游，或者部分需要联网激活的商业软件。
+>
+> 3. 由于 Optimus MUXless 的架构限制，你仍然需要修改 UEFI 固件，以让虚拟机内的显卡驱动能够读取 GPU vBIOS.
 
 1. 首先把宿主机重启到 Windows 系统，做如下事情：
    - （可选）下载一个 GPU-Z，导出显卡的 BIOS 备用。

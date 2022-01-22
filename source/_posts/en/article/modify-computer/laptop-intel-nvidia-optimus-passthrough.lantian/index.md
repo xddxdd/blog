@@ -6,6 +6,13 @@ date: 2020-06-25 23:59:41
 image: /usr/uploads/202007/linus-torvalds-nvidia.png
 ---
 
+Changelog
+---------
+
+2022-01-22: Revisions on NVIDIA driver updates and comments.
+
+> [I successfully passed through an Optimus MUXed GPU on my new laptop.](/en/article/modify-computer/laptop-muxed-nvidia-passthrough.lantian)
+
 Abstract (Spoiler Alert!)
 -------------------------
 
@@ -24,7 +31,7 @@ I do my daily routines, including web browsing and coding, on Arch Linux, and I 
 
 But dual-booting means I have to maintain two operating systems, including their system updates, data sharing, and synchronization. For instance, I had to run a Hyper-V virtual machine running Linux and passthrough the disk with the Linux ZFS partition and share the files over Samba in order to access them from Windows.
 
-> Memory -1G, and it takes 2-3 minutes to connect to the share after logging on.
+> Instant 1GB less memory, and it takes 2-3 minutes to connect to the share after logging on.
 
 On the other hand, traditional virtual machine hypervisors (QEMU, VirtualBox, VMware, etc.) have **horrible** 3D performance.
 
@@ -364,6 +371,24 @@ Passing through the dGPU itself is simple, but NVIDIA added a lot of driver limi
 - etc...
 
 So we have to hack through all these pitfalls.
+
+> Update on 2022-01-22:
+
+> [Since version 465, NVIDIA lifted most of the restrictions](https://nvidia.custhelp.com/app/answers/detail/a_id/5173), so theoretically, you pass a GPU into the VM, and everything should just work.
+>
+> But that's just the theory.
+>
+> I still recommend everyone to follow all the steps and hide the VM characteristics, because:
+>
+> 1. Not all restructions are lifted for laptops.
+>
+>    - At least in my tests, an incorrect PCIe bus address for the GPU and the absence of a battery still causes passthrough to fail, and the driver will error out with the infamous code 43.
+>
+> 2. Even if NVIDIA driver isn't detecting VMs, the programs you run might. Hiding VM characteristics increases the chance to run them successfully.
+>
+>    - Examples include online games with anti-cheat systems, or commercial software that require online activation.
+>
+> 3. Because of architectural limitations of Optimus MUXless, you still need to modify the UEFI firmware so the VM can see the GPU vBIOS.
 
 1. First reboot the physical machine to Windows and do the following things:
    - (Optionally) Download GPU-Z and export the GPU vBIOS.
