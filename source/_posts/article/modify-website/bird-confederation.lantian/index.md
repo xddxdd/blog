@@ -88,7 +88,7 @@ ISP 内部 BGP 互联方案比较
 5. 使用 BGP Confederation
    - 在 BGP Confederation 中，每个路由器同样会获得不同的 ASN。但是与 4 不同的是，这些 ISP 内部使用的私有 ASN 没有必要找 NIC 申请。
      - ASN 4200000000 - 4294967295 这一段号码是预留作“内部使用”的，也就是 ISP 可以直接在其内部使用这些 ASN。当然，这些 ASN 也不被 NIC 承认，（一般）不能被广播到其它 ISP。
-       - 例如 [DN42 实验网络](https://lantian.pub/article/modify-website/dn42-experimental-network-2020.lantian)就是占用了其中的一小段。
+       - 例如 [DN42 实验网络](/article/modify-website/dn42-experimental-network-2020.lantian)就是占用了其中的一小段。
    - 于是 ISP 给每个路由器从这一段中分配了一个内部使用的 ASN。虽然 BGP 的路由信息只记录了经过的 ASN，但是因为每个路由器的 ASN 都不同，就相当于记录了经过哪些路由器，也就不怕环路了。
    - 但是这些私有 ASN 不被其它网络承认，甚至可能与其它网络产生冲突（其它 ISP 正在用它们做测试），因此在将路由信息发给其它 ISP 的路由器时，就需要把这一段私有 ASN 都删掉，换成这个 ISP 从 NIC 申请下来的 ASN。
    - 但是每台路由器的 ASN 都不同，如何知道哪些路由器是“友军”（属于自己这个 ISP），哪些是“敌军”（属于其它 ISP）？可以给 ISP 内部的所有路由器分配一个统一的编号（称为 Confederation Identifier），用它来识别敌我。
@@ -160,7 +160,7 @@ ISP 内部 BGP 互联方案比较
 在 Bird 中配置 Confederation
 ---------------------------
 
-此处以我的 DN42 网络为例。除了[公开放出的、接受 Peering 的 4 个节点](https://lantian.pub/page/dn42)之外，我还有 14 个节点因为地区重复、稳定性不佳、系统配置未完成等原因暂时不开放 Peering，但仍然连接在 DN42 网络内，并安装了 Bird 交换 BGP 路由信息。
+此处以我的 DN42 网络为例。除了[公开放出的、接受 Peering 的 4 个节点](/page/dn42)之外，我还有 14 个节点因为地区重复、稳定性不佳、系统配置未完成等原因暂时不开放 Peering，但仍然连接在 DN42 网络内，并安装了 Bird 交换 BGP 路由信息。
 
 之前我不使用 Confederation 时，监控并维护 18 个节点之间的 BGP 会话是一件非常麻烦的事。我使用的 ZeroTier One VPN 偶尔会出现稳定性问题，此时就会有 BGP 会话中断，导致节点获取不到完整的路由信息。
 

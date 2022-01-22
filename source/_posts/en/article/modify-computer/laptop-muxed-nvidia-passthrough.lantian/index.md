@@ -5,7 +5,7 @@ tags: [GPU, Virtual Machine, NVIDIA, MUXed]
 date: 2022-01-22 03:19:26
 ---
 
-A year ago, to simultaneously browse webpages and write codes on my Arch Linux installation and use Windows to run tasks infeasible on Linux (such as gaming), [I tried GPU passthrough on my Lenovo R720 gaming laptop](https://lantian.pub/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/). But since that laptop has an Optimus MUXless architecture (as mentioned in that post), its dedicated GPU doesn't have output ports, and the integrated GPU is in charge of all the displays. Therefore, severe limitations exist for that setup, and I eventually gave up on it.
+A year ago, to simultaneously browse webpages and write codes on my Arch Linux installation and use Windows to run tasks infeasible on Linux (such as gaming), [I tried GPU passthrough on my Lenovo R720 gaming laptop](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/). But since that laptop has an Optimus MUXless architecture (as mentioned in that post), its dedicated GPU doesn't have output ports, and the integrated GPU is in charge of all the displays. Therefore, severe limitations exist for that setup, and I eventually gave up on it.
 
 But now, I've purchased a new laptop. The HDMI output port on this laptop is directly connected to its NVIDIA dedicated graphics card, or in other words, it has an Optimus MUXed architecture. Since there is a way to make the virtual machine aware of a "monitor on the dedicated GPU", most functionalities work normally. I am finally able to create a GPU passthrough setup that works long-term.
 
@@ -76,7 +76,7 @@ That's why we're ignoring GVT-g and focusing on the NVIDIA GPU in this guide.
 
 ## Stop Host OS from Tampering with NVIDIA GPU
 
-> Most of the content is the same as [my post last year](https://lantian.pub/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/).
+> Most of the content is the same as [my post last year](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/).
 
 The NVIDIA driver on the Host OS will hold control of the dGPU, and stop VM from using it. Therefore you need to replace the driver with `vfio-pci`, built solely for PCIe passthrough.
 
@@ -112,7 +112,7 @@ Here are the steps for disabling the NVIDIA driver and passing control to the PC
 
 ## Setting up NVIDIA dGPU Passthrough
 
-In [my post last year](https://lantian.pub/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/), I mentioned a lot of configurations to circumvent restrictions of the NVIDIA driver. But [since version 465, NVIDIA lifted most of the restrictions](https://nvidia.custhelp.com/app/answers/detail/a_id/5173), so theoretically, you pass a GPU into the VM, and everything should just work.
+In [my post last year](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/), I mentioned a lot of configurations to circumvent restrictions of the NVIDIA driver. But [since version 465, NVIDIA lifted most of the restrictions](https://nvidia.custhelp.com/app/answers/detail/a_id/5173), so theoretically, you pass a GPU into the VM, and everything should just work.
 
 But that's just the theory.
 
@@ -132,7 +132,7 @@ And here we start:
 
    - If you cannot install the GPU driver after passing it into the VM, including the cases that Windows won't automatically install them, or NVIDIA's official installer errors out saying lack of compatible devices, you likely will still need to extract your GPU's video BIOS.
    - To double-check, open Device Manager in the VM, and look at the Hardware ID, which looks like `PCI\VEN_10DE&DEV_1C8D&SUBSYS_39D117AA&REV_A1`. If `SUBSYS` is followed by a sequence of zeros, then the GPU video BIOS is missing, and you need the manual steps.
-   - Refer to [my post last year](https://lantian.pub/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/), specifically the NVIDIA GPU passthrough section, for detailed steps.
+   - Refer to [my post last year](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/), specifically the NVIDIA GPU passthrough section, for detailed steps.
 
 2. Modify your VM configuration, `virsh edit Windows`, and make the following changes:
 

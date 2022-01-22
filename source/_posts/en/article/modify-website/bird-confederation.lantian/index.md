@@ -88,7 +88,7 @@ BGP can also be necessary within a large-scale AS. For example, China Telecom, w
 5. Using BGP Confederation
    - In BGP Confederation, each router also gets a different ASN. But unlike 4, these internally-used ASNs do not have to be assigned from a NIC.
      - The range of ASN 4200000000 - 4294967295 is reserved for "internal use", and ISPs can directly use them internally. Of course, these ASNs aren't recognized by a NIC and (usually) cannot be announced to other ISPs.
-       - [DN42 Experimental Network](https://lantian.pub/en/article/modify-website/dn42-experimental-network-2020.lantian), for example, takes a small fraction of the ASN space.
+       - [DN42 Experimental Network](/en/article/modify-website/dn42-experimental-network-2020.lantian), for example, takes a small fraction of the ASN space.
    - Then, the ISP assigned a different internal ASN from the range to each router. While BGP routing only does bookkeeping on ASNs passed, since each router has a different ASN, it's the same as keeping the list of routers passed, and therefore a loop will not happen.
    - But these private ASNs aren't recognized by other networks and may even conflict with them (when other ISPs are using them for testing, for example), so when sending the router information to another ISP, all private ASNs need to be removed and replaced with the official ASN of the ISP assigned from NIC.
    - But since each router has a different ASN, how can they know if a router is "friendly" (within the same ISP) or "hostile" (from another ISP)? A common identifier can be assigned to all routers in the same ISP (called Confederation Identifier) to assist.
@@ -160,7 +160,7 @@ Next I will first introduce the configuration of native Confederation in Bird, t
 Confederation in Bird
 ---------------------
 
-I will take my DN42 network as an example. Except the [4 nodes that I publically accept peerings](https://lantian.pub/en/page/dn42), I have 14 other nodes that aren't open to peerings due to duplicated region, stability, or system configuration reasons. However all of them are still connected to DN42 and run Bird to exchange BGP routes.
+I will take my DN42 network as an example. Except the [4 nodes that I publically accept peerings](/en/page/dn42), I have 14 other nodes that aren't open to peerings due to duplicated region, stability, or system configuration reasons. However all of them are still connected to DN42 and run Bird to exchange BGP routes.
 
 Before I setup Confederation, it's cumbersome to monitor and maintain BGP sessions between 18 nodes. The ZeroTier One VPN has stability issues from time to time, and a BGP session disconnection will occur, stopping nodes from obtaining full route information.
 
