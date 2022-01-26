@@ -9,6 +9,10 @@ A year ago, to simultaneously browse webpages and write codes on my Arch Linux i
 
 But now, I've purchased a new laptop. The HDMI output port on this laptop is directly connected to its NVIDIA dedicated graphics card, or in other words, it has an Optimus MUXed architecture. Since there is a way to make the virtual machine aware of a "monitor on the dedicated GPU", most functionalities work normally. I am finally able to create a GPU passthrough setup that works long-term.
 
+# Changelog
+
+- 2022-01-26: The PCIe power-saving patch isn't effective.
+
 # Preparation
 
 Before following steps in this post, you need to prepare:
@@ -428,6 +432,14 @@ Looking Glass provides a kernel module for the IVSHMEM shared memory device. It 
 
 ## Cutting Power to GPU When Unused
 
+**2022-01-26 Update: testing shows that the NVIDIA GPU still isn't completely shut down after applying the patch. The power draw is the same as before. This section is now invalid.**
+
+{% interactive_buttons %}
+power_hide|Invalid contents are hidden
+power_show|Show
+{% endinteractive_buttons %}
+
+{% interactive power_show %}
 > This section only applies to 20-series of NVIDIA GPUs or newer. They can shut themselves down with the NVIDIA official drivers. The 10-series or older GPUs don't support this feature.
 >
 > This section involves compiling a kernel yourself, and **using an patch without extensive inspection or testing**. Not intended for novice users. Evaluate the risks yourself.
@@ -449,6 +461,7 @@ Based on mailing list discussions:
 3. The developer only tested some GPUs from NVIDIA. It does not guarantee support for other PCIe devices.
 
 **Use this at your own risk.**
+{% endinteractive %}
 
 References
 ----------
