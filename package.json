@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
-    "@fontsource/fira-code": "^4.5.2",
+    "@fontsource/fira-code": "^4.5.3",
     "@fontsource/ubuntu": "^4.5.1",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@iktakahiro/markdown-it-katex": "^4.0.1",
