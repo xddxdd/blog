@@ -52,7 +52,7 @@
     "hexo-renderer-markdown": "github:lantian1998/hexo-renderer-markdown",
     "hexo-renderer-stylus": "^2.0.1",
     "hexo-spoiler": "^1.7.3",
-    "hexo-util": "^2.5.0",
+    "hexo-util": "^2.6.0",
     "instant.page": "^5.1.0",
     "is-color-stop": "^1.1.0",
     "is-fullwidth-code-point": "^3.0.0",
