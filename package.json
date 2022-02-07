@@ -22,7 +22,7 @@
     "@iktakahiro/markdown-it-katex": "^4.0.1",
     "@lantian1998/hexo-generator-json-feed-org": "github:lantian1998/hexo-generator-json-feed-org",
     "@lantian1998/markdown-it-graphviz": "github:lantian1998/markdown-it-graphviz",
-    "@waline/client": "^1.5.2",
+    "@waline/client": "^1.5.4",
     "acorn": "^8.7.0",
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
