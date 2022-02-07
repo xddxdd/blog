@@ -17,7 +17,7 @@
     "@babel/core": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@fontsource/fira-code": "^4.5.3",
-    "@fontsource/ubuntu": "^4.5.1",
+    "@fontsource/ubuntu": "^4.5.2",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@iktakahiro/markdown-it-katex": "^4.0.1",
     "@lantian1998/hexo-generator-json-feed-org": "github:lantian1998/hexo-generator-json-feed-org",
