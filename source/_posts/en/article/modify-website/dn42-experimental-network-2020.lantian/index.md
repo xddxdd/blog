@@ -1,5 +1,5 @@
 ---
-title: 'DN42 Experimental Network: Intro and Registration (Updated 2021-05-02)'
+title: 'DN42 Experimental Network: Intro and Registration (Updated 2022-02)'
 categories: 'Website and Servers'
 tags: [DN42, BGP]
 date: 2021-05-02 12:21:45
@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2022-02: Update `rp_filter` content, never use `rp_filter=2`!
 - 2021-06: Improve readability of some config files, differ `contact` from `e-mail`.
 - 2021-05: Add "Skills Required" section; Add iptables firewall rules.
 - 2020-12: Fix peer config path for BIRDv2.
@@ -438,8 +439,8 @@ Very Important System Configuration
 - Then, **MAKE SURE** to disable Linux `rp_filter`'s strict mode:
 
     ```bash
-    echo "net.ipv4.conf.default.rp_filter=2" >> /etc/sysctl.conf
-    echo "net.ipv4.conf.all.rp_filter=2" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.default.rp_filter=0" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.all.rp_filter=0" >> /etc/sysctl.conf
     sysctl -p
     ```
 
@@ -449,8 +450,8 @@ Very Important System Configuration
       - But the overhead should be tiny, so setting to 0 is no issue here.
     - If set to 1 (strict), if the packet doesn't come from the "best" network interface (or in other words, your machine will reply to the packet on a different network interface), the packet will be **dropped**.
       - Having different network interfaces for source and reply is **very common** in DN42, so **MAKE SURE** you don't set `rp_filter` to 1!
-    - If set to 2 (relaxed), Linux will only drop packets that don't have a source address in the routing table, which means it doesn't know how to properly reply to them.
-      - I'm using this right now since it reduces some overhead on invalid packets (that are rare anyway).
+    - If set to 2 (relaxed), **in theory**, Linux will only drop packets that don't have a source address in the routing table, which means it doesn't know how to properly reply to them.
+      - However, theory is just theory. In newer versions (5.0+) of the kernel, still, a lot of normal packets with correct source addresses are dropped. Therefore, don't use this mode, please stick to 0 instead.
 - Then, **MAKE SURE** to turn off any tool that helps you configure `iptables` easily, such as UFW.
   - These easy tools may use some assumptions that are suitable for personal users but are not suitable for DN42, such as using conntrack.
     - Conntrack filters packets from links it hasn't seen before, effectively doing strict `rp_filter`.
