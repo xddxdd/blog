@@ -6,8 +6,11 @@
 @import '~sass-material-colors';
 
 @mixin font-awesome {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-style: normal;
-  font-family: 'Font Awesome 5 Free';
+  font-variant: normal;
+  font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   width: 1em;
 }
