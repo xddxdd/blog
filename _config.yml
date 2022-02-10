@@ -138,15 +138,6 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: lantian
 
-responsive_images:
-  priority: 9
-  rules:
-    - pattern: '**/*.+(png|jpg|jpeg|webp)'
-      sizes:
-        thumb:
-          width: 200
-          height: 150
-
 # Links
 theme_config:
   announcement: >

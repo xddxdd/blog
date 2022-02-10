@@ -19,5 +19,8 @@ clean: deps
 	@node node_modules/hexo/bin/hexo clean
 	$(MAKE) -C themes/lantian clean
 
+thumbs:
+	@sh _scripts/thumbs.sh
+
 serve:
 	@python3 -m http.server --directory public/
