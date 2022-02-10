@@ -116,7 +116,7 @@ steps:
       - chmod 600 /etc/ssh/id_ed25519
 
       # Run deploy
-      - cat target_hosts | xargs -n1 -P10 -I% rsync -azrcP --delete public/ %:/var/www/lantian.pub/
+      - cat target_hosts | xargs -n1 -P10 -I% rsync -azrc --stats --delete public/ %:/var/www/lantian.pub/
     when:
       event:
         exclude:
