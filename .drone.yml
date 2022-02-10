@@ -47,33 +47,30 @@ steps:
         path: /cache
 
   - name: hexo deploy
-    image: node:16
+    image: node:17-alpine
     environment:
       SSH_KEY:
         from_secret: id_ed25519
     commands:
-      - apt-get update
-      - DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git openssh-client gzip brotli zstd parallel imagemagick
-
-      # Install SSH key
-      - mkdir -p /root/.ssh/
-      - echo "$SSH_KEY" > /root/.ssh/id_ed25519
-      - chmod 600 /root/.ssh/id_ed25519
+      - apk add --no-cache build-base git openssh gzip brotli zstd parallel imagemagick vips-dev python3
 
       # Set SSH config
       - |
-        cat <<EOF >/root/.ssh/config
+        cat <<EOF >/etc/ssh/ssh_config
+        IdentityFile=/etc/ssh/id_ed25519
         StrictHostKeyChecking no
         UserKnownHostsFile=/dev/null
         VerifyHostKeyDNS yes
         LogLevel ERROR
         EOF
+      - echo "$SSH_KEY" > /etc/ssh/id_ed25519
+      - chmod 600 /etc/ssh/id_ed25519
 
       # Generate blog file
       - make
       - node node_modules/hexo/bin/hexo deploy
       # Parallel jobs aren't used for hexo deploy targets, only my own site system
-      - bash _scripts/parallel_jobs.sh
+      - sh _scripts/parallel_jobs.sh
     when:
       event:
         exclude:
@@ -94,29 +91,32 @@ steps:
       - name: cache
         path: /cache
 
-  - name: get host list
-    image: alpine
-    commands:
-      - nslookup -type=txt hosts.lantian.pub | grep -E -o "\"(.*)\"" | tr -d "\"" > ansible_hosts
-      - cat ansible_hosts
-    when:
-      event:
-        exclude:
-        - pull_request
-
-  - name: ansible deploy
-    image: xddxdd/ansible
+  - name: deploy
+    image: alpine:edge
     environment:
       SSH_KEY:
         from_secret: id_ed25519
-    failure: ignore
     commands:
-      # Install SSH key
-      - echo "$SSH_KEY" > /root/.ssh/id_ed25519
-      - chmod 600 /root/.ssh/id_ed25519
+      - apk add --no-cache openssh rsync
+      - nslookup -type=txt hosts.lantian.pub | grep -E -o "\"(.*)\"" | tr -d "\"" > target_hosts
+      - cat target_hosts
 
-      # Run ansible
-      - ansible-playbook -i ansible_hosts _scripts/ansible_deploy.yml
+      # Set SSH config
+      - |
+        cat <<EOF >/etc/ssh/ssh_config
+        IdentityFile=/etc/ssh/id_ed25519
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+        VerifyHostKeyDNS yes
+        LogLevel ERROR
+        User root
+        Port 2222
+        EOF
+      - echo "$SSH_KEY" > /etc/ssh/id_ed25519
+      - chmod 600 /etc/ssh/id_ed25519
+
+      # Run deploy
+      - cat target_hosts | xargs -n1 -P10 -I% rsync -azrcP --delete public/ %:/var/www/lantian.pub/
     when:
       event:
         exclude:
