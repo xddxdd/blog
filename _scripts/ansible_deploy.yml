@@ -13,4 +13,3 @@
         dest: /var/www/lantian.pub/
         checksum: yes
         delete: yes
-        delay_updates: no
