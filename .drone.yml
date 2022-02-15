@@ -46,6 +46,12 @@ steps:
       - name: cache
         path: /cache
 
+  - name: hexo generate
+    image: node:17-alpine
+    commands:
+      - apk add --no-cache build-base git openssh gzip brotli zstd parallel imagemagick vips-dev python3
+      - make
+
   - name: hexo deploy
     image: node:17-alpine
     environment:
@@ -67,7 +73,6 @@ steps:
       - chmod 600 /etc/ssh/id_ed25519
 
       # Generate blog file
-      - make
       - node node_modules/hexo/bin/hexo deploy
       # Parallel jobs aren't used for hexo deploy targets, only my own site system
       - sh _scripts/parallel_jobs.sh
