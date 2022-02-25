@@ -67,7 +67,7 @@
     "mini-svg-data-uri": "^1.4.3",
     "prism-themes": "^1.9.0",
     "resolve-url-loader": "^5.0.0",
-    "sass": "^1.49.8",
+    "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
