@@ -8,6 +8,7 @@ echo > .parallel_jobs.lst
 
 find source/usr -type f \( -name "*.gif" -or -name "*.jpg" -or -name "*.png" \) |
 while IFS= read -r FILE; do
+    (echo "$FILE" | grep -q ".thumb.png") && continue
     if [ ! -f "$FILE.thumb.png" ]; then
         echo "convert -quality 100 -resize 200x150^ -gravity center -crop 200x150+0+0 +repage $FILE\[0\] $FILE.thumb.png && optipng -o7 $FILE.thumb.png" >> .parallel_jobs.lst
     fi
@@ -15,6 +16,6 @@ done
 
 echo Executing parallel jobs...
 parallel "-j$(nproc)" < .parallel_jobs.lst
-rm -f .parallel_jobs.lst
+# rm -f .parallel_jobs.lst
 
 exit 0

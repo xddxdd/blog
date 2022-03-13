@@ -49,7 +49,7 @@ steps:
   - name: hexo generate
     image: node:17-alpine
     commands:
-      - apk add --no-cache build-base git openssh gzip brotli zstd parallel imagemagick vips-dev python3
+      - apk add --no-cache build-base git openssh gzip brotli zstd parallel
       - make
 
   - name: hexo deploy
@@ -58,7 +58,7 @@ steps:
       SSH_KEY:
         from_secret: id_ed25519
     commands:
-      - apk add --no-cache build-base git openssh gzip brotli zstd parallel imagemagick vips-dev python3
+      - apk add --no-cache build-base git openssh gzip brotli zstd parallel
 
       # Set SSH config
       - |
