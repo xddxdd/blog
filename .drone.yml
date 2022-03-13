@@ -76,10 +76,16 @@ steps:
       - node node_modules/hexo/bin/hexo deploy
       # Parallel jobs aren't used for hexo deploy targets, only my own site system
       - sh _scripts/parallel_jobs.sh
+      # Run deploy
+      - mkdir -p /sync/www/lantian.pub
+      - cp -r public/* /sync/www/lantian.pub/
     when:
       event:
         exclude:
         - pull_request
+    volumes:
+      - name: sync
+        path: /sync
 
   - name: rebuild cache
     image: meltwater/drone-cache:dev
@@ -95,37 +101,6 @@ steps:
     volumes:
       - name: cache
         path: /cache
-
-  - name: deploy
-    image: alpine:edge
-    environment:
-      SSH_KEY:
-        from_secret: id_ed25519
-    commands:
-      - apk add --no-cache openssh rsync
-      - nslookup -type=txt hosts.lantian.pub | grep -E -o "\"(.*)\"" | tr -d "\"" > target_hosts
-      - cat target_hosts
-
-      # Set SSH config
-      - |
-        cat <<EOF >/etc/ssh/ssh_config
-        IdentityFile=/etc/ssh/id_ed25519
-        StrictHostKeyChecking no
-        UserKnownHostsFile=/dev/null
-        VerifyHostKeyDNS yes
-        LogLevel ERROR
-        User root
-        Port 2222
-        EOF
-      - echo "$SSH_KEY" > /etc/ssh/id_ed25519
-      - chmod 600 /etc/ssh/id_ed25519
-
-      # Run deploy
-      - cat target_hosts | xargs -n1 -P10 -I% rsync -azrc --stats --delete public/ %:/var/www/lantian.pub/
-    when:
-      event:
-        exclude:
-        - pull_request
 
   - name: telegram notification for failure
     image: appleboy/drone-telegram
@@ -158,3 +133,6 @@ volumes:
   - name: cache
     host:
       path: /cache
+  - name: sync
+    host:
+      path: /sync
