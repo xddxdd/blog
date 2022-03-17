@@ -16,7 +16,7 @@ hexo.extend.helper.register('theme_config', function(lang = null) {
         if (!altConfigs.hasOwnProperty(lang)) {
             const configPath = path.join(sysRoot, 'source/_data/theme_' + lang + '.yml');
             if (fs.existsSync(configPath)) {
-                const config = yaml.safeLoad(fs.readFileSync(configPath));
+                const config = yaml.load(fs.readFileSync(configPath));
                 if (config != null) {
                     altConfigs[lang] = config;
                 }
