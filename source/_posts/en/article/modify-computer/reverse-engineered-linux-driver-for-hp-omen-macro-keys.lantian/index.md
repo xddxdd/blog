@@ -361,3 +361,5 @@ Finally, call these functions in the module's load and unload functions.
 # Download
 
 I uploaded the modified module to <https://github.com/xddxdd/hp-omen-linux-module>. Those changes related to this post can be found at <https://github.com/xddxdd/hp-omen-linux-module/commit/macro_keys>.
+
+Or, you can directly integrate the macro key function (and keyboard backlight function) to the kernel by applying this patch: <https://github.com/xddxdd/nur-packages/blob/master/pkgs/linux-xanmod-lantian/patches/0004-hp-omen-fourzone.patch>

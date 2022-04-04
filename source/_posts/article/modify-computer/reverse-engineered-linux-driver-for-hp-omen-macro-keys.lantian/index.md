@@ -361,3 +361,5 @@ static int macro_key_remove(struct platform_device *dev)
 # 下载
 
 我将修改后的模块上传到了 <https://github.com/xddxdd/hp-omen-linux-module>。其中与本文相关的修改可以在 <https://github.com/xddxdd/hp-omen-linux-module/commit/macro_keys> 看到。
+
+或者，你也可以直接使用这个内核补丁，将宏按键功能（和键盘背光功能）直接集成到内核中：<https://github.com/xddxdd/nur-packages/blob/master/pkgs/linux-xanmod-lantian/patches/0004-hp-omen-fourzone.patch>
