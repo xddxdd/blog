@@ -47,12 +47,12 @@ My Network
 Servers
 -------
 
-- Server 1: Hong Kong, China, provider IDC.wiki (originally 50KVM)
-  - Domain: `50kvm.lantian.pub`
-  - Public IPv4: `23.226.61.104` / `v4.50kvm.lantian.pub`
-  - Public IPv6: `2001:470:19:10bd::1` / `v6.50kvm.lantian.pub`
-  - DN42 IPv4: `172.22.76.186` / `v4.50kvm.dn42.lantian.pub`
-  - DN42 IPv6: `fdbc:f9dc:67ad:1::1` / `v6.50kvm.dn42.lantian.pub`
+- Server 1: Hong Kong, China
+  - Domain: `linkin.lantian.pub`
+  - Public IPv4: `103.172.81.11` / `v4.linkin.lantian.pub`
+  - Public IPv6: Unavailable
+  - DN42 IPv4: `172.22.76.186` / `v4.linkin.dn42.lantian.pub`
+  - DN42 IPv6: `fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
   - Link-local IPv6: `fe80::2547`
   - WireGuard Public Key: `xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
 

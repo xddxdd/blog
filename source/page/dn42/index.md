@@ -47,12 +47,12 @@ date: 1970-01-01 00:00:00
 服务器列表
 --------
 
-- 服务器 1：中国香港，微基主机（idc.wiki，原 50KVM）服务商
-  - 域名：`50kvm.lantian.pub`
-  - 公网 IPv4：`23.226.61.104` / `v4.50kvm.lantian.pub`
-  - 公网 IPv6：`2001:470:19:10bd::1` / `v6.50kvm.lantian.pub`
-  - DN42 IPv4：`172.22.76.186` / `v4.50kvm.dn42.lantian.pub`
-  - DN42 IPv6：`fdbc:f9dc:67ad:1::1` / `v6.50kvm.dn42.lantian.pub`
+- 服务器 1：中国香港
+  - 域名：`linkin.lantian.pub`
+  - 公网 IPv4：`23.226.61.104` / `v4.linkin.lantian.pub`
+  - 公网 IPv6：暂无
+  - DN42 IPv4：`172.22.76.186` / `v4.linkin.dn42.lantian.pub`
+  - DN42 IPv6：`fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
   - Link-local IPv6：`fe80::2547`
   - WireGuard 公钥：`xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
 
