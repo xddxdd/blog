@@ -14,15 +14,15 @@ date: 1970-01-01 00:00:00
   - 可以查看我这边各个节点的 BIRD 路由软件状态，包括 BGP 链接是否建立、是否收到路由等等。
   - 可以对公网和 DN42 内的地址进行 Traceroute。
 - 路由 ROA 过滤状态
-  - 我的网络只允许接收在 DN42 中注册过的路由，收到的无效路由或未知路由会被显示在这里。
+  - 我的网络只允许接收在 DN42 中注册过的路由，以及未知路由（以方便新注册 DN42 的用户）。收到的无效路由或未知路由会被显示在这里。
   - 无效路由：这个 IP 段在 DN42 中注册过了，但是实际广播的路由来源与注册信息不符。
     - 例如，我注册了 `172.22.76.184/29` 这个地址段，允许 4242422547（也就是我的 AS）广播。如果你尝试广播这个路由，就会显示在这里。
-    - 查看[无效的 IPv4 路由列表](https://lg.lantian.pub/route_generic/hostdare/table%20roa_fail_v4)，以及[无效的 IPv6 路由列表](https://lg.lantian.pub/route_generic/hostdare/table%20roa_fail_v6)。
+    - 查看[无效的 IPv4 路由列表](https://lg.lantian.pub/route_generic/local/table%20roa_fail_v4)，以及[无效的 IPv6 路由列表](https://lg.lantian.pub/route_generic/local/table%20roa_fail_v6)。
   - 未知路由：这个 IP 段没有在 DN42 中注册过。
     - 一般意味着你把你私人内网的路由信息（例如 `192.168.0.0/16`，`10.0.0.0/8` 等）错误地广播给了其他人。
     - 也有可能是你刚注册成功，我的 ROA 信息还没更新。请等待 4-8 小时，然后重启我们的 Peering。
     - 也有可能是你在 DN42 中只创建了 inetnum/inet6num 没有创建 route/route6 对象。
-    - 查看[未知的 IPv4 路由列表](https://lg.lantian.pub/route_generic/hostdare/table%20roa_unknown_v4)，以及[未知的 IPv6 路由列表](https://lg.lantian.pub/route_generic/hostdare/table%20roa_unknown_v6)。
+    - 查看[未知的 IPv4 路由列表](https://lg.lantian.pub/route_generic/local/table%20roa_unknown_v4)，以及[未知的 IPv6 路由列表](https://lg.lantian.pub/route_generic/local/table%20roa_unknown_v6)。
 
 “1xRTT”（单次来回）对接（Peering）
 ------------------------------
