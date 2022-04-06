@@ -47,41 +47,50 @@ date: 1970-01-01 00:00:00
 服务器列表
 --------
 
-- 服务器 1：中国香港
-  - 域名：`linkin.lantian.pub`
-  - 公网 IPv4：`23.226.61.104` / `v4.linkin.lantian.pub`
-  - 公网 IPv6：暂无
-  - DN42 IPv4：`172.22.76.186` / `v4.linkin.dn42.lantian.pub`
-  - DN42 IPv6：`fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
-  - Link-local IPv6：`fe80::2547`
-  - WireGuard 公钥：`xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
+1. 中国香港
+   - 域名：`linkin.lantian.pub`
+   - 公网 IPv4：`23.226.61.104` / `v4.linkin.lantian.pub`
+   - 公网 IPv6：暂无
+   - DN42 IPv4：`172.22.76.186` / `v4.linkin.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
 
-- 服务器 2：美国洛杉矶，HostDare 服务商
-  - 域名：`hostdare.lantian.pub`
-  - 公网 IPv4：`185.186.147.110` / `v4.hostdare.lantian.pub`
-  - 公网 IPv6：`2607:fcd0:100:b100::198a:b7f6` / `v6.hostdare.lantian.pub`
-  - DN42 IPv4：`172.22.76.185` / `v4.hostdare.dn42.lantian.pub`
-  - DN42 IPv6：`fdbc:f9dc:67ad:3::1` / `v6.hostdare.dn42.lantian.pub`
-  - Link-local IPv6：`fe80::2547`
-  - WireGuard 公钥：`zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
+2. 日本东京，Oracle 服务商
+   - 域名：`oracle-vm1.lantian.pub`
+   - 公网 IPv4：`132.145.123.138` / `v4.oracle-vm1.lantian.pub`
+   - 公网 IPv6：`2603:c021:8000:aaaa:2::1` / `v6.oracle-vm1.lantian.pub`
+   - DN42 IPv4：`172.22.76.123` / `v4.oracle-vm1.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:5::1` / `v6.oracle-vm1.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`JJUfHeE1ZgyXzo5aoE0tQfk6wZvnVU/d0V3/uSj61ns=`
 
-- 服务器 3：美国纽约，VirMach 服务商
-  - 域名：`virmach-ny1g.lantian.pub`
-  - 公网 IPv4：`107.172.197.23` / `v4.virmach-ny1g.lantian.pub`
-  - 公网 IPv6：`2001:470:1f07:54d::1` / `v6.virmach-ny1g.lantian.pub`
-  - DN42 IPv4：`172.22.76.190` / `v4.virmach-ny1g.dn42.lantian.pub`
-  - DN42 IPv6：`fdbc:f9dc:67ad:8::1` / `v6.virmach-ny1g.dn42.lantian.pub`
-  - Link-local IPv6：`fe80::2547`
-  - WireGuard 公钥：`a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
+3. 美国洛杉矶，HostDare 服务商
+   - 域名：`hostdare.lantian.pub`
+   - 公网 IPv4：`185.186.147.110` / `v4.hostdare.lantian.pub`
+   - 公网 IPv6：`2607:fcd0:100:b100::198a:b7f6` / `v6.hostdare.lantian.pub`
+   - DN42 IPv4：`172.22.76.185` / `v4.hostdare.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:3::1` / `v6.hostdare.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
 
-- 服务器 4：卢森堡国 Bissen 市 Roost 村，BuyVM 服务商
-  - 域名：`buyvm.lantian.pub`
-  - 公网 IPv4：`107.189.12.254` / `v4.buyvm.lantian.pub`
-  - 公网 IPv6：`2605:6400:30:f22f::1` / `v6.buyvm.lantian.pub`
-  - DN42 IPv4：`172.22.76.187` / `v4.buyvm.dn42.lantian.pub`
-  - DN42 IPv6：`fdbc:f9dc:67ad:2::1` / `v6.buyvm.dn42.lantian.pub`
-  - Link-local IPv6：`fe80::2547`
-  - WireGuard 公钥：`DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
+4. 美国纽约，VirMach 服务商
+   - 域名：`virmach-ny1g.lantian.pub`
+   - 公网 IPv4：`107.172.197.23` / `v4.virmach-ny1g.lantian.pub`
+   - 公网 IPv6：`2001:470:1f07:54d::1` / `v6.virmach-ny1g.lantian.pub`
+   - DN42 IPv4：`172.22.76.190` / `v4.virmach-ny1g.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:8::1` / `v6.virmach-ny1g.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
+
+5. 卢森堡国 Bissen 市 Roost 村，BuyVM 服务商
+   - 域名：`buyvm.lantian.pub`
+   - 公网 IPv4：`107.189.12.254` / `v4.buyvm.lantian.pub`
+   - 公网 IPv6：`2605:6400:30:f22f::1` / `v6.buyvm.lantian.pub`
+   - DN42 IPv4：`172.22.76.187` / `v4.buyvm.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:2::1` / `v6.buyvm.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
 
 推荐配置模板（默认参数）
 -------------------

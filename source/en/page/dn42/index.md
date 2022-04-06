@@ -47,41 +47,50 @@ My Network
 Servers
 -------
 
-- Server 1: Hong Kong, China
-  - Domain: `linkin.lantian.pub`
-  - Public IPv4: `103.172.81.11` / `v4.linkin.lantian.pub`
-  - Public IPv6: Unavailable
-  - DN42 IPv4: `172.22.76.186` / `v4.linkin.dn42.lantian.pub`
-  - DN42 IPv6: `fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
-  - Link-local IPv6: `fe80::2547`
-  - WireGuard Public Key: `xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
+1. Hong Kong, China
+   - Domain: `linkin.lantian.pub`
+   - Public IPv4: `103.172.81.11` / `v4.linkin.lantian.pub`
+   - Public IPv6: Unavailable
+   - DN42 IPv4: `172.22.76.186` / `v4.linkin.dn42.lantian.pub`
+   - DN42 IPv6: `fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
+   - Link-local IPv6: `fe80::2547`
+   - WireGuard Public Key: `xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
 
-- Server 2：Los Angeles, United States, provider HostDare
-  - Domain: `hostdare.lantian.pub`
-  - Public IPv4: `185.186.147.110` / `v4.hostdare.lantian.pub`
-  - Public IPv6: `2607:fcd0:100:b100::198a:b7f6` / `v6.hostdare.lantian.pub`
-  - DN42 IPv4: `172.22.76.185` / `v4.hostdare.dn42.lantian.pub`
-  - DN42 IPv6: `fdbc:f9dc:67ad:3::1` / `v6.hostdare.dn42.lantian.pub`
-  - Link-local IPv6: `fe80::2547`
-  - WireGuard Public Key: `zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
+2. Tokyo, Japan, provider Oracle
+   - Domain: `oracle-vm1.lantian.pub`
+   - Public IPv4: `132.145.123.138` / `v4.oracle-vm1.lantian.pub`
+   - Public IPv6: `2603:c021:8000:aaaa:2::1` / `v6.oracle-vm1.lantian.pub`
+   - DN42 IPv4: `172.22.76.123` / `v4.oracle-vm1.dn42.lantian.pub`
+   - DN42 IPv6: `fdbc:f9dc:67ad:5::1` / `v6.oracle-vm1.dn42.lantian.pub`
+   - Link-local IPv6: `fe80::2547`
+   - WireGuard Public Key: `JJUfHeE1ZgyXzo5aoE0tQfk6wZvnVU/d0V3/uSj61ns=`
 
-- Server 3: New York, United States, provider VirMach
-  - Domain: `virmach-ny1g.lantian.pub`
-  - Public IPv4: `107.172.197.23` / `v4.virmach-ny1g.lantian.pub`
-  - Public IPv6: `2001:470:1f07:54d::1` / `v6.virmach-ny1g.lantian.pub`
-  - DN42 IPv4: `172.22.76.190` / `v4.virmach-ny1g.dn42.lantian.pub`
-  - DN42 IPv6: `fdbc:f9dc:67ad:8::1` / `v6.virmach-ny1g.dn42.lantian.pub`
-  - Link-local IPv6: `fe80::2547`
-  - WireGuard Public Key: `a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
+3. Los Angeles, United States, provider HostDare
+   - Domain: `hostdare.lantian.pub`
+   - Public IPv4: `185.186.147.110` / `v4.hostdare.lantian.pub`
+   - Public IPv6: `2607:fcd0:100:b100::198a:b7f6` / `v6.hostdare.lantian.pub`
+   - DN42 IPv4: `172.22.76.185` / `v4.hostdare.dn42.lantian.pub`
+   - DN42 IPv6: `fdbc:f9dc:67ad:3::1` / `v6.hostdare.dn42.lantian.pub`
+   - Link-local IPv6: `fe80::2547`
+   - WireGuard Public Key: `zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
 
-- Server 4: Roost, Bissen, Luxemborg, provider BuyVM
-  - Domain: `buyvm.lantian.pub`
-  - Public IPv4: `107.189.12.254` / `v4.buyvm.lantian.pub`
-  - Public IPv6: `2605:6400:30:f22f::1` / `v6.buyvm.lantian.pub`
-  - DN42 IPv4: `172.22.76.187` / `v4.buyvm.dn42.lantian.pub`
-  - DN42 IPv6: `fdbc:f9dc:67ad:2::1` / `v6.buyvm.dn42.lantian.pub`
-  - Link-local IPv6: `fe80::2547`
-  - WireGuard Public Key: `DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
+4. New York, United States, provider VirMach
+   - Domain: `virmach-ny1g.lantian.pub`
+   - Public IPv4: `107.172.197.23` / `v4.virmach-ny1g.lantian.pub`
+   - Public IPv6: `2001:470:1f07:54d::1` / `v6.virmach-ny1g.lantian.pub`
+   - DN42 IPv4: `172.22.76.190` / `v4.virmach-ny1g.dn42.lantian.pub`
+   - DN42 IPv6: `fdbc:f9dc:67ad:8::1` / `v6.virmach-ny1g.dn42.lantian.pub`
+   - Link-local IPv6: `fe80::2547`
+   - WireGuard Public Key: `a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
+
+5. Roost, Bissen, Luxemborg, provider BuyVM
+   - Domain: `buyvm.lantian.pub`
+   - Public IPv4: `107.189.12.254` / `v4.buyvm.lantian.pub`
+   - Public IPv6: `2605:6400:30:f22f::1` / `v6.buyvm.lantian.pub`
+   - DN42 IPv4: `172.22.76.187` / `v4.buyvm.dn42.lantian.pub`
+   - DN42 IPv6: `fdbc:f9dc:67ad:2::1` / `v6.buyvm.dn42.lantian.pub`
+   - Link-local IPv6: `fe80::2547`
+   - WireGuard Public Key: `DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
 
 Recommended Config Templates (Default Parameters)
 -------------------------------------------------
