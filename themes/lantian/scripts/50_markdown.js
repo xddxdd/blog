@@ -2,9 +2,19 @@
 
 const { markdownEngine } = require('../lib/markdown');
 
+
+const rSwigPlaceHolder = /(?:<|&lt;|&#x3c;)!--swig\uFFFC(\d+)--(?:>|&gt;|&#x3e;)/gi;
+const rCodeBlockPlaceHolder = /(?:<|&lt;|&#x3c;)!--code\uFFFC(\d+)--(?:>|&gt;|&#x3e;)/gi;
+
 async function renderer(data) {
   return markdownEngine.process(data.text).then((result) => {
-    return result.toString();
+    return (
+      result
+        .toString()
+        // Fix swig match failure
+        .replace(rSwigPlaceHolder, "<!--swig\uFFFC$1-->")
+        .replace(rCodeBlockPlaceHolder, "<!--code\uFFFC$1-->")
+    );
   });
 }
 
