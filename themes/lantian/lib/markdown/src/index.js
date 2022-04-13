@@ -11,7 +11,6 @@ import remark2rehype from 'remark-rehype';
 import { includeMarkdown } from '@hashicorp/platform-remark-plugins';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeMath from 'rehype-katex';
-import rehypeFormat from 'rehype-format';
 import rehypeStringify from 'rehype-stringify';
 import path from 'path';
 import highlightLanguages from './highlight-js-languages';
@@ -42,5 +41,4 @@ export const markdownEngine = unified()
   })
   .use(rehypeMath)
   .use(rehypeHighlight, { languages: highlightLanguages })
-  .use(rehypeFormat)
   .use(rehypeStringify);

@@ -63,7 +63,6 @@
     "mini-css-extract-plugin": "^2.6.0",
     "mini-svg-data-uri": "^1.4.4",
     "prism-themes": "^1.9.0",
-    "rehype-format": "^4.0.1",
     "rehype-highlight": "^5.0.2",
     "rehype-katex": "^6.0.2",
     "rehype-parse": "^8.0.4",
@@ -85,7 +84,6 @@
     "terser-webpack-plugin": "^5.3.1",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.0",
-    "viz.js": "^2.1.2",
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2"
   }
