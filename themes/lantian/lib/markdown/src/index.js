@@ -12,6 +12,8 @@ import { includeMarkdown } from '@hashicorp/platform-remark-plugins';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeMath from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
+import remarkInlineLinks from 'remark-inline-links';
+import remarkStringify from 'remark-stringify';
 import path from 'path';
 import highlightLanguages from './highlight-js-languages';
 
@@ -43,4 +45,21 @@ export const markdownEngine = unified()
   .use(rehypeHighlight, { languages: highlightLanguages })
   .use(rehypeStringify, {
     allowDangerousHtml: true,
-  });
+  })
+  .freeze();
+
+export const gopherEngine = unified()
+  .use(remarkParse)
+  .use(includeMarkdown, {
+    resolveFrom: path.join(__dirname, '../../../../source'),
+  })
+  .use(remarkFrontmatter)
+  .use(remarkGfm)
+  .use(remarkInlineLinks)
+  .use(remarkStringify, {
+    bullet: '-',
+    fences: true,
+    listItemIndent: 'one',
+    resourceLink: false,
+  })
+  .freeze();
