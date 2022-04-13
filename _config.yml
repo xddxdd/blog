@@ -138,6 +138,12 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: lantian
 
+# hexo-generator-readme-file
+readmeConfig:
+  postsHeader: '## My posts' # headers, support markdown
+  sort: 'desc' # posts display sort: 'desc' or 'acs'. The default option is 'desc'
+  groupType: 'month' # 'month' or 'year' or 'none'. The default option is 'month'
+
 # Links
 theme_config:
   announcement: >

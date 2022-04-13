@@ -23,4 +23,4 @@ thumbs:
 	@sh _scripts/thumbs.sh
 
 serve:
-	@python3 -m http.server --directory public/
+	@python3 -m http.server 8080 --directory public/

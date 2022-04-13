@@ -41,6 +41,7 @@
     "hexo-generator-category": "^1.0.0",
     "hexo-generator-feed": "^3.0.0",
     "hexo-generator-index": "^2.0.0",
+    "hexo-generator-readme-file": "^1.0.3",
     "hexo-generator-sitemap": "^3.0.1",
     "hexo-generator-tag": "^1.0.0",
     "hexo-helper-qrcode": "^1.0.2",
