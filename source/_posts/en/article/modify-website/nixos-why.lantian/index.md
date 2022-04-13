@@ -6,7 +6,7 @@ date: 2021-10-11 16:06:58
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-{% insertmd _templates/nixos-series/toc-en.md %}
+@include "_templates/nixos-series/toc-en.md"
 
 Right now, I'm gradually migrating my servers from Devuan Linux to [NixOS](https://nixos.org/). NixOS is a Linux distribution centered on a set of Nix configuration files located in `/etc/nixos`, which is used to install and configure the whole operating system. Because this configuration set defines **ALL** config files and packages on the system, as long as you use the same config files, you will absolutely get the same operating system every time you reinstall. Nix configuration language is also Turing complete, so you will be able to generate config files with Nix, no matter how complicated that software is.
 

@@ -634,7 +634,7 @@ DN42 中多数用户处在美国或者欧洲，当我们从中国与他们联系
 
 在此，我将步骤列表复制一遍，以供参考：
 
-{% insertmd _templates/dn42-experimental-network-2020/peer-zh.md %}
+@include "_templates/dn42-experimental-network-2020/peer-zh.md"
 
 隧道搭建：WireGuard
 -----------------
@@ -645,7 +645,7 @@ DN42 Wiki 有 WireGuard 的配置步骤，我在此进行少许修改以使其�
 
 然后创建一个配置文件 `[PEER_NAME].conf`：
 
-{% insertmd _templates/dn42-experimental-network-2020/wireguard-zh.md %}
+@include "_templates/dn42-experimental-network-2020/wireguard-zh.md"
 
 然后运行 `wg-quick up [PEER_NAME].conf` 启动隧道。
 
@@ -654,7 +654,7 @@ DN42 Wiki 有 WireGuard 的配置步骤，我在此进行少许修改以使其�
 
 DN42 Wiki 同样提供了 OpenVPN 的配置模板，我在此进行少许修改以使其简单明了，如下：
 
-{% insertmd _templates/dn42-experimental-network-2020/openvpn-zh.md %}
+@include "_templates/dn42-experimental-network-2020/openvpn-zh.md"
 
 限制 DN42 相关网卡上的流量
 -----------------------
@@ -715,11 +715,11 @@ BGP 会话配置：BIRD v1 和 v2
 
 对于 BIRD v1，需要的配置如下：
 
-{% insertmd _templates/dn42-experimental-network-2020/bird1-zh.md %}
+@include "_templates/dn42-experimental-network-2020/bird1-zh.md"
 
 对于 BIRD v2，配置如下：
 
-{% insertmd _templates/dn42-experimental-network-2020/bird2-zh.md %}
+@include "_templates/dn42-experimental-network-2020/bird2-zh.md"
 
 网络测试及几个加分项
 -----------------

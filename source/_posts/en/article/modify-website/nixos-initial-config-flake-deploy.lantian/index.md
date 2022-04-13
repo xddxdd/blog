@@ -6,7 +6,7 @@ date: 2021-11-13 00:48:07
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-{% insertmd _templates/nixos-series/toc-en.md %}
+@include "_templates/nixos-series/toc-en.md"
 
 This is the second post in my NixOS series and mainly focuses on:
 

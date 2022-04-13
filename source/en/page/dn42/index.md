@@ -31,7 +31,7 @@ I live in China, and (many of) you may be on the opposite side of the planet. Th
 
 Here I provide instructions to perform "1xRTT" peering, which means we can peer with only one e-mail from you and one e-mail from me. Even if you and I are in the same time zone, this will still simplify things.
 
-{% insertmd _templates/dn42-experimental-network-2020/peer-en.md %}
+@include "_templates/dn42-experimental-network-2020/peer-en.md"
 
 PS: It's not recommended to contact me over IRC. Although I leave my IRC client running, I only read messages once or twice per month, unless you ask me to do so in your e-mail. And IRC chat is unlikely to be instant due to timezone differences.
 
@@ -99,8 +99,8 @@ Recommended Config Templates (Default Parameters)
 
 OpenVPN:
 
-{% insertmd _templates/dn42-experimental-network-2020/openvpn-en.md %}
+@include "_templates/dn42-experimental-network-2020/openvpn-en.md"
 
 WireGuard config (for use with `wg-quick up`):
 
-{% insertmd _templates/dn42-experimental-network-2020/wireguard-en.md %}
+@include "_templates/dn42-experimental-network-2020/wireguard-en.md"

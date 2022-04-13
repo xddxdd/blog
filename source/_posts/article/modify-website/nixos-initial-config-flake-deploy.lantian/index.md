@@ -6,7 +6,7 @@ date: 2021-11-13 00:48:07
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-{% insertmd _templates/nixos-series/toc-zh.md %}
+@include "_templates/nixos-series/toc-zh.md"
 
 这是我的 NixOS 系列文章的第二篇，主要介绍以下内容：
 

@@ -8,10 +8,12 @@ import remarkMath from 'remark-math';
 import { remarkGraphvizSvg } from "./remark-graphviz-svg";
 import remarkMermaid from 'remark-mermaid';
 import remark2rehype from 'remark-rehype';
+import { includeMarkdown } from '@hashicorp/platform-remark-plugins';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeMath from 'rehype-katex';
 import rehypeFormat from 'rehype-format';
 import rehypeStringify from 'rehype-stringify';
+import path from 'path';
 
 function remark2rehypeHexoMoreHandler(h, node) {
   const newNode = h(node);
@@ -25,6 +27,9 @@ function remark2rehypeHexoMoreHandler(h, node) {
 
 const engine = unified()
   .use(remarkParse)
+  .use(includeMarkdown, {
+    resolveFrom: path.join(__dirname, '../../../../source'),
+  })
   .use(remarkFrontmatter)
   .use(remarkGfm)
   .use(remarkMath)

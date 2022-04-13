@@ -624,7 +624,7 @@ Note that I don't have any special configuration/requirements, and the list is a
 
 Here is a copy of the list for reference:
 
-{% insertmd _templates/dn42-experimental-network-2020/peer-en.md %}
+@include "_templates/dn42-experimental-network-2020/peer-en.md"
 
 Tunnel Setup: WireGuard
 -----------------------
@@ -635,7 +635,7 @@ First, run `wg genkey | tee privatekey | wg pubkey > publickey` to generate your
 
 Then create a configuration file `[PEER_NAME].conf`:
 
-{% insertmd _templates/dn42-experimental-network-2020/wireguard-en.md %}
+@include "_templates/dn42-experimental-network-2020/wireguard-en.md"
 
 Then run `wg-quick up [PEER_NAME].conf` to set up the tunnel.
 
@@ -644,7 +644,7 @@ Tunnel Setup: OpenVPN
 
 DN42 Wiki also provided an OpenVPN configuration template. I made minor modifications to it so that it's clearer.
 
-{% insertmd _templates/dn42-experimental-network-2020/openvpn-en.md %}
+@include "_templates/dn42-experimental-network-2020/openvpn-en.md"
 
 Limit Traffic on DN42 Interfaces
 --------------------------------
@@ -705,11 +705,11 @@ I will only talk about the configuration of BIRD v1 and v2 since they are the mo
 
 For BIRD v1, what you need is:
 
-{% insertmd _templates/dn42-experimental-network-2020/bird1-en.md %}
+@include "_templates/dn42-experimental-network-2020/bird1-en.md"
 
 For BIRD v2, what you need is:
 
-{% insertmd _templates/dn42-experimental-network-2020/bird2-en.md %}
+@include "_templates/dn42-experimental-network-2020/bird2-en.md"
 
 Network Test & Bonus
 --------------------
