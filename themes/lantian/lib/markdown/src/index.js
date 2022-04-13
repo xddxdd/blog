@@ -26,7 +26,7 @@ function remark2rehypeHexoMoreHandler(h, node) {
   return newNode;
 }
 
-const engine = unified()
+export const markdownEngine = unified()
   .use(remarkParse)
   .use(includeMarkdown, {
     resolveFrom: path.join(__dirname, '../../../../source'),
@@ -44,11 +44,3 @@ const engine = unified()
   .use(rehypeHighlight, { languages: highlightLanguages })
   .use(rehypeFormat)
   .use(rehypeStringify);
-
-async function renderer(data) {
-  return engine.process(data.text).then((result) => {
-    return result.toString();
-  });
-}
-
-module.exports = renderer;

@@ -1,6 +1,12 @@
 'use strict';
 
-const renderer = require('../lib/markdown');
+const { markdownEngine } = require('../lib/markdown');
+
+async function renderer(data) {
+  return markdownEngine.process(data.text).then((result) => {
+    return result.toString();
+  });
+}
 
 hexo.extend.renderer.register('md', 'html', renderer, false);
 hexo.extend.renderer.register('markdown', 'html', renderer, false);
