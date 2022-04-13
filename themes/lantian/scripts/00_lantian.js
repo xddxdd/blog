@@ -42,11 +42,12 @@ hexo.extend.helper.register('lantian_git_rev', function () {
 
 hexo.extend.tag.register(
     'interactive',
-    function (args, content) {
-        var rendered = hexo.render.renderSync({text: content, engine: 'markdown'})
-        return `<div id="lti-content-${args[0]}" class="lti-content">${rendered}</div>`;
+    async function (args, content) {
+        return hexo.render.render({text: content, engine: 'markdown'}).then((rendered) => {
+            return `<div id="lti-content-${args[0]}" class="lti-content">${rendered}</div>`;
+        })
     },
-    { ends: true },
+    { ends: true, async: true },
 );
 
 hexo.extend.tag.register(

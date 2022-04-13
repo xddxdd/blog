@@ -36,9 +36,11 @@ export const markdownEngine = unified()
   .use(remarkGraphvizSvg)
   .use(remarkMermaid, { simple: true })
   .use(remark2rehype, {
-    allowDangerousHTML: true,
+    allowDangerousHtml: true,
     handlers: { excerptDelimitor: remark2rehypeHexoMoreHandler },
   })
   .use(rehypeMath)
   .use(rehypeHighlight, { languages: highlightLanguages })
-  .use(rehypeStringify);
+  .use(rehypeStringify, {
+    allowDangerousHtml: true,
+  });
