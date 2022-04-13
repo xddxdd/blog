@@ -122,7 +122,7 @@ Users should get different responses when looking up different IPs and blocks:
 
 Such logic cannot be implemented in simple regular expressions and case conversions. We need more complicated logic in Lua, with the following steps:
 
-```graphviz
+```dot
 digraph {
     S[shape=box,label="Start"]
     A[shape=box,label="Calc first IP in block"]

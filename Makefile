@@ -1,13 +1,13 @@
-.PHONY: all deps public webpack verify
-all: deps webpack public verify
+.PHONY: all deps public theme verify
+all: deps theme public verify
 
 deps:
 	@npm install
 
-webpack: deps
-	$(MAKE) -C themes/lantian webpack
+theme: deps
+	$(MAKE) -C themes/lantian
 
-public: deps webpack
+public:
 	@node node_modules/hexo/bin/hexo generate 2>&1 | tee hexo.log
 
 verify: deps public

@@ -31,7 +31,7 @@ BGP can also be necessary within a large-scale AS. For example, China Telecom, w
    - But there is a severe limitation of iBGP: all routers should be connected to each other. The reason is that:
      - Suppose we have such a network topology:
 
-       ```graphviz
+       ```dot
        graph {
          rankdir=LR
          node[shape=box]
@@ -94,7 +94,7 @@ BGP can also be necessary within a large-scale AS. For example, China Telecom, w
    - But since each router has a different ASN, how can they know if a router is "friendly" (within the same ISP) or "hostile" (from another ISP)? A common identifier can be assigned to all routers in the same ISP (called Confederation Identifier) to assist.
    - Suppose we have such a network topology:
 
-       ```graphviz
+       ```dot
        graph {
          rankdir=LR
          node[shape=box]

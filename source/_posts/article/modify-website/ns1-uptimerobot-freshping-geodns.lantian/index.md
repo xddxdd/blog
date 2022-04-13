@@ -15,11 +15,11 @@ date: 2022-02-06 14:29:09
 
 但是市面上的 GeoDNS 服务价格都有些昂贵，当只使用一个域名时：
 
-- [CloudNS 每月的价格是 $9.95](https://www.cloudns.net/geodns/)；
-- [Constellix 每月的价格是 $10](https://constellix.com/pricing/products)；
-- [AWS Route 53 每月的价格是 $0.5，外加每百万次查询 $0.7，和每个节点的监控 $0.75](https://aws.amazon.com/route53/pricing/)；
-- [PerfOps 提供一个开启了 GeoDNS 的子域名用于 CNAME，10 万次查询以内是免费的，但每个节点的监控要 $5](https://perfops.net/pricing)。
-- Cloudflare Load Balancing 每月的价格是 $15（两个后端，开启 Traffic Steering），之后每多一个节点再加 $5。
+- [CloudNS 每月的价格是 \$9.95](https://www.cloudns.net/geodns/)；
+- [Constellix 每月的价格是 \$10](https://constellix.com/pricing/products)；
+- [AWS Route 53 每月的价格是 \$0.5，外加每百万次查询 \$0.7，和每个节点的监控 \$0.75](https://aws.amazon.com/route53/pricing/)；
+- [PerfOps 提供一个开启了 GeoDNS 的子域名用于 CNAME，10 万次查询以内是免费的，但每个节点的监控要 \$5](https://perfops.net/pricing)。
+- Cloudflare Load Balancing 每月的价格是 \$15（两个后端，开启 Traffic Steering），之后每多一个节点再加 \$5。
 
 好在 [NS1 提供支持 GeoDNS 的免费服务](https://ns1.com/plans)。虽然 NS1 免费版只能监控一个节点，但它支持用 API 接口或者 [AWS SNS](https://aws.amazon.com/sns/) 设置节点健康状态，从而达到自动切换节点的效果。
 
@@ -27,7 +27,7 @@ date: 2022-02-06 14:29:09
 
 我以前试过[用 PowerDNS 自建权威 DNS 来实现 GeoDNS](https://lantian.pub/article/modify-website/powerdns-lua-diy-geodns.lantian/)，但是效果并不好。最主要的原因是，各地的递归 DNS 不会自动选择最近的权威 DNS 进行解析，而是从域名的 DNS 列表中随机选择一个；如果某个递归 DNS 选到了地球另一边的权威 DNS，甚至选到了一个暂时宕机的节点，DNS 解析就会很慢甚至失败，反而影响网站打开速度。
 
-商业 DNS 大都使用 Anycast 解决这个问题，也就是在多个数据中心发布同一个 IP 地址，递归 DNS 的请求会被路径上的路由器自动导向最近的数据中心。但是发布 IP 地址的前提是，你要有一个 ASN（一次性价格 $50-100），还要有一段 IPv4 地址（每月价格约 $100），性价比甚至不如直接购买商业 DNS。
+商业 DNS 大都使用 Anycast 解决这个问题，也就是在多个数据中心发布同一个 IP 地址，递归 DNS 的请求会被路径上的路由器自动导向最近的数据中心。但是发布 IP 地址的前提是，你要有一个 ASN（一次性价格 \$50-100），还要有一段 IPv4 地址（每月价格约 \$100），性价比甚至不如直接购买商业 DNS。
 
 # 准备工作
 
@@ -35,7 +35,7 @@ date: 2022-02-06 14:29:09
 
 1. 一个绑定信用卡的 AWS 帐号，每月可能需要支付几美分费用。我们需要使用：
    - [Lambda 函数计算功能](https://aws.amazon.com/lambda/pricing/)（每月前 100 万次请求免费）；
-   - [API 网关](https://aws.amazon.com/api-gateway/pricing/)（用于将 Lambda 函数暴露到公网，前 12 个月每月 100 万次请求免费，随后每百万次请求 $1.17）；
+   - [API 网关](https://aws.amazon.com/api-gateway/pricing/)（用于将 Lambda 函数暴露到公网，前 12 个月每月 100 万次请求免费，随后每百万次请求 \$1.17）；
    - [SNS 消息服务](https://aws.amazon.com/sns/pricing/)（用于将宕机、恢复消息发给 NS1，每月前 100 万次请求免费）。
 2. 一个 [NS1 帐号](https://ns1.com/signup)，需要验证信用卡，但不需要收费。
 3. 一个 DNS 记录数量低于 50 的域名，绑定到 NS1 上。NS1 免费版限制域名上只能有 50 条 DNS 记录。
@@ -49,7 +49,7 @@ date: 2022-02-06 14:29:09
 
 所有消息的流向是：
 
-```graphviz
+```dot
 digraph {
   node[shape=box]
 

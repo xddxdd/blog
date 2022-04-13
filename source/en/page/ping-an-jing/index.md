@@ -10,4 +10,4 @@ special: ping-an-jing-en
 >
 > The process of creating this page is documented [here](/en/article/modify-website/an-elegant-scripture-of-safety-generator.lantian).
 >
-> This page is worth CNY 299 (around USD $45).
+> This page is worth CNY 299 (around USD \$45).

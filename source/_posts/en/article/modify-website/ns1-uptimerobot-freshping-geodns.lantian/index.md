@@ -15,11 +15,11 @@ Synchronizing website data is of no difficulty since I use Hexo, a static site g
 
 However, most GeoDNS services on the market are kind of expensive. For a single domain:
 
-- [CloudNS costs $9.95/m](https://www.cloudns.net/geodns/);
-- [Constellix costs $10/m](https://constellix.com/pricing/products);
-- [AWS Route 53 costs $0.5/m, plus $0.7/million queries and $0.75/node for monitoring](https://aws.amazon.com/route53/pricing/);
-- [PerfOps provides a GeoDNS-enabled subdomain for CNAMEs, and is free for 100k queries, but monitoring costs $5/node](https://perfops.net/pricing)。
-- Cloudflare Load Balancing costs $15/m (with 2 backends and Traffic Steering) and $5 per extra node.
+- [CloudNS costs \$9.95/m](https://www.cloudns.net/geodns/);
+- [Constellix costs \$10/m](https://constellix.com/pricing/products);
+- [AWS Route 53 costs \$0.5/m, plus \$0.7/million queries and \$0.75/node for monitoring](https://aws.amazon.com/route53/pricing/);
+- [PerfOps provides a GeoDNS-enabled subdomain for CNAMEs, and is free for 100k queries, but monitoring costs \$5/node](https://perfops.net/pricing)。
+- Cloudflare Load Balancing costs \$15/m (with 2 backends and Traffic Steering) and \$5 per extra node.
 
 The good news is that [NS1 provides GeoDNS for free](https://ns1.com/plans). Although it can only monitor one node, it supports setting node status over API or over [AWS SNS](https://aws.amazon.com/sns/) for switching nodes automatically.
 
@@ -27,7 +27,7 @@ The good news is that [NS1 provides GeoDNS for free](https://ns1.com/plans). Alt
 
 I tried [GeoDNS on PowerDNS as an authoritative DNS server (Chinese only)](https://lantian.pub/article/modify-website/powerdns-lua-diy-geodns.lantian/) before, but it didn't work well. The main reason is that DNS recursors will not choose the nearest authoritative server automatically. Instead, they randomly select one from the nameserver list of the domain. If one recursor ends up with an authoritative server on the other side of the planet or even a server that's down at the moment, DNS resolution will be slow or even fail and, in turn, harms the website's loading speed.
 
-Most commercial DNS services fix the problem with Anycast, where the same IP is announced from multiple datacenters, and the DNS requests will be routed to the nearest datacenter automatically. But in order to announce an IP, you need an ASN ($50-100 one time) and an IPv4 range ($100/m), which costs more than a commercial DNS!
+Most commercial DNS services fix the problem with Anycast, where the same IP is announced from multiple datacenters, and the DNS requests will be routed to the nearest datacenter automatically. But in order to announce an IP, you need an ASN (\$50-100 one time) and an IPv4 range (\$100/m), which costs more than a commercial DNS!
 
 # Preparation
 
@@ -35,11 +35,11 @@ You need to prepare:
 
 1. An AWS account with your credit card on file. You may need to pay a few cents per month. We will use:
    - [Lambda FaaS](https://aws.amazon.com/lambda/pricing/) (Free for first 1 million requests per month);
-   - [API Gateway](https://aws.amazon.com/api-gateway/pricing/) (To expose Lambda functions to the Internet, free for first 1 million requests for the first 12 months, then $1.17 per million requests);
+   - [API Gateway](https://aws.amazon.com/api-gateway/pricing/) (To expose Lambda functions to the Internet, free for first 1 million requests for the first 12 months, then \$1.17 per million requests);
    - [SNS messaging service](https://aws.amazon.com/sns/pricing/) (To send up/down state messages to NS1, free for first 1 million requests per month).
 2. A [NS1 account](https://ns1.com/signup). You need to verify your credit card, but it's free otherwise.
 3. A domain with less than 50 DNS records to be used with NS1. The free version of NS1 limits you to 50 DNS records.
-   - You can register a 6-9 digits xyz domain [that costs $0.99 per year](https://gen.xyz/1111b) for NS1 and CNAME your primary domain over.
+   - You can register a 6-9 digits xyz domain [that costs \$0.99 per year](https://gen.xyz/1111b) for NS1 and CNAME your primary domain over.
 4. Add A/AAAA records for each node on your primary DNS, like `hostdare.lantian.pub -> 185.186.147.110`. Later we will point CNAMEs and monitors here.
 5. An UptimeRobot or Freshping account, with monitoring configured for all your nodes.
    - Use the domains from step 4 as the monitored URL. Take `hostdare.lantian.pub -> 185.186.147.110` as example: use `https://hostdare.lantian.pub` rather than `https://185.186.147.110` as the monitored URL.
@@ -49,7 +49,7 @@ Usually, the number of up/down notifications is limited, so your cost on AWS wil
 
 The flow of all messages will be:
 
-```graphviz
+```dot
 digraph {
   node[shape=box]
 

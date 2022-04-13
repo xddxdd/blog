@@ -122,7 +122,7 @@ location ~* "^/(aut-num|person|mntner|schema|organisation|tinc-keyset|tinc-key|a
 
 这样的逻辑用正则表达式和大小写转换是无法完成的，我们需要用 Lua 写一些更复杂的逻辑，大概流程如下：
 
-```graphviz
+```dot
 digraph {
     S[shape=box,label="开始"]
     A[shape=box,label="计算 IP 段的第一个 IP"]
