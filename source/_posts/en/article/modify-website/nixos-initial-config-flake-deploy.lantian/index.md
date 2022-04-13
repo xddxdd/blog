@@ -24,7 +24,7 @@ This post assumes that you've installed NixOS with [NixOS's official installatio
 
 During NixOS's installation process, the `nixos-generate-config` tool should have generated an initial config file for you under `/etc/nixos`, with two files `configuration.nix` and `hardware-configuration.nix`. Ignore `hardware-configuration.nix` for the moment, as it's automatically generated based on your hardware and disk partition scheme. Let's open `configuration.nix`:
 
-```bash
+```nix
 # I removed all comments in the file to shorten stuff
 { config, pkgs, ... }:
 
@@ -50,7 +50,7 @@ This file defines your whole NixOS operating system, including all software pack
 
 The Nix language has the same 6 data types as JSON: number, boolean, string, object, array, and null. Their format is also quite similar. In addition, the Nix language has a "path" data type:
 
-```bash
+```nix
 {
   # Number
   number = 123456;
@@ -102,7 +102,7 @@ The Nix language has the same 6 data types as JSON: number, boolean, string, obj
 
 Now suppose we want to install an SSH server for remote login. We can add these two lines of config:
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -136,7 +136,7 @@ After you've done editing the config, run `nixos-rebuild switch` to reconfigure 
 
 Here's another example where I want to install the `nyancat` command:
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -177,7 +177,7 @@ Until now, we've ignored the first line `{ config, pkgs, ... }:`. In fact, the w
 
 Here's how NixOS defines functions:
 
-```bash
+```nix
 # This is a function, with one input "a" and returns (a+1)
 a: a+1
 
@@ -215,7 +215,7 @@ a: {
 
 Back to the config to install `nyancat`:
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -237,7 +237,7 @@ After you've used NixOS for a while, you may have installed a lot of packages an
 
 Suppose I want to put the SSH config to another file. First create `/etc/nixos/ssh.nix`:
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -248,7 +248,7 @@ Suppose I want to put the SSH config to another file. First create `/etc/nixos/s
 
 The add `ssh.nix` to `imports` in `/etc/nixos/configuration.nix`, and remove previous SSH config statements:
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -270,7 +270,7 @@ Here I'll give a brief explanation of how `imports` works. The function `configu
 
 Back to `ssh.nix`, notice that it never used `config` nor `pkgs`, so we can remove even that:
 
-```bash
+```nix
 # We can remove "config" and "pkgs"
 { ... }:
 
@@ -302,7 +302,7 @@ Here the `nix-channel --list` command lists all configured repositories, and `ni
 
 To solve this issue, Nix introduced the Flake functionality, which allows defining repo URLs and revisions. First, let's edit `configuration.nix` followed by `nixos-rebuild switch` to upgrade the Nix package manager to a beta version supporting Flake:
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -321,7 +321,7 @@ To solve this issue, Nix introduced the Flake functionality, which allows defini
 
 Then create a `flake.nix` file in `/etc/nixos`. This `flake.nix` defines a package repo (`input`), the `unstable` branch (equivalent to `master` branch) of <https://github.com/NixOS/nixpkgs>.
 
-```bash
+```nix
 {
   # Description, write anything or even nothing
   description = "Lan Tian's NixOS Flake";
@@ -431,7 +431,7 @@ systemctl restart nix-daemon
 
 Back to `flake.nix` created in the last part, we need to add the repository of Deploy-RS, as well as SSH connection definitions in `outputs`:
 
-```bash
+```nix
 {
   description = "Lan Tian's NixOS Flake";
 
@@ -498,7 +498,7 @@ NixOS also supports the ARM64v8 architecture, the one used by Oracle's ARM cloud
 
 Compared to x86 servers, you simply need to change `system` to `aarch64-linux` in `flake.nix`
 
-```bash
+```nix
 {
   # ...
   outputs = { self, nixpkgs, ... }@inputs: {

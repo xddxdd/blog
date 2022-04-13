@@ -16,7 +16,7 @@ date: 2013-03-23 21:34:44
 
 源码：（自己用FPC 2.6编译）
 
-```bash
+```pascal
 uses crt,dos;
 const
     stat=true;

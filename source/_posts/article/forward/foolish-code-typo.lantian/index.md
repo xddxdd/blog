@@ -11,7 +11,7 @@ Bumblebee是Linux平台上的一款NVidia显卡的辅助工具，它可以让NVi
 
 那是一次Git更新，变动位于install.sh：
 
-```bash
+```diff
 @@ -37,7 +37,7 @@
   #    You should have received a copy of the GNU General Public License
   #    along with bumblebee.  If not, see <http://www.gnu.org/licenses/>.

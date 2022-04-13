@@ -28,7 +28,7 @@ HTML5Shiv主要解决HTML5提出的新的元素不被IE6-8识别，这些新元�
 
 2.在网页的head部分加入以下代码：
 
-```bash
+```html
 <!--[if lt IE 9]><script src="html5shiv.js"></script><![endif]-->
 ```
 

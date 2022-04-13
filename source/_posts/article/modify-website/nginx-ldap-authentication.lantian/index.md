@@ -24,7 +24,7 @@ LDAP 是常用的认证协议之一，不仅有许多软件原生支持它的认
 
 安装插件后，先在 nginx.conf 的 http 配置块中添加 ldap_server 配置块。为了防止我的单台服务器出问题导致认证服务全挂，我暂时先用了 JumpCloud 的 LDAP 服务，配置如下：
 
-```bash
+```nginx
 ldap_server jumpcloud {
     url ldap://ldap.jumpcloud.com/ou=Users,o=[你的 JumpCloud LDAP 编号],dc=jumpcloud,dc=com?uid?sub?(objectClass=posixAccount);
     binddn "uid=[LDAP 认证专用用户名],ou=Users,o=[你的 JumpCloud LDAP 编号],dc=jumpcloud,dc=com";
@@ -43,7 +43,7 @@ ldap_server jumpcloud {
 
 然后在要保护的 server 块或 location 块中添加如下内容：
 
-```bash
+```nginx
 location /private {
     auth_ldap "Forbidden";
     auth_ldap_servers jumpcloud;
@@ -54,7 +54,7 @@ location /private {
 
 不过要注意的是，LDAP 认证插件会和 http_addition 插件产生冲突，具体表现是如果同一个 location 里开启了 auth_ldap 和 add_after_body，在输入用户名密码认证通过后，nginx 似乎不会发送网页数据，体现为浏览器一直转圈直到超时。暂时的解决办法只能是禁用 add_after_body：
 
-```bash
+```nginx
 # LDAP auth doesn't work well with http_addition, disable it
 add_after_body "";
 ```

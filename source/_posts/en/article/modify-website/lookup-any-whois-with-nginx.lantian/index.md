@@ -78,8 +78,8 @@ Writing Nginx Rules (Regex)
 
 With the lookup information available, we can write nginx matching rules for them. Thanks to Nginx's regular expressions, we can tell different kinds of lookups apart and lookup corresponding lists.
 
-```bash
-# ASN Lookupp
+```nginx
+# ASN Lookup
 location ~* "^/[Aa][Ss]([0-9]+)$" {
     set $asn $1;
     set_by_lua_block $backend {
@@ -181,7 +181,7 @@ return lantian_nginx
 
 And the configuration of nginx can be greatly simplified:
 
-```bash
+```nginx
 server {
     listen 43 plain;
     listen [::]:43 plain;

@@ -15,7 +15,7 @@ Font Awesome 是一个图标库开源项目，它目前最新的4.1版本提供�
  
 然后在网页的head标签部分加入以下代码：
 
-```bash
+```html
 <link rel="stylesheet" href="http://你的网站/文件夹/font-awesome/css/font-awesome.min.css">
 ```
  
@@ -25,7 +25,7 @@ Font Awesome 是一个图标库开源项目，它目前最新的4.1版本提供�
  
 [https://fortawesome.github.io/Font-Awesome/icons/](https://fortawesome.github.io/Font-Awesome/icons/) 这里有一张表，对应着图标的class名称，找到你要的图标，比如fa-cloud，然后在你的网页代码里插入：
 
-```bash
+```html
 <i class="fa fa-cloud"></i>
 ```
  

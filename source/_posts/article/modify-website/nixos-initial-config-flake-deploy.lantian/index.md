@@ -24,7 +24,7 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 在 NixOS 的安装过程中，`nixos-generate-config` 工具在 `/etc/nixos` 目录下生成了一份初始配置文件，`configuration.nix` 和 `hardware-configuration.nix` 两份文件。我们先不管 `hardware-configuration.nix` 这份文件，它是根据系统的硬件设备、硬盘分区等自动生成的配置文件。先打开 `configuration.nix`：
 
-```bash
+```nix
 # 为缩短长度，我去掉了配置文件中所有的注释
 { config, pkgs, ... }:
 
@@ -50,7 +50,7 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 Nix 语言同样有着 JSON 的六大数据类型：数字，布尔值，字符串，对象，数组和 null，写法也大体相同。此外，Nix 语言还多了一种“路径”数据类型：
 
-```bash
+```nix
 {
   # 数字
   number = 123456;
@@ -99,7 +99,7 @@ Nix 语言同样有着 JSON 的六大数据类型：数字，布尔值，字符�
 
 现在如果我们想安装一个 SSH 服务端以便远程登录，就可以添加这两行配置：
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -133,7 +133,7 @@ Nix 语言同样有着 JSON 的六大数据类型：数字，布尔值，字符�
 
 再举一个例子，如果我想安装 `nyancat` 命令：
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -172,7 +172,7 @@ NixOS 官方的[这份文档](https://nixos.org/manual/nixos/unstable/options.ht
 
 NixOS 的函数定义如下所示：
 
-```bash
+```nix
 # 这是一个函数，输入是一个参数 a，返回值是（a+1）
 a: a+1
 
@@ -202,7 +202,7 @@ a: {
 
 回头看安装 `nyancat` 命令的配置：
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -224,7 +224,7 @@ a: {
 
 假设我想把上面的 SSH 配置单独放到一个文件中。先创建 `/etc/nixos/ssh.nix`：
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -235,7 +235,7 @@ a: {
 
 然后在 `/etc/nixos/configuration.nix` 中将 `ssh.nix` 加到 `imports` 中，并把原有的 SSH 配置删掉：
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -257,7 +257,7 @@ a: {
 
 回头看 `ssh.nix`，我们可以发现它并没有用到 `config` 和 `pkgs` 两个函数，因此把它们去掉也是可以的：
 
-```bash
+```nix
 # 可以把 config 和 pkgs 去掉
 { ... }:
 
@@ -289,7 +289,7 @@ a: {
 
 为了解决这个问题，Nix 引入了 Flake 功能，它支持了在配置文件中定义软件源 URL 版本的功能。我们先修改 `configuration.nix` 并 `nixos-rebuild switch`，将 Nix 包管理器升级到支持 Flake 的测试版：
 
-```bash
+```nix
 { config, pkgs, ... }:
 
 {
@@ -308,7 +308,7 @@ a: {
 
 然后在 `/etc/nixos` 里创建一个 `flake.nix` 文件。这份 `flake.nix` 定义了一个软件源（`input`），是 <https://github.com/NixOS/nixpkgs> 的 `unstable` 分支（也就是 `master` 分支）。
 
-```bash
+```nix
 {
   # 文件描述，随便写，或者不写也可以
   description = "Lan Tian's NixOS Flake";
@@ -416,7 +416,7 @@ systemctl restart nix-daemon
 
 回到上一节创建的 `flake.nix` 文件，我们要添加 Deploy-RS 的软件源，并在 `outputs` 中添加 SSH 连接的配置：
 
-```bash
+```nix
 {
   description = "Lan Tian's NixOS Flake";
 
@@ -478,7 +478,7 @@ NixOS 也支持 ARM64v8 架构，也就是甲骨文 ARM 云服务器的架构。
 
 相比 x86 机器，只需要在 `flake.nix` 中将对应的 `system` 改为 `aarch64-linux`：
 
-```bash
+```nix
 {
   # ...
   outputs = { self, nixpkgs, ... }@inputs: {

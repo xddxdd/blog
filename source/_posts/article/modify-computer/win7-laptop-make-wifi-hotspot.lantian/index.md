@@ -21,10 +21,10 @@ date: 2013-07-30 10:31:44
 1.开始菜单-程序-附件，右键以管理员权限打开，开始输入命令。
 
 ```bash
-netsh wlan set hostednetwork mode=allow ssid=lantian key=xuyh0120.asia
+netsh wlan set hostednetwork mode=allow ssid=lantian key=lantian.pub
 ```
 
-lantian改成自己想要的网络名，xuyh0120.asia改成自己的密码，不能少于8位。
+lantian改成自己想要的网络名，lantian.pub改成自己的密码，不能少于8位。
 
 2.打开网络共享中心，找到多出来的一个无线网络，应该有Microsoft Virtual WiFi Miniport Adapter的字样，把它改个名字，比如“WiFi 热点”（不改也可以，自己分清楚）如果这个网络被禁用，那么启用它。如果没有多出来，见文末PS。
 

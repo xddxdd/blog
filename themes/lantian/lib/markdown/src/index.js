@@ -5,7 +5,7 @@ import remarkParse from 'remark-parse';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import { remarkGraphvizSvg } from "./remark-graphviz-svg";
+import { remarkGraphvizSvg } from './remark-graphviz-svg';
 import remarkMermaid from 'remark-mermaid';
 import remark2rehype from 'remark-rehype';
 import { includeMarkdown } from '@hashicorp/platform-remark-plugins';
@@ -14,6 +14,7 @@ import rehypeMath from 'rehype-katex';
 import rehypeFormat from 'rehype-format';
 import rehypeStringify from 'rehype-stringify';
 import path from 'path';
+import highlightLanguages from './highlight-js-languages';
 
 function remark2rehypeHexoMoreHandler(h, node) {
   const newNode = h(node);
@@ -40,7 +41,7 @@ const engine = unified()
     handlers: { excerptDelimitor: remark2rehypeHexoMoreHandler },
   })
   .use(rehypeMath)
-  .use(rehypeHighlight, { ignoreMissing: true })
+  .use(rehypeHighlight, { languages: highlightLanguages })
   .use(rehypeFormat)
   .use(rehypeStringify);
 

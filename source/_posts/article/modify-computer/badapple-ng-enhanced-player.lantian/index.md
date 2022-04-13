@@ -14,7 +14,7 @@ UPDATE：如果碰到打不开、运行错误2什么的问题，请在[Bad Apple
 
 上源代码：
 
-```bash
+```pascal
 uses crt,dos;
 type
     pic=array[1..79,1..24]of char;

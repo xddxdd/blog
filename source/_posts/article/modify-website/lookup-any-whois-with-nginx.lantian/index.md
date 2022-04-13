@@ -78,7 +78,7 @@ def ngx_http_proxy_create_request():
 
 有了对应关系，我们就可以编写相应的 nginx 规则了。利用 nginx 的正则表达式，可以区分开不同种类的查询，并分别查询对应的列表。
 
-```bash
+```nginx
 # ASN 查询
 location ~* "^/[Aa][Ss]([0-9]+)$" {
     set $asn $1;
@@ -181,7 +181,7 @@ return lantian_nginx
 
 nginx 的配置也可以大幅简化：
 
-```bash
+```nginx
 server {
     listen 43 plain;
     listen [::]:43 plain;

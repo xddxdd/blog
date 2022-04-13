@@ -10,9 +10,9 @@ W3 Total Cache 开了资源最小化的效果是非常好的，连HTML都给我�
 <!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
 
 Minified using disk: basic
-Content Delivery Network via xuyh0120.asia
+Content Delivery Network via lantian.pub
 
-Served from: xuyh0120.asia @ 2013-02-13 20:56:59 by W3 Total Cache -->
+Served from: lantian.pub @ 2013-02-13 20:56:59 by W3 Total Cache -->
 ```
 
 对于我这种追求速度的人，这段东西不光让网页无端变大，最重要的是我想到有这个东西就烦。于是，我决定对W3 Total Cache开刀，把产生注释的这一段代码删掉。

@@ -6,7 +6,7 @@ date: 2013-01-27 01:09:00
 ---
 用自己的VPS的一个好处就是可以开SSL加密，可以实现在公共场所管理博客的安全，以及减小某些自然因素导致连接异常中断的几率。Debian 6软件源里的nginx已经带了SSL模块，所以很简单就可以开启SSL。只要把/etc/nginx/sites-available/default复制一份成default-ssl，做下面的修改就行。
 
-```bash
+```nginx
 server {
     listen              443;
     server_name         localhost;
@@ -18,7 +18,7 @@ server {
 
 or（下面这种直接改default就行）
 
-```bash
+```nginx
 server {
     listen              80;
     listen              443 ssl;

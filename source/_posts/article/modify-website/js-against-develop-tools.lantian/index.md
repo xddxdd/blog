@@ -12,7 +12,7 @@ date: 2013-04-12 19:46:56
 
 源代码+作者信息：
 
-```bash
+```javascript
 /*
     Plugin Name : WQNMLGB
     Plugin Author : Xider
