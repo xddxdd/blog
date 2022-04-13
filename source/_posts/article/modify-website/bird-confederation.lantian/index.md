@@ -31,7 +31,7 @@ ISP 内部 BGP 互联方案比较
    - 但是 iBGP 有一个很严重的限制：所有路由器都应该两两相连。原因如下：
      - 假设我们有如下的网络拓扑：
 
-       ```dot
+       ```graphviz
        graph {
          rankdir=LR
          node[shape=box]
@@ -94,7 +94,7 @@ ISP 内部 BGP 互联方案比较
    - 但是每台路由器的 ASN 都不同，如何知道哪些路由器是“友军”（属于自己这个 ISP），哪些是“敌军”（属于其它 ISP）？可以给 ISP 内部的所有路由器分配一个统一的编号（称为 Confederation Identifier），用它来识别敌我。
    - 假设我们有如下的网络拓扑：
 
-       ```dot
+       ```graphviz
        graph {
          rankdir=LR
          node[shape=box]

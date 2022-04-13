@@ -76,7 +76,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
   - 不止是指性能，在整体架构上也有区别。
   - 在台式机上，显卡的连接方式是这样的：
 
-    ```dot
+    ```graphviz
     digraph {
       rankdir=LR
       node[shape=box]
@@ -92,7 +92,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
   - 但在笔记本上又有不同，而且不同的笔记本电脑也是有区别的。
     - 如果你买的是几千元的中低端游戏本，连接方式可能是这样的：
 
-      ```dot
+      ```graphviz
       digraph {
         rankdir=LR
         node[shape=box]
@@ -122,7 +122,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
           - 也就是，除非游戏主动检测并调用独显，否则游戏会在核显上运行。
     - 如果你买的是一万元左右的中高端游戏本，连接方式可能是这样的：
 
-      ```dot
+      ```graphviz
       digraph {
         rankdir=LR
         node[shape=box]
@@ -150,7 +150,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
         - 贵（电路复杂）
     - 如果你买的是几万块钱的“后浪专用”厚砖游戏本，连接方式可能是这样的：
 
-      ```dot
+      ```graphviz
       digraph {
         rankdir=LR
         node[shape=box]

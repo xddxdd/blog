@@ -5,7 +5,7 @@ import remarkParse from 'remark-parse';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import remarkGraphviz from 'remark-graphviz';
+import { remarkGraphvizSvg } from "./remark-graphviz-svg";
 import remarkMermaid from 'remark-mermaid';
 import remark2rehype from 'remark-rehype';
 import rehypeHighlight from 'rehype-highlight';
@@ -28,7 +28,7 @@ const engine = unified()
   .use(remarkFrontmatter)
   .use(remarkGfm)
   .use(remarkMath)
-  .use(remarkGraphviz)
+  .use(remarkGraphvizSvg)
   .use(remarkMermaid, { simple: true })
   .use(remark2rehype, {
     allowDangerousHTML: true,
@@ -39,8 +39,10 @@ const engine = unified()
   .use(rehypeFormat)
   .use(rehypeStringify);
 
-function renderer(data) {
-  return String(engine.processSync(data.text));
+async function renderer(data) {
+  return engine.process(data.text).then((result) => {
+    return result.toString();
+  });
 }
 
 module.exports = renderer;

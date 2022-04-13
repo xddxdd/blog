@@ -49,7 +49,7 @@ date: 2022-02-06 14:29:09
 
 所有消息的流向是：
 
-```dot
+```graphviz
 digraph {
   node[shape=box]
 

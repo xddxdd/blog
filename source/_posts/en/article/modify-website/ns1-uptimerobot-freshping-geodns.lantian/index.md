@@ -49,7 +49,7 @@ Usually, the number of up/down notifications is limited, so your cost on AWS wil
 
 The flow of all messages will be:
 
-```dot
+```graphviz
 digraph {
   node[shape=box]
 

@@ -76,7 +76,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
   - No, I don't just mean performance. The overall architecture is also different.
   - On a desktop, the GPU is connected in the following scheme:
 
-    ```dot
+    ```graphviz
     digraph {
       rankdir=LR
       node[shape=box]
@@ -91,7 +91,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
   - But on laptops, things are different. They even differ between laptops.
     - If you spent a few hundred dollars on a low-to-mid-range gaming laptop, the connections may look like:
 
-      ```dot
+      ```graphviz
       digraph {
         rankdir=LR
         node[shape=box]
@@ -121,7 +121,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
           - This means games will run on the integrated graphics unless the game engine proactively detects and uses the dGPU.
     - If you spent a bit more than a thousand on a mid-to-higher-range laptop, you may get:
 
-      ```dot
+      ```graphviz
       digraph {
         rankdir=LR
         node[shape=box]
@@ -149,7 +149,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
         - Expensive (with all those circuits)
     - If you spent thousands on a top-end laptop, you may get this:
 
-      ```dot
+      ```graphviz
       digraph {
         rankdir=LR
         node[shape=box]

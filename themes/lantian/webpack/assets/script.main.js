@@ -1,10 +1,10 @@
 import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
 
-import attempt from './js/attempt';
+import attempt from './js/attempt.js';
 
-import cfga from './js/cfga';
-import Waline from '@waline/client/dist/Waline.noStyle';
+import cfga from './js/cfga.js';
+import Waline from '@waline/client/dist/Waline.noStyle.js';
 
 /*****************************************
  * Bootstrap Native
