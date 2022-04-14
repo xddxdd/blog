@@ -1,23 +1,24 @@
 'use strict';
 
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
-import { remarkGraphvizSvg } from './remark-graphviz-svg';
-import remarkMermaid from 'remark-mermaid';
-import remark2rehype from 'remark-rehype';
 import { includeMarkdown } from '@hashicorp/platform-remark-plugins';
+import { remarkGraphvizSvg } from './remark-graphviz-svg';
+import { unified } from 'unified';
+import { visit } from 'unist-util-visit';
+import highlightLanguages from './highlight-js-languages';
+import path from 'path';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeMath from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
+import remarkRehype from 'remark-rehype';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkGfm from 'remark-gfm';
 import remarkInlineLinks from 'remark-inline-links';
+import remarkMath from 'remark-math';
+import remarkMermaid from 'remark-mermaid';
+import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
-import path from 'path';
-import highlightLanguages from './highlight-js-languages';
 
-function remark2rehypeHexoMoreHandler(h, node) {
+function remarkRehypeHexoMoreHandler(h, node) {
   const newNode = h(node);
   newNode.type = 'comment';
   newNode.value = 'more';
@@ -27,6 +28,18 @@ function remark2rehypeHexoMoreHandler(h, node) {
   return newNode;
 }
 
+export const chineseQuotes = (s) =>
+  typeof s === 'string' ? s.replaceAll('“', '「').replaceAll('”', '」') : s;
+
+let remarkChineseQuotes = () => (tree) => {
+  visit(tree, (node) => {
+    if (typeof node.value === 'string') {
+      node.value = chineseQuotes(node.value);
+    }
+    return node;
+  });
+};
+
 export const markdownEngine = unified()
   .use(remarkParse)
   .use(includeMarkdown, {
@@ -34,12 +47,13 @@ export const markdownEngine = unified()
   })
   .use(remarkFrontmatter)
   .use(remarkGfm)
+  .use(remarkChineseQuotes)
   .use(remarkMath)
   .use(remarkGraphvizSvg)
   .use(remarkMermaid, { simple: true })
-  .use(remark2rehype, {
+  .use(remarkRehype, {
     allowDangerousHtml: true,
-    handlers: { excerptDelimitor: remark2rehypeHexoMoreHandler },
+    handlers: { excerptDelimitor: remarkRehypeHexoMoreHandler },
   })
   .use(rehypeMath)
   .use(rehypeHighlight, { languages: highlightLanguages })
@@ -55,6 +69,7 @@ export const gopherEngine = unified()
   })
   .use(remarkFrontmatter)
   .use(remarkGfm)
+  .use(remarkChineseQuotes)
   .use(remarkInlineLinks)
   .use(remarkStringify, {
     bullet: '-',
