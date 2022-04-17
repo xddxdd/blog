@@ -153,4 +153,8 @@ theme_config:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
 - type: git
-  repo: git@github.com:lantian1998/lantian1998.github.io.git
+  repo:
+    github:
+      url: https://github.com/lantian1998/lantian1998.github.io.git
+    heroku:
+      url: https://git.heroku.com/lantian-blog.git

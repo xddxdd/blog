@@ -1,8 +1,8 @@
 kind: secret
-name: id_ed25519
+name: netrc
 get:
-  path: kv/data/ssh
-  name: id_ed25519
+  path: kv/data/git_netrc
+  name: netrc
 
 ---
 
@@ -49,22 +49,13 @@ steps:
   - name: hexo deploy
     image: node:17-alpine
     environment:
-      SSH_KEY:
-        from_secret: id_ed25519
+      NETRC:
+        from_secret: netrc
     commands:
-      - apk add --no-cache build-base git openssh gzip brotli zstd parallel
+      - apk add --no-cache build-base git gzip brotli zstd parallel rsync
 
-      # Set SSH config
-      - |
-        cat <<EOF >/etc/ssh/ssh_config
-        IdentityFile=/etc/ssh/id_ed25519
-        StrictHostKeyChecking no
-        UserKnownHostsFile=/dev/null
-        VerifyHostKeyDNS yes
-        LogLevel ERROR
-        EOF
-      - echo "$SSH_KEY" > /etc/ssh/id_ed25519
-      - chmod 600 /etc/ssh/id_ed25519
+      # Set git logins
+      - echo $NETRC > ~/.netrc
 
       # Generate blog file
       - make
@@ -73,7 +64,6 @@ steps:
       - sh _scripts/parallel_jobs.sh
 
       # Run deploy
-      - apk add --no-cache rsync
       - mkdir -p /sync/www/lantian.pub
       - rsync -ar --delete-after public/ /sync/www/lantian.pub/
     when:
