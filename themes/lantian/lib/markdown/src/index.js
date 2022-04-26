@@ -29,7 +29,13 @@ function remarkRehypeHexoMoreHandler(h, node) {
 }
 
 export const chineseQuotes = (s) =>
-  typeof s === 'string' ? s.replaceAll('“', '「').replaceAll('”', '」') : s;
+  typeof s === 'string'
+    ? s
+        .replaceAll('“', '「')
+        .replaceAll('”', '」')
+        .replaceAll('‘', '『')
+        .replaceAll('’', '』')
+    : s;
 
 let remarkChineseQuotes = () => (tree) => {
   visit(tree, (node) => {
