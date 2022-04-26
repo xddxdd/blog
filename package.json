@@ -78,7 +78,7 @@
     "remark-stringify": "^10.0.2",
     "resolve-url-loader": "^5.0.0",
     "rollup": "^2.70.2",
-    "sass": "^1.50.1",
+    "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
