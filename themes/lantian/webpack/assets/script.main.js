@@ -4,7 +4,7 @@ import SimpleLightbox from 'simple-lightbox';
 import attempt from './js/attempt.js';
 
 import cfga from './js/cfga.js';
-import Waline from '@waline/client/dist/Waline.noStyle.js';
+import { init as walineInit, RecentComments as walineRecentComments } from '@waline/client';
 
 /*****************************************
  * Bootstrap Native
@@ -189,9 +189,9 @@ addLoadEvent(function () {
 
   attempt('Waline', function () {
     if (typeof waline_config !== 'undefined') {
-      Waline(waline_config);
+      walineInit(waline_config);
     }
-    Waline.Widget.RecentComments({
+    walineRecentComments({
       serverURL: 'https://comments.lantian.pub',
       count: 10,
     }).then(({ comments }) => {
