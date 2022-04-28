@@ -29,7 +29,7 @@
 
   /* 头像 */
   --waline-avatar-size: 4rem;
-  --waline-mobile-avatar-size: 3rem;
+  --waline-m-avatar-size: 3rem;
 
   /* 徽章 */
   --waline-badge-color: #{$primary};
@@ -42,6 +42,8 @@
 
   /* 渲染选择 */
   --waline-border: 1px solid var(--waline-border-color);
+  --waline-avatar-radius: 0;
+  --waline-box-shadow: none;
 }
 
 @media (prefers-color-scheme: dark) {
