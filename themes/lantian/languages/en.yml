@@ -22,8 +22,6 @@ admin: "Admin"
 language: 'Language'
 color_scheme: 'Day/Night'
 
-disqus_noscript: 'Please enable JavaScript to view the comments powered by {0}.'
-
 # post-list
 list_year_month: "YYYY-MM"
 list_day: "MM-DD"
