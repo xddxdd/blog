@@ -82,10 +82,16 @@
                 </li>
                 <% } %>
 
-                <li class="nav-item position-relative">
-                    <a class="nav-link" id="dark-mode" href="#">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="color-scheme-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-fw fa-adjust"></i> <%- __('color_scheme') %>
                     </a>
+                    <ul class="dropdown-menu" aria-labelledby="color-scheme-dropdown">
+                        <li><a id="color-scheme-auto" class="dropdown-item" href="#"><i class="fas fa-fw fa-adjust"></i> <%- __('color_scheme_auto') %></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a id="color-scheme-light" class="dropdown-item" href="#"><i class="fas fa-fw fa-sun"></i> <%- __('color_scheme_light') %></a></li>
+                        <li><a id="color-scheme-dark" class="dropdown-item" href="#"><i class="fas fa-fw fa-moon"></i> <%- __('color_scheme_dark') %></a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

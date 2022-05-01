@@ -20,7 +20,11 @@ others: "Others"
 links: "Links"
 admin: "Admin"
 language: 'Language'
-color_scheme: 'Day/Night'
+
+color_scheme: 'Night Mode'
+color_scheme_auto: 'Auto'
+color_scheme_light: 'Light'
+color_scheme_dark: 'Dark'
 
 # post-list
 list_year_month: "YYYY-MM"

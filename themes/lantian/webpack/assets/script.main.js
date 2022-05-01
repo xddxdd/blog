@@ -4,7 +4,10 @@ import SimpleLightbox from 'simple-lightbox';
 import attempt from './js/attempt.js';
 
 import cfga from './js/cfga.js';
-import { init as walineInit, RecentComments as walineRecentComments } from '@waline/client';
+import {
+  init as walineInit,
+  RecentComments as walineRecentComments,
+} from '@waline/client';
 
 /*****************************************
  * Bootstrap Native
@@ -65,19 +68,11 @@ addLoadEvent(function () {
     /* https://blog.skk.moe/post/hello-darkmode-my-old-friend/ */
 
     const darkModeStorageKey = 'user-color-scheme'; // 作为 localStorage 的 key
-    const darkModeMediaQueryKey = '--color-mode';
     const rootElementDarkModeAttributeName = 'data-user-color-scheme';
-    const darkModeTogglebuttonElement = document.getElementById('dark-mode');
 
     const setLS = (k, v) => {
       try {
         localStorage.setItem(k, v);
-      } catch (e) {}
-    };
-
-    const removeLS = (k) => {
-      try {
-        localStorage.removeItem(k);
       } catch (e) {}
     };
 
@@ -89,56 +84,44 @@ addLoadEvent(function () {
       }
     };
 
-    const getModeFromCSSMediaQuery = () => {
-      const res = getComputedStyle(document.documentElement).getPropertyValue(
-        darkModeMediaQueryKey,
-      );
-      if (res.length) return res.replace(/\"/g, '').trim();
-      return res === 'dark' ? 'dark' : 'light';
-
-      // 使用 matchMedia API 的写法会优雅的多
-      // return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    };
-
     const applyCustomDarkModeSettings = (mode) => {
       const validColorModeKeys = {
         dark: true,
         light: true,
+        auto: true,
       };
 
-      // 接受从「开关」处传来的模式，或者从 localStorage 读取
-      const currentSetting = mode || getLS(darkModeStorageKey);
+      if (!validColorModeKeys[mode]) {
+        mode = 'auto';
+      }
+      setLS(darkModeStorageKey, mode);
 
-      if (currentSetting === getModeFromCSSMediaQuery()) {
-        // 当用户自定义的显示模式和 prefers-color-scheme 相同时重置、恢复到自动模式
-        document.documentElement.removeAttribute(
-          rootElementDarkModeAttributeName,
-        );
-        if (document.getElementById('twine')) {
+      for (const key in validColorModeKeys) {
+        if (key == mode) {
           document
-            .getElementById('twine')
-            .contentWindow.document.documentElement.removeAttribute(
-              rootElementDarkModeAttributeName,
-            );
+            .getElementById('color-scheme-' + key)
+            .classList.add('active');
+        } else {
+          document
+            .getElementById('color-scheme-' + key)
+            .classList.remove('active');
         }
-        removeLS(darkModeStorageKey);
-      } else if (validColorModeKeys[currentSetting]) {
-        // 相比 Array#indexOf，这种写法 Uglify 后字节数更少
+      }
+
+      if (mode != 'auto') {
         document.documentElement.setAttribute(
           rootElementDarkModeAttributeName,
-          currentSetting,
+          mode,
         );
         if (document.getElementById('twine')) {
           document
             .getElementById('twine')
             .contentWindow.document.documentElement.setAttribute(
               rootElementDarkModeAttributeName,
-              currentSetting,
+              mode,
             );
         }
       } else {
-        // 首次访问或从未使用过开关、localStorage 中没有存储的值，currentSetting 是 null
-        // 或者 localStorage 被篡改，currentSetting 不是合法值
         document.documentElement.removeAttribute(
           rootElementDarkModeAttributeName,
         );
@@ -149,42 +132,21 @@ addLoadEvent(function () {
               rootElementDarkModeAttributeName,
             );
         }
-        removeLS(darkModeStorageKey);
       }
-    };
-
-    const toggleCustomDarkMode = () => {
-      const invertDarkModeObj = {
-        dark: 'light',
-        light: 'dark',
-      };
-
-      let currentSetting = getLS(darkModeStorageKey);
-
-      if (invertDarkModeObj[currentSetting]) {
-        // 从 localStorage 中读取模式，并取相反的模式
-        currentSetting = invertDarkModeObj[currentSetting];
-      } else if (currentSetting === null) {
-        // localStorage 中没有相关值，或者 localStorage 抛了 Error
-        // 从 CSS 中读取当前 prefers-color-scheme 并取相反的模式
-        currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
-      } else {
-        // 不知道出了什么幺蛾子，比如 localStorage 被篡改成非法值
-        return; // 直接 return;
-      }
-      // 将相反的模式写入 localStorage
-      setLS(darkModeStorageKey, currentSetting);
-
-      return currentSetting;
     };
 
     // 当页面加载时，将显示模式设置为 localStorage 中自定义的值（如果有的话）
-    applyCustomDarkModeSettings();
+    applyCustomDarkModeSettings(getLS(darkModeStorageKey));
 
-    darkModeTogglebuttonElement.addEventListener('click', () => {
-      // 当用户点击「开关」时，获得新的显示模式、写入 localStorage、并在页面上生效
-      applyCustomDarkModeSettings(toggleCustomDarkMode());
-    });
+    document
+      .getElementById('color-scheme-auto')
+      .addEventListener('click', () => applyCustomDarkModeSettings('auto'));
+    document
+      .getElementById('color-scheme-light')
+      .addEventListener('click', () => applyCustomDarkModeSettings('light'));
+    document
+      .getElementById('color-scheme-dark')
+      .addEventListener('click', () => applyCustomDarkModeSettings('dark'));
   });
 
   attempt('Waline', function () {
@@ -248,9 +210,7 @@ addLoadEvent(function () {
     };
 
     let interactive_recurse = function (container) {
-      let option_list = container.getElementsByClassName(
-        'lti-option',
-      );
+      let option_list = container.getElementsByClassName('lti-option');
       if (!option_list) {
         return;
       }

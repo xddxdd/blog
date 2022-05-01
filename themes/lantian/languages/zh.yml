@@ -20,7 +20,11 @@ others: "其它功能"
 links: "友情链接"
 admin: "管理员"
 language: 'Language'
-color_scheme: '深色/浅色'
+
+color_scheme: '夜间模式'
+color_scheme_auto: '自动'
+color_scheme_light: '浅色'
+color_scheme_dark: '深色'
 
 # post-list
 list_year_month: "YYYY 年 MM 月"

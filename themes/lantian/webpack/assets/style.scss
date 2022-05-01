@@ -504,15 +504,7 @@ ul ul {
 // Waline css selectors are special
 @import 'sass/waline.scss';
 
-:root {
-    --color-mode: 'light';
-}
-
 @media (prefers-color-scheme: dark) {
-    :root {
-        --color-mode: 'dark';
-    }
-
     :root:not([data-user-color-scheme]) {
         @import 'style_dark.scss';
     }
