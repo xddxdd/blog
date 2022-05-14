@@ -8,14 +8,15 @@ import highlightLanguages from './highlight-js-languages';
 import path from 'path';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeMath from 'rehype-katex';
+import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
-import remarkRehype from 'remark-rehype';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkInlineLinks from 'remark-inline-links';
 import remarkMath from 'remark-math';
 import remarkMermaid from 'remark-mermaid';
 import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
 import remarkStringify from 'remark-stringify';
 
 function remarkRehypeHexoMoreHandler(h, node) {
@@ -63,6 +64,7 @@ export const markdownEngine = unified()
   })
   .use(rehypeMath)
   .use(rehypeHighlight, { languages: highlightLanguages })
+  .use(rehypeSlug)
   .use(rehypeStringify, {
     allowDangerousHtml: true,
   })

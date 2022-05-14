@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "6.1.0"
+    "version": "6.2.0"
   },
   "browserslist": [
     "last 1 version",
@@ -67,6 +67,7 @@
     "rehype-highlight": "^5.0.2",
     "rehype-katex": "^6.0.2",
     "rehype-parse": "^8.0.4",
+    "rehype-slug": "^5.0.1",
     "rehype-stringify": "^9.0.3",
     "remark-frontmatter": "^4.0.1",
     "remark-gfm": "^3.0.1",
