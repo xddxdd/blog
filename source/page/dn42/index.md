@@ -49,7 +49,7 @@ date: 1970-01-01 00:00:00
 
 1. 中国香港
    - 域名：`linkin.lantian.pub`
-   - 公网 IPv4：`23.226.61.104` / `v4.linkin.lantian.pub`
+   - 公网 IPv4：`103.172.81.11` / `v4.linkin.lantian.pub`
    - 公网 IPv6：暂无
    - DN42 IPv4：`172.22.76.186` / `v4.linkin.dn42.lantian.pub`
    - DN42 IPv6：`fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
