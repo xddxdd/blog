@@ -1,3 +1,6 @@
+/* Fix ReferenceError: regeneratorRuntime is not defined */
+import 'regenerator-runtime/runtime';
+
 import 'instant.page';
 import SimpleLightbox from 'simple-lightbox';
 
