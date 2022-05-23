@@ -36,7 +36,7 @@
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
     "cssnano": "^5.1.9",
-    "cssnano-preset-advanced": "^5.3.4",
+    "cssnano-preset-advanced": "^5.3.5",
     "flag-icon-css": "^4.1.7",
     "hexo": "6.2",
     "hexo-deployer-git": "^3.0.0",
