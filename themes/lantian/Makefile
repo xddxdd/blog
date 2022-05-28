@@ -2,6 +2,9 @@
 
 all: markdown webpack
 
+favicon:
+	$(MAKE) -C favicon
+
 markdown:
 	$(MAKE) -C lib/markdown
 

@@ -9,6 +9,7 @@ theme: deps
 
 public:
 	@node node_modules/hexo/bin/hexo generate 2>&1 | tee hexo.log
+	@cp -r themes/lantian/favicon/generated/* public/
 
 verify: deps public
 	[ -s "public/index.html" ] || exit 1
