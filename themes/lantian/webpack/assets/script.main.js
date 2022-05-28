@@ -6,7 +6,7 @@ import SimpleLightbox from 'simple-lightbox';
 
 import attempt from './js/attempt.js';
 
-import cfga from './js/cfga.js';
+import Plausible from 'plausible-tracker';
 import {
   init as walineInit,
   RecentComments as walineRecentComments,
@@ -27,17 +27,14 @@ addLoadEvent(function () {
 
   attempt('Bootstrap.Native', initCallback);
 
-  attempt('Google Analytics', function () {
+  attempt('Plausible Analytics', function () {
     'use strict';
-    // ga('create', 'UA-37067735-1');
-    // ga('send', 'pageview', location.pathname + location.search);
-    cfga(
-      window,
-      document,
-      navigator,
-      'UA-37067735-1',
-      'https://ga.lantian.pub/jquery.min.js',
-    );
+    const plausible = Plausible({
+      domain: "lantian.pub",
+      trackLocalhost: true,
+      apiHost: "",
+    });
+    plausible.trackPageview();
   });
 
   attempt('Simple Lightbox', function () {
