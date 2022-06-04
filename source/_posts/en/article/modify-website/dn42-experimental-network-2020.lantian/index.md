@@ -1,5 +1,5 @@
 ---
-title: 'DN42 Experimental Network: Intro and Registration (Updated 2022-02)'
+title: 'DN42 Experimental Network: Intro and Registration (Updated 2022-06)'
 categories: 'Website and Servers'
 tags: [DN42, BGP]
 date: 2021-05-02 12:21:45
@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2022-06: Update to the latest registration procedure.
 - 2022-02: Update `rp_filter` content, never use `rp_filter=2`!
 - 2021-06: Improve readability of some config files, differ `contact` from `e-mail`.
 - 2021-05: Add "Skills Required" section; Add iptables firewall rules.
@@ -66,16 +67,9 @@ In addition, since a bunch of UNIX tools (such as Git, GnuPG) are required in th
 Here are the steps:
 
 1. First, go to [https://git.dn42.dev](https://git.dn42.dev) and register an account. This is the GitHub for DN42, and the account information is stored in one of the git repos.
-2. Visit [dn42/registry](https://git.dn42.dev/dn42/registry), the account information repo, and `git clone` it to your local machine.
-   - Previously, you needed to fork the repo, but now DN42 has simplified the process, and you only need to create a branch.
-3. Create a new branch named after `[NICKNAME]-[Date, YYYYMMDD]/[Custom Branch Name]`.
-   - Assuming that I want to register on 2020-09-01, my branch name will be `lantian-20200901/register`.
-   - Run these two lines to create your branch and upload it. Remember to replace with your own branch name:
-
-     ```bash
-     git checkout -b lantian-20200901/register
-     git push --set-upstream origin lantian-20200901/register
-     ```
+2. Visit [dn42/registry](https://git.dn42.dev/dn42/registry), the account information repo, and click Fork on the top right. This will create a copy of the repo into your own account.
+   - Previously you can directly create a branch in the repository, but now you need to fork the repo, just like what you do on GitHub and similar sites.
+3. Now the page should automatically switch to the copy in your own account. Git clone it to your local machine.
 
 4. Now, you need to create a series of files in the cloned repo, including:
    1. Create a file `[NICKNAME]-MNT` under `data/mntner` directory. This file is your account that authorizes your further operations. For example, this is my `mntner` file (available under `data/mntner/LANTIAN-MNT`):
@@ -393,7 +387,7 @@ Here are the steps:
    ```
 
 8. Run `git push -f` to upload your changes to the Git server.
-9. Back to [dn42/registry](https://git.dn42.dev/dn42/registry), start a Pull Request and wait for your information to be merged.
+9.  Back to [dn42/registry](https://git.dn42.dev/dn42/registry), send a Pull Request and wait for your information to be merged.
    - If you're authenticating with SSH pubkey, firstly run `git log` to see the hash of your commit, then run this command and post the result along with your Pull Request:
      - `echo [commit hash] | ssh-keygen -Y sign -f ~/.ssh/id_ed25519 -n dn42`
      - Remember to replace with your commit hash and private key location.
