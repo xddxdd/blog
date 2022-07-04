@@ -56,7 +56,7 @@
     "hexo-spoiler": "^1.7.3",
     "hexo-util": "^2.6.1",
     "highlight.js": "^11.5.1",
-    "instant.page": "^5.1.0",
+    "instant.page": "^5.1.1",
     "is-color-stop": "^1.1.0",
     "is-fullwidth-code-point": "^3.0.0",
     "katex": "^0.16.0",
