@@ -9,6 +9,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 Changelog
 ---------
 
+2022-07-21: Add starting GVT-g on startup. Thanks to comment from Owsmyf (on Chinese version of this post).
 2022-01-22: Revisions on NVIDIA driver updates and comments.
 
 > [I successfully passed through an Optimus MUXed GPU on my new laptop.](/en/article/modify-computer/laptop-muxed-nvidia-passthrough.lantian)
@@ -299,6 +300,9 @@ Passing through this virtual Intel GPU is also relatively easy and may serve as 
      ```
 
      Pay attention to the iGPU PCIe bus location. In addition you can optionally replace the UUID.
+
+     In addition, each time you restart the system, you need to run this command manually before starting the VM. You can also add this command to `/etc/rc.local` to create the virtual GPU on startup. It does not have performance impacts when the VM is off.
+
 3. Modify the VM configuration to expose the virtual GPU
    - Run `virsh edit Win10`, where `Win10` is the name of your VM. Insert the following contents above `</devices>`:
 

@@ -9,6 +9,7 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 更新记录
 -------
 
+2022-07-21：补充 GVT-g 开机自启，感谢 Owsmyf 提醒。
 2022-01-22：根据 NVIDIA 驱动更新、评论区反馈更新内容。
 
 > [我在新电脑上成功完成了 Optimus MUXed 显卡直通。](/article/modify-computer/laptop-muxed-nvidia-passthrough.lantian)
@@ -301,6 +302,9 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
      ```
 
      其中注意替换核显的 PCIe 编号，以及可以替换传入的 UUID。
+
+     另外，每次系统重启后，你都需要在启动虚拟机之前手动运行这条命令。你也可以把这条命令加入 `/etc/rc.local`，在开机时自动添加虚拟显卡。虚拟机不运行时，虚拟显卡是不影响性能的。
+
 3. 修改虚拟机配置，让虚拟显卡对虚拟机可见
    - 运行 `virsh edit Win10`，其中 `Win10` 是你的虚拟机名，在 `</devices>` 前加入以下内容：
 
