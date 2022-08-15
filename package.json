@@ -81,7 +81,7 @@
     "remark-rehype": "^10.1.0",
     "remark-stringify": "^10.0.2",
     "resolve-url-loader": "^5.0.0",
-    "rollup": "^2.77.3",
+    "rollup": "^2.78.0",
     "sass": "^1.54.4",
     "sass-loader": "^13.0.2",
     "sass-material-colors": "0.0.5",
