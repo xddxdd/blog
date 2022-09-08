@@ -82,7 +82,7 @@
     "remark-stringify": "^10.0.2",
     "resolve-url-loader": "^5.0.0",
     "rollup": "^2.79.0",
-    "sass": "^1.54.8",
+    "sass": "^1.54.9",
     "sass-loader": "^13.0.2",
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
