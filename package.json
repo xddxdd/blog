@@ -39,7 +39,7 @@
     "cssnano": "^5.1.13",
     "cssnano-preset-advanced": "^5.3.8",
     "flag-icon-css": "^4.1.7",
-    "hexo": "6.2",
+    "hexo": "6.3",
     "hexo-deployer-git": "^3.0.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
