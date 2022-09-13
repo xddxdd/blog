@@ -7,6 +7,15 @@ $enable-transitions: false;
 $body-bg: material-color('light-blue', '100');
 $body-bg-dark: material-color('grey', '900');
 
+$link-hover-color: $primary-hover;
+
+$navbar-light-color: $primary;
+$navbar-light-hover-color: $primary-hover;
+$navbar-light-active-color: $primary;
+$navbar-dark-color: $primary;
+$navbar-dark-hover-color: $primary-hover;
+$navbar-dark-active-color: $primary;
+
 $blockquote-font-size: $font-size-base;
 
 $navbar-nav-link-padding-x: 1rem;
@@ -37,5 +46,6 @@ $link-decoration: none;
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
+@import "~bootstrap/scss/maps";
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/utilities';
