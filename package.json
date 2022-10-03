@@ -33,7 +33,7 @@
     "bootstrap.native": "^4.2.0",
     "browserslist": "^4.21.4",
     "cli-real-favicon": "^0.0.8",
-    "core-js": "^3.25.3",
+    "core-js": "^3.25.4",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.1.0",
     "cssnano": "^5.1.13",
