@@ -87,7 +87,7 @@
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
     "style-loader": "^3.3.1",
-    "svgo-loader": "^3.0.2",
+    "svgo-loader": "^3.0.3",
     "terser-webpack-plugin": "^5.3.6",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.1",
