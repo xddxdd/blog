@@ -27,7 +27,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@waline/client": "^2.13.0",
     "acorn": "^8.8.1",
-    "autoprefixer": "^10.4.12",
+    "autoprefixer": "^10.4.13",
     "babel-loader": "^8.2.5",
     "bootstrap": "^5.2.2",
     "bootstrap.native": "^4.2.0",
