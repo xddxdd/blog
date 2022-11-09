@@ -1,48 +1,48 @@
-const { gopherEngine } = require('../lib/markdown');
+const { gopherEngine } = require('../lib/markdown')
 
-var prettier = require('prettier');
-var fs = require('hexo-fs');
-var path = require('path');
-const LANTIAN = require('../lib/lantian');
+var prettier = require('prettier')
+var fs = require('hexo-fs')
+var path = require('path')
+const LANTIAN = require('../lib/lantian')
 
 const { isDefaultLanguage, postFilter, injectLanguages } =
-  require('../lib/i18n')(hexo);
-const LANGUAGE_TAGS = require('../lib/language');
+  require('../lib/i18n')(hexo)
+const LANGUAGE_TAGS = require('../lib/language')
 
-const crlf = '\r\n';
-const gopherBefore = 'i';
-const gopherBeforeLink = '1';
-const gopherBeforeImage = 'I';
-const gopherAfter = '\t\t{{server_addr}}\t{{server_port}}' + crlf;
-const gopherEOF = '.' + crlf;
+const crlf = '\r\n'
+const gopherBefore = 'i'
+const gopherBeforeLink = '1'
+const gopherBeforeImage = 'I'
+const gopherAfter = '\t\t{{server_addr}}\t{{server_port}}' + crlf
+const gopherEOF = '.' + crlf
 
 // https://github.com/benjojo/gophervista/blob/master/blog-gopher-bridge/main.go
 
 function markdown_formatter(rel_path, md) {
-  const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g;
+  const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g
 
-  var rows = md.split('\n');
+  var rows = md.split('\n')
   for (var i = 0; i < rows.length; i++) {
     // Link regex can also match images
     if (rows[i].match(markdownRegex)) {
       var replace_at_beginning = false,
-        replace_at_end = false;
+        replace_at_end = false
 
       var replace_fn = (match, prefix, img_marker, label, href, suffix) => {
         // Don't touch external links
         if (href.match('://')) {
-          return match;
+          return match
         }
 
         if (prefix !== null) {
-          replace_at_beginning = true;
+          replace_at_beginning = true
         }
         if (suffix !== null) {
-          replace_at_end = true;
+          replace_at_end = true
         }
 
         if (!href.startsWith('/')) {
-          href = path.join('/', rel_path, href);
+          href = path.join('/', rel_path, href)
         }
 
         return (
@@ -54,27 +54,27 @@ function markdown_formatter(rel_path, md) {
           '\t{{server_addr}}\t{{server_port}}' +
           crlf +
           (suffix ? gopherBefore + suffix : '')
-        );
-      };
+        )
+      }
 
-      rows[i] = rows[i].replaceAll(markdownRegex, replace_fn);
+      rows[i] = rows[i].replaceAll(markdownRegex, replace_fn)
       rows[i] =
         (replace_at_beginning ? '' : gopherBefore) +
         rows[i] +
-        (replace_at_end ? '' : gopherAfter);
+        (replace_at_end ? '' : gopherAfter)
     } else {
-      rows[i] = gopherBefore + rows[i] + gopherAfter;
+      rows[i] = gopherBefore + rows[i] + gopherAfter
     }
   }
 
-  return rows.join('') + gopherEOF;
+  return rows.join('') + gopherEOF
 }
 
 var markdown_to_gopher = (result, data) => {
   if (data.page.raw) {
-    const file = gopherEngine.processSync(data.page.raw);
-    var md = String(file);
-    if (!md) return;
+    const file = gopherEngine.processSync(data.page.raw)
+    var md = String(file)
+    if (!md) return
 
     md = prettier.format(md, {
       parser: 'markdown',
@@ -82,30 +82,30 @@ var markdown_to_gopher = (result, data) => {
       tabWidth: 2,
       proseWrap: 'always',
       endOfLine: 'lf',
-    });
-    if (!md) return;
+    })
+    if (!md) return
 
-    md = markdown_formatter(path.dirname(data.path), md);
+    md = markdown_formatter(path.dirname(data.path), md)
 
-    var target_path = data.path;
-    target_path = target_path.replace(/index\.html$/, 'gophermap');
-    target_path = target_path.replace(/.html$/, '.gopher');
+    var target_path = data.path
+    target_path = target_path.replace(/index\.html$/, 'gophermap')
+    target_path = target_path.replace(/.html$/, '.gopher')
 
-    fs.writeFileSync(path.join(hexo.public_dir, target_path), md);
-    hexo.log.info('[LT Gopher] Generated: ' + target_path);
+    fs.writeFileSync(path.join(hexo.public_dir, target_path), md)
+    hexo.log.info('[LT Gopher] Generated: ' + target_path)
   }
-};
+}
 
 var gophermap_index_generator = injectLanguages((languages, locals) => {
-  return languages.map((language) => {
-    var data = '';
-    data += gopherBefore + '#' + gopherAfter;
-    data += gopherBefore + '# ' + hexo.config.title + gopherAfter;
-    data += gopherBefore + '#' + gopherAfter;
-    data += gopherBefore + gopherAfter;
+  return languages.map(language => {
+    var data = ''
+    data += gopherBefore + '#' + gopherAfter
+    data += gopherBefore + '# ' + hexo.config.title + gopherAfter
+    data += gopherBefore + '#' + gopherAfter
+    data += gopherBefore + gopherAfter
 
-    data += gopherBefore + 'Languages:' + gopherAfter;
-    languages.map((lang) => {
+    data += gopherBefore + 'Languages:' + gopherAfter
+    languages.map(lang => {
       data +=
         gopherBeforeLink +
         '- ' +
@@ -114,15 +114,15 @@ var gophermap_index_generator = injectLanguages((languages, locals) => {
         '\t' +
         (isDefaultLanguage(lang) ? '/' : '/' + lang + '/') +
         '\t{{server_addr}}\t{{server_port}}' +
-        crlf;
-    });
-    data += gopherBefore + gopherAfter;
+        crlf
+    })
+    data += gopherBefore + gopherAfter
 
-    data += gopherBefore + 'Posts:' + gopherAfter;
+    data += gopherBefore + 'Posts:' + gopherAfter
     locals.posts
       .filter(postFilter(language))
       .sort('date', 'desc')
-      .each((post) => {
+      .each(post => {
         data +=
           gopherBeforeLink +
           '- ' +
@@ -133,41 +133,41 @@ var gophermap_index_generator = injectLanguages((languages, locals) => {
           '\t/' +
           post.path.replace(/index\.html$/g, '') +
           '\t{{server_addr}}\t{{server_port}}' +
-          crlf;
+          crlf
 
-        var summary = post.content.trim().replace(LANTIAN.EXCERPT_REGEX, '');
+        var summary = post.content.trim().replace(LANTIAN.EXCERPT_REGEX, '')
         data +=
           gopherBefore +
           '  ' +
           LANTIAN.slice_width(summary, 0, 68) +
-          gopherAfter;
+          gopherAfter
         data +=
           gopherBefore +
           '  ' +
           LANTIAN.slice_width(summary, 68, 68) +
-          gopherAfter;
+          gopherAfter
         data +=
           gopherBefore +
           '  ' +
           LANTIAN.slice_width(summary, 136, 68) +
-          gopherAfter;
-        data += gopherBefore + gopherAfter;
-      });
-    data += gopherEOF;
+          gopherAfter
+        data += gopherBefore + gopherAfter
+      })
+    data += gopherEOF
 
     var path =
-      (isDefaultLanguage(language) ? '/' : '/' + language + '/') + 'gophermap';
-    hexo.log.info('[LT Gopher] Generated: ' + path);
+      (isDefaultLanguage(language) ? '/' : '/' + language + '/') + 'gophermap'
+    hexo.log.info('[LT Gopher] Generated: ' + path)
     return {
       path: path,
 
       data: data,
-    };
-  });
-});
+    }
+  })
+})
 
-hexo.extend.filter.register('after_render:html', markdown_to_gopher, 1);
+hexo.extend.filter.register('after_render:html', markdown_to_gopher, 1)
 hexo.extend.generator.register(
   'gophermap_index_generator',
-  gophermap_index_generator,
-);
+  gophermap_index_generator
+)

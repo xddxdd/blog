@@ -93,5 +93,13 @@
     "unist-util-visit": "^4.1.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "proseWrap": "always"
   }
 }

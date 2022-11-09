@@ -1,51 +1,51 @@
-'use strict';
+'use strict'
 
-import { includeMarkdown } from '@hashicorp/platform-remark-plugins';
-import { remarkGraphvizSvg } from './remark-graphviz-svg';
-import { unified } from 'unified';
-import { visit } from 'unist-util-visit';
-import highlightLanguages from './highlight-js-languages';
-import path from 'path';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeMath from 'rehype-katex';
-import rehypeSlug from 'rehype-slug';
-import rehypeStringify from 'rehype-stringify';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkGfm from 'remark-gfm';
-import remarkInlineLinks from 'remark-inline-links';
-import remarkMath from 'remark-math';
-import remarkMermaid from 'remark-mermaid';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import remarkStringify from 'remark-stringify';
+import { includeMarkdown } from '@hashicorp/platform-remark-plugins'
+import { remarkGraphvizSvg } from './remark-graphviz-svg'
+import { unified } from 'unified'
+import { visit } from 'unist-util-visit'
+import highlightLanguages from './highlight-js-languages'
+import path from 'path'
+import rehypeHighlight from 'rehype-highlight'
+import rehypeMath from 'rehype-katex'
+import rehypeSlug from 'rehype-slug'
+import rehypeStringify from 'rehype-stringify'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkGfm from 'remark-gfm'
+import remarkInlineLinks from 'remark-inline-links'
+import remarkMath from 'remark-math'
+import remarkMermaid from 'remark-mermaid'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import remarkStringify from 'remark-stringify'
 
 function remarkRehypeHexoMoreHandler(h, node) {
-  const newNode = h(node);
-  newNode.type = 'comment';
-  newNode.value = 'more';
+  const newNode = h(node)
+  newNode.type = 'comment'
+  newNode.value = 'more'
 
-  delete newNode.tagName;
+  delete newNode.tagName
 
-  return newNode;
+  return newNode
 }
 
-export const chineseQuotes = (s) =>
+export const chineseQuotes = s =>
   typeof s === 'string'
     ? s
         .replaceAll('“', '「')
         .replaceAll('”', '」')
         .replaceAll('‘', '『')
         .replaceAll('’', '』')
-    : s;
+    : s
 
-let remarkChineseQuotes = () => (tree) => {
-  visit(tree, (node) => {
+let remarkChineseQuotes = () => tree => {
+  visit(tree, node => {
     if (typeof node.value === 'string') {
-      node.value = chineseQuotes(node.value);
+      node.value = chineseQuotes(node.value)
     }
-    return node;
-  });
-};
+    return node
+  })
+}
 
 export const markdownEngine = unified()
   .use(remarkParse)
@@ -68,7 +68,7 @@ export const markdownEngine = unified()
   .use(rehypeStringify, {
     allowDangerousHtml: true,
   })
-  .freeze();
+  .freeze()
 
 export const gopherEngine = unified()
   .use(remarkParse)
@@ -85,4 +85,4 @@ export const gopherEngine = unified()
     listItemIndent: 'one',
     resourceLink: false,
   })
-  .freeze();
+  .freeze()

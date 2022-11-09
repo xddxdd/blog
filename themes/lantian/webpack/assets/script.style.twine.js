@@ -1,1 +1,1 @@
-import './style_twine.scss';
+import './style_twine.scss'
