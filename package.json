@@ -54,7 +54,7 @@
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-stylus": "^2.1.0",
     "hexo-spoiler": "^1.7.3",
-    "hexo-util": "^2.7.0",
+    "hexo-util": "^3.0.1",
     "highlight.js": "^11.6.0",
     "instant.page": "^5.1.1",
     "is-color-stop": "^1.1.0",
