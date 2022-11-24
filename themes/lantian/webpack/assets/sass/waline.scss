@@ -95,17 +95,19 @@
 }
 
 [data-waline] * {
-    border-radius: 0 !important;
+  border-radius: 0 !important;
 }
 
-@import '../../node_modules/@waline/client/src/styles/nomalize.scss';
+@import '../../node_modules/@waline/client/src/styles/normalize.scss';
 @import '../../node_modules/@waline/client/src/styles/base.scss';
 @import '../../node_modules/@waline/client/src/styles/panel.scss';
 @import '../../node_modules/@waline/client/src/styles/emoji.scss';
 @import '../../node_modules/@waline/client/src/styles/gif.scss';
 @import '../../node_modules/@waline/client/src/styles/card.scss';
 @import '../../node_modules/@waline/client/src/styles/layout.scss';
+@import '../../node_modules/@waline/client/src/styles/reaction.scss';
 @import '../../node_modules/@waline/client/src/styles/recent.scss';
+@import '../../node_modules/@waline/client/src/styles/user-list.scss';
 
 .wl-content {
   pre,
