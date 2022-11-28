@@ -22,7 +22,7 @@
     "@hashicorp/platform-remark-plugins": "^0.1.0",
     "@hpcc-js/wasm": "2.1",
     "@lantian1998/hexo-generator-json-feed-org": "github:lantian1998/hexo-generator-json-feed-org",
-    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-commonjs": "^23.0.3",
     "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@waline/client": "2.14",
