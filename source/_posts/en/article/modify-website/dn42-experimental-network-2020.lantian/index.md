@@ -1,5 +1,5 @@
 ---
-title: 'DN42 Experimental Network: Intro and Registration (Updated 2022-06)'
+title: 'DN42 Experimental Network: Intro and Registration (Updated 2022-12)'
 categories: 'Website and Servers'
 tags: [DN42, BGP]
 date: 2021-05-02 12:21:45
@@ -21,6 +21,7 @@ DN42 is running on `172.20.0.0/14` and `fd00::/8`, IP blocks reserved for intern
 Changelog
 ---------
 
+- 2022-12: Add steps to use a free IPv4 block finder.
 - 2022-06: Update to the latest registration procedure.
 - 2022-02: Update `rp_filter` content, never use `rp_filter=2`!
 - 2021-06: Improve readability of some config files, differ `contact` from `e-mail`.
@@ -182,6 +183,12 @@ Here are the steps:
    4. Next, you start to choose your IP. Browse to `data/inetnum` folder, where all registered IPv4 blocks are stored. You need to find a free space and occupy it for your own use.
 
       - DN42's IPv4 addresses are in range `172.20.0.0/14`, or `172.20.0.0 - 172.23.255.255`.
+        - However, a lot of IPv4 blocks are reserved for other purposes, and you cannot apply for them. Therefore,
+        - **Please use the following tools to choose your IP block, instead of manually finding one in `data/inetnum`**.
+        - **Please use the following tools to choose your IP block, instead of manually finding one in `data/inetnum`**.
+        - **Please use the following tools to choose your IP block, instead of manually finding one in `data/inetnum`**.
+          - <https://explorer.burble.com/free#/4>
+          - <https://dn42.us/peers/free>
       - The smallest address block you can register in DN42 is `/29`, or 8 IPs. Out of which 6 IPs are usable for servers and devices, as the first IP is reserved for marking the address block, and the last IP is for broadcasting within the block.
         - For users who "just want a bit of experience", `/29` is enough.
       - If you satisfy any requirement below, `/29` is not enough for you, and you need to apply for a larger block:
