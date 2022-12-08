@@ -1,4 +1,4 @@
-const isFullwidthCodePoint = require('is-fullwidth-code-point')
+const { isFullwidthCodePoint } = require('./markdown')
 
 function slice_width(str, start, length) {
   var idx_first = 0

@@ -18,6 +18,7 @@ import remarkMermaid from 'remark-mermaid'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import remarkStringify from 'remark-stringify'
+import isFullwidthCodePoint from 'is-fullwidth-code-point'
 
 function remarkRehypeHexoMoreHandler(h, node) {
   const newNode = h(node)
@@ -46,6 +47,8 @@ let remarkChineseQuotes = () => tree => {
     return node
   })
 }
+
+export { isFullwidthCodePoint }
 
 export const markdownEngine = unified()
   .use(remarkParse)
