@@ -152,7 +152,7 @@ addLoadEvent(function () {
       walineInit(waline_config)
     }
     walineRecentComments({
-      serverURL: 'https://comments.lantian.pub',
+      serverURL: window.location.origin,
       count: 10,
     }).then(({ comments }) => {
       document.getElementById('recent-comments').innerHTML = comments

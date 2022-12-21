@@ -2,7 +2,7 @@
 <script>
     var waline_config = {
         el: '#waline',
-        serverURL: 'https://comments.lantian.pub',
+        serverURL: window.location.origin,
         path: '/<%= remove_trailing_slash(page.path) %>',
         lang: '<% if (page_language() == "zh") { %>zh-CN<% } else { %>en-US<% } %>',
         requiredMeta: ['nick', 'mail'],
