@@ -65,12 +65,12 @@ Servers
    - Link-local IPv6: `fe80::2547`
    - WireGuard Public Key: `JJUfHeE1ZgyXzo5aoE0tQfk6wZvnVU/d0V3/uSj61ns=`
 
-3. Los Angeles, United States, provider HostDare
-   - Domain: `hostdare.lantian.pub`
-   - Public IPv4: `185.186.147.110` / `v4.hostdare.lantian.pub`
-   - Public IPv6: `2607:fcd0:100:b100::198a:b7f6` / `v6.hostdare.lantian.pub`
-   - DN42 IPv4: `172.22.76.185` / `v4.hostdare.dn42.lantian.pub`
-   - DN42 IPv6: `fdbc:f9dc:67ad:3::1` / `v6.hostdare.dn42.lantian.pub`
+3. San Jose, United States, provider V.PS
+   - Domain: `v-ps-sjc.lantian.pub`
+   - Public IPv4: `180.66.196.80` / `v4.v-ps-sjc.lantian.pub`
+   - Public IPv6: `2604:a840:2::ed` / `v6.v-ps-sjc.lantian.pub`
+   - DN42 IPv4: `172.22.76.185` / `v4.v-ps-sjc.dn42.lantian.pub`
+   - DN42 IPv6: `fdbc:f9dc:67ad:3::1` / `v6.v-ps-sjc.dn42.lantian.pub`
    - Link-local IPv6: `fe80::2547`
    - WireGuard Public Key: `zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
 
