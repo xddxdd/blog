@@ -47,12 +47,12 @@ date: 1970-01-01 00:00:00
 服务器列表
 --------
 
-1. 中国香港
-   - 域名：`linkin.lantian.pub`
-   - 公网 IPv4：`103.172.81.11` / `v4.linkin.lantian.pub`
-   - 公网 IPv6：暂无
-   - DN42 IPv4：`172.22.76.186` / `v4.linkin.dn42.lantian.pub`
-   - DN42 IPv6：`fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
+1. 中国香港，V.PS 服务商
+   - 域名：`v-ps-hkg.lantian.pub`
+   - 公网 IPv4：`95.214.164.82` / `v4.v-ps-hkg.lantian.pub`
+   - 公网 IPv6：`2403:2c80:b::12cc` / `v6.v-ps-hkg.lantian.pub`
+   - DN42 IPv4：`172.22.76.186` / `v4.v-ps-hkg.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:1::1` / `v6.v-ps-hkg.dn42.lantian.pub`
    - Link-local IPv6：`fe80::2547`
    - WireGuard 公钥：`xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
 

@@ -47,12 +47,12 @@ My Network
 Servers
 -------
 
-1. Hong Kong, China
-   - Domain: `linkin.lantian.pub`
-   - Public IPv4: `103.172.81.11` / `v4.linkin.lantian.pub`
-   - Public IPv6: Unavailable
-   - DN42 IPv4: `172.22.76.186` / `v4.linkin.dn42.lantian.pub`
-   - DN42 IPv6: `fdbc:f9dc:67ad:1::1` / `v6.linkin.dn42.lantian.pub`
+1. Hong Kong, China, provider V.PS
+   - Domain: `v-ps-hkg.lantian.pub`
+   - Public IPv4: `95.214.164.82` / `v4.v-ps-hkg.lantian.pub`
+   - Public IPv6: `2403:2c80:b::12cc` / `v6.v-ps-hkg.lantian.pub`
+   - DN42 IPv4: `172.22.76.186` / `v4.v-ps-hkg.dn42.lantian.pub`
+   - DN42 IPv6: `fdbc:f9dc:67ad:1::1` / `v6.v-ps-hkg.dn42.lantian.pub`
    - Link-local IPv6: `fe80::2547`
    - WireGuard Public Key: `xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
 
