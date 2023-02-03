@@ -96,10 +96,24 @@
   },
   "prettier": {
     "trailingComma": "es5",
-    "tabWidth": 2,
+    "tabWidth": 4,
     "semi": false,
     "singleQuote": true,
     "arrowParens": "avoid",
-    "proseWrap": "always"
+    "proseWrap": "always",
+    "overrides": [
+      {
+        "files": "*.js",
+        "options": {
+          "tabWidth": 2
+        }
+      },
+      {
+        "files": "*.json",
+        "options": {
+          "tabWidth": 2
+        }
+      }
+    ]
   }
 }
