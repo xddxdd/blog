@@ -8,6 +8,3 @@ public/
 .parallel_jobs.lst
 log.txt
 img_cache/
-
-# Theme lantian
-themes/lantian/source/assets

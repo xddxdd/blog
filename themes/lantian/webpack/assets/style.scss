@@ -32,16 +32,32 @@ a {
 
 nav.lantian {
     padding: 0;
+    border-left: 5px solid $primary;
+
+    .container-fluid {
+        padding: 0;
+    }
 
     .navbar-brand {
         margin: 0;
-        @include media-breakpoint-down(lg) {
-            padding: 1rem 0.25rem;
-        }
-        @include media-breakpoint-up(lg) {
-            padding: 1rem 0.75rem;
-        }
+        padding: 0.75rem;
         font-weight: 700;
+
+        p {
+            margin: 0;
+            line-height: 1;
+            &.big {
+                font-family: 'Zhi Mang Xing';
+                font-size: 2rem;
+            }
+            &.small {
+                font-family: Rajdhani;
+                font-size: 1rem;
+                // To align first character with Chinese
+                margin-left: 0.25rem;
+                text-transform: uppercase;
+            }
+        }
     }
 
     .navbar-nav {
@@ -284,7 +300,8 @@ article {
             }
         }
 
-        .btn-group-vertical > .btn-group, .btn-group-vertical > .btn {
+        .btn-group-vertical > .btn-group,
+        .btn-group-vertical > .btn {
             margin-left: 0 !important;
         }
 
