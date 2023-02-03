@@ -65,6 +65,12 @@ nav.lantian {
             background-color: $primary;
             color: #fff;
         }
+
+        @include media-breakpoint-down(lg) {
+            .nav-item {
+                margin: 0 1rem;
+            }
+        }
     }
 
     .navbar-spacer {
