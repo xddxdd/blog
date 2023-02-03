@@ -1,5 +1,6 @@
 const { gopherEngine } = require('../lib/markdown')
 
+const os = require('os')
 var prettier = require('prettier')
 var fs = require('hexo-fs')
 var path = require('path')
@@ -166,8 +167,13 @@ var gophermap_index_generator = injectLanguages((languages, locals) => {
   })
 })
 
-hexo.extend.filter.register('after_render:html', markdown_to_gopher, 1)
-hexo.extend.generator.register(
-  'gophermap_index_generator',
-  gophermap_index_generator
-)
+// HACK: Don't generate gophermaps on client
+if (!os.hostname().startsWith('lt-')) {
+  hexo.extend.filter.register('after_render:html', markdown_to_gopher, 1)
+  hexo.extend.generator.register(
+    'gophermap_index_generator',
+    gophermap_index_generator
+  )
+} else {
+  hexo.log.info('[LT Gopher] Generation disabled on lt-* hosts')
+}
