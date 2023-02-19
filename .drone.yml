@@ -49,7 +49,7 @@ steps:
   - name: hexo generate
     image: node:17-alpine
     commands:
-      - apk add --no-cache build-base git gzip brotli zstd parallel rsync
+      - apk add --no-cache build-base git gzip brotli zstd parallel rsync imagemagick vips-dev python3
       - make
 
   - name: hexo deploy
@@ -58,7 +58,7 @@ steps:
       NETRC:
         from_secret: netrc
     commands:
-      - apk add --no-cache build-base git gzip brotli zstd parallel rsync
+      - apk add --no-cache build-base git gzip brotli zstd parallel rsync imagemagick vips-dev python3
 
       # Set git logins
       - echo $NETRC > ~/.netrc
