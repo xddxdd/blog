@@ -213,6 +213,7 @@ environment.persistence."/nix/persistent" = {
 
   # Folders you want to map
   directories = [
+    "/etc/NetworkManager/system-connections"
     "/home"
     "/root"
     "/var"
@@ -221,7 +222,6 @@ environment.persistence."/nix/persistent" = {
   # Files you want to map
   files = [
     "/etc/machine-id"
-    "/etc/NetworkManager/system-connections"
     "/etc/ssh/ssh_host_ed25519_key.pub"
     "/etc/ssh/ssh_host_ed25519_key"
     "/etc/ssh/ssh_host_rsa_key.pub"
