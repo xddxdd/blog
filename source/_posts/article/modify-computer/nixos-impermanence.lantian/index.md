@@ -8,6 +8,10 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 @include "\_templates/nixos-series/toc-zh.md"
 
+> 更新记录：
+>
+> 2023-02-18：在“移动 Nix Daemon 的临时文件夹”一段，修正配置不对 root 用户生效的问题。
+
 NixOS 广为人知的一大特点是，系统大部分软件的设置都由 Nix 语言的配置文件统一生成并管理。即使这些软件在运行时修改了自己的配置文件，在下次切换 Nix 配置或者系统重启时，NixOS 也会将配置文件重新覆盖。
 
 例如，在运行 NixOS 的电脑上运行 `ls -alh /etc`，可以看到大部分配置文件都只是到 `/etc/static` 的软链接：
@@ -265,6 +269,14 @@ systemd.services.nix-daemon = {
   };
 };
 ```
+
+但是，这项配置不对 root 用户生效，这是因为在 root 用户下，nix 命令会自己处理构建请求，而不是把请求发给 Nix Daemon。因此，我们还需要添加一个环境变量 `NIX_REMOTE=daemon`，强制让 nix 命令调用 Daemon：
+
+```nix
+environment.variables.NIX_REMOTE = "daemon";
+```
+
+> 感谢 NixOS 中文 Telegram 群“洗白白”提出的问题，以及“Nick Cao”给出的解决方案。
 
 ## 激活配置
 

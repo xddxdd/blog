@@ -8,6 +8,10 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 @include "\_templates/nixos-series/toc-en.md"
 
+> Changelog:
+>
+> 2023-02-18: Fix config not applied to the root user, in the "Move Temp Directory of Nix Daemon" section.
+
 One of the most famous features of NixOS is that most software configurations on the system are generated and managed exclusively by a Nix-language config file. Even if such software modifies its config file while running, the config file will still be overwritten on the next Nix config switch or the next reboot.
 
 For example, if you run `ls -alh /etc` on a computer running NixOS, you can observe that most config files are simply soft links to `/etc/static`:
@@ -265,6 +269,14 @@ systemd.services.nix-daemon = {
   };
 };
 ```
+
+However, this option does not apply to the root user. This is caused by the nix command handling the build request itself under root user, rather than passing it to the Nix Daemon. Therefore, we need to add an environment variable `NIX_REMOTE=daemon`, to force the nix command to call the daemon:
+
+```nix
+environment.variables.NIX_REMOTE = "daemon";
+```
+
+> Thanks for NixOS CN Telegram group user "洗白白" for pointing out the problem, and "Nick Cao" for providing a fix.
 
 ## Activate Config
 
