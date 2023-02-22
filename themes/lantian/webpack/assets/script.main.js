@@ -16,7 +16,7 @@ import {
  * Bootstrap Native
  *****************************************/
 
-import { initCallback } from 'bootstrap.native/src/util/init.js'
+import { initCallback } from 'bootstrap.native/dist/bootstrap-native.js'
 
 /*****************************************
  * Page Onload Logic
