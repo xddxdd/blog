@@ -13,6 +13,7 @@ import rehypeStringify from 'rehype-stringify'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkInlineLinks from 'remark-inline-links'
+import remarkJoinCjkLines from 'remark-join-cjk-lines'
 import remarkMath from 'remark-math'
 import remarkMermaid from 'remark-mermaid'
 import remarkParse from 'remark-parse'
@@ -58,6 +59,7 @@ export const markdownEngine = unified()
   .use(remarkFrontmatter)
   .use(remarkGfm)
   .use(remarkChineseQuotes)
+  .use(remarkJoinCjkLines)
   .use(remarkMath)
   .use(remarkGraphvizSvg)
   .use(remarkMermaid, { simple: true })
@@ -81,6 +83,7 @@ export const gopherEngine = unified()
   .use(remarkFrontmatter)
   .use(remarkGfm)
   .use(remarkChineseQuotes)
+  .use(remarkJoinCjkLines)
   .use(remarkInlineLinks)
   .use(remarkStringify, {
     bullet: '-',
