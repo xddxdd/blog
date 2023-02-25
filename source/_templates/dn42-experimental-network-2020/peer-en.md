@@ -3,7 +3,7 @@
 2. Choose a type of VPN for tunneling.
    - I usually prefer WireGuard and OpenVPN, but others such as GRE/Plain and ZeroTier will also work.
      - GRE/IPSec configuration is extremely complicated, and different IPSec implementations usually have severe compatibility issues, so it may take days or even weeks to debug. Therefore, **I no longer accept GRE/IPSec tunnels**, and existing tunnels may be disconnected at any time.
-   - **WARN: I DO NOT** peer with servers in mainland China to avoid possible legal issues.
+   - **WARN: I DO NOT peer with servers in mainland China to avoid possible legal issues.**
    - I'm also willing to try new types of VPNs - just ask!
 3. Configure BGP daemon and VPN software on your side. You may assume I will use the following configuration:
    - My General Information:
