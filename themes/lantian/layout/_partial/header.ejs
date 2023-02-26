@@ -6,10 +6,7 @@
             } else {
                 return url_for(config.root + (config.root == '/' ? '' : '/') + page_language());
             }
-        })(); %>">
-            <p class="big">蓝天</p>
-            <p class="small">Lan Tian @ Blog</p>
-        </a>
+        })(); %>"><%= config.title %></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#lantian-navbar" aria-controls="lantian-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

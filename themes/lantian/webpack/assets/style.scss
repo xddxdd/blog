@@ -40,24 +40,8 @@ nav.lantian {
 
     .navbar-brand {
         margin: 0;
-        padding: 0.75rem;
+        padding: 1rem;
         font-weight: 700;
-
-        p {
-            margin: 0;
-            line-height: 1;
-            &.big {
-                font-family: 'Zhi Mang Xing';
-                font-size: 2rem;
-            }
-            &.small {
-                font-family: Rajdhani;
-                font-size: 1rem;
-                // To align first character with Chinese
-                margin-left: 0.25rem;
-                text-transform: uppercase;
-            }
-        }
     }
 
     .navbar-nav {
