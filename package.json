@@ -95,7 +95,7 @@
     "terser-webpack-plugin": "^5.3.7",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.2",
-    "webpack": "^5.76.2",
+    "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1"
   },
   "prettier": {
