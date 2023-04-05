@@ -2,7 +2,7 @@
 title: Notes on Setting Up NAS+Router on Old HP Workstation
 categories: 'Random Notes'
 tags: [HP, NAS, Router]
-date: 2022-03-26 15:05:19
+date: 2023-03-26 15:05:19
 ---
 
 I purchased an old HP workstation to use as a NAS and router at my home. This post is a short note of my process of setting it up.
