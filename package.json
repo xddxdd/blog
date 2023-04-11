@@ -22,7 +22,7 @@
     "@fontsource/zhi-mang-xing": "^4.5.8",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@hashicorp/platform-remark-plugins": "^0.2.0",
-    "@hpcc-js/wasm": "2.9",
+    "@hpcc-js/wasm": "2.10",
     "@lantian1998/hexo-generator-json-feed-org": "github:lantian1998/hexo-generator-json-feed-org",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
