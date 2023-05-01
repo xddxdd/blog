@@ -39,7 +39,7 @@
     "css-loader": "^6.7.3",
     "css-minimizer-webpack-plugin": "^5.0.0",
     "cssnano": "^6.0.1",
-    "cssnano-preset-advanced": "^6.0.0",
+    "cssnano-preset-advanced": "^6.0.1",
     "flag-icon-css": "^4.1.7",
     "fontmin": "^0.9.9",
     "hexo": "6.3",
