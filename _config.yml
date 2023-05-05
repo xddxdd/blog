@@ -160,3 +160,4 @@ deploy:
   repo:
     github:
       url: https://github.com/lantian1998/lantian1998.github.io.git
+  ignore_hidden: false
