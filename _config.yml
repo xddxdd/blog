@@ -138,6 +138,10 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: lantian
 
+# Include .github files for Actions
+include:
+- ".github/**/*"
+
 # hexo-generator-readme-file
 readmeConfig:
   postsHeader: '## My posts' # headers, support markdown
