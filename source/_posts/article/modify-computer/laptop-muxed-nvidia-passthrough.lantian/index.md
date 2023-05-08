@@ -1,8 +1,8 @@
 ---
-title: 'Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通'
+title: 'Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通（2023-05 更新）'
 categories: 计算机与客户端
 tags: [显卡, 虚拟机, NVIDIA, MUXed]
-date: 2022-01-22 03:19:26
+date: 2023-05-08 00:28:52
 ---
 
 一年前，为了能够一边用 Arch Linux 浏览网页、写代码，一边用 Windows 运行游戏等没法在 Linux 上方便地完成的任务，[我试着在我的联想 R720 游戏本上进行了显卡直通](/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian)。但是由于那台电脑是 Optimus MUXless 架构（前文有各种架构的介绍），也就是独显没有输出端口、全靠核显显示画面，那套配置的应用受到了很大的阻碍，最后被我放弃。
@@ -11,36 +11,40 @@ date: 2022-01-22 03:19:26
 
 # 更新日志
 
+- 2023-05-08：针对新版 Looking Glass B6 更新部分内容。
 - 2022-01-26：PCIe 省电补丁实测无效。
 
 # 准备工作
 
 在按照本文进行操作前，你需要准备好：
 
-1. 一台 Optimus MUXed 架构的笔记本电脑。我的电脑型号是 HP OMEN 17t-ck000（i7-11800HQ，RTX 3070）。
+1. 一台 Optimus MUXed 架构的笔记本电脑。我的电脑型号是 HP OMEN 17t-ck000（i7-11800H，RTX 3070）。
 
-   - 我用的操作系统是 Arch Linux，更新到最新版本。
+   - （2022-01）我用的操作系统是 Arch Linux，更新到最新版本。
+   - （2023-05）本次更新时我用的操作系统是 NixOS，但大部分步骤同样适用于其它 Linux 发行版。
    - 建议关闭安全启动功能，但既然你已经装上了 Linux，你大概率已经关掉了。安全启动理论上可能会对 PCIe 直通功能造成一定的限制。
 
 2. 用 Libvirt（Virt-Manager）配置好一台 Windows 10 或 Windows 11 的虚拟机，我用的是 Windows 11。
 
    - 我的虚拟机用的是 UEFI（OVMF）模式启动，但理论上用 BIOS 方式（SeaBIOS）也可以。这次的步骤没有必须用 UEFI 启动方式的地方。
    - **一定要关闭虚拟机的安全启动！不然有些驱动装不上！**
+     - Windows 11 安装程序会检测安全启动是否开启，关闭安全启动后可能会提示计算机不兼容，拒绝安装。此时可以参照这篇文章解决问题：<https://sysin.org/blog/windows-11-no-tpm/>
    - 先配置好 QXL 虚拟显卡，保证自己可以看得到虚拟机的视频输出。
 
-3. 根据电脑视频输出接口的不同，一个 HDMI，DP，或 USB Type-C 接口的假显示器（诱骗接头），淘宝上一般几块到十几块钱一个：
+3. （可选）根据电脑视频输出接口的不同，一个 HDMI，DP，或 USB Type-C 接口的假显示器（诱骗接头），淘宝上一般几块到十几块钱一个。
 
-   ![HDMI 假显示器](../../../../usr/uploads/202201/hdmi-dummy-plug.jpg)
+   - （2023-05）或者你也可以选择安装虚拟显示器驱动。
+   - ![HDMI 假显示器](../../../../usr/uploads/202201/hdmi-dummy-plug.jpg)
 
 4. （可选）外接一套 USB 键鼠套装。
 
 开始操作之前，预先提醒：
 
-- 整个步骤中会多次重启宿主系统，同时一些操作可能导致宿主系统崩溃，请保存好你的数据
-- 整个步骤中你不需要手动下载任何显卡驱动，交给 Windows 自动下载就好
-  - 如果 Windows 自动下载失败，手动安装驱动的底线是下载驱动 EXE 然后双击安装
-  - 千万不要在设备管理器中手动指定设备安装
-  - 手动安装显卡驱动有时反而会干扰判断
+- 整个步骤中会多次重启宿主系统，同时一些操作存在导致宿主系统崩溃的风险，请备份好你的数据。
+- 整个步骤中你不需要手动下载任何 NVIDIA 显卡驱动，交给 Windows 自动下载就好。
+  - 如果 Windows 自动下载失败，手动安装驱动的底线是下载驱动 EXE 然后双击安装。
+  - 千万不要在设备管理器中手动指定设备安装。
+  - 手动安装显卡驱动有时反而会干扰判断。
 
 ## 购买 Optimus MUXed 架构的新电脑
 
@@ -76,11 +80,15 @@ Intel 第五代到第九代的 CPU 核显都支持对显卡本身进行虚拟化
 
 所以，我们不用管 GVT-g 了，只直通 NVIDIA 独显就好。
 
+## （2023-05）关于 Intel 核显 SR-IOV 虚拟化
+
+Intel 十一代及之后的 CPU 核显使用另一种虚拟化方式：SR-IOV。Intel 官方[已经发布了 SR-IOV 的内核模块代码](https://github.com/intel/linux-intel-lts/tree/lts-v5.15.49-adl-linux-220826T092047Z/drivers/gpu/drm/i915)，但尚未合入 Linux 主线。[有第三方项目将这部分内核代码移植成 DKMS 模块](https://github.com/strongtz/i915-sriov-dkms)，但根据 Issues 反馈成功率不高，我在 i7-11800H 上测试也没成功。所以，本文将不涉及 Intel 核显的 SR-IOV 功能。
+
 # 操作步骤
 
 ## 禁止宿主系统管理 NVIDIA 独显
 
-> 这一段的大部分内容和[去年的文章](/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian)是一样的。
+> 这一段的大部分内容和 [2021 年的这篇文章](/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian)是一样的。
 
 宿主系统上的 NVIDIA 的驱动会占用独显，阻止虚拟机调用它，因此需要先用 PCIe 直通用的 `vfio-pci` 驱动替换掉它。
 
@@ -114,17 +122,32 @@ Intel 第五代到第九代的 CPU 核显都支持对显卡本身进行虚拟化
 4. 运行 `mkinitcpio -P` 更新 initramfs。
 5. 重启电脑。
 
+（2023-05）如果你用的是 NixOS 系统，可以直接使用下面的配置：
+
+```nix
+{
+  boot.kernelModules = ["vfio-pci"];
+  boot.extraModprobeConfig = ''
+    # 这里改成你的显卡的制造商 ID 和设备 ID
+    options vfio-pci ids=10de:249d
+  '';
+
+  boot.blacklistedKernelModules = ["nouveau" "nvidiafb" "nvidia" "nvidia-uvm" "nvidia-drm" "nvidia-modeset"];
+}
+```
+
 ## 配置 NVIDIA 独显直通
 
-在[去年的文章](/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian)中，我在这里介绍了一大堆绕过 NVIDIA 驱动限制的内容。[但是从 465 版本开始，NVIDIA 解除了大部分的限制](https://nvidia.custhelp.com/app/answers/detail/a_id/5173)，理论上来说现在直接把显卡直通进虚拟机就能用。
+在 [2021 年的这篇文章](/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian)中，我在这里介绍了一大堆绕过 NVIDIA 驱动限制的内容。[但是从 465 版本开始，NVIDIA 解除了大部分的限制](https://nvidia.custhelp.com/app/answers/detail/a_id/5173)，理论上来说现在直接把显卡直通进虚拟机就能用。
 
 但也只是理论上而已。
 
 我依然建议大家做完所有的隐藏虚拟机的步骤，因为：
 
-1. 对于笔记本电脑来说，NVIDIA 并没有解除所有的限制。
+1. （2022-01）对于笔记本电脑来说，NVIDIA 并没有解除所有的限制。
 
-   - 至少在我测试时，显卡的 PCIe 总线位置和系统是否存在电池依然会导致直通失败、驱动报错代码 43。
+   - ~~至少在我测试时，显卡的 PCIe 总线位置和系统是否存在电池依然会导致直通失败、驱动报错代码 43。~~
+   - （2023-05）这次测试时，PCIe 总线位置和是否存在电池不再影响直通结果。
 
 2. 即使 NVIDIA 驱动不检测虚拟机，你运行的程序也会检测虚拟机，隐藏虚拟机特征可以提高成功运行这些程序的概率。
 
@@ -217,8 +240,9 @@ Intel 第五代到第九代的 CPU 核显都支持对显卡本身进行虚拟化
 4. 启动虚拟机，等一会，Windows 会自动装好 NVIDIA 驱动。
 
    - 如果设备管理器里显卡打感叹号，显示代码 43，即驱动程序加载失败，你需要检查上面的步骤有没有遗漏，所有配置是否正确。
-     - 将设备管理器切换到 `Device by Connection`（按照连接方式显示设备），确认显卡的地址是总线 Bus 1，接口 Slot 0，功能 Function 0，并且确认显卡上级的 PCIe 接口是总线 Bus 0，接口 Slot 1，功能 Function 0。
+     - （2022-01）将设备管理器切换到 `Device by Connection`（按照连接方式显示设备），确认显卡的地址是总线 Bus 1，接口 Slot 0，功能 Function 0，并且确认显卡上级的 PCIe 接口是总线 Bus 0，接口 Slot 1，功能 Function 0。
      - 如果对不上，你需要按上面的方法重新分配一遍设备的 PCIe 地址。
+     - （2023-05）我这次尝试时不再需要进行这一步骤。
    - 如果系统没有自动安装 NVIDIA 驱动，并且你手动下载的也显示系统不兼容/找不到显卡，那么你需要查看显卡的属性，其硬件 ID 中，`SUBSYS` 后是否跟着一串 0。
      - 如果是一串 0，请参照第一步。
 
@@ -227,11 +251,19 @@ Intel 第五代到第九代的 CPU 核显都支持对显卡本身进行虚拟化
    - 如果此时出现代码 43 了，检查你有没有添加好第二步最后的模拟电池。
    - 我第一次尝试用的是 Windows 10 LTSC 2019，也是重启后出现了代码 43。但因为当时我没有添加模拟电池，我无法确认是 NVIDIA 驱动不兼容系统版本，还是模拟电池的原因。建议使用最新版本的 Windows 10 或 Windows 11。
 
-6. 把你的 HDMI 假显示器插入电脑，虚拟机应该识别到一个新的显示器。
+6. 以下步骤二选一：
 
-7. 安装 IVSHMEM，虚拟机和宿主机共享内存的驱动：
+   1. （2022-01）把你的 HDMI 假显示器插入电脑，虚拟机应该识别到一个新的显示器。
+   2. （2023-05）安装虚拟显示器驱动：
+      1. 下载 [ge9/IddSampleDriver](https://github.com/ge9/IddSampleDriver) 这份虚拟显示器驱动，解压到 `C:\IddSampleDriver`。注意这个文件夹不能移动到其它位置！
+      2. 打开 `C:\IddSampleDriver\option.txt`，你会看到第一行是一个数字 1（不要修改），然后是分辨率/刷新率列表。只保留你想要的一项分辨率/刷新率，把其它的分辨率/刷新率都删掉。
+      3. 打开设备管理器，在菜单中选择“操作 - 添加过时硬件”，点击“从列表中选择 - 全部 - 我有驱动磁盘”，然后选择 `C:\IddSampleDriver\IddSampleDriver.inf` 并一路下一步完成安装。
+      4. 此时 Windows 系统应该检测到了一个新的显示器。
+      5. 在我的测试中，使用虚拟显示器时，Looking Glass 显示的内容会有部分像素出错。有条件的话，还是建议使用 HDMI 假显示器。
 
-   1. 下载这份 Virtio 驱动复制到虚拟机内解压，**注意一定是这份，其它的版本大都没有 IVSHMEM 驱动**：
+7. （2023-05）现在新版 Looking Glass 会自动安装 IVSHMEM 驱动（虚拟机和宿主机共享内存的驱动），你无需再手动安装驱动。这里保留手动安装步骤以供参考：
+
+   1. （2022-01）下载这份 Virtio 驱动复制到虚拟机内解压，**注意一定是这份，其它的版本大都没有 IVSHMEM 驱动**：
 
       <https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/upstream-virtio/virtio-win10-prewhql-0.1-161.zip>
 
@@ -248,15 +280,17 @@ Intel 第五代到第九代的 CPU 核显都支持对显卡本身进行虚拟化
    - 我们插入的假显示器将成为虚拟机唯一能识别到的显示器。如果不安装 Looking Glass，就看不到虚拟机的画面了。
    - 在上面的链接点击“Windows Host Binary”下载，在虚拟机内双击安装。
 
-9. 关闭虚拟机，`virsh edit Windows` 编辑虚拟机配置。
+9. （2023-05）如果按照 2022-01 的步骤操作，虚拟机开机过程中、Looking Glass 启动前你将无法看到开机画面。因此我推荐在设备管理器中直接禁用 QXL 虚拟显卡。以下旧版步骤保留以供参考。
 
-   找到 `<video><model type="qxl" ...></video>`，将 `type` 改为 `none`，以禁用 QXL 虚拟显卡：
+   - （2022-01）关闭虚拟机，`virsh edit Windows` 编辑虚拟机配置。
 
-   ```xml
-   <video>
-     <model type="none"/>
-   </video>
-   ```
+     找到 `<video><model type="qxl" ...></video>`，将 `type` 改为 `none`，以禁用 QXL 虚拟显卡：
+
+     ```xml
+     <video>
+       <model type="none"/>
+     </video>
+     ```
 
 10. 在宿主机上安装 Looking Glass 的客户端，Arch Linux 用户可以直接从 AUR 安装 `looking-glass` 包。运行 `looking-glass-client` 命令启动客户端。
 11. 回到 Virt-Manager，关掉虚拟机的窗口（就是查看虚拟机桌面、编辑配置的窗口），在 Virt-Manager 主界面右键选择你的虚拟机，点击启动。
@@ -266,14 +300,25 @@ Intel 第五代到第九代的 CPU 核显都支持对显卡本身进行虚拟化
 
 虽然显卡直通已经完成，但是虚拟机的体验还需要优化。具体来说：
 
-1. Looking Glass 可以传输鼠标键盘操作，但无法传输声音，意味着虚拟机无法发声；
-2. Looking Glass 传输鼠标键盘操作有时会丢键；
+1. （2022-01）Looking Glass 可以传输鼠标键盘操作，但无法传输声音，意味着虚拟机无法发声；
+   - （2023-05）最新的 Looking Glass 已经可以传输声音。
+2. （2022-01）Looking Glass 传输鼠标键盘操作有时会丢键；
+   - （2023-05）最新的 Looking Glass 已经可以稳定传输鼠标键盘操作。
 3. IVSHMEM 共享内存功能其实有一个宿主机的内核模块，可以让宿主机的 Looking Glass 使用 DMA 模式提高性能；
 4. 关闭虚拟机后，独立显卡会被设置成 PCIe D3hot 模式，在该模式下显卡仍会消耗 10W 左右的电力，影响电池续航。
 
 我们将一个个解决以上问题。
 
 ## 传输虚拟机声音
+
+（2023-05）新版 Looking Glass 已经可以传输声音。以下步骤保留以供参考。
+
+{% interactive_buttons %}
+sound_hide|隐藏
+sound_show|查看 2022-01 的旧版步骤
+{% endinteractive_buttons %}
+
+{% interactive sound_show %}
 
 虽然 Virt-Manager 本身可以通过 SPICE 协议连接虚拟机，从而传输虚拟机的声音，但是 Looking Glass 也会通过 SPICE 传输键鼠操作，而虚拟机上同时只能有一个 SPICE 连接。这就意味着我们无法使用 Virt-Manager 来听声音了。
 
@@ -303,7 +348,18 @@ WantedBy=graphical-session.target
 
 以后使用时就只需要运行 `systemctl --user start scream` 了。
 
+{% endinteractive %}
+
 ## 直通键盘鼠标操作
+
+（2023-05）新版 Looking Glass 已经可以稳定传输鼠标键盘操作。以下步骤保留以供参考。
+
+{% interactive_buttons %}
+keyboardmouse_hide|隐藏
+keyboardmouse_show|查看 2022-01 的旧版步骤
+{% endinteractive_buttons %}
+
+{% interactive keyboardmouse_show %}
 
 Looking Glass 的键盘鼠标传输不太稳定，有时会丢失一些操作，因此如果你想在虚拟机里玩游戏，就需要用更稳定的方法将键鼠操作传进虚拟机。
 
@@ -358,9 +414,11 @@ Looking Glass 的键盘鼠标传输不太稳定，有时会丢失一些操作，
 
    在 Virt-Manager 里选择添加硬件（`Add Hardware`） - USB 宿主设备（`USB Host Device`），选择你的鼠标键盘即可。
 
+{% endinteractive %}
+
 ## 用内核模块加速 Looking Glass
 
-> 这段内容大都来自 <https://looking-glass.io/docs/B5.0.1/module/>
+> 这段内容大都来自 <https://looking-glass.io/docs/B6/module/>
 
 Looking Glass 提供了一个内核模块，可以用于 IVSHMEM 共享内存设备，让 Looking Glass 能使用 DMA 技术高效地读取虚拟机画面，从而提高帧率。
 
@@ -379,6 +437,7 @@ Looking Glass 提供了一个内核模块，可以用于 IVSHMEM 共享内存设
 4. 配置内存大小：创建 `/etc/modprobe.d/looking-glass.conf`，写入以下内容：
 
    ```bash
+   # 这里的内存大小计算方法和虚拟机的 shmem 一项相同。
    options kvmfr static_size_mb=64
    ```
 
@@ -427,6 +486,29 @@ Looking Glass 提供了一个内核模块，可以用于 IVSHMEM 共享内存设
 
 10. 启动 Looking Glass，此时应该可以看到虚拟机画面。
 
+11. （2023-05）如果你用的是 NixOS，可以直接使用下面的配置：
+
+```nix
+{
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    kvmfr
+  ];
+  boot.extraModprobeConfig = ''
+    # 这里的内存大小计算方法和虚拟机的 shmem 一项相同。
+    options kvmfr static_size_mb=64
+  '';
+  boot.kernelModules = ["kvmfr"];
+  services.udev.extraRules = ''
+    SUBSYSTEM=="kvmfr", OWNER="root", GROUP="libvirtd", MODE="0660"
+  '';
+
+  environment.etc."looking-glass-client.ini".text = ''
+    [app]
+    shmFile=/dev/kvmfr0
+  '';
+}
+```
+
 ## 不使用虚拟机时给独立显卡断电
 
 **2022-01-26 更新：实测应用这个补丁后，NVIDIA 显卡仍未完全断电，耗电量与未使用补丁前相同。本段内容失效。**
@@ -471,8 +553,11 @@ power_show|点此查看
   - Reddit VFIO 版块的虚拟电池补丁 <https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/>
   - Arch Linux Wiki <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF>
 - Looking Glass 的文档
-  - 安装文档 <https://looking-glass.io/docs/B5.0.1/install/>
-  - 内核模块文档 <https://looking-glass.io/docs/B5.0.1/module/>
+  - 安装文档 <https://looking-glass.io/docs/B6/install/>
+  - 内核模块文档 <https://looking-glass.io/docs/B6/module/>
+- 虚拟显示器驱动
+  - 文中使用的可以修改分辨率和刷新率的版本 <https://github.com/ge9/IddSampleDriver>
+  - 分辨率和刷新率固定的原版 <https://github.com/roshkins/IddSampleDriver>
 - VFIO D3cold 模式补丁
   - Phoronix 的报道 <https://www.phoronix.com/scan.php?page=news_item&px=NVIDIA-Runtime-PM-VFIO-PCI>
   - Linux 内核邮件列表的链接 <https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/>
@@ -480,35 +565,29 @@ power_show|点此查看
 附录：最终 Libvirt XML 文件
 -------------------------
 
+{% interactive_buttons %}
+xml_hide|隐藏
+xml_show|显示完整的 XML 文件
+{% endinteractive_buttons %}
+
+{% interactive xml_show %}
+
 ```xml
 <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
-  <name>Windows</name>
-  <uuid>6be169e1-2c1c-40fc-931c-4ece161791c4</uuid>
+  <name>Windows11</name>
+  <uuid>5d5b00d8-475a-4b6c-8053-9dda30cd2f95</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
-      <libosinfo:os id="http://microsoft.com/win/10"/>
+      <libosinfo:os id="http://microsoft.com/win/11"/>
     </libosinfo:libosinfo>
   </metadata>
   <memory unit="KiB">16777216</memory>
   <currentMemory unit="KiB">16777216</currentMemory>
-  <vcpu placement="static">8</vcpu>
-  <iothreads>1</iothreads>
-  <cputune>
-    <vcpupin vcpu="0" cpuset="4"/>
-    <vcpupin vcpu="1" cpuset="12"/>
-    <vcpupin vcpu="2" cpuset="5"/>
-    <vcpupin vcpu="3" cpuset="13"/>
-    <vcpupin vcpu="4" cpuset="6"/>
-    <vcpupin vcpu="5" cpuset="14"/>
-    <vcpupin vcpu="6" cpuset="7"/>
-    <vcpupin vcpu="7" cpuset="15"/>
-    <emulatorpin cpuset="0,8"/>
-    <iothreadpin iothread="1" cpuset="0,8"/>
-  </cputune>
+  <vcpu placement="static">16</vcpu>
   <os>
-    <type arch="x86_64" machine="pc-q35-6.2">hvm</type>
-    <loader readonly="yes" type="pflash">/usr/share/edk2-ovmf/x64/OVMF_CODE.fd</loader>
-    <nvram>/var/lib/libvirt/qemu/nvram/Windows_VARS.fd</nvram>
+    <type arch="x86_64" machine="pc-q35-8.0">hvm</type>
+    <loader readonly="yes" type="pflash">/run/libvirt/nix-ovmf/OVMF_CODE.fd</loader>
+    <nvram template="/run/libvirt/nix-ovmf/OVMF_VARS.fd">/var/lib/libvirt/qemu/nvram/Windows11_VARS.fd</nvram>
   </os>
   <features>
     <acpi/>
@@ -531,12 +610,10 @@ power_show|点此查看
     </kvm>
     <vmport state="off"/>
   </features>
-  <cpu mode="host-model" check="partial">
-    <topology sockets="1" dies="1" cores="4" threads="2"/>
-    <feature policy="disable" name="hypervisor"/>
-    <feature policy="disable" name="vmx"/>
+  <cpu mode="host-passthrough" check="none" migratable="on">
+    <topology sockets="1" dies="1" cores="8" threads="2"/>
   </cpu>
-  <clock offset="utc">
+  <clock offset="localtime">
     <timer name="rtc" tickpolicy="catchup"/>
     <timer name="pit" tickpolicy="delay"/>
     <timer name="hpet" present="no"/>
@@ -550,27 +627,23 @@ power_show|点此查看
     <suspend-to-disk enabled="no"/>
   </pm>
   <devices>
-    <emulator>/usr/bin/qemu-system-x86_64</emulator>
-    <disk type="block" device="disk">
-      <driver name="qemu" type="raw"/>
-      <source dev="/dev/disk/by-path/pci-0000:00:0e.0-pci-10000:e2:00.0-nvme-1"/>
-      <target dev="sda" bus="sata"/>
+    <emulator>/run/libvirt/nix-emulators/qemu-system-x86_64</emulator>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="qcow2" discard="unmap"/>
+      <source file="/var/lib/libvirt/images/Windows11.qcow2"/>
+      <target dev="vda" bus="virtio"/>
       <boot order="1"/>
-      <address type="drive" controller="0" bus="0" target="0" unit="0"/>
+      <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0"/>
     </disk>
     <disk type="file" device="cdrom">
       <driver name="qemu" type="raw"/>
-      <source file="/mnt/root/files/LegacyOS/Common/virtio-win-0.1.215.iso"/>
+      <source file="/mnt/root/persistent/media/LegacyOS/Common/virtio-win-0.1.215.iso"/>
       <target dev="sdb" bus="sata"/>
       <readonly/>
-      <boot order="2"/>
       <address type="drive" controller="0" bus="0" target="0" unit="1"/>
     </disk>
     <controller type="usb" index="0" model="qemu-xhci" ports="15">
       <address type="pci" domain="0x0000" bus="0x02" slot="0x00" function="0x0"/>
-    </controller>
-    <controller type="sata" index="0">
-      <address type="pci" domain="0x0000" bus="0x00" slot="0x1f" function="0x2"/>
     </controller>
     <controller type="pci" index="0" model="pcie-root"/>
     <controller type="pci" index="1" model="pcie-root-port">
@@ -608,23 +681,52 @@ power_show|点此查看
       <target chassis="7" port="0x16"/>
       <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x6"/>
     </controller>
-    <controller type="pci" index="8" model="pcie-to-pci-bridge">
-      <model name="pcie-pci-bridge"/>
-      <address type="pci" domain="0x0000" bus="0x07" slot="0x00" function="0x0"/>
+    <controller type="pci" index="8" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="8" port="0x17"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x7"/>
     </controller>
     <controller type="pci" index="9" model="pcie-root-port">
       <model name="pcie-root-port"/>
-      <target chassis="9" port="0x17"/>
-      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x7"/>
+      <target chassis="9" port="0x18"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x0" multifunction="on"/>
+    </controller>
+    <controller type="pci" index="10" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="10" port="0x19"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x1"/>
+    </controller>
+    <controller type="pci" index="11" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="11" port="0x1a"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x2"/>
+    </controller>
+    <controller type="pci" index="12" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="12" port="0x1b"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x3"/>
+    </controller>
+    <controller type="pci" index="13" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="13" port="0x1c"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x4"/>
+    </controller>
+    <controller type="pci" index="14" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="14" port="0x1d"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x5"/>
+    </controller>
+    <controller type="sata" index="0">
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1f" function="0x2"/>
     </controller>
     <controller type="virtio-serial" index="0">
       <address type="pci" domain="0x0000" bus="0x03" slot="0x00" function="0x0"/>
     </controller>
     <interface type="network">
-      <mac address="52:54:00:1d:5f:f3"/>
+      <mac address="52:54:00:f4:bf:15"/>
       <source network="default"/>
       <model type="virtio"/>
-      <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0"/>
+      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
     </interface>
     <serial type="pty">
       <target type="isa-serial" port="0">
@@ -634,16 +736,17 @@ power_show|点此查看
     <console type="pty">
       <target type="serial" port="0"/>
     </console>
+    <channel type="spicevmc">
+      <target type="virtio" name="com.redhat.spice.0"/>
+      <address type="virtio-serial" controller="0" bus="0" port="1"/>
+    </channel>
     <input type="mouse" bus="ps2"/>
-    <input type="keyboard" bus="ps2"/>
     <input type="mouse" bus="virtio">
-      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
-    </input>
-    <input type="keyboard" bus="virtio">
       <address type="pci" domain="0x0000" bus="0x06" slot="0x00" function="0x0"/>
     </input>
-    <input type="evdev">
-      <source dev="/dev/input/by-path/platform-i8042-serio-0-event-kbd" grab="all" repeat="on"/>
+    <input type="keyboard" bus="ps2"/>
+    <input type="keyboard" bus="virtio">
+      <address type="pci" domain="0x0000" bus="0x07" slot="0x00" function="0x0"/>
     </input>
     <tpm model="tpm-crb">
       <backend type="passthrough">
@@ -654,22 +757,20 @@ power_show|点此查看
       <listen type="address"/>
       <image compression="off"/>
     </graphics>
+    <sound model="ich9">
+      <audio id="1"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1b" function="0x0"/>
+    </sound>
     <audio id="1" type="spice"/>
     <video>
-      <model type="none"/>
+      <model type="qxl" ram="65536" vram="65536" vgamem="16384" heads="1" primary="yes"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0"/>
     </video>
     <hostdev mode="subsystem" type="pci" managed="yes">
       <source>
         <address domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
       </source>
-      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
-    </hostdev>
-    <hostdev mode="subsystem" type="usb" managed="yes">
-      <source>
-        <vendor id="0x046d"/>
-        <product id="0xc534"/>
-      </source>
-      <address type="usb" bus="0" port="1"/>
+      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
     </hostdev>
     <redirdev bus="usb" type="spicevmc">
       <address type="usb" bus="0" port="2"/>
@@ -677,15 +778,18 @@ power_show|点此查看
     <redirdev bus="usb" type="spicevmc">
       <address type="usb" bus="0" port="3"/>
     </redirdev>
+    <watchdog model="itco" action="reset"/>
     <memballoon model="none"/>
   </devices>
   <qemu:commandline>
-    <qemu:arg value="-acpitable"/>
-    <qemu:arg value="file=/ssdt1.dat"/>
     <qemu:arg value="-device"/>
-    <qemu:arg value="{&quot;driver&quot;:&quot;ivshmem-plain&quot;,&quot;id&quot;:&quot;shmem-looking-glass&quot;,&quot;memdev&quot;:&quot;looking-glass&quot;}"/>
+    <qemu:arg value="{&quot;driver&quot;:&quot;ivshmem-plain&quot;,&quot;id&quot;:&quot;shmem0&quot;,&quot;memdev&quot;:&quot;looking-glass&quot;}"/>
     <qemu:arg value="-object"/>
     <qemu:arg value="{&quot;qom-type&quot;:&quot;memory-backend-file&quot;,&quot;id&quot;:&quot;looking-glass&quot;,&quot;mem-path&quot;:&quot;/dev/kvmfr0&quot;,&quot;size&quot;:67108864,&quot;share&quot;:true}"/>
+    <qemu:arg value="-acpitable"/>
+    <qemu:arg value="file=/etc/ssdt1.dat"/>
   </qemu:commandline>
 </domain>
 ```
+
+{% endinteractive %}

@@ -1,8 +1,8 @@
 ---
-title: 'NVIDIA GPU Passthrough on an Optimus MUXed Laptop'
+title: 'NVIDIA GPU Passthrough on an Optimus MUXed Laptop (Updated 2023-05)'
 categories: 'Computers and Clients'
 tags: [GPU, Virtual Machine, NVIDIA, MUXed]
-date: 2022-01-22 03:19:26
+date: 2023-05-08 00:28:52
 ---
 
 A year ago, to simultaneously browse webpages and write codes on my Arch Linux installation and use Windows to run tasks infeasible on Linux (such as gaming), [I tried GPU passthrough on my Lenovo R720 gaming laptop](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/). But since that laptop has an Optimus MUXless architecture (as mentioned in that post), its dedicated GPU doesn't have output ports, and the integrated GPU is in charge of all the displays. Therefore, severe limitations exist for that setup, and I eventually gave up on it.
@@ -11,36 +11,40 @@ But now, I've purchased a new laptop. The HDMI output port on this laptop is dir
 
 # Changelog
 
+- 2023-05-08: Update some contents for new version of Looking Glass B6.
 - 2022-01-26: The PCIe power-saving patch isn't effective.
 
 # Preparation
 
 Before following steps in this post, you need to prepare:
 
-1. A laptop with the Optimus MUXed architecture. My laptop is a HP OMEN 17t-ck000 (i7-11800HQ, RTX 3070).
+1. A laptop with the Optimus MUXed architecture. My laptop is a HP OMEN 17t-ck000 (i7-11800H, RTX 3070).
 
-   - My operating system is Arch Linux, with the latest updates.
+   - (2022-01) My operating system is Arch Linux, with the latest updates.
+   - (2023-05) My operating system is now NixOS while writing this update. Most of the steps, however, should still apply to other Linux distros.
    - It's recommended to turn off Secure Boot, but you likely did it anyway since you installed Linux. Theoretically, Secure Boot may cause limitations on the PCIe passthrough functionality.
 
 2. Set up a virtual machine of Windows 10 or Windows 11 with Libvirt (Virt-Manager). I'm using Windows 11.
 
    - My VM boots in UEFI (OVMF) mode, but theoretically, this guide will also work with BIOS (SeaBIOS) mode. There are no steps that specifically require UEFI boot mode.
    - **You MUST turn off Secure Boot in the VM! Or some drivers won't work!**
+     - Windows 11 installer will check whether Secure Boot is enabled. With Secure Boot off, the installer might prompt that the computer is incompatible, and refuse to install Windows. You can follow the steps in this post to fix the problem: <https://www.tomshardware.com/how-to/bypass-windows-11-tpm-requirement>
    - Set up the emulated QXL graphics card first, so you get video output from the VM.
 
-3. Depending on the video output ports on your computer, purchase an HDMI, DP, or USB Type-C dummy plug. You can get one for a few bucks on Amazon.
+3. (Optional) Depending on the video output ports on your computer, purchase an HDMI, DP, or USB Type-C dummy plug. You can get one for a few bucks on Amazon.
 
-   ![HDMI Dummy Plug](../../../../../usr/uploads/202201/hdmi-dummy-plug.jpg)
+   - (2023-05) Or you can choose to install a virtual monitor driver.
+   - ![HDMI Dummy Plug](../../../../../usr/uploads/202201/hdmi-dummy-plug.jpg)
 
 4. (Optional) A USB keyboard and mouse combo.
 
 A reminder before we begin:
 
 - Multiple reboots of the host OS is required, and your host OS may crash! Back up your data.
-- You don't need to download any drivers manually. Windows will do it for you automatically.
-  - If it doesn't, don't go any further than downloading the driver EXE and double-clicking
-  - **Never** specify the exact driver to be used in Device Manager
-  - Debugging will be harder if you do this
+- You don't need to download any NVIDIA driver manually. Windows will do it for you automatically.
+  - If it doesn't, don't go any further than downloading the driver EXE and double-clicking.
+  - **Never** specify the exact driver to be used in Device Manager.
+  - Debugging will be harder if you do this.
 
 ## Purchasing A New Optimus MUXed Laptop
 
@@ -76,11 +80,15 @@ However, the GVT-g driver in Linux doesn't support 10th-Gen or newer Intel CPUs,
 
 That's why we're ignoring GVT-g and focusing on the NVIDIA GPU in this guide.
 
+## (2023-05) About Intel SR-IOV Virtual GPUs
+
+11th-Gen and later Intel integrated graphics support another form of virtualization: SR-IOV. Intel has [officially released the source code to the kernel module with SR-IOV](https://github.com/intel/linux-intel-lts/tree/lts-v5.15.49-adl-linux-220826T092047Z/drivers/gpu/drm/i915), but it isn't merged into Linux mainline as of now. [There's a third party project that ports the code into a DKMS module](https://github.com/strongtz/i915-sriov-dkms), but success rate is not high according to reports in Issues section. I tried it with my i7-11800H and didn't succeed. Therefore, this time we will not try SR-IOV on Intel GPUs.
+
 # Steps
 
 ## Stop Host OS from Tampering with NVIDIA GPU
 
-> Most of the content is the same as [my post last year](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/).
+> Most of the content is the same as [my post in 2021](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/).
 
 The NVIDIA driver on the Host OS will hold control of the dGPU, and stop VM from using it. Therefore you need to replace the driver with `vfio-pci`, built solely for PCIe passthrough.
 
@@ -114,17 +122,32 @@ Here are the steps for disabling the NVIDIA driver and passing control to the PC
 4. Run `mkinitcpio -P` to update the initramfs.
 5. Reboot.
 
+(2023-05) If you're using NixOS, you can use the following config:
+
+```nix
+{
+  boot.kernelModules = ["vfio-pci"];
+  boot.extraModprobeConfig = ''
+    # Change to your GPU's vendor ID and device ID
+    options vfio-pci ids=10de:249d
+  '';
+
+  boot.blacklistedKernelModules = ["nouveau" "nvidiafb" "nvidia" "nvidia-uvm" "nvidia-drm" "nvidia-modeset"];
+}
+```
+
 ## Setting up NVIDIA dGPU Passthrough
 
-In [my post last year](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/), I mentioned a lot of configurations to circumvent restrictions of the NVIDIA driver. But [since version 465, NVIDIA lifted most of the restrictions](https://nvidia.custhelp.com/app/answers/detail/a_id/5173), so theoretically, you pass a GPU into the VM, and everything should just work.
+In [my post in 2021](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/), I mentioned a lot of configurations to circumvent restrictions of the NVIDIA driver. But [since version 465, NVIDIA lifted most of the restrictions](https://nvidia.custhelp.com/app/answers/detail/a_id/5173), so theoretically, you pass a GPU into the VM, and everything should just work.
 
 But that's just the theory.
 
 I still recommend everyone to follow all the steps and hide the VM characteristics, because:
 
-1. Not all restructions are lifted for laptops.
+1. (2022-01) Not all restructions are lifted for laptops.
 
-   - At least in my tests, an incorrect PCIe bus address for the GPU and the absence of a battery still causes passthrough to fail, and the driver will error out with the infamous code 43.
+   - ~~At least in my tests, an incorrect PCIe bus address for the GPU and the absence of a battery still causes passthrough to fail, and the driver will error out with the infamous code 43.~~
+   - (2023-05) In the attempt today, the PCIe bus address and absence of battery no longer affects outcome of GPU passthrough.
 
 2. Even if NVIDIA driver isn't detecting VMs, the programs you run might. Hiding VM characteristics increases the chance to run them successfully.
 
@@ -220,8 +243,9 @@ And here we start:
 
 4. Start the VM and wait a while. Windows will automatically install NVIDIA drivers.
    - If Device Manager shows the GPU with an exclamation sign and error code 43, you need to check if you've missed any steps and if you've configured everything correctly.
-     - Switch Device Manager to `Device by Connection` and verify that the NVIDIA GPU is at Bus 1, Slot 0, Function 0. The parent PCIe port to the dGPU should be at Bus 0, Slot 1, Function 0.
-     - If they don't match, you need to reallocate PCIe addresses with the method above.
+     - (2022-01) ~~Switch Device Manager to `Device by Connection` and verify that the NVIDIA GPU is at Bus 1, Slot 0, Function 0. The parent PCIe port to the dGPU should be at Bus 0, Slot 1, Function 0.~~
+     - ~~If they don't match, you need to reallocate PCIe addresses with the method above.~~
+     - (2023-05) This step is no longer needed in my attempt today.
    - If the OS didn't automatically install the NVIDIA driver, and your manually downloaded driver installer also shows that the system is incompatible, you need to check the properties of the GPU device. Check if there is a sequence of zeros after `SUBSYS` in its Hardware ID.
      - If there is, refer to step 1.
 
@@ -230,11 +254,19 @@ And here we start:
    - If you get code 43 this time, check if you have the emulated battery in step 2.
    - I tried first on Windows 10 LTSC 2019 and got this error. Since I didn't have the emulated battery set up, I cannot confirm if it's an incompatibility between the NVIDIA driver and the OS or the lack of battery. I recommend using the latest versions of Windows 10 or Windows 11.
 
-6. Plug your HDMI dummy plug into your laptop, and the VM should detect a new monitor.
+6. Do either one of the following steps:
 
-7. Install IVSHMEM, the driver for shared memory between VM and host:
+   1. (2022-01) Plug your HDMI dummy plug into your laptop, and the VM should detect a new monitor.
+   2. (2023-05) Install a virtual monitor driver:
+      1. Download the virtual monitor driver from [ge9/IddSampleDriver](https://github.com/ge9/IddSampleDriver), and decompress it to `C:\IddSampleDriver`. Note that you must not move the folder anywhere else!
+      2. Open `C:\IddSampleDriver\option.txt`. You'll see the number 1 on the first line (don't change it), followed by a list of resolutions and refresh rates. Only keep the one resolution and refresh rate entry you want, and remove all other items.
+      3. Open Device Manager, select "Action - Add Legacy Hardware", click "Let me pick from a list... - All Devices - Have disk", choose the file `C:\IddSampleDriver\IddSampleDriver.inf`, and complete the installation.
+      4. Windows should now detect a new monitor.
+      5. In my testing, while using the virtual monitor driver, I saw some corrupted pixels on the Looking Glass display. As long as you can obtain an HDMI dummy plug, I would recommend it over the virtual monitor driver.
 
-   1. Download this Virtio driver, copy it into the VM, and extract it. **You MUST use this copy, as no other copies have the IVSHMEM driver!**
+7. (2023-05) Now the newer version of Looking Glass will install IVSHMEM driver automatically (the driver for shared memory between VM and host). You no longer need to install it manually. These manual installation steps are kept for reference only:
+
+   1. (2022-01) Download this Virtio driver, copy it into the VM, and extract it. **You MUST use this copy, as no other copies have the IVSHMEM driver!**
 
       <https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/upstream-virtio/virtio-win10-prewhql-0.1-161.zip>
 
@@ -251,15 +283,17 @@ And here we start:
    - Our dummy plug is going to be the only monitor the VM can see. If we don't install looking glass, we won't be able to see the VM desktop.
    - Click "Windows Host Binary" on the link above, double click in the VM to install it.
 
-9. Turn off the VM and run `virsh edit Windows` to edit the VM config.
+9. (2023-05) If you followed the steps from 2022-01, you won't be able to see the startup screen while the VM is booting, and before Looking Glass starts. Therefore, I recommend disabling the QXL virtual adapter in Device Manager. The following older steps are kept for reference purpose only.
 
-   Find `<video><model type="qxl" ...></video>`, change `type` to `none` to disable the QXL emulated GPU:
+   - (2022-01) Turn off the VM and run `virsh edit Windows` to edit the VM config.
 
-   ```xml
-   <video>
-     <model type="none"/>
-   </video>
-   ```
+     Find `<video><model type="qxl" ...></video>`, change `type` to `none` to disable the QXL emulated GPU:
+
+     ```xml
+     <video>
+       <model type="none"/>
+     </video>
+     ```
 
 10. Install Looking Glass client on the host. Arch Linux users can simply install `looking-glass` from AUR. Run `looking-glass-client` to start the client.
 11. Back to Virt-Manager, close the window of the VM (the window that shows the VM desktop and changes VM configurations), right-click on the VM on Virt-Manager's main window, and select Run.
@@ -269,14 +303,25 @@ And here we start:
 
 Although GPU passthrough is done, there is still room for user experience optimization. Particularly:
 
-1. Looking Glass can relay keyboard and mouse events, but not audio, so we can't hear the VM;
-2. Looking Glass may miss a few keystrokes from time to time;
+1. (2022-01) ~~Looking Glass can relay keyboard and mouse events, but not audio, so we can't hear the VM;~~
+   - (2023-05) The latest Looking Glass can relay audio now.
+2. (2022-01) ~~Looking Glass may miss a few keystrokes from time to time;~~
+   - (2023-05) The latest Looking Glass can relay keyboard and mouse events reliably now.
 3. There is a host kernel module for IVSHMEM, which improves Looking Glass performance with its DMA mode;
 4. After VM shutdown, the GPU is set to PCIe D3hot mode. It still consumes around 10 watts of power, which is undesirable for battery life.
 
 We will fix the problems one by one.
 
 ## Get Audio Output from VM
+
+(2023-05) The latest Looking Glass can relay audio now. These steps are kept for reference only.
+
+{% interactive_buttons %}
+sound_hide|Hide
+sound_show|Show older steps from 2022-01
+{% endinteractive_buttons %}
+
+{% interactive sound_show %}
 
 While Virt-Manager can connect to the VM with SPICE protocol to get the VM's sound output, Looking Glass also relays keyboard and mouse events through SPICE. Since the VM only accepts one simultaneous SPICE connection, we cannot get the audio output with Virt-Manager.
 
@@ -306,7 +351,18 @@ WantedBy=graphical-session.target
 
 You will only need to run `systemctl --user start scream` in the future.
 
+{% endinteractive %}
+
 ## Passthrough Keyboard & Mouse Operations
+
+The latest Looking Glass can relay keyboard and mouse events reliably now. These steps are kept for reference only.
+
+{% interactive_buttons %}
+keyboardmouse_hide|Hide
+keyboardmouse_show|Show older steps from 2022-01
+{% endinteractive_buttons %}
+
+{% interactive keyboardmouse_show %}
 
 The relay of the keyboard and mouse in Looking Glass isn't very stable, as misses of operation can happen from time to time. Therefore, if you want to play some games in the VM, you need a more reliable way to pass your keyboard and mouse into the VM.
 
@@ -361,9 +417,11 @@ We have two options: letting Libvirt capture the keyboard and mouse events or si
 
    Simply click `Add Hardware - USB Host Device` in Virt-Manager and select your keyboard and mouse.
 
+{% endinteractive %}
+
 ## Accelerating Looking Glass with Kernel Modules
 
-> Most of the content in this section is from <https://looking-glass.io/docs/B5.0.1/module/>
+> Most of the content in this section is from <https://looking-glass.io/docs/B6/module/>
 
 Looking Glass provides a kernel module for the IVSHMEM shared memory device. It allows Looking Glass to read the display output efficiently with DMA to improve the framerate.
 
@@ -382,6 +440,7 @@ Looking Glass provides a kernel module for the IVSHMEM shared memory device. It 
 4. Configure the memory size: create `/etc/modprobe.d/looking-glass.conf` with the following content:
 
    ```bash
+   # The memory size is calculates in the same way as VM's shmem.
    options kvmfr static_size_mb=64
    ```
 
@@ -430,6 +489,29 @@ Looking Glass provides a kernel module for the IVSHMEM shared memory device. It 
 
 10. Start Looking Glass. You should see the VM display now.
 
+11. (2023-05) If you use NixOS, you can directly use the config below:
+
+```nix
+{
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    kvmfr
+  ];
+  boot.extraModprobeConfig = ''
+    # The memory size is calculates in the same way as VM's shmem.
+    options kvmfr static_size_mb=64
+  '';
+  boot.kernelModules = ["kvmfr"];
+  services.udev.extraRules = ''
+    SUBSYSTEM=="kvmfr", OWNER="root", GROUP="libvirtd", MODE="0660"
+  '';
+
+  environment.etc."looking-glass-client.ini".text = ''
+    [app]
+    shmFile=/dev/kvmfr0
+  '';
+}
+```
+
 ## Cutting Power to GPU When Unused
 
 **2022-01-26 Update: testing shows that the NVIDIA GPU still isn't completely shut down after applying the patch. The power draw is the same as before. This section is now invalid.**
@@ -475,8 +557,11 @@ Here are the sources I referenced when I did my configuration:
   - Reddit r/VFIO's emulated battery patch [https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/](https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/)
   - Arch Linux Wiki <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF>
 - Looking Glass Documentation
-  - Installation Docs <https://looking-glass.io/docs/B5.0.1/install/>
-  - Kernel Module Docs <https://looking-glass.io/docs/B5.0.1/module/>
+  - Installation Docs <https://looking-glass.io/docs/B6/install/>
+  - Kernel Module Docs <https://looking-glass.io/docs/B6/module/>
+- Virtual Monitor Driver
+  - The one used in this post, with ability to customize resolution and refresh rate <https://github.com/ge9/IddSampleDriver>
+  - The original version with fixed list of resolution and refresh rate <https://github.com/roshkins/IddSampleDriver>
 - VFIO D3cold Patch
   - News report from Phoronix <https://www.phoronix.com/scan.php?page=news_item&px=NVIDIA-Runtime-PM-VFIO-PCI>
   - Link to Linux kernel mailing list <https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/>
@@ -484,35 +569,29 @@ Here are the sources I referenced when I did my configuration:
 Appendix: Final Libvirt XML File
 --------------------------------
 
+{% interactive_buttons %}
+xml_hide|Hide
+xml_show|Show the entire XML file
+{% endinteractive_buttons %}
+
+{% interactive xml_show %}
+
 ```xml
 <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
-  <name>Windows</name>
-  <uuid>6be169e1-2c1c-40fc-931c-4ece161791c4</uuid>
+  <name>Windows11</name>
+  <uuid>5d5b00d8-475a-4b6c-8053-9dda30cd2f95</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
-      <libosinfo:os id="http://microsoft.com/win/10"/>
+      <libosinfo:os id="http://microsoft.com/win/11"/>
     </libosinfo:libosinfo>
   </metadata>
   <memory unit="KiB">16777216</memory>
   <currentMemory unit="KiB">16777216</currentMemory>
-  <vcpu placement="static">8</vcpu>
-  <iothreads>1</iothreads>
-  <cputune>
-    <vcpupin vcpu="0" cpuset="4"/>
-    <vcpupin vcpu="1" cpuset="12"/>
-    <vcpupin vcpu="2" cpuset="5"/>
-    <vcpupin vcpu="3" cpuset="13"/>
-    <vcpupin vcpu="4" cpuset="6"/>
-    <vcpupin vcpu="5" cpuset="14"/>
-    <vcpupin vcpu="6" cpuset="7"/>
-    <vcpupin vcpu="7" cpuset="15"/>
-    <emulatorpin cpuset="0,8"/>
-    <iothreadpin iothread="1" cpuset="0,8"/>
-  </cputune>
+  <vcpu placement="static">16</vcpu>
   <os>
-    <type arch="x86_64" machine="pc-q35-6.2">hvm</type>
-    <loader readonly="yes" type="pflash">/usr/share/edk2-ovmf/x64/OVMF_CODE.fd</loader>
-    <nvram>/var/lib/libvirt/qemu/nvram/Windows_VARS.fd</nvram>
+    <type arch="x86_64" machine="pc-q35-8.0">hvm</type>
+    <loader readonly="yes" type="pflash">/run/libvirt/nix-ovmf/OVMF_CODE.fd</loader>
+    <nvram template="/run/libvirt/nix-ovmf/OVMF_VARS.fd">/var/lib/libvirt/qemu/nvram/Windows11_VARS.fd</nvram>
   </os>
   <features>
     <acpi/>
@@ -535,12 +614,10 @@ Appendix: Final Libvirt XML File
     </kvm>
     <vmport state="off"/>
   </features>
-  <cpu mode="host-model" check="partial">
-    <topology sockets="1" dies="1" cores="4" threads="2"/>
-    <feature policy="disable" name="hypervisor"/>
-    <feature policy="disable" name="vmx"/>
+  <cpu mode="host-passthrough" check="none" migratable="on">
+    <topology sockets="1" dies="1" cores="8" threads="2"/>
   </cpu>
-  <clock offset="utc">
+  <clock offset="localtime">
     <timer name="rtc" tickpolicy="catchup"/>
     <timer name="pit" tickpolicy="delay"/>
     <timer name="hpet" present="no"/>
@@ -554,27 +631,23 @@ Appendix: Final Libvirt XML File
     <suspend-to-disk enabled="no"/>
   </pm>
   <devices>
-    <emulator>/usr/bin/qemu-system-x86_64</emulator>
-    <disk type="block" device="disk">
-      <driver name="qemu" type="raw"/>
-      <source dev="/dev/disk/by-path/pci-0000:00:0e.0-pci-10000:e2:00.0-nvme-1"/>
-      <target dev="sda" bus="sata"/>
+    <emulator>/run/libvirt/nix-emulators/qemu-system-x86_64</emulator>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="qcow2" discard="unmap"/>
+      <source file="/var/lib/libvirt/images/Windows11.qcow2"/>
+      <target dev="vda" bus="virtio"/>
       <boot order="1"/>
-      <address type="drive" controller="0" bus="0" target="0" unit="0"/>
+      <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0"/>
     </disk>
     <disk type="file" device="cdrom">
       <driver name="qemu" type="raw"/>
-      <source file="/mnt/root/files/LegacyOS/Common/virtio-win-0.1.215.iso"/>
+      <source file="/mnt/root/persistent/media/LegacyOS/Common/virtio-win-0.1.215.iso"/>
       <target dev="sdb" bus="sata"/>
       <readonly/>
-      <boot order="2"/>
       <address type="drive" controller="0" bus="0" target="0" unit="1"/>
     </disk>
     <controller type="usb" index="0" model="qemu-xhci" ports="15">
       <address type="pci" domain="0x0000" bus="0x02" slot="0x00" function="0x0"/>
-    </controller>
-    <controller type="sata" index="0">
-      <address type="pci" domain="0x0000" bus="0x00" slot="0x1f" function="0x2"/>
     </controller>
     <controller type="pci" index="0" model="pcie-root"/>
     <controller type="pci" index="1" model="pcie-root-port">
@@ -612,23 +685,52 @@ Appendix: Final Libvirt XML File
       <target chassis="7" port="0x16"/>
       <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x6"/>
     </controller>
-    <controller type="pci" index="8" model="pcie-to-pci-bridge">
-      <model name="pcie-pci-bridge"/>
-      <address type="pci" domain="0x0000" bus="0x07" slot="0x00" function="0x0"/>
+    <controller type="pci" index="8" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="8" port="0x17"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x7"/>
     </controller>
     <controller type="pci" index="9" model="pcie-root-port">
       <model name="pcie-root-port"/>
-      <target chassis="9" port="0x17"/>
-      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x7"/>
+      <target chassis="9" port="0x18"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x0" multifunction="on"/>
+    </controller>
+    <controller type="pci" index="10" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="10" port="0x19"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x1"/>
+    </controller>
+    <controller type="pci" index="11" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="11" port="0x1a"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x2"/>
+    </controller>
+    <controller type="pci" index="12" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="12" port="0x1b"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x3"/>
+    </controller>
+    <controller type="pci" index="13" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="13" port="0x1c"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x4"/>
+    </controller>
+    <controller type="pci" index="14" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="14" port="0x1d"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x5"/>
+    </controller>
+    <controller type="sata" index="0">
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1f" function="0x2"/>
     </controller>
     <controller type="virtio-serial" index="0">
       <address type="pci" domain="0x0000" bus="0x03" slot="0x00" function="0x0"/>
     </controller>
     <interface type="network">
-      <mac address="52:54:00:1d:5f:f3"/>
+      <mac address="52:54:00:f4:bf:15"/>
       <source network="default"/>
       <model type="virtio"/>
-      <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0"/>
+      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
     </interface>
     <serial type="pty">
       <target type="isa-serial" port="0">
@@ -638,16 +740,17 @@ Appendix: Final Libvirt XML File
     <console type="pty">
       <target type="serial" port="0"/>
     </console>
+    <channel type="spicevmc">
+      <target type="virtio" name="com.redhat.spice.0"/>
+      <address type="virtio-serial" controller="0" bus="0" port="1"/>
+    </channel>
     <input type="mouse" bus="ps2"/>
-    <input type="keyboard" bus="ps2"/>
     <input type="mouse" bus="virtio">
-      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
-    </input>
-    <input type="keyboard" bus="virtio">
       <address type="pci" domain="0x0000" bus="0x06" slot="0x00" function="0x0"/>
     </input>
-    <input type="evdev">
-      <source dev="/dev/input/by-path/platform-i8042-serio-0-event-kbd" grab="all" repeat="on"/>
+    <input type="keyboard" bus="ps2"/>
+    <input type="keyboard" bus="virtio">
+      <address type="pci" domain="0x0000" bus="0x07" slot="0x00" function="0x0"/>
     </input>
     <tpm model="tpm-crb">
       <backend type="passthrough">
@@ -658,22 +761,20 @@ Appendix: Final Libvirt XML File
       <listen type="address"/>
       <image compression="off"/>
     </graphics>
+    <sound model="ich9">
+      <audio id="1"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1b" function="0x0"/>
+    </sound>
     <audio id="1" type="spice"/>
     <video>
-      <model type="none"/>
+      <model type="qxl" ram="65536" vram="65536" vgamem="16384" heads="1" primary="yes"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0"/>
     </video>
     <hostdev mode="subsystem" type="pci" managed="yes">
       <source>
         <address domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
       </source>
-      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
-    </hostdev>
-    <hostdev mode="subsystem" type="usb" managed="yes">
-      <source>
-        <vendor id="0x046d"/>
-        <product id="0xc534"/>
-      </source>
-      <address type="usb" bus="0" port="1"/>
+      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
     </hostdev>
     <redirdev bus="usb" type="spicevmc">
       <address type="usb" bus="0" port="2"/>
@@ -681,15 +782,18 @@ Appendix: Final Libvirt XML File
     <redirdev bus="usb" type="spicevmc">
       <address type="usb" bus="0" port="3"/>
     </redirdev>
+    <watchdog model="itco" action="reset"/>
     <memballoon model="none"/>
   </devices>
   <qemu:commandline>
-    <qemu:arg value="-acpitable"/>
-    <qemu:arg value="file=/ssdt1.dat"/>
     <qemu:arg value="-device"/>
-    <qemu:arg value="{&quot;driver&quot;:&quot;ivshmem-plain&quot;,&quot;id&quot;:&quot;shmem-looking-glass&quot;,&quot;memdev&quot;:&quot;looking-glass&quot;}"/>
+    <qemu:arg value="{&quot;driver&quot;:&quot;ivshmem-plain&quot;,&quot;id&quot;:&quot;shmem0&quot;,&quot;memdev&quot;:&quot;looking-glass&quot;}"/>
     <qemu:arg value="-object"/>
     <qemu:arg value="{&quot;qom-type&quot;:&quot;memory-backend-file&quot;,&quot;id&quot;:&quot;looking-glass&quot;,&quot;mem-path&quot;:&quot;/dev/kvmfr0&quot;,&quot;size&quot;:67108864,&quot;share&quot;:true}"/>
+    <qemu:arg value="-acpitable"/>
+    <qemu:arg value="file=/etc/ssdt1.dat"/>
   </qemu:commandline>
 </domain>
 ```
+
+{% endinteractive %}
