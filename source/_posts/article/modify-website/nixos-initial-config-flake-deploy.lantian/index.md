@@ -18,6 +18,7 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 ## 更新日志
 
+- 2023-05-10：增加推荐阅读：[NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)，作者 Ryan Yin。
 - 2021-12-18：NixOS 21.11 仍没有默认启用 Flake 功能，更新文章中相关说明。
 
 ## 基础配置
@@ -509,7 +510,9 @@ extra-platforms = aarch64-linux arm-linux
 
 ## 附录：扩展阅读
 
-你可以阅读以下文档来更深入地了解 NixOS 的配置语法、Flake 功能，以及 Deploy-RS。注意以下文档都是英文的：
+在这篇文章中，我们配置了一个基础的、几乎没有额外软件的 NixOS 系统。关于实际安装、配置软件，我推荐阅读 Ryan Yin 的 [NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)。他的文章给出了一些配置常用软件的配置范例。
+
+你也可以阅读以下文档来更深入地了解 NixOS 的配置语法、Flake 功能，以及 Deploy-RS。注意以下文档都是英文的：
 
 - NixOS 配置语法
   - [NixOS.Wiki: Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)

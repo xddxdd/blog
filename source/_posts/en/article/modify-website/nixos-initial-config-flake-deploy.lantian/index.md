@@ -18,6 +18,7 @@ This post assumes that you've installed NixOS with [NixOS's official installatio
 
 ## Changelog
 
+- 2023-05-10: Add a recommended post: [NixOS & Nix Flakes - A Guide for Beginners](https://thiscute.world/en/posts/nixos-and-flake-basics/) by Ryan Yin.
 - 2021-12-18: NixOS 21.11 still doesn't come with Flake functionality by default. Relevant information is updated.
 
 ## Basic config
@@ -529,7 +530,9 @@ Finally, restart Nix Daemon `systemctl restart nix-daemon`, and Deploy-RS will w
 
 ## Appendix: Further Reading
 
-You can read these documents to have a better understanding of NixOS's config syntax, the Flake functionality, and Deploy-RS.
+In this post, we've configured a basic NixOS installation with almost zero extra software. For installing and configuring software, I recommend you to read Ryan Yin's [NixOS & Nix Flakes - A Guide for Beginners](https://thiscute.world/en/posts/nixos-and-flake-basics/). His post provides some example configurations for commonly used software.
+
+You can also read these documents to have a better understanding of NixOS's config syntax, the Flake functionality, and Deploy-RS.
 
 - NixOS Syntax
   - [NixOS.Wiki: Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)
