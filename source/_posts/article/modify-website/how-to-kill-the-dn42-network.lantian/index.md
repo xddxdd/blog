@@ -1,8 +1,8 @@
 ---
-title: '如何引爆 DN42 网络（2020-08-28 更新）'
+title: '如何引爆 DN42 网络（2023-05-12 更新）'
 categories: 网站与服务端
 tags: [DN42,BGP]
-date: 2020-08-28 01:11:18
+date: 2023-05-12 22:03:33
 image: /usr/uploads/202008/i-love-niantic-network.png
 ---
 
@@ -21,6 +21,7 @@ image: /usr/uploads/202008/i-love-niantic-network.png
 更新记录
 =======
 
+- 2023-05-12：增加修改 BGP Localpref 导致环路的内容。
 - 2020-08-27：格式修改，添加完整 IRC 日志，部分内容的中文翻译，添加另一段地址掩码填错的内容，以及 ASN 少了一位的内容。
 - 2020-07-13：添加 Registry IPv6 地址段掩码填错的内容，和 Bird 不同协议左右互博的内容。
 - 2020-05-30：第一版，包含 OSPF、Babel、左右横跳。
@@ -563,3 +564,170 @@ Bird 左右互搏
 - 当然看戏归看戏，还是要上 IRC 说一句出问题了。
 - 在和别人 Peer 的时候，多检查一遍对方的信息。
 - 以及没事可以翻翻 [DN42 New ASN](https://t.me/DN42new) 这个自动推送新 ASN 的 Telegram 频道。
+
+小心 BGP Local Pref
+==================
+
+在 DN42 Telegram 群帮别人调试网络时，我突然发现我的两个节点之间出现了环路：
+
+```bash
+traceroute to fd28:cb8f:4c92:1::1 (fd28:cb8f:4c92:1::1), 30 hops max, 80 byte packets
+ 1  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  88.023 ms
+ 2  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  94.401 ms
+ 3  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  167.664 ms
+ 4  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  174.235 ms
+ 5  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  247.213 ms
+ 6  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  253.499 ms
+ 7  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  326.690 ms
+ 8  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  333.412 ms
+ 9  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  406.978 ms
+10  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  413.537 ms
+11  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  486.762 ms
+12  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  493.147 ms
+
+18 hops not responding.
+```
+
+我登录上这两个节点一看，VirMach 节点的确优先选择了 BuyVM 发来的路由，而 BuyVM 也选择了 VirMach 的路由。
+
+BGP 不应该是防环路的吗？为什么这两个节点会互相选择对方的路由？
+
+发生了什么
+--------
+
+这个问题总共涉及到三个 AS 的四个节点：
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="我的节点"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" -> "Lutoma"}
+
+  "VirMach" -> "BuyVM"
+  "BuyVM" -> "VirMach"
+  "KSKB" -> "VirMach"
+  "Lutoma" -> "BuyVM"
+}
+```
+
+其中 KSKB 是 `fd28:cb8f:4c92::/48` 这条路由的源头，他将路由广播给了 Lutoma，以及我的 VirMach 节点。Lutoma 随后将这条路由广播给了我的 BuyVM 节点。
+
+**我的所有节点都开启了 `add paths yes;` 选项**，也就是说节点间会互相交换所有收到的路由，而不只是节点选出来、写入内核路由表的最佳路由。因此，对于我的 BuyVM 节点来说，到路由的源头有两条路线：
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="我的节点"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" "Lutoma"}
+
+  "BuyVM" -> "VirMach" -> "KSKB"
+  "BuyVM" -> "Lutoma" -> "KSKB"
+}
+```
+
+对于 VirMach 节点也是一样的：
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="我的节点"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" "Lutoma"}
+
+  "VirMach" -> "KSKB"
+  "VirMach" -> "BuyVM" -> "Lutoma" -> "KSKB"
+}
+```
+
+一般来说，VirMach 节点肯定选择直连 KSKB 的路由，而不是经过 BuyVM 和 Lutoma，总共两跳（iBGP 同一 AS 内不计跳数）的路由。此时 BuyVM 节点下一跳无论选择 Lutoma 还是 VirMach 节点，都可以获得一条可达的路由，而不是出现环路。
+
+问题是，**我用 BIRD 的 Filter 手动调整了路由优先级**。[DN42 有一组标准的 BGP Community，用于标记每条路由来源的地区。](https://wiki.dn42.dev/howto/Bird-communities)为了降低网络延迟，我使用下面的算法（简化后）来调整路由优先级：
+
+```bash
+优先级 = 200 - 10 * 路由跳数
+如果当前节点和路由来源在同一地区：
+  优先级 += 100
+```
+
+问题发生时，KSKB 的原始路由并没有添加来源地区的 Community。**但是 Lutoma 的网络配置错误，给来自 KSKB 的路由也加上了来源地区 Community**，地区和我的 VirMach 节点相同。（根据 DN42 的标准，各个网络只应该给自己的路由添加来源地区 Community，不能给别人的路由添加。）
+
+此时我的 BuyVM 节点算出了以下的路由优先级，并选择了经过我的 VirMach 节点的路由：
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="我的节点"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" "Lutoma"}
+
+  "BuyVM" -> "VirMach" [label="200 - 10 * 1 = 190",color=red]
+  "VirMach" -> "KSKB" [color=red]
+  "BuyVM" -> "Lutoma" [label="200 - 10 * 2 = 180"]
+  "Lutoma" -> "KSKB"
+}
+```
+
+而我的 VirMach 节点反而选择了经过 BuyVM 节点的路由：
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="我的节点"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" "Lutoma"}
+
+  "VirMach" -> "KSKB" [label="200 - 10 * 1 = 190\n（路由无地区信息）"]
+  "VirMach" -> "BuyVM" [label="200 - 10 * 2 + 100 = 280\n（地区相同）",color=red]
+  "BuyVM" -> "Lutoma" -> "KSKB" [color=red]
+}
+```
+
+这样，环路就形成了。
+
+正确的操作
+--------
+
+这个问题出现时，以下三个因素缺一不可：
+
+1. **开启 `add paths yes;` 选项**，导致备选路由被同时发给其它节点。如果不开启此选项，BuyVM 节点在选择 VirMach 作为下一跳时，就不会把经过 Lutoma 的路由也发给 VirMach 节点了，此时 VirMach 节点只有直连 KSKB 的一条路由可走。
+2. 路由优先级调整算法导致**其它节点的备选路由反而在当前节点被优先选择**。因此，如果要保持 `add paths yes;` 选项开启，就需要在设计 iBGP 用的优先级算法时，保证在任何情况下，来自同一节点的路由之间**优先级顺序都不变**，从而保证总能选到这一节点的首选路由，而非备选路由。
+3. 经过 Lutoma 的路由被异常加上了 BGP Community，导致了优先级顺序的变化。
+
+我解决问题的方法是，不再在 iBGP 内部重新计算路由优先级，而是统一使用由收到路由的节点计算的、由 iBGP 传递来的优先级，来保证首选、备选路由的优先级顺序不变。

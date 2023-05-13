@@ -1,8 +1,8 @@
 ---
-title: 'How to Kill the DN42 Network (Updated 2020-08-28)'
+title: 'How to Kill the DN42 Network (Updated 2023-05-12)'
 categories: 'Website and Servers'
 tags: [DN42,BGP]
-date: 2020-08-28 01:11:18
+date: 2023-05-12 22:03:33
 image: /usr/uploads/202008/i-love-niantic-network.png
 ---
 
@@ -21,6 +21,7 @@ The stories are based on **real disasters** in the Telegram group and IRC channe
 Changelog
 =========
 
+- 2023-05-12: Add contents for a routing loop caused by modifying BGP local preference.
 - 2020-08-27: Format changes, add full IRC logs, add another netmask error content, and add content on missing digit in ASN.
 - 2020-07-13: Add an IPv6 netmask error in the registry and Bird's conflicts between different protocols.
 - 2020-05-30：Initial version, including OSPF, Babel, and route flaps.
@@ -434,3 +435,170 @@ Defensive Measures
 - But while having fun, remember to point out the problem on IRC.
 - Double-check your peer's information when peering.
 - Check [DN42 New ASN](https://t.me/DN42new), a Telegram channel that notifies of new DN42 ASNs, in your free time.
+
+Be Careful of BGP Local Preferences
+===================================
+
+When I was helping others debugging their network in the DN42 Telegram group, I suddenly noticed a routing loop between two of my nodes:
+
+```bash
+traceroute to fd28:cb8f:4c92:1::1 (fd28:cb8f:4c92:1::1), 30 hops max, 80 byte packets
+ 1  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  88.023 ms
+ 2  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  94.401 ms
+ 3  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  167.664 ms
+ 4  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  174.235 ms
+ 5  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  247.213 ms
+ 6  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  253.499 ms
+ 7  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  326.690 ms
+ 8  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  333.412 ms
+ 9  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  406.978 ms
+10  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  413.537 ms
+11  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  486.762 ms
+12  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  493.147 ms
+
+18 hops not responding.
+```
+
+I logged onto these two nodes, and indeed, the VirMach node did choose BuyVM's route as the preferred path, and the BuyVM node did the same for VirMach's route.
+
+Isn't BGP supposed to prevent loops? Why are these two nodes choosing the route from each other?
+
+What's Going On
+---------------
+
+The problem involves 4 nodes from 3 ASes:
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="My Nodes"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" -> "Lutoma"}
+
+  "VirMach" -> "BuyVM"
+  "BuyVM" -> "VirMach"
+  "KSKB" -> "VirMach"
+  "Lutoma" -> "BuyVM"
+}
+```
+
+KSKB is the source for the route `fd28:cb8f:4c92::/48`. He broadcasted the route to Lutoma, as well as my VirMach node. Lutoma then broadcased the route to my BuyVM node.
+
+**All my nodes have `add path yes;` option turned on**, which means my nodes will exchange all received routes, rather than only the preferred ones written into kernel routing table. Therefore, as far as the BuyVM node concerns, it can choose from two paths to the source:
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="My Nodes"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" "Lutoma"}
+
+  "BuyVM" -> "VirMach" -> "KSKB"
+  "BuyVM" -> "Lutoma" -> "KSKB"
+}
+```
+
+The same applies for my VirMach node:
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="My Nodes"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" "Lutoma"}
+
+  "VirMach" -> "KSKB"
+  "VirMach" -> "BuyVM" -> "Lutoma" -> "KSKB"
+}
+```
+
+Generally speaking, the VirMach node should prefer the direct route to KSKB, instead of the path through my BuyVM node and Lutoma's node, for a total of 2 hops (hops aren't counted for iBGP within the same AS). Now regardless of the next hop BuyVM node prefers, either Lutoma's node or my VirMach node, it will have a reachable path rather than a routing loop.
+
+The problem is that **I manually adjusted route preferences with a BIRD filter**. [DN42 has a standard set of BGP communities to mark the source region of each route.](https://wiki.dn42.dev/howto/Bird-communities) To reduce network latency, I used the following algorithm (simplified) to adjust my route preferences:
+
+```bash
+Preference = 200 - 10 * (Hop count)
+If the current node is in the same region as the route source:
+  Preference += 100
+```
+
+When the problem happened, the original route from KSKB don't have source region community set up. **However, Lutoma's network was set up incorrectly, and added source region community to KSKB's route as well**, and with the same region as my VirMach node. (According to the standard of DN42, networks should only add source region communities to their own routes, not to routes received from other networks.)
+
+Now my BuyVM node calculated the following route preferences, and chose the route through my VirMach node:
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="My Nodes"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" "Lutoma"}
+
+  "BuyVM" -> "VirMach" [label="200 - 10 * 1 = 190",color=red]
+  "VirMach" -> "KSKB" [color=red]
+  "BuyVM" -> "Lutoma" [label="200 - 10 * 2 = 180"]
+  "Lutoma" -> "KSKB"
+}
+```
+
+Yet my VirMach node chose the route through BuyVM:
+
+```graphviz
+digraph {
+  rankdir=LR
+  node[shape=box]
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    label="My Nodes"
+    node[style=filled,color=white]
+    {rank=same; "VirMach" "BuyVM"}
+  }
+  {rank=same; "KSKB" "Lutoma"}
+
+  "VirMach" -> "KSKB" [label="200 - 10 * 1 = 190\n(No region info)"]
+  "VirMach" -> "BuyVM" [label="200 - 10 * 2 + 100 = 280\n(Same region)",color=red]
+  "BuyVM" -> "Lutoma" -> "KSKB" [color=red]
+}
+```
+
+And now we have a routing loop.
+
+Correct Way to Do This
+----------------------
+
+For this problem to appear, all three requirements must be met:
+
+1. **`add paths yes;` option is turned on**, so that secondary routes are sent to other nodes as well. If this option wasn't turned on, as soon as the BuyVM node choose the VirMach node as the next hop, it won't broadcast its route through Lutoma to the VirMach node. Then, the VirMach node will only have the option of sending traffic directly to KSKB.
+2. Route preference algorithm **preferring secondary routes over primary routes from other nodes**. Therefore, if we want to keep `add paths yes;` option on, while designing the iBGP route preference algorithm, we need to guarantee that routes from the same node **have their priorities in the same order as that node**, so that the primary routes will always be used over secondary routes.
+3. Routes passing Lutoma's network were incorrectly updated with the new BGP community, causing the change of route priority orders.
+
+My solution to the problem is to no longer recalculate route priority for those received from iBGP. Instead, I will always use the priority value calculated by the edge node receiving the route, and passed over along with the route announcement over iBGP, to guarantee that the order of primary and secondary routes never change.
