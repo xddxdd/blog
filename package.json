@@ -83,7 +83,7 @@
     "remark-mermaid": "^0.2.0",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
-    "remark-stringify": "^10.0.2",
+    "remark-stringify": "^10.0.3",
     "resolve-url-loader": "^5.0.0",
     "rollup": "^3.21.7",
     "sass": "^1.62.1",
