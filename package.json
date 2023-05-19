@@ -55,7 +55,7 @@
     "hexo-html-minifier": "^1.0.0",
     "hexo-pangu": "^0.2.2",
     "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-stylus": "^2.1.0",
+    "hexo-renderer-stylus": "^3.0.0",
     "hexo-spoiler": "^1.7.3",
     "hexo-util": "^3.0.1",
     "highlight.js": "^11.8.0",
