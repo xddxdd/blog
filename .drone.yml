@@ -47,13 +47,13 @@ steps:
         path: /cache
 
   - name: hexo generate
-    image: node:17-alpine
+    image: node:18-alpine
     commands:
       - apk add --no-cache build-base git gzip brotli zstd parallel rsync imagemagick vips-dev python3
       - make
 
   - name: hexo deploy
-    image: node:17-alpine
+    image: node:18-alpine
     environment:
       NETRC:
         from_secret: netrc
