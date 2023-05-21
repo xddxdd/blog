@@ -64,7 +64,8 @@ steps:
       - echo $NETRC > ~/.netrc
 
       # Generate blog file
-      - node node_modules/hexo/bin/hexo deploy
+      # Temporarily disabled for deploy failure to GitHub
+      # - node node_modules/hexo/bin/hexo deploy
       # Parallel jobs aren't used for hexo deploy targets, only my own site system
       - sh _scripts/parallel_jobs.sh
 
