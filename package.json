@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/core": "7.21",
     "@babel/preset-env": "7.21",
-    "@fontsource/fira-code": "^4.5.13",
+    "@fontsource/fira-code": "^5.0.0",
     "@fontsource/rajdhani": "^4.5.10",
     "@fontsource/ubuntu": "^5.0.0",
     "@fontsource/zhi-mang-xing": "^4.5.8",
