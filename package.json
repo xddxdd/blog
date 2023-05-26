@@ -14,7 +14,7 @@
     "Chrome 49"
   ],
   "dependencies": {
-    "@babel/core": "7.21",
+    "@babel/core": "7.22",
     "@babel/preset-env": "7.22",
     "@fontsource/fira-code": "^5.0.1",
     "@fontsource/rajdhani": "^5.0.1",
