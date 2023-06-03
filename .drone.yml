@@ -82,6 +82,7 @@ steps:
 
   - name: rebuild cache
     image: meltwater/drone-cache:dev
+    failure: ignore
     settings:
       backend: "filesystem"
       rebuild: true
