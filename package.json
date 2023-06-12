@@ -32,7 +32,7 @@
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
     "bootstrap": "^5.2.3",
-    "bootstrap.native": "^5.0.6",
+    "bootstrap.native": "^5.0.7",
     "browserslist": "^4.21.7",
     "cli-real-favicon": "^0.0.8",
     "core-js": "^3.31.0",
