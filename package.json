@@ -37,7 +37,7 @@
     "cli-real-favicon": "^0.0.8",
     "core-js": "^3.31.0",
     "css-loader": "^6.8.1",
-    "css-minimizer-webpack-plugin": "^5.0.0",
+    "css-minimizer-webpack-plugin": "^5.0.1",
     "cssnano": "^6.0.1",
     "cssnano-preset-advanced": "^6.0.1",
     "flag-icon-css": "^4.1.7",
