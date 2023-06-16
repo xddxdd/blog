@@ -28,7 +28,7 @@
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@waline/client": "2.15",
-    "acorn": "^8.8.2",
+    "acorn": "^8.9.0",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
     "bootstrap": "^5.2.3",
