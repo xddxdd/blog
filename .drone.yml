@@ -1,24 +1,24 @@
 kind: secret
 name: netrc
 get:
-  path: kv/data/git_netrc
-  name: netrc
+  path: git-netrc
+  name: git-netrc
 
 ---
 
 kind: secret
 name: tg_token
 get:
-  path: kv/data/telegram
-  name: token
+  path: telegram-token
+  name: telegram-token
 
 ---
 
 kind: secret
 name: tg_target
 get:
-  path: kv/data/telegram
-  name: target
+  path: telegram-target
+  name: telegram-target
 
 ---
 
