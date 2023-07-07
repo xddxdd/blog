@@ -94,7 +94,7 @@
     "svgo-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.9",
     "unified": "^10.1.2",
-    "unist-util-visit": "^4.1.2",
+    "unist-util-visit": "^5.0.0",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"
   },
