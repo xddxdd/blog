@@ -13,6 +13,7 @@ public:
 
 verify: deps public
 	[ -s "public/index.html" ] || exit 1
+	[ -z "$(find public/ -name \*.html -type f -size -1)" ] || exit 1
 	[ -s "public/assets/script.main.bundle.js" ] || exit 1
 	node node_modules/acorn/bin/acorn --ecma2020 --silent public/assets/script.main.bundle.js || exit 1
 

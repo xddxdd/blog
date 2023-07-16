@@ -71,7 +71,7 @@ steps:
 
       # Run deploy
       - mkdir -p /sync/www/lantian.pub
-      - rsync -ar --delete-after public/ /sync/www/lantian.pub/
+      - rsync -avr --delete-after public/ /sync/www/lantian.pub/
     when:
       event:
         exclude:
