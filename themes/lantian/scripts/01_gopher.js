@@ -71,13 +71,13 @@ function markdown_formatter(rel_path, md) {
   return rows.join('') + gopherEOF
 }
 
-var markdown_to_gopher = (result, data) => {
+var markdown_to_gopher = async (result, data) => {
   if (data.page.raw) {
     const file = gopherEngine.processSync(data.page.raw)
     var md = String(file)
     if (!md) return
 
-    md = prettier.format(md, {
+    md = await prettier.format(md, {
       parser: 'markdown',
       printWidth: 70,
       tabWidth: 2,
@@ -92,7 +92,7 @@ var markdown_to_gopher = (result, data) => {
     target_path = target_path.replace(/index\.html$/, 'gophermap')
     target_path = target_path.replace(/.html$/, '.gopher')
 
-    fs.writeFileSync(path.join(hexo.public_dir, target_path), md)
+    await fs.writeFile(path.join(hexo.public_dir, target_path), md)
     hexo.log.info('[LT Gopher] Generated: ' + target_path)
   }
 }
