@@ -41,7 +41,7 @@
     "cssnano": "^6.0.1",
     "cssnano-preset-advanced": "^6.0.1",
     "flag-icon-css": "^4.1.7",
-    "fontmin": "^1.0.0",
+    "fontmin": "^1.0.1",
     "hexo": "6.3",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
