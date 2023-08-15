@@ -67,7 +67,7 @@
     "mini-css-extract-plugin": "^2.7.6",
     "mini-svg-data-uri": "^1.4.4",
     "plausible-tracker": "^0.3.8",
-    "prettier": "^3.0.1",
+    "prettier": "^3.0.2",
     "prism-themes": "^1.9.0",
     "regenerator-runtime": "^0.14.0",
     "rehype-highlight": "^6.0.0",
