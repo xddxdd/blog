@@ -74,7 +74,7 @@
     "rehype-katex": "^6.0.3",
     "rehype-parse": "^8.0.5",
     "rehype-slug": "^5.1.0",
-    "rehype-stringify": "^9.0.4",
+    "rehype-stringify": "^10.0.0",
     "remark-frontmatter": "^4.0.1",
     "remark-gfm": "^3.0.1",
     "remark-inline-links": "^6.0.1",
