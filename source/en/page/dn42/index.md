@@ -76,7 +76,7 @@ Servers
 
 4. New York, United States, provider VirMach
    - Domain: `virmach-ny1g.lantian.pub`
-   - Public IPv4: `216.52.57.200` / `v4.virmach-ny1g.lantian.pub`
+   - Public IPv4: `45.42.214.121` / `v4.virmach-ny1g.lantian.pub`
    - Public IPv6: `2001:470:1f07:54d::1` / `v6.virmach-ny1g.lantian.pub`
    - DN42 IPv4: `172.22.76.190` / `v4.virmach-ny1g.dn42.lantian.pub`
    - DN42 IPv6: `fdbc:f9dc:67ad:8::1` / `v6.virmach-ny1g.dn42.lantian.pub`
