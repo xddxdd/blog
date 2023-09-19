@@ -81,7 +81,7 @@
     "remark-join-cjk-lines": "^1.0.11",
     "remark-math": "^5.1.1",
     "remark-mermaid": "^0.2.0",
-    "remark-parse": "^10.0.2",
+    "remark-parse": "^11.0.0",
     "remark-rehype": "^10.1.0",
     "remark-stringify": "^10.0.3",
     "resolve-url-loader": "^5.0.0",
