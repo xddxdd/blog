@@ -4,9 +4,6 @@
 $enable-rounded: false;
 $enable-transitions: false;
 
-$body-bg: material-color('light-blue', '100');
-$body-bg-dark: material-color('grey', '900');
-
 $link-hover-color: $primary-hover;
 
 $navbar-light-color: $primary;
@@ -46,6 +43,7 @@ $link-decoration: none;
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/variables-dark';
 @import "~bootstrap/scss/maps";
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/utilities';

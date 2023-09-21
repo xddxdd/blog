@@ -28,6 +28,10 @@ $primary-hover: material-color('light-blue', '700');
 $body-color: material-color('grey', '800');
 $body-color-dark: material-color('grey', '200');
 
+// Do not use $body-bg since it conflicts with Bootstrap variables
+$body-background: material-color('light-blue', '100');
+$body-background-dark: material-color('grey', '900');
+
 $border-default: 1px solid material-color('grey', '400');
 $border-dotted: 1px dotted material-color('grey', '400');
 
