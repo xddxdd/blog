@@ -83,12 +83,12 @@
                 <% } %>
             </div>
         </div>
-        <% if(index && post.image) { %>
-            <div class="post-image-wrap d-none d-lg-block">
-                <img src="<%= post.image %>.thumb.png" alt="<%- __('illustration') %>" height="150" width="200"/>
-            </div>
-        <% } %>
         <div class="post-wrap">
+            <% if(post.image) { %>
+                <div class="post-image-wrap">
+                    <img src="<%= post.image %>" alt="<%- __('illustration') %>"/>
+                </div>
+            <% } %>
             <h1 class="post-title"><a href="<%- url_for(remove_trailing_slash(post.path)) %>" rel="bookmark" title="<%= post.title %>"><%= post.title %></a></h1>
             <div class="post-text">
                 <% if(index) { %>

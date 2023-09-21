@@ -186,10 +186,21 @@ article {
     }
 
     .post-image-wrap {
-        flex: 0 0 200px;
-        padding: 10px 0 0 10px;
-        img {
-            max-width: 200px;
+        margin: 0 -5px;
+
+        @include media-breakpoint-up(md) {
+            float: right;
+            padding: 5px;
+
+            img {
+                width: 200px;
+            }
+        }
+
+        @include media-breakpoint-down(md) {
+            img {
+                width: 100%;
+            }
         }
     }
 
