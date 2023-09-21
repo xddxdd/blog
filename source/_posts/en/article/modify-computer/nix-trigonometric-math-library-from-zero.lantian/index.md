@@ -18,12 +18,14 @@ Because I use NixOS across all my nodes, and manage all configs with Nix, I need
 
 > Reference: [Wikipedia - Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
 
-$$\begin{align}
+$$
+\begin{aligned}
 h = hav(\frac{d}{r}) &= (hav(\varphi_2 - \varphi_1) + \cos(\varphi_1) \cos(\varphi_2) hav(\lambda_2 - \lambda_1)) \\
 \text{Where: } hav(\theta) &= \sin^2(\frac{\theta}{2}) = \frac{1 - \cos(\theta)}{2} \\
 \text{Therefore: } d &= r \cdot archav(h) = 2r \cdot arcsin(\sqrt{h}) \\
 &= 2r \cdot \arcsin(\sqrt{\sin^2 (\frac{\varphi_2 - \varphi_1}{2}) + \cos(\varphi_1) \cos(\varphi_2) \sin^2 (\frac{\lambda_2 - \lambda_1}{2})})
-\end{align}$$
+\end{aligned}
+$$
 
 > Note: there are a few variations of Haversine formula. I actually used this arctan-based implementation from Stackoverflow: <https://stackoverflow.com/a/27943>
 
@@ -71,10 +73,12 @@ And here comes the project today: trigonometric math library implemented in pure
 
 The trigonometric functions, sine and cosine, have a relatively easy way to compute: Taylor expansions. We all know that the sine function has the following Taylor expansion:
 
-$$\begin{align}
+$$
+\begin{aligned}
 \sin x &= \sum_{n=0}^\infty (-1)^n \frac{x^{2n+1}}{(2n+1)!} \\
 &= x - \frac{x^3}{3!} + \frac{x^5}{5!} - ...
-\end{align}$$
+\end{aligned}
+$$
 
 We can observe that each expanded item can be calculated with basic arithmetric operations. Therefore, we can implement the following functions in Nix:
 
@@ -215,10 +219,12 @@ I also ran the test on `cos` and `tan`, and the error is also within 0.0001%.
 
 The arctangent function also has a Taylor expansion:
 
-$$\begin{align}
+$$
+\begin{aligned}
 \arctan x &= \sum_{n=0}^\infty (-1)^n \frac{x^{2n+1}}{2n+1} \\
 &= x - \frac{x^3}{3} + \frac{x^5}{5} - ...
-\end{align}$$
+\end{aligned}
+$$
 
 Yet it is easy to notice that arctan's Taylor expansion doesn't converge nearly as fast as sine. Since its denominator increase linearly, we need to calculate much more items before it's smaller than epsilon, which may cause a stack overflow for Nix:
 
@@ -228,10 +234,12 @@ error: stack overflow (possible infinite recursion)
 
 Taylor expansion is no longer an option then, we need something that calculates much faster. Being inspired by <https://stackoverflow.com/a/42542593>, I decided to fit the arctangent curve on $[0, 1]$ with polynomial regression, and map the arctangent function in other ranges using the following rules:
 
-$$\begin{align}
+$$
+\begin{aligned}
 x < 0,& \arctan (x) = -\arctan (-x) \\
 x > 1,& \arctan (x) = \frac{\pi}{2} - \arctan (\frac{1}{x}) \\
-\end{align}$$
+\end{aligned}
+$$
 
 Start Python and Numpy, and begin the fitting process:
 

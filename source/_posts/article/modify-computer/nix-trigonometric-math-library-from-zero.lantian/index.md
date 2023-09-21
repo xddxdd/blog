@@ -18,12 +18,14 @@ image: /usr/uploads/202309/trigonometric.png
 
 > 参考资料：[维基百科 - 半正矢公式](https://zh.wikipedia.org/zh-cn/%E5%8D%8A%E6%AD%A3%E7%9F%A2%E5%85%AC%E5%BC%8F)
 
-$$\begin{align}
+$$
+\begin{aligned}
 h = hav(\frac{d}{r}) &= (hav(\varphi_2 - \varphi_1) + \cos(\varphi_1) \cos(\varphi_2) hav(\lambda_2 - \lambda_1)) \\
 \text{其中：} hav(\theta) &= \sin^2(\frac{\theta}{2}) = \frac{1 - \cos(\theta)}{2} \\
 \text{可得：} d &= r \cdot archav(h) = 2r \cdot arcsin(\sqrt{h}) \\
 &= 2r \cdot \arcsin(\sqrt{\sin^2 (\frac{\varphi_2 - \varphi_1}{2}) + \cos(\varphi_1) \cos(\varphi_2) \sin^2 (\frac{\lambda_2 - \lambda_1}{2})})
-\end{align}$$
+\end{aligned}
+$$
 
 > 注：半正矢公式有几种变体，我实际参考的是 Stackoverflow 上的这一版使用 arctan 函数的实现：<https://stackoverflow.com/a/27943>
 
@@ -71,10 +73,12 @@ in {
 
 正弦 sin 和余弦 cos 这两个三角函数都有比较简单的计算方法：泰勒级数。我们都知道，正弦 sin 有如下的泰勒展开式：
 
-$$\begin{align}
+$$
+\begin{aligned}
 \sin x &= \sum_{n=0}^\infty (-1)^n \frac{x^{2n+1}}{(2n+1)!} \\
 &= x - \frac{x^3}{3!} + \frac{x^5}{5!} - ...
-\end{align}$$
+\end{aligned}
+$$
 
 不难发现，每个泰勒展开项可以用基本的四则运算完成计算。我们就可以在 Nix 中实现如下的函数：
 
@@ -214,10 +218,12 @@ $$\begin{align}
 
 arctan 函数也有泰勒展开式：
 
-$$\begin{align}
+$$
+\begin{aligned}
 \arctan x &= \sum_{n=0}^\infty (-1)^n \frac{x^{2n+1}}{2n+1} \\
 &= x - \frac{x^3}{3} + \frac{x^5}{5} - ...
-\end{align}$$
+\end{aligned}
+$$
 
 但是很容易发现，arctan 的泰勒展开式收敛远不如 sin 的展开式快。由于 arctan 展开式的分母线性增加，计算到小于 epsilon 所需的项数大幅增加，甚至可能直接让 Nix 的栈溢出：
 
@@ -227,10 +233,12 @@ error: stack overflow (possible infinite recursion)
 
 所以我们不能用泰勒展开式了，得用其它计算次数少的方法。受到 <https://stackoverflow.com/a/42542593> 的启发，我决定用多项式回归来拟合 $[0, 1]$ 上的 arctan 曲线，并将其它范围的 arctan 按如下规则进行映射：
 
-$$\begin{align}
+$$
+\begin{aligned}
 x < 0,& \arctan (x) = -\arctan (-x) \\
 x > 1,& \arctan (x) = \frac{\pi}{2} - \arctan (\frac{1}{x}) \\
-\end{align}$$
+\end{aligned}
+$$
 
 启动 Python，加载 Numpy，开始拟合：
 
