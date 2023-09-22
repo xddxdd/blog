@@ -77,7 +77,7 @@
     "rehype-stringify": "^10.0.0",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
-    "remark-inline-links": "^6.0.1",
+    "remark-inline-links": "^7.0.0",
     "remark-join-cjk-lines": "^1.0.11",
     "remark-math": "^6.0.0",
     "remark-mermaid": "^0.2.0",
