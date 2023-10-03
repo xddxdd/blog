@@ -62,7 +62,7 @@
     "instant.page": "^5.2.0",
     "is-color-stop": "^1.1.0",
     "is-fullwidth-code-point": "^4.0.0",
-    "katex": "^0.16.8",
+    "katex": "^0.16.9",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.7.6",
     "mini-svg-data-uri": "^1.4.4",
