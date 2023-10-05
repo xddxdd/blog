@@ -26,7 +26,7 @@
     "@lantian1998/hexo-generator-json-feed-org": "github:lantian1998/hexo-generator-json-feed-org",
     "@rollup/plugin-commonjs": "^25.0.5",
     "@rollup/plugin-json": "^6.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@rollup/plugin-node-resolve": "^15.2.2",
     "@waline/client": "2.15",
     "acorn": "^8.10.0",
     "autoprefixer": "^10.4.16",
