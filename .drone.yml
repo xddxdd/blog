@@ -52,6 +52,14 @@ steps:
       - apk add --no-cache build-base git gzip brotli zstd parallel rsync imagemagick vips-dev python3
       - make
 
+  - name: build web-compressor
+    image: rust:alpine
+    commands:
+      - apk add --no-cache build-base git cmake
+      - git clone https://github.com/xddxdd/web-compressor.git
+      - cd web-compressor
+      - cargo build --release
+
   - name: hexo deploy
     image: node:18-alpine
     environment:
@@ -66,6 +74,8 @@ steps:
       # Generate blog file
       # Temporarily disabled for deploy failure to GitHub
       # - node node_modules/hexo/bin/hexo deploy
+      # Compress to gzip
+      - web-compressor/target/release/web-compressor public/
       # Parallel jobs aren't used for hexo deploy targets, only my own site system
       - sh _scripts/parallel_jobs.sh
 
