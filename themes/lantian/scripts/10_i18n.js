@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const util = require('hexo-util')
-const postGenerator = require('hexo/lib/plugins/generator/post')
+const postGenerator = require('hexo/dist/plugins/generator/post')
 const indexGenerator = require('hexo-generator-index/lib/generator')
 const archiveGenerator = require('hexo-generator-archive/lib/generator')
 const categoryGenerator = require('hexo-generator-category/lib/generator')

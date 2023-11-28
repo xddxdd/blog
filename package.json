@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "6.3.0"
+    "version": "7.0.0"
   },
   "browserslist": [
     "last 1 version",
@@ -42,7 +42,7 @@
     "cssnano-preset-advanced": "^6.0.1",
     "flag-icon-css": "^4.1.7",
     "fontmin": "^1.0.1",
-    "hexo": "6.3",
+    "hexo": "^7.0.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
