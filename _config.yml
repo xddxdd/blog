@@ -77,10 +77,7 @@ markdown:
       code: false
       inline: true
 
-highlight:
-  enable: false
-prismjs:
-  enable: false
+syntax_highlighter: # empty
 
 feed:
   type:
