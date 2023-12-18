@@ -69,7 +69,7 @@
     "plausible-tracker": "^0.3.8",
     "prettier": "^3.1.1",
     "prism-themes": "^1.9.0",
-    "regenerator-runtime": "^0.14.0",
+    "regenerator-runtime": "^0.14.1",
     "rehype-highlight": "^7.0.0",
     "rehype-katex": "^7.0.0",
     "rehype-parse": "^9.0.0",
