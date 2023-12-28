@@ -92,7 +92,7 @@
     "simple-lightbox": "^2.1.0",
     "style-loader": "^3.3.3",
     "svgo-loader": "^4.0.0",
-    "terser-webpack-plugin": "^5.3.9",
+    "terser-webpack-plugin": "^5.3.10",
     "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0",
     "webpack": "^5.89.0",
