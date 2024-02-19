@@ -87,7 +87,7 @@
     "resolve-url-loader": "^5.0.0",
     "rollup": "^4.12.0",
     "sass": "^1.71.0",
-    "sass-loader": "^14.1.0",
+    "sass-loader": "^14.1.1",
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
     "style-loader": "^3.3.4",
