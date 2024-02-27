@@ -64,7 +64,7 @@
     "is-fullwidth-code-point": "^4.0.0",
     "katex": "^0.16.9",
     "lodash": "^4.17.21",
-    "mini-css-extract-plugin": "^2.8.0",
+    "mini-css-extract-plugin": "^2.8.1",
     "mini-svg-data-uri": "^1.4.4",
     "plausible-tracker": "^0.3.8",
     "prettier": "^3.2.5",
