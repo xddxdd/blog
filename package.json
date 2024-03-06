@@ -38,7 +38,7 @@
     "core-js": "^3.36.0",
     "css-loader": "^6.10.0",
     "css-minimizer-webpack-plugin": "^6.0.0",
-    "cssnano": "^6.0.5",
+    "cssnano": "^6.1.0",
     "cssnano-preset-advanced": "^6.1.0",
     "flag-icon-css": "^4.1.7",
     "fontmin": "^1.0.1",
