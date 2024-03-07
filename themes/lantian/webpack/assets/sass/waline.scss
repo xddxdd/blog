@@ -1,46 +1,30 @@
 @charset "utf-8";
 @import 'common';
+@import '@waline/client/style';
 
 :root {
-  /* 字体大小 */
   --waline-font-size: 1rem;
-
-  /* 常规颜色 */
   --waline-white: #fff;
   --waline-light-grey: #{material-color('grey', '300')};
   --waline-dark-grey: #{material-color('grey', '500')};
-
-  /* 主题色 */
   --waline-theme-color: #{$primary};
   --waline-active-color: #{$primary};
-
-  /* 布局颜色 */
-  --waline-text-color: #{$body-color};
-  --waline-bgcolor: #fff;
-  --waline-bgcolor-light: #fff;
-  --waline-bgcolor-hover: #fff;
+  --waline-color: #{$body-color};
+  --waline-bg-color: #fff;
+  --waline-bg-color-light: #fff;
+  --waline-bg-color-hover: #fff;
   --waline-border-color: #{material-color('grey', '400')};
-  --waline-disable-bgcolor: #{material-color('grey', '100')};
+  --waline-disable-bg-color: #{material-color('grey', '100')};
   --waline-disable-color: #{material-color('grey', '400')};
-  --waline-code-bgcolor: transparent;
-
-  /* 特殊颜色 */
+  --waline-code-bg-color: transparent;
   --waline-bq-color: #{material-color('grey', '200')};
-
-  /* 头像 */
   --waline-avatar-size: 4rem;
   --waline-m-avatar-size: 3rem;
-
-  /* 徽章 */
   --waline-badge-color: #{$primary};
   --waline-badge-font-size: 0.8rem;
-
-  /* 信息 */
-  --waline-info-bgcolor: #{material-color('grey', '100')};
+  --waline-info-bg-color: #{material-color('grey', '100')};
   --waline-info-color: #{material-color('grey', '500')};
   --waline-info-font-size: 0.625em;
-
-  /* 渲染选择 */
   --waline-border: 1px solid var(--waline-border-color);
   --waline-avatar-radius: 0;
   --waline-box-shadow: none;
@@ -54,18 +38,18 @@
     --waline-dark-grey: #{material-color('grey', '500')};
 
     /* 布局颜色 */
-    --waline-text-color: #{$body-color-dark};
-    --waline-bgcolor: #{material-color('grey', '800')};
-    --waline-bgcolor-light: #{material-color('grey', '800')};
-    --waline-bgcolor-hover: #{material-color('grey', '800')};
-    --waline-disable-bgcolor: #{material-color('grey', '900')};
+    --waline-color: #{$body-color-dark};
+    --waline-bg-color: #{material-color('grey', '800')};
+    --waline-bg-color-light: #{material-color('grey', '800')};
+    --waline-bg-color-hover: #{material-color('grey', '800')};
+    --waline-disable-bg-color: #{material-color('grey', '900')};
     --waline-disable-color: #{material-color('grey', '600')};
 
     /* 特殊颜色 */
     --waline-bq-color: #{material-color('grey', '800')};
 
     /* 其他颜色 */
-    --waline-info-bgcolor: #{material-color('grey', '800')};
+    --waline-info-bg-color: #{material-color('grey', '800')};
     --waline-info-color: #{material-color('grey', '500')};
   }
 }
@@ -78,18 +62,18 @@
     --waline-dark-grey: #{material-color('grey', '300')};
 
     /* 布局颜色 */
-    --waline-text-color: #{$body-color-dark};
-    --waline-bgcolor: #{material-color('grey', '800')};
-    --waline-bgcolor-light: #{material-color('grey', '800')};
-    --waline-bgcolor-hover: #{material-color('grey', '800')};
-    --waline-disable-bgcolor: #{material-color('grey', '900')};
+    --waline-color: #{$body-color-dark};
+    --waline-bg-color: #{material-color('grey', '800')};
+    --waline-bg-color-light: #{material-color('grey', '800')};
+    --waline-bg-color-hover: #{material-color('grey', '800')};
+    --waline-disable-bg-color: #{material-color('grey', '900')};
     --waline-disable-color: #{material-color('grey', '600')};
 
     /* 特殊颜色 */
     --waline-bq-color: #{material-color('grey', '800')};
 
     /* 其他颜色 */
-    --waline-info-bgcolor: #{material-color('grey', '800')};
+    --waline-info-bg-color: #{material-color('grey', '800')};
     --waline-info-color: #{material-color('grey', '500')};
   }
 }
@@ -97,17 +81,6 @@
 [data-waline] * {
   border-radius: 0 !important;
 }
-
-@import '../../node_modules/@waline/client/src/styles/normalize.scss';
-@import '../../node_modules/@waline/client/src/styles/base.scss';
-@import '../../node_modules/@waline/client/src/styles/panel.scss';
-@import '../../node_modules/@waline/client/src/styles/emoji.scss';
-@import '../../node_modules/@waline/client/src/styles/gif.scss';
-@import '../../node_modules/@waline/client/src/styles/card.scss';
-@import '../../node_modules/@waline/client/src/styles/layout.scss';
-@import '../../node_modules/@waline/client/src/styles/reaction.scss';
-@import '../../node_modules/@waline/client/src/styles/recent.scss';
-@import '../../node_modules/@waline/client/src/styles/user-list.scss';
 
 .wl-content {
   pre,
