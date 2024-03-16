@@ -10,11 +10,27 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.5.9",
     "@astrojs/mdx": "^2.2.0",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.1.1",
+    "@hpcc-js/wasm": "^2.16.0",
     "astro": "^4.5.5",
-    "@astrojs/check": "^0.5.9",
+    "highlight.js": "^11.9.0",
+    "rehype-highlight": "^7.0.0",
+    "rehype-katex": "^7.0.0",
+    "rehype-parse": "^9.0.0",
+    "rehype-slug": "^6.0.0",
+    "rehype-stringify": "^10.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-inline-links": "^7.0.0",
+    "remark-join-cjk-lines": "^1.0.11",
+    "remark-math": "^6.0.0",
+    "remark-mermaid": "^0.2.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.0",
+    "remark-stringify": "^11.0.0",
     "typescript": "^5.4.2"
   }
 }
