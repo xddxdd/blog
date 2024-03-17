@@ -12,7 +12,7 @@ After launch, in addition to preventing natural disasters, Japan also released p
 
 Next, we're going to investigate how to obtain these pictures. With the network monitor functionality of the browser, we can see the request URL:
 
-![/usr/uploads/2016/06/1359531479.png](../../../../../usr/uploads/2016/06/1359531479.png)
+![/usr/uploads/2016/06/1359531479.png](../../../../usr/uploads/2016/06/1359531479.png)
 
 In this case, the URL is `http://himawari8-dl.nict.go.jp/himawari8/img/D531106/2d/550/2016/06/14/140000_0_1.png`. There are a few important parameters:
 

@@ -5,7 +5,7 @@ import Footer from '../../../components/Footer.astro';
 import { SITE_TITLE } from '../../../consts';
 import FormattedDate from '../../../components/FormattedDate.astro';
 import { getPosts, getStaticPathsForPaginate } from '../../../lib/posts';
-import { PaginatedProps } from '../../../lib/posts';
+import type { PaginatedProps } from '../../../lib/posts';
 
 export async function getStaticPaths() {
   const posts = await getPosts();

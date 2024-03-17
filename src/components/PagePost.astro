@@ -1,0 +1,103 @@
+---
+import { Language } from '../lib/language';
+import { Post } from '../lib/posts';
+
+type Props = {
+  language: Language;
+  post: Post;
+  isIndex: boolean;
+};
+
+const { language, post } = Astro.props;
+const __ = language.getTranslation;
+
+const { Content } = await post.collectionEntry.render();
+---
+
+<article>
+  <div class="d-flex">
+    <div class="post-info-wrap">
+      <div class="post-info">
+        {
+          /* Filter out posts before UTC & handle timezone which may be 12h off */
+          post.date.valueOf() > 43200000 && (
+            <div class="post-meta-wrap">
+              <div class="post-meta">
+                <p>
+                  <span class="fas fa-clock" />
+                  <br />
+                  <small>{post.date.toDateString()}</small>
+                </p>
+                <div class="post-meta-value">
+                  {__('date')}
+                  <span class="badge badge-tag">{post.date.toString()}</span>
+                </div>
+              </div>
+            </div>
+          )
+        }
+        {
+          post.category !== undefined && (
+            <div class="post-meta-wrap">
+              <div class="post-meta">
+                <p>
+                  <span class="fas fa-file-alt" />
+                  <br />
+                  <small>{post.category}</small>
+                </p>
+                <div class="post-meta-value">
+                  {__('category')}
+                  <a class="badge badge-tag" href="#">
+                    {post.category}
+                  </a>
+                  &nbsp;
+                </div>
+              </div>
+            </div>
+          )
+        }
+        {
+          post.tags.length > 0 && (
+            <div class="post-meta-wrap">
+              <div class="post-meta">
+                <p>
+                  <span class="fas fa-tag" />
+                  <br />
+                  <small>
+                    {post.tags.length} {__('n_tags')}
+                  </small>
+                </p>
+                <div class="post-meta-value">
+                  {__('tags')}
+                  {post.tags.map((tag) => (
+                    <a class="badge badge-tag" href="#">
+                      {tag}
+                    </a>
+                  ))}
+                  &nbsp;
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+    <div class="post-wrap">
+      {
+        post.image !== undefined && (
+          <div class="post-image-wrap">
+            <img src={post.image} alt={__('illustration')} />
+          </div>
+        )
+      }
+      <h1 class="post-title">
+        <a href={post.getFullURL()} rel="bookmark" title={post.title}
+          >{post.title}</a
+        >
+      </h1>
+      <div class="post-text">
+        <Content />
+      </div>
+    </div>
+  </div>
+</article>

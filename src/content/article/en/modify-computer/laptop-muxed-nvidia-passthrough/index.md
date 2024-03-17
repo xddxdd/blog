@@ -34,7 +34,7 @@ Before following steps in this post, you need to prepare:
 3. (Optional) Depending on the video output ports on your computer, purchase an HDMI, DP, or USB Type-C dummy plug. You can get one for a few bucks on Amazon.
 
    - (2023-05) Or you can choose to install a virtual monitor driver.
-   - ![HDMI Dummy Plug](../../../../../usr/uploads/202201/hdmi-dummy-plug.jpg)
+   - ![HDMI Dummy Plug](../../../../usr/uploads/202201/hdmi-dummy-plug.jpg)
 
 4. (Optional) A USB keyboard and mouse combo.
 
@@ -215,7 +215,7 @@ And here we start:
    <qemu:arg value='file=/ssdt1.dat'/>
    ```
 
-   The ssdt1.dat is an ACPI table, and it emulates a fully-charged battery. It corresponds to the Base64 below. It can be converted to a binary file with [Base64 decoding website](https://base64.guru/converter/decode/file) or [downloaded from this site](../../../../../usr/uploads/202007/ssdt1.dat). Place it in the root folder.
+   The ssdt1.dat is an ACPI table, and it emulates a fully-charged battery. It corresponds to the Base64 below. It can be converted to a binary file with [Base64 decoding website](https://base64.guru/converter/decode/file) or [downloaded from this site](../../../../usr/uploads/202007/ssdt1.dat). Place it in the root folder.
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f

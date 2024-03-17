@@ -1,0 +1,49 @@
+@use 'sass:math';
+
+@import '@fortawesome/fontawesome-free/scss/functions';
+@import '@fortawesome/fontawesome-free/scss/variables';
+@import '@fortawesome/fontawesome-free/scss/mixins';
+@import 'sass-material-colors';
+
+@mixin font-awesome {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  width: 1em;
+}
+
+$font-family-sans-serif: Ubuntu, -apple-system, 'Helvetica Neue', Helvetica,
+  'Nimbus Sans L', Arial, 'Liberation Sans', 'PingFang SC', 'Hiragino Sans GB',
+  'Source Han Sans CN', 'Source Han Sans SC', 'Noto Sans CJK SC',
+  'Microsoft YaHei', 'WenQuanYi Micro Hei', 'WenQuanYi Zen Hei',
+  'WenQuanYi Zen Hei Sharp', SimSun, sans-serif;
+$font-family-monospace: 'Fira Code', 'Consolas', 'Bitstream Vera Sans Mono',
+  'Courier New', Courier, monospace;
+
+$primary: material-color('light-blue', '500');
+$primary-hover: material-color('light-blue', '700');
+$body-color: material-color('grey', '800');
+$body-color-dark: material-color('grey', '200');
+
+// Do not use $body-bg since it conflicts with Bootstrap variables
+$body-background: material-color('light-blue', '100');
+$body-background-dark: material-color('grey', '900');
+
+$border-default: 1px solid material-color('grey', '400');
+$border-dotted: 1px dotted material-color('grey', '400');
+
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$h1-font-size: $font-size-base * 1.5;
+$h2-font-size: $font-size-base * 1.25;
+$h3-font-size: $font-size-base * 1.125;
+$h4-font-size: $font-size-base * 1;
+$h5-font-size: $font-size-base * 0.875;
+$h6-font-size: $font-size-base * 0.75;
+
+$headings-font-weight: 700;
+
+$px-in-rem: math.div(16px, 1rem);

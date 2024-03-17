@@ -9,8 +9,6 @@ image: /usr/uploads/2013/01/3678713192.jpg
 
 首先打开主页：[http://www.crazydomains.com.au/](http://www.crazydomains.com.au/)，找到首页上的域名输入框，选择ASIA，如下图。
 
-![/usr/uploads/2013/01/3678713192.jpg](../../../../usr/uploads/2013/01/3678713192.jpg)
-
 0美刀！点一下Search。然后就会看到yourname.asia后面\$0的提示。如果是\$1，那么你需要某种修改你的IP地址的方式。
 
 接下来，点Add To Cart，然后Register Selected。再接下来，注册一个账号，我不说了。Next。再接下来，会让你买一堆增值服务什么的，注意都要美刀！全部不要选！一路NEXT！

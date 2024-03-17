@@ -1,16 +1,14 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-
-const POSTS_PER_PAGE = 10;
-const LANGUAGES = ['zh', 'en'];
-const DEFAULT_LANGUAGE = 'zh';
+import { POSTS_PER_PAGE, LANGUAGES, DEFAULT_LANGUAGE } from '../consts';
+import { Language } from './language';
 
 export class Post {
   public readonly title: string;
   public readonly category: string | undefined;
   public readonly tags: string[];
   public readonly date: Date;
-  public readonly image?: string | undefined;
-  public readonly language: string | undefined;
+  public readonly image: string | undefined;
+  public readonly language: Language;
   public readonly path: string;
   public readonly body: string;
   public readonly collectionEntry: CollectionEntry<'article'>;
@@ -24,23 +22,15 @@ export class Post {
     this.title = post.data.title;
     this.category = post.data.categories;
     this.tags = post.data.tags ?? [];
-    this.date = post.data.date;
+    this.date = post.data.date ?? new Date(0);
     this.image = post.data.image;
-    this.language = language;
+    this.language = new Language(language!);
     this.path = path;
     this.body = post.body;
   }
 
-  public isDefaultLanguage(): boolean {
-    return this.language == DEFAULT_LANGUAGE;
-  }
-
-  public getLanguageSegment(): string {
-    return this.isDefaultLanguage() ? '' : `${this.language}/`;
-  }
-
   public getFullURL(): string {
-    return `/${this.getLanguageSegment()}article/${this.path}.lantian/`;
+    return `${this.language.getSegment()}/article/${this.path}.lantian/`;
   }
 
   public static fromCollectionEntry(post: CollectionEntry<'article'>): Post {
@@ -61,7 +51,7 @@ export type PaginatedProps = {
 
 export function getStaticPathsForPaginate(posts: Post[]) {
   return LANGUAGES.flatMap((language) => {
-    const postsForLanguage = posts.filter((post) => post.language == language);
+    const postsForLanguage = posts.filter((post) => post.language.is(language));
     const numPages = Math.ceil(postsForLanguage.length / POSTS_PER_PAGE);
     return [...Array(numPages).keys()].map((i) => ({
       params: {

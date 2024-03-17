@@ -1,0 +1,68 @@
+---
+import { LANGUAGES, SITE_TITLE } from '../consts';
+import { Language } from '../lib/language';
+import { Post } from '../lib/posts';
+
+type Props = {
+  fullTitle: string;
+  language: Language;
+  post: Post | undefined;
+};
+
+const { pathname } = Astro.url;
+const languagePathPrefix = Astro.props.language.getSegment();
+const pathWithoutLanguage = pathname.startsWith(languagePathPrefix)
+  ? pathname.slice(languagePathPrefix.length)
+  : pathname;
+---
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  http-equiv="Referrer-Policy"
+  content="no-referrer, strict-origin-when-cross-origin"
+/>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,shrink-to-fit=no"
+/>
+<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+<meta name="theme-color" content="#bbdefb" />
+<meta name="imagemode" content="force" />
+<meta name="nightmode" content="disable" />
+<meta name="wap-font-scale" content="no" />
+
+<title>{Astro.props.fullTitle}</title>
+<meta name="title" content={Astro.props.fullTitle} />
+<meta name="keywords" content="" />
+<meta name="description" content={Astro.props.fullTitle} />
+<meta name="author" content="Lan Tian" />
+
+<link rel="canonical" href={Astro.request.url} />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE_TITLE}
+  href="/rss2.xml"
+/>
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  title={SITE_TITLE}
+  href="/feed.xml"
+/>
+
+{
+  LANGUAGES.map((language) => (
+    <link
+      rel="alternate"
+      href={new Language(language).getSegment() + pathWithoutLanguage}
+      hreflang={language}
+    />
+  ))
+}
+
+<meta
+  name="copyright"
+  content={`Copyright 2012-${new Date().getFullYear()} ${SITE_TITLE}`}
+/>

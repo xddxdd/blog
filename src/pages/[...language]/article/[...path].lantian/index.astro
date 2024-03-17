@@ -1,5 +1,5 @@
 ---
-import BlogPost from '../../../../layouts/BlogPost.astro';
+import PageLayout from '../../../../components/PageLayout.astro';
 import { Post, getPosts } from '../../../../lib/posts';
 
 export async function getStaticPaths() {
@@ -7,17 +7,15 @@ export async function getStaticPaths() {
   return posts.map((post) => ({
     params: {
       path: post.path,
-      language: post.isDefaultLanguage() ? undefined : post.language,
+      language: post.language.isDefault()
+        ? undefined
+        : post.language.toString(),
     },
-    props: post,
+    props: { post: post },
   }));
 }
-type Props = Post;
-const post = Astro.props;
-const {Content} = await post.collectionEntry.render();
-// const content = await post.render();
+type Props = { post: Post };
+const post = Astro.props.post;
 ---
 
-<BlogPost post={post}>
-  <Content />
-</BlogPost>
+<PageLayout title={post.title} language={post.language} post={post} />

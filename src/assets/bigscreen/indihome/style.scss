@@ -1,0 +1,216 @@
+@charset "utf-8";
+
+@import '../../sass/bootstrap_common.scss';
+
+#bg {
+    & {
+        background-image: url('./indihome.png') !important;
+    }
+
+    #indihome-logo {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 2rem 5%;
+        font-size: 2.5rem;
+        color: $primary;
+        font-weight: 700;
+    }
+
+    #indihome-logo-right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 0 5%;
+
+        width: 16rem;
+        height: 8rem;
+
+        background-image: url('./dn42.svg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        @include media-breakpoint-down(md) {
+            display: none;
+        }
+    }
+
+    #indihome-content {
+        animation: indihome-shake 10s infinite;
+        position: absolute;
+        left: 10%;
+        top: 15%;
+
+        p {
+            margin: 0 !important;
+        }
+
+        b {
+            color: black;
+            letter-spacing: 0 !important;
+        }
+
+        .indihome-num {
+            color: material-color('grey', '500');
+            font-size: 2rem;
+            letter-spacing: -0.1rem;
+        }
+    }
+}
+
+@keyframes indihome-shake {
+    0% {
+        transform: translate3d(1px, 19px, 0);
+    }
+    2% {
+        transform: translate3d(3px, 14px, 0);
+    }
+    4% {
+        transform: translate3d(0px, -22px, 0);
+    }
+    6% {
+        transform: translate3d(-4px, 21px, 0);
+    }
+    8% {
+        transform: translate3d(3px, -16px, 0);
+    }
+    10% {
+        transform: translate3d(4px, -12px, 0);
+    }
+    12% {
+        transform: translate3d(9px, 4px, 0);
+    }
+    14% {
+        transform: translate3d(-9px, -22px, 0);
+    }
+    16% {
+        transform: translate3d(-7px, 0px, 0);
+    }
+    18% {
+        transform: translate3d(2px, 8px, 0);
+    }
+    20% {
+        transform: translate3d(8px, -4px, 0);
+    }
+    22% {
+        transform: translate3d(-8px, 11px, 0);
+    }
+    24% {
+        transform: translate3d(-4px, -4px, 0);
+    }
+    26% {
+        transform: translate3d(4px, -15px, 0);
+    }
+    28% {
+        transform: translate3d(-9px, -18px, 0);
+    }
+    30% {
+        transform: translate3d(8px, -2px, 0);
+    }
+    32% {
+        transform: translate3d(-5px, 24px, 0);
+    }
+    34% {
+        transform: translate3d(-2px, 20px, 0);
+    }
+    36% {
+        transform: translate3d(-5px, 17px, 0);
+    }
+    38% {
+        transform: translate3d(-2px, 23px, 0);
+    }
+    40% {
+        transform: translate3d(2px, 0px, 0);
+    }
+    42% {
+        transform: translate3d(0px, 22px, 0);
+    }
+    44% {
+        transform: translate3d(-8px, 21px, 0);
+    }
+    46% {
+        transform: translate3d(9px, 15px, 0);
+    }
+    48% {
+        transform: translate3d(7px, 6px, 0);
+    }
+    50% {
+        transform: translate3d(4px, -16px, 0);
+    }
+    52% {
+        transform: translate3d(5px, -12px, 0);
+    }
+    54% {
+        transform: translate3d(0px, -20px, 0);
+    }
+    56% {
+        transform: translate3d(3px, -12px, 0);
+    }
+    58% {
+        transform: translate3d(3px, 22px, 0);
+    }
+    60% {
+        transform: translate3d(1px, 17px, 0);
+    }
+    62% {
+        transform: translate3d(-5px, 9px, 0);
+    }
+    64% {
+        transform: translate3d(-3px, -5px, 0);
+    }
+    66% {
+        transform: translate3d(-4px, 10px, 0);
+    }
+    68% {
+        transform: translate3d(6px, 11px, 0);
+    }
+    70% {
+        transform: translate3d(-2px, -16px, 0);
+    }
+    72% {
+        transform: translate3d(0px, -15px, 0);
+    }
+    74% {
+        transform: translate3d(7px, -12px, 0);
+    }
+    76% {
+        transform: translate3d(7px, 7px, 0);
+    }
+    78% {
+        transform: translate3d(6px, -19px, 0);
+    }
+    80% {
+        transform: translate3d(9px, 10px, 0);
+    }
+    82% {
+        transform: translate3d(1px, 7px, 0);
+    }
+    84% {
+        transform: translate3d(1px, 4px, 0);
+    }
+    86% {
+        transform: translate3d(7px, -6px, 0);
+    }
+    88% {
+        transform: translate3d(0px, -11px, 0);
+    }
+    90% {
+        transform: translate3d(-3px, 7px, 0);
+    }
+    92% {
+        transform: translate3d(-5px, 18px, 0);
+    }
+    94% {
+        transform: translate3d(7px, 0px, 0);
+    }
+    96% {
+        transform: translate3d(-8px, 23px, 0);
+    }
+    98% {
+        transform: translate3d(1px, -2px, 0);
+    }
+    100% {
+        transform: translate3d(1px, 19px, 0);
+    }
+}

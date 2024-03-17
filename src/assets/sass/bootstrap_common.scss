@@ -1,0 +1,49 @@
+@charset "utf-8";
+@import 'common';
+
+$enable-rounded: false;
+$enable-transitions: false;
+
+$link-hover-color: $primary-hover;
+
+$navbar-light-color: $primary;
+$navbar-light-hover-color: $primary-hover;
+$navbar-light-active-color: $primary;
+$navbar-dark-color: $primary;
+$navbar-dark-hover-color: $primary-hover;
+$navbar-dark-active-color: $primary;
+
+$blockquote-font-size: $font-size-base;
+
+$navbar-nav-link-padding-x: 1rem;
+$navbar-brand-font-size: $h1-font-size;
+
+$line-height-lg: 1.75;
+$line-height-sm: 1.75;
+$line-height-base: 1.75;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1280px,
+  xxl: 1600px
+);
+
+$container-max-widths: (
+  sm: 767px,
+  md: 768px,
+  lg: 960px,
+  xl: 1200px,
+  xxl: 1440px
+);
+
+$link-decoration: none;
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import "bootstrap/scss/maps";
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';

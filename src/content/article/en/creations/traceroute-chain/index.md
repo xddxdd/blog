@@ -8,7 +8,7 @@ image: /usr/uploads/2018/08/2301166997.png
 
 Traceroute is one of the popular tools for network inspection. It shows the IP addresses of routers on the route from your computer to a destination server, similar to:
 
-![Traceroute Example](../../../../../usr/uploads/2018/08/2301166997.png)
+![Traceroute Example](../../../../usr/uploads/2018/08/2301166997.png)
 
 Domains are shown on the last 2 hops, which is the IP's reverse DNS record. Reverse DNS records exist as PTR records in the format of `4.3.2.1.in-addr.arpa`. For more information, you may refer to [Setting IP Reverse Records in DN42 (Chinese Only)](/article/modify-website/dn42-ip-reverse-record.lantian).
 
@@ -27,7 +27,7 @@ After downloading the source code, `make`, and `make install`, and run `route-ch
 
 The addresses in the parameters are assigned to **the host**, and the virtual path is calculated as +1, +2 to the host address. For example, if I run `route-chain 172.22.76.97/29`, this will generate a chain of routes of 97-102, with 97 being the host. This creates the same result as I did 2 years ago with Docker containers:
 
-![Traceroute Results](../../../../../usr/uploads/2018/08/1311499371.png)
+![Traceroute Results](../../../../usr/uploads/2018/08/1311499371.png)
 
 (I'm simply reusing the screenshot from 2 years ago)
 

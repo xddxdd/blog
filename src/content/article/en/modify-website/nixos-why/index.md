@@ -143,7 +143,7 @@ Since all binaries of NixOS are stored in `/nix/store` and there is no unified p
 
 If the new config files crashed the system, theoretically, you only need to adjust `PATH` and links in `/etc` to recover to the last correct config, and the system will recover to an older state. Therefore, NixOS directly provides the options in its boot menu, so you can boot to a specific deployment state:
 
-![NixOS Boot Menu](../../../../../usr/uploads/202110/nixos-bootloader.jpg)
+![NixOS Boot Menu](../../../../usr/uploads/202110/nixos-bootloader.jpg)
 
 > Image downloaded from <https://discourse.nixos.org/t/how-to-make-uefis-grub2-menu-the-same-as-bioss-one/10074>
 

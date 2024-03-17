@@ -133,7 +133,7 @@ Open Quantum Safe 同样[提供了 Chromium 的编译教程，在这里可以找
 
 编译、安装完成后，启动 Chromium 访问开启了后量子加密的网站，然后打开开发者工具的 Security（安全）面板：
 
-![Chromium 显示使用后量子加密算法](../../../usr/uploads/202009/chromium-post-quantum.png)
+![Chromium 显示使用后量子加密算法](../../../../usr/uploads/202009/chromium-post-quantum.png)
 
 上面已经显示使用了 `p256_frodo640aes` 算法，也就意味着你的网页浏览已经有了后量子时代的保护。
 

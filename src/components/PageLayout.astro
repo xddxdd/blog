@@ -1,0 +1,43 @@
+---
+import { SITE_TITLE } from '../consts';
+import { Language } from '../lib/language';
+import { Post } from '../lib/posts';
+import PageHead from './PageHead.astro';
+import PagePost from './PagePost.astro';
+
+import '../assets/style.scss';
+
+type Props = {
+  title: string | undefined;
+  language: Language;
+  post: Post | undefined;
+};
+
+const { post, language } = Astro.props;
+const fullTitle =
+  Astro.props.title === undefined
+    ? SITE_TITLE
+    : `${Astro.props.title} - ${SITE_TITLE}`;
+---
+
+<!doctype html>
+<html
+  lang={language.toString()}
+  itemscope
+  itemtype="https://schema.org/Article"
+>
+  <head>
+    <PageHead fullTitle={fullTitle} language={language} post={post} />
+  </head>
+  <body>
+    <div id="bg"></div>
+
+    <div id="container" class="container">
+      {
+        post !== undefined && (
+          <PagePost language={language} post={post} isIndex={false} />
+        )
+      }
+    </div>
+  </body>
+</html>

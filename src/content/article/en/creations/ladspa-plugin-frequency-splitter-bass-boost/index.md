@@ -47,7 +47,7 @@ cmake .. && make && sudo make install
 
 Since it's a standard LADSPA plugin, it can be used by any music player supporting LADSPA, for example, Audacious:
 
-![Audacious Load LADSPA Plugin](../../../../../usr/uploads/202002/ladspa-audacity.png)
+![Audacious Load LADSPA Plugin](../../../../usr/uploads/202002/ladspa-audacity.png)
 
 Here `Split Frequency` stands for the split frequency for bass and treble. With the settings in the picture, any sound lower than 100 Hz will go through one channel and be enhanced, while those higher than 100 Hz will go through the other channel. `Bass Boost` is the factor by which bass enhances. For example, 1 means no increase, and "5" means that the bass signal is multiplied by 5.
 

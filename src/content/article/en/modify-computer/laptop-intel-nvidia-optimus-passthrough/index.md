@@ -70,7 +70,7 @@ But for NVIDIA GPUs and laptops, things are more complicated:
 
 - NVIDIA drivers refuse to load in VMs
   - NVIDIA doesn't want you to go with a consumer card that costs a mere few hundred dollars. They want you to spend thousands on a GRID GPU dedicated to virtualization.
-    - ![Linus Torvalds Fxxk Nvidia](../../../../../usr/uploads/202007/linus-torvalds-nvidia.png)
+    - ![Linus Torvalds Fxxk Nvidia](../../../../usr/uploads/202007/linus-torvalds-nvidia.png)
   - Therefore, you need a lot of hacks to hide the fact that you're running a VM and make NVIDIA drivers load.
     - Will be discussed in detail later.
 - Laptop NVIDIA GPUs are different from desktop GPUs
@@ -357,7 +357,7 @@ Passing through this virtual Intel GPU is also relatively easy and may serve as 
      </qemu:commandline>
      ```
 
-     The `vbios_gvt_uefi.rom` can be downloaded from [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom), or [from this site](../../../../../usr/uploads/202007/vbios_gvt_uefi.rom), and should be put to root folder. If you moved it elsewhere, you need to modify the `romfile` parameter correspondingly.
+     The `vbios_gvt_uefi.rom` can be downloaded from [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom), or [from this site](../../../../usr/uploads/202007/vbios_gvt_uefi.rom), and should be put to root folder. If you moved it elsewhere, you need to modify the `romfile` parameter correspondingly.
    - Change the first line of the configuration file, `<domain type='kvm'>`, to `<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>`.
 5. Reboot the VM, and you should see normal graphics output. Now the VM is using the GVT-g virtual GPU.
 
@@ -525,7 +525,7 @@ So we have to hack through all these pitfalls.
 
    The IDs here should match the hardware ID from Device Manager, `PCI\VEN_10DE&DEV_1C8D&SUBSYS_39D117AA&REV_A1`. Replace accordingly.
 
-   The ssdt1.dat corresponds to the Base64 below. It can be converted to a binary file with [Base64 decoding website](https://base64.guru/converter/decode/file) or [downloaded from this site](../../../../../usr/uploads/202007/ssdt1.dat). Put it in the root folder. If you moved its location, you should modify the file parameter accordingly. It's also an ACPI table, and it emulates a fully-charged battery, but instead of being merged to OVMF, it simply works as a QEMU argument addition.
+   The ssdt1.dat corresponds to the Base64 below. It can be converted to a binary file with [Base64 decoding website](https://base64.guru/converter/decode/file) or [downloaded from this site](../../../../usr/uploads/202007/ssdt1.dat). Put it in the root folder. If you moved its location, you should modify the file parameter accordingly. It's also an ACPI table, and it emulates a fully-charged battery, but instead of being merged to OVMF, it simply works as a QEMU argument addition.
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
