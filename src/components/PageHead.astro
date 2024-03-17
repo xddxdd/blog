@@ -1,27 +1,27 @@
 ---
-import { SITE_TITLE } from '../consts';
-import { type Language, LANGUAGES } from '../lib/language';
-import { Post } from '../lib/posts';
+import { SITE_TITLE } from '../consts'
+import { type Language, LANGUAGES } from '../lib/language'
+import { Post } from '../lib/posts'
 
 type Props = {
-  fullTitle: string;
-  language: Language;
-  post: Post | undefined;
-};
+    fullTitle: string
+    language: Language
+    post: Post | undefined
+}
 
-const { language } = Astro.props;
-const { pathname } = Astro.url;
+const { language } = Astro.props
+const { pathname } = Astro.url
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta
-  http-equiv="Referrer-Policy"
-  content="no-referrer, strict-origin-when-cross-origin"
+    http-equiv="Referrer-Policy"
+    content="no-referrer, strict-origin-when-cross-origin"
 />
 <meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    name="viewport"
+    content="width=device-width,initial-scale=1,shrink-to-fit=no"
 />
 <meta name="renderer" content="webkit|ie-comp|ie-stand" />
 <meta name="theme-color" content="#bbdefb" />
@@ -37,29 +37,29 @@ const { pathname } = Astro.url;
 
 <link rel="canonical" href={Astro.request.url} />
 <link
-  rel="alternate"
-  type="application/rss+xml"
-  title={SITE_TITLE}
-  href="/rss2.xml"
+    rel="alternate"
+    type="application/rss+xml"
+    title={SITE_TITLE}
+    href="/rss2.xml"
 />
 <link
-  rel="alternate"
-  type="application/atom+xml"
-  title={SITE_TITLE}
-  href="/feed.xml"
+    rel="alternate"
+    type="application/atom+xml"
+    title={SITE_TITLE}
+    href="/feed.xml"
 />
 
 {
-  Object.entries(LANGUAGES).map(([_, newLanguage]) => (
-    <link
-      rel="alternate"
-      href={language.getCanonicalPath(pathname, newLanguage)}
-      hreflang={newLanguage.getCode()}
-    />
-  ))
+    Object.entries(LANGUAGES).map(([_, newLanguage]) => (
+        <link
+            rel="alternate"
+            href={language.getCanonicalPath(pathname, newLanguage)}
+            hreflang={newLanguage.getCode()}
+        />
+    ))
 }
 
 <meta
-  name="copyright"
-  content={`Copyright 2012-${new Date().getFullYear()} ${SITE_TITLE}`}
+    name="copyright"
+    content={`Copyright 2012-${new Date().getFullYear()} ${SITE_TITLE}`}
 />

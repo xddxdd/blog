@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write --plugin=prettier-plugin-astro .",
+    "prettier:check": "prettier --check --plugin=prettier-plugin-astro ."
   },
   "dependencies": {
     "@astrojs/check": "^0.5.9",
@@ -48,5 +50,38 @@
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
     "typescript": "^5.4.2"
+  },
+  "devDependencies": {
+    "@types/highlight.js": "^10.1.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "proseWrap": "always",
+    "overrides": [
+      {
+        "files": "*.js",
+        "options": {
+          "tabWidth": 2
+        }
+      },
+      {
+        "files": "*.json",
+        "options": {
+          "tabWidth": 2
+        }
+      },
+      {
+        "files": "*.ts",
+        "options": {
+          "tabWidth": 2
+        }
+      }
+    ]
   }
 }

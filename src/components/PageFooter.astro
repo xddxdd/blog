@@ -1,31 +1,31 @@
 ---
-import { SITE_TITLE } from '../consts';
-import type { Language } from '../lib/language';
-import { format } from 'date-fns';
-import type { PaginationProps } from './PagePaginator.astro';
-import PagePaginator from './PagePaginator.astro';
+import { SITE_TITLE } from '../consts'
+import type { Language } from '../lib/language'
+import { format } from 'date-fns'
+import type { PaginationProps } from './PagePaginator.astro'
+import PagePaginator from './PagePaginator.astro'
 
 type Props = {
-  language: Language;
-  pagination?: PaginationProps | undefined;
-};
+    language: Language
+    pagination?: PaginationProps | undefined
+}
 
-const __ = Astro.props.language.getTranslation;
+const __ = Astro.props.language.getTranslation
 ---
 
 <footer class="lantian clearfix">
-  {
-    Astro.props.pagination !== undefined && (
-      <PagePaginator {...Astro.props.pagination} />
-    )
-  }
-  <div id="copyright" class="float-end text-end">
-    <i class="fas fa-copyright"></i> 2012-{new Date().getFullYear()}
-    {SITE_TITLE}<br />
-    <small>
-      {__('powered_by', Astro.generator)} @ {
-        format(new Date(), 'yyyy-MM-dd HH:mm:ss')
-      }
-    </small>
-  </div>
+    {
+        Astro.props.pagination !== undefined && (
+            <PagePaginator {...Astro.props.pagination} />
+        )
+    }
+    <div id="copyright" class="float-end text-end">
+        <i class="fas fa-copyright"></i> 2012-{new Date().getFullYear()}
+        {SITE_TITLE}<br />
+        <small>
+            {__('powered_by', Astro.generator)} @ {
+                format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+            }
+        </small>
+    </div>
 </footer>

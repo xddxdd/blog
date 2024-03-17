@@ -1,12 +1,12 @@
-import type { NavigationItem } from '../navigation';
-import { Language } from './type';
+import type { NavigationItem } from '../navigation'
+import { Language } from './type'
 
 const translationDict: Record<string, string | ((any) => string)> = {
-  list_category: (category) => `分类 ${category} 中的文章`,
-  list_tag: (tag) => `含有标签 ${tag} 的文章`,
-  powered_by: (software) => `基于 ${software} 构建`,
+  list_category: category => `分类 ${category} 中的文章`,
+  list_tag: tag => `含有标签 ${tag} 的文章`,
+  powered_by: software => `基于 ${software} 构建`,
   page: '页面',
-  nth_page: (n) => `第 ${n} 页`,
+  nth_page: n => `第 ${n} 页`,
   illustration: '插图',
 
   category: '分类',
@@ -42,7 +42,7 @@ const translationDict: Record<string, string | ((any) => string)> = {
   feed_json: 'JSON',
   server_status: '服务器状态',
   dn42_node_status: 'DN42 节点状态',
-};
+}
 
 const categoryMap: Record<string, string> = {
   闲聊: 'chat',
@@ -53,13 +53,13 @@ const categoryMap: Record<string, string> = {
   网站与服务端: 'modify-website',
   一图流: 'one-pic',
   随手记: 'random-notes',
-};
+}
 
 const navBarItems: NavigationItem[] = [
   { name: '文章们', path: '/page/archive/index.html' },
   { name: '俯瞰地球', path: '/page/himawari/index.html' },
   { name: 'DN42', path: '/page/dn42/index.html' },
-];
+]
 
 const linkItems: NavigationItem[] = [
   { name: '0x7f Blog 🐑', path: 'https://0x7f.cc' },
@@ -71,35 +71,35 @@ const linkItems: NavigationItem[] = [
   { name: "YuetAu's Spot", path: 'https://yuetau.net' },
   { name: '宝硕博客', path: 'https://blog.baoshuo.ren/?utm_source=friends' },
   { name: '十年之约', path: 'http://foreverblog.cn' },
-];
+]
 
 class LanguageChineseSimplifiedImpl extends Language {
   public override getCode(): string {
-    return 'zh';
+    return 'zh'
   }
 
   public override getDisplayName(): string {
-    return 'Chinese Simplified / 简体中文';
+    return 'Chinese Simplified / 简体中文'
   }
 
   public override getTranslation(translationKey: string, args?: any): string {
     if (args !== undefined) {
-      return (translationDict[translationKey]! as (any) => string)(args);
+      return (translationDict[translationKey]! as (any) => string)(args)
     }
-    return translationDict[translationKey]! as string;
+    return translationDict[translationKey]! as string
   }
 
   public override getCategoryMap(): Record<string, string> {
-    return categoryMap;
+    return categoryMap
   }
 
   public override getNavBarItems(): NavigationItem[] {
-    return navBarItems;
+    return navBarItems
   }
 
   public override getLinkItems(): NavigationItem[] {
-    return linkItems;
+    return linkItems
   }
 }
 
-export const LanguageChineseSimplified = new LanguageChineseSimplifiedImpl();
+export const LanguageChineseSimplified = new LanguageChineseSimplifiedImpl()

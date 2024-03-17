@@ -1,143 +1,150 @@
 ---
-import { type Language, CATEGORY_MAP } from '../lib/language';
-import { Post } from '../lib/posts';
-import { format } from 'date-fns';
-import PagePostExcerpt from './PagePostExcerpt.astro';
+import { type Language, CATEGORY_MAP } from '../lib/language'
+import { Post } from '../lib/posts'
+import { format } from 'date-fns'
+import PagePostExcerpt from './PagePostExcerpt.astro'
 
 type Props = {
-  language: Language;
-  post: Post;
-  isShowingMultiPosts: boolean;
-};
+    language: Language
+    post: Post
+    isShowingMultiPosts: boolean
+}
 
-const { language, post, isShowingMultiPosts } = Astro.props;
-const __ = language.getTranslation;
+const { language, post, isShowingMultiPosts } = Astro.props
+const __ = language.getTranslation
 
-const { Content, headings } = await post.collectionEntry.render();
+const { Content, headings } = await post.collectionEntry.render()
 ---
 
 <article>
-  <div class="d-flex">
-    <div class="post-info-wrap">
-      <div class="post-info">
-        {
-          /* Filter out posts before UTC & handle timezone which may be 12h off */
-          post.date.valueOf() > 43200000 && (
-            <div class="post-meta-wrap">
-              <div class="post-meta">
-                <p>
-                  <span class="fas fa-clock" />
-                  <br />
-                  <small>{format(post.date, 'MM-dd')}</small>
-                </p>
-                <div class="post-meta-value">
-                  {__('date')}
-                  <span class="badge badge-tag">
-                    {format(post.date, 'yyyy-MM-dd HH:mm')}
-                  </span>
-                </div>
-              </div>
+    <div class="d-flex">
+        <div class="post-info-wrap">
+            <div class="post-info">
+                {
+                    /* Filter out posts before UTC & handle timezone which may be 12h off */
+                    post.date.valueOf() > 43200000 && (
+                        <div class="post-meta-wrap">
+                            <div class="post-meta">
+                                <p>
+                                    <span class="fas fa-clock" />
+                                    <br />
+                                    <small>{format(post.date, 'MM-dd')}</small>
+                                </p>
+                                <div class="post-meta-value">
+                                    {__('date')}
+                                    <span class="badge badge-tag">
+                                        {format(post.date, 'yyyy-MM-dd HH:mm')}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+                {
+                    post.category !== undefined && (
+                        <div class="post-meta-wrap">
+                            <div class="post-meta">
+                                <p>
+                                    <span class="fas fa-file-alt" />
+                                    <br />
+                                    <small>{post.category}</small>
+                                </p>
+                                <div class="post-meta-value">
+                                    {__('category')}
+                                    <a
+                                        class="badge badge-tag"
+                                        href={`${language.getSegment()}/category/${CATEGORY_MAP[post.category]}`}
+                                    >
+                                        {post.category}
+                                    </a>
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+                {
+                    post.tags.length > 0 && (
+                        <div class="post-meta-wrap">
+                            <div class="post-meta">
+                                <p>
+                                    <span class="fas fa-tag" />
+                                    <br />
+                                    <small>
+                                        {post.tags.length} {__('n_tags')}
+                                    </small>
+                                </p>
+                                <div class="post-meta-value">
+                                    {__('tags')}
+                                    {post.tags.map(tag => (
+                                        <a
+                                            class="badge badge-tag"
+                                            href={`${language.getSegment()}/tag/${tag}`}
+                                        >
+                                            {tag}
+                                        </a>
+                                    ))}
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+                {
+                    !isShowingMultiPosts && (
+                        <div class="post-meta-wrap">
+                            <div class="post-meta">
+                                <p>
+                                    <span class="fas fa-list" />
+                                    <br />
+                                    <small>{__('table_of_contents')}</small>
+                                </p>
+                                <div class="post-meta-value">
+                                    <ol id="quicklink">
+                                        {headings.map(heading => (
+                                            <li
+                                                class={`toc-item toc-level-${heading.depth}`}
+                                            >
+                                                <a
+                                                    class="toc-link"
+                                                    href={'#' + heading.slug}
+                                                >
+                                                    <span class="toc-text">
+                                                        {heading.text}
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
-          )
-        }
-        {
-          post.category !== undefined && (
-            <div class="post-meta-wrap">
-              <div class="post-meta">
-                <p>
-                  <span class="fas fa-file-alt" />
-                  <br />
-                  <small>{post.category}</small>
-                </p>
-                <div class="post-meta-value">
-                  {__('category')}
-                  <a
-                    class="badge badge-tag"
-                    href={`${language.getSegment()}/category/${CATEGORY_MAP[post.category]}`}
-                  >
-                    {post.category}
-                  </a>
-                  &nbsp;
-                </div>
-              </div>
+        </div>
+        <div class="post-wrap">
+            {
+                post.image !== undefined && (
+                    <div class="post-image-wrap">
+                        <img src={post.image} alt={__('illustration')} />
+                    </div>
+                )
+            }
+            <h1 class="post-title">
+                <a href={post.getFullURL()} rel="bookmark" title={post.title}
+                    >{post.title}</a
+                >
+            </h1>
+            <div class="post-text">
+                {
+                    (isShowingMultiPosts && (
+                        <PagePostExcerpt>
+                            <Content />
+                        </PagePostExcerpt>
+                    )) || <Content />
+                }
             </div>
-          )
-        }
-        {
-          post.tags.length > 0 && (
-            <div class="post-meta-wrap">
-              <div class="post-meta">
-                <p>
-                  <span class="fas fa-tag" />
-                  <br />
-                  <small>
-                    {post.tags.length} {__('n_tags')}
-                  </small>
-                </p>
-                <div class="post-meta-value">
-                  {__('tags')}
-                  {post.tags.map((tag) => (
-                    <a
-                      class="badge badge-tag"
-                      href={`${language.getSegment()}/tag/${tag}`}
-                    >
-                      {tag}
-                    </a>
-                  ))}
-                  &nbsp;
-                </div>
-              </div>
-            </div>
-          )
-        }
-        {
-          !isShowingMultiPosts && (
-            <div class="post-meta-wrap">
-              <div class="post-meta">
-                <p>
-                  <span class="fas fa-list" />
-                  <br />
-                  <small>{__('table_of_contents')}</small>
-                </p>
-                <div class="post-meta-value">
-                  <ol id="quicklink">
-                    {headings.map((heading) => (
-                      <li class={`toc-item toc-level-${heading.depth}`}>
-                        <a class="toc-link" href={'#' + heading.slug}>
-                          <span class="toc-text">{heading.text}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-          )
-        }
-      </div>
+        </div>
     </div>
-    <div class="post-wrap">
-      {
-        post.image !== undefined && (
-          <div class="post-image-wrap">
-            <img src={post.image} alt={__('illustration')} />
-          </div>
-        )
-      }
-      <h1 class="post-title">
-        <a href={post.getFullURL()} rel="bookmark" title={post.title}
-          >{post.title}</a
-        >
-      </h1>
-      <div class="post-text">
-        {
-          (isShowingMultiPosts && (
-            <PagePostExcerpt>
-              <Content />
-            </PagePostExcerpt>
-          )) || <Content />
-        }
-      </div>
-    </div>
-  </div>
 </article>

@@ -1,24 +1,28 @@
 ---
-import PageLayout from '../../../../components/PageLayout.astro';
-import PagePost from '../../../../components/PagePost.astro';
-import { Post, getPosts } from '../../../../lib/posts';
+import PageLayout from '../../../../components/PageLayout.astro'
+import PagePost from '../../../../components/PagePost.astro'
+import { Post, getPosts } from '../../../../lib/posts'
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
-  return posts.map((post) => ({
-    params: {
-      path: post.path,
-      language: post.language.isDefault()
-        ? undefined
-        : post.language.toString(),
-    },
-    props: { post: post },
-  }));
+    const posts = await getPosts()
+    return posts.map(post => ({
+        params: {
+            path: post.path,
+            language: post.language.isDefault()
+                ? undefined
+                : post.language.toString(),
+        },
+        props: { post: post },
+    }))
 }
-type Props = { post: Post };
-const post = Astro.props.post;
+type Props = { post: Post }
+const post = Astro.props.post
 ---
 
 <PageLayout title={post.title} language={post.language} post={post}>
-  <PagePost language={post.language} post={post} isShowingMultiPosts={false} />
+    <PagePost
+        language={post.language}
+        post={post}
+        isShowingMultiPosts={false}
+    />
 </PageLayout>

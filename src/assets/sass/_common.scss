@@ -6,22 +6,36 @@
 @import 'sass-material-colors';
 
 @mixin font-awesome {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-style: normal;
-  font-variant: normal;
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  width: 1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+    font-variant: normal;
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    width: 1em;
 }
 
-$font-family-sans-serif: Ubuntu, -apple-system, 'Helvetica Neue', Helvetica,
-  'Nimbus Sans L', Arial, 'Liberation Sans', 'PingFang SC', 'Hiragino Sans GB',
-  'Source Han Sans CN', 'Source Han Sans SC', 'Noto Sans CJK SC',
-  'Microsoft YaHei', 'WenQuanYi Micro Hei', 'WenQuanYi Zen Hei',
-  'WenQuanYi Zen Hei Sharp', SimSun, sans-serif;
+$font-family-sans-serif:
+    Ubuntu,
+    -apple-system,
+    'Helvetica Neue',
+    Helvetica,
+    'Nimbus Sans L',
+    Arial,
+    'Liberation Sans',
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Source Han Sans CN',
+    'Source Han Sans SC',
+    'Noto Sans CJK SC',
+    'Microsoft YaHei',
+    'WenQuanYi Micro Hei',
+    'WenQuanYi Zen Hei',
+    'WenQuanYi Zen Hei Sharp',
+    SimSun,
+    sans-serif;
 $font-family-monospace: 'Fira Code', 'Consolas', 'Bitstream Vera Sans Mono',
-  'Courier New', Courier, monospace;
+    'Courier New', Courier, monospace;
 
 $primary: material-color('light-blue', '500');
 $primary-hover: material-color('light-blue', '700');

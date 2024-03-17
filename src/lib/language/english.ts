@@ -1,12 +1,12 @@
-import type { NavigationItem } from '../navigation';
-import { Language } from './type';
+import type { NavigationItem } from '../navigation'
+import { Language } from './type'
 
 const translationDict: Record<string, string | ((any) => string)> = {
-  list_category: (category) => `Posts in category ${category}`,
-  list_tag: (tag) => `Posts with tag ${tag}`,
-  powered_by: (software) => `Powered by ${software}`,
+  list_category: category => `Posts in category ${category}`,
+  list_tag: tag => `Posts with tag ${tag}`,
+  powered_by: software => `Powered by ${software}`,
   page: 'Page',
-  nth_page: (n) => `Page ${n}`,
+  nth_page: n => `Page ${n}`,
   illustration: 'Illustration',
 
   category: 'Category',
@@ -42,20 +42,20 @@ const translationDict: Record<string, string | ((any) => string)> = {
   feed_json: 'JSON',
   server_status: 'Sever Status',
   dn42_node_status: 'DN42 Looking Glass',
-};
+}
 
 const categoryMap: Record<string, string> = {
   Creations: 'creations',
   'Computers and Clients': 'modify-computer',
   'Website and Servers': 'modify-website',
   'Random Notes': 'random-notes',
-};
+}
 
 const navBarItems: NavigationItem[] = [
   { name: 'Posts', path: '/en/page/archive/index.html' },
   { name: 'Himawari', path: '/en/page/himawari/index.html' },
   { name: 'DN42', path: '/en/page/dn42/index.html' },
-];
+]
 
 const linkItems: NavigationItem[] = [
   { name: '0x7f Blog 🐑', path: 'https://0x7f.cc' },
@@ -70,35 +70,35 @@ const linkItems: NavigationItem[] = [
   { name: 'SangSir', path: 'https://sangsir.com' },
   { name: 'Shucheng Li', path: 'https://snli.org' },
   { name: "YuetAu's Spot", path: 'https://yuetau.net' },
-];
+]
 
 class LanguageEnglishImpl extends Language {
   public override getCode(): string {
-    return 'en';
+    return 'en'
   }
 
   public override getDisplayName(): string {
-    return 'English';
+    return 'English'
   }
 
   public override getTranslation(translationKey: string, args?: any): string {
     if (args !== undefined) {
-      return (translationDict[translationKey]! as (any) => string)(args);
+      return (translationDict[translationKey]! as (any) => string)(args)
     }
-    return translationDict[translationKey]! as string;
+    return translationDict[translationKey]! as string
   }
 
   public override getCategoryMap(): Record<string, string> {
-    return categoryMap;
+    return categoryMap
   }
 
   public override getNavBarItems(): NavigationItem[] {
-    return navBarItems;
+    return navBarItems
   }
 
   public override getLinkItems(): NavigationItem[] {
-    return linkItems;
+    return linkItems
   }
 }
 
-export const LanguageEnglish = new LanguageEnglishImpl();
+export const LanguageEnglish = new LanguageEnglishImpl()

@@ -1,38 +1,39 @@
 ---
-import { getPosts, getStaticPathsForPaginate } from '../../../../../lib/posts';
-import type { PaginatedProps } from '../../../../../lib/posts';
-import PageLayout from '../../../../../components/PageLayout.astro';
-import PageArchive from '../../../../../components/PageArchive.astro';
-import { CATEGORY_MAP } from '../../../../../lib/language';
+import { getPosts, getStaticPathsForPaginate } from '../../../../../lib/posts'
+import type { PaginatedProps } from '../../../../../lib/posts'
+import PageLayout from '../../../../../components/PageLayout.astro'
+import PageArchive from '../../../../../components/PageArchive.astro'
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
-  const tags = [...new Set(posts.flatMap((post) => post.tags))];
+    const posts = await getPosts()
+    const tags = [...new Set(posts.flatMap(post => post.tags))]
 
-  return tags.flatMap((tag) => {
-    const postsForTag = posts.filter((post) => post.tags.includes(tag));
-    return getStaticPathsForPaginate(postsForTag, `/tag/${tag}`, { tag: tag });
-  });
+    return tags.flatMap(tag => {
+        const postsForTag = posts.filter(post => post.tags.includes(tag))
+        return getStaticPathsForPaginate(postsForTag, `/tag/${tag}`, {
+            tag: tag,
+        })
+    })
 }
 
-type Props = PaginatedProps;
-const { posts, pagination, language } = Astro.props;
-const { tag } = Astro.params as any;
-const __ = language.getTranslation;
-const titleSuffix = __('tag') + ' ' + tag;
+type Props = PaginatedProps
+const { posts, pagination, language } = Astro.props as Props
+const { tag } = Astro.params as any
+const __ = language.getTranslation
+const titleSuffix = __('tag') + ' ' + tag
 const title =
-  pagination.currentPage == 1
-    ? titleSuffix
-    : __('nth_page', pagination.currentPage) + ' - ' + titleSuffix;
+    pagination.currentPage == 1
+        ? titleSuffix
+        : __('nth_page', pagination.currentPage) + ' - ' + titleSuffix
 ---
 
 <PageLayout title={title} language={language} pagination={pagination}>
-  <PageArchive language={language} posts={posts}>
-    <Fragment
-      set:html={__(
-        'list_tag',
-        `<a href="${language.getSegment()}/tag/${tag}">${tag}</a>`,
-      )}
-    />
-  </PageArchive>
+    <PageArchive language={language} posts={posts}>
+        <Fragment
+            set:html={__(
+                'list_tag',
+                `<a href="${language.getSegment()}/tag/${tag}">${tag}</a>`
+            )}
+        />
+    </PageArchive>
 </PageLayout>

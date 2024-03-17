@@ -1,35 +1,33 @@
 ---
-import { AstroComponentFactory } from 'astro/dist/runtime/server';
-import { Language } from '../lib/language';
-import { Post } from '../lib/posts';
-import PagePost from './PagePost.astro';
+import type { Language } from '../lib/language'
+import { Post } from '../lib/posts'
+import PagePost from './PagePost.astro'
 
 type Props = {
-  language: Language;
-  posts: Post[];
-};
+    language: Language
+    posts: Post[]
+}
 
-const { language, posts } = Astro.props;
-const __ = language.getTranslation;
+const { language, posts } = Astro.props
 ---
 
 {
-  Astro.slots.has('default') && (
-    <article>
-      <div class="row">
-        <div class="post-info col-md-3 col-12" />
-        <div class="col-md-9 col-12 post-wrap">
-          <h1 class="post-title">
-            <slot />
-          </h1>
-        </div>
-      </div>
-    </article>
-  )
+    Astro.slots.has('default') && (
+        <article>
+            <div class="row">
+                <div class="post-info col-md-3 col-12" />
+                <div class="col-md-9 col-12 post-wrap">
+                    <h1 class="post-title">
+                        <slot />
+                    </h1>
+                </div>
+            </div>
+        </article>
+    )
 }
 
 {
-  posts.map((post) => (
-    <PagePost language={language} post={post} isShowingMultiPosts={true} />
-  ))
+    posts.map(post => (
+        <PagePost language={language} post={post} isShowingMultiPosts={true} />
+    ))
 }
