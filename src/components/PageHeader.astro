@@ -87,10 +87,10 @@ const { pathname } = Astro.url;
           </a>
           <ul class="dropdown-menu" aria-labelledby="languages-dropdown">
             {
-              Object.entries(LANGUAGES).map(([_, language]) => {
+              Object.entries(LANGUAGES).map(([_, newLanguage]) => {
                 const canonicalPath = language.getCanonicalPath(
                   pathname,
-                  language,
+                  newLanguage,
                 );
                 return (
                   <li>
@@ -98,7 +98,7 @@ const { pathname } = Astro.url;
                       class={`dropdown-item ${pathname == canonicalPath ? 'active' : ''}`}
                       href={canonicalPath}
                     >
-                      {language.getDisplayName()}
+                      {newLanguage.getDisplayName()}
                     </a>
                   </li>
                 );

@@ -9,6 +9,7 @@ type Props = {
   post: Post | undefined;
 };
 
+const { language } = Astro.props;
 const { pathname } = Astro.url;
 ---
 
@@ -49,11 +50,11 @@ const { pathname } = Astro.url;
 />
 
 {
-  Object.entries(LANGUAGES).map(([_, language]) => (
+  Object.entries(LANGUAGES).map(([_, newLanguage]) => (
     <link
       rel="alternate"
-      href={language.getCanonicalPath(pathname, language)}
-      hreflang={language.getCode()}
+      href={language.getCanonicalPath(pathname, newLanguage)}
+      hreflang={newLanguage.getCode()}
     />
   ))
 }
