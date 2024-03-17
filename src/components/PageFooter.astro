@@ -1,6 +1,6 @@
 ---
 import { SITE_TITLE } from '../consts';
-import { Language } from '../lib/language';
+import type { Language } from '../lib/language';
 
 type Props = {
   language: Language;
@@ -14,7 +14,7 @@ const __ = Astro.props.language.getTranslation;
     <i class="fas fa-copyright"></i> 2012-{new Date().getFullYear()}
     {SITE_TITLE}<br />
     <small>
-      {__('powered_by').replace('{0}', 'Astro.js')} @ {new Date().toString()}
+      {__('powered_by', 'Astro.js')} @ {new Date().toString()}
     </small>
   </div>
 </footer>

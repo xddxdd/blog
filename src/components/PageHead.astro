@@ -1,6 +1,6 @@
 ---
 import { SITE_TITLE } from '../consts';
-import { Language, LANGUAGES } from '../lib/language';
+import { type Language, LANGUAGES } from '../lib/language';
 import { Post } from '../lib/posts';
 
 type Props = {
@@ -53,7 +53,7 @@ const { pathname } = Astro.url;
     <link
       rel="alternate"
       href={language.getCanonicalPath(pathname, language)}
-      hreflang={language.language}
+      hreflang={language.getCode()}
     />
   ))
 }

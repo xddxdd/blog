@@ -1,8 +1,8 @@
 ---
 import { AstroComponentFactory } from 'astro/dist/runtime/server';
-import { Language } from '../lib/language';
+import type { Language } from '../lib/language';
 import { Post } from '../lib/posts';
-import { NavigationItem } from '../lib/navigation';
+import type { NavigationItem } from '../lib/navigation';
 
 type Props = {
   language: Language;
@@ -13,7 +13,6 @@ type Props = {
 
 const { language, posts, others, links } = Astro.props;
 const __ = language.getTranslation;
-const { pathname } = Astro.url;
 ---
 
 <aside class="d-none d-xl-block">

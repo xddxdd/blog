@@ -1,6 +1,6 @@
 ---
 import { SITE_TITLE } from '../consts';
-import { Language, LANGUAGES } from '../lib/language';
+import { type Language, LANGUAGES } from '../lib/language';
 import type { NavigationItem } from '../lib/navigation';
 
 type Props = {
@@ -98,7 +98,7 @@ const { pathname } = Astro.url;
                       class={`dropdown-item ${pathname == canonicalPath ? 'active' : ''}`}
                       href={canonicalPath}
                     >
-                      {language.displayName}
+                      {language.getDisplayName()}
                     </a>
                   </li>
                 );

@@ -4,3 +4,4 @@
 export const SITE_TITLE = 'Lan Tian @ Blog';
 
 export const POSTS_PER_PAGE = 10;
+export const DEFAULT_LANGUAGE_CODE = "zh";
