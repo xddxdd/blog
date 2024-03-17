@@ -1,5 +1,4 @@
 ---
-import { AstroComponentFactory } from 'astro/dist/runtime/server';
 import type { Language } from '../lib/language';
 import { Post } from '../lib/posts';
 import type { NavigationItem } from '../lib/navigation';
@@ -8,11 +7,10 @@ import { format } from 'date-fns';
 type Props = {
   language: Language;
   posts: Post[];
-  others?: AstroComponentFactory;
   links: NavigationItem[];
 };
 
-const { language, posts, others, links } = Astro.props;
+const { language, posts, links } = Astro.props;
 const __ = language.getTranslation;
 ---
 
@@ -38,14 +36,31 @@ const __ = language.getTranslation;
     </ul>
   </section>
 
-  {
-    others !== undefined && (
-      <section class="widget">
-        <h3>{__('others')}</h3>
-        <others />
-      </section>
-    )
-  }
+  <section class="widget">
+    <h3>{__('others')}</h3>
+    <ul class="list-unstyled">
+      <li>
+        <i class="fas fa-fw fa-rss"></i>{' '}
+        <a href="/rss2.xml" target="_blank">{__('feed_rss')}</a>{' '}
+        |{' '}
+        <a href="/feed.xml" target="_blank">{__('feed_atom')}</a>{' '}
+        |{' '}
+        <a href="/feed.json" target="_blank">{__('feed_json')}</a>
+      </li>
+      <li>
+        <i class="fas fa-fw fa-globe"></i>{' '}
+        <a href="https://stats.uptimerobot.com/BLK6VsRkR" target="_blank">
+          {__('server_status')}
+        </a>
+      </li>
+      <li>
+        <i class="fas fa-fw fa-sitemap"></i>{' '}
+        <a href="https://lg.lantian.pub" target="_blank"
+          >{__('dn42_node_status')}</a
+        >
+      </li>
+    </ul>
+  </section>
 
   {
     links.length > 0 && (

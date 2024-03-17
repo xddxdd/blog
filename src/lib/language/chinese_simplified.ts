@@ -1,3 +1,4 @@
+import type { NavigationItem } from '../navigation';
 import { Language } from './type';
 
 const translationDict: Record<string, string | ((any) => string)> = {
@@ -33,7 +34,31 @@ const translationDict: Record<string, string | ((any) => string)> = {
   list_now: '（现在）',
   list_title_prefix: '《',
   list_title_suffix: '》',
+
+  feed_rss: 'RSS 订阅',
+  feed_atom: 'Atom',
+  feed_json: 'JSON',
+  server_status: '服务器状态',
+  dn42_node_status: 'DN42 节点状态',
 };
+
+const navBarItems: NavigationItem[] = [
+  { name: '文章们', path: '/page/archive/index.html' },
+  { name: '俯瞰地球', path: '/page/himawari/index.html' },
+  { name: 'DN42', path: '/page/dn42/index.html' },
+];
+
+const linkItems: NavigationItem[] = [
+  { name: '0x7f Blog 🐑', path: 'https://0x7f.cc' },
+  { name: 'Alanyhq', path: 'https://alanyhq.com' },
+  { name: 'Blog of Moecast', path: 'https://blog.cas7.moe' },
+  { name: 'JerryXiao', path: 'https://jerryxiao.cc' },
+  { name: 'Shucheng Li', path: 'https://snli.org' },
+  { name: 'SangSir | 艺术界的一朵奇葩', path: 'https://sangsir.com' },
+  { name: "YuetAu's Spot", path: 'https://yuetau.net' },
+  { name: '宝硕博客', path: 'https://blog.baoshuo.ren/?utm_source=friends' },
+  { name: '十年之约', path: 'http://foreverblog.cn' },
+];
 
 class LanguageChineseSimplifiedImpl extends Language {
   public override getCode(): string {
@@ -49,6 +74,14 @@ class LanguageChineseSimplifiedImpl extends Language {
       return (translationDict[translationKey]! as (any) => string)(args);
     }
     return translationDict[translationKey]! as string;
+  }
+
+  public override getNavBarItems(): NavigationItem[] {
+    return navBarItems;
+  }
+
+  public override getLinkItems(): NavigationItem[] {
+    return linkItems;
   }
 }
 

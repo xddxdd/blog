@@ -36,12 +36,16 @@ const posts = (await getPosts()).filter((post) => post.language.is(language));
     <div id="bg"></div>
 
     <div id="container" class="container">
-      <PageHeader language={language} navBarItems={[]} />
+      <PageHeader language={language} navBarItems={language.getNavBarItems()} />
       <div class="d-flex">
         <div id="content">
           <slot />
         </div>
-        <PageSidebar language={language} posts={posts} links={[]} />
+        <PageSidebar
+          language={language}
+          posts={posts}
+          links={language.getLinkItems()}
+        />
       </div>
       <PageFooter language={language} />
     </div>

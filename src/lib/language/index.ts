@@ -1,4 +1,4 @@
-import { LanguageChineseSimplified } from './chinese_simplified';
+import { LanguageChineseSimplified } from './chinese_simplified.ts';
 import { LanguageEnglish } from './english';
 import type { Language } from './type';
 

@@ -1,4 +1,6 @@
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import { DEFAULT_LANGUAGE_CODE } from '../../consts';
+import type { NavigationItem } from '../navigation';
 
 export abstract class Language {
   public abstract getCode(): string;
@@ -20,8 +22,6 @@ export abstract class Language {
     return this.getCode();
   }
 
-  public abstract getTranslation(translationKey: string, args?: any): string;
-
   public getCanonicalPath(path: string, language: Language): string {
     const languagePathPrefix = this.getSegment();
     const pathWithoutLanguage = path.startsWith(languagePathPrefix)
@@ -29,4 +29,8 @@ export abstract class Language {
       : path;
     return language.getSegment() + pathWithoutLanguage;
   }
+
+  public abstract getTranslation(translationKey: string, args?: any): string;
+  public abstract getNavBarItems(): NavigationItem[];
+  public abstract getLinkItems(): NavigationItem[];
 }

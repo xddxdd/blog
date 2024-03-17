@@ -1,3 +1,4 @@
+import type { NavigationItem } from '../navigation';
 import { Language } from './type';
 
 const translationDict: Record<string, string | ((any) => string)> = {
@@ -33,7 +34,34 @@ const translationDict: Record<string, string | ((any) => string)> = {
   list_now: '(now)',
   list_title_prefix: ' ',
   list_title_suffix: ' ',
+
+  feed_rss: 'RSS Feed',
+  feed_atom: 'Atom',
+  feed_json: 'JSON',
+  server_status: 'Sever Status',
+  dn42_node_status: 'DN42 Looking Glass',
 };
+
+const navBarItems: NavigationItem[] = [
+  { name: 'Posts', path: '/en/page/archive/index.html' },
+  { name: 'Himawari', path: '/en/page/himawari/index.html' },
+  { name: 'DN42', path: '/en/page/dn42/index.html' },
+];
+
+const linkItems: NavigationItem[] = [
+  { name: '0x7f Blog 🐑', path: 'https://0x7f.cc' },
+  { name: "10 Year's Promise (Forever Blog)", path: 'http://foreverblog.cn' },
+  { name: 'Alanyhq', path: 'https://alanyhq.com' },
+  {
+    name: "Baoshuo's Blog",
+    path: 'https://blog.baoshuo.ren/?utm_source=friends',
+  },
+  { name: 'Blog of Moecast', path: 'https://blog.cas7.moe' },
+  { name: 'JerryXiao', path: 'https://jerryxiao.cc' },
+  { name: 'SangSir', path: 'https://sangsir.com' },
+  { name: 'Shucheng Li', path: 'https://snli.org' },
+  { name: "YuetAu's Spot", path: 'https://yuetau.net' },
+];
 
 class LanguageEnglishImpl extends Language {
   public override getCode(): string {
@@ -49,6 +77,14 @@ class LanguageEnglishImpl extends Language {
       return (translationDict[translationKey]! as (any) => string)(args);
     }
     return translationDict[translationKey]! as string;
+  }
+
+  public override getNavBarItems(): NavigationItem[] {
+    return navBarItems;
+  }
+
+  public override getLinkItems(): NavigationItem[] {
+    return linkItems;
   }
 }
 
