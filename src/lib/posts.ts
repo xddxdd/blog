@@ -1,6 +1,8 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { POSTS_PER_PAGE, LANGUAGES, DEFAULT_LANGUAGE } from '../consts';
-import { Language } from './language';
+import { POSTS_PER_PAGE } from '../consts';
+import { Language, LANGUAGES, DEFAULT_LANGUAGE } from './language';
+
+let __HIDDEN_ALL_POSTS__: Post[] | undefined = undefined;
 
 export class Post {
   public readonly title: string;
@@ -24,7 +26,7 @@ export class Post {
     this.tags = post.data.tags ?? [];
     this.date = post.data.date ?? new Date(0);
     this.image = post.data.image;
-    this.language = new Language(language!);
+    this.language = LANGUAGES[language!]!;
     this.path = path;
     this.body = post.body;
   }
@@ -47,16 +49,19 @@ export async function getPosts(): Promise<Post[]> {
 export type PaginatedProps = {
   page: number;
   posts: Post[];
+  language: Language;
 };
 
 export function getStaticPathsForPaginate(posts: Post[]) {
-  return LANGUAGES.flatMap((language) => {
-    const postsForLanguage = posts.filter((post) => post.language.is(language));
+  return Object.entries(LANGUAGES).flatMap(([_, language]) => {
+    const postsForLanguage = posts.filter((post) =>
+      post.language.is(language),
+    );
     const numPages = Math.ceil(postsForLanguage.length / POSTS_PER_PAGE);
     return [...Array(numPages).keys()].map((i) => ({
       params: {
         page_prefix: i == 0 ? undefined : `page/${i + 1}`,
-        language: language == DEFAULT_LANGUAGE ? undefined : language,
+        language: language == DEFAULT_LANGUAGE ? undefined : language.toString(),
       },
       props: <PaginatedProps>{
         page: i + 1,
@@ -64,6 +69,7 @@ export function getStaticPathsForPaginate(posts: Post[]) {
           i * POSTS_PER_PAGE,
           (i + 1) * POSTS_PER_PAGE,
         ),
+        language: language,
       },
     }));
   });

@@ -1,0 +1,34 @@
+---
+import { AstroComponentFactory } from 'astro/dist/runtime/server';
+import { Language } from '../lib/language';
+import { Post } from '../lib/posts';
+import PagePost from './PagePost.astro';
+
+type Props = {
+  language: Language;
+  posts: Post[];
+  AdditionalTitle: AstroComponentFactory | undefined;
+};
+
+const { language, posts, AdditionalTitle } = Astro.props;
+const __ = language.getTranslation;
+---
+
+{
+  AdditionalTitle !== undefined && (
+    <div class="row">
+      <div class="post-info col-md-3 col-12" />
+      <div class="col-md-9 col-12 post-wrap">
+        <h1 class="post-title">
+          <AdditionalTitle />
+        </h1>
+      </div>
+    </div>
+  )
+}
+
+{
+  posts.map((post) => (
+    <PagePost language={language} post={post} isShowingMultiPosts={true} />
+  ))
+}

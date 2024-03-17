@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../../../../components/PageLayout.astro';
+import PagePost from '../../../../components/PagePost.astro';
 import { Post, getPosts } from '../../../../lib/posts';
 
 export async function getStaticPaths() {
@@ -18,4 +19,6 @@ type Props = { post: Post };
 const post = Astro.props.post;
 ---
 
-<PageLayout title={post.title} language={post.language} post={post} />
+<PageLayout title={post.title} language={post.language} post={post}>
+  <PagePost language={post.language} post={post} isShowingMultiPosts={false} />
+</PageLayout>

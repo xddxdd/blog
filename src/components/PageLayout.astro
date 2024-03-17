@@ -1,16 +1,18 @@
 ---
 import { SITE_TITLE } from '../consts';
 import { Language } from '../lib/language';
-import { Post } from '../lib/posts';
+import { Post, getPosts } from '../lib/posts';
 import PageHead from './PageHead.astro';
-import PagePost from './PagePost.astro';
+import PageHeader from './PageHeader.astro';
+import PageSidebar from './PageSidebar.astro';
+import PageFooter from './PageFooter.astro';
 
 import '../assets/style.scss';
 
 type Props = {
   title: string | undefined;
   language: Language;
-  post: Post | undefined;
+  post?: Post | undefined;
 };
 
 const { post, language } = Astro.props;
@@ -18,6 +20,7 @@ const fullTitle =
   Astro.props.title === undefined
     ? SITE_TITLE
     : `${Astro.props.title} - ${SITE_TITLE}`;
+const posts = (await getPosts()).filter((post) => post.language.is(language));
 ---
 
 <!doctype html>
@@ -33,11 +36,14 @@ const fullTitle =
     <div id="bg"></div>
 
     <div id="container" class="container">
-      {
-        post !== undefined && (
-          <PagePost language={language} post={post} isIndex={false} />
-        )
-      }
+      <PageHeader language={language} navBarItems={[]} />
+      <div class="d-flex">
+        <div id="content">
+          <slot />
+        </div>
+        <PageSidebar language={language} posts={posts} links={[]} />
+      </div>
+      <PageFooter language={language} />
     </div>
   </body>
 </html>

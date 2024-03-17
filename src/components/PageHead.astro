@@ -1,6 +1,6 @@
 ---
-import { LANGUAGES, SITE_TITLE } from '../consts';
-import { Language } from '../lib/language';
+import { SITE_TITLE } from '../consts';
+import { Language, LANGUAGES } from '../lib/language';
 import { Post } from '../lib/posts';
 
 type Props = {
@@ -10,10 +10,6 @@ type Props = {
 };
 
 const { pathname } = Astro.url;
-const languagePathPrefix = Astro.props.language.getSegment();
-const pathWithoutLanguage = pathname.startsWith(languagePathPrefix)
-  ? pathname.slice(languagePathPrefix.length)
-  : pathname;
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -53,11 +49,11 @@ const pathWithoutLanguage = pathname.startsWith(languagePathPrefix)
 />
 
 {
-  LANGUAGES.map((language) => (
+  Object.entries(LANGUAGES).map(([_, language]) => (
     <link
       rel="alternate"
-      href={new Language(language).getSegment() + pathWithoutLanguage}
-      hreflang={language}
+      href={language.getCanonicalPath(pathname, language)}
+      hreflang={language.language}
     />
   ))
 }

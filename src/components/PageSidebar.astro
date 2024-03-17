@@ -1,0 +1,66 @@
+---
+import { AstroComponentFactory } from 'astro/dist/runtime/server';
+import { Language } from '../lib/language';
+import { Post } from '../lib/posts';
+import { NavigationItem } from '../lib/navigation';
+
+type Props = {
+  language: Language;
+  posts: Post[];
+  others?: AstroComponentFactory;
+  links: NavigationItem[];
+};
+
+const { language, posts, others, links } = Astro.props;
+const __ = language.getTranslation;
+const { pathname } = Astro.url;
+---
+
+<aside class="d-none d-xl-block">
+  <section class="widget">
+    <h3>{__('latest_articles')}</h3>
+    <ul class="list-unstyled">
+      {
+        posts.slice(0, 15).map((post) => (
+          <li>
+            {post.date.toString()} <a href={post.getFullURL()}>{post.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="widget">
+    <h3>{__('latest_comments')}</h3>
+    <ul class="list-unstyled" id="recent-comments">
+      <li><a href="#">Loading...</a></li>
+    </ul>
+  </section>
+
+  {
+    others !== undefined && (
+      <section class="widget">
+        <h3>{__('others')}</h3>
+        <others />
+      </section>
+    )
+  }
+
+  {
+    links.length > 0 && (
+      <section class="widget">
+        <h3>{__('links')}</h3>
+        <ul class="list-unstyled">
+          {links.map((item) => (
+            <li>
+              <i class="fas fa-fw fa-link" />{' '}
+              <a target="_blank" href={item.path}>
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</aside>
