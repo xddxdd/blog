@@ -29,9 +29,10 @@ const { posts, pagination, language } = Astro.props;
 
 const { category } = Astro.params as any;
 const invertedCategoryMap = reverseRecord(language.getCategoryMap());
+const categoryDisplayName = invertedCategoryMap[category];
 
 const __ = language.getTranslation;
-const titleSuffix = __('category') + ' ' + invertedCategoryMap[category];
+const titleSuffix = __('category') + ' ' + categoryDisplayName;
 const title =
   pagination.currentPage == 1
     ? titleSuffix
@@ -39,5 +40,12 @@ const title =
 ---
 
 <PageLayout title={title} language={language} pagination={pagination}>
-  <PageArchive language={language} posts={posts} AdditionalTitle={undefined} />
+  <PageArchive language={language} posts={posts}>
+    <Fragment
+      set:html={__(
+        'list_category',
+        `<a href="${language.getSegment()}/category/${category}">${categoryDisplayName}</a>`,
+      )}
+    />
+  </PageArchive>
 </PageLayout>

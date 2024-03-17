@@ -27,5 +27,12 @@ const title =
 ---
 
 <PageLayout title={title} language={language} pagination={pagination}>
-  <PageArchive language={language} posts={posts} AdditionalTitle={undefined} />
+  <PageArchive language={language} posts={posts}>
+    <Fragment
+      set:html={__(
+        'list_tag',
+        `<a href="${language.getSegment()}/tag/${tag}">${tag}</a>`,
+      )}
+    />
+  </PageArchive>
 </PageLayout>
