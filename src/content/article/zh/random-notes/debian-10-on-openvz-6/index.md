@@ -73,4 +73,4 @@ apt-mark hold libc6
 升级完后，你输入 `reboot` 应该没有任何反应。此时只要去 VPS 服务商的控制面板里重
 启就可以了。
 
-![在 OpenVZ 6 内核上运行的 Debian 10](../../../../usr/uploads/202003/debian-10-on-openvz-6.png)
+![在 OpenVZ 6 内核上运行的 Debian 10](../../../../../../public/usr/uploads/202003/debian-10-on-openvz-6.png)

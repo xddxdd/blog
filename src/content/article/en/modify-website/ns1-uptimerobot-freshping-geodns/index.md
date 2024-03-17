@@ -135,13 +135,13 @@ of AWS.
    - Take `hostdare.lantian.pub -> 185.186.147.110` for example, the
      `Alarm Name` should be `hostdare.lantian.pub`.
 
-   ![NS1 Add Alarm](../../../../usr/uploads/202202/ns1-alarm.png)
+   ![NS1 Add Alarm](../../../../../../public/usr/uploads/202202/ns1-alarm.png)
 
 3. Repeat step 2 until you've added data feeds for all nodes.
 4. Now a CloudWatch `Feeds URL` will appear on the Incoming Feeds tab. Make a
    note of it, which will be added to AWS SNS later.
 
-   ![NS1 Feeds URL](../../../../usr/uploads/202202/ns1-feed.png)
+   ![NS1 Feeds URL](../../../../../../public/usr/uploads/202202/ns1-feed.png)
 
 5. Visit the
    [management page of AWS SNS](https://us-west-1.console.aws.amazon.com/sns/v3/home?region=us-west-1#/topics)
@@ -152,7 +152,7 @@ of AWS.
      you want to create resources in other regions! The AWS SNS must be in the
      same zone as the Lambda functions created later!
 
-   ![AWS Create Topic](../../../../usr/uploads/202202/aws-create-topic.png)
+   ![AWS Create Topic](../../../../../../public/usr/uploads/202202/aws-create-topic.png)
 
 6. An ARN (resource ID) will appear on the Topic's page. Make a note of it,
    which will be used when creating the Lambda function.
@@ -160,7 +160,7 @@ of AWS.
    subscription. Set `Protocol` to `HTTPS`, `Endpoint` to the feeds URL in step
    4, and leave everything else at default.
 
-   ![AWS Create Subscription](../../../../usr/uploads/202202/aws-create-subscription.png)
+   ![AWS Create Subscription](../../../../../../public/usr/uploads/202202/aws-create-subscription.png)
 
 Now all messages sent to this Topic on AWS SNS will be forwarded to NS1's API,
 so the states of the nodes can be synchronized to NS1.
@@ -180,7 +180,7 @@ messages from UptimeRobot or Freshping to AWS SNS messages.
    - Choose `Auto from scratch`, and then `Node.js 14.x` as Runtime. Leave
      everything else at default.
 
-   ![AWS Create Lambda Function](../../../../usr/uploads/202202/aws-create-lambda.png)
+   ![AWS Create Lambda Function](../../../../../../public/usr/uploads/202202/aws-create-lambda.png)
 
 2. You'll be automatically taken to the edit page of that function. If you want
    to use UptimeRobot, copy & paste this piece of code:
@@ -275,21 +275,21 @@ messages from UptimeRobot or Freshping to AWS SNS messages.
    then click the link in Execution Role. This takes you to the permission
    management page.
 
-   ![AWS Lambda Permissions Settings](../../../../usr/uploads/202202/aws-lambda-permissions.png)
+   ![AWS Lambda Permissions Settings](../../../../../../public/usr/uploads/202202/aws-lambda-permissions.png)
 
 4. On the new page, click Add permissions - Create inline policy.
 5. On the Create Policy page, set Service to SNS:
 
-   ![AWS Policy - Setting Service](../../../../usr/uploads/202202/aws-permission-service.png)
+   ![AWS Policy - Setting Service](../../../../../../public/usr/uploads/202202/aws-permission-service.png)
 
 6. Set Actions to Publish under Write section:
 
-   ![AWS Policy - Setting Actions](../../../../usr/uploads/202202/aws-permission-actions.png)
+   ![AWS Policy - Setting Actions](../../../../../../public/usr/uploads/202202/aws-permission-actions.png)
 
 7. Click Add ARN under then Resources section, and fill in the ARN for the AWS
    SNS created earlier:
 
-   ![AWS Policy - Setting Resources](../../../../usr/uploads/202202/aws-permission-resources.png)
+   ![AWS Policy - Setting Resources](../../../../../../public/usr/uploads/202202/aws-permission-resources.png)
 
 8. Click Review Policy on the bottom right, give it a name, and click Create
    Policy.
@@ -308,22 +308,22 @@ accept HTTP requests and invoke the function.
    - Note that all my AWS links are for region `us-west-1`. Switch regions if
      you want to create resources in other regions!
 
-   ![AWS API Gateway Select Type](../../../../usr/uploads/202202/aws-api-type.png)
+   ![AWS API Gateway Select Type](../../../../../../public/usr/uploads/202202/aws-api-type.png)
 
 2. Click Add integration, set Type to Lambda, and choose the Lambda function you
    created earlier. Give the API a name and click Next:
 
-   ![AWS API Gateway Choose Lambda Function](../../../../usr/uploads/202202/aws-api-integrations.png)
+   ![AWS API Gateway Choose Lambda Function](../../../../../../public/usr/uploads/202202/aws-api-integrations.png)
 
 3. On the Configure routes page, make a note of the path to your Lambda
    function. My path is `/ns1-uptime` for example:
 
-   ![AWS API Gateway Configure Routes](../../../../usr/uploads/202202/aws-api-routes.png)
+   ![AWS API Gateway Configure Routes](../../../../../../public/usr/uploads/202202/aws-api-routes.png)
 
 4. Click Next until the API Gateway is created. Its URL is shown on the Stages
    section at the center of the page.
 
-   ![AWS API Gateway URL](../../../../usr/uploads/202202/aws-api-url.png)
+   ![AWS API Gateway URL](../../../../../../public/usr/uploads/202202/aws-api-url.png)
 
    Concatenate that to the path from step 3, and you have the URL for the
    function. Assuming my API Gateway URL is
@@ -354,7 +354,7 @@ accept HTTP requests and invoke the function.
    - Set `Enable notification for` to `Up & down events`;
    - Save.
 
-   ![UptimeRobot Webhook Config](../../../../usr/uploads/202202/uptimerobot-webhook.png)
+   ![UptimeRobot Webhook Config](../../../../../../public/usr/uploads/202202/uptimerobot-webhook.png)
 
    - Modify all monitoring jobs, and select the new Webhook in the Alert
      Contacts section.
@@ -384,7 +384,7 @@ control panel, and connect them to their data feeds.
    5. Select First N
 4. Tick `Enable Client Subnet` and save.
 
-   ![NS1 Filter Chain](../../../../usr/uploads/202202/ns1-filter-chain.png)
+   ![NS1 Filter Chain](../../../../../../public/usr/uploads/202202/ns1-filter-chain.png)
 
 5. Add an Answer Group on the right. Here we will have each group corresponding
    to a region. Click the menu icon on the right of that Answer Group, and
@@ -397,7 +397,7 @@ control panel, and connect them to their data feeds.
    - Set `US States` to `Western US / California`;
    - Save.
 
-   ![NS1 Answer Group](../../../../usr/uploads/202202/ns1-answer-group.png)
+   ![NS1 Answer Group](../../../../../../public/usr/uploads/202202/ns1-answer-group.png)
 
 6. Click `Add Answer to Group` in that Answer Group, and enter the domain for
    the node, created in step 4 in preparation. Click the menu icon on the right
@@ -406,7 +406,7 @@ control panel, and connect them to their data feeds.
    - Click the icon on the right of `Up/down`, select the data feed for that
      node, and save.
 
-   ![NS1 Answer Metadata](../../../../usr/uploads/202202/ns1-answer-meta.png)
+   ![NS1 Answer Metadata](../../../../../../public/usr/uploads/202202/ns1-answer-meta.png)
 
 7. Repeat step 5 and 6 to add all regions and nodes. Now GeoDNS and failover are
    enabled for this record on its domain.

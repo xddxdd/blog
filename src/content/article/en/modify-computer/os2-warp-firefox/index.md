@@ -46,7 +46,7 @@ Not let's first create a VM in VirtualBox. I'm allocating 512 MB RAM and 4 GB
 disk, which is plenty for OS/2. Then load the Boot ISO to the VM, start it up,
 and you'll reach the following interface:
 
-![OS/2 Prompt Insert Client CD](../../../../usr/uploads/202001/os2-insert-client-cd.png)
+![OS/2 Prompt Insert Client CD](../../../../../../public/usr/uploads/202001/os2-insert-client-cd.png)
 
 This is the prompt mentioned above, where you need to switch to the Client ISO
 and hit Enter to continue.
@@ -58,27 +58,27 @@ only need one partition to boot the OS, we can simply follow the steps:
 
 First, select `Install boot manager` (Similar to `bootmgr` and `Grub`).
 
-![OS/2 Install Boot Manager](../../../../usr/uploads/202001/os2-install-boot-manager.png)
+![OS/2 Install Boot Manager](../../../../../../public/usr/uploads/202001/os2-install-boot-manager.png)
 
 Then create a Volume (similar to a drive letter in Windows or a mount point in
 Linux). Make sure to select `can be made bootable` and give it a name (not
 empty).
 
-![OS/2 Create Bootable Volume](../../../../usr/uploads/202001/os2-create-bootable-volume.png)
+![OS/2 Create Bootable Volume](../../../../../../public/usr/uploads/202001/os2-create-bootable-volume.png)
 
 Next, create a partition for the Volume. Select `Allocate from free space`, name
 the partition, and enter the size (max by default).
 
-![OS/2 Create Partition](../../../../usr/uploads/202001/os2-create-disk-partition.png)
+![OS/2 Create Partition](../../../../../../public/usr/uploads/202001/os2-create-disk-partition.png)
 
 Press F3 to exit the partition manager and save the changes.
 
-![OS/2 Save Changes and Exit](../../../../usr/uploads/202001/os2-save-partition-change.png)
+![OS/2 Save Changes and Exit](../../../../../../public/usr/uploads/202001/os2-save-partition-change.png)
 
 The partition manager will tell you to reboot before continuing with OS/2
 installation. Swap the CDROM image to Boot again and simply reset the VM.
 
-![OS/2 Reboot Prompt](../../../../usr/uploads/202001/os2-reboot-after-partition.png)
+![OS/2 Reboot Prompt](../../../../../../public/usr/uploads/202001/os2-reboot-after-partition.png)
 
 Insert the Client CD when prompted, and continue with the installation. You
 mostly only need to select Next all the way, with one exception that the sound
@@ -86,12 +86,12 @@ support for OS/2 isn't enabled by default. After the installer copied all files
 and reboots for the first time, an interface will pop up and ask about enabled
 features. Click `Multimedia Device Support`:
 
-![OS/2 Installer Configuration Interface](../../../../usr/uploads/202001/os2-after-enable-sound-blaster.png)
+![OS/2 Installer Configuration Interface](../../../../../../public/usr/uploads/202001/os2-after-enable-sound-blaster.png)
 
 Then choose Sound Blaster 16 (sound card VirtualBox is emulating), and add it to
 the right side so it will be installed:
 
-![OS/2 Enable Sound Blaster 16](../../../../usr/uploads/202001/os2-enable-sound-blaster.png)
+![OS/2 Enable Sound Blaster 16](../../../../../../public/usr/uploads/202001/os2-enable-sound-blaster.png)
 
 Continue NEXTing until you reach the desktop. Note that you'll need to set a
 username and password in one of the steps.
@@ -100,7 +100,7 @@ A window will pop up and let you decide if you want to install some software
 included with the installation image. Here I installed all of them, but not
 doing this isn't going to affect further operations.
 
-![OS/2 Install Extra Utilities](../../../../usr/uploads/202001/os2-install-utilities.png)
+![OS/2 Install Extra Utilities](../../../../../../public/usr/uploads/202001/os2-install-utilities.png)
 
 Now, OS/2 Warp itself has been installed successfully. We need to do some basic
 graphics and network configuration.
@@ -110,13 +110,13 @@ graphics and network configuration.
 Double click the `OS/2 System` icon, and double click `System Setup` to enter
 the "control panel".
 
-![OS/2 Enter System Setup](../../../../usr/uploads/202001/os2-enter-system-setup.png)
+![OS/2 Enter System Setup](../../../../../../public/usr/uploads/202001/os2-enter-system-setup.png)
 
 Here double click `TCP/IP Configuration (Local)` for the network settings.
 Choose `Enable Interface` to enable the network card, select DHCP, save, but do
 not reboot yet.
 
-![OS/2 Enable Network and DHCP](../../../../usr/uploads/202001/os2-enable-dhcp.png)
+![OS/2 Enable Network and DHCP](../../../../../../public/usr/uploads/202001/os2-enable-dhcp.png)
 
 Double click `System` in "Control Panel", and resolution settings will pop up by
 default. Scroll all the way down and select the last option, corresponding to
@@ -125,7 +125,7 @@ default. Scroll all the way down and select the last option, corresponding to
 If you click on the plus sign near `Page 1 of 2`, you can select resolutions up
 to 1600x1200. Choose if you want.
 
-![OS/2 Using High Resolution](../../../../usr/uploads/202001/os2-high-resolution.png)
+![OS/2 Using High Resolution](../../../../../../public/usr/uploads/202001/os2-high-resolution.png)
 
 After you choose the resolution, click on the "computer and cross" icon to shut
 down, and reboot the system, so the network and display settings come into
@@ -172,7 +172,7 @@ After installation, double click folder `Arca Noae Package Manager` on desktop
 and launch ANPM package manager. On the first start, it will need to download an
 RPM and YUM environment and will let you choose an architecture:
 
-![OS/2 ANPM Architecture Selection](../../../../usr/uploads/202001/os2-choose-architecture.png)
+![OS/2 ANPM Architecture Selection](../../../../../../public/usr/uploads/202001/os2-choose-architecture.png)
 
 Since it's 2020 already, unless you dug up an old computer for realistic retro
 experience on OS/2, most of you should choose the newer `pentium4` architecture.
@@ -185,7 +185,7 @@ and YUM to work abnormally. We need to do the edits by hand.
 Click on the button on the center of taskbar, select `OS/2 Window` to open up a
 "command prompt":
 
-![OS/2 Open Command Prompt](../../../../usr/uploads/202001/os2-commandline.png)
+![OS/2 Open Command Prompt](../../../../../../public/usr/uploads/202001/os2-commandline.png)
 
 Type `e config.sys` to edit the configuration file `config.sys`. We need to
 modify:
@@ -204,11 +204,11 @@ icon to shut down, and reboot OS/2.
 Reopen ANPM after reboot. ANPM will ask if you want to change `LIBPATH`, but
 since we've done it manually, choose No.
 
-![OS/2 ANPM LIBPATH Question Window](../../../../usr/uploads/202001/os2-anpm-libpath-question.png)
+![OS/2 ANPM LIBPATH Question Window](../../../../../../public/usr/uploads/202001/os2-anpm-libpath-question.png)
 
 If ANPM shows a list of packages, everything is working properly.
 
-![OS/2 ANPM Package List](../../../../usr/uploads/202001/os2-anpm-package-list.png)
+![OS/2 ANPM Package List](../../../../../../public/usr/uploads/202001/os2-anpm-package-list.png)
 
 Then we can reopen the "command prompt" via the means above, and do package
 search, upgrade and installation freely:
@@ -267,7 +267,7 @@ firefox
 
 And we're done:
 
-![OS/2 Firefox Open Webpage](../../../../usr/uploads/202001/os2-firefox-open-webpage.png)
+![OS/2 Firefox Open Webpage](../../../../../../public/usr/uploads/202001/os2-firefox-open-webpage.png)
 
 ## Pitfalls
 

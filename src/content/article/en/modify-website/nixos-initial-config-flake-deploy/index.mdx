@@ -186,7 +186,7 @@ Here's another example where I want to install the `nyancat` command:
 
 Run `nixos-rebuild switch` and `nyancat` command will be ready:
 
-![NixOS nyancat command](../../../../usr/uploads/202111/nixos-nyancat.png)
+![NixOS nyancat command](../../../../../../public/usr/uploads/202111/nixos-nyancat.png)
 
 [This document](https://nixos.org/manual/nixos/unstable/options.html) from NixOS
 official lists all possible options in `configuration.nix`. Since it lists ALL
@@ -195,12 +195,12 @@ couple of seconds. Instead, you can use
 [the Options page of NixOS's official search tool](https://search.nixos.org/options)
 to lookup options:
 
-![NixOS Official Search: Options](../../../../usr/uploads/202111/nixos-search-options.png)
+![NixOS Official Search: Options](../../../../../../public/usr/uploads/202111/nixos-search-options.png)
 
 Or search for packages at
 [the Packages page](https://search.nixos.org/packages):
 
-![NixOS Official Search: Packages](../../../../usr/uploads/202111/nixos-search-packages.png)
+![NixOS Official Search: Packages](../../../../../../public/usr/uploads/202111/nixos-search-packages.png)
 
 ## That Config is a Function
 
@@ -315,7 +315,7 @@ Then run `nixos-rebuild switch`. Note that this rebuild neither generated any
 new stuff nor started/stopped any service, as all we did was move some SSH
 config statements to another file, with no actual config change.
 
-![NixOS Rebuild](../../../../usr/uploads/202111/nixos-rebuild-noop.png)
+![NixOS Rebuild](../../../../../../public/usr/uploads/202111/nixos-rebuild-noop.png)
 
 Here I'll give a brief explanation of how `imports` works. The function
 `configuration.nix` has parameters `config`, `pkgs`, and some more we ignored
@@ -363,7 +363,7 @@ Up until now I introduced the ways to change your system config and install
 packages, but I never talked about how to upgrade stuff. This is because NixOS
 package repositories are managed with another command, `nix-channel`:
 
-![NixOS nix-channel command](../../../../usr/uploads/202111/nixos-channels.png)
+![NixOS nix-channel command](../../../../../../public/usr/uploads/202111/nixos-channels.png)
 
 Here the `nix-channel --list` command lists all configured repositories, and
 `nix-channel --update` updates them to the latest version. However,

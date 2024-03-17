@@ -22,7 +22,7 @@ enter to open the Device Manager. Your camera will be in
 (The following picture is taken from a Simplified Chinese Windows XP, but the
 procedure and icons should be similar for Windows 7 and 10.)
 
-![Windows Disabling Camera](../../../../usr/uploads/202003/windows-disable-camera.png)
+![Windows Disabling Camera](../../../../../../public/usr/uploads/202003/windows-disable-camera.png)
 
 When you need to use the camera, come back to re-enable it, and then close and
 reopen your browser or online lecturing software.

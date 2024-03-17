@@ -5,7 +5,7 @@ tags: [Hitokoto, 吐槽]
 date: 2013-08-04 15:52:01
 ---
 
-![Hitokoto](../../../../usr/uploads/2013/08/1999601044.png)
+![Hitokoto](../../../../../../public/usr/uploads/2013/08/1999601044.png)
 
 Hitokoto是一个一句话吐槽网站。
 

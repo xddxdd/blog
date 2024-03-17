@@ -61,7 +61,7 @@ services:
 
 然后在 VirtualBox 中如图配置：
 
-![VirtualBox 配置虚拟串口](../../../../usr/uploads/2019/12/atduck-virtualbox-config.png)
+![VirtualBox 配置虚拟串口](../../../../../../public/usr/uploads/2019/12/atduck-virtualbox-config.png)
 
 ## 配置 Windows 2000
 
@@ -71,16 +71,16 @@ Windows 2000 启动后，会自动找到一个 Unknown Modem（未知调制解�
 在安装驱动界面，选择手动选择驱动（不要自动识别），然后选择 Hayes 厂家的 Hayes
 Compatible 9600 驱动，如图：
 
-![Windows 2000 驱动选择](../../../../usr/uploads/2019/12/atduck-win2000-driver.png)
+![Windows 2000 驱动选择](../../../../../../public/usr/uploads/2019/12/atduck-win2000-driver.png)
 
 驱动安装完成后，添加拨号网络连接，拨号号码设置成 5555，协议选择 PPP，用户名密码
 任意填写。ATduck 在识别到这个号码后，会自动启动 Slirp 来模拟 PPP 握手过程。
 
-![Windows 2000 拨号连接配置](../../../../usr/uploads/2019/12/atduck-dialup-config.png)
+![Windows 2000 拨号连接配置](../../../../../../public/usr/uploads/2019/12/atduck-dialup-config.png)
 
 双击拨号上网，整个流程就结束了：
 
-![Windows 2000 拨号成功](../../../../usr/uploads/2019/12/atduck-win2000-success.png)
+![Windows 2000 拨号成功](../../../../../../public/usr/uploads/2019/12/atduck-win2000-success.png)
 
 ## 一点小问题
 

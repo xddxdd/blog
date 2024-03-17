@@ -19,7 +19,7 @@ date: 2020-08-13 20:43:26
 如果你直接访问光猫的 IP（`http://192.168.1.1`），你会看到以下的智能网关登录界
 面：
 
-![友华 PT926G 智能网关登录界面](../../../../usr/uploads/202008/youhua-pt926g-default-page.png)
+![友华 PT926G 智能网关登录界面](../../../../../../public/usr/uploads/202008/youhua-pt926g-default-page.png)
 
 在这个界面你可以用 useradmin 账户和光猫背后标记的密码登录，但进去之后没什么功
 能，只有一个 Wi-Fi 的设置是有用的。
@@ -43,11 +43,11 @@ PORT      STATE    SERVICE
 
 有一个 8080 端口，我们访问一下（`http://192.168.1.1:8080`）：
 
-![友华 PT926G 8080 端口界面](../../../../usr/uploads/202008/youhua-pt926g-8080.png)
+![友华 PT926G 8080 端口界面](../../../../../../public/usr/uploads/202008/youhua-pt926g-8080.png)
 
 嗯，熟悉的味道，用电信的万年默认密码试一下（`telecomadmin / nE7jA%5m`）：
 
-![友华 PT926G 8080 端口登录后界面](../../../../usr/uploads/202008/youhua-pt926g-8080-logged-on.png)
+![友华 PT926G 8080 端口登录后界面](../../../../../../public/usr/uploads/202008/youhua-pt926g-8080-logged-on.png)
 
 居然就进去了，深圳电信不改默认密码。
 
@@ -145,7 +145,7 @@ PORT     STATE    SERVICE
 
 然后拿起 FTP 工具连上去就可以了，用户名是 `useradmin`，密码在你的光猫背后：
 
-![友华 PT926G FTP 连接成功](../../../../usr/uploads/202008/youhua-pt926g-ftp.png)
+![友华 PT926G FTP 连接成功](../../../../../../public/usr/uploads/202008/youhua-pt926g-ftp.png)
 
 > 这里我用的是光猫的 Link-local 地址（`fe80::1%wlp3s0`），其中 wlp3s0 是我 Linux
 > 系统的网卡界面名称。Windows 下可能没有这种操作，此时用光猫的公网 IPv6 地址即

@@ -16,7 +16,7 @@ date: 2013-03-23 21:34:44
 3.加了个统计功能（把第三行stat=true改成stat=false可以关掉）。
 
 数据文件下
-载：[/usr/uploads/2013/03/badapple.7z](../../../../usr/uploads/2013/03/badapple.7z)
+载：[/usr/uploads/2013/03/badapple.7z](../../../../../../public/usr/uploads/2013/03/badapple.7z)
 
 源码：（自己用FPC 2.6编译）
 

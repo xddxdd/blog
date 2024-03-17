@@ -61,7 +61,7 @@ cmake .. && make && sudo make install
 因为这是一个标准的 LADSPA 插件，可以用任何支持 LADSPA 的播放器加载，例如
 Audacious：
 
-![Audacious 加载 LADSPA 插件](../../../../usr/uploads/202002/ladspa-audacity.png)
+![Audacious 加载 LADSPA 插件](../../../../../../public/usr/uploads/202002/ladspa-audacity.png)
 
 其中 `Split Frequency` 表示低音高音分离的频率。例如按照图中设置，低于 100 Hz 的
 声音会被输入一个声道并增强，高于 100 Hz 的声音会被输入另一个声道。而

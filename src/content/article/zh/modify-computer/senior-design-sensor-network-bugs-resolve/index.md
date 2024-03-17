@@ -75,7 +75,7 @@ image: /usr/uploads/202006/stm32cubemx.png
 芯片上的各个组件，并一键生成代码模板，提供大量函数隐藏底层操作，因此现在 STM32
 的开发并没有比 Arduino 困难多少。
 
-![STM32CubeMX 界面](../../../../usr/uploads/202006/stm32cubemx.png)
+![STM32CubeMX 界面](../../../../../../public/usr/uploads/202006/stm32cubemx.png)
 
 ## ROM 不够了怎么办
 
@@ -318,7 +318,7 @@ void deep_sleep(uint32_t seconds) {
 
 我们先是打算用 N 沟道 MOS 管来切断电源：
 
-![MOSFET 电源开关电路](../../../../usr/uploads/202006/circuit-mosfet.png)
+![MOSFET 电源开关电路](../../../../../../public/usr/uploads/202006/circuit-mosfet.png)
 
 图中的 CTL 代表 STM32 的数字输出，R1 是对应的模块。当 CTL 输出 0，MOS 管 M1 切断
 电路以关闭 R1，反之亦然。
@@ -329,7 +329,7 @@ void deep_sleep(uint32_t seconds) {
 
 于是我们添加了一个 BJT 三极管来将数字电压拉高到 5V：
 
-![添加 BJT 的电源开关电路](../../../../usr/uploads/202006/circuit-bjt.png)
+![添加 BJT 的电源开关电路](../../../../../../public/usr/uploads/202006/circuit-bjt.png)
 
 当 STM32 输出 1 时，三极管 Q1 导通拉低 MOS 管控制极电压，断开模块电源；当 STM32
 输出 0，Q1 关断，MOS 管控制电压被 R2 拉高至 5V，正常开启模块电源。注意此时 STM32
@@ -344,7 +344,7 @@ void deep_sleep(uint32_t seconds) {
 
 解决方案就是加一个电阻限流，如下图的 R3：
 
-![添加 BJT 和电阻的电源开关电路](../../../../usr/uploads/202006/circuit-bjt-resistor.png)
+![添加 BJT 和电阻的电源开关电路](../../../../../../public/usr/uploads/202006/circuit-bjt-resistor.png)
 
 > STM32 居然能在输出 50 mA 的情况下正常工作……
 

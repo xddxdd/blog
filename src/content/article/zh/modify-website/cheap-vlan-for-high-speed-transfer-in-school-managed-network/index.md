@@ -80,7 +80,7 @@ Windows 本身并不支持 VLAN，但是部分网卡提供了自己的设置程�
 
 这个工具内有 VLAN 的选项，直接添加你之前选好的 VLAN 编号就可以：
 
-![Realtek Ethernet Diagnostic Utility VLAN 界面](../../../../usr/uploads/202001/rtl8168-vlan.png)
+![Realtek Ethernet Diagnostic Utility VLAN 界面](../../../../../../public/usr/uploads/202001/rtl8168-vlan.png)
 
 （图片来自
 [Gough's Tech Zone 的这篇文章](https://goughlui.com/2018/10/01/note-multiple-vlan-operation-on-realtek-rtl8111d-nic-others/)）
@@ -94,15 +94,15 @@ macOS 的网络选项里可以直接添加 VLAN 虚拟网卡。
 进入 `Network Preferences`（网络配置），点击左下角齿轮选择
 `Manage Virtual Interfaces`（管理虚拟网卡）：
 
-![macOS 管理虚拟网卡](../../../../usr/uploads/202001/macos-manage-virtual-interfaces.png)
+![macOS 管理虚拟网卡](../../../../../../public/usr/uploads/202001/macos-manage-virtual-interfaces.png)
 
 然后点击左下角加号创建新的 VLAN（`New VLAN`）：
 
-![macOS 创建 VLAN](../../../../usr/uploads/202001/macos-new-vlan.png)
+![macOS 创建 VLAN](../../../../../../public/usr/uploads/202001/macos-new-vlan.png)
 
 然后输入你的 VLAN 编号（Tag），选择对应的网卡，保存即可：
 
-![macOS 管理虚拟网卡](../../../../usr/uploads/202001/macos-vlan-config.png)
+![macOS 管理虚拟网卡](../../../../../../public/usr/uploads/202001/macos-vlan-config.png)
 
 最后依然是对新的虚拟网卡配置 IP 即可使用。
 
@@ -114,11 +114,11 @@ Network Manager 是多数带有图形界面的 Linux 系统，例如 Ubuntu、De
 Network Manager 有对 VLAN 的原生支持，配置也极其简单。进入
 `Edit Connections`（编辑连接信息），直接新建网络连接，类型选择 VLAN：
 
-![Linux Network Manager 创建 VLAN 网络](../../../../usr/uploads/202001/linux-network-manager-new-vlan.png)
+![Linux Network Manager 创建 VLAN 网络](../../../../../../public/usr/uploads/202001/linux-network-manager-new-vlan.png)
 
 然后照例选择物理网卡和 VLAN 编号（Tag）即可：
 
-![Linux Network Manager VLAN 详细信息](../../../../usr/uploads/202001/linux-network-manager-vlan.png)
+![Linux Network Manager VLAN 详细信息](../../../../../../public/usr/uploads/202001/linux-network-manager-vlan.png)
 
 ## Linux Systemd-networkd 配置
 

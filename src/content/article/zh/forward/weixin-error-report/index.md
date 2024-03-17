@@ -6,4 +6,4 @@ date: 2013-05-04 21:42:00
 image: /usr/uploads/2013/05/67262779.png
 ---
 
-![wxoverflow.png](../../../../usr/uploads/2013/05/67262779.png)
+![wxoverflow.png](../../../../../../public/usr/uploads/2013/05/67262779.png)
