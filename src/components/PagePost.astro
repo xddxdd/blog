@@ -1,6 +1,7 @@
 ---
 import type { Language } from '../lib/language';
 import { Post } from '../lib/posts';
+import { format } from 'date-fns';
 
 type Props = {
   language: Language;
@@ -26,11 +27,13 @@ const { Content } = await post.collectionEntry.render();
                 <p>
                   <span class="fas fa-clock" />
                   <br />
-                  <small>{post.date.toDateString()}</small>
+                  <small>{format(post.date, 'MM-dd')}</small>
                 </p>
                 <div class="post-meta-value">
                   {__('date')}
-                  <span class="badge badge-tag">{post.date.toString()}</span>
+                  <span class="badge badge-tag">
+                    {format(post.date, 'yyyy-MM-dd HH:mm')}
+                  </span>
                 </div>
               </div>
             </div>

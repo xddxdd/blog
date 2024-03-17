@@ -3,6 +3,7 @@ import { AstroComponentFactory } from 'astro/dist/runtime/server';
 import type { Language } from '../lib/language';
 import { Post } from '../lib/posts';
 import type { NavigationItem } from '../lib/navigation';
+import { format } from 'date-fns';
 
 type Props = {
   language: Language;
@@ -22,7 +23,8 @@ const __ = language.getTranslation;
       {
         posts.slice(0, 15).map((post) => (
           <li>
-            {post.date.toString()} <a href={post.getFullURL()}>{post.title}</a>
+            {format(post.date, 'MM-dd')}{' '}
+            <a href={post.getFullURL()}>{post.title}</a>
           </li>
         ))
       }

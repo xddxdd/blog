@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from '../consts';
 import type { Language } from '../lib/language';
+import { format } from 'date-fns';
 
 type Props = {
   language: Language;
@@ -14,7 +15,9 @@ const __ = Astro.props.language.getTranslation;
     <i class="fas fa-copyright"></i> 2012-{new Date().getFullYear()}
     {SITE_TITLE}<br />
     <small>
-      {__('powered_by', 'Astro.js')} @ {new Date().toString()}
+      {__('powered_by', 'Astro.js')} @ {
+        format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+      }
     </small>
   </div>
 </footer>
