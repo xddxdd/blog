@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
-
 import sitemap from '@astrojs/sitemap'
 
 // import { includeMarkdown } from '@hashicorp/platform-remark-plugins'
@@ -16,7 +15,7 @@ import remarkJoinCjkLines from 'remark-join-cjk-lines'
 import remarkMath from 'remark-math'
 import remarkMermaid from 'remark-mermaid'
 import { visit } from 'unist-util-visit'
-
+import react from '@astrojs/react'
 export const chineseQuotes = s =>
   typeof s === 'string'
     ? s
@@ -25,7 +24,6 @@ export const chineseQuotes = s =>
         .replaceAll('‘', '『')
         .replaceAll('’', '』')
     : s
-
 let remarkChineseQuotes = () => tree => {
   visit(tree, node => {
     if (typeof node.value === 'string') {
@@ -34,7 +32,6 @@ let remarkChineseQuotes = () => tree => {
     return node
   })
 }
-
 const markdownPluginOptions = {
   syntaxHighlight: false,
   remarkPlugins: [
@@ -50,11 +47,21 @@ const markdownPluginOptions = {
     remarkJoinCjkLines,
     remarkMath,
     remarkGraphvizSvg,
-    [remarkMermaid, { simple: true }],
+    [
+      remarkMermaid,
+      {
+        simple: true,
+      },
+    ],
   ],
   rehypePlugins: [
     rehypeMath,
-    [rehypeHighlight, { languages: highlightLanguages }],
+    [
+      rehypeHighlight,
+      {
+        languages: highlightLanguages,
+      },
+    ],
     rehypeSlug,
   ],
 }
@@ -62,6 +69,6 @@ const markdownPluginOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://lantian.pub',
-  integrations: [mdx(markdownPluginOptions), sitemap()],
+  integrations: [mdx(markdownPluginOptions), sitemap(), react()],
   markdown: markdownPluginOptions,
 })
