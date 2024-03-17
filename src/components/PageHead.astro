@@ -9,8 +9,8 @@ type Props = {
   post: Post | undefined
 }
 
-const { language } = Astro.props
-const { pathname } = Astro.url
+const { fullTitle, language, post } = Astro.props
+const { pathname, host } = Astro.url
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -29,10 +29,10 @@ const { pathname } = Astro.url
 <meta name="nightmode" content="disable" />
 <meta name="wap-font-scale" content="no" />
 
-<title>{Astro.props.fullTitle}</title>
-<meta name="title" content={Astro.props.fullTitle} />
+<title>{fullTitle}</title>
+<meta name="title" content={fullTitle} />
 <meta name="keywords" content="" />
-<meta name="description" content={Astro.props.fullTitle} />
+<meta name="description" content={fullTitle} />
 <meta name="author" content="Lan Tian" />
 
 <link rel="canonical" href={Astro.request.url} />
@@ -40,20 +40,20 @@ const { pathname } = Astro.url
   rel="alternate"
   type="application/rss+xml"
   title={SITE_TITLE}
-  href="/rss2.xml"
+  href={`https://${host}/rss2.xml`}
 />
 <link
   rel="alternate"
   type="application/atom+xml"
   title={SITE_TITLE}
-  href="/feed.xml"
+  href={`https://${host}/feed.xml`}
 />
 
 {
   Object.entries(LANGUAGES).map(([_, newLanguage]) => (
     <link
       rel="alternate"
-      href={language.getCanonicalPath(pathname, newLanguage)}
+      href={`https://${host}${language.getCanonicalPath(pathname, newLanguage)}`}
       hreflang={newLanguage.getCode()}
     />
   ))
@@ -74,3 +74,137 @@ const { pathname } = Astro.url
   name="copyright"
   content={`Copyright 2012-${new Date().getFullYear()} ${SITE_TITLE}`}
 />
+
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+<link
+  rel="apple-touch-icon"
+  sizes="114x114"
+  href="/apple-touch-icon-114x114.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="120x120"
+  href="/apple-touch-icon-120x120.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="144x144"
+  href="/apple-touch-icon-144x144.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="152x152"
+  href="/apple-touch-icon-152x152.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href="/apple-touch-icon-180x180.png"
+/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link
+  rel="icon"
+  type="image/png"
+  sizes="192x192"
+  href="/android-chrome-192x192.png"
+/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#03a9f4" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
+<meta name="application-name" content={SITE_TITLE} />
+<meta name="msapplication-TileColor" content="#03a9f4" />
+<meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+<meta name="msapplication-navbutton-color" content="#03a9f4" />
+<meta
+  content={`name=${SITE_TITLE};action-uri=/;icon-uri=/favicon.png`}
+  name="msapplication-task"
+/>
+{
+  language
+    .getNavBarItems()
+    .map(item => (
+      <meta
+        content={`name=${item.name};action-uri=${item.path};icon-uri=/favicon.png`}
+        name="msapplication-task"
+      />
+    ))
+}
+<meta name="theme-color" content="#03a9f4" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+<meta property="og:url" content={Astro.request.url} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={fullTitle} />
+
+{
+  (post !== undefined && (
+    <>
+      <meta
+        property="og:image"
+        content={`https://${host}${post.image ?? '/apple-touch-icon.png'}`}
+      />
+      <meta property="og:description" content={post.title} />
+    </>
+  )) || (
+    <>
+      <meta
+        property="og:image"
+        content={`https://${host}/apple-touch-icon.png`}
+      />
+      <meta property="og:description" content={fullTitle} />
+    </>
+  )
+}
+
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:locale" content={language.getCode()} />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:url" content={Astro.request.url} />
+<meta name="twitter:title" content={fullTitle} />
+
+{
+  (post !== undefined && (
+    <>
+      <meta
+        property="twitter:image"
+        content={`https://${host}${post.image ?? '/apple-touch-icon.png'}`}
+      />
+      <meta property="twitter:description" content={post.title} />
+    </>
+  )) || (
+    <>
+      <meta
+        property="twitter:image"
+        content={`https://${host}/apple-touch-icon.png`}
+      />
+      <meta property="twitter:description" content={fullTitle} />
+    </>
+  )
+}
+
+<meta name="twitter:dnt" content="on" />
+
+<meta itemprop="name" content={fullTitle} />
+
+{
+  (post !== undefined && (
+    <>
+      <meta
+        property="image"
+        content={`https://${host}${post.image ?? '/apple-touch-icon.png'}`}
+      />
+      <meta property="description" content={post.title} />
+    </>
+  )) || (
+    <>
+      <meta property="image" content={`https://${host}/apple-touch-icon.png`} />
+      <meta property="description" content={fullTitle} />
+    </>
+  )
+}
