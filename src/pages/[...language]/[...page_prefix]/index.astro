@@ -2,19 +2,18 @@
 import { getPosts, getStaticPathsForPaginate } from '../../../lib/posts';
 import type { PaginatedProps } from '../../../lib/posts';
 import PageLayout from '../../../components/PageLayout.astro';
-import PagePost from '../../../components/PagePost.astro';
 import PageArchive from '../../../components/PageArchive.astro';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
-  return getStaticPathsForPaginate(posts);
+  return getStaticPathsForPaginate(posts, "");
 }
 
 type Props = PaginatedProps;
-const { posts, page, language } = Astro.props;
-const title = page == 1 ? undefined : `Page ${page}`;
+const { posts, pagination, language } = Astro.props;
+const title = pagination.currentPage == 1 ? undefined : `Page ${pagination.currentPage}`;
 ---
 
-<PageLayout title={title} language={language}>
+<PageLayout title={title} language={language} pagination={pagination}>
   <PageArchive language={language} posts={posts} AdditionalTitle={undefined} />
 </PageLayout>

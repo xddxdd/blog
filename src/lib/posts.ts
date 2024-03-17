@@ -1,6 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { POSTS_PER_PAGE } from '../consts';
 import { type Language, LANGUAGES, DEFAULT_LANGUAGE } from './language';
+import type { PaginationProps } from '../components/PagePaginator.astro';
 
 export class Post {
   public readonly title: string;
@@ -45,12 +46,12 @@ export async function getPosts(): Promise<Post[]> {
 }
 
 export type PaginatedProps = {
-  page: number;
+  pagination: PaginationProps;
   posts: Post[];
   language: Language;
 };
 
-export function getStaticPathsForPaginate(posts: Post[]) {
+export function getStaticPathsForPaginate(posts: Post[], basePathWithoutLanguage: string) {
   return Object.entries(LANGUAGES).flatMap(([_, language]) => {
     const postsForLanguage = posts.filter((post) => post.language.is(language));
     const numPages = Math.ceil(postsForLanguage.length / POSTS_PER_PAGE);
@@ -61,7 +62,11 @@ export function getStaticPathsForPaginate(posts: Post[]) {
           language == DEFAULT_LANGUAGE ? undefined : language.toString(),
       },
       props: <PaginatedProps>{
-        page: i + 1,
+        pagination: <PaginationProps> {
+          numPages: numPages,
+          currentPage: i+1,
+          basePath:  language.getSegment() + basePathWithoutLanguage,
+        },
         posts: postsForLanguage.slice(
           i * POSTS_PER_PAGE,
           (i + 1) * POSTS_PER_PAGE,
