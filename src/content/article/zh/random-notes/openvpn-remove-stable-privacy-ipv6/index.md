@@ -5,11 +5,15 @@ tags: [OpenVPN, DN42]
 date: 2020-03-21 12:28:40
 ---
 
-在我的 VPS 上，OpenVPN 创建的 TAP 网络界面/虚拟网卡会带有一个随机生成的 IPv6 地址，scope 为 `stable-privacy`。
+在我的 VPS 上，OpenVPN 创建的 TAP 网络界面/虚拟网卡会带有一个随机生成的 IPv6 地
+址，scope 为 `stable-privacy`。
 
-这个地址本身是随机生成、用于防止根据 IPv6 地址追踪用户的，但在 DN42 组网时，BGP 握手可能会从这个地址发出（而非设置的 Link-local 地址），然后因为来源地址不符而握手失败。
+这个地址本身是随机生成、用于防止根据 IPv6 地址追踪用户的，但在 DN42 组网时，BGP
+握手可能会从这个地址发出（而非设置的 Link-local 地址），然后因为来源地址不符而握
+手失败。
 
-解决方法是对这些 TAP 网络界面通过 sysctl 设置，关闭可能会自动产生地址的几项。可以设置 OpenVPN 让它在创建网络界面时自动运行 sysctl：
+解决方法是对这些 TAP 网络界面通过 sysctl 设置，关闭可能会自动产生地址的几项。可
+以设置 OpenVPN 让它在创建网络界面时自动运行 sysctl：
 
 ```bash
 # 在 OpenVPN 的 conf 文件里加上

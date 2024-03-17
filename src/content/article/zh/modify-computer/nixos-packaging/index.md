@@ -16,8 +16,8 @@ NixOS 的一大特点是，系统所有的二进制程序和库文件都在 `/ni
 编译的二进制文件将完全无法在 NixOS 下运行。
 
 所以，要在 NixOS 上使用尚不存在于 Nixpkgs 仓库中的软件，最佳方案是自己用 Nix 语
-言写一份打包脚本，给这个软件打一个包，然后把打包定义加入 `configuration.nix` 中
-，从而安装到系统上。
+言写一份打包脚本，给这个软件打一个包，然后把打包定义加入 `configuration.nix`
+中，从而安装到系统上。
 
 关于 NixOS 的软件打包，有三个好消息和两个坏消息。好消息是：
 
@@ -27,11 +27,11 @@ NixOS 的一大特点是，系统所有的二进制程序和库文件都在 `/ni
    软件的打包系统，自动传入合适的参数并完成软件打包。
 2. 对于以二进制方式分发的软件（常见于闭源软件），Nixpkgs 也提供了现成的自动化解
    决方案：
-   - 一种是 Autopatchelf，自动修改二进制文件中的库文件路径，将其指向
-     `/nix/store` 中。
-   - 另一种是 Bubblewrap，或者基于 Bubblewrap 的 `steam-run`，模拟一个符合 FHS
-     标准的运行环境。顾名思义，`steam-run` 主要针对的是 Steam 游戏平台以及它上面
-     的游戏，但它也可以用于其它闭源软件。
+    - 一种是 Autopatchelf，自动修改二进制文件中的库文件路径，将其指向
+      `/nix/store` 中。
+    - 另一种是 Bubblewrap，或者基于 Bubblewrap 的 `steam-run`，模拟一个符合 FHS
+      标准的运行环境。顾名思义，`steam-run` 主要针对的是 Steam 游戏平台以及它上
+      面的游戏，但它也可以用于其它闭源软件。
 3. Nix 包管理器会在一个隔离的环境中进行软件打包，你可以粗略地理解成一个断网，限
    制权限，只允许访问固定路径的 Docker 容器。在编译过程中，访问外部路径或者联网
    的尝试全部会失败，只能使用 Nix 编译脚本中事先指定的依赖。因此，打包出来的程序
@@ -44,10 +44,10 @@ NixOS 的一大特点是，系统所有的二进制程序和库文件都在 `/ni
    以在 NixOS 上正常编译运行。
 2. 一旦你遇到了不能使用现成函数的情况，包括下列情况，你就得做好“一杯茶，一包烟，
    一个 Bug 调一天”的准备：
-   - 开发者使用了一些奇怪的源码目录结构（例如 `osdlyrics`），或者非标准的编译方
-     式
-   - 程序主动检测运行环境（例如 UOS 版微信客户端）
-   - 程序主动检测对它本身的修改（例如 SVP 视频补帧软件）
+    - 开发者使用了一些奇怪的源码目录结构（例如 `osdlyrics`），或者非标准的编译方
+      式
+    - 程序主动检测运行环境（例如 UOS 版微信客户端）
+    - 程序主动检测对它本身的修改（例如 SVP 视频补帧软件）
 
 我在几个月前将日常使用的发行版从 Arch Linux 换成了 NixOS，在使用过程中打了很多
 NixOS 软件包。本文将从简单的打包开始一步步推进，介绍 NixOS 打包的方法，遇到的常
@@ -57,13 +57,13 @@ NixOS 软件包。本文将从简单的打包开始一步步推进，介绍 NixO
 
 首先，强烈建议你安装好 NixOS 操作系统，并在 NixOS 上进行打包。
 
-- 虽然在非 NixOS 的操作系统上也可以用 Nix 包管理器打包软件，但打包出的软件在运行
-  过程中可能还会残留有对 FHS 标准目录的依赖，从而导致它们无法正常在 NixOS 上使用
-  。当然，如果你打包只是自用，只考虑自己的运行环境，那可以忽略这条。
-- 此外，要在非 NixOS 的操作系统上安装 Nix 打包的软件，你需要使用
-  [Home Manager](https://github.com/nix-community/home-manager)，一个通过 Nix 语
-  言的配置文件来管理你的 Home 目录下的软件配置文件的工具。你需要自行研究，或者查
-  阅其它人的相关文章。
+-   虽然在非 NixOS 的操作系统上也可以用 Nix 包管理器打包软件，但打包出的软件在运
+    行过程中可能还会残留有对 FHS 标准目录的依赖，从而导致它们无法正常在 NixOS 上
+    使用。当然，如果你打包只是自用，只考虑自己的运行环境，那可以忽略这条。
+-   此外，要在非 NixOS 的操作系统上安装 Nix 打包的软件，你需要使用
+    [Home Manager](https://github.com/nix-community/home-manager)，一个通过 Nix
+    语言的配置文件来管理你的 Home 目录下的软件配置文件的工具。你需要自行研究，或
+    者查阅其它人的相关文章。
 
 ## 使用 NUR 的打包模版
 
@@ -81,79 +81,79 @@ NUR 是 Nix 的由用户自行管理的软件仓库，类似于 Arch Linux 的 A
 
 然后，把你的仓库 Clone 下来。
 
-- 对于不使用 Nix Flake 的用户，运行以下命令可以对 `example-package` 这个模版自带
-  的示例软件包进行打包：
+-   对于不使用 Nix Flake 的用户，运行以下命令可以对 `example-package` 这个模版自
+    带的示例软件包进行打包：
 
-  ```bash
-  nix-build -A example-package
-  ```
+    ```bash
+    nix-build -A example-package
+    ```
 
-- 对于使用 Flake 的用户，运行以下命令：
+-   对于使用 Flake 的用户，运行以下命令：
 
-  ```bash
-  nix flake update # 可选，将 flake.lock 中的 Nixpkgs 等仓库更新到最新版
-  nix build ".#example-package"
-  ```
+    ```bash
+    nix flake update # 可选，将 flake.lock 中的 Nixpkgs 等仓库更新到最新版
+    nix build ".#example-package"
+    ```
 
 然后，在你的 NixOS 配置中添加自己的仓库。
 
-- 对于不使用 Nix Flake 的用户，在 `configuration.nix` 中添加如下定义：
+-   对于不使用 Nix Flake 的用户，在 `configuration.nix` 中添加如下定义：
 
-  ```nix
-  nixpkgs.config.packageOverrides = pkgs: {
-    myRepo = import (builtins.fetchTarball "https://github.com/nix-community/nur-packages-template/archive/master.tar.gz") {
-      inherit pkgs;
+    ```nix
+    nixpkgs.config.packageOverrides = pkgs: {
+      myRepo = import (builtins.fetchTarball "https://github.com/nix-community/nur-packages-template/archive/master.tar.gz") {
+        inherit pkgs;
+      };
     };
-  };
-  ```
+    ```
 
-  将 `https://github.com/nix-community/nur-packages-template` 替换成你的仓库地址
-  。
+    将 `https://github.com/nix-community/nur-packages-template` 替换成你的仓库地
+    址。
 
-  这样操作后，你就能用类似于 `pkgs.myRepo.example-package` 的方式使用你打的包了
-  。
+    这样操作后，你就能用类似于 `pkgs.myRepo.example-package` 的方式使用你打的包
+    了。
 
-- 对于使用 Nix Flake 的用户，在 `flake.nix` 中的 `inputs` 一节中添加如下定义：
+-   对于使用 Nix Flake 的用户，在 `flake.nix` 中的 `inputs` 一节中添加如下定义：
 
-  ```nix
-  inputs = {
-    # ...
-    myRepo = {
-      url = "github:nix-community/nur-packages-template";
-      inputs.nixpkgs.follows = "nixpkgs";
+    ```nix
+    inputs = {
+      # ...
+      myRepo = {
+        url = "github:nix-community/nur-packages-template";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      # ...
     };
-    # ...
-  };
-  ```
+    ```
 
-  将 `nix-community/nur-packages-template` 替换成你的仓库地址。
+    将 `nix-community/nur-packages-template` 替换成你的仓库地址。
 
-  然后，在 `flake.nix` 中的 `output` 一节，你的 `nixosConfigurations` 定义中，为
-  每个系统添加一个 module：
+    然后，在 `flake.nix` 中的 `output` 一节，你的 `nixosConfigurations` 定义中，
+    为每个系统添加一个 module：
 
-  ```nix
-  outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        # 在 modules 的开头添加下面这几行
-        ({
-          nixpkgs.overlays = [
-            (final: prev: {
-              myRepo = inputs.myRepo.packages."${prev.system}";
-            })
-          ];
-        })
-        # 在 modules 的开头添加上面这几行
+    ```nix
+    outputs = { self, nixpkgs, ... }@inputs: {
+      nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          # 在 modules 的开头添加下面这几行
+          ({
+            nixpkgs.overlays = [
+              (final: prev: {
+                myRepo = inputs.myRepo.packages."${prev.system}";
+              })
+            ];
+          })
+          # 在 modules 的开头添加上面这几行
 
-        ./configuration.nix
-      ];
+          ./configuration.nix
+        ];
+      };
     };
-  };
-  ```
+    ```
 
-  这样操作后，你就能用类似于 `pkgs.myRepo.example-package` 的方式使用你打的包了
-  。
+    这样操作后，你就能用类似于 `pkgs.myRepo.example-package` 的方式使用你打的包
+    了。
 
 ## 直接在 NixOS 配置文件中添加软件包
 
@@ -210,58 +210,58 @@ nix-build -E 'with import <nixpkgs> {}; callPackage ./example-package.nix {}'
 
 1. 解压（Unpack phase）
 
-   - 在这一步中，`stdenv.mkDerivation` 会自动解压 `src` 参数指定的源码包。例如如
-     果你的源码包是 `.tar.gz` 格式的，就会自动调用 `tar xf`。
-   - 但 `stdenv.mkDerivation` 不能识别所有压缩格式，例如 `.zip` 就不行，需要手动
-     指定解压命令：
+    - 在这一步中，`stdenv.mkDerivation` 会自动解压 `src` 参数指定的源码包。例如
+      如果你的源码包是 `.tar.gz` 格式的，就会自动调用 `tar xf`。
+    - 但 `stdenv.mkDerivation` 不能识别所有压缩格式，例如 `.zip` 就不行，需要手
+      动指定解压命令：
 
-     ```nix
-     nativeBuildInputs = [ unzip ];
-     unpackPhase = ''
-       unzip $src
-     '';
-     ```
+        ```nix
+        nativeBuildInputs = [ unzip ];
+        unpackPhase = ''
+          unzip $src
+        '';
+        ```
 
-   - `stdenv.mkDerivation` 要求源码包的顶层是一个文件夹，解压完成后会自动 `cd`
-     进去。
+    - `stdenv.mkDerivation` 要求源码包的顶层是一个文件夹，解压完成后会自动 `cd`
+      进去。
 
 2. 打补丁（Patch phase）
 
-   - 在这一步中，`stdenv.mkDerivation` 会按顺序应用 `patches` 列表中的所有补丁。
-     这一步可以用来解决一部分软件和 NixOS 的不兼容问题。
+    - 在这一步中，`stdenv.mkDerivation` 会按顺序应用 `patches` 列表中的所有补
+      丁。这一步可以用来解决一部分软件和 NixOS 的不兼容问题。
 
 3. 配置（Configure phase）
 
-   - 这一步相当于运行 `./configure` 或者 `cmake`。`stdenv.mkDerivation` 会自动检
-     测打包方案并调用相应命令，或者当相应配置文件不存在时，自动跳过这一步。
-   - 需要注意的是，要调用 `cmake`，你需要额外加一行
-     `nativeBuildInputs = [ cmake ];` 把 CMake 加入打包环境中。
-   - 你可以用 `configureFlags` 或者 `cmakeFlags` 添加配置参数，例如启用/禁用软件
-     的功能。
+    - 这一步相当于运行 `./configure` 或者 `cmake`。`stdenv.mkDerivation` 会自动
+      检测打包方案并调用相应命令，或者当相应配置文件不存在时，自动跳过这一步。
+    - 需要注意的是，要调用 `cmake`，你需要额外加一行
+      `nativeBuildInputs = [ cmake ];` 把 CMake 加入打包环境中。
+    - 你可以用 `configureFlags` 或者 `cmakeFlags` 添加配置参数，例如启用/禁用软
+      件的功能。
 
 4. 编译（Build phase）
 
-   - 这一步相当于运行 `make`。你可以用 `makeFlags` 添加传给 `make` 的参数。
+    - 这一步相当于运行 `make`。你可以用 `makeFlags` 添加传给 `make` 的参数。
 
 5. 测试（Check phase）
 
-   - 这一步会运行源码中自带的测试用例，以保证软件功能正确。
-   - 你可以用 `doCheck = false;` 禁用这一步。
+    - 这一步会运行源码中自带的测试用例，以保证软件功能正确。
+    - 你可以用 `doCheck = false;` 禁用这一步。
 
 6. 安装（Install phase）
 
-   - 这一步相当于运行 `make install`，将编译结果复制到 Nix store 的相应文件夹中
-     。
-   - 整个构建过程是在临时文件夹中，而不是 Nix store 中进行的，因此需要这一步将文
-     件复制过去。
-   - 当你手动指定安装命令时，目标路径存在变量 `$out` 中。`$out` 可以是存放有文件
-     的文件夹，也可以直接是一个文件。
+    - 这一步相当于运行 `make install`，将编译结果复制到 Nix store 的相应文件夹
+      中。
+    - 整个构建过程是在临时文件夹中，而不是 Nix store 中进行的，因此需要这一步将
+      文件复制过去。
+    - 当你手动指定安装命令时，目标路径存在变量 `$out` 中。`$out` 可以是存放有文
+      件的文件夹，也可以直接是一个文件。
 
 7. 额外修补（Fixup phase）
-   - 这一步会对 Nix store 中的结果做一些清理，例如去除调试符号等。
-   - Autopatchelf Hook，一个自动替换闭源软件 `.so` 的路径的 Hook，就是在这一步运
-     行的。
-   - 你可以用 `dontFixup = true;` 禁用这一步。
+    - 这一步会对 Nix store 中的结果做一些清理，例如去除调试符号等。
+    - Autopatchelf Hook，一个自动替换闭源软件 `.so` 的路径的 Hook，就是在这一步
+      运行的。
+    - 你可以用 `dontFixup = true;` 禁用这一步。
 
 每一个步骤都可以手动指定对应的命令，或者在原有命令之前或之后额外增加命令。以安装
 这一步为例：
@@ -284,8 +284,8 @@ postInstall = ''
 '';
 ```
 
-只看这些步骤的解释可能有些抽象，因此接下来我会给出一些实例，并给出详细解释。此外
-，我的实例中还会涉及 Nixpkgs 提供的对于几种常用编程语言的专用打包函数，例如
+只看这些步骤的解释可能有些抽象，因此接下来我会给出一些实例，并给出详细解释。此
+外，我的实例中还会涉及 Nixpkgs 提供的对于几种常用编程语言的专用打包函数，例如
 Python 的 `buildPythonPackage`，Go 的 `buildGoModule` 等等。这些实例都来
 自[我的 NUR 软件源](https://github.com/xddxdd/nur-packages)。
 
@@ -293,14 +293,14 @@ Python 的 `buildPythonPackage`，Go 的 `buildGoModule` 等等。这些实例�
 
 开源软件的打包往往都比较容易，因为在打包过程中，Nix 包管理器会调整好环境变量，让
 编译器找到存放在 Nix store 中其它路径的库文件，所以生成的二进制文件都会链接到
-Nix store 的库文件中，不依赖 `/usr` 等路径下的其它文件，可以直接在 NixOS 上使用
-，此外，即使开源软件中出现路径写死等情况，你在打包过程中也可以写一个补丁，把路径
-修改掉，从而让它能在 NixOS 下正常工作。
+Nix store 的库文件中，不依赖 `/usr` 等路径下的其它文件，可以直接在 NixOS 上使
+用，此外，即使开源软件中出现路径写死等情况，你在打包过程中也可以写一个补丁，把路
+径修改掉，从而让它能在 NixOS 下正常工作。
 
 ## 简单：LibOQS（C++，CMake，自动化构建）
 
-首先我们来看一个最简单的例子
-：LibOQS。[LibOQS 提供了多种后量子加密算法的实现，可以用来给 OpenSSL 或 BoringSSL 提供后量子加密支持](https://github.com/open-quantum-safe/liboqs)。
+首先我们来看一个最简单的例
+子：LibOQS。[LibOQS 提供了多种后量子加密算法的实现，可以用来给 OpenSSL 或 BoringSSL 提供后量子加密支持](https://github.com/open-quantum-safe/liboqs)。
 
 LibOQS 使用 CMake 构建，并且本身没有任何依赖，因此基本上所有工作都可以由
 `stdenv.mkDerivations` 自动完成，我们只需要为 CMake 指定几个额外的参数：
@@ -424,13 +424,13 @@ stdenv.mkDerivation rec {
 
 这个包主要用来展示 `nativeBuildInputs` 和 `buildInputs` 的区别：
 
-- `nativeBuildInputs` 只有在构建时用到，一般用来生成一些配置文件或者编译脚本。在
-  交叉编译（给其它架构的设备编译软件）时，`nativeBuildInputs` 的架构会和运行编译
-  的设备相同，而不是和目标设备相同。例如用 x86 电脑给 ARM 树莓派编译时
-  ，`nativeBuildInputs` 的架构会是 x86。
-- `buildInputs` 在构建和最终运行软件时都会用到。所有的依赖库都会放到这里。这些依
-  赖的架构和目标设备相同，例如 `openssl-oqs-provider` 依赖的 `liboqs` 必然和它是
-  同一架构的（都是 x86 或者都是 ARM）。
+-   `nativeBuildInputs` 只有在构建时用到，一般用来生成一些配置文件或者编译脚本。
+    在交叉编译（给其它架构的设备编译软件）时，`nativeBuildInputs` 的架构会和运行
+    编译的设备相同，而不是和目标设备相同。例如用 x86 电脑给 ARM 树莓派编译
+    时，`nativeBuildInputs` 的架构会是 x86。
+-   `buildInputs` 在构建和最终运行软件时都会用到。所有的依赖库都会放到这里。这些
+    依赖的架构和目标设备相同，例如 `openssl-oqs-provider` 依赖的 `liboqs` 必然和
+    它是同一架构的（都是 x86 或者都是 ARM）。
 
 ## 困难：OSDLyrics（Python 和 C++，两轮构建）
 
@@ -686,19 +686,19 @@ stdenv.mkDerivation rec {
 CentOS、Debian、Ubuntu 等。由于我们没有源代码，我们只能想办法在二进制文件上动手
 术，在二进制文件中查找 FHS 标准路径，并把它们全部替换成 Nix store 的路径。
 
-幸运的是，针对不同的情况，Nixpkgs 提供了好几种方案，让多数的闭源软件都能打包成功
-。
+幸运的是，针对不同的情况，Nixpkgs 提供了好几种方案，让多数的闭源软件都能打包成
+功。
 
 ## 简单：Bilibili-linux（解压 DEB 包，Electron）
 
-首先我们看一个简单的情况：基于 Electron 的软件
-。[这里以 Bilibili-linux 为例，它是基于哔哩哔哩官方的桌面客户端移植到 Linux 系统的版本](https://github.com/msojocs/bilibili-linux)。
+首先我们看一个简单的情况：基于 Electron 的软
+件。[这里以 Bilibili-linux 为例，它是基于哔哩哔哩官方的桌面客户端移植到 Linux 系统的版本](https://github.com/msojocs/bilibili-linux)。
 
 虽然 Electron 软件相比传统的基于 GTK 或 Qt 的桌面软件耗电大，占用空间多，而且会
 让每台电脑中都装上十来个 Chromium，让它的市场占有率飙升到 1000% 以上，但它的移植
 便捷性不容忽视。Bilibili-linux 这个客户端是使用纯 Javascript 实现的，软件包里除
-了 Electron 之外，没有任何其它的二进制文件。因此我们可以取出它的 Javascript 代码
-，然后直接用系统的 Electron 运行。
+了 Electron 之外，没有任何其它的二进制文件。因此我们可以取出它的 Javascript 代
+码，然后直接用系统的 Electron 运行。
 
 ```nix
 { stdenv
@@ -1366,8 +1366,8 @@ in
 需要联网下载 `vendor` 目录下的依赖，因此 `buildGoModule` 会计算整个 `vendor` 目
 录的校验码，这个校验码需要在打包时手动给出。
 
-校验码不会算怎么办？老方法，先注释掉（或者随便改几个字），然后构建这个软件包
-，Nix 会报错，并提示你正确的校验码。
+校验码不会算怎么办？老方法，先注释掉（或者随便改几个字），然后构建这个软件
+包，Nix 会报错，并提示你正确的校验码。
 
 这里我演示的软件是
 [Konnect，一个 OpenID 单点登录服务，支持 LDAP 后端](https://github.com/Kopano-dev/konnect)。
@@ -1393,8 +1393,8 @@ buildGoModule rec {
 
 你不需要指定任何的编译命令，`buildGoModule` 会自动完成一切。
 
-类似的，Python，NodeJS，Rust 等多种语言的项目都有它们对应的打包函数
-，[具体用法可以在 NixOS Wiki 查找](https://nixos.wiki/)。
+类似的，Python，NodeJS，Rust 等多种语言的项目都有它们对应的打包函
+数，[具体用法可以在 NixOS Wiki 查找](https://nixos.wiki/)。
 
 > 但是不包括 Java，因为 Java 常用的 Maven 构建系统不支持把依赖固定在某一个版本，
 > 因此两次编译的依赖可能会发生变化，违反了 Nix 的初衷。
@@ -1481,19 +1481,19 @@ with lib.kernel;
 复尝试。相比于其它发行版，NixOS（以及 Nixpkgs）的打包看起来复杂，但实际上是比较
 容易的：
 
-- 大量的重复工作被以函数的形式自动化；
-- 打包环境与主系统隔离，不用担心系统上的残留库文件产生冲突，也不用担心少指定依赖
-  导致其他人无法使用。
+-   大量的重复工作被以函数的形式自动化；
+-   打包环境与主系统隔离，不用担心系统上的残留库文件产生冲突，也不用担心少指定依
+    赖导致其他人无法使用。
 
-本文中我展示了常见的几种打包情况，包括开源软件和闭源软件。但因为我展示的样本很少
-，无法覆盖到你会遇到的所有情况，因此更多时候还是需要你去自行查阅资料：
+本文中我展示了常见的几种打包情况，包括开源软件和闭源软件。但因为我展示的样本很
+少，无法覆盖到你会遇到的所有情况，因此更多时候还是需要你去自行查阅资料：
 
-- [NixOS Wiki](https://nixos.wiki/) 上有多种常见编程语言的打包教程，以及一些特殊
-  情况的介绍（例如 Qt）。
-- [Nixpkgs](https://github.com/NixOS/nixpkgs) 本身就是一个大型的软件包仓库，存放
-  了 8 万多个软件包的定义，也可以作为参考。
-- [NUR](https://nur.nix-community.org/) 是 Nix 用户个人管理的软件包仓库，类似于
-  AUR。
+-   [NixOS Wiki](https://nixos.wiki/) 上有多种常见编程语言的打包教程，以及一些特
+    殊情况的介绍（例如 Qt）。
+-   [Nixpkgs](https://github.com/NixOS/nixpkgs) 本身就是一个大型的软件包仓库，存
+    放了 8 万多个软件包的定义，也可以作为参考。
+-   [NUR](https://nur.nix-community.org/) 是 Nix 用户个人管理的软件包仓库，类似
+    于 AUR。
 
 本文所有的打包样例都来
 自[我的 NUR 仓库](https://github.com/xddxdd/nur-packages)。

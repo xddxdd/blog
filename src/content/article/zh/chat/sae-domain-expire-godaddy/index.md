@@ -1,16 +1,21 @@
 ---
 title: '【已辟谣】SAE 域名忘记续费，被GoDaddy抢购'
 categories: 闲聊
-tags: [SAE,GoDaddy,域名]
+tags: [SAE, GoDaddy, 域名]
 date: 2014-07-29 17:53:00
 ---
-更新：SAE官方已经辟谣。[http://weibo.com/1662047260/Bg8rZ0sGN](http://weibo.com/1662047260/Bg8rZ0sGN) 
+
+更新：SAE官方已经辟
+谣。[http://weibo.com/1662047260/Bg8rZ0sGN](http://weibo.com/1662047260/Bg8rZ0sGN)
 
 <img src="/usr/uploads/54971406802813.jpg" title="6310d41cjw1eiw506vfqfj20dw2gwdu7.jpg"/>
 
-SAE是新浪的云计算平台，也是国内最早的云计算平台，一直运行得还算可以，但是最近他们犯了一个大错误：他们用来运行SAE上网站的域名sinaapp.com忘记了续费，已经被删除。
+SAE是新浪的云计算平台，也是国内最早的云计算平台，一直运行得还算可以，但是最近他
+们犯了一个大错误：他们用来运行SAE上网站的域名sinaapp.com忘记了续费，已经被删除。
 
-而且看起来他们一时半会儿无法拿回这个域名，因为国外的GoDaddy域名注册商在域名到期时迅速抢下了这个域名并续费到2020年。谁都不知道GoDaddy会为这个域名开出多少的价格。</p>
+而且看起来他们一时半会儿无法拿回这个域名，因为国外的GoDaddy域名注册商在域名到期
+时迅速抢下了这个域名并续费到2020年。谁都不知道GoDaddy会为这个域名开出多少的价
+格。</p>
 
 ```bash
 $ whois sinaapp.com

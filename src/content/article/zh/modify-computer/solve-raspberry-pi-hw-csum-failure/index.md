@@ -4,7 +4,11 @@ categories: 计算机与客户端
 tags: [Raspberry Pi]
 date: 2018-01-25 23:18:00
 ---
-今天登录上树莓派，习惯性 df 查看磁盘空间，发现树莓派 TF 卡上的空间所剩无几。最开始我以为我设置错误，把要挂机下载的文件下载到了 TF 卡里而不是移动硬盘里。结果排查下来，/var/log 下的日志文件居然占据了整整 18G 的空间。查看了一下日志，基本上都是类似如下的报错：
+
+今天登录上树莓派，习惯性 df 查看磁盘空间，发现树莓派 TF 卡上的空间所剩无几。最开
+始我以为我设置错误，把要挂机下载的文件下载到了 TF 卡里而不是移动硬盘里。结果排查
+下来，/var/log 下的日志文件居然占据了整整 18G 的空间。查看了一下日志，基本上都是
+类似如下的报错：
 
 ```bash
 Jan 25 22:51:15 lantian-rpi3 kernel: [   22.143274] eth0: hw csum failure
@@ -52,9 +56,13 @@ Jan 25 22:51:15 lantian-rpi3 kernel: [   22.143750] 3fc0: 76c37000 00000001 76c3
 Jan 25 22:51:15 lantian-rpi3 kernel: [   22.143755] 3fe0: 76f2ace4 7e9b5cc0 76b29dd4 0006ac00 60000010 ffffffff
 ```
 
-即，树莓派的有线网卡部分出现了大面积的报错，内核不断的打 Stacktrace 导致日志文件暴涨。而我的树莓派因为用来挂校内 PT 站，常常有 5MB/S 以上的上传下载，日志量可想而知。
+即，树莓派的有线网卡部分出现了大面积的报错，内核不断的打 Stacktrace 导致日志文件
+暴涨。而我的树莓派因为用来挂校内 PT 站，常常有 5MB/S 以上的上传下载，日志量可想
+而知。
 
-报错的“HW CSum”功能全称为“Hardware Checksum Offloading”，即将网络数据包的校验转交给网卡芯片，从而降低 CPU 占用的功能。为了排查问题，我尝试用 ethtool 关闭该功能：
+报错的“HW CSum”功能全称为“Hardware Checksum Offloading”，即将网络数据包的校验转
+交给网卡芯片，从而降低 CPU 占用的功能。为了排查问题，我尝试用 ethtool 关闭该功
+能：
 
 ```bash
 apt-get install ethtool
@@ -69,7 +77,8 @@ ethtool --offload eth0 rx on tx on
 
 dmesg 中再次出现大面积报错，证明该问题由 HW CSum 产生。
 
-当然，关闭 HW CSum 仅是权宜之计，这个问题应该通过更新内核和/或驱动的方式解决。但是我尝试 raspi-update，更新内核和驱动后问题仍未解决，因此只能继续停用 HW CSum。
+当然，关闭 HW CSum 仅是权宜之计，这个问题应该通过更新内核和/或驱动的方式解决。但
+是我尝试 raspi-update，更新内核和驱动后问题仍未解决，因此只能继续停用 HW CSum。
 
 编辑 `/etc/network/interfaces.d/eth0`（如果没有就创建），加入以下代码：
 

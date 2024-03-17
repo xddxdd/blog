@@ -1,14 +1,18 @@
 ---
 title: 'Typecho 显示评论者国家和浏览器'
 categories: 网站与服务端
-tags: [IP,Typecho]
+tags: [IP, Typecho]
 date: 2014-07-30 21:09:00
 ---
-Typecho 由于插件稀少，一直没有找到显示评论者国家和浏览器的插件，所以只好自力更生了。
 
-代码修改自WordPress插件Show UserAgent，下载页面：[https://wordpress.org/plugins/show-useragent/](https://wordpress.org/plugins/show-useragent/)
+Typecho 由于插件稀少，一直没有找到显示评论者国家和浏览器的插件，所以只好自力更生
+了。
 
-前提是你的主题使用了自定义评论代码而不是Typecho默认的评论显示代码，一般符合要求的主题的comments.php或者functions.php中会有如下代码：
+代码修改自WordPress插件Show UserAgent，下载页
+面：[https://wordpress.org/plugins/show-useragent/](https://wordpress.org/plugins/show-useragent/)
+
+前提是你的主题使用了自定义评论代码而不是Typecho默认的评论显示代码，一般符合要求
+的主题的comments.php或者functions.php中会有如下代码：
 
 ```php
 <?php function threadedComments($comments, $options) {
@@ -16,7 +20,9 @@ Typecho 由于插件稀少，一直没有找到显示评论者国家和浏览器
 ?>
 ```
 
-下载Show UserAgent插件解压，把里面的flags文件夹改名成country，browsers文件夹改名成browser，ip2c文件夹改名成lib，上传到服务器上你的主题文件夹。（其实不改也可以，但是我是按照个人习惯这么改的，你也可以修改下面代码的路径）
+下载Show UserAgent插件解压，把里面的flags文件夹改名成country，browsers文件夹改名
+成browser，ip2c文件夹改名成lib，上传到服务器上你的主题文件夹。（其实不改也可以，
+但是我是按照个人习惯这么改的，你也可以修改下面代码的路径）
 
 在主题的functions.php中插入这么长一串代码：
 
@@ -889,7 +895,8 @@ function CID_browser_string($ua, $show_image = true, $show_text = false, $betwee
 } ?>
 ```
 
-把里面的`http://cdn.lantian.lt/usr/themes/hybridside`这个网址全部改成你的主题文件夹的网址。
+把里面的`http://cdn.lantian.lt/usr/themes/hybridside`这个网址全部改成你的主题文
+件夹的网址。
 
 在主题的自定义评论代码里你想显示评论者国家的地方插入：
 

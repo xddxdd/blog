@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z } from 'astro:content'
 
 const article = defineCollection({
   type: 'content',
@@ -10,6 +10,6 @@ const article = defineCollection({
     date: z.coerce.date(),
     image: z.string().optional(),
   }),
-});
+})
 
-export const collections = { article };
+export const collections = { article }

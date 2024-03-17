@@ -1,16 +1,26 @@
 ---
 title: 'Bad Apple NG：增强版 Bad Apple 播放系统'
 categories: 计算机与客户端
-tags: [Pascal,Bad Apple]
+tags: [Pascal, Bad Apple]
 date: 2013-03-16 10:56:23
 ---
-UPDATE：如果碰到打不开、运行错误2什么的问题，请在[Bad Apple 命令行动画版](/article/modify-computer/bad-apple-command-line-art.lantian)看说明下数据文件！！！
 
-上次我的[Bad Apple 命令行动画版](/article/modify-computer/bad-apple-command-line-art.lantian)成功被同学WotorDho转载，并且进行了增强，主要是判断延时，以便控制系统卡的时候FPS保持基本不变。可惜他用的是他编写文澜杀时使用的自建Unit XCrt，冗余代码多不说，还不好懂。
+UPDATE：如果碰到打不开、运行错误2什么的问题，请
+在[Bad Apple 命令行动画版](/article/modify-computer/bad-apple-command-line-art.lantian)看
+说明下数据文件！！！
 
-我研究了一下XCrt，搞懂他的原理，并且对自己的播放器进行修改，达到了一样的效果。（理论上还会快一点）
+上次我
+的[Bad Apple 命令行动画版](/article/modify-computer/bad-apple-command-line-art.lantian)成
+功被同学WotorDho转载，并且进行了增强，主要是判断延时，以便控制系统卡的时候FPS保
+持基本不变。可惜他用的是他编写文澜杀时使用的自建Unit XCrt，冗余代码多不说，还不
+好懂。
 
-同时，由于之前Telnet传输时采取整幅整幅画面传输，浪费了大量流量，我也进行了优化，也就是判断每个像素点是否相同，如果不同就只改像素点，可以有效减小传输带宽。我称之Bad Apple NG（NG为Next Generation，下一代）。VPS上的Telnet演示将稍后更新。
+我研究了一下XCrt，搞懂他的原理，并且对自己的播放器进行修改，达到了一样的效果。
+（理论上还会快一点）
+
+同时，由于之前Telnet传输时采取整幅整幅画面传输，浪费了大量流量，我也进行了优化，
+也就是判断每个像素点是否相同，如果不同就只改像素点，可以有效减小传输带宽。我称之
+Bad Apple NG（NG为Next Generation，下一代）。VPS上的Telnet演示将稍后更新。
 
 上源代码：
 

@@ -1,13 +1,16 @@
 ---
 title: '最傻的代码错误：一个空格酿成的血案'
 categories: 转载
-tags: [BumbleBee,Bug,错误]
+tags: [BumbleBee, Bug, 错误]
 date: 2014-01-04 12:09:00
 image: /usr/uploads/2014/01/723043973.png
 ---
-Bumblebee是Linux平台上的一款NVidia显卡的辅助工具，它可以让NVidia显卡启用Optimus技术，就是在笔记本电脑平台上由独立显卡渲染，集成显卡显示。其实就是显卡硬件加速。
 
-这是一款非常有用的工具，但是它曾经出过一次很严重的Bug（虽然是3年前），因为一个空格，大群Ubuntu用户的usr文件夹被删除了。
+Bumblebee是Linux平台上的一款NVidia显卡的辅助工具，它可以让NVidia显卡启用Optimus
+技术，就是在笔记本电脑平台上由独立显卡渲染，集成显卡显示。其实就是显卡硬件加速。
+
+这是一款非常有用的工具，但是它曾经出过一次很严重的Bug（虽然是3年前），因为一个空
+格，大群Ubuntu用户的usr文件夹被删除了。
 
 那是一次Git更新，变动位于install.sh：
 
@@ -18,8 +21,8 @@ Bumblebee是Linux平台上的一款NVidia显卡的辅助工具，它可以让NVi
   #
  -BUMBLEBEEVERSION=1.4.31
  +BUMBLEBEEVERSION=1.4.32
-  
-  
+
+
   ROOT_UID=0
  @@ -348,7 +348,7 @@ case "$DISTRO" in
     ln -s /usr/lib/mesa/ld.so.conf /etc/alternatives/gl_conf
@@ -32,9 +35,12 @@ Bumblebee是Linux平台上的一款NVidia显卡的辅助工具，它可以让NVi
    ;;
 ```
 
-因为一个空格，删除指令从/usr/lib/nvidia-current/xorg/xorg变成了/usr和/lib/nvidia-current/xorg/xorg两个文件夹，而/usr目录就是你平时放你那一大堆程序的地方，包括apt-get。。。
+因为一个空格，删除指令从/usr/lib/nvidia-current/xorg/xorg变成了/usr和
+/lib/nvidia-current/xorg/xorg两个文件夹，而/usr目录就是你平时放你那一大堆程序的
+地方，包括apt-get。。。
 
-[GitHub](https://github.com/MrMEEE/bumblebee-Old-and-abbandoned/commit/a047be85247755cdbe0acce6#diff-1)上世界各地大批程序员疯狂吐槽这个Bug：
+[GitHub](https://github.com/MrMEEE/bumblebee-Old-and-abbandoned/commit/a047be85247755cdbe0acce6#diff-1)上
+世界各地大批程序员疯狂吐槽这个Bug：
 
 “所以我得先格式化我的硬盘？”“是的，我一般用Bumblebee格式化。”
 

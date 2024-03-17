@@ -5,18 +5,25 @@ tags: [Docker]
 date: 2020-12-27 23:39:07
 ---
 
-在我的网络配置中，部分 Docker 容器的服务需要用 Anycast 的方式实现高可用，例如 DNS。[在之前的文章中](/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian/)，我的做法是，创建了一个 Busybox 容器运行 `tail -f /dev/null` 这条命令，永久挂起，不占用 CPU 也永远不会退出，来维持一份网络命名空间给服务程序和 BIRD 共享。
+在我的网络配置中，部分 Docker 容器的服务需要用 Anycast 的方式实现高可用，例如
+DNS。[在之前的文章中](/article/modify-website/docker-share-network-namespace-bird-high-availability.lantian/)，
+我的做法是，创建了一个 Busybox 容器运行 `tail -f /dev/null` 这条命令，永久挂起，
+不占用 CPU 也永远不会退出，来维持一份网络命名空间给服务程序和 BIRD 共享。
 
 用人话说就是：我自己发明了一遍 Kubernetes 的 Pod。
 
-> 我不使用 K8S，因为我的节点都是独立的，不组成集群，因此不使用 K8S 的集群功能，另外它的配置也比较复杂。
+> 我不使用 K8S，因为我的节点都是独立的，不组成集群，因此不使用 K8S 的集群功能，
+> 另外它的配置也比较复杂。
 
-但是我转念一想，为了网络命名空间建一个 Busybox 容器好像有些大材小用，我还需要手动配置一个 Entrypoint。如果有一个极小的 Docker 镜像，唯一干的事情是等待，那就更好了。
+但是我转念一想，为了网络命名空间建一个 Busybox 容器好像有些大材小用，我还需要手
+动配置一个 Entrypoint。如果有一个极小的 Docker 镜像，唯一干的事情是等待，那就更
+好了。
 
-方案一：直接用 Musl + 静态编译做一个
-------------------------------
+## 方案一：直接用 Musl + 静态编译做一个
 
-最容易想到的方法就是写一个死循环的 C 程序，不断的用 `sleep` 之类命令等待。Linux 系统中，Glibc、Musl 等 C 语言运行库提供了一个 `pause` 函数，暂停程序运行直到程序收到了外部信号。
+最容易想到的方法就是写一个死循环的 C 程序，不断的用 `sleep` 之类命令等待。Linux
+系统中，Glibc、Musl 等 C 语言运行库提供了一个 `pause` 函数，暂停程序运行直到程序
+收到了外部信号。
 
 所以我写了一个死循环调用 `pause`：
 
@@ -28,7 +35,8 @@ int main() {
 }
 ```
 
-然后把它静态链接到 Musl。不要用 Glibc，[原因我在上次制作微型 Docker 镜像时讲了](/article/modify-website/static-build-tiny-docker-images.lantian/)：
+然后把它静态链接到 Musl。不要用
+Glibc，[原因我在上次制作微型 Docker 镜像时讲了](/article/modify-website/static-build-tiny-docker-images.lantian/)：
 
 ```bash
 musl-gcc sleep.c -Os -static -o sleep
@@ -43,8 +51,7 @@ musl-gcc sleep.c -Os -static -o sleep
 
 已经挺小了，Busybox 的镜像要 1MB 多一点。但是我们还可以做得更好。
 
-方案二：汇编！
------------
+## 方案二：汇编！
 
 如果我们反编译一下刚才的 `sleep` 程序，可以看到一大堆函数：
 
@@ -136,7 +143,7 @@ SYMBOL TABLE:
 0000000000401695 l     F .text  000000000000001a sccp
 0000000000000000 l    df *ABS*  0000000000000000 crtstuff.c
 000000000040203c l     O .eh_frame      0000000000000000 __FRAME_END__
-0000000000000000 l    df *ABS*  0000000000000000 
+0000000000000000 l    df *ABS*  0000000000000000
 0000000000403ff8 l       .fini_array    0000000000000000 __fini_array_end
 0000000000403ff0 l       .fini_array    0000000000000000 __fini_array_start
 0000000000403ff0 l       .init_array    0000000000000000 __init_array_end
@@ -189,9 +196,11 @@ SYMBOL TABLE:
 0000000000404050 g     O .bss   0000000000000008 __progname_full
 ```
 
-这是因为 Musl 的一部分在静态链接时被带进来了。但是一个除了永远挂起外，不干任何其它事的程序，也不需要这些 Musl 的函数。那么可不可以把它们都删掉？
+这是因为 Musl 的一部分在静态链接时被带进来了。但是一个除了永远挂起外，不干任何其
+它事的程序，也不需要这些 Musl 的函数。那么可不可以把它们都删掉？
 
-可以，一种方法就是直接用汇编直接去调用 pause 对应的系统调用。不用一看到汇编就发慌，我们的程序只有六行：
+可以，一种方法就是直接用汇编直接去调用 pause 对应的系统调用。不用一看到汇编就发
+慌，我们的程序只有六行：
 
 ```c
 .text
@@ -202,11 +211,16 @@ _start:
     jmp _start
 ```
 
-- 第一行表示把下面的代码放在 Linux ELF 可执行文件的 `.text` 段（即可执行代码段）。
-- 第二行和第三行定义了一个 `_start` 函数。
-  - 虽然我们写 C 程序时主函数是 `main`，但是 Linux 运行程序时执行的第一个函数其实不是它，而是从 C 语言标准库中复制来的 `_start` 函数，它会在加载一些环境配置（例如解析命令行参数）后，再调用我们写的 `main` 函数。但我们不需要 C 标准库帮我们干这些，我们只要不停地挂起自己就可以。
-- 第四行和第五行调用了编号为 34 的系统调用，对应 Linux 的 `pause` 系统调用，就是先前提到的、挂起自身直到收到外部信号为止的调用。
-- 第六行跳回 `_start` 函数开头，成为一个死循环。
+-   第一行表示把下面的代码放在 Linux ELF 可执行文件的 `.text` 段（即可执行代码
+    段）。
+-   第二行和第三行定义了一个 `_start` 函数。
+    -   虽然我们写 C 程序时主函数是 `main`，但是 Linux 运行程序时执行的第一个函
+        数其实不是它，而是从 C 语言标准库中复制来的 `_start` 函数，它会在加载一
+        些环境配置（例如解析命令行参数）后，再调用我们写的 `main` 函数。但我们不
+        需要 C 标准库帮我们干这些，我们只要不停地挂起自己就可以。
+-   第四行和第五行调用了编号为 34 的系统调用，对应 Linux 的 `pause` 系统调用，就
+    是先前提到的、挂起自身直到收到外部信号为止的调用。
+-   第六行跳回 `_start` 函数开头，成为一个死循环。
 
 把它“编译”（其实与编译 C 等语言的过程不同，只需要翻译成机器码）：
 
@@ -217,16 +231,20 @@ ld -s -o sleep sleep.obj
 
 我们就获得了一个 4.3 KB 的可执行文件，而且可以正常的一直挂起。
 
-但问题又来了：我们刚才的代码和可执行文件只支持 x86_64 指令集。我还有树莓派和 Tinker Board，也要支持 ARM。万一后续我遇到了只支持 x86 32 位指令集的机器，或者未来 RISC-V 崛起，我还得为每个架构装一个汇编器，写一次汇编代码。
+但问题又来了：我们刚才的代码和可执行文件只支持 x86_64 指令集。我还有树莓派和
+Tinker Board，也要支持 ARM。万一后续我遇到了只支持 x86 32 位指令集的机器，或者未
+来 RISC-V 崛起，我还得为每个架构装一个汇编器，写一次汇编代码。
 
-更麻烦的是，Linux 在不同的架构下系统调用的编号是不同的，每个架构都得去查一次系统调用表。
+更麻烦的是，Linux 在不同的架构下系统调用的编号是不同的，每个架构都得去查一次系统
+调用表。
 
 有没有简单一点的方案？
 
-方案三：源代码级调用 Musl
----------------------
+## 方案三：源代码级调用 Musl
 
-还记得刚才提到的 Musl 等 C 标准库吗？它们的作用之一就是包装 Linux 的系统调用给程序使用，这样我们写程序时就不用用汇编来做系统调用了。如果我们能复用它们包装调用的代码，并且去掉其它的我们不需要的东西，不是更好？
+还记得刚才提到的 Musl 等 C 标准库吗？它们的作用之一就是包装 Linux 的系统调用给程
+序使用，这样我们写程序时就不用用汇编来做系统调用了。如果我们能复用它们包装调用的
+代码，并且去掉其它的我们不需要的东西，不是更好？
 
 我们先下载一份 Musl 的代码：
 
@@ -236,7 +254,8 @@ tar xvf musl-1.2.1.tar.gz
 mv musl-1.2.1 musl
 ```
 
-Musl 的代码里，`arch` 文件夹下就有不同架构系统调用的汇编代码，内联在 C 文件里。例如 x86_64 的代码在 `arch/x86_64/syscall_arch.h`：
+Musl 的代码里，`arch` 文件夹下就有不同架构系统调用的汇编代码，内联在 C 文件里。
+例如 x86_64 的代码在 `arch/x86_64/syscall_arch.h`：
 
 ```c
 static __inline long __syscall0(long n)
@@ -255,7 +274,8 @@ static __inline long __syscall0(long n)
 
 这两个文件都没有额外的依赖，可以直接 include。因此我们可以写出这样的代码：
 
-> `pause` 系统调用不是在所有指令集上都支持的，这时我会使用 `sched_yield` 告知系统把 CPU 分给其它程序。这相比 `pause` 会多占一些 CPU。
+> `pause` 系统调用不是在所有指令集上都支持的，这时我会使用 `sched_yield` 告知系
+> 统把 CPU 分给其它程序。这相比 `pause` 会多占一些 CPU。
 >
 > 和汇编一样，这里直接写一个 `_start` 函数，我们不需要 C 标准库的其它东西。
 
@@ -289,7 +309,8 @@ gcc -Os -static -nostdlib -Imusl/arch/x86_64 -o sleep sleep.c
 -rwxr-xr-x 1 lantian lantian 8.9K Dec 27 23:00 sleep
 ```
 
-这还不是极限，汇编程序可以做到 4.3 KB，C 程序也可以做到相近的程度。我们 `objdump -x sleep` 看一下 ELF Section：
+这还不是极限，汇编程序可以做到 4.3 KB，C 程序也可以做到相近的程度。我们
+`objdump -x sleep` 看一下 ELF Section：
 
 ```bash
 Sections:
@@ -304,7 +325,9 @@ Idx Name          Size      VMA               LMA               File off  Algn
                   CONTENTS, READONLY
 ```
 
-`sleep` 文件中有四个部分，其中只有 `.text` 是我们需要的，因此我们要去除别的部分。GCC 可以用 `-Wl,--build-id=none` 参数去掉 `.note.gnu.build-id`，用 `-fno-asynchronous-unwind-tables` 去掉 `.eh_frame`：
+`sleep` 文件中有四个部分，其中只有 `.text` 是我们需要的，因此我们要去除别的部
+分。GCC 可以用 `-Wl,--build-id=none` 参数去掉 `.note.gnu.build-id`，用
+`-fno-asynchronous-unwind-tables` 去掉 `.eh_frame`：
 
 ```bash
 gcc -Os -static -nostdlib -Imusl/arch/x86_64 -Wl,--build-id=none -fno-asynchronous-unwind-tables -o sleep sleep.c
@@ -333,11 +356,13 @@ Disassembly of section .text:
   40100a:       eb f9                   jmp    0x401005
 ```
 
-和刚才写的汇编代码基本上是一个东西。如果用 hexdump 看一下，可以看到文件中有大量的 0，但是这些空间已经没法精简了，因为 x86 下内存的一页就是 4KB，ELF Section 要向 4KB 对齐。
+和刚才写的汇编代码基本上是一个东西。如果用 hexdump 看一下，可以看到文件中有大量
+的 0，但是这些空间已经没法精简了，因为 x86 下内存的一页就是 4KB，ELF Section 要
+向 4KB 对齐。
 
-最后把刚才的过程全部写进 Dockerfile，做成镜像就可以了。[Dockerfile 可以在我的这个 commit 看到。](https://github.com/xddxdd/dockerfiles/tree/eecbb766176852ead16a6066017772161c59e502/dockerfiles/sleep/template.Dockerfile)
+最后把刚才的过程全部写进 Dockerfile，做成镜像就可以
+了。[Dockerfile 可以在我的这个 commit 看到。](https://github.com/xddxdd/dockerfiles/tree/eecbb766176852ead16a6066017772161c59e502/dockerfiles/sleep/template.Dockerfile)
 
-但这一切值得吗？
--------------
+## 但这一切值得吗？
 
 好问题，我也想知道。

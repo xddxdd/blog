@@ -1,10 +1,12 @@
 ---
 title: 'Tengine 网页服务器编译以及安装'
 categories: 计算机与客户端
-tags: [服务器,网页,Tengine,编译]
+tags: [服务器, 网页, Tengine, 编译]
 date: 2013-07-31 16:19:50
 ---
-Tengine是阿里巴巴基于nginx开发的一款高性能网页服务器，除了保留nginx原有的高性能特性外，还增加了这堆东西：
+
+Tengine是阿里巴巴基于nginx开发的一款高性能网页服务器，除了保留nginx原有的高性能
+特性外，还增加了这堆东西：
 
 <blockquote>
 继承Nginx-1.2.9的所有特性，100%兼容Nginx的配置；
@@ -22,7 +24,8 @@ Tengine是阿里巴巴基于nginx开发的一款高性能网页服务器，除�
 可以根据访问文件类型设置过期时间；
 </blockquote>
 
-虽然对于普通用户没什么区别，但是拿来玩玩还是不错的，听说土豆还是56已经用上Tengine了。
+虽然对于普通用户没什么区别，但是拿来玩玩还是不错的，听说土豆还是56已经用上
+Tengine了。
 
 下面是编译步骤。
 
@@ -30,9 +33,11 @@ Tengine是阿里巴巴基于nginx开发的一款高性能网页服务器，除�
 ./configure --prefix=/usr --enable-mods-shared=all --with-rtsig_module --with-select_module --with-poll_module --with-file-aio --with-ipv6 --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_image_filter_module --with-http_geoip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_slice_module --with-http_mp4_module --with-http_gzip_static_module --with-http_concat_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_sysguard_module --with-http_lua_module --with-http_tfs_module --with-mail --with-mail_ssl_module --with-google_perftools_module --with-cpp_test_module --with-backtrace_module --with-pcre --with-pcre-jit --with-md5-asm --with-sha1-asm --with-libatomic --with-jemalloc
 ```
 
-插一句：因为Tengine是模块化的，所以自然地我们就把模块多开一点，反正动态加载。如果看哪个模块不顺眼不想要，把对应的with。。。删掉就可以。
+插一句：因为Tengine是模块化的，所以自然地我们就把模块多开一点，反正动态加载。如
+果看哪个模块不顺眼不想要，把对应的with。。。删掉就可以。
 
-如果configure报错，一般是少libxxx，直接到新立得软件包管理去搜就行了。安装时要安装-dev包，原始包也会自动安装。
+如果configure报错，一般是少libxxx，直接到新立得软件包管理去搜就行了。安装时要安
+装-dev包，原始包也会自动安装。
 
 ```bash
 make -j4

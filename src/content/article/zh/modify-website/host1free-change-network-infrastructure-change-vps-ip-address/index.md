@@ -1,7 +1,7 @@
 ---
 title: 'Host1Free 近期改造网络架构，更换VPS IP'
 categories: 网站与服务端
-tags: [VPS,Host1Free,IP]
+tags: [VPS, Host1Free, IP]
 date: 2013-06-08 21:59:07
 ---
 
@@ -19,6 +19,7 @@ date: 2013-06-08 21:59:07
     Regards,
     Host1Free adminsitrators team
 
-简洁来说，VPS的IP地址改成5.175.206.68，原来的5.175.156.249留到下周三作为过渡，请修改好自己的DNS解析。
+简洁来说，VPS的IP地址改成5.175.206.68，原来的5.175.156.249留到下周三作为过渡，请
+修改好自己的DNS解析。
 
 不过永久免费的VPS撑到现在还这么稳定（？）真强悍。

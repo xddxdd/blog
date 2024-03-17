@@ -4,7 +4,9 @@ categories: 转载
 tags: [OI]
 date: 2012-07-16 13:53:00
 ---
+
 OIer 1：
+
 ```pascal
 procedure qsort(l,r:longint);
 var
@@ -22,6 +24,7 @@ end;
 ```
 
 OIer 2：
+
 ```pascal
 Procedure QuickSort(Left, Right : Longint);
 
@@ -92,4 +95,4 @@ end;
 
 原文：[http://user.qzone.qq.com/1320719107/blog/1342412850][1]
 
-  [1]: http://user.qzone.qq.com/1320719107/blog/1342412850
+[1]: http://user.qzone.qq.com/1320719107/blog/1342412850

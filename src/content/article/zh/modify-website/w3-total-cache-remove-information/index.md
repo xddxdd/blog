@@ -1,10 +1,13 @@
 ---
 title: 'W3 Total Cache 末尾注释去除'
 categories: 网站与服务端
-tags: [网站,折腾,WordPress,W3 Total Cache]
+tags: [网站, 折腾, WordPress, W3 Total Cache]
 date: 2013-02-13 21:07:00
 ---
-W3 Total Cache 开了资源最小化的效果是非常好的，连HTML都给我最小化了，不信看看我的网页源代码，连换行符都被删掉了，最小化效果超级给力。但是末尾的地方，却有个W3 Total Cache加的注释。
+
+W3 Total Cache 开了资源最小化的效果是非常好的，连HTML都给我最小化了，不信看看我
+的网页源代码，连换行符都被删掉了，最小化效果超级给力。但是末尾的地方，却有个W3
+Total Cache加的注释。
 
 ```bash
 <!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
@@ -15,9 +18,12 @@ Content Delivery Network via lantian.pub
 Served from: lantian.pub @ 2013-02-13 20:56:59 by W3 Total Cache -->
 ```
 
-对于我这种追求速度的人，这段东西不光让网页无端变大，最重要的是我想到有这个东西就烦。于是，我决定对W3 Total Cache开刀，把产生注释的这一段代码删掉。
+对于我这种追求速度的人，这段东西不光让网页无端变大，最重要的是我想到有这个东西就
+烦。于是，我决定对W3 Total Cache开刀，把产生注释的这一段代码删掉。
 
-先到Google上查了一下，有人说在w3-total-cache/lib/W3/Plugin/TotalCache.php这个文件的2000多行的位置。结果我打开文件一看，整个文件才800行，哪来的2000行？继续搜，无果。只能我自己看看吧。于是我开始翻这个php文件，直到我翻到这一段代码：
+先到Google上查了一下，有人说在w3-total-cache/lib/W3/Plugin/TotalCache.php这个文
+件的2000多行的位置。结果我打开文件一看，整个文件才800行，哪来的2000行？继续搜，
+无果。只能我自己看看吧。于是我开始翻这个php文件，直到我翻到这一段代码：
 
 ```php
 /**
@@ -115,6 +121,9 @@ $append);
 }
 ```
 
-“Add footer comment”，这一段代码，你摊上事了。这一段代码就是产生在HTML最末端的注释，我当然不能让它存在。
+“Add footer comment”，这一段代码，你摊上事了。这一段代码就是产生在HTML最末端的注
+释，我当然不能让它存在。
 
-如果你要删，你可以直接把这段代码删掉，但是如果你怕删错了搞坏插件，你可以在这段代码两段分别加一个/* 和 */，这是PHP里的注释符号。如果你今后想把它弄出来，把这两个符号删掉就行了。
+如果你要删，你可以直接把这段代码删掉，但是如果你怕删错了搞坏插件，你可以在这段代
+码两段分别加一个/_ 和 _/，这是PHP里的注释符号。如果你今后想把它弄出来，把这两个
+符号删掉就行了。

@@ -5,32 +5,67 @@ tags: [HP, OMEN, Macro Keys, Linux]
 date: 2022-04-04 05:16:16
 ---
 
-I got a new laptop some time ago, an HP OMEN 17t-ck000. While it's a nice laptop with excellent build quality and performance, it has one problem: it's drivers under Linux are far from complete.
+I got a new laptop some time ago, an HP OMEN 17t-ck000. While it's a nice laptop
+with excellent build quality and performance, it has one problem: it's drivers
+under Linux are far from complete.
 
-1. No support for fan speed control. You can see the fan speed but that's it. In addition, HP's default fan control strategy is very agressive, in the sense that even with fan spin down enabled in BIOS, the fan keeps running with the CPU being around 40 degrees celsius and GPU being idle.
+1. No support for fan speed control. You can see the fan speed but that's it. In
+   addition, HP's default fan control strategy is very agressive, in the sense
+   that even with fan spin down enabled in BIOS, the fan keeps running with the
+   CPU being around 40 degrees celsius and GPU being idle.
 
-   - Actually, [NBFC](https://github.com/hirschmann/nbfc) can be used to control the fan speed by directly writing to EC registers, but [in an unfortunate accident](/en/article/chat/how-i-nuked-my-btrfs-partition.lantian/) I lost my configuration file.
-   - I was trying NixOS on my new laptop when I set up NBFC. When the accident happened, I had removed NixOS from the laptop, and the config files were never uploaded to GitHub.
-   - I may write that config file again in the future.
+    - Actually, [NBFC](https://github.com/hirschmann/nbfc) can be used to
+      control the fan speed by directly writing to EC registers, but
+      [in an unfortunate accident](/en/article/chat/how-i-nuked-my-btrfs-partition.lantian/)
+      I lost my configuration file.
+    - I was trying NixOS on my new laptop when I set up NBFC. When the accident
+      happened, I had removed NixOS from the laptop, and the config files were
+      never uploaded to GitHub.
+    - I may write that config file again in the future.
 
-2. No support for tuning keyboard backlight color, which is controlled by OMEN Command Center on Windows. Sometimes my system crash, and I press the power button to force a shutdown, only to find that BIOS has reset the backlight into the colorful default setting. Whenever that happens, I'll have to set it back on Windows.
+2. No support for tuning keyboard backlight color, which is controlled by OMEN
+   Command Center on Windows. Sometimes my system crash, and I press the power
+   button to force a shutdown, only to find that BIOS has reset the backlight
+   into the colorful default setting. Whenever that happens, I'll have to set it
+   back on Windows.
 
-   - The good news is that there's a modified Linux `hp_wmi` kernel module on GitHub, with support for controlling keyboard backlight on Linux.
-   - It's developed by James Churchill (pelrun), and can be downloaded from <https://github.com/pelrun/hp-omen-linux-module>.
+    - The good news is that there's a modified Linux `hp_wmi` kernel module on
+      GitHub, with support for controlling keyboard backlight on Linux.
+    - It's developed by James Churchill (pelrun), and can be downloaded from
+      <https://github.com/pelrun/hp-omen-linux-module>.
 
-3. There's a row of macro keys on the left side of the keyboard. They're controlled by OMEN Command Center on Windows, and can be set up with macro definitions to simulate a series of keystrokes on keypress. Of course, it doesn't work on Linux.
+3. There's a row of macro keys on the left side of the keyboard. They're
+   controlled by OMEN Command Center on Windows, and can be set up with macro
+   definitions to simulate a series of keystrokes on keypress. Of course, it
+   doesn't work on Linux.
 
-   - [HP has no plan to develop an OMEN Command Center for Linux](https://h30434.www3.hp.com/t5/Gaming-Notebooks/HP-Omen-keyboard-control-on-Linux/td-p/4890663).
+    - [HP has no plan to develop an OMEN Command Center for Linux](https://h30434.www3.hp.com/t5/Gaming-Notebooks/HP-Omen-keyboard-control-on-Linux/td-p/4890663).
 
-Having unusable keys on your keyboard is frustrating. Although I'm not a heavy gamer and don't need macro keys, I can still use them for shortcuts to apps, like the browser or the terminal.
+Having unusable keys on your keyboard is frustrating. Although I'm not a heavy
+gamer and don't need macro keys, I can still use them for shortcuts to apps,
+like the browser or the terminal.
 
 Therefore, I started my journey of reverse engineering OMEN Command Center.
 
 # The Reverse Engineering Journey
 
-OMEN Command Center is written with Microsoft's .NET technology, which means the decompilation process is trivial. As a .NET program, each and every of its DLL are named after their class names, which means their functions can be determined after their file name. In addition, [dotPeek from JetBrains](https://www.jetbrains.com/decompiler/) can decompile .NET programs into C# code with original function and variable names, so I don't need to read assembly code to figure out what each function does, like the experience with C programs.
+OMEN Command Center is written with Microsoft's .NET technology, which means the
+decompilation process is trivial. As a .NET program, each and every of its DLL
+are named after their class names, which means their functions can be determined
+after their file name. In addition,
+[dotPeek from JetBrains](https://www.jetbrains.com/decompiler/) can decompile
+.NET programs into C# code with original function and variable names, so I don't
+need to read assembly code to figure out what each function does, like the
+experience with C programs.
 
-In the process decompiling the DLLs with dotPeek, I noticed `HP.Omen.MacrosModule.dll`, which seems to be the DLL for the keyboard macro function. After a bit of searching, I found my target of a class: `HP.Omen.MacrosModule.Models.MacroModel`. It's responsible for translating macro definitions of OMEN Command Center to binary representations understood by EC, and writing them to the EC via [WMI ACPI](https://docs.microsoft.com/en-us/samples/microsoft/windows-driver-samples/wmi-acpi-sample/) interface.
+In the process decompiling the DLLs with dotPeek, I noticed
+`HP.Omen.MacrosModule.dll`, which seems to be the DLL for the keyboard macro
+function. After a bit of searching, I found my target of a class:
+`HP.Omen.MacrosModule.Models.MacroModel`. It's responsible for translating macro
+definitions of OMEN Command Center to binary representations understood by EC,
+and writing them to the EC via
+[WMI ACPI](https://docs.microsoft.com/en-us/samples/microsoft/windows-driver-samples/wmi-acpi-sample/)
+interface.
 
 First, let's take a look of the `OnEditorPageSaveClick` function:
 
@@ -53,7 +88,10 @@ private void OnEditorPageSaveClick(string obj)
 }
 ```
 
-Now the problem is, is my laptop the Dragons variant or the Marlins variant? The device type is actually determined by `DeviceList.json` in `HP.Omen.DeviceLib`, and the IDs in that JSON are the PCI Subsystem Device IDs. First, I determine the ID of my laptop:
+Now the problem is, is my laptop the Dragons variant or the Marlins variant? The
+device type is actually determined by `DeviceList.json` in `HP.Omen.DeviceLib`,
+and the IDs in that JSON are the PCI Subsystem Device IDs. First, I determine
+the ID of my laptop:
 
 ```bash
 # lspci -nnk | grep VGA -A 2
@@ -71,19 +109,36 @@ So my ID is `88f7`. Now into that JSON file:
 ```json
 // Unrelated parts are removed
 {
-  "Name": "Cybug",
-  "DisplayName": "OMEN 17",
-  "ProductNum": [
-    {
-      "SSID": "88F7" // GN20E (E3/E5/E7) non DDS
-    }
-  ],
-  "Feature": [ "SystemInfo", "NetworkBooster", "FourZone", "DraxLighting", "PerformanceControl", "GraphicsSwitcher", "Macros" ],
-  "BackgroundFeature": [ "NetworkBooster", "OmenKey", "FourZone", "DraxLightingBg", "PerformanceControl", "MarlinsMacro", "DragonKBMcu" ]
+    "Name": "Cybug",
+    "DisplayName": "OMEN 17",
+    "ProductNum": [
+        {
+            "SSID": "88F7" // GN20E (E3/E5/E7) non DDS
+        }
+    ],
+    "Feature": [
+        "SystemInfo",
+        "NetworkBooster",
+        "FourZone",
+        "DraxLighting",
+        "PerformanceControl",
+        "GraphicsSwitcher",
+        "Macros"
+    ],
+    "BackgroundFeature": [
+        "NetworkBooster",
+        "OmenKey",
+        "FourZone",
+        "DraxLightingBg",
+        "PerformanceControl",
+        "MarlinsMacro",
+        "DragonKBMcu"
+    ]
 }
 ```
 
-There's `MarlinsMacro` in the feature list, so I guess my laptop is of type Marlins. Back to the logic for Marlins devices:
+There's `MarlinsMacro` in the feature list, so I guess my laptop is of type
+Marlins. Back to the logic for Marlins devices:
 
 ```csharp
 private void OnEditorPageSaveClick(string obj)
@@ -101,7 +156,8 @@ private void OnEditorPageSaveClick(string obj)
 }
 ```
 
-`SetBytesToEC` function is called, which is in charge of translating keystroke sequence to EC's binary representation:
+`SetBytesToEC` function is called, which is in charge of translating keystroke
+sequence to EC's binary representation:
 
 ```csharp
 public byte[] SetBytesToEC(ObservableCollection<InputKeyInfo> Items)
@@ -148,12 +204,15 @@ public byte[] SetBytesToEC(ObservableCollection<InputKeyInfo> Items)
 }
 ```
 
-With a [reference table for PS/2 Scan Code Set 1](https://wiki.osdev.org/PS/2_Keyboard#Scan_Code_Set_1), we can encode a few sequences:
+With a
+[reference table for PS/2 Scan Code Set 1](https://wiki.osdev.org/PS/2_Keyboard#Scan_Code_Set_1),
+we can encode a few sequences:
 
 1. Press and release A: `[3, 0x1e, 0x9e]`
 2. Press A, wait 100ms, and release: `[5, 0x1e, 255, 100, 0x9e]`
 3. Press A, wait 300ms, and release: `[7, 0x1e, 255, 255, 255, 45, 0x9e]`
-   - Each wait is up to 255ms because of limitations of byte data type. The wait of 300ms needs to be done with two waits.
+    - Each wait is up to 255ms because of limitations of byte data type. The
+      wait of 300ms needs to be done with two waits.
 
 Back to the logic of `OnEditorPageSaveClick`:
 
@@ -225,9 +284,11 @@ private void SetMacrosToSystemInfoService(
 }
 ```
 
-This logic combines the encoded key sequence of all function keys together, and sends them to EC with a WMI write.
+This logic combines the encoded key sequence of all function keys together, and
+sends them to EC with a WMI write.
 
-The order of keys are stored in `HP.Omen.MacrosModule.Models.EnumMacroKeyMarlins`:
+The order of keys are stored in
+`HP.Omen.MacrosModule.Models.EnumMacroKeyMarlins`:
 
 ```csharp
 public enum EnumMacroKeyMarlins
@@ -274,11 +335,17 @@ Now it's pretty clear what we need to do:
 
 # Writing Linux Driver
 
-I'm already using a modified Linux `hp_wmi` driver for keyboard backlight support, so I decided to make my modifications on top.
+I'm already using a modified Linux `hp_wmi` driver for keyboard backlight
+support, so I decided to make my modifications on top.
 
-(Modified driver can be downloaded at <https://github.com/pelrun/hp-omen-linux-module>)
+(Modified driver can be downloaded at
+<https://github.com/pelrun/hp-omen-linux-module>)
 
-First I need a key sequence. Due to hardware limitations of HP, special function keys (like volume adjustments and media controls) are not supported in the key sequence. Therefore, I cannot send keystrokes for keys not present on a regular keyboard, like F13-F24, to avoid conflicts. Because my laptop doesn't have a numpad, I decided to map the macro keys to numpad keys instead:
+First I need a key sequence. Due to hardware limitations of HP, special function
+keys (like volume adjustments and media controls) are not supported in the key
+sequence. Therefore, I cannot send keystrokes for keys not present on a regular
+keyboard, like F13-F24, to avoid conflicts. Because my laptop doesn't have a
+numpad, I decided to map the macro keys to numpad keys instead:
 
 ```c
 #include <linux/input-event-codes.h>
@@ -322,9 +389,11 @@ static u8 macro_profile_bytes[4096] = {
 };
 ```
 
-> Currently my module uses a fixed keystroke sequence. I can add configuration interfaces in the future, allowing users to set their own key sequences.
+> Currently my module uses a fixed keystroke sequence. I can add configuration
+> interfaces in the future, allowing users to set their own key sequences.
 
-Next I need two functions, one for enabling macro keys on module load, and one for disabling them:
+Next I need two functions, one for enabling macro keys on module load, and one
+for disabling them:
 
 ```c
 static int macro_key_setup(struct platform_device *dev)
@@ -360,6 +429,11 @@ Finally, call these functions in the module's load and unload functions.
 
 # Download
 
-I uploaded the modified module to <https://github.com/xddxdd/hp-omen-linux-module>. Those changes related to this post can be found at <https://github.com/xddxdd/hp-omen-linux-module/commit/macro_keys>.
+I uploaded the modified module to
+<https://github.com/xddxdd/hp-omen-linux-module>. Those changes related to this
+post can be found at
+<https://github.com/xddxdd/hp-omen-linux-module/commit/macro_keys>.
 
-Or, you can directly integrate the macro key function (and keyboard backlight function) to the kernel by applying this patch: <https://github.com/xddxdd/nur-packages/blob/master/pkgs/linux-xanmod-lantian/patches/0004-hp-omen-fourzone.patch>
+Or, you can directly integrate the macro key function (and keyboard backlight
+function) to the kernel by applying this patch:
+<https://github.com/xddxdd/nur-packages/blob/master/pkgs/linux-xanmod-lantian/patches/0004-hp-omen-fourzone.patch>

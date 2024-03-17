@@ -1,18 +1,22 @@
 ---
 title: 'Bad Apple NG 修正增强版本'
 categories: 计算机与客户端
-tags: [Pascal,Bad Apple]
+tags: [Pascal, Bad Apple]
 date: 2013-03-23 21:34:44
 ---
+
 这次更新修正了几个错误。
 
-1.帧率统计功能实际上是错误的（我脑抽写出的代码），全片过程中帧率一般维持在20FPS不变。现已将FPS统计改成处理延时。（PS：对于处理延时，程序自动调节）
+1.帧率统计功能实际上是错误的（我脑抽写出的代码），全片过程中帧率一般维持在20FPS
+不变。现已将FPS统计改成处理延时。（PS：对于处理延时，程序自动调节）
 
-2.有TX反馈说64位OS下运行不正常，八成是int64的问题，现在已经全部改成longint，问题应该解决。
+2.有TX反馈说64位OS下运行不正常，八成是int64的问题，现在已经全部改成longint，问题
+应该解决。
 
 3.加了个统计功能（把第三行stat=true改成stat=false可以关掉）。
 
-数据文件下载：[/usr/uploads/2013/03/badapple.7z](../../../../usr/uploads/2013/03/badapple.7z)
+数据文件下
+载：[/usr/uploads/2013/03/badapple.7z](../../../../usr/uploads/2013/03/badapple.7z)
 
 源码：（自己用FPC 2.6编译）
 

@@ -8,37 +8,86 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 @include "\_templates/nixos-series/toc-en.md"
 
-Black friday has passed. Some readers, I believe, have perchased some VPSes or cloud servers on sale, and want to install NixOS on them. However, since NixOS is nowhere as famous as popular Linux distros, such as CentOS, Debian and Ubuntu, almost no VPS provider will offer a disk image preinstalled with NixOS. This lefts the user one of the following options to perform the installation manually:
+Black friday has passed. Some readers, I believe, have perchased some VPSes or
+cloud servers on sale, and want to install NixOS on them. However, since NixOS
+is nowhere as famous as popular Linux distros, such as CentOS, Debian and
+Ubuntu, almost no VPS provider will offer a disk image preinstalled with NixOS.
+This lefts the user one of the following options to perform the installation
+manually:
 
-- Mounting NixOS's installer ISO, and then partition and install manually.
+-   Mounting NixOS's installer ISO, and then partition and install manually.
 
-Since you can operate on the VPS's hard drive as you wish in NixOS's installation media, repartitioning the drive and specifying file system types, this approach offers the maximum freedom. However, before you can use this approach, your provider must satisfy one of the three prerequisites:
+Since you can operate on the VPS's hard drive as you wish in NixOS's
+installation media, repartitioning the drive and specifying file system types,
+this approach offers the maximum freedom. However, before you can use this
+approach, your provider must satisfy one of the three prerequisites:
 
-1. Provider provides a NixOS ISO (even if an older version) and allows you to mount it;
-2. Provider allows user to upload custom ISO images, with which you can upload a copy of NixOS installation media;
-3. Provider supports booting to [netboot.xyz](https://netboot.xyz/) (an utility to install various Linux distros over the Internet), and your VPS has more than 1GB RAM, so that netboot.xyz has enough space to extract NixOS's installation image into RAM.
+1. Provider provides a NixOS ISO (even if an older version) and allows you to
+   mount it;
+2. Provider allows user to upload custom ISO images, with which you can upload a
+   copy of NixOS installation media;
+3. Provider supports booting to [netboot.xyz](https://netboot.xyz/) (an utility
+   to install various Linux distros over the Internet), and your VPS has more
+   than 1GB RAM, so that netboot.xyz has enough space to extract NixOS's
+   installation image into RAM.
 
-In my case, I purchased a VPS with exactly 1GB of RAM, not enough for extracting the image of NixOS 23.05. Therefore, I cannot boot into NixOS installation environment with netboot.xyz. In addition, my provider doesn't support custom ISOs, so I cannot boot into NixOS installer with that either.
+In my case, I purchased a VPS with exactly 1GB of RAM, not enough for extracting
+the image of NixOS 23.05. Therefore, I cannot boot into NixOS installation
+environment with netboot.xyz. In addition, my provider doesn't support custom
+ISOs, so I cannot boot into NixOS installer with that either.
 
-- Replace the running operating system on VPS with [NixOS-Infect](https://github.com/elitak/nixos-infect) or [NixOS-Anywhere](https://github.com/nix-community/nixos-anywhere), etc.
+-   Replace the running operating system on VPS with
+    [NixOS-Infect](https://github.com/elitak/nixos-infect) or
+    [NixOS-Anywhere](https://github.com/nix-community/nixos-anywhere), etc.
 
-NixOS-Infect works by installating a Nix daemon on the local OS, build a complete NixOS installation on it, and finally replace the bootloader entries with those for NixOS. Since this approach doesn't require extracting the full installer image, it is more suitable for VPSes with low RAM. The downside of this approach though, is that you cannot customize partitions and filesystem types. You are left with the default partition schemes and filesystems configured by the provider. For users who depends on non-standard partition or filesystem schemes, including Btrfs/ZFS or [Impermanence](/en/article/modify-computer/nixos-impermanence.lantian/), this approach is not suitable.
+NixOS-Infect works by installating a Nix daemon on the local OS, build a
+complete NixOS installation on it, and finally replace the bootloader entries
+with those for NixOS. Since this approach doesn't require extracting the full
+installer image, it is more suitable for VPSes with low RAM. The downside of
+this approach though, is that you cannot customize partitions and filesystem
+types. You are left with the default partition schemes and filesystems
+configured by the provider. For users who depends on non-standard partition or
+filesystem schemes, including Btrfs/ZFS or
+[Impermanence](/en/article/modify-computer/nixos-impermanence.lantian/), this
+approach is not suitable.
 
-NixOS-Anywhere, on the other hand, works by replacing the current running kernel with `kexec`, and booting straight into NixOS installation image stored in RAM. Since it works in almost the same way as netboot.xyz, it also requires a large chunk of RAM, just like netboot.xyz.
+NixOS-Anywhere, on the other hand, works by replacing the current running kernel
+with `kexec`, and booting straight into NixOS installation image stored in RAM.
+Since it works in almost the same way as netboot.xyz, it also requires a large
+chunk of RAM, just like netboot.xyz.
 
-- Use NixOS-Infect first, and then manually adjust partitions in rescue environment
+-   Use NixOS-Infect first, and then manually adjust partitions in rescue
+    environment
 
-I used to setup similar low RAM VPSes by setting up a normal NixOS with NixOS-Infect first, and then deploy a configuration with Btrfs and Impermanence enabled, reboot into rescue environment, and finally adjust partitions and convert filesystems. It works, but takes many steps to complete. In addition, if I did any of the steps incorrectly, I'm left with an unfixable system, and will need to start over.
+I used to setup similar low RAM VPSes by setting up a normal NixOS with
+NixOS-Infect first, and then deploy a configuration with Btrfs and Impermanence
+enabled, reboot into rescue environment, and finally adjust partitions and
+convert filesystems. It works, but takes many steps to complete. In addition, if
+I did any of the steps incorrectly, I'm left with an unfixable system, and will
+need to start over.
 
-- ...Any other possibilities?
+-   ...Any other possibilities?
 
-Recently, the NixOS community released a tool, [Disko](https://github.com/nix-community/disko). It is originally used for automatically partitioning hard drives in the NixOS installation environment, so that user can declaratively partition the drive with a Nix config file. However, the tool also supports generating a disk image based on a given partition table and NixOS config. Therefore, we can set up Btrfs/ZFS/Impermanence, generate the corresponding disk image, and `dd` the image into the VPS's hard drive, to easily install NixOS on there.
+Recently, the NixOS community released a tool,
+[Disko](https://github.com/nix-community/disko). It is originally used for
+automatically partitioning hard drives in the NixOS installation environment, so
+that user can declaratively partition the drive with a Nix config file. However,
+the tool also supports generating a disk image based on a given partition table
+and NixOS config. Therefore, we can set up Btrfs/ZFS/Impermanence, generate the
+corresponding disk image, and `dd` the image into the VPS's hard drive, to
+easily install NixOS on there.
 
-Since this method requires next to nothing for the rescue environment on VPS (as long as there is network and `dd` command), we can boot into Alpine Linux, a distro known for minimal RAM usage, and transfer the disk image over the Internet into the hard drive of VPS.
+Since this method requires next to nothing for the rescue environment on VPS (as
+long as there is network and `dd` command), we can boot into Alpine Linux, a
+distro known for minimal RAM usage, and transfer the disk image over the
+Internet into the hard drive of VPS.
 
 ## Prepare NixOS Configuration
 
-Before using this method, we need to prepare a simple NixOS configuration, including the basic config for bootloader, networking, root password and SSH keys, so that you can deploy the full configuration later. Of course, you can simply use your full NixOS configuration, at the cost of larger disk image.
+Before using this method, we need to prepare a simple NixOS configuration,
+including the basic config for bootloader, networking, root password and SSH
+keys, so that you can deploy the full configuration later. Of course, you can
+simply use your full NixOS configuration, at the cost of larger disk image.
 
 Here is the configuration file I prepared, stored as `configuration.nix`:
 
@@ -146,7 +195,8 @@ Here is the configuration file I prepared, stored as `configuration.nix`:
 }
 ```
 
-Then, prepare `flake.nix` to manage nixpkgs versions in the Flake way, as well as introduce other modules I use, such as Impermanence:
+Then, prepare `flake.nix` to manage nixpkgs versions in the Flake way, as well
+as introduce other modules I use, such as Impermanence:
 
 ```nix
 {
@@ -175,7 +225,10 @@ Then, prepare `flake.nix` to manage nixpkgs versions in the Flake way, as well a
 }
 ```
 
-Right now, this system config will not build, as we haven't configured filesystems yet. If you try to build it with `nixos-rebuild build --flake .#bootstrap` now, you will see the following errors:
+Right now, this system config will not build, as we haven't configured
+filesystems yet. If you try to build it with
+`nixos-rebuild build --flake .#bootstrap` now, you will see the following
+errors:
 
 ```bash
 error:
@@ -183,11 +236,13 @@ Failed assertions:
 - The ‘fileSystems’ option does not specify your root file system.
 ```
 
-Therefore, our next step is adding the Disko module, and the configuration for partition tables and filesystems.
+Therefore, our next step is adding the Disko module, and the configuration for
+partition tables and filesystems.
 
 ## Partitioning Disk Image (with Impermanence)
 
-> If you don't use Impermanence, or other mechanisms that use tmpfs as the root partition, please skip to the next section.
+> If you don't use Impermanence, or other mechanisms that use tmpfs as the root
+> partition, please skip to the next section.
 
 Change your `flake.nix` to add the Disko module:
 
@@ -227,7 +282,8 @@ Change your `flake.nix` to add the Disko module:
 }
 ```
 
-Then, we need to set up partitioning in the disk image with options provided by Disko. Modify `configuration.nix` and add the following config:
+Then, we need to set up partitioning in the disk image with options provided by
+Disko. Modify `configuration.nix` and add the following config:
 
 ```nix
 {
@@ -353,7 +409,8 @@ Then, we need to set up partitioning in the disk image with options provided by 
 
 ## Partitioning Disk Image (Regular Install)
 
-> If you use Impermanence, or other mechanisms that use tmpfs as the root partition, read the last section and skip this section.
+> If you use Impermanence, or other mechanisms that use tmpfs as the root
+> partition, read the last section and skip this section.
 
 Same as the last section, change your `flake.nix` to add the Disko module:
 
@@ -393,7 +450,8 @@ Same as the last section, change your `flake.nix` to add the Disko module:
 }
 ```
 
-Then, we need to set up partitioning in the disk image with options provided by Disko. Modify `configuration.nix` and add the following config:
+Then, we need to set up partitioning in the disk image with options provided by
+Disko. Modify `configuration.nix` and add the following config:
 
 ```nix
 {
@@ -505,7 +563,8 @@ Then, we need to set up partitioning in the disk image with options provided by 
 
 ## Generate Disk Image
 
-Change `flake.nix` to add a "package" that calls the generate disk image function from Disko:
+Change `flake.nix` to add a "package" that calls the generate disk image
+function from Disko:
 
 ```nix
 {
@@ -544,20 +603,24 @@ Change `flake.nix` to add a "package" that calls the generate disk image functio
 }
 ```
 
-Finally, run `nix build .#image`. After a short while, you will see the generated disk image at `result/main.raw`.
+Finally, run `nix build .#image`. After a short while, you will see the
+generated disk image at `result/main.raw`.
 
 ## Upload Disk Image to VPS
 
-Boot into rescue environment, or a lightweight Linux distro like Alpine Linux, on your VPS.
+Boot into rescue environment, or a lightweight Linux distro like Alpine Linux,
+on your VPS.
 
-If your rescue environment has a SSH server, use the following command to upload your image:
+If your rescue environment has a SSH server, use the following command to upload
+your image:
 
 ```bash
 # Change to sda/vda based on how your VPS recognizes its hard drive
 cat result/main.raw | ssh root@123.45.678.90 "dd of=/dev/sda"
 ```
 
-If your rescue environment doesn't have SSH, use the following command: **(ATTENTION: NO ENCRYPTION!)**
+If your rescue environment doesn't have SSH, use the following command:
+**(ATTENTION: NO ENCRYPTION!)**
 
 ```bash
 # Change to sda/vda based on how your VPS recognizes its hard drive
@@ -567,12 +630,19 @@ nc -l 1234 | dd of=/dev/sda
 cat result/main.raw | nc 123.45.678.89 1234
 ```
 
-Reboot your VPS after the command finishes. Now you should be booting into the freshly installed NixOS.
+Reboot your VPS after the command finishes. Now you should be booting into the
+freshly installed NixOS.
 
 ## Expand Partition Size
 
-Since the disk image we created is only 2GB large, the image written into VPS's hard drive doesn't consume all spaces on the hard drive. You will need to manually expand the partition.
+Since the disk image we created is only 2GB large, the image written into VPS's
+hard drive doesn't consume all spaces on the hard drive. You will need to
+manually expand the partition.
 
-Run `fdisk /dev/sda`, remove the third partition for `/nix` (or `/`), and recreate the partition with the same start position, and extend the end position to the end of the hard drive. Do not erase the filesystem header when prompted!
+Run `fdisk /dev/sda`, remove the third partition for `/nix` (or `/`), and
+recreate the partition with the same start position, and extend the end position
+to the end of the hard drive. Do not erase the filesystem header when prompted!
 
-Finally, run the filesystem resize command for your filesystem. For ext4 partitions, use `resize2fs /dev/sda3`. For Btrfs, use `btrfs filesystem resize max /nix` (or '/').
+Finally, run the filesystem resize command for your filesystem. For ext4
+partitions, use `resize2fs /dev/sda3`. For Btrfs, use
+`btrfs filesystem resize max /nix` (or '/').

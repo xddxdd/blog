@@ -1,22 +1,33 @@
 ---
-title: 'OpenVZ 配置 Hurricane Electric IPv6 隧道，开启整个地址池并与原生 IPv6 共同使用'
+title:
+    'OpenVZ 配置 Hurricane Electric IPv6 隧道，开启整个地址池并与原生 IPv6
+    共同使用'
 categories: 计算机与客户端
-tags: [OpenVZ,Hurricane Electric,IPv6,VPS]
+tags: [OpenVZ, Hurricane Electric, IPv6, VPS]
 date: 2016-08-09 23:19:00
 image: /usr/uploads/2016/08/3015453537.png
 ---
-AlphaRacks 是一个物美价廉的主机商，1CPU、512M内存、10G硬盘的 VPS 只要 9.9 美元/年。但是这家主机商在 IPv6 地址上比较抠，需要用户说明用 IPv6 的理由，据说最多给20个？但是不一定给满20个，比如我告诉主机商要用 IPv6 地址给仅支持 IPv6 的用户提供服务，主机商回复：
+
+AlphaRacks 是一个物美价廉的主机商，1CPU、512M内存、10G硬盘的 VPS 只要 9.9 美元/
+年。但是这家主机商在 IPv6 地址上比较抠，需要用户说明用 IPv6 的理由，据说最多给20
+个？但是不一定给满20个，比如我告诉主机商要用 IPv6 地址给仅支持 IPv6 的用户提供服
+务，主机商回复：
 
 > 我们已经为你的 VPS 增加了1个IPv6地址。
 
-一个 IPv6 自然是不够我折腾的。好在美国 Hurricane Electric 公司提供 [IPv6 隧道服务](https://tunnelbroker.net/)，为每个用户提供5个隧道，每个隧道有1个/64地址池，并可以一键开通1个/48地址池。
+一个 IPv6 自然是不够我折腾的。好在美国 Hurricane Electric 公司提供
+[IPv6 隧道服务](https://tunnelbroker.net/)，为每个用户提供5个隧道，每个隧道有1个
+/64地址池，并可以一键开通1个/48地址池。
 
-如此良心的服务，要在 OpenVZ 的 VPS 上使用却还要费一番周折。因为 OpenVZ 的内核版本往往是2.6.32，2.6.32的老内核不原生支持隧道功能，而支持的新版3.10的内核刚刚发布，很多主机商没有更新。
+如此良心的服务，要在 OpenVZ 的 VPS 上使用却还要费一番周折。因为 OpenVZ 的内核版
+本往往是2.6.32，2.6.32的老内核不原生支持隧道功能，而支持的新版3.10的内核刚刚发
+布，很多主机商没有更新。
 
-在 OpenVZ 上开启 HE 隧道
-----------------------
+## 在 OpenVZ 上开启 HE 隧道
 
-我们需要借助一个第三方小程序，它可以把 Hurricane Electric 的隧道转换为 Tun/Tap 的隧道（相当于 Windows 下 OpenVPN 的那个网络适配器）并且在服务器上配置好。下载安装教程如下：
+我们需要借助一个第三方小程序，它可以把 Hurricane Electric 的隧道转换为 Tun/Tap
+的隧道（相当于 Windows 下 OpenVPN 的那个网络适配器）并且在服务器上配置好。下载安
+装教程如下：
 
 ```bash
 apt-get install iproute gcc
@@ -26,7 +37,9 @@ gcc tb_userspace.c -l pthread -o tb_userspace
 mv tb_userspace /usr/bin/tb_userspace
 ```
 
-然后创建 `/etc/init.d/ipv6tb`，输入下面这个从[https://www.cybermilitia.net/2013/07/22/ipv6-tunnel-on-openvz/](https://www.cybermilitia.net/2013/07/22/ipv6-tunnel-on-openvz/)弄来的启动代码：
+然后创建 `/etc/init.d/ipv6tb`，输入下面这个
+从[https://www.cybermilitia.net/2013/07/22/ipv6-tunnel-on-openvz/](https://www.cybermilitia.net/2013/07/22/ipv6-tunnel-on-openvz/)弄
+来的启动代码：
 
 （注意替换其中的 IP 地址）
 
@@ -79,10 +92,11 @@ exit 0
 
 接下来我们就要一步步解决这个问题。
 
-开启整个地址池
-------------
+## 开启整个地址池
 
-Linux 内核支持一个叫 AnyIP 的功能。这个功能允许你将一整个地址池快速地设置到一个网络接口上，这样就不需要你手动给网络接口把地址池里的 IP 挂上去，或者写个脚本帮你挂。
+Linux 内核支持一个叫 AnyIP 的功能。这个功能允许你将一整个地址池快速地设置到一个
+网络接口上，这样就不需要你手动给网络接口把地址池里的 IP 挂上去，或者写个脚本帮你
+挂。
 
 顺带提一句，一个/64地址池有 18,446,744,073,709,551,616 个 IP。
 
@@ -95,25 +109,28 @@ ip -6 route add local [分配给你的/48 地址池，没有就把这行删掉]/
 
 输完回车，你的地址池里其它的 IP 就全部可用了。
 
-同时使用原生 IPv6 和隧道
----------------------
+## 同时使用原生 IPv6 和隧道
 
-当你的 VPS 上同时有多种 IPv6 接入方式时，你会发现你同时只能使用一个。因为 Linux 在非默认网络接口上接收到数据包后，会从默认的那个接口回复，而不是原路返回。
+当你的 VPS 上同时有多种 IPv6 接入方式时，你会发现你同时只能使用一个。因为 Linux
+在非默认网络接口上接收到数据包后，会从默认的那个接口回复，而不是原路返回。
 
-幸亏 Linux 提供策略路由功能，也就是根据一定条件，让各个数据包走到它们该走的接口上。
+幸亏 Linux 提供策略路由功能，也就是根据一定条件，让各个数据包走到它们该走的接口
+上。
 
 如何配置？按照步骤操作即可：
 
-- 输入如下命令，设置路由表并关闭之前建立的隧道：
+-   输入如下命令，设置路由表并关闭之前建立的隧道：
 
 ```bash
 echo 200 ipv6tb >> /etc/iproute2/rt_tables
 /etc/init.d/ipv6tb stop
 ```
 
-- 修改你前面创建的 <span class="text-primary">/etc/init.d/ipv6tb</span>，删除所有内容，用如下内容代替：
+-   修改你前面创建的 <span class="text-primary">/etc/init.d/ipv6tb</span>，删除
+    所有内容，用如下内容代替：
 
-（下面的代码修改自 [http://itkia.com/ipv6-policy-routing-linux-gotchas/](http://itkia.com/ipv6-policy-routing-linux-gotchas/)）
+（下面的代码修改自
+[http://itkia.com/ipv6-policy-routing-linux-gotchas/](http://itkia.com/ipv6-policy-routing-linux-gotchas/)）
 
 ```bash
 #! /bin/sh
@@ -177,13 +194,13 @@ esac
 exit 0
 ```
 
-- 输入如下命令重新开启隧道：
+-   输入如下命令重新开启隧道：
 
 ```bash
 /etc/init.d/ipv6tb start
 ```
 
-- （可选）开机自动启动：打开 `/etc/rc.local`，在exit 0之前建立一行，输入：
+-   （可选）开机自动启动：打开 `/etc/rc.local`，在exit 0之前建立一行，输入：
 
 ```bash
 /etc/init.d/ipv6tb start
@@ -195,4 +212,5 @@ exit 0
 
 保存后，隧道就能自动启动了。
 
-这样设置出来的 IPv6 隧道，可以与原生 IPv6 和平共处，同时系统发起的网络操作（比如软件更新）都会经过原生 IPv6 而不走隧道，大大提高了稳定性与速度。
+这样设置出来的 IPv6 隧道，可以与原生 IPv6 和平共处，同时系统发起的网络操作（比如
+软件更新）都会经过原生 IPv6 而不走隧道，大大提高了稳定性与速度。

@@ -5,32 +5,57 @@ tags: [惠普, 暗影精灵, 宏按键, Linux]
 date: 2022-04-04 05:16:16
 ---
 
-我前段时间换了台新电脑，惠普的暗影精灵 17t-ck000（美版，应该对应的是国内的暗影精灵 7 Plus）。这台电脑好是好，做工优秀，性能强大，就是有一个问题：它在 Linux 下的驱动支持实在是太烂了。
+我前段时间换了台新电脑，惠普的暗影精灵 17t-ck000（美版，应该对应的是国内的暗影精
+灵 7 Plus）。这台电脑好是好，做工优秀，性能强大，就是有一个问题：它在 Linux 下的
+驱动支持实在是太烂了。
 
-1. 不支持调节风扇转速，你能看到风扇转速，但仅此而已。再加上惠普的默认风扇策略非常激进，即使我开启了 BIOS 中的低温风扇停转功能，它依然在 CPU 温度只有 40 度、显卡空载的情况下转得非常欢快。
+1. 不支持调节风扇转速，你能看到风扇转速，但仅此而已。再加上惠普的默认风扇策略非
+   常激进，即使我开启了 BIOS 中的低温风扇停转功能，它依然在 CPU 温度只有 40 度、
+   显卡空载的情况下转得非常欢快。
 
-   - 其实可以用 [NBFC](https://github.com/hirschmann/nbfc) 直接写 EC 寄存器来控制，但在[某次不幸的事故中](/article/chat/how-i-nuked-my-btrfs-partition.lantian/)当时的配置方案丢失了。
-   - 我配置 NBFC 时正在新电脑试用 NixOS。事故发生时新电脑上的 NixOS 被我删掉了，而且当时的配置没上传 GitHub。
-   - 过段时间再重新写一遍（咕咕咕）
+    - 其实可以用 [NBFC](https://github.com/hirschmann/nbfc) 直接写 EC 寄存器来控
+      制，但
+      在[某次不幸的事故中](/article/chat/how-i-nuked-my-btrfs-partition.lantian/)当
+      时的配置方案丢失了。
+    - 我配置 NBFC 时正在新电脑试用 NixOS。事故发生时新电脑上的 NixOS 被我删掉
+      了，而且当时的配置没上传 GitHub。
+    - 过段时间再重新写一遍（咕咕咕）
 
-2. 不支持调整键盘背光颜色，它们在 Windows 下由 OMEN Command Center 软件控制。有时系统崩溃、我长按电源键断电重启时，BIOS 会将键盘背光恢复成默认的五彩斑斓的颜色，此时我只能回到 Windows 进行调节。
+2. 不支持调整键盘背光颜色，它们在 Windows 下由 OMEN Command Center 软件控制。有
+   时系统崩溃、我长按电源键断电重启时，BIOS 会将键盘背光恢复成默认的五彩斑斓的颜
+   色，此时我只能回到 Windows 进行调节。
 
-   - 好在 GitHub 有一个修改版的 Linux `hp_wmi` 内核模块，支持了在 Linux 下控制背光颜色。
-   - 它是由 James Churchill（pelrun）开发的，可以在 <https://github.com/pelrun/hp-omen-linux-module> 下载。
+    - 好在 GitHub 有一个修改版的 Linux `hp_wmi` 内核模块，支持了在 Linux 下控制
+      背光颜色。
+    - 它是由 James Churchill（pelrun）开发的，可以在
+      <https://github.com/pelrun/hp-omen-linux-module> 下载。
 
-3. 键盘左边有一排宏按键 P1-P6。它们在 Windows 下由 OMEN Command Center 软件控制，可以配置宏定义，在按下按键时模拟一段键盘输入。当然，这个功能 Linux 下是用不了的。
+3. 键盘左边有一排宏按键 P1-P6。它们在 Windows 下由 OMEN Command Center 软件控
+   制，可以配置宏定义，在按下按键时模拟一段键盘输入。当然，这个功能 Linux 下是用
+   不了的。
 
-   - [惠普没有开发 Linux 版 OMEN Command Center 的计划](https://h30434.www3.hp.com/t5/Gaming-Notebooks/HP-Omen-keyboard-control-on-Linux/td-p/4890663)。
+    - [惠普没有开发 Linux 版 OMEN Command Center 的计划](https://h30434.www3.hp.com/t5/Gaming-Notebooks/HP-Omen-keyboard-control-on-Linux/td-p/4890663)。
 
-键盘上有几个用不了的按键，这就让人很不爽。虽然我不是重度游戏玩家，用不到宏按键，但即使把它们设置成一些程序的快捷键，用来快速打开浏览器、终端，也是好的。
+键盘上有几个用不了的按键，这就让人很不爽。虽然我不是重度游戏玩家，用不到宏按键，
+但即使把它们设置成一些程序的快捷键，用来快速打开浏览器、终端，也是好的。
 
 于是我就开始了对 OMEN Command Center 的逆向之旅。
 
 # 逆向之旅
 
-OMEN Command Center 是一个用微软 .NET 技术写成的软件。这就意味着对它的逆向非常简单。作为 .NET 程序，OMEN Command Center 的每个 DLL 文件都被命名为它的类名，可以直接根据文件名称确定它的作用。另外，用 [JetBrains 的 dotPeek 软件](https://www.jetbrains.com/decompiler/)，可以直接把 .NET 程序反编译成带有原始函数变量名的 C# 代码，不用像反编译 C 程序一样读汇编、猜测函数作用。
+OMEN Command Center 是一个用微软 .NET 技术写成的软件。这就意味着对它的逆向非常简
+单。作为 .NET 程序，OMEN Command Center 的每个 DLL 文件都被命名为它的类名，可以
+直接根据文件名称确定它的作用。另外，用
+[JetBrains 的 dotPeek 软件](https://www.jetbrains.com/decompiler/)，可以直接把
+.NET 程序反编译成带有原始函数变量名的 C# 代码，不用像反编译 C 程序一样读汇编、猜
+测函数作用。
 
-在用 dotPeek 逐个反编译 DLL 文件的过程中，我注意到了 `HP.Omen.MacrosModule.dll` 文件，它似乎是键盘宏功能的 DLL 文件。一番查找后，我定位到了 `HP.Omen.MacrosModule.Models.MacroModel` 这个类，它负责将 OMEN Command Center 的宏定义翻译成 EC 能看懂的二进制表示，并通过 [WMI ACPI](https://docs.microsoft.com/en-us/samples/microsoft/windows-driver-samples/wmi-acpi-sample/) 功能写入 EC。
+在用 dotPeek 逐个反编译 DLL 文件的过程中，我注意到了 `HP.Omen.MacrosModule.dll`
+文件，它似乎是键盘宏功能的 DLL 文件。一番查找后，我定位到了
+`HP.Omen.MacrosModule.Models.MacroModel` 这个类，它负责将 OMEN Command Center 的
+宏定义翻译成 EC 能看懂的二进制表示，并通过
+[WMI ACPI](https://docs.microsoft.com/en-us/samples/microsoft/windows-driver-samples/wmi-acpi-sample/)
+功能写入 EC。
 
 首先来看 `OnEditorPageSaveClick` 函数：
 
@@ -53,7 +78,9 @@ private void OnEditorPageSaveClick(string obj)
 }
 ```
 
-那么问题来了，我的电脑的版本是 Dragons 还是 Marlins？这里的版本实际上是读取 `HP.Omen.DeviceLib` 里的 `DeviceList.json` 设备列表而来的，这份 JSON 中的设备编号对应的是电脑的 PCI Subsystem Device ID。首先确定我的电脑的编号：
+那么问题来了，我的电脑的版本是 Dragons 还是 Marlins？这里的版本实际上是读取
+`HP.Omen.DeviceLib` 里的 `DeviceList.json` 设备列表而来的，这份 JSON 中的设备编
+号对应的是电脑的 PCI Subsystem Device ID。首先确定我的电脑的编号：
 
 ```bash
 # lspci -nnk | grep VGA -A 2
@@ -71,19 +98,36 @@ private void OnEditorPageSaveClick(string obj)
 ```json
 // 略过了无关部分
 {
-  "Name": "Cybug",
-  "DisplayName": "OMEN 17",
-  "ProductNum": [
-    {
-      "SSID": "88F7" // GN20E (E3/E5/E7) non DDS
-    }
-  ],
-  "Feature": [ "SystemInfo", "NetworkBooster", "FourZone", "DraxLighting", "PerformanceControl", "GraphicsSwitcher", "Macros" ],
-  "BackgroundFeature": [ "NetworkBooster", "OmenKey", "FourZone", "DraxLightingBg", "PerformanceControl", "MarlinsMacro", "DragonKBMcu" ]
+    "Name": "Cybug",
+    "DisplayName": "OMEN 17",
+    "ProductNum": [
+        {
+            "SSID": "88F7" // GN20E (E3/E5/E7) non DDS
+        }
+    ],
+    "Feature": [
+        "SystemInfo",
+        "NetworkBooster",
+        "FourZone",
+        "DraxLighting",
+        "PerformanceControl",
+        "GraphicsSwitcher",
+        "Macros"
+    ],
+    "BackgroundFeature": [
+        "NetworkBooster",
+        "OmenKey",
+        "FourZone",
+        "DraxLightingBg",
+        "PerformanceControl",
+        "MarlinsMacro",
+        "DragonKBMcu"
+    ]
 }
 ```
 
-功能列表里有 `MarlinsMacro`，看来我的电脑属于 Marlins。继续读 Marlins 相关的逻辑：
+功能列表里有 `MarlinsMacro`，看来我的电脑属于 Marlins。继续读 Marlins 相关的逻
+辑：
 
 ```csharp
 private void OnEditorPageSaveClick(string obj)
@@ -148,12 +192,14 @@ public byte[] SetBytesToEC(ObservableCollection<InputKeyInfo> Items)
 }
 ```
 
-根据 [PS/2 Scan Code Set 1 的对照表](https://wiki.osdev.org/PS/2_Keyboard#Scan_Code_Set_1)，我们可以简单地编码几份按键序列：
+根据
+[PS/2 Scan Code Set 1 的对照表](https://wiki.osdev.org/PS/2_Keyboard#Scan_Code_Set_1)，
+我们可以简单地编码几份按键序列：
 
 1. 按下再松开 A 键：`[3, 0x1e, 0x9e]`
 2. 按下 A 键，等 100 毫秒，再松开：`[5, 0x1e, 255, 100, 0x9e]`
 3. 按下 A 键，等 300 毫秒，再松开：`[7, 0x1e, 255, 255, 255, 45, 0x9e]`
-   - 由于 byte 数据类型限制，每次最多等 255 毫秒，因此等 300 毫秒要分两次完成。
+    - 由于 byte 数据类型限制，每次最多等 255 毫秒，因此等 300 毫秒要分两次完成。
 
 继续分析 `OnEditorPageSaveClick` 的逻辑：
 
@@ -274,11 +320,15 @@ public enum EnumMacroKeyMarlins
 
 # 编写 Linux 驱动
 
-为了支持调整键盘按键背光，我已经在用一份修改版的 Linux `hp_wmi` 驱动，因此我选择直接在它的基础上修改。
+为了支持调整键盘按键背光，我已经在用一份修改版的 Linux `hp_wmi` 驱动，因此我选择
+直接在它的基础上修改。
 
 （修改版驱动地址：<https://github.com/pelrun/hp-omen-linux-module>）
 
-首先是编写一份按键序列。受到惠普的硬件限制，宏按键功能无法发送特殊功能键（例如音量调整，媒体控制等），这也意味着无法将它们映射到一般键盘上没有的键，例如 F13-F24，来避免冲突。由于我的电脑没有小键盘，我选择退而求其次，将宏按键映射到小键盘的按键上：
+首先是编写一份按键序列。受到惠普的硬件限制，宏按键功能无法发送特殊功能键（例如音
+量调整，媒体控制等），这也意味着无法将它们映射到一般键盘上没有的键，例如
+F13-F24，来避免冲突。由于我的电脑没有小键盘，我选择退而求其次，将宏按键映射到小
+键盘的按键上：
 
 ```c
 #include <linux/input-event-codes.h>
@@ -322,7 +372,8 @@ static u8 macro_profile_bytes[4096] = {
 };
 ```
 
-> 目前我的模块固定了一份按键序列。后续我可以暴露一套配置接口，允许用户设置自己的按键序列。
+> 目前我的模块固定了一份按键序列。后续我可以暴露一套配置接口，允许用户设置自己的
+> 按键序列。
 
 然后写两个函数，分别用来在模块加载时启用宏按键，和在模块卸载时禁用：
 
@@ -360,6 +411,9 @@ static int macro_key_remove(struct platform_device *dev)
 
 # 下载
 
-我将修改后的模块上传到了 <https://github.com/xddxdd/hp-omen-linux-module>。其中与本文相关的修改可以在 <https://github.com/xddxdd/hp-omen-linux-module/commit/macro_keys> 看到。
+我将修改后的模块上传到了 <https://github.com/xddxdd/hp-omen-linux-module>。其中
+与本文相关的修改可以在
+<https://github.com/xddxdd/hp-omen-linux-module/commit/macro_keys> 看到。
 
-或者，你也可以直接使用这个内核补丁，将宏按键功能（和键盘背光功能）直接集成到内核中：<https://github.com/xddxdd/nur-packages/blob/master/pkgs/linux-xanmod-lantian/patches/0004-hp-omen-fourzone.patch>
+或者，你也可以直接使用这个内核补丁，将宏按键功能（和键盘背光功能）直接集成到内核
+中：<https://github.com/xddxdd/nur-packages/blob/master/pkgs/linux-xanmod-lantian/patches/0004-hp-omen-fourzone.patch>

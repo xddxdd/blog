@@ -8,37 +8,66 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 @include "\_templates/nixos-series/toc-zh.md"
 
-黑色星期五已经过了，相信有一些读者新买了一些特价的 VPS、云服务器等，并且想在 VPS 上安装 NixOS。但是由于 NixOS 的知名度不如 CentOS、Debian、Ubuntu 等老牌 Linux 发行版，几乎没有 VPS 服务商提供预装 NixOS 的磁盘镜像，只能由用户使用以下方法之一手动安装：
+黑色星期五已经过了，相信有一些读者新买了一些特价的 VPS、云服务器等，并且想在 VPS
+上安装 NixOS。但是由于 NixOS 的知名度不如 CentOS、Debian、Ubuntu 等老牌 Linux 发
+行版，几乎没有 VPS 服务商提供预装 NixOS 的磁盘镜像，只能由用户使用以下方法之一手
+动安装：
 
-- 自行挂载 NixOS 的安装 ISO 镜像，然后手动格盘安装。
+-   自行挂载 NixOS 的安装 ISO 镜像，然后手动格盘安装。
 
-由于你可以在 NixOS 安装镜像的环境中随意操作 VPS 的硬盘，这种方法自由度最高，可以任意对硬盘进行分区，指定文件系统格式。但是，使用这种方法前，你的主机商需要在以下三项前提中满足任意一项：
+由于你可以在 NixOS 安装镜像的环境中随意操作 VPS 的硬盘，这种方法自由度最高，可以
+任意对硬盘进行分区，指定文件系统格式。但是，使用这种方法前，你的主机商需要在以下
+三项前提中满足任意一项：
 
 1. 主机商直接提供 NixOS 的 ISO 镜像挂载（即使是很老的版本）；
 2. 主机商允许用户上传自定义 ISO 镜像，此时你可以直接上传一份 NixOS 的安装 ISO；
-3. 主机商提供启动 [netboot.xyz](https://netboot.xyz/)（一个可以通过网络安装多种 Linux 发行版的工具）的方式，并且你的 VPS 内存超过 1GB，有足够空间让 netboot.xyz 将 NixOS 的安装镜像解压到内存中。
+3. 主机商提供启动 [netboot.xyz](https://netboot.xyz/)（一个可以通过网络安装多种
+   Linux 发行版的工具）的方式，并且你的 VPS 内存超过 1GB，有足够空间让
+   netboot.xyz 将 NixOS 的安装镜像解压到内存中。
 
-我这次就购买了一台内存刚好为 1GB 的 VPS，没有足够内存解压 NixOS 23.05 的镜像，因此无法使用 netboot.xyz 启动 NixOS 安装环境。同时由于我的主机商也不提供自定义镜像功能，我也无法通过光盘启动 NixOS 安装程序。
+我这次就购买了一台内存刚好为 1GB 的 VPS，没有足够内存解压 NixOS 23.05 的镜像，因
+此无法使用 netboot.xyz 启动 NixOS 安装环境。同时由于我的主机商也不提供自定义镜像
+功能，我也无法通过光盘启动 NixOS 安装程序。
 
-- 使用 [NixOS-Infect](https://github.com/elitak/nixos-infect) 或 [NixOS-Anywhere](https://github.com/nix-community/nixos-anywhere) 等工具，直接替换运行在 VPS 上的操作系统。
+-   使用 [NixOS-Infect](https://github.com/elitak/nixos-infect) 或
+    [NixOS-Anywhere](https://github.com/nix-community/nixos-anywhere) 等工具，直
+    接替换运行在 VPS 上的操作系统。
 
-NixOS-Infect 工具的原理是在本地系统上安装 Nix Daemon，再使用它构建一个完整的 NixOS 系统，最后将原系统的启动项替换成 NixOS 的。由于这种方法不需要在内存中解压 NixOS 的完整安装镜像，这种方法更适合小内存的 VPS。但这种方法的缺点是无法自定义分区结构和文件系统类型。只能使用 VPS 服务商的默认分区配置。对于使用 Btrfs/ZFS 以及 [Impermanence](/article/modify-computer/nixos-impermanence.lantian/) 等非标准分区方案/文件系统的用户不友好。
+NixOS-Infect 工具的原理是在本地系统上安装 Nix Daemon，再使用它构建一个完整的
+NixOS 系统，最后将原系统的启动项替换成 NixOS 的。由于这种方法不需要在内存中解压
+NixOS 的完整安装镜像，这种方法更适合小内存的 VPS。但这种方法的缺点是无法自定义分
+区结构和文件系统类型。只能使用 VPS 服务商的默认分区配置。对于使用 Btrfs/ZFS 以及
+[Impermanence](/article/modify-computer/nixos-impermanence.lantian/) 等非标准分
+区方案/文件系统的用户不友好。
 
-而 NixOS-Anywhere 的原理是通过 Linux 内核的 `kexec` 功能替换当前运行的内核，直接启动到内存中的 NixOS 的安装镜像，本质原理与 netboot.xyz 大致相同，因此也与 netboot.xyz 一样需要较大的内存空间。
+而 NixOS-Anywhere 的原理是通过 Linux 内核的 `kexec` 功能替换当前运行的内核，直接
+启动到内存中的 NixOS 的安装镜像，本质原理与 netboot.xyz 大致相同，因此也与
+netboot.xyz 一样需要较大的内存空间。
 
-- 先 NixOS-Infect，再在恢复环境中手动调整分区
+-   先 NixOS-Infect，再在恢复环境中手动调整分区
 
-对于类似的小内存 VPS，我曾经使用的方法是，先使用 NixOS-Infect 安装一个普通的 NixOS，然后部署一份开启了 Btrfs 和 Impermanence 的配置，然后重启到恢复环境，在恢复环境中调整分区、转换分区格式。这种方法能用，但是很麻烦，而且一旦中间一步操作出错，很难修复系统，只能从头开始。
+对于类似的小内存 VPS，我曾经使用的方法是，先使用 NixOS-Infect 安装一个普通的
+NixOS，然后部署一份开启了 Btrfs 和 Impermanence 的配置，然后重启到恢复环境，在恢
+复环境中调整分区、转换分区格式。这种方法能用，但是很麻烦，而且一旦中间一步操作出
+错，很难修复系统，只能从头开始。
 
-- ……还有别的方法吗？
+-   ……还有别的方法吗？
 
-最近 NixOS 社区发布了一款工具 [Disko](https://github.com/nix-community/disko)，它的原本用途是在 NixOS 安装环境中自动对硬盘进行分区，从而实现用 Nix 配置文件声明式管理硬盘分区。但是，这款工具也提供了根据给定的分区表和 NixOS 配置，自动生成磁盘镜像的功能。那么，我们就可以配置好 Btrfs/ZFS/Impermanence，生成对应的磁盘镜像，再在 VPS 上直接用 `dd` 命令写入硬盘，就可以简单地安装 NixOS 了。
+最近 NixOS 社区发布了一款工具 [Disko](https://github.com/nix-community/disko)，
+它的原本用途是在 NixOS 安装环境中自动对硬盘进行分区，从而实现用 Nix 配置文件声明
+式管理硬盘分区。但是，这款工具也提供了根据给定的分区表和 NixOS 配置，自动生成磁
+盘镜像的功能。那么，我们就可以配置好 Btrfs/ZFS/Impermanence，生成对应的磁盘镜
+像，再在 VPS 上直接用 `dd` 命令写入硬盘，就可以简单地安装 NixOS 了。
 
-由于这种方法对 VPS 上运行的恢复环境几乎没有要求（有网络和 `dd` 命令就可以），我们可以启动到占用内存很小的 Alpine Linux 发行版，然后通过网络传输磁盘镜像写入 VPS 硬盘。
+由于这种方法对 VPS 上运行的恢复环境几乎没有要求（有网络和 `dd` 命令就可以），我
+们可以启动到占用内存很小的 Alpine Linux 发行版，然后通过网络传输磁盘镜像写入 VPS
+硬盘。
 
 ## 准备 NixOS 配置
 
-在开始这个方法前，我们需要准备一份简单的 NixOS 配置，包含最基础的引导、网络、root 密码、SSH 密钥等配置，以保证你后续可以部署完整的配置。当然你也可以直接使用一份完整的 NixOS 配置，只不过稍后创建的磁盘镜像体积会更大。
+在开始这个方法前，我们需要准备一份简单的 NixOS 配置，包含最基础的引导、网
+络、root 密码、SSH 密钥等配置，以保证你后续可以部署完整的配置。当然你也可以直接
+使用一份完整的 NixOS 配置，只不过稍后创建的磁盘镜像体积会更大。
 
 我准备的配置文件如下，存为 `configuration.nix`：
 
@@ -143,7 +172,8 @@ NixOS-Infect 工具的原理是在本地系统上安装 Nix Daemon，再使用�
 }
 ```
 
-然后，准备一份 `flake.nix`，用 Flake 的方式管理 nixpkgs 的版本，并同时引入 Impermanence 等我使用的模块：
+然后，准备一份 `flake.nix`，用 Flake 的方式管理 nixpkgs 的版本，并同时引入
+Impermanence 等我使用的模块：
 
 ```nix
 {
@@ -172,7 +202,8 @@ NixOS-Infect 工具的原理是在本地系统上安装 Nix Daemon，再使用�
 }
 ```
 
-这个系统配置现在是无法构建的，因为我们还没有配置文件系统。如果你现在用 `nixos-rebuild build --flake .#bootstrap` 试图构建，会遇到以下错误：
+这个系统配置现在是无法构建的，因为我们还没有配置文件系统。如果你现在用
+`nixos-rebuild build --flake .#bootstrap` 试图构建，会遇到以下错误：
 
 ```bash
 error:
@@ -224,7 +255,8 @@ Failed assertions:
 }
 ```
 
-接下来，我们就要通过 Disko 模块提供的配置选项，配置磁盘镜像中的分区了。修改 `configuration.nix`，加入以下配置：
+接下来，我们就要通过 Disko 模块提供的配置选项，配置磁盘镜像中的分区了。修改
+`configuration.nix`，加入以下配置：
 
 ```nix
 {
@@ -333,7 +365,8 @@ Failed assertions:
 
 ## 配置镜像中的分区（普通安装）
 
-> 如果你使用 Impermanence 等将 root 分区放在 tmpfs 上的方案，请参照上一小节并跳过这一小节。
+> 如果你使用 Impermanence 等将 root 分区放在 tmpfs 上的方案，请参照上一小节并跳
+> 过这一小节。
 
 与上一小节一样，修改 `flake.nix` 引入 Disko 模块：
 
@@ -373,7 +406,8 @@ Failed assertions:
 }
 ```
 
-接下来，我们就要通过 Disko 模块提供的配置选项，配置磁盘镜像中的分区了。修改 `configuration.nix`，加入以下配置：
+接下来，我们就要通过 Disko 模块提供的配置选项，配置磁盘镜像中的分区了。修改
+`configuration.nix`，加入以下配置：
 
 ```nix
 {
@@ -508,7 +542,8 @@ Failed assertions:
 }
 ```
 
-最后运行 `nix build .#image`。稍等片刻，磁盘镜像就会生成在 `result/main.raw` 路径下。
+最后运行 `nix build .#image`。稍等片刻，磁盘镜像就会生成在 `result/main.raw` 路
+径下。
 
 ## 将磁盘镜像上传到 VPS
 
@@ -535,8 +570,13 @@ cat result/main.raw | nc 123.45.678.89 1234
 
 ## 扩展分区大小
 
-由于我们创建的磁盘镜像大小只有 2GB，`dd` 完成后的镜像不会占满 VPS 的硬盘空间，需要手动扩展分区。
+由于我们创建的磁盘镜像大小只有 2GB，`dd` 完成后的镜像不会占满 VPS 的硬盘空间，需
+要手动扩展分区。
 
-运行 `fdisk /dev/sda`，删除第三个 `/nix`（或者 `/`）分区，然后重新创建，保证分区起始位置不变，分区结束位置扩展到硬盘结尾。如果看到擦除文件系统头部信息的提示，不要擦除！
+运行 `fdisk /dev/sda`，删除第三个 `/nix`（或者 `/`）分区，然后重新创建，保证分区
+起始位置不变，分区结束位置扩展到硬盘结尾。如果看到擦除文件系统头部信息的提示，不
+要擦除！
 
-最后运行文件系统对应的命令扩展文件系统的大小。ext4 分区可以使用 `resize2fs /dev/sda3`。Btrfs 分区可以使用 `btrfs filesystem resize max /nix`（或者 `/`）。
+最后运行文件系统对应的命令扩展文件系统的大小。ext4 分区可以使用
+`resize2fs /dev/sda3`。Btrfs 分区可以使用 `btrfs filesystem resize max /nix`（或
+者 `/`）。

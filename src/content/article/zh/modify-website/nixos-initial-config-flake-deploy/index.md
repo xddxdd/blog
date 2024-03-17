@@ -6,24 +6,31 @@ date: 2021-11-13 00:48:07
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-@include "_templates/nixos-series/toc-zh.md"
+@include "\_templates/nixos-series/toc-zh.md"
 
 这是我的 NixOS 系列文章的第二篇，主要介绍以下内容：
 
-- NixOS 配置文件的基本格式和修改配置的方法
-- Nix 包管理器的 Flake 功能
-- Deploy-RS 部署工具
+-   NixOS 配置文件的基本格式和修改配置的方法
+-   Nix 包管理器的 Flake 功能
+-   Deploy-RS 部署工具
 
-本文假设你已经按照 [NixOS 官方安装教程](https://nixos.org/manual/nixos/stable/index.html#sec-installation)装好了一个系统。
+本文假设你已经按照
+[NixOS 官方安装教程](https://nixos.org/manual/nixos/stable/index.html#sec-installation)装
+好了一个系统。
 
 ## 更新日志
 
-- 2023-05-10：增加推荐阅读：[NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)，作者 Ryan Yin。
-- 2021-12-18：NixOS 21.11 仍没有默认启用 Flake 功能，更新文章中相关说明。
+-   2023-05-10：增加推荐阅
+    读：[NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)，
+    作者 Ryan Yin。
+-   2021-12-18：NixOS 21.11 仍没有默认启用 Flake 功能，更新文章中相关说明。
 
 ## 基础配置
 
-在 NixOS 的安装过程中，`nixos-generate-config` 工具在 `/etc/nixos` 目录下生成了一份初始配置文件，`configuration.nix` 和 `hardware-configuration.nix` 两份文件。我们先不管 `hardware-configuration.nix` 这份文件，它是根据系统的硬件设备、硬盘分区等自动生成的配置文件。先打开 `configuration.nix`：
+在 NixOS 的安装过程中，`nixos-generate-config` 工具在 `/etc/nixos` 目录下生成了
+一份初始配置文件，`configuration.nix` 和 `hardware-configuration.nix` 两份文件。
+我们先不管 `hardware-configuration.nix` 这份文件，它是根据系统的硬件设备、硬盘分
+区等自动生成的配置文件。先打开 `configuration.nix`：
 
 ```nix
 # 为缩短长度，我去掉了配置文件中所有的注释
@@ -47,9 +54,13 @@ image: /usr/uploads/202110/nixos-social-preview.png
 }
 ```
 
-这个文件定义了整个 NixOS 系统，包括安装的软件包和它们的配置。这个文件是 Nix 格式的，也就是 NixOS 的 Nix 包管理器自创的一种“函数式编程”语言。但因为我们只是简单配置，我们还用不到它的编程特性。我们可以先忽略开头的 `{ config, pkgs, ... }:` 一行，**暂时把剩余部分当 JSON 看待。**
+这个文件定义了整个 NixOS 系统，包括安装的软件包和它们的配置。这个文件是 Nix 格式
+的，也就是 NixOS 的 Nix 包管理器自创的一种“函数式编程”语言。但因为我们只是简单配
+置，我们还用不到它的编程特性。我们可以先忽略开头的 `{ config, pkgs, ... }:` 一
+行，**暂时把剩余部分当 JSON 看待。**
 
-Nix 语言同样有着 JSON 的六大数据类型：数字，布尔值，字符串，对象，数组和 null，写法也大体相同。此外，Nix 语言还多了一种“路径”数据类型：
+Nix 语言同样有着 JSON 的六大数据类型：数字，布尔值，字符串，对象，数组和 null，
+写法也大体相同。此外，Nix 语言还多了一种“路径”数据类型：
 
 ```nix
 {
@@ -128,9 +139,13 @@ Nix 语言同样有着 JSON 的六大数据类型：数字，布尔值，字符�
 }
 ```
 
-> `services.openssh.permitRootLogin = "yes";` 这行允许了用密码登录 `root` 账户。因为我用的是一台不暴露在公网的虚拟机，比起安全我更注重方便。**如果你的机器暴露在公网，不要加这行！**
+> `services.openssh.permitRootLogin = "yes";` 这行允许了用密码登录 `root` 账户。
+> 因为我用的是一台不暴露在公网的虚拟机，比起安全我更注重方便。**如果你的机器暴露
+> 在公网，不要加这行！**
 
-修改完配置后，运行 `nixos-rebuild switch` 重新配置系统，NixOS 会读取你的配置文件，自动下载 OpenSSH、生成配置文件并启动，然后你就可以用 SSH 连接 22 端口来登录了。
+修改完配置后，运行 `nixos-rebuild switch` 重新配置系统，NixOS 会读取你的配置文
+件，自动下载 OpenSSH、生成配置文件并启动，然后你就可以用 SSH 连接 22 端口来登录
+了。
 
 再举一个例子，如果我想安装 `nyancat` 命令：
 
@@ -159,7 +174,11 @@ Nix 语言同样有着 JSON 的六大数据类型：数字，布尔值，字符�
 
 ![NixOS nyancat 命令](../../../../usr/uploads/202111/nixos-nyancat.png)
 
-NixOS 官方的[这份文档](https://nixos.org/manual/nixos/unstable/options.html)列出了 `configuration.nix` 里可以定义的所有配置项。因为是所有配置项，所以这个网页很长，打开网页的时候卡个几十秒也是很正常的事。你也可以用 [NixOS 官方搜索工具的 Options 页面](https://search.nixos.org/options)搜索配置项：
+NixOS 官方的[这份文档](https://nixos.org/manual/nixos/unstable/options.html)列出
+了 `configuration.nix` 里可以定义的所有配置项。因为是所有配置项，所以这个网页很
+长，打开网页的时候卡个几十秒也是很正常的事。你也可以用
+[NixOS 官方搜索工具的 Options 页面](https://search.nixos.org/options)搜索配置
+项：
 
 ![NixOS 官方搜索 Options 页面](../../../../usr/uploads/202111/nixos-search-options.png)
 
@@ -169,7 +188,8 @@ NixOS 官方的[这份文档](https://nixos.org/manual/nixos/unstable/options.ht
 
 ## 配置文件是函数
 
-刚才我们一直忽略了配置文件的第一行 `{ config, pkgs, ... }:`。实际上，整个 `configuration.nix` 是一个 Nix 函数，这里的 `config` 和 `pkgs` 是输入的参数。
+刚才我们一直忽略了配置文件的第一行 `{ config, pkgs, ... }:`。实际上，整个
+`configuration.nix` 是一个 Nix 函数，这里的 `config` 和 `pkgs` 是输入的参数。
 
 NixOS 的函数定义如下所示：
 
@@ -213,15 +233,26 @@ a: {
 }
 ```
 
-它将 `pkgs` 参数（一个对象）的子对象 `nyancat` 加入了 `environment.systemPackages` 的列表中。`pkgs` 就是 NixOS 软件源中所有软件包的集合，对应 <https://github.com/NixOS/nixpkgs> 这个项目。类似的，`config` 参数是所有系统配置的集合，例如你想要读取安装过的软件包的列表，就可以用 `config.environment.systemPackages`。
+它将 `pkgs` 参数（一个对象）的子对象 `nyancat` 加入了
+`environment.systemPackages` 的列表中。`pkgs` 就是 NixOS 软件源中所有软件包的集
+合，对应 <https://github.com/NixOS/nixpkgs> 这个项目。类似的，`config` 参数是所
+有系统配置的集合，例如你想要读取安装过的软件包的列表，就可以用
+`config.environment.systemPackages`。
 
-> Nix 语言是惰性求值（Lazy Evaluate）的。最开始加载配置文件后，NixOS 什么都不会做，直到需要用到某个配置项（例如 `environment.systemPackages`），才会去解析它的值（这个数组，以及其中的对象 `pkgs.nyancat`）。
+> Nix 语言是惰性求值（Lazy Evaluate）的。最开始加载配置文件后，NixOS 什么都不会
+> 做，直到需要用到某个配置项（例如 `environment.systemPackages`），才会去解析它
+> 的值（这个数组，以及其中的对象 `pkgs.nyancat`）。
 >
-> 顺便说一句，Nix 语言不支持循环引用，也就是类似 `{ a = config.b; b = config.a; }` 这样的用法是不行的，会报错 `infinite recursion encountered`（遇到无限循环）。
+> 顺便说一句，Nix 语言不支持循环引用，也就是类似
+> `{ a = config.b; b = config.a; }` 这样的用法是不行的，会报错
+> `infinite recursion encountered`（遇到无限循环）。
 
 ## 把配置分割到多个文件
 
-当你使用了一段时间 NixOS 后，你可能会安装一大堆的软件，导致你的配置文件变得很长，难以阅读。NixOS 支持在一个配置文件内引用（import）其它的配置文件，这样你就可以把一部分配置（例如桌面环境，nginx + PHP + MySQL，等等）单独放到一个文件中，方便后续查找。
+当你使用了一段时间 NixOS 后，你可能会安装一大堆的软件，导致你的配置文件变得很
+长，难以阅读。NixOS 支持在一个配置文件内引用（import）其它的配置文件，这样你就可
+以把一部分配置（例如桌面环境，nginx + PHP + MySQL，等等）单独放到一个文件中，方
+便后续查找。
 
 假设我想把上面的 SSH 配置单独放到一个文件中。先创建 `/etc/nixos/ssh.nix`：
 
@@ -234,7 +265,8 @@ a: {
 }
 ```
 
-然后在 `/etc/nixos/configuration.nix` 中将 `ssh.nix` 加到 `imports` 中，并把原有的 SSH 配置删掉：
+然后在 `/etc/nixos/configuration.nix` 中将 `ssh.nix` 加到 `imports` 中，并把原有
+的 SSH 配置删掉：
 
 ```nix
 { config, pkgs, ... }:
@@ -250,13 +282,19 @@ a: {
 }
 ```
 
-然后运行 `nixos-rebuild switch`，可以看到这次 rebuild 没有生成新的东西，也没有启动/停止任何服务。这是因为我们只是把 SSH 的配置挪到了新的文件中，实际的配置并没有发生变化。
+然后运行 `nixos-rebuild switch`，可以看到这次 rebuild 没有生成新的东西，也没有启
+动/停止任何服务。这是因为我们只是把 SSH 的配置挪到了新的文件中，实际的配置并没有
+发生变化。
 
 ![NixOS Rebuild](../../../../usr/uploads/202111/nixos-rebuild-noop.png)
 
-接下来我简单解释一下 `imports` 的原理。可以看到 `configuration.nix` 这个函数有参数 `config`，`pkgs`，和一些被我们忽略掉的参数（`...`）。NixOS 会用相同的参数（包括忽略掉的和没忽略的）去调用 `imports` 里的每个文件，然后把返回的配置和当前配置合并。
+接下来我简单解释一下 `imports` 的原理。可以看到 `configuration.nix` 这个函数有参
+数 `config`，`pkgs`，和一些被我们忽略掉的参数（`...`）。NixOS 会用相同的参数（包
+括忽略掉的和没忽略的）去调用 `imports` 里的每个文件，然后把返回的配置和当前配置
+合并。
 
-回头看 `ssh.nix`，我们可以发现它并没有用到 `config` 和 `pkgs` 两个函数，因此把它们去掉也是可以的：
+回头看 `ssh.nix`，我们可以发现它并没有用到 `config` 和 `pkgs` 两个函数，因此把它
+们去掉也是可以的：
 
 ```nix
 # 可以把 config 和 pkgs 去掉
@@ -276,19 +314,32 @@ a: {
 
 ## Nix Flake
 
-由于 NixOS 的所有配置都由 `configuration.nix` 决定，我们可以把这些文件直接复制到另一台机器上，然后运行 `nixos-rebuild switch`，就可以得到一个一模一样的系统。包括我在[本系列的第一篇文章](/article/modify-website/nixos-why.lantian/)中写到：
+由于 NixOS 的所有配置都由 `configuration.nix` 决定，我们可以把这些文件直接复制到
+另一台机器上，然后运行 `nixos-rebuild switch`，就可以得到一个一模一样的系统。包
+括我在[本系列的第一篇文章](/article/modify-website/nixos-why.lantian/)中写到：
 
-> (...) NixOS 的一大特点是，用一份 Nix 配置文件管理系统上的所有配置文件和软件包。因此，我们可以用 Ansible，Rsync，甚至是 Git 等任何我们喜欢的工具，来专门管理 `/etc/nixos` 这里一处的配置文件。由于只有这一处配置文件，我们不需要写一大堆复杂的 Ansible Playbook，或者输入几十行 Rsync 命令，只需要直接覆盖 `/etc/nixos`，再运行 `nixos-rebuild switch` 完事。
+> (...) NixOS 的一大特点是，用一份 Nix 配置文件管理系统上的所有配置文件和软件
+> 包。因此，我们可以用 Ansible，Rsync，甚至是 Git 等任何我们喜欢的工具，来专门管
+> 理 `/etc/nixos` 这里一处的配置文件。由于只有这一处配置文件，我们不需要写一大堆
+> 复杂的 Ansible Playbook，或者输入几十行 Rsync 命令，只需要直接覆盖
+> `/etc/nixos`，再运行 `nixos-rebuild switch` 完事。
 
 但现在我要告诉你，**我刚才说的都是错的。**
 
-刚才我介绍了修改系统配置和安装软件包的方法，但唯独没有提到如何升级软件包。这是因为 NixOS 的软件源是由另外一个命令 `nix-channel` 管理的：
+刚才我介绍了修改系统配置和安装软件包的方法，但唯独没有提到如何升级软件包。这是因
+为 NixOS 的软件源是由另外一个命令 `nix-channel` 管理的：
 
 ![NixOS nix-channel 命令](../../../../usr/uploads/202111/nixos-channels.png)
 
-其中 `nix-channel --list` 命令列出了当前配置的软件源列表，`nix-channel --update` 用来将软件源更新到最新。但是，`nix-channel` 的配置不归 `configuration.nix` 管，`configuration.nix` 也无法定义软件源的 URL 和版本。也就是说，由于软件源在不断更新，你在一个月前和一个月后用同一份配置文件装出来的系统，可能会有软件版本的差异。这就与 NixOS 一直宣传的“一份配置管天下”冲突了。
+其中 `nix-channel --list` 命令列出了当前配置的软件源列表，`nix-channel --update`
+用来将软件源更新到最新。但是，`nix-channel` 的配置不归 `configuration.nix`
+管，`configuration.nix` 也无法定义软件源的 URL 和版本。也就是说，由于软件源在不
+断更新，你在一个月前和一个月后用同一份配置文件装出来的系统，可能会有软件版本的差
+异。这就与 NixOS 一直宣传的“一份配置管天下”冲突了。
 
-为了解决这个问题，Nix 引入了 Flake 功能，它支持了在配置文件中定义软件源 URL 版本的功能。我们先修改 `configuration.nix` 并 `nixos-rebuild switch`，将 Nix 包管理器升级到支持 Flake 的测试版：
+为了解决这个问题，Nix 引入了 Flake 功能，它支持了在配置文件中定义软件源 URL 版本
+的功能。我们先修改 `configuration.nix` 并 `nixos-rebuild switch`，将 Nix 包管理
+器升级到支持 Flake 的测试版：
 
 ```nix
 { config, pkgs, ... }:
@@ -305,9 +356,16 @@ a: {
 }
 ```
 
-> 本文写成时 NixOS 的最新稳定版本是 21.05，其 Nix 包管理器（2.3 版本）还默认禁用 Flake 功能。 ~~NixOS 21.11 及以后的版本将默认开启 Flake 功能，届时将不需要这里对 `configuration.nix` 的修改。~~ 由于担心 Nix 2.4 功能变化过大，尤其是会与旧版 Nix 的行为不兼容，NixOS 21.11 仍将使用 Nix 2.3，将默认禁用 Flake 功能。相关讨论在 <https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257> 和 <https://github.com/NixOS/nixpkgs/pull/147511>。
+> 本文写成时 NixOS 的最新稳定版本是 21.05，其 Nix 包管理器（2.3 版本）还默认禁用
+> Flake 功能。 ~~NixOS 21.11 及以后的版本将默认开启 Flake 功能，届时将不需要这里
+> 对 `configuration.nix` 的修改。~~ 由于担心 Nix 2.4 功能变化过大，尤其是会与旧
+> 版 Nix 的行为不兼容，NixOS 21.11 仍将使用 Nix 2.3，将默认禁用 Flake 功能。相关
+> 讨论在 <https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257> 和
+> <https://github.com/NixOS/nixpkgs/pull/147511>。
 
-然后在 `/etc/nixos` 里创建一个 `flake.nix` 文件。这份 `flake.nix` 定义了一个软件源（`input`），是 <https://github.com/NixOS/nixpkgs> 的 `unstable` 分支（也就是 `master` 分支）。
+然后在 `/etc/nixos` 里创建一个 `flake.nix` 文件。这份 `flake.nix` 定义了一个软件
+源（`input`），是 <https://github.com/NixOS/nixpkgs> 的 `unstable` 分支（也就是
+`master` 分支）。
 
 ```nix
 {
@@ -352,55 +410,79 @@ warning: creating lock file '/etc/nixos/flake.lock'
 
 ```json
 {
-  "nodes": {
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1636623366,
-        "narHash": "sha256-jOQMlv9qFSj0U66HB+ujZoapty0UbewmSNbX8+3ujUQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c5ed8beb478a8ca035f033f659b60c89500a3034",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
+    "nodes": {
+        "nixpkgs": {
+            "locked": {
+                "lastModified": 1636623366,
+                "narHash": "sha256-jOQMlv9qFSj0U66HB+ujZoapty0UbewmSNbX8+3ujUQ=",
+                "owner": "NixOS",
+                "repo": "nixpkgs",
+                "rev": "c5ed8beb478a8ca035f033f659b60c89500a3034",
+                "type": "github"
+            },
+            "original": {
+                "owner": "NixOS",
+                "ref": "nixos-unstable",
+                "repo": "nixpkgs",
+                "type": "github"
+            }
+        },
+        "root": {
+            "inputs": {
+                "nixpkgs": "nixpkgs"
+            }
+        }
     },
-    "root": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      }
-    }
-  },
-  "root": "root",
-  "version": 7
+    "root": "root",
+    "version": 7
 }
 ```
 
-`flake.lock` 指定了 `nixpkgs` 的 commit 编号和 SHA256 哈希值，这样即使这份配置文件被复制到其它机器上，其它机器的 Nix 包管理器也会下载这个特定版本的 `nixpkgs` 软件源，并安装对应版本的软件，真正做到了软件版本一模一样。
+`flake.lock` 指定了 `nixpkgs` 的 commit 编号和 SHA256 哈希值，这样即使这份配置文
+件被复制到其它机器上，其它机器的 Nix 包管理器也会下载这个特定版本的 `nixpkgs` 软
+件源，并安装对应版本的软件，真正做到了软件版本一模一样。
 
-最后运行 `nixos-rebuild switch` 命令，NixOS 会自动优先读取 `flake.nix` 而非 `configuration.nix`，把系统里的所有软件包升级（或降级）到这个特定的版本。但因为我们把 `configuration.nix` 加入了 `flake.nix` 的 `modules` 数组，所以系统配置还是保持不变。
+最后运行 `nixos-rebuild switch` 命令，NixOS 会自动优先读取 `flake.nix` 而非
+`configuration.nix`，把系统里的所有软件包升级（或降级）到这个特定的版本。但因为
+我们把 `configuration.nix` 加入了 `flake.nix` 的 `modules` 数组，所以系统配置还
+是保持不变。
 
-> 如果你开启了 Flake 功能，并使用 Git 管理你的文件，注意 NixOS 会忽略未被 Git 管理的文件，只会读取已经 Stage 或 Commit 过的文件。如果你新建了一个文件，记得把它 Stage 一下，否则 NixOS 会报找不到文件的错误。
+> 如果你开启了 Flake 功能，并使用 Git 管理你的文件，注意 NixOS 会忽略未被 Git 管
+> 理的文件，只会读取已经 Stage 或 Commit 过的文件。如果你新建了一个文件，记得把
+> 它 Stage 一下，否则 NixOS 会报找不到文件的错误。
 
 ## 使用 Deploy-RS 批量部署
 
-现在我们配置好了一台机器。而我在[本系列的第一篇文章](/article/modify-website/nixos-why.lantian/)中提到，我有 10 台机器。我当然可以自己写一个 Ansible 脚本把配置复制到所有机器的 `/etc/nixos` 文件夹再 `nixos-rebuild switch`，但是这有几个问题：
+现在我们配置好了一台机器。而我
+在[本系列的第一篇文章](/article/modify-website/nixos-why.lantian/)中提到，我有
+10 台机器。我当然可以自己写一个 Ansible 脚本把配置复制到所有机器的 `/etc/nixos`
+文件夹再 `nixos-rebuild switch`，但是这有几个问题：
 
-1. 如果软件源里的某个软件包没有预编译的二进制文件，我就得在所有机器上编译一遍。但因为我买的都是资源不是很多的便宜 VPS，很容易遇到内存不足或者 CPU 占用过高被主机商关机的问题。
+1. 如果软件源里的某个软件包没有预编译的二进制文件，我就得在所有机器上编译一遍。
+   但因为我买的都是资源不是很多的便宜 VPS，很容易遇到内存不足或者 CPU 占用过高被
+   主机商关机的问题。
 
-   NixOS 的软件源有点类似于 Gentoo。与其它 Linux 发行版不同，一个软件包在 NixOS 软件源里不代表它有二进制文件。NixOS 的“软件包”是一组 Nix 语言的定义，描述了下载、编译、打包一个软件的完整流程。
+    NixOS 的软件源有点类似于 Gentoo。与其它 Linux 发行版不同，一个软件包在 NixOS
+    软件源里不代表它有二进制文件。NixOS 的“软件包”是一组 Nix 语言的定义，描述了
+    下载、编译、打包一个软件的完整流程。
 
-   一般情况下，NixOS 官方会帮我们编译好软件，然后上传到二进制缓存（Binary Cache）供我们下载。但如果我们自己改了软件包的编译流程（一般是一些编译参数）或者干脆是自己打的包（后面文章中会介绍），就得自己编译了。
+    一般情况下，NixOS 官方会帮我们编译好软件，然后上传到二进制缓存（Binary
+    Cache）供我们下载。但如果我们自己改了软件包的编译流程（一般是一些编译参数）
+    或者干脆是自己打的包（后面文章中会介绍），就得自己编译了。
 
-2. Nix 包管理器解析配置文件的过程本身就会占用不少的内存和 CPU 资源，尤其是配置较复杂的时候。
+2. Nix 包管理器解析配置文件的过程本身就会占用不少的内存和 CPU 资源，尤其是配置较
+   复杂的时候。
 
-理想情况下，可以用一台高性能机器（例如我的个人电脑，或者独立服务器）解析配置文件，下载或编译好所有软件包和配置，再把它们上传到所有机器上启用，这样就不用消耗低性能 VPS 的资源了。而这就是 [Deploy-RS 部署工具](https://github.com/serokell/deploy-rs)的功能。
+理想情况下，可以用一台高性能机器（例如我的个人电脑，或者独立服务器）解析配置文
+件，下载或编译好所有软件包和配置，再把它们上传到所有机器上启用，这样就不用消耗低
+性能 VPS 的资源了。而这就是
+[Deploy-RS 部署工具](https://github.com/serokell/deploy-rs)的功能。
 
-要使用 Deploy-RS，首先我们要找一台装了 Nix 的机器。注意我没有要求你把这台机器重装成 NixOS，因为 Nix 包管理器是可以安装在其它 Linux 发行版上的。例如我用的是运行 Arch Linux 的个人电脑，就可以根据 [Arch Linux Wiki](https://wiki.archlinux.org/title/Nix_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)) 上的教程安装。其它发行版可以用 Nix 官方的一键安装脚本：
+要使用 Deploy-RS，首先我们要找一台装了 Nix 的机器。注意我没有要求你把这台机器重
+装成 NixOS，因为 Nix 包管理器是可以安装在其它 Linux 发行版上的。例如我用的是运行
+Arch Linux 的个人电脑，就可以根据
+[Arch Linux Wiki](<https://wiki.archlinux.org/title/Nix_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)>)
+上的教程安装。其它发行版可以用 Nix 官方的一键安装脚本：
 
 ```bash
 # 复制自 https://nixos.org/download.html
@@ -415,7 +497,8 @@ echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
 systemctl restart nix-daemon
 ```
 
-回到上一节创建的 `flake.nix` 文件，我们要添加 Deploy-RS 的软件源，并在 `outputs` 中添加 SSH 连接的配置：
+回到上一节创建的 `flake.nix` 文件，我们要添加 Deploy-RS 的软件源，并在 `outputs`
+中添加 SSH 连接的配置：
 
 ```nix
 {
@@ -475,7 +558,9 @@ systemctl restart nix-daemon
 
 ## 附录：在甲骨文 ARM 云服务器上使用 NixOS
 
-NixOS 也支持 ARM64v8 架构，也就是甲骨文 ARM 云服务器的架构。因为甲骨文 ARM 云服务器实际上是一个 KVM 虚拟机，没有其它的特殊硬件，所以可以直接用 [NixOS-Infect](https://github.com/elitak/nixos-infect) 将现有系统替换成 NixOS。
+NixOS 也支持 ARM64v8 架构，也就是甲骨文 ARM 云服务器的架构。因为甲骨文 ARM 云服
+务器实际上是一个 KVM 虚拟机，没有其它的特殊硬件，所以可以直接用
+[NixOS-Infect](https://github.com/elitak/nixos-infect) 将现有系统替换成 NixOS。
 
 相比 x86 机器，只需要在 `flake.nix` 中将对应的 `system` 改为 `aarch64-linux`：
 
@@ -494,13 +579,21 @@ NixOS 也支持 ARM64v8 架构，也就是甲骨文 ARM 云服务器的架构。
 }
 ```
 
-其它配置都与 x86 机器无异。但是如果你使用 Deploy-RS 想在本地生成配置，会发现 Nix 包管理器报错，显示当前机器不支持 ARM 架构。此时我们可以在本地机器上安装 `qemu-user-static` 和相应的 `binfmt` 配置，让本地系统可以用模拟的方式运行 ARM 架构的程序。
+其它配置都与 x86 机器无异。但是如果你使用 Deploy-RS 想在本地生成配置，会发现 Nix
+包管理器报错，显示当前机器不支持 ARM 架构。此时我们可以在本地机器上安装
+`qemu-user-static` 和相应的 `binfmt` 配置，让本地系统可以用模拟的方式运行 ARM 架
+构的程序。
 
-对于 Arch Linux，需要从 AUR 安装 [qemu-user-static](https://aur.archlinux.org/packages/qemu-user-static/) 和 [binfmt-qemu-static-all-arch](https://aur.archlinux.org/packages/binfmt-qemu-static-all-arch/) 两个包。
+对于 Arch Linux，需要从 AUR 安装
+[qemu-user-static](https://aur.archlinux.org/packages/qemu-user-static/) 和
+[binfmt-qemu-static-all-arch](https://aur.archlinux.org/packages/binfmt-qemu-static-all-arch/)
+两个包。
 
-对于 Debian，需要安装 [qemu-user-static](https://packages.debian.org/sid/qemu-user-static) 软件包。
+对于 Debian，需要安装
+[qemu-user-static](https://packages.debian.org/sid/qemu-user-static) 软件包。
 
-安装完成后还需要修改 `/etc/nix/nix.conf`，添加这一行配置，告诉 Nix 包管理器当前机器可以运行 ARM 程序：
+安装完成后还需要修改 `/etc/nix/nix.conf`，添加这一行配置，告诉 Nix 包管理器当前
+机器可以运行 ARM 程序：
 
 ```bash
 extra-platforms = aarch64-linux arm-linux
@@ -510,21 +603,25 @@ extra-platforms = aarch64-linux arm-linux
 
 ## 附录：扩展阅读
 
-在这篇文章中，我们配置了一个基础的、几乎没有额外软件的 NixOS 系统。关于实际安装、配置软件，我推荐阅读 Ryan Yin 的 [NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)。他的文章给出了一些配置常用软件的配置范例。
+在这篇文章中，我们配置了一个基础的、几乎没有额外软件的 NixOS 系统。关于实际安
+装、配置软件，我推荐阅读 Ryan Yin 的
+[NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)。
+他的文章给出了一些配置常用软件的配置范例。
 
-你也可以阅读以下文档来更深入地了解 NixOS 的配置语法、Flake 功能，以及 Deploy-RS。注意以下文档都是英文的：
+你也可以阅读以下文档来更深入地了解 NixOS 的配置语法、Flake 功能，以及
+Deploy-RS。注意以下文档都是英文的：
 
-- NixOS 配置语法
-  - [NixOS.Wiki: Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)
-  - [Nix By Example](https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55)
-- Flake 功能
-  - [NixOS.Wiki: Flakes](https://nixos.wiki/wiki/Flakes)
-- Deploy-RS
-  - [GitHub: Deploy-RS](https://github.com/serokell/deploy-rs)
+-   NixOS 配置语法
+    -   [NixOS.Wiki: Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)
+    -   [Nix By Example](https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55)
+-   Flake 功能
+    -   [NixOS.Wiki: Flakes](https://nixos.wiki/wiki/Flakes)
+-   Deploy-RS
+    -   [GitHub: Deploy-RS](https://github.com/serokell/deploy-rs)
 
 你也可以参考我在 GitHub 上发布的配置文件：
 
-- [Initial commit](https://github.com/xddxdd/nixos-config/tree/9ed2eff8e4e6054151558f3d5909f3ef2af9b288)
-  - 完成了基础配置和 Nix Flake 部分。
-- [general: add deploy-rs script, change SSH port to 2222](https://github.com/xddxdd/nixos-config/tree/79c6f5b45d7ff574ecefb594ed76715715906cec)
-  - 完成了 Deploy-RS 的配置。
+-   [Initial commit](https://github.com/xddxdd/nixos-config/tree/9ed2eff8e4e6054151558f3d5909f3ef2af9b288)
+    -   完成了基础配置和 Nix Flake 部分。
+-   [general: add deploy-rs script, change SSH port to 2222](https://github.com/xddxdd/nixos-config/tree/79c6f5b45d7ff574ecefb594ed76715715906cec)
+    -   完成了 Deploy-RS 的配置。

@@ -6,17 +6,31 @@ date: 2023-09-20 23:10:57
 image: /usr/uploads/202309/trigonometric.png
 ---
 
-(Title image sourced from: [Wikipedia - Trigonometry](https://en.wikipedia.org/wiki/Trigonometry))
+(Title image sourced from:
+[Wikipedia - Trigonometry](https://en.wikipedia.org/wiki/Trigonometry))
 
 ## Why
 
-I wanted to calculate the network latency between all my VPS nodes, and add the latency into the configuration file of Bird BGP daemon, so the network packets are forwarded through the lowest latency route. However, I have 17 nodes as of today, and I didn't want to manually run a `ping` command between each pair.
+I wanted to calculate the network latency between all my VPS nodes, and add the
+latency into the configuration file of Bird BGP daemon, so the network packets
+are forwarded through the lowest latency route. However, I have 17 nodes as of
+today, and I didn't want to manually run a `ping` command between each pair.
 
-So I came up with a solution: I can mark the latitudes and longitudes of the physical locations of my nodes, calculate the physical distance, and divide that by half the light speed to get the approximate latencies. I randomly sampled a few node pairs, and found that the Internet routing between them are mostly straightforward, with no significant detours. In this case, the physical distance is a good approximation that satisfies my requirements.
+So I came up with a solution: I can mark the latitudes and longitudes of the
+physical locations of my nodes, calculate the physical distance, and divide that
+by half the light speed to get the approximate latencies. I randomly sampled a
+few node pairs, and found that the Internet routing between them are mostly
+straightforward, with no significant detours. In this case, the physical
+distance is a good approximation that satisfies my requirements.
 
-Because I use NixOS across all my nodes, and manage all configs with Nix, I need to find a way to calculate this distance with Nix. One commonly used method to calculate distance based on latitude/longitude is Haversine formula. It approximates the Earth as a sphere with a radius of 6371km, and then use the following formula to calculate the distance:
+Because I use NixOS across all my nodes, and manage all configs with Nix, I need
+to find a way to calculate this distance with Nix. One commonly used method to
+calculate distance based on latitude/longitude is Haversine formula. It
+approximates the Earth as a sphere with a radius of 6371km, and then use the
+following formula to calculate the distance:
 
-> Reference: [Wikipedia - Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
+> Reference:
+> [Wikipedia - Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
 
 $$
 \begin{aligned}
@@ -27,11 +41,16 @@ h = hav(\frac{d}{r}) &= (hav(\varphi_2 - \varphi_1) + \cos(\varphi_1) \cos(\varp
 \end{aligned}
 $$
 
-> Note: there are a few variations of Haversine formula. I actually used this arctan-based implementation from Stackoverflow: <https://stackoverflow.com/a/27943>
+> Note: there are a few variations of Haversine formula. I actually used this
+> arctan-based implementation from Stackoverflow:
+> <https://stackoverflow.com/a/27943>
 
-Nix however, as a language mainly focused on packaging and generating config files, naturally doesn't natively support trigonometric functions, and is only capable of some simple floating point computations.
+Nix however, as a language mainly focused on packaging and generating config
+files, naturally doesn't natively support trigonometric functions, and is only
+capable of some simple floating point computations.
 
-Thus I went with another way, depending on Python's `geopy` module for distance computation:
+Thus I went with another way, depending on Python's `geopy` module for distance
+computation:
 
 ```nix
 {
@@ -61,17 +80,36 @@ in {
 }
 ```
 
-It works, but what it really did is creating a new "package" for each pair of latitudes/longitudes, and having Nix build it. In order to achieve reproducible packaging wherever possible, and prevent extra variables from being introduced, Nix creates a sandbox isolated from Internet and restricted from arbitrary disk access, run Python in this sandbox, have it load `geopy`, and do the calculation. This process is slow, taking around 0.5s for each package on my laptop (i7-11800H), and cannot be parallelized due to Nix's limitations. As of today, my 17 nodes are distributed in 10 different cities around the world. This means calculating all these distances alone will take $\frac{10 \cdot 9}{2} \cdot 0.5s = 22.5s$.
+It works, but what it really did is creating a new "package" for each pair of
+latitudes/longitudes, and having Nix build it. In order to achieve reproducible
+packaging wherever possible, and prevent extra variables from being introduced,
+Nix creates a sandbox isolated from Internet and restricted from arbitrary disk
+access, run Python in this sandbox, have it load `geopy`, and do the
+calculation. This process is slow, taking around 0.5s for each package on my
+laptop (i7-11800H), and cannot be parallelized due to Nix's limitations. As of
+today, my 17 nodes are distributed in 10 different cities around the world. This
+means calculating all these distances alone will take
+$\frac{10 \cdot 9}{2} \cdot 0.5s = 22.5s$.
 
-In addition, since the output of the packaging function `pkgs.runCommandLocal` is immediately consumed by `builtins.readFile`, the packages for distance calculation are not directly referenced by my Nix config. This means that their reference count is 0, and will be immediately garbage collected with `nixos-collect-garbage -d`. Next time I want to build my config, it needs another 22.5s to calculate all of them again.
+In addition, since the output of the packaging function `pkgs.runCommandLocal`
+is immediately consumed by `builtins.readFile`, the packages for distance
+calculation are not directly referenced by my Nix config. This means that their
+reference count is 0, and will be immediately garbage collected with
+`nixos-collect-garbage -d`. Next time I want to build my config, it needs
+another 22.5s to calculate all of them again.
 
-Is it possible that I no longer rely on Python, but instead implement the trigonometric functions sin, cos, tan, and finally implement the Haversine function?
+Is it possible that I no longer rely on Python, but instead implement the
+trigonometric functions sin, cos, tan, and finally implement the Haversine
+function?
 
-And here comes the project today: trigonometric math library implemented in pure Nix.
+And here comes the project today: trigonometric math library implemented in pure
+Nix.
 
 ## sin, cos, tan: Taylor Expansion
 
-The trigonometric functions, sine and cosine, have a relatively easy way to compute: Taylor expansions. We all know that the sine function has the following Taylor expansion:
+The trigonometric functions, sine and cosine, have a relatively easy way to
+compute: Taylor expansions. We all know that the sine function has the following
+Taylor expansion:
 
 $$
 \begin{aligned}
@@ -80,7 +118,8 @@ $$
 \end{aligned}
 $$
 
-We can observe that each expanded item can be calculated with basic arithmetric operations. Therefore, we can implement the following functions in Nix:
+We can observe that each expanded item can be calculated with basic arithmetric
+operations. Therefore, we can implement the following functions in Nix:
 
 ```nix
 {
@@ -113,9 +152,14 @@ We can observe that each expanded item can be calculated with basic arithmetric 
 }
 ```
 
-For the calculation of a single Taylor expansion item, to avoid precision loss, I didn't calculate the numerator and denominator separately before dividing them. Instead, I expanded $\frac{x^n}{n!}$ to $\frac{x}{1} \cdot \frac{x}{2} \cdot ... \cdot \frac{x}{n}$, and calculate them one by one, and multiply all these much smaller results.
+For the calculation of a single Taylor expansion item, to avoid precision loss,
+I didn't calculate the numerator and denominator separately before dividing
+them. Instead, I expanded $\frac{x^n}{n!}$ to
+$\frac{x}{1} \cdot \frac{x}{2} \cdot ... \cdot \frac{x}{n}$, and calculate them
+one by one, and multiply all these much smaller results.
 
-Then, we need to determine how many items we want to calculate. We could opt to a constant number of items, 10 for example:
+Then, we need to determine how many items we want to calculate. We could opt to
+a constant number of items, 10 for example:
 
 ```nix
 {
@@ -131,7 +175,12 @@ Then, we need to determine how many items we want to calculate. We could opt to 
 }
 ```
 
-But when a fixed number of items are used, since Nix uses 32 bit float for its calculations, the 10 Taylor expansion items quickly diminish below floating point accuracy when the input is very small, and further items are still not small enough to be ignored with larger inputs. So I decided to have it make decisions based on the value of Taylor expansion items, and stop computation when the value is below our accuracy target:
+But when a fixed number of items are used, since Nix uses 32 bit float for its
+calculations, the 10 Taylor expansion items quickly diminish below floating
+point accuracy when the input is very small, and further items are still not
+small enough to be ignored with larger inputs. So I decided to have it make
+decisions based on the value of Taylor expansion items, and stop computation
+when the value is below our accuracy target:
 
 ```nix
 {
@@ -164,7 +213,8 @@ But when a fixed number of items are used, since Nix uses 32 bit float for its c
 }
 ```
 
-Now we have a sine function with sufficient accuracy. Scan its result with input from 0 to 10 (above $2 \pi$), with a step of 0.001:
+Now we have a sine function with sufficient accuracy. Scan its result with input
+from 0 to 10 (above $2 \pi$), with a step of 0.001:
 
 ```nix
 {
@@ -192,7 +242,9 @@ Now we have a sine function with sufficient accuracy. Scan its result with input
 }
 ```
 
-Compare `testOutput` to the result of Python Numpy's `np.sin`, and all the results are within 0.0001% of true value. This satisfies our precision requirements.
+Compare `testOutput` to the result of Python Numpy's `np.sin`, and all the
+results are within 0.0001% of true value. This satisfies our precision
+requirements.
 
 Similarly, we can implement the cosine function:
 
@@ -226,13 +278,19 @@ $$
 \end{aligned}
 $$
 
-Yet it is easy to notice that arctan's Taylor expansion doesn't converge nearly as fast as sine. Since its denominator increase linearly, we need to calculate much more items before it's smaller than epsilon, which may cause a stack overflow for Nix:
+Yet it is easy to notice that arctan's Taylor expansion doesn't converge nearly
+as fast as sine. Since its denominator increase linearly, we need to calculate
+much more items before it's smaller than epsilon, which may cause a stack
+overflow for Nix:
 
 ```bash
 error: stack overflow (possible infinite recursion)
 ```
 
-Taylor expansion is no longer an option then, we need something that calculates much faster. Being inspired by <https://stackoverflow.com/a/42542593>, I decided to fit the arctangent curve on $[0, 1]$ with polynomial regression, and map the arctangent function in other ranges using the following rules:
+Taylor expansion is no longer an option then, we need something that calculates
+much faster. Being inspired by <https://stackoverflow.com/a/42542593>, I decided
+to fit the arctangent curve on $[0, 1]$ with polynomial regression, and map the
+arctangent function in other ranges using the following rules:
 
 $$
 \begin{aligned}
@@ -267,7 +325,8 @@ print('\n'.join(["{0:.7f}".format(i) for i in (fit[::-1])]))
 # 0.0222228
 ```
 
-The output above means that the arctangent function on $[0, 1]$ can be approximated with:
+The output above means that the arctangent function on $[0, 1]$ can be
+approximated with:
 
 $$\arctan(x) = 0 + 0.9999991 x + 0.0000361 x^2 - ... + 0.0222228 x^{10}$$
 
@@ -312,13 +371,15 @@ I ran the precision test, and all results are within 0.0001% of true value.
 
 ## sqrt: Newtonian Method
 
-For the square root function, we can iterate with the famous Newtonian method. The iteration formula I'm using is:
+For the square root function, we can iterate with the famous Newtonian method.
+The iteration formula I'm using is:
 
 $$a_{n+1} = \frac{a_n + \frac{x}{a_n}}{2}$$
 
 Of which $x$ is the input to the square root function.
 
-We can implement Newtonian square root calculation in Nix with the following code, and iterate until the change in result is below epsilon:
+We can implement Newtonian square root calculation in Nix with the following
+code, and iterate until the change in result is below epsilon:
 
 ```nix
 {
@@ -337,11 +398,14 @@ We can implement Newtonian square root calculation in Nix with the following cod
 }
 ```
 
-The precision test shows all results are within $1e-10$ (absolute value) of true value.
+The precision test shows all results are within $1e-10$ (absolute value) of true
+value.
 
 ## Haversine Formula
 
-With the functions above ready, we can finally start implementing the Haversine formula. I'm using this implementation from Stackoverflow as a reference: <https://stackoverflow.com/a/27943>
+With the functions above ready, we can finally start implementing the Haversine
+formula. I'm using this implementation from Stackoverflow as a reference:
+<https://stackoverflow.com/a/27943>
 
 ```nix
 {
@@ -375,9 +439,11 @@ Finally, calculate the theoretical delay based on light speed:
 
 ## Conclusion
 
-I finally reached the target I was aiming for: calculate the theoretical network latency between my nodes based on the light speed.
+I finally reached the target I was aiming for: calculate the theoretical network
+latency between my nodes based on the light speed.
 
-All these trigonometric functions (and some extra math functions) can be obtained from my GitHub: <https://github.com/xddxdd/nix-math>
+All these trigonometric functions (and some extra math functions) can be
+obtained from my GitHub: <https://github.com/xddxdd/nix-math>
 
 If you're using Nix Flake, you can use the function as follows:
 

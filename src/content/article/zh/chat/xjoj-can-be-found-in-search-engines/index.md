@@ -1,9 +1,10 @@
 ---
 title: 'XJOI被多款搜索引擎收录'
 categories: 闲聊
-tags: [网站,OI]
+tags: [网站, OI]
 date: 2012-12-01 16:29:49
 ---
+
 最近无聊，在必应上搜了搜XJOI，结果……还真被刨出来了……
 
 [http://cn.bing.com/search?q=www.hzxjhs.com%3A83&go=&qs=n&form=QBLH&pq=www.hzxjhs.com%3A83&sc=0-3&sp=-1&sk=](http://cn.bing.com/search?q=www.hzxjhs.com%3A83&go=&qs=n&form=QBLH&pq=www.hzxjhs.com%3A83&sc=0-3&sp=-1&sk=)
@@ -12,9 +13,9 @@ date: 2012-12-01 16:29:49
 
 然后我马上想，必应收录，雅虎会不会收录？结果还真……收录了……
 
-[http://search.yahoo.com/search;_ylt=A2KLf7U8vblQtAIASlKbvZx4?p=XJOI&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-701](http://search.yahoo.com/search;_ylt=A2KLf7U8vblQtAIASlKbvZx4?p=XJOI&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-701)
+[http://search.yahoo.com/search;\_ylt=A2KLf7U8vblQtAIASlKbvZx4?p=XJOI&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-701](http://search.yahoo.com/search;_ylt=A2KLf7U8vblQtAIASlKbvZx4?p=XJOI&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-701)
 
-[http://search.yahoo.com/search;_ylt=A0oGdUdIvblQiAMAUcRXNyoA?p=www.hzxjhs.com%3A83&fr2=sb-top&fr=yfp-t-701&type_param=](http://search.yahoo.com/search;_ylt=A0oGdUdIvblQiAMAUcRXNyoA?p=www.hzxjhs.com%3A83&fr2=sb-top&fr=yfp-t-701&type_param=)
+[http://search.yahoo.com/search;\_ylt=A0oGdUdIvblQiAMAUcRXNyoA?p=www.hzxjhs.com%3A83&fr2=sb-top&fr=yfp-t-701&type_param=](http://search.yahoo.com/search;_ylt=A0oGdUdIvblQiAMAUcRXNyoA?p=www.hzxjhs.com%3A83&fr2=sb-top&fr=yfp-t-701&type_param=)
 
 然后腾讯搜搜：
 
