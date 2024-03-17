@@ -13,7 +13,7 @@ type Props = {
 const { language, post, isShowingMultiPosts } = Astro.props;
 const __ = language.getTranslation;
 
-const { Content } = await post.collectionEntry.render();
+const { Content, headings } = await post.collectionEntry.render();
 ---
 
 <article>
@@ -85,6 +85,30 @@ const { Content } = await post.collectionEntry.render();
                     </a>
                   ))}
                   &nbsp;
+                </div>
+              </div>
+            </div>
+          )
+        }
+        {
+          !isShowingMultiPosts && (
+            <div class="post-meta-wrap">
+              <div class="post-meta">
+                <p>
+                  <span class="fas fa-list" />
+                  <br />
+                  <small>{__('table_of_contents')}</small>
+                </p>
+                <div class="post-meta-value">
+                  <ol id="quicklink">
+                    {headings.map((heading) => (
+                      <li class={`toc-item toc-level-${heading.depth}`}>
+                        <a class="toc-link" href={'#' + heading.slug}>
+                          <span class="toc-text">{heading.text}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
                 </div>
               </div>
             </div>
