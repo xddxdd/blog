@@ -15,7 +15,7 @@ const __ = Astro.props.language.getTranslation;
     <i class="fas fa-copyright"></i> 2012-{new Date().getFullYear()}
     {SITE_TITLE}<br />
     <small>
-      {__('powered_by', 'Astro.js')} @ {
+      {__('powered_by', Astro.generator)} @ {
         format(new Date(), 'yyyy-MM-dd HH:mm:ss')
       }
     </small>

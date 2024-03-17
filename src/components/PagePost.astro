@@ -2,6 +2,7 @@
 import type { Language } from '../lib/language';
 import { Post } from '../lib/posts';
 import { format } from 'date-fns';
+import PagePostExcerpt from './PagePostExcerpt.astro';
 
 type Props = {
   language: Language;
@@ -9,7 +10,7 @@ type Props = {
   isShowingMultiPosts: boolean;
 };
 
-const { language, post } = Astro.props;
+const { language, post, isShowingMultiPosts } = Astro.props;
 const __ = language.getTranslation;
 
 const { Content } = await post.collectionEntry.render();
@@ -99,7 +100,13 @@ const { Content } = await post.collectionEntry.render();
         >
       </h1>
       <div class="post-text">
-        <Content />
+        {
+          (isShowingMultiPosts && (
+            <PagePostExcerpt>
+              <Content />
+            </PagePostExcerpt>
+          )) || <Content />
+        }
       </div>
     </div>
   </div>
