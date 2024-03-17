@@ -3,6 +3,7 @@ import type { Language } from '../lib/language'
 import { Post } from '../lib/posts'
 import type { NavigationItem } from '../lib/navigation'
 import { format } from 'date-fns'
+import SidebarWidget from './fragments/SidebarWidget.astro'
 
 type Props = {
   language: Language
@@ -15,68 +16,56 @@ const __ = language.getTranslation
 ---
 
 <aside class="d-none d-xl-block">
-  <section class="widget">
-    <h3>{__('latest_articles')}</h3>
-    <ul class="list-unstyled">
-      {
-        posts.slice(0, 15).map(post => (
-          <li>
-            {format(post.date, 'MM-dd')}{' '}
-            <a href={post.getFullURL()}>{post.title}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <SidebarWidget title={__('latest_articles')}>
+    {
+      posts.slice(0, 15).map(post => (
+        <li>
+          {format(post.date, 'MM-dd')}{' '}
+          <a href={post.getFullURL()}>{post.title}</a>
+        </li>
+      ))
+    }
+  </SidebarWidget>
 
-  <section class="widget">
-    <h3>{__('latest_comments')}</h3>
-    <ul class="list-unstyled" id="recent-comments">
-      <li><a href="#">Loading...</a></li>
-    </ul>
-  </section>
+  <SidebarWidget title={__('latest_comments')} id="recent-comments">
+    <li><a href="#">Loading...</a></li>
+  </SidebarWidget>
 
-  <section class="widget">
-    <h3>{__('others')}</h3>
-    <ul class="list-unstyled">
-      <li>
-        <i class="fas fa-fw fa-rss"></i>{' '}
-        <a href="/rss2.xml" target="_blank">{__('feed_rss')}</a>{' '}
-        |{' '}
-        <a href="/feed.xml" target="_blank">{__('feed_atom')}</a>{' '}
-        |{' '}
-        <a href="/feed.json" target="_blank">{__('feed_json')}</a>
-      </li>
-      <li>
-        <i class="fas fa-fw fa-globe"></i>{' '}
-        <a href="https://stats.uptimerobot.com/BLK6VsRkR" target="_blank">
-          {__('server_status')}
-        </a>
-      </li>
-      <li>
-        <i class="fas fa-fw fa-sitemap"></i>{' '}
-        <a href="https://lg.lantian.pub" target="_blank"
-          >{__('dn42_node_status')}</a
-        >
-      </li>
-    </ul>
-  </section>
+  <SidebarWidget title={__('others')}>
+    <li>
+      <i class="fas fa-fw fa-rss"></i>{' '}
+      <a href="/rss2.xml" target="_blank">{__('feed_rss')}</a>{' '}
+      |{' '}
+      <a href="/feed.xml" target="_blank">{__('feed_atom')}</a>{' '}
+      |{' '}
+      <a href="/feed.json" target="_blank">{__('feed_json')}</a>
+    </li>
+    <li>
+      <i class="fas fa-fw fa-globe"></i>{' '}
+      <a href="https://stats.uptimerobot.com/BLK6VsRkR" target="_blank">
+        {__('server_status')}
+      </a>
+    </li>
+    <li>
+      <i class="fas fa-fw fa-sitemap"></i>{' '}
+      <a href="https://lg.lantian.pub" target="_blank"
+        >{__('dn42_node_status')}</a
+      >
+    </li>
+  </SidebarWidget>
 
   {
     links.length > 0 && (
-      <section class="widget">
-        <h3>{__('links')}</h3>
-        <ul class="list-unstyled">
-          {links.map(item => (
-            <li>
-              <i class="fas fa-fw fa-link" />{' '}
-              <a target="_blank" href={item.path}>
-                {item.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <SidebarWidget title={__('links')}>
+        {links.map(item => (
+          <li>
+            <i class="fas fa-fw fa-link" />{' '}
+            <a target="_blank" href={item.path}>
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </SidebarWidget>
     )
   }
 </aside>

@@ -1,0 +1,21 @@
+---
+type Props = {
+  fontAwesomeClass: string
+  label: string
+}
+
+const { fontAwesomeClass, label } = Astro.props
+---
+
+<div class="post-meta-wrap">
+  <div class="post-meta">
+    <p>
+      <span class={fontAwesomeClass}></span>
+      <br />
+      <small>{label}</small>
+    </p>
+    <div class="post-meta-value">
+      <slot />
+    </div>
+  </div>
+</div>

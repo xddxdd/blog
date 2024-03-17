@@ -1,15 +1,15 @@
 ---
 import { type Language, CATEGORY_MAP } from '../lib/language'
 import { Page } from '../lib/pages'
-import PagePostExcerpt from './PagePostExcerpt.astro'
+import PostMetaWidget from './fragments/PostMetaWidget.astro'
+import TableOfContent from './fragments/TableOfContent.astro'
 
 type Props = {
   language: Language
   page: Page
-  isShowingMultiPosts: boolean
 }
 
-const { language, page, isShowingMultiPosts } = Astro.props
+const { language, page } = Astro.props
 const __ = language.getTranslation
 
 const { Content, headings } = await page.collectionEntry.render()
@@ -19,30 +19,12 @@ const { Content, headings } = await page.collectionEntry.render()
   <div class="d-flex">
     <div class="post-info-wrap">
       <div class="post-info">
-        {
-          !isShowingMultiPosts && (
-            <div class="post-meta-wrap">
-              <div class="post-meta">
-                <p>
-                  <span class="fas fa-list" />
-                  <br />
-                  <small>{__('table_of_contents')}</small>
-                </p>
-                <div class="post-meta-value">
-                  <ol id="quicklink">
-                    {headings.map(heading => (
-                      <li class={`toc-item toc-level-${heading.depth}`}>
-                        <a class="toc-link" href={'#' + heading.slug}>
-                          <span class="toc-text">{heading.text}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-          )
-        }
+        <PostMetaWidget
+          fontAwesomeClass="fas fa-list"
+          label={__('table_of_contents')}
+        >
+          <TableOfContent headings={headings} />
+        </PostMetaWidget>
       </div>
     </div>
     <div class="post-wrap">
@@ -52,13 +34,7 @@ const { Content, headings } = await page.collectionEntry.render()
         >
       </h1>
       <div class="post-text">
-        {
-          (isShowingMultiPosts && (
-            <PagePostExcerpt>
-              <Content />
-            </PagePostExcerpt>
-          )) || <Content />
-        }
+        <Content />
       </div>
     </div>
   </div>

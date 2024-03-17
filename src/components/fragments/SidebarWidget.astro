@@ -1,0 +1,15 @@
+---
+type Props = {
+  title: string
+  id?: string
+}
+
+const { title, id } = Astro.props
+---
+
+<section class="widget">
+  <h3>{title}</h3>
+  <ul class="list-unstyled" id={id}>
+    <slot />
+  </ul>
+</section>
