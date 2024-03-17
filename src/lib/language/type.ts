@@ -31,6 +31,7 @@ export abstract class Language {
   }
 
   public abstract getTranslation(translationKey: string, args?: any): string;
+  public abstract getCategoryMap(): Record<string, string>;
   public abstract getNavBarItems(): NavigationItem[];
   public abstract getLinkItems(): NavigationItem[];
 }

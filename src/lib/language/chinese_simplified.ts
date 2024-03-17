@@ -6,12 +6,14 @@ const translationDict: Record<string, string | ((any) => string)> = {
   list_tag: (tag) => `含有标签 ${tag} 的文章`,
   powered_by: (software) => `基于 ${software} 构建`,
   page: '页面',
+  nth_page: (n) => `第 ${n} 页`,
   illustration: '插图',
 
   category: '分类',
   table_of_contents: '目录',
   qrcode: '二维码',
   n_tags: '标签',
+  tag: '标签',
   tags: '标签',
   date: '发布于',
 
@@ -40,6 +42,17 @@ const translationDict: Record<string, string | ((any) => string)> = {
   feed_json: 'JSON',
   server_status: '服务器状态',
   dn42_node_status: 'DN42 节点状态',
+};
+
+const categoryMap: Record<string, string> = {
+  闲聊: 'chat',
+  自制软硬工具: 'creations',
+  转载: 'forward',
+  娱乐: 'fun',
+  计算机与客户端: 'modify-computer',
+  网站与服务端: 'modify-website',
+  一图流: 'one-pic',
+  随手记: 'random-notes',
 };
 
 const navBarItems: NavigationItem[] = [
@@ -74,6 +87,10 @@ class LanguageChineseSimplifiedImpl extends Language {
       return (translationDict[translationKey]! as (any) => string)(args);
     }
     return translationDict[translationKey]! as string;
+  }
+
+  public override getCategoryMap(): Record<string, string> {
+    return categoryMap;
   }
 
   public override getNavBarItems(): NavigationItem[] {

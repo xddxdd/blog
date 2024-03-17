@@ -6,12 +6,14 @@ const translationDict: Record<string, string | ((any) => string)> = {
   list_tag: (tag) => `Posts with tag ${tag}`,
   powered_by: (software) => `Powered by ${software}`,
   page: 'Page',
+  nth_page: (n) => `Page ${n}`,
   illustration: 'Illustration',
 
   category: 'Category',
   table_of_contents: 'ToC',
   qrcode: 'QR',
   n_tags: 'tags',
+  tag: 'Tag',
   tags: 'Tags',
   date: 'Published on',
 
@@ -40,6 +42,13 @@ const translationDict: Record<string, string | ((any) => string)> = {
   feed_json: 'JSON',
   server_status: 'Sever Status',
   dn42_node_status: 'DN42 Looking Glass',
+};
+
+const categoryMap: Record<string, string> = {
+  Creations: 'creations',
+  'Computers and Clients': 'modify-computer',
+  'Website and Servers': 'modify-website',
+  'Random Notes': 'random-notes',
 };
 
 const navBarItems: NavigationItem[] = [
@@ -77,6 +86,10 @@ class LanguageEnglishImpl extends Language {
       return (translationDict[translationKey]! as (any) => string)(args);
     }
     return translationDict[translationKey]! as string;
+  }
+
+  public override getCategoryMap(): Record<string, string> {
+    return categoryMap;
   }
 
   public override getNavBarItems(): NavigationItem[] {

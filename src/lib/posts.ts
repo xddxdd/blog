@@ -5,7 +5,7 @@ import type { PaginationProps } from '../components/PagePaginator.astro';
 
 export class Post {
   public readonly title: string;
-  public readonly category: string | undefined;
+  public readonly category: string;
   public readonly tags: string[];
   public readonly date: Date;
   public readonly image: string | undefined;
@@ -51,7 +51,12 @@ export type PaginatedProps = {
   language: Language;
 };
 
-export function getStaticPathsForPaginate(posts: Post[], basePathWithoutLanguage: string) {
+export function getStaticPathsForPaginate(
+  posts: Post[],
+  basePathWithoutLanguage: string,
+  additionalParams?: Record<string, string>,
+  additionalProps?: Record<string, any>,
+) {
   return Object.entries(LANGUAGES).flatMap(([_, language]) => {
     const postsForLanguage = posts.filter((post) => post.language.is(language));
     const numPages = Math.ceil(postsForLanguage.length / POSTS_PER_PAGE);
@@ -60,18 +65,20 @@ export function getStaticPathsForPaginate(posts: Post[], basePathWithoutLanguage
         page_prefix: i == 0 ? undefined : `page/${i + 1}`,
         language:
           language == DEFAULT_LANGUAGE ? undefined : language.toString(),
+        ...additionalParams,
       },
       props: <PaginatedProps>{
-        pagination: <PaginationProps> {
+        pagination: <PaginationProps>{
           numPages: numPages,
-          currentPage: i+1,
-          basePath:  language.getSegment() + basePathWithoutLanguage,
+          currentPage: i + 1,
+          basePath: language.getSegment() + basePathWithoutLanguage,
         },
         posts: postsForLanguage.slice(
           i * POSTS_PER_PAGE,
           (i + 1) * POSTS_PER_PAGE,
         ),
         language: language,
+        ...additionalProps,
       },
     }));
   });

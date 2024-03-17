@@ -5,7 +5,7 @@ const article = defineCollection({
   // Type-check frontmatter using a schema
   schema: z.object({
     title: z.string(),
-    categories: z.string().optional(),
+    categories: z.string(),
     tags: z.array(z.string()).optional(),
     date: z.coerce.date(),
     image: z.string().optional(),

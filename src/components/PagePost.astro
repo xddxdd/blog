@@ -1,5 +1,5 @@
 ---
-import type { Language } from '../lib/language';
+import { type Language, CATEGORY_MAP } from '../lib/language';
 import { Post } from '../lib/posts';
 import { format } from 'date-fns';
 import PagePostExcerpt from './PagePostExcerpt.astro';
@@ -51,7 +51,10 @@ const { Content } = await post.collectionEntry.render();
                 </p>
                 <div class="post-meta-value">
                   {__('category')}
-                  <a class="badge badge-tag" href="#">
+                  <a
+                    class="badge badge-tag"
+                    href={`${language.getSegment()}/category/${CATEGORY_MAP[post.category]}`}
+                  >
                     {post.category}
                   </a>
                   &nbsp;
@@ -74,7 +77,10 @@ const { Content } = await post.collectionEntry.render();
                 <div class="post-meta-value">
                   {__('tags')}
                   {post.tags.map((tag) => (
-                    <a class="badge badge-tag" href="#">
+                    <a
+                      class="badge badge-tag"
+                      href={`${language.getSegment()}/tag/${tag}`}
+                    >
                       {tag}
                     </a>
                   ))}

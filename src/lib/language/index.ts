@@ -8,3 +8,8 @@ export const LANGUAGES: Record<string, Language> = {
   zh: LanguageChineseSimplified,
   en: LanguageEnglish,
 };
+
+export const CATEGORY_MAP = {
+  ...LanguageChineseSimplified.getCategoryMap(),
+  ...LanguageEnglish.getCategoryMap(),
+};
