@@ -1,28 +1,8 @@
 ---
+import { createExcerpt } from '../../lib/utils'
+
 const html = await Astro.slots.render('default')
-
-const EXCERPT_REGEX = /([\n\r]|<\/?("[^"]*"|'[^']*'|[^>])*(>|$))/g
-const excerpt_length = 800
-const stripped = html.replace(EXCERPT_REGEX, ' ')
-const separators = ['。', '，', '.', ',', '：', ':', ')', '）']
-
-let output = ''
-let len = 0,
-  i = 0
-while (len < excerpt_length && i < stripped.length) {
-  output += stripped[i]
-  len += stripped.codePointAt(i)! > 255 ? 2 : 1
-  i++
-}
-
-let output_until = output.length
-for (i = output.length; i > 0; i--) {
-  if (separators.includes(output[i]!)) {
-    output_until = i + 1
-    break
-  }
-}
-const excerpt = output.substring(0, output_until) + '...'
+const excerpt = createExcerpt(html)
 ---
 
 <p>{excerpt}</p>

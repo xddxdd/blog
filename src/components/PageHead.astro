@@ -2,6 +2,7 @@
 import { SITE_TITLE } from '../consts'
 import { type Language, LANGUAGES } from '../lib/language'
 import { Post } from '../lib/posts'
+import PostExcerptForMeta from './fragments/PostExcerptForMeta.astro'
 
 type Props = {
   fullTitle: string
@@ -11,6 +12,8 @@ type Props = {
 
 const { fullTitle, language, post } = Astro.props
 const { pathname, host } = Astro.url
+
+const rendered = await post?.collectionEntry.render()
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -148,7 +151,11 @@ const { pathname, host } = Astro.url
         property="og:image"
         content={`https://${host}${post.image ?? '/apple-touch-icon.png'}`}
       />
-      <meta property="og:description" content={post.title} />
+      <PostExcerptForMeta property="og:description">
+        {(rendered?.Content !== undefined && <rendered.Content />) || (
+          <p>{post.title}</p>
+        )}
+      </PostExcerptForMeta>
     </>
   )) || (
     <>
@@ -175,7 +182,11 @@ const { pathname, host } = Astro.url
         property="twitter:image"
         content={`https://${host}${post.image ?? '/apple-touch-icon.png'}`}
       />
-      <meta property="twitter:description" content={post.title} />
+      <PostExcerptForMeta property="twitter:description">
+        {(rendered?.Content !== undefined && <rendered.Content />) || (
+          <p>{post.title}</p>
+        )}
+      </PostExcerptForMeta>
     </>
   )) || (
     <>
@@ -199,7 +210,11 @@ const { pathname, host } = Astro.url
         property="image"
         content={`https://${host}${post.image ?? '/apple-touch-icon.png'}`}
       />
-      <meta property="description" content={post.title} />
+      <PostExcerptForMeta property="description">
+        {(rendered?.Content !== undefined && <rendered.Content />) || (
+          <p>{post.title}</p>
+        )}
+      </PostExcerptForMeta>
     </>
   )) || (
     <>
