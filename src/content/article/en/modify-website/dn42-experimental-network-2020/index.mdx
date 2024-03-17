@@ -5,6 +5,9 @@ tags: [DN42, BGP]
 date: 2021-05-02 12:21:45
 ---
 
+import InteractiveButtons from '../../../../../components/InteractiveButtons.astro'
+import InteractiveContent from '../../../../../components/InteractiveContent.astro'
+
 DN42, aka Decentralized Network 42, is a large, decentralized VPN-based network.
 But unlike other traditional VPNs, DN42 itself doesn't provide any VPN exits,
 which means it doesn't allow you to bypass Internet censorships or unlock
@@ -125,12 +128,17 @@ Here are the steps:
       your account that authorizes your further operations. For example, this is
       my `mntner` file (available under `data/mntner/LANTIAN-MNT`):
 
-      {% interactive_buttons vertical %} noop|Here is my registration info for
-      reference only. noop|Read the document carefully and replace EVERYTHING
-      with YOUR information. code1|I acknowledge the notes above, and I want to
-      see the code. {% endinteractive_buttons %}
+      <InteractiveButtons
+        vertical={true}
+        buttons={{
+          noop1: 'Here is my registration info for reference only.',
+          noop2:
+            'Read the document carefully and replace EVERYTHING with YOUR information.',
+          code1: 'I acknowledge the notes above, and want to see the code.',
+        }}
+      />
 
-      {% interactive code1 %}
+      <InteractiveContent id="code1">
 
       ```bash
       mntner:             LANTIAN-MNT
@@ -143,7 +151,7 @@ Here are the steps:
       remarks:            pin-sha256:o1lfYvcdcYy81UIuZMZO1CkCLX+vJOdD5GLw1cmeStU=
       ```
 
-      {% endinteractive %}
+      </InteractiveContent>
 
       - The items in the file are:
         - `mntner`: `maintainer`, the name for your account. Same as the file
@@ -198,12 +206,17 @@ Here are the steps:
       personal information, but what's actually needed is simply a mailbox.
       Here's my `person` file, for example (`data/person/LANTIAN-DN42`):
 
-      {% interactive_buttons vertical %} noop|Here is my registration info for
-      reference only. noop|Read the document carefully and replace EVERYTHING
-      with YOUR information. code2|I acknowledge the notes above, and I want to
-      see the code. {% endinteractive_buttons %}
+      <InteractiveButtons
+        vertical={true}
+        buttons={{
+          noop1: 'Here is my registration info for reference only.',
+          noop2:
+            'Read the document carefully and replace EVERYTHING with YOUR information.',
+          code2: 'I acknowledge the notes above, and want to see the code.',
+        }}
+      />
 
-      {% interactive code2 %}
+      <InteractiveContent id="code2">
 
       ```bash
       person:             Lan Tian
@@ -214,7 +227,7 @@ Here are the steps:
       source:             DN42
       ```
 
-      {% endinteractive %}
+      </InteractiveContent>
 
       - The items in the file are:
         - `person`: your nickname.
@@ -236,12 +249,17 @@ Here are the steps:
       create a file for it under `data/aut-num`. For example, I'm running
       AS4242422547, so I have the file `data/aut-num/AS4242422547`:
 
-      {% interactive_buttons vertical %} noop|Here is my registration info for
-      reference only. noop|Read the document carefully and replace EVERYTHING
-      with YOUR information. code3|I acknowledge the notes above, and I want to
-      see the code. {% endinteractive_buttons %}
+      <InteractiveButtons
+        vertical={true}
+        buttons={{
+          noop1: 'Here is my registration info for reference only.',
+          noop2:
+            'Read the document carefully and replace EVERYTHING with YOUR information.',
+          code3: 'I acknowledge the notes above, and want to see the code.',
+        }}
+      />
 
-      {% interactive code3 %}
+      <InteractiveContent id="code3">
 
       ```bash
       aut-num:            AS4242422547
@@ -253,7 +271,7 @@ Here are the steps:
       source:             DN42
       ```
 
-      {% endinteractive %}
+      </InteractiveContent>
 
       - The items in the file are:
         - `aut-num`: Your ASN.
@@ -299,8 +317,8 @@ Here are the steps:
           manually finding one in `data/inetnum`**.
         - **Please use the following tools to choose your IP block, instead of
           manually finding one in `data/inetnum`**.
-          - <https://explorer.burble.com/free#/4>
-          - <https://dn42.us/peers/free>
+          - [https://explorer.burble.com/free#/4](https://explorer.burble.com/free#/4)
+          - [https://dn42.us/peers/free](https://dn42.us/peers/free)
       - The smallest address block you can register in DN42 is `/29`, or 8 IPs.
         Out of which 6 IPs are usable for servers and devices, as the first IP
         is reserved for marking the address block, and the last IP is for
@@ -352,12 +370,17 @@ Here are the steps:
         `data/inetnum`. For example, one of my blocks is `172.22.76.184/29`, and
         the corresponding file is `data/inetnum/172.22.76.184_29`:
 
-        {% interactive_buttons vertical %} noop|Here is my registration info for
-        reference only. noop|Read the document carefully and replace EVERYTHING
-        with YOUR information. code4|I acknowledge the notes above, and I want
-        to see the code. {% endinteractive_buttons %}
+        <InteractiveButtons
+          vertical={true}
+          buttons={{
+            noop1: 'Here is my registration info for reference only.',
+            noop2:
+              'Read the document carefully and replace EVERYTHING with YOUR information.',
+            code4: 'I acknowledge the notes above, and want to see the code.',
+          }}
+        />
 
-        {% interactive code4 %}
+        <InteractiveContent id="code4">
 
         ```bash
         inetnum:            172.22.76.184 - 172.22.76.191
@@ -375,7 +398,7 @@ Here are the steps:
         source:             DN42
         ```
 
-        {% endinteractive %}
+        </InteractiveContent>
 
       - The items in the file are:
         - `inetnum`: range of your IP block. If you don't know how to calculate
@@ -403,12 +426,17 @@ Here are the steps:
       authorize your AS to use the address. Create a file under `data/route`,
       `data/route/172.22.76.184_29` for example:
 
-      {% interactive_buttons vertical %} noop|Here is my registration info for
-      reference only. noop|Read the document carefully and replace EVERYTHING
-      with YOUR information. code5|I acknowledge the notes above, and I want to
-      see the code. {% endinteractive_buttons %}
+      <InteractiveButtons
+        vertical={true}
+        buttons={{
+          noop1: 'Here is my registration info for reference only.',
+          noop2:
+            'Read the document carefully and replace EVERYTHING with YOUR information.',
+          code5: 'I acknowledge the notes above, and want to see the code.',
+        }}
+      />
 
-      {% interactive code5 %}
+      <InteractiveContent id="code5">
 
       ```bash
       route:              172.22.76.184/29
@@ -418,7 +446,7 @@ Here are the steps:
       source:             DN42
       ```
 
-      {% endinteractive %}
+      </InteractiveContent>
 
       - The items in the file are:
         - `route`: range of your IP block.
@@ -476,12 +504,17 @@ Here are the steps:
         similar to IPv4. For example I have `data/inet6num/fdbc:f9dc:67ad::_48`
         for `fdbc:f9dc:67ad::/48`:
 
-        {% interactive_buttons vertical %} noop|Here is my registration info for
-        reference only. noop|Read the document carefully and replace EVERYTHING
-        with YOUR information. code6|I acknowledge the notes above, and I want
-        to see the code. {% endinteractive_buttons %}
+        <InteractiveButtons
+          vertical={true}
+          buttons={{
+            noop1: 'Here is my registration info for reference only.',
+            noop2:
+              'Read the document carefully and replace EVERYTHING with YOUR information.',
+            code6: 'I acknowledge the notes above, and want to see the code.',
+          }}
+        />
 
-        {% interactive code6 %}
+        <InteractiveContent id="code6">
 
         ```bash
         inet6num:           fdbc:f9dc:67ad:0000:0000:0000:0000:0000 - fdbc:f9dc:67ad:ffff:ffff:ffff:ffff:ffff
@@ -498,7 +531,7 @@ Here are the steps:
         source:             DN42
         ```
 
-        {% endinteractive %}
+        </InteractiveContent>
 
       - The items in the file are:
         - `inet6num`: range of your IP block. IPv6 ranges are easy to calculate,
@@ -524,12 +557,17 @@ Here are the steps:
    7. Then create a `route6` object under `data/route6`, to authorize your AS to
       use the IP range. For example I have `data/route6/fdbc:f9dc:67ad::_48`:
 
-      {% interactive_buttons vertical %} noop|Here is my registration info for
-      reference only. noop|Read the document carefully and replace EVERYTHING
-      with YOUR information. code7|I acknowledge the notes above, and I want to
-      see the code. {% endinteractive_buttons %}
+      <InteractiveButtons
+        vertical={true}
+        buttons={{
+          noop1: 'Here is my registration info for reference only.',
+          noop2:
+            'Read the document carefully and replace EVERYTHING with YOUR information.',
+          code7: 'I acknowledge the notes above, and want to see the code.',
+        }}
+      />
 
-      {% interactive code7 %}
+      <InteractiveContent id="code7">
 
       ```bash
       route6:             fdbc:f9dc:67ad::/48
@@ -539,7 +577,7 @@ Here are the steps:
       source:             DN42
       ```
 
-      {% endinteractive %}
+      </InteractiveContent>
 
       - The items in the file are:
         - `route6`: range of your IP block.
@@ -933,7 +971,9 @@ follow the list and provide complete information.
 
 Here is a copy of the list for reference:
 
-@include "\_templates/dn42-experimental-network-2020/peer-en.md"
+import Peer from '../../../../_templates/dn42-experimental-network-2020/peer-en.md'
+
+<Peer />
 
 ## Tunnel Setup: WireGuard
 
@@ -946,7 +986,9 @@ tunnel, so don't leak the private key.
 
 Then create a configuration file `[PEER_NAME].conf`:
 
-@include "\_templates/dn42-experimental-network-2020/wireguard-en.md"
+import WireGuard from '../../../../_templates/dn42-experimental-network-2020/wireguard-en.md'
+
+<WireGuard />
 
 Then run `wg-quick up [PEER_NAME].conf` to set up the tunnel.
 
@@ -955,7 +997,9 @@ Then run `wg-quick up [PEER_NAME].conf` to set up the tunnel.
 DN42 Wiki also provided an OpenVPN configuration template. I made minor
 modifications to it so that it's clearer.
 
-@include "\_templates/dn42-experimental-network-2020/openvpn-en.md"
+import OpenVPN from '../../../../_templates/dn42-experimental-network-2020/openvpn-en.md'
+
+<OpenVPN />
 
 ## Limit Traffic on DN42 Interfaces
 
@@ -1023,11 +1067,15 @@ don't have any peers.
 
 For BIRD v1, what you need is:
 
-@include "\_templates/dn42-experimental-network-2020/bird1-en.md"
+import Bird1 from '../../../../_templates/dn42-experimental-network-2020/bird1-en.md'
+
+<Bird1 />
 
 For BIRD v2, what you need is:
 
-@include "\_templates/dn42-experimental-network-2020/bird2-en.md"
+import Bird2 from '../../../../_templates/dn42-experimental-network-2020/bird2-en.md'
+
+<Bird2 />
 
 ## Network Test & Bonus
 

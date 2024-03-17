@@ -5,6 +5,9 @@ tags: [显卡, 虚拟机, NVIDIA, MUXed]
 date: 2023-05-08 00:28:52
 ---
 
+import InteractiveButtons from '../../../../../components/InteractiveButtons.astro'
+import InteractiveContent from '../../../../../components/InteractiveContent.astro'
+
 一年前，为了能够一边用 Arch Linux 浏览网页、写代码，一边用 Windows 运行游戏等没
 法在 Linux 上方便地完成的任
 务，[我试着在我的联想 R720 游戏本上进行了显卡直通](/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian)。
@@ -41,7 +44,7 @@ date: 2023-05-08 00:28:52
    - **一定要关闭虚拟机的安全启动！不然有些驱动装不上！**
      - Windows 11 安装程序会检测安全启动是否开启，关闭安全启动后可能会提示计算机
        不兼容，拒绝安装。此时可以参照这篇文章解决问
-       题：<https://sysin.org/blog/windows-11-no-tpm/>
+       题：[https://sysin.org/blog/windows-11-no-tpm/](https://sysin.org/blog/windows-11-no-tpm/)
    - 先配置好 QXL 虚拟显卡，保证自己可以看得到虚拟机的视频输出。
 
 3. （可选）根据电脑视频输出接口的不同，一个 HDMI，DP，或 USB Type-C 接口的假显示
@@ -342,7 +345,7 @@ Intel 核显的 SR-IOV 功能。
    1. （2022-01）下载这份 Virtio 驱动复制到虚拟机内解压，**注意一定是这份，其它
       的版本大都没有 IVSHMEM 驱动**：
 
-      <https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/upstream-virtio/virtio-win10-prewhql-0.1-161.zip>
+      [https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/upstream-virtio/virtio-win10-prewhql-0.1-161.zip](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/upstream-virtio/virtio-win10-prewhql-0.1-161.zip)
 
    2. 在虚拟机里进入设备管理器，找到系统设备 - PCI 标准内存控制器
       （`PCI standard RAM controller`）：
@@ -402,10 +405,14 @@ Intel 核显的 SR-IOV 功能。
 
 （2023-05）新版 Looking Glass 已经可以传输声音。以下步骤保留以供参考。
 
-{% interactive_buttons %} sound_hide|隐藏sound_show|查看 2022-01 的旧版步骤
-{% endinteractive_buttons %}
+<InteractiveButtons
+  buttons={{
+    sound_hide: '隐藏',
+    sound_show: '查看 2022-01 的旧版步骤',
+  }}
+/>
 
-{% interactive sound_show %}
+<InteractiveContent id="sound_show">
 
 虽然 Virt-Manager 本身可以通过 SPICE 协议连接虚拟机，从而传输虚拟机的声音，但是
 Looking Glass 也会通过 SPICE 传输键鼠操作，而虚拟机上同时只能有一个 SPICE 连接。
@@ -444,17 +451,21 @@ WantedBy=graphical-session.target
 
 以后使用时就只需要运行 `systemctl --user start scream` 了。
 
-{% endinteractive %}
+</InteractiveContent>
 
 ## 直通键盘鼠标操作
 
 （2023-05）新版 Looking Glass 已经可以稳定传输鼠标键盘操作。以下步骤保留以供参
 考。
 
-{% interactive_buttons %} keyboardmouse_hide|隐藏keyboardmouse_show|查看 2022-01
-的旧版步骤 {% endinteractive_buttons %}
+<InteractiveButtons
+  buttons={{
+    keyboardmouse_hide: '隐藏',
+    keyboardmouse_show: '查看 2022-01 的旧版步骤',
+  }}
+/>
 
-{% interactive keyboardmouse_show %}
+<InteractiveContent id="keyboardmouse_show">
 
 Looking Glass 的键盘鼠标传输不太稳定，有时会丢失一些操作，因此如果你想在虚拟机里
 玩游戏，就需要用更稳定的方法将键鼠操作传进虚拟机。
@@ -520,11 +531,12 @@ Looking Glass 的键盘鼠标传输不太稳定，有时会丢失一些操作，
    在 Virt-Manager 里选择添加硬件（`Add Hardware`） - USB 宿主设备
    （`USB Host Device`），选择你的鼠标键盘即可。
 
-{% endinteractive %}
+</InteractiveContent>
 
 ## 用内核模块加速 Looking Glass
 
-> 这段内容大都来自 <https://looking-glass.io/docs/B6/module/>
+> 这段内容大都来自
+> [https://looking-glass.io/docs/B6/module/](https://looking-glass.io/docs/B6/module/)
 
 Looking Glass 提供了一个内核模块，可以用于 IVSHMEM 共享内存设备，让 Looking
 Glass 能使用 DMA 技术高效地读取虚拟机画面，从而提高帧率。
@@ -625,10 +637,14 @@ Glass 能使用 DMA 技术高效地读取虚拟机画面，从而提高帧率。
 **2022-01-26 更新：实测应用这个补丁后，NVIDIA 显卡仍未完全断电，耗电量与未使用补
 丁前相同。本段内容失效。**
 
-{% interactive_buttons %} power_hide|失效内容已隐藏power_show|点此查看
-{% endinteractive_buttons %}
+<InteractiveButtons
+  buttons={{
+    power_hide: '失效内容已隐藏',
+    power_show: '点此查看',
+  }}
+/>
 
-{% interactive power_show %}
+<InteractiveContent id="power_show">
 
 > 这一段只适用于 20 系及以上的 NVIDIA 显卡，当使用 NVIDIA 官方驱动时，它们也可以
 > 自动断电。10 系及以下的 NVIDIA 显卡不支持此功能。
@@ -647,14 +663,14 @@ NVIDIA 独立显卡由于芯片未断电，仍会消耗 10W 左右的功率，�
 从而节省电量。
 
 这组补丁可以在
-<https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/> 看
-到。它总共由三个补丁组成，我将三个补丁合并后上传到了
-<https://github.com/xddxdd/pkgbuild/blob/master/linux-xanmod-lantian/0007-vfio-pci-d3cold.patch>。
+[https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/](https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/)
+看到。它总共由三个补丁组成，我将三个补丁合并后上传到了
+[https://github.com/xddxdd/pkgbuild/blob/master/linux-xanmod-lantian/0007-vfio-pci-d3cold.patch](https://github.com/xddxdd/pkgbuild/blob/master/linux-xanmod-lantian/0007-vfio-pci-d3cold.patch)。
 
 对于 Arch Linux 来说，给内核打补丁是比较简单的。AUR 中大部分内核的 PKGBUILD 都可
 以自动打补丁，只需要下载一个内核的 PKGBUILD，然后把这个补丁加入 PKGBUILD 的
 `source` 部分就可以了。具体修改可以看我的这个
-commit：<https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d11ed97ebab39>
+commit：[https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d11ed97ebab39](https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d11ed97ebab39)
 
 **要注意的是，这个补丁无法保证稳定。**
 
@@ -666,7 +682,9 @@ commit：<https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d
    机暂时没有发现类似的问题，但是你需要了解其中的隐患。
 3. 目前开发者只测试了 NVIDIA 的部分显卡，不保证对其它 PCIe 设备的支持。
 
-**风险自负。** {% endinteractive %}
+**风险自负。**
+
+</InteractiveContent>
 
 # 资料来源
 
@@ -676,29 +694,37 @@ commit：<https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d
 
 - NVIDIA 独显直通
   - GitHub Misairu-G 的 NVIDIA Optimus MUXed 直通教程
-    <https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28>
+    [https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28](https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28)
   - Reddit VFIO 版块的虚拟电池补丁
-    <https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/>
-  - Arch Linux Wiki <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF>
+    [https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/](https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/)
+  - Arch Linux Wiki
+    [https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)
 - Looking Glass 的文档
-  - 安装文档 <https://looking-glass.io/docs/B6/install/>
-  - 内核模块文档 <https://looking-glass.io/docs/B6/module/>
+  - 安装文档
+    [https://looking-glass.io/docs/B6/install/](https://looking-glass.io/docs/B6/install/)
+  - 内核模块文档
+    [https://looking-glass.io/docs/B6/module/](https://looking-glass.io/docs/B6/module/)
 - 虚拟显示器驱动
   - 文中使用的可以修改分辨率和刷新率的版本
-    <https://github.com/ge9/IddSampleDriver>
-  - 分辨率和刷新率固定的原版 <https://github.com/roshkins/IddSampleDriver>
+    [https://github.com/ge9/IddSampleDriver](https://github.com/ge9/IddSampleDriver)
+  - 分辨率和刷新率固定的原版
+    [https://github.com/roshkins/IddSampleDriver](https://github.com/roshkins/IddSampleDriver)
 - VFIO D3cold 模式补丁
   - Phoronix 的报道
-    <https://www.phoronix.com/scan.php?page=news_item&px=NVIDIA-Runtime-PM-VFIO-PCI>
+    [https://www.phoronix.com/scan.php?page=news_item&px=NVIDIA-Runtime-PM-VFIO-PCI](https://www.phoronix.com/scan.php?page=news_item&px=NVIDIA-Runtime-PM-VFIO-PCI)
   - Linux 内核邮件列表的链接
-    <https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/>
+    [https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/](https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/)
 
 ## 附录：最终 Libvirt XML 文件
 
-{% interactive_buttons %} xml_hide|隐藏xml_show|显示完整的 XML 文件
-{% endinteractive_buttons %}
+<InteractiveButtons
+  buttons={{
+    xml_hide: '隐藏',
+    xml_show: '显示完整的 XML 文件',
+  }}
+/>
 
-{% interactive xml_show %}
+<InteractiveContent id="xml_show">
 
 ```xml
 <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
@@ -920,4 +946,4 @@ commit：<https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d
 </domain>
 ```
 
-{% endinteractive %}
+</InteractiveContent>

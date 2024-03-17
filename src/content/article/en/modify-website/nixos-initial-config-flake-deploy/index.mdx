@@ -6,7 +6,9 @@ date: 2021-11-13 00:48:07
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-@include "\_templates/nixos-series/toc-en.md"
+import Toc from '../../../../_templates/nixos-series/toc-en.md'
+
+<Toc />
 
 This is the second post in my NixOS series and mainly focuses on:
 
@@ -258,9 +260,10 @@ Back to the config to install `nyancat`:
 
 It adds the subobject `nyancat` of parameter `pkgs` (also an object) to the list
 of `environment.systemPackages`. `pkgs` is the collection of all packages in the
-NixOS package repository, defined at <https://github.com/NixOS/nixpkgs>.
-Similarly, `config` is the collection of all config parameters. If you want the
-list of all installed packages, you can use `config.environment.systemPackages`.
+NixOS package repository, defined at
+[https://github.com/NixOS/nixpkgs](https://github.com/NixOS/nixpkgs). Similarly,
+`config` is the collection of all config parameters. If you want the list of all
+installed packages, you can use `config.environment.systemPackages`.
 
 > Nix language uses lazy evaluation. NixOS won't do anything right after loading
 > the config file. A config item (e.g. `environment.systemPackages`) will only
@@ -397,12 +400,14 @@ supporting Flake:
 > about significant changes in Nix 2.4, especially about those behaviors
 > incompatible with previous versions, NixOS 21.11 still uses Nix 2.3, which
 > disables Flake by default. See
-> <https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257> and
-> <https://github.com/NixOS/nixpkgs/pull/147511> for the relevant discussion.
+> [https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257](https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257)
+> and
+> [https://github.com/NixOS/nixpkgs/pull/147511](https://github.com/NixOS/nixpkgs/pull/147511)
+> for the relevant discussion.
 
 Then create a `flake.nix` file in `/etc/nixos`. This `flake.nix` defines a
 package repo (`input`), the `unstable` branch (equivalent to `master` branch) of
-<https://github.com/NixOS/nixpkgs>.
+[https://github.com/NixOS/nixpkgs](https://github.com/NixOS/nixpkgs).
 
 ```nix
 {

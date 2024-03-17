@@ -6,7 +6,9 @@ date: 2022-06-21 23:42:16
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-@include "\_templates/nixos-series/toc-en.md"
+import Toc from '../../../../_templates/nixos-series/toc-en.md'
+
+<Toc />
 
 One characteristic of NixOS is that all binary applications and libraries are
 stored in `/nix/store` directory and managed by Nix package manager. This means
@@ -181,7 +183,7 @@ Of course, instead of using the template from NUR, you can put your package
 definitions along with your NixOS config files.
 
 Assuming you have this packaging definition as `example-package.nix`: (From
-<https://github.com/nix-community/nur-packages-template/blob/master/pkgs/example-package/default.nix>)
+[https://github.com/nix-community/nur-packages-template/blob/master/pkgs/example-package/default.nix](https://github.com/nix-community/nur-packages-template/blob/master/pkgs/example-package/default.nix))
 
 ```nix
 { stdenv }:

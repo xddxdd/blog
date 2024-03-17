@@ -46,7 +46,9 @@ date: 1970-01-01 00:00:00
 以下是进行 “1xRTT” Peering 的说明，意味着我们可以只用两封邮件建立 Peering，一封
 来自你，一封来自我。即使没有时区差异，“1xRTT” Peering 仍然能减少很多麻烦。
 
-@include "\_templates/dn42-experimental-network-2020/peer-zh.md"
+import Peer from '../../../_templates/dn42-experimental-network-2020/peer-zh.md'
+
+<Peer />
 
 注：我不建议通过 IRC 联系我。虽然我开着 IRC 客户端，但我每月只会去看一两次信息，
 除非你主动在邮件中要求。
@@ -116,8 +118,12 @@ date: 1970-01-01 00:00:00
 
 OpenVPN:
 
-@include "\_templates/dn42-experimental-network-2020/openvpn-zh.md"
+import OpenVPN from '../../../_templates/dn42-experimental-network-2020/openvpn-zh.md'
+
+<OpenVPN />
 
 WireGuard 配置（用于 `wg-quick up` 命令）：
 
-@include "\_templates/dn42-experimental-network-2020/wireguard-zh.md"
+import WireGuard from '../../../_templates/dn42-experimental-network-2020/wireguard-zh.md'
+
+<WireGuard />

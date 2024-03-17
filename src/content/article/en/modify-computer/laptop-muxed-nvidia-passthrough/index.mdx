@@ -5,6 +5,9 @@ tags: [GPU, Virtual Machine, NVIDIA, MUXed]
 date: 2023-05-08 00:28:52
 ---
 
+import InteractiveButtons from '../../../../../components/InteractiveButtons.astro'
+import InteractiveContent from '../../../../../components/InteractiveContent.astro'
+
 A year ago, to simultaneously browse webpages and write codes on my Arch Linux
 installation and use Windows to run tasks infeasible on Linux (such as gaming),
 [I tried GPU passthrough on my Lenovo R720 gaming laptop](/en/article/modify-computer/laptop-intel-nvidia-optimus-passthrough.lantian/).
@@ -50,7 +53,7 @@ Before following steps in this post, you need to prepare:
        Secure Boot off, the installer might prompt that the computer is
        incompatible, and refuse to install Windows. You can follow the steps in
        this post to fix the problem:
-       <https://www.tomshardware.com/how-to/bypass-windows-11-tpm-requirement>
+       [https://www.tomshardware.com/how-to/bypass-windows-11-tpm-requirement](https://www.tomshardware.com/how-to/bypass-windows-11-tpm-requirement)
    - Set up the emulated QXL graphics card first, so you get video output from
      the VM.
 
@@ -404,7 +407,7 @@ And here we start:
       it. **You MUST use this copy, as no other copies have the IVSHMEM
       driver!**
 
-      <https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/upstream-virtio/virtio-win10-prewhql-0.1-161.zip>
+      [https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/upstream-virtio/virtio-win10-prewhql-0.1-161.zip](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/upstream-virtio/virtio-win10-prewhql-0.1-161.zip)
 
    2. Open Device Manager in the VM, and find
       `System devices - PCI standard RAM controller`:
@@ -473,10 +476,14 @@ We will fix the problems one by one.
 (2023-05) The latest Looking Glass can relay audio now. These steps are kept for
 reference only.
 
-{% interactive_buttons %} sound_hide|Hide sound_show|Show older steps from
-2022-01 {% endinteractive_buttons %}
+<InteractiveButtons
+  buttons={{
+    sound_hide: 'Hide',
+    sound_show: 'Show older steps from 2022-01',
+  }}
+/>
 
-{% interactive sound_show %}
+<InteractiveContent id="sound_show">
 
 While Virt-Manager can connect to the VM with SPICE protocol to get the VM's
 sound output, Looking Glass also relays keyboard and mouse events through SPICE.
@@ -520,17 +527,21 @@ WantedBy=graphical-session.target
 
 You will only need to run `systemctl --user start scream` in the future.
 
-{% endinteractive %}
+</InteractiveContent>
 
 ## Passthrough Keyboard & Mouse Operations
 
 The latest Looking Glass can relay keyboard and mouse events reliably now. These
 steps are kept for reference only.
 
-{% interactive_buttons %} keyboardmouse_hide|Hide keyboardmouse_show|Show older
-steps from 2022-01 {% endinteractive_buttons %}
+<InteractiveButtons
+  buttons={{
+    keyboardmouse_hide: 'Hide',
+    keyboardmouse_show: 'Show older steps from 2022-01',
+  }}
+/>
 
-{% interactive keyboardmouse_show %}
+<InteractiveContent id="keyboardmouse_show">
 
 The relay of the keyboard and mouse in Looking Glass isn't very stable, as
 misses of operation can happen from time to time. Therefore, if you want to play
@@ -604,12 +615,12 @@ simply pass your keyboard and mouse into the VM.
    Simply click `Add Hardware - USB Host Device` in Virt-Manager and select your
    keyboard and mouse.
 
-{% endinteractive %}
+</InteractiveContent>
 
 ## Accelerating Looking Glass with Kernel Modules
 
 > Most of the content in this section is from
-> <https://looking-glass.io/docs/B6/module/>
+> [https://looking-glass.io/docs/B6/module/](https://looking-glass.io/docs/B6/module/)
 
 Looking Glass provides a kernel module for the IVSHMEM shared memory device. It
 allows Looking Glass to read the display output efficiently with DMA to improve
@@ -714,10 +725,14 @@ the framerate.
 shut down after applying the patch. The power draw is the same as before. This
 section is now invalid.**
 
-{% interactive_buttons %} power_hide|Invalid contents are hidden power_show|Show
-{% endinteractive_buttons %}
+<InteractiveButtons
+  buttons={{
+    power_hide: 'Invalid contents are hidden',
+    power_show: 'Show',
+  }}
+/>
 
-{% interactive power_show %}
+<InteractiveContent id="power_show">
 
 > This section only applies to 20-series of NVIDIA GPUs or newer. They can shut
 > themselves down with the NVIDIA official drivers. The 10-series or older GPUs
@@ -740,16 +755,16 @@ Linux kernel mailing list. With this patchset, the NVIDIA GPU will be shut down
 completely when the VM is off. It saves power for your battery.
 
 The patchset can be found at
-<https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/>,
+[https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/](https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/),
 which consists of three patches. I combined the three patches and uploaded the
 result to
-<https://github.com/xddxdd/pkgbuild/blob/master/linux-xanmod-lantian/0007-vfio-pci-d3cold.patch>.
+[https://github.com/xddxdd/pkgbuild/blob/master/linux-xanmod-lantian/0007-vfio-pci-d3cold.patch](https://github.com/xddxdd/pkgbuild/blob/master/linux-xanmod-lantian/0007-vfio-pci-d3cold.patch).
 
 Patching kernel is relatively simple for Arch Linux. Most kernel PKGBUILDs in
 AUR can apply patches automatically. All you have to do is to download the
 PKGBUILD for a kernel and add the patch to its `source` section. See my commit
 for an example:
-<https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d11ed97ebab39>.
+[https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d11ed97ebab39](https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d11ed97ebab39).
 
 **DO NOTE that this patch doesn't guarantee stability.**
 
@@ -764,7 +779,9 @@ Based on mailing list discussions:
 3. The developer only tested some GPUs from NVIDIA. It does not guarantee
    support for other PCIe devices.
 
-**Use this at your own risk.** {% endinteractive %}
+**Use this at your own risk.**
+
+</InteractiveContent>
 
 ## References
 
@@ -778,27 +795,35 @@ Here are the sources I referenced when I did my configuration:
     [https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28](https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28)
   - Reddit r/VFIO's emulated battery patch
     [https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/](https://www.reddit.com/r/VFIO/comments/ebo2uk/nvidia_geforce_rtx_2060_mobile_success_qemu_ovmf/)
-  - Arch Linux Wiki <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF>
+  - Arch Linux Wiki
+    [https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)
 - Looking Glass Documentation
-  - Installation Docs <https://looking-glass.io/docs/B6/install/>
-  - Kernel Module Docs <https://looking-glass.io/docs/B6/module/>
+  - Installation Docs
+    [https://looking-glass.io/docs/B6/install/](https://looking-glass.io/docs/B6/install/)
+  - Kernel Module Docs
+    [https://looking-glass.io/docs/B6/module/](https://looking-glass.io/docs/B6/module/)
 - Virtual Monitor Driver
   - The one used in this post, with ability to customize resolution and refresh
-    rate <https://github.com/ge9/IddSampleDriver>
+    rate
+    [https://github.com/ge9/IddSampleDriver](https://github.com/ge9/IddSampleDriver)
   - The original version with fixed list of resolution and refresh rate
-    <https://github.com/roshkins/IddSampleDriver>
+    [https://github.com/roshkins/IddSampleDriver](https://github.com/roshkins/IddSampleDriver)
 - VFIO D3cold Patch
   - News report from Phoronix
-    <https://www.phoronix.com/scan.php?page=news_item&px=NVIDIA-Runtime-PM-VFIO-PCI>
+    [https://www.phoronix.com/scan.php?page=news_item&px=NVIDIA-Runtime-PM-VFIO-PCI](https://www.phoronix.com/scan.php?page=news_item&px=NVIDIA-Runtime-PM-VFIO-PCI)
   - Link to Linux kernel mailing list
-    <https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/>
+    [https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/](https://lore.kernel.org/lkml/20211115133640.2231-1-abhsahu@nvidia.com/T/)
 
 ## Appendix: Final Libvirt XML File
 
-{% interactive_buttons %} xml_hide|Hide xml_show|Show the entire XML file
-{% endinteractive_buttons %}
+<InteractiveButtons
+  buttons={{
+    xml_hide: 'Hide',
+    xml_show: 'Show the entire XML file',
+  }}
+/>
 
-{% interactive xml_show %}
+<InteractiveContent id="xml_show">
 
 ```xml
 <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
@@ -1020,4 +1045,4 @@ Here are the sources I referenced when I did my configuration:
 </domain>
 ```
 
-{% endinteractive %}
+</InteractiveContent>

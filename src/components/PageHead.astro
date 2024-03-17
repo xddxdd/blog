@@ -59,6 +59,17 @@ const { pathname } = Astro.url
   ))
 }
 
+<script is:inline>
+  function addLoadEvent(o) {
+    var n = window.onload
+    'function' != typeof window.onload
+      ? (window.onload = o)
+      : (window.onload = function () {
+          n && n(), o()
+        })
+  }
+</script>
+
 <meta
   name="copyright"
   content={`Copyright 2012-${new Date().getFullYear()} ${SITE_TITLE}`}

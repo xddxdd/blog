@@ -178,7 +178,6 @@ addLoadEvent(function () {
       if (!child) {
         return
       }
-      ;``
 
       if (element.checked) {
         child.classList.remove('d-none')

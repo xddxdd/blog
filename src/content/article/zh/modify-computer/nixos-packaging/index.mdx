@@ -6,7 +6,9 @@ date: 2022-06-21 23:42:16
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-@include "\_templates/nixos-series/toc-zh.md"
+import Toc from '../../../../_templates/nixos-series/toc-zh.md'
+
+<Toc />
 
 NixOS 的一大特点是，系统所有的二进制程序和库文件都在 `/nix/store` 目录中，由 Nix
 包管理器管理。这也意味着，NixOS 不符合
@@ -160,7 +162,7 @@ NUR 是 Nix 的由用户自行管理的软件仓库，类似于 Arch Linux 的 A
 当然，你也可以不使用 NUR 的模版，而是直接把打包定义和 NixOS 的配置文件放在一起。
 
 假设你有这样一个打包定义，保存成 `example-package.nix`：（来自
-<https://github.com/nix-community/nur-packages-template/blob/master/pkgs/example-package/default.nix>）
+[https://github.com/nix-community/nur-packages-template/blob/master/pkgs/example-package/default.nix](https://github.com/nix-community/nur-packages-template/blob/master/pkgs/example-package/default.nix)）
 
 ```nix
 { stdenv }:

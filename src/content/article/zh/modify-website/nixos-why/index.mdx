@@ -6,7 +6,9 @@ date: 2021-10-11 16:06:58
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-@include "\_templates/nixos-series/toc-zh.md"
+import Toc from '../../../../_templates/nixos-series/toc-zh.md'
+
+<Toc />
 
 我正在将我的各个服务器逐步从 Devuan Linux 迁移到
 [NixOS](https://nixos.org/)。NixOS 是一个以 Nix 配置文件为中心的 Linux 发行版，
@@ -264,7 +266,7 @@ NixOS 的所有二进制程序和配置文件都在 `/nix/store` 里，没有一
 ![NixOS 启动菜单](../../../../usr/uploads/202110/nixos-bootloader.jpg)
 
 > 网图，来自
-> <https://discourse.nixos.org/t/how-to-make-uefis-grub2-menu-the-same-as-bioss-one/10074>
+> [https://discourse.nixos.org/t/how-to-make-uefis-grub2-menu-the-same-as-bioss-one/10074](https://discourse.nixos.org/t/how-to-make-uefis-grub2-menu-the-same-as-bioss-one/10074)
 
 所以，在大多数情况下，NixOS 不需要救援系统，它可以使用旧配置自己救自己。在系统启
 动成功后，就可以重新部署新配置，或者直接正常使用旧版的系统，假装无事发生。

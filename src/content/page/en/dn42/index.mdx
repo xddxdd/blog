@@ -51,7 +51,9 @@ Here I provide instructions to perform "1xRTT" peering, which means we can peer
 with only one e-mail from you and one e-mail from me. Even if you and I are in
 the same time zone, this will still simplify things.
 
-@include "\_templates/dn42-experimental-network-2020/peer-en.md"
+import Peer from '../../../_templates/dn42-experimental-network-2020/peer-en.md'
+
+<Peer />
 
 PS: It's not recommended to contact me over IRC. Although I leave my IRC client
 running, I only read messages once or twice per month, unless you ask me to do
@@ -124,8 +126,12 @@ differences.
 
 OpenVPN:
 
-@include "\_templates/dn42-experimental-network-2020/openvpn-en.md"
+import OpenVPN from '../../../_templates/dn42-experimental-network-2020/openvpn-en.md'
+
+<OpenVPN />
 
 WireGuard config (for use with `wg-quick up`):
 
-@include "\_templates/dn42-experimental-network-2020/wireguard-en.md"
+import WireGuard from '../../../_templates/dn42-experimental-network-2020/wireguard-en.md'
+
+<WireGuard />

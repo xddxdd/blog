@@ -6,7 +6,9 @@ date: 2021-11-13 00:48:07
 image: /usr/uploads/202110/nixos-social-preview.png
 ---
 
-@include "\_templates/nixos-series/toc-zh.md"
+import Toc from '../../../../_templates/nixos-series/toc-zh.md'
+
+<Toc />
 
 这是我的 NixOS 系列文章的第二篇，主要介绍以下内容：
 
@@ -235,9 +237,9 @@ a: {
 
 它将 `pkgs` 参数（一个对象）的子对象 `nyancat` 加入了
 `environment.systemPackages` 的列表中。`pkgs` 就是 NixOS 软件源中所有软件包的集
-合，对应 <https://github.com/NixOS/nixpkgs> 这个项目。类似的，`config` 参数是所
-有系统配置的集合，例如你想要读取安装过的软件包的列表，就可以用
-`config.environment.systemPackages`。
+合，对应 [https://github.com/NixOS/nixpkgs](https://github.com/NixOS/nixpkgs) 这
+个项目。类似的，`config` 参数是所有系统配置的集合，例如你想要读取安装过的软件包
+的列表，就可以用 `config.environment.systemPackages`。
 
 > Nix 语言是惰性求值（Lazy Evaluate）的。最开始加载配置文件后，NixOS 什么都不会
 > 做，直到需要用到某个配置项（例如 `environment.systemPackages`），才会去解析它
@@ -360,12 +362,15 @@ a: {
 > Flake 功能。 ~~NixOS 21.11 及以后的版本将默认开启 Flake 功能，届时将不需要这里
 > 对 `configuration.nix` 的修改。~~ 由于担心 Nix 2.4 功能变化过大，尤其是会与旧
 > 版 Nix 的行为不兼容，NixOS 21.11 仍将使用 Nix 2.3，将默认禁用 Flake 功能。相关
-> 讨论在 <https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257> 和
-> <https://github.com/NixOS/nixpkgs/pull/147511>。
+> 讨论在
+> [https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257](https://discourse.nixos.org/t/nix-2-4-and-what-s-next/16257)
+> 和
+> [https://github.com/NixOS/nixpkgs/pull/147511](https://github.com/NixOS/nixpkgs/pull/147511)。
 
 然后在 `/etc/nixos` 里创建一个 `flake.nix` 文件。这份 `flake.nix` 定义了一个软件
-源（`input`），是 <https://github.com/NixOS/nixpkgs> 的 `unstable` 分支（也就是
-`master` 分支）。
+源（`input`），是
+[https://github.com/NixOS/nixpkgs](https://github.com/NixOS/nixpkgs) 的
+`unstable` 分支（也就是 `master` 分支）。
 
 ```nix
 {
