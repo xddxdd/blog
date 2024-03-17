@@ -12,7 +12,7 @@ date: 2013-07-02 11:40:43
 
 ```javascript
 javascript: try {
-    document.getElementById('uyan_l_uname').value = '你的昵称'
+  document.getElementById('uyan_l_uname').value = '你的昵称'
 } catch (err) {}
 var myDate = new Date()
 var mytime = myDate.toLocaleTimeString()
@@ -29,7 +29,7 @@ void 0
 javascript: var myDate = new Date()
 var mytime = myDate.toLocaleTimeString()
 document.getElementsByName('message').item(0).value =
-    '今天签到啦！时间：' + mytime
+  '今天签到啦！时间：' + mytime
 document.getElementsByClassName('ds-post-button').item(0).click()
 void 0
 ```

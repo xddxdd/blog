@@ -27,20 +27,20 @@ In this case, the URL is
 `http://himawari8-dl.nict.go.jp/himawari8/img/D531106/2d/550/2016/06/14/140000_0_1.png`.
 There are a few important parameters:
 
--   2d
-    -   For image resolution. 2d means that the full image is split to 2x2 grids
-        of 550px x 550px each, or a total of 1100px x 1100px. By the way the
-        website provides resolutions up to 20d, or 11000px x 11000px. Of course,
-        don't try this unless you have an extremely fat Internet pipe.
--   2016/06/14
-    -   The date.
--   140000
-    -   UTC time for the picture. The image accessible at the URL is taken at
-        14:00 UTC and released at 14:30 UTC.
--   0_1
-    -   Image coordinate in the grid. The two parameters are column and row
-        indexes, starting from 0. In this case, the image from the first column,
-        second row is requested.
+- 2d
+  - For image resolution. 2d means that the full image is split to 2x2 grids of
+    550px x 550px each, or a total of 1100px x 1100px. By the way the website
+    provides resolutions up to 20d, or 11000px x 11000px. Of course, don't try
+    this unless you have an extremely fat Internet pipe.
+- 2016/06/14
+  - The date.
+- 140000
+  - UTC time for the picture. The image accessible at the URL is taken at 14:00
+    UTC and released at 14:30 UTC.
+- 0_1
+  - Image coordinate in the grid. The two parameters are column and row indexes,
+    starting from 0. In this case, the image from the first column, second row
+    is requested.
 
 With knowledge of the uses of the parameters, we can start coding. The following
 PHP code outputs 4 images in a 2d grid in a table.
@@ -74,36 +74,36 @@ The following Javascript (needs jQuery) outputs an 1d image, result can be seen
 
 ```html
 <script>
-    $(document).ready(function () {
-        var today = new Date()
-        // get date for himawari picture
-        t = today.getTime()
-        t = t - (t % 600000) - 1800000
-        today.setTime(t)
-        year = today.getUTCFullYear()
-        month = today.getUTCMonth() + 1
-        day = today.getUTCDate()
-        hour = today.getUTCHours()
-        minute = today.getUTCMinutes()
-        if (month < 10) month = '0' + month
-        if (day < 10) day = '0' + day
-        if (hour < 10) hour = '0' + hour
-        if (minute < 10) minute = '0' + minute
-        $('#himawari-time').text(today.toLocaleString())
-        $('#himawari-pic').attr(
-            'src',
-            '//himawari.xuyh0120.win/1d/550/' +
-                year +
-                '/' +
-                month +
-                '/' +
-                day +
-                '/' +
-                hour +
-                minute +
-                '00_0_0.webp'
-        )
-    })
+  $(document).ready(function () {
+    var today = new Date()
+    // get date for himawari picture
+    t = today.getTime()
+    t = t - (t % 600000) - 1800000
+    today.setTime(t)
+    year = today.getUTCFullYear()
+    month = today.getUTCMonth() + 1
+    day = today.getUTCDate()
+    hour = today.getUTCHours()
+    minute = today.getUTCMinutes()
+    if (month < 10) month = '0' + month
+    if (day < 10) day = '0' + day
+    if (hour < 10) hour = '0' + hour
+    if (minute < 10) minute = '0' + minute
+    $('#himawari-time').text(today.toLocaleString())
+    $('#himawari-pic').attr(
+      'src',
+      '//himawari.xuyh0120.win/1d/550/' +
+        year +
+        '/' +
+        month +
+        '/' +
+        day +
+        '/' +
+        hour +
+        minute +
+        '00_0_0.webp'
+    )
+  })
 </script>
 <p id="himawari-time">Loading...</p>
 <img id="himawari-pic" src="" />

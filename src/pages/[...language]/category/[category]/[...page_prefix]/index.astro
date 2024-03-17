@@ -7,21 +7,21 @@ import { CATEGORY_MAP } from '../../../../../lib/language'
 import { reverseRecord } from '../../../../../lib/utils'
 
 export async function getStaticPaths() {
-    const categories = [
-        ...new Set(Object.entries(CATEGORY_MAP).map(([_, v]) => v)),
-    ]
-    const posts = await getPosts()
+  const categories = [
+    ...new Set(Object.entries(CATEGORY_MAP).map(([_, v]) => v)),
+  ]
+  const posts = await getPosts()
 
-    return categories.flatMap(category => {
-        const postsForCategory = posts.filter(
-            post => CATEGORY_MAP[post.category] == category
-        )
-        return getStaticPathsForPaginate(
-            postsForCategory,
-            `/category/${category}`,
-            { category: category }
-        )
-    })
+  return categories.flatMap(category => {
+    const postsForCategory = posts.filter(
+      post => CATEGORY_MAP[post.category] == category
+    )
+    return getStaticPathsForPaginate(
+      postsForCategory,
+      `/category/${category}`,
+      { category: category }
+    )
+  })
 }
 
 type Props = PaginatedProps
@@ -34,18 +34,18 @@ const categoryDisplayName = invertedCategoryMap[category]
 const __ = language.getTranslation
 const titleSuffix = __('category') + ' ' + categoryDisplayName
 const title =
-    pagination.currentPage == 1
-        ? titleSuffix
-        : __('nth_page', pagination.currentPage) + ' - ' + titleSuffix
+  pagination.currentPage == 1
+    ? titleSuffix
+    : __('nth_page', pagination.currentPage) + ' - ' + titleSuffix
 ---
 
 <PageLayout title={title} language={language} pagination={pagination}>
-    <PageArchive language={language} posts={posts}>
-        <Fragment
-            set:html={__(
-                'list_category',
-                `<a href="${language.getSegment()}/category/${category}">${categoryDisplayName}</a>`
-            )}
-        />
-    </PageArchive>
+  <PageArchive language={language} posts={posts}>
+    <Fragment
+      set:html={__(
+        'list_category',
+        `<a href="${language.getSegment()}/category/${category}">${categoryDisplayName}</a>`
+      )}
+    />
+  </PageArchive>
 </PageLayout>

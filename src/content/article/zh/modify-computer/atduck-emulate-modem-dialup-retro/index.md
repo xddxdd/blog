@@ -5,8 +5,8 @@ tags: [拨号上网, PPP]
 date: 2019-12-12 21:10:04
 ---
 
--   今年真的是 9102 年了吗？
--   是的。
+- 今年真的是 9102 年了吗？
+- 是的。
 
 出于怀旧的目的，我想尝试一下在 Windows 2000 等旧操作系统中拨号上网。当然，在
 2019 年绝大部分人都已经不会有使用电话线的调制解调器，甚至不会知道曾经有它存在。
@@ -51,12 +51,12 @@ ATduck 本身安装简单，但是它依赖 Perl 的 IO-Pty 模块，以及 Slir
 ```yaml
 version: '2.1'
 services:
-    atduck:
-        image: xddxdd/atduck
-        container_name: atduck
-        restart: always
-        ports:
-            - '127.0.0.1:5555:5555'
+  atduck:
+    image: xddxdd/atduck
+    container_name: atduck
+    restart: always
+    ports:
+      - '127.0.0.1:5555:5555'
 ```
 
 然后在 VirtualBox 中如图配置：

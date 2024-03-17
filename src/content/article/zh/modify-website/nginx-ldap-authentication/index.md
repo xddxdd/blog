@@ -73,4 +73,4 @@ add_after_body "";
 部服务，并屏蔽外网直接访问这些内部服务，就可以用 LDAP 统一保护认证这些服务。
 
 [1]:
-    https://github.com/xddxdd/dockerfiles/blob/210f0f82c7bc1c0c3697d329b73ea31abea6b14a/nginx/Dockerfile
+  https://github.com/xddxdd/dockerfiles/blob/210f0f82c7bc1c0c3697d329b73ea31abea6b14a/nginx/Dockerfile

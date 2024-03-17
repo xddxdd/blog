@@ -33,14 +33,14 @@ nginx 相关的程序、补丁都有了很大的变化：
 
 这个 Dockerfile 包含了如下内容：
 
--   nginx 1.15.1
--   OpenSSL 1.1.1-pre8
--   kn007 大佬的 SPDY、HPACK、Dynamic TLS Record 三合一补丁，他的项目地址[在此访
-    问][4]
--   kn007 大佬的 HPACK 补丁的修复补丁
--   Brotli 压缩算法
--   hakasenyang 大佬的 TLS 1.3 三版本草案补丁，他的项目地址[在此访问][5]
--   nginx headers-more 模块
+- nginx 1.15.1
+- OpenSSL 1.1.1-pre8
+- kn007 大佬的 SPDY、HPACK、Dynamic TLS Record 三合一补丁，他的项目地址[在此访
+  问][4]
+- kn007 大佬的 HPACK 补丁的修复补丁
+- Brotli 压缩算法
+- hakasenyang 大佬的 TLS 1.3 三版本草案补丁，他的项目地址[在此访问][5]
+- nginx headers-more 模块
 
 ## 配置改变
 

@@ -5,19 +5,19 @@ import PageLayout from '../../../components/PageLayout.astro'
 import PageArchive from '../../../components/PageArchive.astro'
 
 export async function getStaticPaths() {
-    const posts = await getPosts()
-    return getStaticPathsForPaginate(posts, '')
+  const posts = await getPosts()
+  return getStaticPathsForPaginate(posts, '')
 }
 
 type Props = PaginatedProps
 const { posts, pagination, language } = Astro.props
 const __ = language.getTranslation
 const title =
-    pagination.currentPage == 1
-        ? undefined
-        : __('nth_page', pagination.currentPage)
+  pagination.currentPage == 1
+    ? undefined
+    : __('nth_page', pagination.currentPage)
 ---
 
 <PageLayout title={title} language={language} pagination={pagination}>
-    <PageArchive language={language} posts={posts} />
+  <PageArchive language={language} posts={posts} />
 </PageLayout>

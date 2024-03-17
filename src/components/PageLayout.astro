@@ -11,10 +11,10 @@ import type { PaginationProps } from './PagePaginator.astro'
 import '../assets/style.scss'
 
 type Props = {
-    title: string | undefined
-    language: Language
-    post?: Post | undefined
-    pagination?: PaginationProps | undefined
+  title: string | undefined
+  language: Language
+  post?: Post | undefined
+  pagination?: PaginationProps | undefined
 }
 
 const { title, language, post, pagination } = Astro.props
@@ -24,33 +24,30 @@ const posts = (await getPosts()).filter(post => post.language.is(language))
 
 <!doctype html>
 <html
-    lang={language.toString()}
-    itemscope
-    itemtype="https://schema.org/Article"
+  lang={language.toString()}
+  itemscope
+  itemtype="https://schema.org/Article"
 >
-    <head>
-        <PageHead fullTitle={fullTitle} language={language} post={post} />
-        <script src="../assets/script.main.js"></script>
-    </head>
-    <body>
-        <div id="bg"></div>
+  <head>
+    <PageHead fullTitle={fullTitle} language={language} post={post} />
+    <script src="../assets/script.main.js"></script>
+  </head>
+  <body>
+    <div id="bg"></div>
 
-        <div id="container" class="container">
-            <PageHeader
-                language={language}
-                navBarItems={language.getNavBarItems()}
-            />
-            <div class="d-flex">
-                <div id="content">
-                    <slot />
-                </div>
-                <PageSidebar
-                    language={language}
-                    posts={posts}
-                    links={language.getLinkItems()}
-                />
-            </div>
-            <PageFooter language={language} pagination={pagination} />
+    <div id="container" class="container">
+      <PageHeader language={language} navBarItems={language.getNavBarItems()} />
+      <div class="d-flex">
+        <div id="content">
+          <slot />
         </div>
-    </body>
+        <PageSidebar
+          language={language}
+          posts={posts}
+          links={language.getLinkItems()}
+        />
+      </div>
+      <PageFooter language={language} pagination={pagination} />
+    </div>
+  </body>
 </html>

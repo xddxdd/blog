@@ -46,25 +46,24 @@ lrwxrwxrwx 1 root root 51 Jan 13 03:02 /etc/static -> /nix/store/41plm7py84sp29w
 
 类似的，看起来 NixOS 根目录下大部分文件都是可以根据配置生成的：
 
--   `/bin` 文件夹下只有一个 `/bin/sh`，被软链接到 `/nix/store` 里的 Bash；
--   `/etc` 文件夹中的大部分文件都由 NixOS 的配置文件管理；
--   `/usr` 文件夹下只有一个 `/usr/bin/env`，被软链接到 `/nix/store` 里的
-    Coreutils；
--   `/mnt` 和 `/srv` 文件夹默认是空的；
-    -   并且 `/mnt` 本身一般不存数据，只用来放其它分区的挂载点。
--   `/dev`， `/proc` 和 `/sys` 本身就是存放硬件设备和系统状态的虚拟文件夹；
--   `/run` 和 `/tmp` 本身都是存放临时文件的内存盘。
-    -   注：在给软件打包时，Nix Daemon 会将临时文件存在 `/tmp` 目录下。如果
-        `/tmp` 是内存盘，打大型软件包（例如 Linux 内核）时容易爆内存。因此 NixOS
-        的 `/tmp` **默认不是内存盘**，需要手动用 `boot.tmpOnTmpfs = true;` 开
-        启。
+- `/bin` 文件夹下只有一个 `/bin/sh`，被软链接到 `/nix/store` 里的 Bash；
+- `/etc` 文件夹中的大部分文件都由 NixOS 的配置文件管理；
+- `/usr` 文件夹下只有一个 `/usr/bin/env`，被软链接到 `/nix/store` 里的
+  Coreutils；
+- `/mnt` 和 `/srv` 文件夹默认是空的；
+  - 并且 `/mnt` 本身一般不存数据，只用来放其它分区的挂载点。
+- `/dev`， `/proc` 和 `/sys` 本身就是存放硬件设备和系统状态的虚拟文件夹；
+- `/run` 和 `/tmp` 本身都是存放临时文件的内存盘。
+  - 注：在给软件打包时，Nix Daemon 会将临时文件存在 `/tmp` 目录下。如果 `/tmp`
+    是内存盘，打大型软件包（例如 Linux 内核）时容易爆内存。因此 NixOS 的 `/tmp`
+    **默认不是内存盘**，需要手动用 `boot.tmpOnTmpfs = true;` 开启。
 
 排除上面的文件夹，只有少数几个文件夹存放了需要真正写入硬盘的数据：
 
--   `/boot` 存放启动引导器；
--   `/home` 和 `/root` 存放各个用户的家目录；
--   `/nix` 存放 NixOS 的所有软件包；
--   `/var` 存放系统软件的数据文件。
+- `/boot` 存放启动引导器；
+- `/home` 和 `/root` 存放各个用户的家目录；
+- `/nix` 存放 NixOS 的所有软件包；
+- `/var` 存放系统软件的数据文件。
 
 实际上，NixOS 本身只需要 `/boot` 和 `/nix` 就可以正常启动。从
 [NixOS 官网下载页面](https://nixos.org/download.html)下载的 ISO 里面除了
@@ -101,13 +100,13 @@ squashfs-root/01qm2r3cihmf4np82mim8vy9phzgc9cn-rtw88-firmware-unstable-2022-11-0
 
 这就是这种配置的最大优点：只保留你想要的状态。
 
--   如果有的软件偷偷修改了它的配置文件，或者把数据存在了不该存的位置，重启后这些
-    修改都会丢失，从而保证软件的配置与你在 Nix 配置文件中指定的完全相同。
--   你的 `/etc` 中不会有卸载软件后的残留。如果有的话，它们在下次重启后就消失了。
--   你只需要备份不被 Nix 管理的状态（例如 `/home`，`/root`，`/var`），再加上 Nix
-    配置文件，就能保证可以还原出一模一样的系统。
--   由于根目录中的大部分文件是根据配置生成的软链接，根目录的内存盘几乎不占空间。
-    例如我的一台服务器上，根目录只占用了 660KB 空间：
+- 如果有的软件偷偷修改了它的配置文件，或者把数据存在了不该存的位置，重启后这些修
+  改都会丢失，从而保证软件的配置与你在 Nix 配置文件中指定的完全相同。
+- 你的 `/etc` 中不会有卸载软件后的残留。如果有的话，它们在下次重启后就消失了。
+- 你只需要备份不被 Nix 管理的状态（例如 `/home`，`/root`，`/var`），再加上 Nix
+  配置文件，就能保证可以还原出一模一样的系统。
+- 由于根目录中的大部分文件是根据配置生成的软链接，根目录的内存盘几乎不占空间。例
+  如我的一台服务器上，根目录只占用了 660KB 空间：
 
 ```bash
 # sudo du -h -d1 -x /
@@ -173,13 +172,13 @@ NixOS 安装光盘），但因为没有保存一些重要的、不由 Nix 配置
 
 没有保存的重要状态包括：
 
--   `/etc/machine-id`，SystemD 给每个系统随机生成的 ID，用于管理日志
--   `/etc/NetworkManager/system-connections`，Network Manager 保存的连接
--   `/etc/ssh/ssh_host_ed25519_key.pub`，OpenSSH 的公钥
--   `/etc/ssh/ssh_host_rsa_key.pub`，OpenSSH 的公钥
--   `/etc/ssh/ssh_host_ed25519_key`，OpenSSH 的私钥
--   `/etc/ssh/ssh_host_rsa_key`，OpenSSH 的私钥
--   以及 `/home`，`/root`，`/var` 里的数据文件
+- `/etc/machine-id`，SystemD 给每个系统随机生成的 ID，用于管理日志
+- `/etc/NetworkManager/system-connections`，Network Manager 保存的连接
+- `/etc/ssh/ssh_host_ed25519_key.pub`，OpenSSH 的公钥
+- `/etc/ssh/ssh_host_rsa_key.pub`，OpenSSH 的公钥
+- `/etc/ssh/ssh_host_ed25519_key`，OpenSSH 的私钥
+- `/etc/ssh/ssh_host_rsa_key`，OpenSSH 的私钥
+- 以及 `/home`，`/root`，`/var` 里的数据文件
 
 所以，下一步操作就是单独指定这些文件/文件夹，把它们也保存到硬盘上。
 
@@ -321,13 +320,13 @@ environment.variables.NIX_REMOTE = "daemon";
 
 重新启动电脑到 LiveCD 中，挂载并 `cd` 进原来的根分区：
 
--   **如果你不熟悉流程，做好数据备份！**
--   新建一个 `persistent` 文件夹，对应系统启动后的 `/nix/persistent`；
--   把上面列出的，要保存的路径都移动到 `persistent` 文件夹中；
--   删除除了 `nix` 和 `persistent` 以外的其它文件夹；
-    -   **删除前请做好数据备份！**
--   把 `nix` 中的所有文件夹移到当前目录下；
--   最后删除 `nix` 文件夹，重启。
+- **如果你不熟悉流程，做好数据备份！**
+- 新建一个 `persistent` 文件夹，对应系统启动后的 `/nix/persistent`；
+- 把上面列出的，要保存的路径都移动到 `persistent` 文件夹中；
+- 删除除了 `nix` 和 `persistent` 以外的其它文件夹；
+  - **删除前请做好数据备份！**
+- 把 `nix` 中的所有文件夹移到当前目录下；
+- 最后删除 `nix` 文件夹，重启。
 
 如果你一切操作正确，就可以启动到“无状态”的 NixOS 中了。你选择保留的数据文件将全
 部映射到原来的位置，所以系统使用起来也应该没什么区别。但是此时，你的根分区已经变
@@ -338,15 +337,15 @@ environment.variables.NIX_REMOTE = "daemon";
 
 我的配置过程参考了以下资料：
 
--   [Erase your darlings - Graham Christensen](https://grahamc.com/blog/erase-your-darlings)
-    -   最早的无状态实现，使用 ZFS 快照在每次重启时恢复状态。
--   [NixOS: tmpfs as root - Elis Hirwing](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/)
--   [Impermanence](https://github.com/nix-community/impermanence)
-    -   NixOS 的无状态辅助模块。
+- [Erase your darlings - Graham Christensen](https://grahamc.com/blog/erase-your-darlings)
+  - 最早的无状态实现，使用 ZFS 快照在每次重启时恢复状态。
+- [NixOS: tmpfs as root - Elis Hirwing](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/)
+- [Impermanence](https://github.com/nix-community/impermanence)
+  - NixOS 的无状态辅助模块。
 
 我的相关配置可以在这里找到：
 
--   Impermanence 模块的配
-    置：<https://github.com/xddxdd/nixos-config/blob/f7cbc14f23a7d6bb21ca4edb153f704735fe5419/nixos/common-components/impermanence.nix>
--   用户 home 目录的配
-    置：<https://github.com/xddxdd/nixos-config/blob/f7cbc14f23a7d6bb21ca4edb153f704735fe5419/nixos/client-components/impermanence.nix>
+- Impermanence 模块的配
+  置：<https://github.com/xddxdd/nixos-config/blob/f7cbc14f23a7d6bb21ca4edb153f704735fe5419/nixos/common-components/impermanence.nix>
+- 用户 home 目录的配
+  置：<https://github.com/xddxdd/nixos-config/blob/f7cbc14f23a7d6bb21ca4edb153f704735fe5419/nixos/client-components/impermanence.nix>

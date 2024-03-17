@@ -24,13 +24,13 @@ Due to this problem, the actual frequency we programmatically set with
 STM32CubeMX or other software is much higher than expected. This caused the
 following problems:
 
--   Mysterious failure in setting frequency (Board unresponsive after setting a
-    core frequency well below maximum, had to short a resistor to recover)
--   USART timing error (Receiving or sending garbage despite same baud-rate /
-    format, unable to use the remote controller)
--   Cannot respond to CAN data (Both board and motors are sending CAN frames,
-    and the oscilloscope can decode them, but neither the board nor the motor
-    ACKs successful transmission)
+- Mysterious failure in setting frequency (Board unresponsive after setting a
+  core frequency well below maximum, had to short a resistor to recover)
+- USART timing error (Receiving or sending garbage despite same baud-rate /
+  format, unable to use the remote controller)
+- Cannot respond to CAN data (Both board and motors are sending CAN frames, and
+  the oscilloscope can decode them, but neither the board nor the motor ACKs
+  successful transmission)
 
 All of the problems are solved by readjusting the clock frequency.
 

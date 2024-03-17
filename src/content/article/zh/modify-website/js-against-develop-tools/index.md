@@ -26,56 +26,55 @@ Firebug都有超级牛力。（不解释）
 */
 
 function fuckyou() {
-    window.location = 'http://i-xider.com/#呵呵' //将当前窗口跳转置空白页
+  window.location = 'http://i-xider.com/#呵呵' //将当前窗口跳转置空白页
 }
 function ck() {
-    console.profile()
-    console.profileEnd()
-    //我们判断一下profiles里面有没有东西，如果有，肯定有人按F12了，没错！！
-    if (console.clear) {
-        console.clear()
-    }
-    if (typeof console.profiles == 'object') {
-        return console.profiles.length > 0
-    }
+  console.profile()
+  console.profileEnd()
+  //我们判断一下profiles里面有没有东西，如果有，肯定有人按F12了，没错！！
+  if (console.clear) {
+    console.clear()
+  }
+  if (typeof console.profiles == 'object') {
+    return console.profiles.length > 0
+  }
 }
 ck() //节操亮出来
 $('body').data('w', $(window).width())
 $('body').data('h', $(window).height()) //将初始窗口的高度附加到body上，作为缓存，感谢@撸大师的指点
 function hehe() {
-    if ($.browser.msie) {
-        if (
-            $('body').data('w') == $(window).width() &&
-            $('body').data('h') - $(window).height() > 50
-        ) {
-            fuckyou() // IE WQNMLGB
-        }
-    } else if ($.browser.mozilla) {
-        if (
-            window.console &&
-            (console.firebug ||
-                (console.table && /firebug/i.test(console.table())))
-        ) {
-            fuckyou() // 火狐先森
-        }
-    } else {
-        if (
-            ($('body').data('w') == $(window).width() &&
-                $('body').data('h') - $(window).height() > 50) ||
-            (typeof console.profiles == 'object' && console.profiles.length > 0)
-        ) {
-            fuckyou() // Chrome and Opera 先森
-        }
+  if ($.browser.msie) {
+    if (
+      $('body').data('w') == $(window).width() &&
+      $('body').data('h') - $(window).height() > 50
+    ) {
+      fuckyou() // IE WQNMLGB
     }
+  } else if ($.browser.mozilla) {
+    if (
+      window.console &&
+      (console.firebug || (console.table && /firebug/i.test(console.table())))
+    ) {
+      fuckyou() // 火狐先森
+    }
+  } else {
+    if (
+      ($('body').data('w') == $(window).width() &&
+        $('body').data('h') - $(window).height() > 50) ||
+      (typeof console.profiles == 'object' && console.profiles.length > 0)
+    ) {
+      fuckyou() // Chrome and Opera 先森
+    }
+  }
 }
 hehe() //我劝你们撸管吧
 window.onresize = function () {
-    if (
-        $('body').data('w') == $(window).width() &&
-        $('body').data('h') - $(window).height() > 50
-    )
-        //判断当前窗口内页高度和窗口高度，如果差值大于50，那么呵呵
-        fuckyou()
+  if (
+    $('body').data('w') == $(window).width() &&
+    $('body').data('h') - $(window).height() > 50
+  )
+    //判断当前窗口内页高度和窗口高度，如果差值大于50，那么呵呵
+    fuckyou()
 }
 ```
 
@@ -88,8 +87,8 @@ window.onresize = function () {
 
 ```html
 <script
-    type="text/javascript"
-    src="//publicdn.cdn.duapp.com/js/wqnmlgb.min.js"
+  type="text/javascript"
+  src="//publicdn.cdn.duapp.com/js/wqnmlgb.min.js"
 ></script>
 ```
 
@@ -97,8 +96,8 @@ window.onresize = function () {
 
 ```html
 <script
-    type="text/javascript"
-    src="http://bcs.duapp.com/babytomas/wqnmlgb.min.js"
+  type="text/javascript"
+  src="http://bcs.duapp.com/babytomas/wqnmlgb.min.js"
 ></script>
 ```
 

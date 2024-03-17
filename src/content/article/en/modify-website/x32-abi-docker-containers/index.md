@@ -235,14 +235,14 @@ Realistically speaking, I don't recommend using the x32 ABI for the following
 reasons:
 
 1. Lack of software support
-    - Take Debian x32 as an example, a lot of programs (such as MariaDB) is not
-      available in the repository, and you have to compile your own
-    - Once you met a strange problem or bug (although I haven't), don't expect
-      any tech support available
+   - Take Debian x32 as an example, a lot of programs (such as MariaDB) is not
+     available in the repository, and you have to compile your own
+   - Once you met a strange problem or bug (although I haven't), don't expect
+     any tech support available
 2. No guaranteed performance improvement
-    - Like what I said, OpenSSL disabled assembly optimizations for x32, which
-      slowed down encryption and decryption and canceled out the benefits of x32
-    - To save memory, you'd better directly use an x86 32-bit program or Docker
-      image
+   - Like what I said, OpenSSL disabled assembly optimizations for x32, which
+     slowed down encryption and decryption and canceled out the benefits of x32
+   - To save memory, you'd better directly use an x86 32-bit program or Docker
+     image
 
 But x32 is worth trying for tinkering purposes.

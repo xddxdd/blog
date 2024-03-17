@@ -27,7 +27,7 @@ Here are my steps to resolve the problem:
 2. Select "中国电信NET设置" (`ctnet`, China Telecom NET Settings) to manage
    detailed options.
 3. Change `APN Type` to: `default,supl,dun,ims`
-    - The original value is `default,supl,dun`
+   - The original value is `default,supl,dun`
 4. Click the three-dot menu on top right, and select Save.
 5. Select the radio button on the right of `ctnet`.
 6. Turn off the phone, wait a few minutes, and then turn it on again.

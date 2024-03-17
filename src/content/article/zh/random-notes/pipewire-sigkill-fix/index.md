@@ -10,11 +10,11 @@ image: /usr/uploads/202305/pipewire.png
 
 我频繁遇到 Pipewire 音频框架突然停止运行的情况：
 
--   问题通常出现在我的笔记本电脑连接/断开电源的时候，此时我的电脑会因为切换性能
-    模式卡顿一小段时间；
--   `systemctl --user status pipewire.service` 只能看到 Pipewire 进程被
-    `SIGKILL` 信号终止，没有其它有用的日志信息；
--   `coredumpctl` 和 `dmesg` 里也找不到 Coredump 内存转储事件的记录。
+- 问题通常出现在我的笔记本电脑连接/断开电源的时候，此时我的电脑会因为切换性能模
+  式卡顿一小段时间；
+- `systemctl --user status pipewire.service` 只能看到 Pipewire 进程被 `SIGKILL`
+  信号终止，没有其它有用的日志信息；
+- `coredumpctl` 和 `dmesg` 里也找不到 Coredump 内存转储事件的记录。
 
 ## 原因
 
@@ -48,18 +48,18 @@ Pipewire 进程运行时具有实时优先级，其调度需求被最优先满�
 
 ```json
 {
-    "context.modules": [
-        {
-            "args": {
-                "nice.level": -11,
-                "rt.prio": 88,
-                "rt.time.hard": 5000000,
-                "rt.time.soft": 5000000
-            },
-            "flags": ["ifexists", "nofail"],
-            "name": "libpipewire-module-rt"
-        }
-    ]
+  "context.modules": [
+    {
+      "args": {
+        "nice.level": -11,
+        "rt.prio": 88,
+        "rt.time.hard": 5000000,
+        "rt.time.soft": 5000000
+      },
+      "flags": ["ifexists", "nofail"],
+      "name": "libpipewire-module-rt"
+    }
+  ]
 }
 ```
 

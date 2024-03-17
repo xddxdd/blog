@@ -18,50 +18,50 @@ import remarkMermaid from 'remark-mermaid'
 import { visit } from 'unist-util-visit'
 
 export const chineseQuotes = s =>
-    typeof s === 'string'
-        ? s
-              .replaceAll('“', '「')
-              .replaceAll('”', '」')
-              .replaceAll('‘', '『')
-              .replaceAll('’', '』')
-        : s
+  typeof s === 'string'
+    ? s
+        .replaceAll('“', '「')
+        .replaceAll('”', '」')
+        .replaceAll('‘', '『')
+        .replaceAll('’', '』')
+    : s
 
 let remarkChineseQuotes = () => tree => {
-    visit(tree, node => {
-        if (typeof node.value === 'string') {
-            node.value = chineseQuotes(node.value)
-        }
-        return node
-    })
+  visit(tree, node => {
+    if (typeof node.value === 'string') {
+      node.value = chineseQuotes(node.value)
+    }
+    return node
+  })
 }
 
 const markdownPluginOptions = {
-    syntaxHighlight: false,
-    remarkPlugins: [
-        // [
-        //   includeMarkdown,
-        //   {
-        //     resolveFrom: path.join(__dirname, 'src/content'),
-        //   },
-        // ],
-        remarkFrontmatter,
-        remarkGfm,
-        remarkChineseQuotes,
-        remarkJoinCjkLines,
-        remarkMath,
-        remarkGraphvizSvg,
-        [remarkMermaid, { simple: true }],
-    ],
-    rehypePlugins: [
-        rehypeMath,
-        [rehypeHighlight, { languages: highlightLanguages }],
-        rehypeSlug,
-    ],
+  syntaxHighlight: false,
+  remarkPlugins: [
+    // [
+    //   includeMarkdown,
+    //   {
+    //     resolveFrom: path.join(__dirname, 'src/content'),
+    //   },
+    // ],
+    remarkFrontmatter,
+    remarkGfm,
+    remarkChineseQuotes,
+    remarkJoinCjkLines,
+    remarkMath,
+    remarkGraphvizSvg,
+    [remarkMermaid, { simple: true }],
+  ],
+  rehypePlugins: [
+    rehypeMath,
+    [rehypeHighlight, { languages: highlightLanguages }],
+    rehypeSlug,
+  ],
 }
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://example.com',
-    integrations: [mdx(markdownPluginOptions), sitemap()],
-    markdown: markdownPluginOptions,
+  site: 'https://example.com',
+  integrations: [mdx(markdownPluginOptions), sitemap()],
+  markdown: markdownPluginOptions,
 })

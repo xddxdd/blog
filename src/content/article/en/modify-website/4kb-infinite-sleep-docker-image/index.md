@@ -217,19 +217,19 @@ _start:
     jmp _start
 ```
 
--   Line 1 indicates that all the code should be put to the `.text` section
-    (executable code section) of the Linux ELF executable.
--   Line 2 and Line 3 define a `_start` function.
-    -   Although the main function is `main` when we write C code, it's not the
-        first function that Linux calls when it starts the program. Instead, it
-        runs the `_start` function copied over from C standard library. It will
-        load some environment settings (such as parsing command-line arguments)
-        and call our `main` function. But we don't need all these steps. We just
-        need to `sleep` forever.
--   Line 4 and Line 5 call the system call numbered 34, or the `pause` call for
-    Linux. It's the one that I mentioned before, sleep indefinitely until a
-    signal is received.
--   Line 6 jumps to the beginning of `_start` to create an infinite loop.
+- Line 1 indicates that all the code should be put to the `.text` section
+  (executable code section) of the Linux ELF executable.
+- Line 2 and Line 3 define a `_start` function.
+  - Although the main function is `main` when we write C code, it's not the
+    first function that Linux calls when it starts the program. Instead, it runs
+    the `_start` function copied over from C standard library. It will load some
+    environment settings (such as parsing command-line arguments) and call our
+    `main` function. But we don't need all these steps. We just need to `sleep`
+    forever.
+- Line 4 and Line 5 call the system call numbered 34, or the `pause` call for
+  Linux. It's the one that I mentioned before, sleep indefinitely until a signal
+  is received.
+- Line 6 jumps to the beginning of `_start` to create an infinite loop.
 
 "Compile" it (technically it's not, it's only translating to machine code):
 

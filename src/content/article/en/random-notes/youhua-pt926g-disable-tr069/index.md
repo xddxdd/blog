@@ -23,48 +23,48 @@ you do that correctly, the command-line will prompt `#`.
 Then follow these steps:
 
 1. Type `cp /home/httpd/web/net_eth_links.asp /var/` and hit Enter.
-    - We're going to modify this file, but it's on a read-only partition. So we
-      first copy it to somewhere writable first.
+   - We're going to modify this file, but it's on a read-only partition. So we
+     first copy it to somewhere writable first.
 2. Type `vi /var/net_eth_links.asp` to edit the file. `vi` is famous for being
    difficult to use, so let's go through this step by step:
 
-    1. Type `/is_configurable` and Enter, which is searching for string
-       `is_configurable`. The cursor should jump to somewhere around:
+   1. Type `/is_configurable` and Enter, which is searching for string
+      `is_configurable`. The cursor should jump to somewhere around:
 
-        ```javascript
-        //If connection type is TR069 return false, else return true
-        function is_configurable()
-        {
-          var lk = document.forms[0].lkname.value;
-          var province= <%checkWrite("PROVINCE");%>;
-          /* Some code redacted here */
-          return true;
-        }
-        ```
+      ```javascript
+      //If connection type is TR069 return false, else return true
+      function is_configurable()
+      {
+        var lk = document.forms[0].lkname.value;
+        var province= <%checkWrite("PROVINCE");%>;
+        /* Some code redacted here */
+        return true;
+      }
+      ```
 
-    2. Use your arrow keys to move to the line with `var lk`, and press the D
-       key twice. Now that line is removed.
-    3. Press D repeatedly until you removed the line right before `return true;`
-       (not including `return true;`), so the whole function will look like:
+   2. Use your arrow keys to move to the line with `var lk`, and press the D key
+      twice. Now that line is removed.
+   3. Press D repeatedly until you removed the line right before `return true;`
+      (not including `return true;`), so the whole function will look like:
 
-        ```javascript
-        //If connection type is TR069 return false, else return true
-        function is_configurable() {
-            return true
-        }
-        ```
+      ```javascript
+      //If connection type is TR069 return false, else return true
+      function is_configurable() {
+        return true
+      }
+      ```
 
-    4. Type `:wq` and press Enter to save the file and close the editor.
+   4. Type `:wq` and press Enter to save the file and close the editor.
 
 3. Type `mount --bind /var/net_eth_links.asp /home/httpd/web/net_eth_links.asp`
    and Enter.
-    - Although we cannot modify the original file, we can use the new file "in
-      place of" the old file, so the system will automatically use the new copy
-      when trying to access the file.
-    - This is what this line is doing.
+   - Although we cannot modify the original file, we can use the new file "in
+     place of" the old file, so the system will automatically use the new copy
+     when trying to access the file.
+   - This is what this line is doing.
 4. Open your browser and visit the management portal at 8080. Now the TR069
    connection in WAN settings can be edited.
-    - You may remove it, change its type to `Internet` or `Other`, or set it to
-      `Bridge` mode. It's up to you.
-    - Now, the modem's TR069 settings are no longer valid, and it won't be able
-      to connect to China Telecom's central management services.
+   - You may remove it, change its type to `Internet` or `Other`, or set it to
+     `Bridge` mode. It's up to you.
+   - Now, the modem's TR069 settings are no longer valid, and it won't be able
+     to connect to China Telecom's central management services.

@@ -52,10 +52,10 @@ PowerDNS 使用的 IP 地理信息库是 MaxMind GeoIP。虽然 MaxMind 提供�
 2. 进入账户详情页面，点左边的 `My License Key` 管理授权密钥。
 3. 点击 `Generate License Key` 创建新的密钥，
 4. 填写一个密钥描述，并且如图选择密钥版本，点蓝色按钮确认：
-    - ![密钥版本选择](../../../../usr/uploads/202001/maxmind-license-version.png)
+   - ![密钥版本选择](../../../../usr/uploads/202001/maxmind-license-version.png)
 5. 提交后，你会看到两个重要的信息，记录下来，稍后要填写到配置文件中：
-    - `Account/User ID` 账户编号
-    - `License Key` 授权密钥
+   - `Account/User ID` 账户编号
+   - `License Key` 授权密钥
 
 接下来，就可以使用 MaxMind 官方的 `geoipupdate` 工具来自动更新数据库了。首先是安
 装，在 Debian 系统中可以直接：
@@ -107,17 +107,17 @@ systemctl start pdns
 
 ```yaml
 powerdns:
-    image: [你创建的上述 Docker 镜像]
-    container_name: powerdns
-    restart: always
-    volumes:
-        - './conf/powerdns/pdns.conf:/etc/powerdns/pdns.conf:ro'
-        - '/etc/geoip:/etc/geoip:ro'
-    ports:
-        - '53:53'
-        - '53:53/udp'
-    depends_on:
-        - mysql
+  image: [你创建的上述 Docker 镜像]
+  container_name: powerdns
+  restart: always
+  volumes:
+    - './conf/powerdns/pdns.conf:/etc/powerdns/pdns.conf:ro'
+    - '/etc/geoip:/etc/geoip:ro'
+  ports:
+    - '53:53'
+    - '53:53/udp'
+  depends_on:
+    - mysql
 ```
 
 ## 添加 Lua 解析记录

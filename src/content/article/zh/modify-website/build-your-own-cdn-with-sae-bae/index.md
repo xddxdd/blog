@@ -28,8 +28,8 @@ date: 2013-07-17 19:28:58
 name: 你的appid
 version: 你的版本号，一般是1
 handle:
-    - compress:compress
-    - rewrite:goto "index.php?q=$1"
+  - compress:compress
+  - rewrite:goto "index.php?q=$1"
 ```
 
 2）index.php 内容：

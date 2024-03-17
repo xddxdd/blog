@@ -12,27 +12,26 @@ date: 2019-07-08 13:10:00
 我们小组实现了一款类似《雷电》的游戏，实际上就是操控飞机发射子弹攻击敌人。实现的
 额外功能（课程内容除外）包括：
 
--   640x480，16 位色深的 VGA Framebuffer，存储在 SRAM 芯片上
-    -   相应的，内置了简体中文字库（包含整个 UTF-8 中文范围，但不包括标点符号
-        （懒））
-    -   也支持修改 Y 轴偏移量快速滚动屏幕，为了实现飞行效果
-    -   SRAM 控制器/芯片以二倍频率工作，让 FPGA 上的软 CPU 和 VGA 控制器同时访
-        问，不存在抢占问题
--   最多 8 架飞机（包括敌方我方），可以完全自定义图片（非调色板，非索引），全屏
-    幕自由移动
--   最多 56 发子弹（包括敌方我方），可以修改大小颜色，全屏幕移动
--   使用 WM8731 音频芯片循环播放长达约 5 分钟的 BGM，双声道 16 位深度 8000Hz 采
-    样率
-    -   使用了课程网站提供的 WM8731 控制器模块（先前学生所写），但踩了坑，见后文
--   使用 Marvell 88E1111 网络芯片及相连的 RJ45 接口联网，上传游戏记录，下载积分
-    榜
-    -   使用了 GitHub 上的开源代码实现数据传输部分
-        （[https://github.com/alexforencich/verilog-ethernet][1]）
-    -   自己写了 MDIO 通信代码修改网卡芯片寄存器
-    -   使用 LwIP 作为 TCP/IP 协议栈
--   使用开发板上的 USB 芯片连接键盘实现用户输入
-    -   由于我们的键盘连接不稳定（普遍现象），我们将键盘独立一个软 CPU 进行控
-        制，可以分别 Reset，方便调试，避免频繁 Reset 主 CPU
+- 640x480，16 位色深的 VGA Framebuffer，存储在 SRAM 芯片上
+  - 相应的，内置了简体中文字库（包含整个 UTF-8 中文范围，但不包括标点符号
+    （懒））
+  - 也支持修改 Y 轴偏移量快速滚动屏幕，为了实现飞行效果
+  - SRAM 控制器/芯片以二倍频率工作，让 FPGA 上的软 CPU 和 VGA 控制器同时访问，不
+    存在抢占问题
+- 最多 8 架飞机（包括敌方我方），可以完全自定义图片（非调色板，非索引），全屏幕
+  自由移动
+- 最多 56 发子弹（包括敌方我方），可以修改大小颜色，全屏幕移动
+- 使用 WM8731 音频芯片循环播放长达约 5 分钟的 BGM，双声道 16 位深度 8000Hz 采样
+  率
+  - 使用了课程网站提供的 WM8731 控制器模块（先前学生所写），但踩了坑，见后文
+- 使用 Marvell 88E1111 网络芯片及相连的 RJ45 接口联网，上传游戏记录，下载积分榜
+  - 使用了 GitHub 上的开源代码实现数据传输部分
+    （[https://github.com/alexforencich/verilog-ethernet][1]）
+  - 自己写了 MDIO 通信代码修改网卡芯片寄存器
+  - 使用 LwIP 作为 TCP/IP 协议栈
+- 使用开发板上的 USB 芯片连接键盘实现用户输入
+  - 由于我们的键盘连接不稳定（普遍现象），我们将键盘独立一个软 CPU 进行控制，可
+    以分别 Reset，方便调试，避免频繁 Reset 主 CPU
 
 演示视频如下：
 
@@ -58,11 +57,10 @@ date: 2019-07-08 13:10:00
 我们在开发板上实现了网络功能，以实现游戏记录的上传和积分榜的产生。这也是我们最看
 重的额外功能。本大类记录我们在使用以下组件时踩的坑：
 
--   Intel Triple Speed Ethernet IP（Quartus 自带的 10/100/1000M 自适应以太网模
-    块）
--   GitHub 用户 [Alex Forencich][4] 的以太网
-    IP（[https://github.com/alexforencich/verilog-ethernet][5]）
--   LwIP 嵌入式 TCP/IP 协议栈（[https://savannah.nongnu.org/projects/lwip/][6]）
+- Intel Triple Speed Ethernet IP（Quartus 自带的 10/100/1000M 自适应以太网模块）
+- GitHub 用户 [Alex Forencich][4] 的以太网
+  IP（[https://github.com/alexforencich/verilog-ethernet][5]）
+- LwIP 嵌入式 TCP/IP 协议栈（[https://savannah.nongnu.org/projects/lwip/][6]）
 
 ## Intel Triple Speed Ethernet IP 不工作
 
@@ -260,6 +258,6 @@ Reset 自己。
 [5]: https://github.com/alexforencich/verilog-ethernet
 [6]: https://savannah.nongnu.org/projects/lwip/
 [7]:
-    ftp://ftp.intel.com/pub/fpgaup/pub/Intel_Material/17.0/Tutorials/DE2-115/Using_Triple_Speed_Ethernet.pdf
+  ftp://ftp.intel.com/pub/fpgaup/pub/Intel_Material/17.0/Tutorials/DE2-115/Using_Triple_Speed_Ethernet.pdf
 [8]:
-    https://github.com/xddxdd/zjui-ece385-final/blob/master/comp/lantian_mdio/lantian_mdio.sv
+  https://github.com/xddxdd/zjui-ece385-final/blob/master/comp/lantian_mdio/lantian_mdio.sv

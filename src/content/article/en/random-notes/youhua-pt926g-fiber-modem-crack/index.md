@@ -9,9 +9,9 @@ This post explains the procedure to obtain such privileges from a Youhua PT926G
 fiber optic modem, without disassembling the device or using serial port
 converters.
 
--   Super Admin users on Web UI (telecomadmin)
--   Telnet's root user access
--   FTP access
+- Super Admin users on Web UI (telecomadmin)
+- Telnet's root user access
+- FTP access
 
 FYI I obtained the device from China Telecom, Guangdong Shenzhen.
 
@@ -66,10 +66,10 @@ And I'm in. China Telecom Shenzhen simply doesn't change that password.
 > If the password is changed by your local China Telecom, you have a few
 > options:
 >
-> -   Record the modem's LOID, pull out the fiber optic cable, reset the modem
->     to factory default, log in with the default password and disable config
->     updates, and finally type in LOID to connect to the Internet.
-> -   Disassemble the modem and use a serial port converter to log in.
+> - Record the modem's LOID, pull out the fiber optic cable, reset the modem to
+>   factory default, log in with the default password and disable config
+>   updates, and finally type in LOID to connect to the Internet.
+> - Disassemble the modem and use a serial port converter to log in.
 >
 > I'm not covering these options in this post. You need to do your own research.
 
@@ -80,24 +80,24 @@ Based on
 follow the steps:
 
 1. First log in as `telecomadmin` at `http://192.168.1.1:8080`
-    - This may not be necessary, and you may try skipping this if you don't know
-      the telecomadmin password.
+   - This may not be necessary, and you may try skipping this if you don't know
+     the telecomadmin password.
 2. Open `http://192.168.1.1:8080/cgi-bin/abcdidfope94e0934jiewru8ew414.cgi`, and
    the page should show `success`.
 3. Then you can `telnet 192.168.1.1`.
-    - Username: `admin`
-    - Password: `TeleCom_1234`
+   - Username: `admin`
+   - Password: `TeleCom_1234`
 
 But once logged on, the Telnet provides a modified shell that only allows
 running commands in a (small) list:
 
--   ip
--   ifconfig
--   route
--   ping
-    -   You may use them for diagnostic purposes.
--   su
-    -   Important, but we don't know the password yet.
+- ip
+- ifconfig
+- route
+- ping
+  - You may use them for diagnostic purposes.
+- su
+  - Important, but we don't know the password yet.
 
 No other commands are allowed. But I found that Tab completion of this shell
 still works, and I can list files with it. For example:
@@ -125,8 +125,8 @@ blocks port 21 (as shown in Nmap).
 But with one weird page, I found that I can export the config file:
 
 1. First login as `telecomadmin` at `http://192.168.1.1:8080`:
-    - This is necessary, and you can't proceed if you don't know
-      `telecomadmin`'s password.
+   - This is necessary, and you can't proceed if you don't know `telecomadmin`'s
+     password.
 2. Then visit `http://192.168.1.1:8080/bd/saveconf.asp` and click the `Backup`
    button.
 3. You will get an XML file, which is its configuration.
@@ -182,5 +182,5 @@ the FTP is now restricted to `/mnt`, and is unable to access config files in
 
 Huge thanks to previous people who worked on fiber optic modem hacking.
 
--   [Partial Technical Publication of PT926E PT926G (ChinAdsl.net tm5880891)](http://www.chinadsl.net/forum.php?mod=viewthread&tid=165272)
--   [Changing Region and MAC SN of Youhua PT926E PT926G (ChinAdsl.net tm5880891)](http://www.chinadsl.net/forum.php?mod=viewthread&tid=166519)
+- [Partial Technical Publication of PT926E PT926G (ChinAdsl.net tm5880891)](http://www.chinadsl.net/forum.php?mod=viewthread&tid=165272)
+- [Changing Region and MAC SN of Youhua PT926E PT926G (ChinAdsl.net tm5880891)](http://www.chinadsl.net/forum.php?mod=viewthread&tid=166519)

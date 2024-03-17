@@ -15,32 +15,32 @@ Our group has done a game similar to Raiden, or controlling a fighter jet and
 attacking enemies with bullets. In addition to course requirements, we
 implemented these extra functionalities:
 
--   A 640x480 VGA framebuffer with 16-bit color depth, stored on SRAM chip
-    -   Naturally, Simplified Chinese fonts are included (full UTF-8 Chinese
-        range, but without punctuation marks, since they are out of that range
-        and we're kinda lazy)
-    -   Fast screen scrolling by adjusting Y offset (for flying effects)
-    -   SRAM controller and chip are working at 2x bus frequency, so both the
-        CPU and the VGA controller can access data simultaneously without
-        competition or lockups
--   Up to 8 jets (friend + enemy), fully customizable image (no palette or
-    indexing involved), free movement across the screen
--   Up to 56 bullets (friend + enemy), customizable size and color, free
-    movement across the screen
--   Loop playback of background music (~5min) with WM8731 sound chip, 2
-    channels, 16-bit depth, 8000Hz sample rate
-    -   Used a module provided by course (written by former students) but had
-        pitfalls; will be discussed later
--   Internet connection with Marvell 88E1111 chip and RJ45 connectors, for
-    uploading gameplay records and downloading rankings
-    -   Used open source code on GitHub for data transmission
-        ([https://github.com/alexforencich/verilog-ethernet][1])
-    -   Custom MDIO communication code for modifying network chip registers
-    -   LwIP as TCP/IP protocol stack
--   User input via USB keyboard, connected to onboard USB chip
-    -   Since the keyboards in our lab are unstable, we used a separate CPU for
-        controlling the keyboard so they can be reset and debugged separately.
-        The main CPU can also be reset less frequently
+- A 640x480 VGA framebuffer with 16-bit color depth, stored on SRAM chip
+  - Naturally, Simplified Chinese fonts are included (full UTF-8 Chinese range,
+    but without punctuation marks, since they are out of that range and we're
+    kinda lazy)
+  - Fast screen scrolling by adjusting Y offset (for flying effects)
+  - SRAM controller and chip are working at 2x bus frequency, so both the CPU
+    and the VGA controller can access data simultaneously without competition or
+    lockups
+- Up to 8 jets (friend + enemy), fully customizable image (no palette or
+  indexing involved), free movement across the screen
+- Up to 56 bullets (friend + enemy), customizable size and color, free movement
+  across the screen
+- Loop playback of background music (~5min) with WM8731 sound chip, 2 channels,
+  16-bit depth, 8000Hz sample rate
+  - Used a module provided by course (written by former students) but had
+    pitfalls; will be discussed later
+- Internet connection with Marvell 88E1111 chip and RJ45 connectors, for
+  uploading gameplay records and downloading rankings
+  - Used open source code on GitHub for data transmission
+    ([https://github.com/alexforencich/verilog-ethernet][1])
+  - Custom MDIO communication code for modifying network chip registers
+  - LwIP as TCP/IP protocol stack
+- User input via USB keyboard, connected to onboard USB chip
+  - Since the keyboards in our lab are unstable, we used a separate CPU for
+    controlling the keyboard so they can be reset and debugged separately. The
+    main CPU can also be reset less frequently
 
 Here is the demonstration video (in Chinese):
 
@@ -70,12 +70,12 @@ We implemented networking on the development board to upload gameplay records
 and generate score rankings. It is the extra feature we consider the most
 important. This part involves pitfalls we had with the following components:
 
--   Intel Triple Speed Ethernet IP (The 10/100/100M Adaptive Ethernet module
-    that comes with Quartus)
--   Ethernet IP by GitHub User [Alex Forencich][4]
-    ([https://github.com/alexforencich/verilog-ethernet][5])
--   LwIP Embedded TCP/IP Protocol Stack
-    ([https://savannah.nongnu.org/projects/lwip/][6])
+- Intel Triple Speed Ethernet IP (The 10/100/100M Adaptive Ethernet module that
+  comes with Quartus)
+- Ethernet IP by GitHub User [Alex Forencich][4]
+  ([https://github.com/alexforencich/verilog-ethernet][5])
+- LwIP Embedded TCP/IP Protocol Stack
+  ([https://savannah.nongnu.org/projects/lwip/][6])
 
 ## Intel Triple Speed Ethernet IP Won't Work
 
@@ -316,6 +316,6 @@ live with such a workaround.
 [5]: https://github.com/alexforencich/verilog-ethernet
 [6]: https://savannah.nongnu.org/projects/lwip/
 [7]:
-    ftp://ftp.intel.com/pub/fpgaup/pub/Intel_Material/17.0/Tutorials/DE2-115/Using_Triple_Speed_Ethernet.pdf
+  ftp://ftp.intel.com/pub/fpgaup/pub/Intel_Material/17.0/Tutorials/DE2-115/Using_Triple_Speed_Ethernet.pdf
 [8]:
-    https://github.com/xddxdd/zjui-ece385-final/blob/master/comp/lantian_mdio/lantian_mdio.sv
+  https://github.com/xddxdd/zjui-ece385-final/blob/master/comp/lantian_mdio/lantian_mdio.sv

@@ -22,16 +22,16 @@ of the book serves as a mean of bribe.
 The content of _The Scripture of Safety_ is formatted as: (from
 [Wikipedia (Chinese)](https://zh.wikipedia.org/wiki/%E5%B9%B3%E5%AE%89%E7%BB%8F))
 
--   “眼平安，耳平安，鼻平安”
-    -   "Wish eyes safe, ears safe, nose safe"
--   “上海港平安、深圳港平安、宁波舟山港平安、广州港平安”
-    -   "Wish Shanghai harbor safe, Shenzhen harbor safe, Ningbo Zhoushan harbor
-        safe, Guangzhou harbor safe"
--   “初生平安、满月平安、百天平安、1岁平安、2岁平安、3岁平安”
-    -   "Wish newly-born babies safe, one-month-old babies safe, 100-days-old
-        babies safe, 1-year-olds safe, 2-year-olds safe, 3-year-olds safe"
--   “孟加拉湾平安、墨西哥湾平安、几内亚湾平安”
-    -   "Wish Bay of Bengal safe, Gulf of Mexico safe, Gulf of Guinea safe"
+- “眼平安，耳平安，鼻平安”
+  - "Wish eyes safe, ears safe, nose safe"
+- “上海港平安、深圳港平安、宁波舟山港平安、广州港平安”
+  - "Wish Shanghai harbor safe, Shenzhen harbor safe, Ningbo Zhoushan harbor
+    safe, Guangzhou harbor safe"
+- “初生平安、满月平安、百天平安、1岁平安、2岁平安、3岁平安”
+  - "Wish newly-born babies safe, one-month-old babies safe, 100-days-old babies
+    safe, 1-year-olds safe, 2-year-olds safe, 3-year-olds safe"
+- “孟加拉湾平安、墨西哥湾平安、几内亚湾平安”
+  - "Wish Bay of Bengal safe, Gulf of Mexico safe, Gulf of Guinea safe"
 
 Upon seeing this format I immediately realized it is suitable for a tag cloud.
 So let's do it!
@@ -61,8 +61,8 @@ But the result it provides is far from optimal:
 
 We can observe two problems:
 
--   "Wish" is repeated multiple times; it should only appear at the beginning.
--   The sentence ends with a comma; it should be a period.
+- "Wish" is repeated multiple times; it should only appear at the beginning.
+- The sentence ends with a comma; it should be a period.
 
 What we need is some minor adjustments:
 
@@ -155,12 +155,11 @@ values are available on
 [Wikipedia](https://en.wikipedia.org/wiki/Linear_congruential_generator). I'm
 using the constants of glibc:
 
--   $A = 1103515245$
--   $B = 12345$
--   $M = 2^{31}$
-    -   Later, I changed it to `32`, since a paragraph with 32 tags is already
-        long enough. In addition, `32 = 2 ^ 5`, so it won't impact the
-        randomness much.
+- $A = 1103515245$
+- $B = 12345$
+- $M = 2^{31}$
+  - Later, I changed it to `32`, since a paragraph with 32 tags is already long
+    enough. In addition, `32 = 2 ^ 5`, so it won't impact the randomness much.
 
 Note that the results of this RNG still follow some form of rules, which means
 its results can be predicted, and is not appropriate for security related areas
@@ -216,8 +215,8 @@ The code above will split tags into multiple paragraphs with different lengths.
 The _Scripture of Safety_ generator seems simple, but requires some effort to be
 good:
 
--   Using appropriate paragraph beginnings and punctuation marks.
--   Splitting paragraphs for aesthetic purposes.
+- Using appropriate paragraph beginnings and punctuation marks.
+- Splitting paragraphs for aesthetic purposes.
 
 **The final result is available on [this page](/en/page/ping-an-jing).**
 

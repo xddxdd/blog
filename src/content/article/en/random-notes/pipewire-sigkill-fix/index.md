@@ -11,13 +11,13 @@ image: /usr/uploads/202305/pipewire.png
 I frequently encounter the situation that the Pipewire audio server is suddenly
 stopped:
 
--   The problem usually appears when I connect/disconnect my laptop from the
-    power adapter. My computer usually lags for a short time while switching
-    between performance profiles.
--   `systemctl --user status pipewire.service` only shows that the Pipewire
-    process was terminated by a `SIGKILL` signal, without any other useful log
-    information.
--   Neither `coredumpctl` nor `dmesg` shows the existence of a core dump event.
+- The problem usually appears when I connect/disconnect my laptop from the power
+  adapter. My computer usually lags for a short time while switching between
+  performance profiles.
+- `systemctl --user status pipewire.service` only shows that the Pipewire
+  process was terminated by a `SIGKILL` signal, without any other useful log
+  information.
+- Neither `coredumpctl` nor `dmesg` shows the existence of a core dump event.
 
 ## Cause
 
@@ -59,18 +59,18 @@ module, to make it request a longer time limit:
 
 ```json
 {
-    "context.modules": [
-        {
-            "args": {
-                "nice.level": -11,
-                "rt.prio": 88,
-                "rt.time.hard": 5000000,
-                "rt.time.soft": 5000000
-            },
-            "flags": ["ifexists", "nofail"],
-            "name": "libpipewire-module-rt"
-        }
-    ]
+  "context.modules": [
+    {
+      "args": {
+        "nice.level": -11,
+        "rt.prio": 88,
+        "rt.time.hard": 5000000,
+        "rt.time.soft": 5000000
+      },
+      "flags": ["ifexists", "nofail"],
+      "name": "libpipewire-module-rt"
+    }
+  ]
 }
 ```
 

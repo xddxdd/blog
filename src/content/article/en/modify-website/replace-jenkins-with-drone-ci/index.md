@@ -87,107 +87,107 @@ Here is my configuration with Vault and Drone for reference:
 ```yaml
 version: '2.4'
 services:
-    # Secret management, Vault instance, and plugin for Drone
-    vault:
-        image: vault
-        container_name: vault
-        restart: unless-stopped
-        command: 'server'
-        labels:
-            - com.centurylinklabs.watchtower.enable=false
-        volumes:
-            - './conf/vault:/vault/config:ro'
-            - './data/vault:/vault/file'
+  # Secret management, Vault instance, and plugin for Drone
+  vault:
+    image: vault
+    container_name: vault
+    restart: unless-stopped
+    command: 'server'
+    labels:
+      - com.centurylinklabs.watchtower.enable=false
+    volumes:
+      - './conf/vault:/vault/config:ro'
+      - './data/vault:/vault/file'
 
-    drone-vault:
-        image: drone/vault
-        container_name: drone-vault
-        restart: unless-stopped
-        environment:
-            DRONE_DEBUG: 'true'
-            DRONE_SECRET: '***drone-vault secret***'
-            VAULT_ADDR: 'https://vault.lantian.pub'
-            VAULT_TOKEN: '***Vault secret***'
-        depends_on:
-            - vault
+  drone-vault:
+    image: drone/vault
+    container_name: drone-vault
+    restart: unless-stopped
+    environment:
+      DRONE_DEBUG: 'true'
+      DRONE_SECRET: '***drone-vault secret***'
+      VAULT_ADDR: 'https://vault.lantian.pub'
+      VAULT_TOKEN: '***Vault secret***'
+    depends_on:
+      - vault
 
-    # Drone #1 for my own Gitea
-    drone:
-        image: drone/drone:2
-        container_name: drone
-        restart: unless-stopped
-        environment:
-            DRONE_GITEA_SERVER: 'https://git.lantian.pub'
-            DRONE_GITEA_CLIENT_ID: '***Gitea OAuth ID***'
-            DRONE_GITEA_CLIENT_SECRET: '***Gitea OAuth Secret***'
-            DRONE_RPC_SECRET:
-                '***Drone Runner Secret, generate with openssl rand -hex 16***'
-            DRONE_SERVER_HOST: ci.lantian.pub
-            DRONE_SERVER_PROTO: https
-            DRONE_USER_CREATE: username:lantian,admin:true # Admin account
-            DRONE_JSONNET_ENABLED: 'true'
-            DRONE_STARLARK_ENABLED: 'true'
-        volumes:
-            - './data/drone:/data'
+  # Drone #1 for my own Gitea
+  drone:
+    image: drone/drone:2
+    container_name: drone
+    restart: unless-stopped
+    environment:
+      DRONE_GITEA_SERVER: 'https://git.lantian.pub'
+      DRONE_GITEA_CLIENT_ID: '***Gitea OAuth ID***'
+      DRONE_GITEA_CLIENT_SECRET: '***Gitea OAuth Secret***'
+      DRONE_RPC_SECRET:
+        '***Drone Runner Secret, generate with openssl rand -hex 16***'
+      DRONE_SERVER_HOST: ci.lantian.pub
+      DRONE_SERVER_PROTO: https
+      DRONE_USER_CREATE: username:lantian,admin:true # Admin account
+      DRONE_JSONNET_ENABLED: 'true'
+      DRONE_STARLARK_ENABLED: 'true'
+    volumes:
+      - './data/drone:/data'
 
-    # Drone #1's Docker Runner
-    drone-runner-docker:
-        image: drone/drone-runner-docker:1
-        container_name: drone-runner-docker
-        restart: unless-stopped
-        environment:
-            DRONE_RPC_PROTO: https
-            DRONE_RPC_HOST: ci.lantian.pub
-            DRONE_RPC_SECRET: '***Drone Secret, same as DRONE_RPC_SECRET above'
-            DRONE_RUNNER_CAPACITY: 4 # Max parallel jobs
-            DRONE_RUNNER_NAME: drone-docker
-            DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-vault:3000
-            DRONE_SECRET_PLUGIN_TOKEN: '***drone-vault secret***'
-        volumes:
-            - '/var/run:/var/run'
-            - '/cache:/cache'
-        depends_on:
-            - drone
-            - drone-vault
+  # Drone #1's Docker Runner
+  drone-runner-docker:
+    image: drone/drone-runner-docker:1
+    container_name: drone-runner-docker
+    restart: unless-stopped
+    environment:
+      DRONE_RPC_PROTO: https
+      DRONE_RPC_HOST: ci.lantian.pub
+      DRONE_RPC_SECRET: '***Drone Secret, same as DRONE_RPC_SECRET above'
+      DRONE_RUNNER_CAPACITY: 4 # Max parallel jobs
+      DRONE_RUNNER_NAME: drone-docker
+      DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-vault:3000
+      DRONE_SECRET_PLUGIN_TOKEN: '***drone-vault secret***'
+    volumes:
+      - '/var/run:/var/run'
+      - '/cache:/cache'
+    depends_on:
+      - drone
+      - drone-vault
 
-    # Drone #1 for GitHub
-    drone-github:
-        image: drone/drone:2
-        container_name: drone-github
-        restart: unless-stopped
-        environment:
-            DRONE_GITHUB_CLIENT_ID: '**GitHub OAuth ID**'
-            DRONE_GITHUB_CLIENT_SECRET: '***GitHub OAuth Secret***'
-            DRONE_RPC_SECRET:
-                '***Drone Runner Secret, generate with openssl rand -hex 16***'
-            DRONE_SERVER_HOST: ci-github.lantian.pub
-            DRONE_SERVER_PROTO: https
-            DRONE_USER_CREATE: username:xddxdd,admin:true # Admin account
-            DRONE_REGISTRATION_CLOSED: 'true' # Disallow new user registration
-            DRONE_JSONNET_ENABLED: 'true'
-            DRONE_STARLARK_ENABLED: 'true'
-        volumes:
-            - './data/drone-github:/data'
+  # Drone #1 for GitHub
+  drone-github:
+    image: drone/drone:2
+    container_name: drone-github
+    restart: unless-stopped
+    environment:
+      DRONE_GITHUB_CLIENT_ID: '**GitHub OAuth ID**'
+      DRONE_GITHUB_CLIENT_SECRET: '***GitHub OAuth Secret***'
+      DRONE_RPC_SECRET:
+        '***Drone Runner Secret, generate with openssl rand -hex 16***'
+      DRONE_SERVER_HOST: ci-github.lantian.pub
+      DRONE_SERVER_PROTO: https
+      DRONE_USER_CREATE: username:xddxdd,admin:true # Admin account
+      DRONE_REGISTRATION_CLOSED: 'true' # Disallow new user registration
+      DRONE_JSONNET_ENABLED: 'true'
+      DRONE_STARLARK_ENABLED: 'true'
+    volumes:
+      - './data/drone-github:/data'
 
-    # Drone #2's Docker Runner
-    drone-github-runner-docker:
-        image: drone/drone-runner-docker:1
-        container_name: drone-github-runner-docker
-        restart: unless-stopped
-        environment:
-            DRONE_RPC_PROTO: https
-            DRONE_RPC_HOST: ci-github.lantian.pub
-            DRONE_RPC_SECRET: '***Drone Secret, same as DRONE_RPC_SECRET above'
-            DRONE_RUNNER_CAPACITY: 4 # Max parallel jobs
-            DRONE_RUNNER_NAME: drone-docker
-            DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-vault:3000
-            DRONE_SECRET_PLUGIN_TOKEN: '***drone-vault secret***'
-        volumes:
-            - '/var/run:/var/run'
-            - '/cache:/cache'
-        depends_on:
-            - drone-github
-            - drone-vault
+  # Drone #2's Docker Runner
+  drone-github-runner-docker:
+    image: drone/drone-runner-docker:1
+    container_name: drone-github-runner-docker
+    restart: unless-stopped
+    environment:
+      DRONE_RPC_PROTO: https
+      DRONE_RPC_HOST: ci-github.lantian.pub
+      DRONE_RPC_SECRET: '***Drone Secret, same as DRONE_RPC_SECRET above'
+      DRONE_RUNNER_CAPACITY: 4 # Max parallel jobs
+      DRONE_RUNNER_NAME: drone-docker
+      DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-vault:3000
+      DRONE_SECRET_PLUGIN_TOKEN: '***drone-vault secret***'
+    volumes:
+      - '/var/run:/var/run'
+      - '/cache:/cache'
+    depends_on:
+      - drone-github
+      - drone-vault
 ```
 
 ## Basic Drone CI/CD
@@ -197,12 +197,11 @@ example of deploying my Hexo blog.
 
 I already have a set of deployment scripts for the following tasks:
 
--   Install node_modules
--   `hexo generate`
--   `hexo deploy` to GitHub Pages (as a backup)
--   Convert all images to WebP, and Gzip and Brotli compress all static
-    resources
--   Rsync generated files to all of my nodes with Ansible
+- Install node_modules
+- `hexo generate`
+- `hexo deploy` to GitHub Pages (as a backup)
+- Convert all images to WebP, and Gzip and Brotli compress all static resources
+- Rsync generated files to all of my nodes with Ansible
 
 In addition, since my blog uses Dependabot to update dependencies automatically,
 Dependabot may create pull requests from time to time. Obviously, the pull
@@ -218,33 +217,33 @@ type: docker
 name: default
 
 trigger:
-    branch:
-        - master
+  branch:
+    - master
 
 steps:
-    - name: hexo generate
-      image: node:15-alpine
-      commands:
-          # Not all packages are needed: this is to be consistent with following steps
-          - apk add --no-cache build-base bash git openssh wget python3 gzip
-            brotli zstd parallel imagemagick
-          - npm install
-          - node_modules/hexo/bin/hexo generate
+  - name: hexo generate
+    image: node:15-alpine
+    commands:
+      # Not all packages are needed: this is to be consistent with following steps
+      - apk add --no-cache build-base bash git openssh wget python3 gzip brotli
+        zstd parallel imagemagick
+      - npm install
+      - node_modules/hexo/bin/hexo generate
 
-    - name: hexo deploy
-      image: node:15-alpine
-      commands:
-          # Install packages
-          - apk add --no-cache build-base bash git openssh wget python3 gzip
-            brotli zstd parallel imagemagick
-          - node_modules/hexo/bin/hexo deploy
-      # Don't deploy Dependabot's PRs
-      when:
-          event:
-              exclude:
-                  - pull_request
+  - name: hexo deploy
+    image: node:15-alpine
+    commands:
+      # Install packages
+      - apk add --no-cache build-base bash git openssh wget python3 gzip brotli
+        zstd parallel imagemagick
+      - node_modules/hexo/bin/hexo deploy
+    # Don't deploy Dependabot's PRs
+    when:
+      event:
+        exclude:
+          - pull_request
 
-    # Some subsequent steps are skipped
+  # Some subsequent steps are skipped
 ```
 
 This config will generate the static files and attempt `hexo deploy`, but it
@@ -257,9 +256,9 @@ to Vault (or Drone's secret storage), and use it from the config file:
 kind: secret
 name: id_ed25519
 get:
-    # This path is shown as kv/ssh in Vault. "data" must be added.
-    path: kv/data/ssh
-    name: id_ed25519
+  # This path is shown as kv/ssh in Vault. "data" must be added.
+  path: kv/data/ssh
+  name: id_ed25519
 
 ---
 kind: pipeline
@@ -269,29 +268,29 @@ name: default
 # ...
 
 steps:
-    # ...
-    - name: hexo deploy
-      image: node:15-alpine
-      environment:
-          # Use the SSH key fetched from Vault, set as environment variable
-          SSH_KEY:
-              from_secret: id_ed25519
-      commands:
-          # Install SSH key
-          - mkdir -p /root/.ssh/
-          - echo "$SSH_KEY" > /root/.ssh/id_ed25519
-          - chmod 600 /root/.ssh/id_ed25519
+  # ...
+  - name: hexo deploy
+    image: node:15-alpine
+    environment:
+      # Use the SSH key fetched from Vault, set as environment variable
+      SSH_KEY:
+        from_secret: id_ed25519
+    commands:
+      # Install SSH key
+      - mkdir -p /root/.ssh/
+      - echo "$SSH_KEY" > /root/.ssh/id_ed25519
+      - chmod 600 /root/.ssh/id_ed25519
 
-          # Configure SSH, mainly disable host key verification, or login will fail
-          - |
-              cat <<EOF >/root/.ssh/config
-              StrictHostKeyChecking no
-              UserKnownHostsFile=/dev/null
-              VerifyHostKeyDNS yes
-              LogLevel ERROR
-              EOF
+      # Configure SSH, mainly disable host key verification, or login will fail
+      - |
+        cat <<EOF >/root/.ssh/config
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+        VerifyHostKeyDNS yes
+        LogLevel ERROR
+        EOF
 
-          # Install packages... redacted
+      # Install packages... redacted
 ```
 
 Now we have SSH keys in the CI containers, and it will be able to connect to
@@ -307,48 +306,48 @@ and decompress them on the next build:
 ```yaml
 # ...
 steps:
-    # Restore the last cache
-    - name: restore cache
-      image: meltwater/drone-cache:dev
-      settings:
-          backend: 'filesystem'
-          restore: true
-          cache_key: 'volume'
-          archive_format: 'gzip'
-          filesystem_cache_root: '/cache'
-          # Cache these two folders
-          mount:
-              - 'node_modules'
-              - 'img_cache'
-      volumes:
-          - name: cache
-            path: /cache
+  # Restore the last cache
+  - name: restore cache
+    image: meltwater/drone-cache:dev
+    settings:
+      backend: 'filesystem'
+      restore: true
+      cache_key: 'volume'
+      archive_format: 'gzip'
+      filesystem_cache_root: '/cache'
+      # Cache these two folders
+      mount:
+        - 'node_modules'
+        - 'img_cache'
+    volumes:
+      - name: cache
+        path: /cache
 
-    - name: hexo generate
-      # ...
+  - name: hexo generate
+    # ...
 
-    # Cache result generated this time
-    - name: rebuild cache
-      image: meltwater/drone-cache:dev
-      settings:
-          backend: 'filesystem'
-          rebuild: true
-          cache_key: 'volume'
-          archive_format: 'gzip'
-          filesystem_cache_root: '/cache'
-          # Cache these two folders
-          mount:
-              - 'node_modules'
-              - 'img_cache'
-      volumes:
-          - name: cache
-            path: /cache
+  # Cache result generated this time
+  - name: rebuild cache
+    image: meltwater/drone-cache:dev
+    settings:
+      backend: 'filesystem'
+      rebuild: true
+      cache_key: 'volume'
+      archive_format: 'gzip'
+      filesystem_cache_root: '/cache'
+      # Cache these two folders
+      mount:
+        - 'node_modules'
+        - 'img_cache'
+    volumes:
+      - name: cache
+        path: /cache
 
 # Cache files are stored to /cache on the host, need repo set to Trusted in Drone
 volumes:
-    - name: cache
-      host:
-          path: /cache
+  - name: cache
+    host:
+      path: /cache
 ```
 
 We can also have Telegram notifications on build failures:
@@ -358,49 +357,49 @@ We can also have Telegram notifications on build failures:
 kind: secret
 name: tg_token
 get:
-    path: kv/data/telegram
-    name: token
+  path: kv/data/telegram
+  name: token
 
 ---
 kind: secret
 name: tg_target
 get:
-    path: kv/data/telegram
-    name: target
+  path: kv/data/telegram
+  name: target
 
 ---
 # ...
 steps:
-    # ...
+  # ...
 
-    # Handle notification on failure
-    - name: telegram notification for failure
-      image: appleboy/drone-telegram
-      settings:
-          token:
-              from_secret: tg_token
-          to:
-              from_secret: tg_target
-      when:
-          status:
-              - failure
+  # Handle notification on failure
+  - name: telegram notification for failure
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: tg_token
+      to:
+        from_secret: tg_target
+    when:
+      status:
+        - failure
 
-    # Handle notification on failure, not sent when triggered from a cron job
-    - name: telegram notification for success
-      image: appleboy/drone-telegram
-      settings:
-          token:
-              from_secret: tg_token
-          to:
-              from_secret: tg_target
-      when:
-          branch:
-              - master
-          status:
-              - success
-          event:
-              exclude:
-                  - cron
+  # Handle notification on failure, not sent when triggered from a cron job
+  - name: telegram notification for success
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: tg_token
+      to:
+        from_secret: tg_target
+    when:
+      branch:
+        - master
+      status:
+        - success
+      event:
+        exclude:
+          - cron
 ```
 
 Now we have a Drone configuration with deployments, caching, and Telegram
@@ -492,11 +491,11 @@ with exit code 78 like this:
 ```yaml
 # ...
 steps:
-    # ...
-    - name: skip build
-      image: alpine
-      commands:
-          - ./should_build.sh && exit 0 || exit 78
+  # ...
+  - name: skip build
+    image: alpine
+    commands:
+      - ./should_build.sh && exit 0 || exit 78
 ```
 
 An actual example can be found

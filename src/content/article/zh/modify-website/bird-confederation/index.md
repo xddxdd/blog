@@ -7,9 +7,9 @@ date: 2020-06-07 21:51:51
 
 ## 更新记录
 
--   2020-10-01：添加警告，模拟 Confederation 时不能在内网滤掉内部 ASN
--   2020-06-07：添加 Bird Confederation 的局限，及模拟 Confederation 方法
--   2020-05-17：最初版本
+- 2020-10-01：添加警告，模拟 Confederation 时不能在内网滤掉内部 ASN
+- 2020-06-07：添加 Bird Confederation 的局限，及模拟 Confederation 方法
+- 2020-05-17：最初版本
 
 ## ISP 内部 BGP 互联方案比较
 
@@ -30,196 +30,194 @@ ASN（自治域编号），例如中国电信的 ASN 是 4134。然后 ISP 之�
 分。要让这些路由器互相得知哪台路由器管理哪些 IP，有几种方法：
 
 1. 手动设置静态路由。
-    - 这是最简单粗暴的办法，直接人工告知路由器将某个 IP 段的数据包发给某个路由
-      器。
-    - 缺点也显而易见，对于中国电信这样大小的网络，人工设置的压力将非常大，很容易
-      出错。
-    - 另外，如果某两地之间的物理连接出现中断，静态路由就会失效，导致两地之间网络
-      中断。此时就需要人工将数据包导向另一个地方进行中转。
+   - 这是最简单粗暴的办法，直接人工告知路由器将某个 IP 段的数据包发给某个路由
+     器。
+   - 缺点也显而易见，对于中国电信这样大小的网络，人工设置的压力将非常大，很容易
+     出错。
+   - 另外，如果某两地之间的物理连接出现中断，静态路由就会失效，导致两地之间网络
+     中断。此时就需要人工将数据包导向另一个地方进行中转。
 2. 使用 iBGP
 
-    - 就像和其它 ISP 建立邻居关系（Peer）一样，在路由器之间设置好 BGP 会话，两端
-      使用同一 ASN。这种 BGP 连接被称做 iBGP，而两端 ASN 不同的被称为 eBGP。
-    - 各台路由器上均只需要一次性配置好 BGP 会话即可，之后在网络中断等情况下，各
-      台路由器会自动删除失效的路由信息，转而选择剩下可用路径中最佳的一条。
-    - 但是 iBGP 有一个很严重的限制：所有路由器都应该两两相连。原因如下：
+   - 就像和其它 ISP 建立邻居关系（Peer）一样，在路由器之间设置好 BGP 会话，两端
+     使用同一 ASN。这种 BGP 连接被称做 iBGP，而两端 ASN 不同的被称为 eBGP。
+   - 各台路由器上均只需要一次性配置好 BGP 会话即可，之后在网络中断等情况下，各台
+     路由器会自动删除失效的路由信息，转而选择剩下可用路径中最佳的一条。
+   - 但是 iBGP 有一个很严重的限制：所有路由器都应该两两相连。原因如下：
 
-        - 假设我们有如下的网络拓扑：
+     - 假设我们有如下的网络拓扑：
 
-            ```graphviz
-            graph {
-              rankdir=LR
-              node[shape=box]
+       ```graphviz
+       graph {
+         rankdir=LR
+         node[shape=box]
 
-              subgraph cluster_1 {
-                style=filled;
-                color=lightgrey;
-                label="AS1";
-                node[style=filled,color=white]
-                {rank=same; A -- "10.0.0.0/8"; }
-                "10.0.0.0/8"[shape=oval]
-              }
+         subgraph cluster_1 {
+           style=filled;
+           color=lightgrey;
+           label="AS1";
+           node[style=filled,color=white]
+           {rank=same; A -- "10.0.0.0/8"; }
+           "10.0.0.0/8"[shape=oval]
+         }
 
-              subgraph cluster_2 {
-                style=filled;
-                color=lightgrey;
-                label="AS2";
-                node[style=filled,color=white]
-                {rank=same; B -- C; }
-                B -- D;
-                C -- D;
-              }
+         subgraph cluster_2 {
+           style=filled;
+           color=lightgrey;
+           label="AS2";
+           node[style=filled,color=white]
+           {rank=same; B -- C; }
+           B -- D;
+           C -- D;
+         }
 
-              A -- B
-            }
-            ```
+         A -- B
+       }
+       ```
 
-            - 其中 A 属于 AS1, B、C、D 属于 AS2。
-            - 此时 A 广播自己可以访问到 `10.0.0.0/8` 这个 IP 段。
-            - B 收到 A 的广播，并向 C 和 D 宣布自己距离 `10.0.0.0/8` 有 1 格，路
-              线是 `AS2 -> AS1`。
-                - 注意 BGP 的路线信息中并没有标记它具体经过了哪台路由器，而只标
-                  记了它经过哪些 AS（即 ISP）。
-            - C 收到 B 的广播，向 D 宣布自己距离目标 2 格，路线是
-              `AS2 -> AS2 -> AS1`。同时 D 也向 C 宣布同样的内容。
-            - 由于 BGP 的选路并不是严格意义上的最短路线，可以通过人工或程序设置
-              优先级的方式调整，因此 C 有可能选择将数据包导向 D，路线是
-              `AS2 -> AS2 -> AS2 -> AS1`。
-            - 此时 B 看到的情况是，A 和 C 两台路由器都宣布自己可以到达目标。于是
-              经过诡异的调整后，B 放弃了直接导向 A 的路径（虽然很蠢，但是这是可
-              能的！）并选择将数据包导向 C。
-            - 此时的路线就是 `B -> C -> D -> B -> A`，出现了环路，数据包将永远无
-              法到达目标。
-            - 更糟糕的是，B 会继续将这条环路宣布给 D，再是 C，再是 B……如此循环下
-              去，各台路由器的内存将被路由信息迅速耗尽，导致系统崩溃、数据转发完
-              全中断。
+       - 其中 A 属于 AS1, B、C、D 属于 AS2。
+       - 此时 A 广播自己可以访问到 `10.0.0.0/8` 这个 IP 段。
+       - B 收到 A 的广播，并向 C 和 D 宣布自己距离 `10.0.0.0/8` 有 1 格，路线是
+         `AS2 -> AS1`。
+         - 注意 BGP 的路线信息中并没有标记它具体经过了哪台路由器，而只标记了它经
+           过哪些 AS（即 ISP）。
+       - C 收到 B 的广播，向 D 宣布自己距离目标 2 格，路线是
+         `AS2 -> AS2 -> AS1`。同时 D 也向 C 宣布同样的内容。
+       - 由于 BGP 的选路并不是严格意义上的最短路线，可以通过人工或程序设置优先级
+         的方式调整，因此 C 有可能选择将数据包导向 D，路线是
+         `AS2 -> AS2 -> AS2 -> AS1`。
+       - 此时 B 看到的情况是，A 和 C 两台路由器都宣布自己可以到达目标。于是经过
+         诡异的调整后，B 放弃了直接导向 A 的路径（虽然很蠢，但是这是可能的！）并
+         选择将数据包导向 C。
+       - 此时的路线就是 `B -> C -> D -> B -> A`，出现了环路，数据包将永远无法到
+         达目标。
+       - 更糟糕的是，B 会继续将这条环路宣布给 D，再是 C，再是 B……如此循环下去，
+         各台路由器的内存将被路由信息迅速耗尽，导致系统崩溃、数据转发完全中断。
 
-        - 为了避免以上情况的发生，iBGP 人为设置了一个限制：如果一条路由是同一个
-          AS 的路由器发来的，这条路由就不会被宣告给同一个 AS 下的其它路由器。此
-          时：
-            - B 将路由信息发送给 C 和 D。
-            - C 和 D 都收到了路由信息，但是不会把路由信息发送给彼此。
-            - 此时 C 和 D 到目标都只有唯一路径，就不会出现上述不断转发的情况了。
-        - 但是此时天灾降临，B 和 D 之间的连接中断了。
-            - 此时 C 不会把到 `10.0.0.0/8` 的路由信息发送给 D，D 就不知道如何到
-              达这个目标了。
+     - 为了避免以上情况的发生，iBGP 人为设置了一个限制：如果一条路由是同一个 AS
+       的路由器发来的，这条路由就不会被宣告给同一个 AS 下的其它路由器。此时：
+       - B 将路由信息发送给 C 和 D。
+       - C 和 D 都收到了路由信息，但是不会把路由信息发送给彼此。
+       - 此时 C 和 D 到目标都只有唯一路径，就不会出现上述不断转发的情况了。
+     - 但是此时天灾降临，B 和 D 之间的连接中断了。
+       - 此时 C 不会把到 `10.0.0.0/8` 的路由信息发送给 D，D 就不知道如何到达这个
+         目标了。
 
-    - 这就意味着一件事：同一个 AS 内的所有路由器之间都必须两两连接，并设置 BGP
-      会话。
-        - 实际部署中不需要两两物理连接，可以通过 OSPF、Babel 等协议处理 ISP 内部
-          的路由。但是跨 ISP（AS）的路由必须由 BGP 处理，因此所有路由器之间仍然
-          需要两两设置 BGP 会话。
-        - 对于中国电信这个级别的 ISP 来说，这种配置是不现实的。因此我们需要更好
-          的方法。
+   - 这就意味着一件事：同一个 AS 内的所有路由器之间都必须两两连接，并设置 BGP 会
+     话。
+     - 实际部署中不需要两两物理连接，可以通过 OSPF、Babel 等协议处理 ISP 内部的
+       路由。但是跨 ISP（AS）的路由必须由 BGP 处理，因此所有路由器之间仍然需要两
+       两设置 BGP 会话。
+     - 对于中国电信这个级别的 ISP 来说，这种配置是不现实的。因此我们需要更好的方
+       法。
 
 3. 使用 BGP Route Reflector
-    - Route Reflector 是一台经过特殊配置的路由器。它从同一个 AS 内的所有其它路由
-      器收集所有路由信息，再将它们分发给每台路由器。
-    - 这样其它路由器上就只需要一个 BGP 会话，连接到 Route Reflector 就可以。
-    - 但是这也意味着，一旦 Route Reflector 出现故障，其它路由器就无法获取到完整
-      的路由信息，网络也会崩溃。
-    - 当然也可以设置多个 Route Reflector 互为备份，但是不可否认的是 Route
-      Reflector 的架构完全与互联网去中心化的宗旨相违背。
+   - Route Reflector 是一台经过特殊配置的路由器。它从同一个 AS 内的所有其它路由
+     器收集所有路由信息，再将它们分发给每台路由器。
+   - 这样其它路由器上就只需要一个 BGP 会话，连接到 Route Reflector 就可以。
+   - 但是这也意味着，一旦 Route Reflector 出现故障，其它路由器就无法获取到完整的
+     路由信息，网络也会崩溃。
+   - 当然也可以设置多个 Route Reflector 互为备份，但是不可否认的是 Route
+     Reflector 的架构完全与互联网去中心化的宗旨相违背。
 4. 直接找 NIC 申请一大堆 ASN，给每个路由器分配不同的 ASN，在所有路由器之间设置
    eBGP
-    - 这样的确可以实现完全去中心化的架构，每个路由器无论到其它路由器的连通状况如
-      何，都能获取到完整的路由信息，可以避免单点故障影响整个网络。
-    - 缺点显而易见：大量 ASN 大幅增加了 ISP 和 NIC 的工作量和信息管理成本，NIC
-      的手续费也不会便宜。
+   - 这样的确可以实现完全去中心化的架构，每个路由器无论到其它路由器的连通状况如
+     何，都能获取到完整的路由信息，可以避免单点故障影响整个网络。
+   - 缺点显而易见：大量 ASN 大幅增加了 ISP 和 NIC 的工作量和信息管理成本，NIC 的
+     手续费也不会便宜。
 5. 使用 BGP Confederation
 
-    - 在 BGP Confederation 中，每个路由器同样会获得不同的 ASN。但是与 4 不同的
-      是，这些 ISP 内部使用的私有 ASN 没有必要找 NIC 申请。
-        - ASN 4200000000 - 4294967295 这一段号码是预留作“内部使用”的，也就是 ISP
-          可以直接在其内部使用这些 ASN。当然，这些 ASN 也不被 NIC 承认，（一般）
-          不能被广播到其它 ISP。
-            - 例如
-              [DN42 实验网络](/article/modify-website/dn42-experimental-network-2020.lantian)就
-              是占用了其中的一小段。
-    - 于是 ISP 给每个路由器从这一段中分配了一个内部使用的 ASN。虽然 BGP 的路由信
-      息只记录了经过的 ASN，但是因为每个路由器的 ASN 都不同，就相当于记录了经过
-      哪些路由器，也就不怕环路了。
-    - 但是这些私有 ASN 不被其它网络承认，甚至可能与其它网络产生冲突（其它 ISP 正
-      在用它们做测试），因此在将路由信息发给其它 ISP 的路由器时，就需要把这一段
-      私有 ASN 都删掉，换成这个 ISP 从 NIC 申请下来的 ASN。
-    - 但是每台路由器的 ASN 都不同，如何知道哪些路由器是“友军”（属于自己这个
-      ISP），哪些是“敌军”（属于其它 ISP）？可以给 ISP 内部的所有路由器分配一个统
-      一的编号（称为 Confederation Identifier），用它来识别敌我。
-    - 假设我们有如下的网络拓扑：
+   - 在 BGP Confederation 中，每个路由器同样会获得不同的 ASN。但是与 4 不同的
+     是，这些 ISP 内部使用的私有 ASN 没有必要找 NIC 申请。
+     - ASN 4200000000 - 4294967295 这一段号码是预留作“内部使用”的，也就是 ISP 可
+       以直接在其内部使用这些 ASN。当然，这些 ASN 也不被 NIC 承认，（一般）不能
+       被广播到其它 ISP。
+       - 例如
+         [DN42 实验网络](/article/modify-website/dn42-experimental-network-2020.lantian)就
+         是占用了其中的一小段。
+   - 于是 ISP 给每个路由器从这一段中分配了一个内部使用的 ASN。虽然 BGP 的路由信
+     息只记录了经过的 ASN，但是因为每个路由器的 ASN 都不同，就相当于记录了经过哪
+     些路由器，也就不怕环路了。
+   - 但是这些私有 ASN 不被其它网络承认，甚至可能与其它网络产生冲突（其它 ISP 正
+     在用它们做测试），因此在将路由信息发给其它 ISP 的路由器时，就需要把这一段私
+     有 ASN 都删掉，换成这个 ISP 从 NIC 申请下来的 ASN。
+   - 但是每台路由器的 ASN 都不同，如何知道哪些路由器是“友军”（属于自己这个
+     ISP），哪些是“敌军”（属于其它 ISP）？可以给 ISP 内部的所有路由器分配一个统
+     一的编号（称为 Confederation Identifier），用它来识别敌我。
+   - 假设我们有如下的网络拓扑：
 
-        ```graphviz
-        graph {
-          rankdir=LR
-          node[shape=box]
+     ```graphviz
+     graph {
+       rankdir=LR
+       node[shape=box]
 
-          subgraph cluster_1 {
-            style=filled;
-            color=lightgrey;
-            label="AS1";
-            node[style=filled,color=white]
-            {rank=same; A -- "10.0.0.0/8"; }
-            "10.0.0.0/8"[shape=oval]
-          }
+       subgraph cluster_1 {
+         style=filled;
+         color=lightgrey;
+         label="AS1";
+         node[style=filled,color=white]
+         {rank=same; A -- "10.0.0.0/8"; }
+         "10.0.0.0/8"[shape=oval]
+       }
 
-          subgraph cluster_2 {
-            style=filled;
-            color=lightgrey;
-            label="AS2";
-            node[style=filled,color=white]
-            {rank=same; B -- C; }
-            B -- D;
-            C -- D;
-          }
+       subgraph cluster_2 {
+         style=filled;
+         color=lightgrey;
+         label="AS2";
+         node[style=filled,color=white]
+         {rank=same; B -- C; }
+         B -- D;
+         C -- D;
+       }
 
-          subgraph cluster_3 {
-            style=filled;
-            color=lightgrey;
-            label="AS3";
-            node[style=filled,color=white]
-            E
-          }
+       subgraph cluster_3 {
+         style=filled;
+         color=lightgrey;
+         label="AS3";
+         node[style=filled,color=white]
+         E
+       }
 
-          A -- B
-          D -- E
-        }
-        ```
+       A -- B
+       D -- E
+     }
+     ```
 
-        - 其中 A 属于 AS1, B、C、D 属于 AS2，E 属于 AS3。
-        - AS2 中设置了 BGP Confederation，B、C、D 的私有 ASN 分别是 21、22、23。
-        - A 广播 `10.0.0.0/8`，B、C、D 接收后，各自获得以下路径：
-            - B：`AS21 -> AS1`。
-            - C：`AS22 -> AS21 -> AS1` 或者 `AS22 -> AS23 -> AS21 -> AS1`。
-            - D：`AS23 -> AS21 -> AS1` 或者 `AS23 -> AS22 -> AS21 -> AS1`。
-        - 此时 C 在发送给 E 路由信息时，删掉了 AS2 内部 Confederation 的路径，替
-          换成 `AS2` 这样一个整体的编号。
-            - E：`AS3 -> AS2 -> AS1`。
-        - 如果天灾降临，B、D 之间的连接中断，D 仍然可以从 C 获得
-          `AS23 -> AS22 -> AS21 -> AS1` 这条路由，从而保证数据转发正常。
+     - 其中 A 属于 AS1, B、C、D 属于 AS2，E 属于 AS3。
+     - AS2 中设置了 BGP Confederation，B、C、D 的私有 ASN 分别是 21、22、23。
+     - A 广播 `10.0.0.0/8`，B、C、D 接收后，各自获得以下路径：
+       - B：`AS21 -> AS1`。
+       - C：`AS22 -> AS21 -> AS1` 或者 `AS22 -> AS23 -> AS21 -> AS1`。
+       - D：`AS23 -> AS21 -> AS1` 或者 `AS23 -> AS22 -> AS21 -> AS1`。
+     - 此时 C 在发送给 E 路由信息时，删掉了 AS2 内部 Confederation 的路径，替换
+       成 `AS2` 这样一个整体的编号。
+       - E：`AS3 -> AS2 -> AS1`。
+     - 如果天灾降临，B、D 之间的连接中断，D 仍然可以从 C 获得
+       `AS23 -> AS22 -> AS21 -> AS1` 这条路由，从而保证数据转发正常。
 
-    - 这样既最大化保留了互联网去中心化的特点、避免了单点故障，同时也降低了 NIC
-      的信息处理压力。
-    - 但是在 Bird 中，Confederation 有点问题：
-        - Bird 在计算 BGP 路径长度时不会计入 Confederation 这一段的长度，这就会
-          导致诡异的路由结果。
-            - 例如 C 同时收到 `A -> B -> C` 和 `A -> B -> D -> C` 两条路由，同时
-              两者优先级相同。此时 Bird 认为两条路由**等长**，于是**随机**选择路
-              由，就有可能绕路。
-        - 同时 Bird 也不提供变量，让 Filter 来计算 Confederation 的长度，从而手
-          动调整优先级。
-            - Bird 中的 `bgp_path.len` 不包含 Confederation 一段长度，如上所述；
-            - Bird 提供的最接近的功能是 AIGP，也就是跨 AS 累积路径的 Cost。但是
-              AIGP 累计的值不能被 Filter 访问。
-                - ~~`bgp_aigp` 变量居然是 void 类型，不知道开发者在干什么。~~
+   - 这样既最大化保留了互联网去中心化的特点、避免了单点故障，同时也降低了 NIC 的
+     信息处理压力。
+   - 但是在 Bird 中，Confederation 有点问题：
+     - Bird 在计算 BGP 路径长度时不会计入 Confederation 这一段的长度，这就会导致
+       诡异的路由结果。
+       - 例如 C 同时收到 `A -> B -> C` 和 `A -> B -> D -> C` 两条路由，同时两者
+         优先级相同。此时 Bird 认为两条路由**等长**，于是**随机**选择路由，就有
+         可能绕路。
+     - 同时 Bird 也不提供变量，让 Filter 来计算 Confederation 的长度，从而手动调
+       整优先级。
+       - Bird 中的 `bgp_path.len` 不包含 Confederation 一段长度，如上所述；
+       - Bird 提供的最接近的功能是 AIGP，也就是跨 AS 累积路径的 Cost。但是 AIGP
+         累计的值不能被 Filter 访问。
+         - ~~`bgp_aigp` 变量居然是 void 类型，不知道开发者在干什么。~~
 
 6. 手动模拟一个 BGP Confederation
-    - 方案与 Confederation 相同，只不过不把所有路由器设置同一个 Confederation 编
-      号，让它们仍然独立运行。
-    - 然后在对外广播路由时，用 Filter 删除掉内网一段的 ASN 来模拟 Confederation
-      的效果。
-        - **注意：**在你的网络内部，不能滤掉内网段 ASN！否则网络会形成环路。
-    - 优点是保留了 Confederation 的所有好处，同时可以正常计算路径长度（不会绕
-      路）；
-    - 缺点是容易配置出错，例如内网 ASN 没删干净就广播了出去。
+   - 方案与 Confederation 相同，只不过不把所有路由器设置同一个 Confederation 编
+     号，让它们仍然独立运行。
+   - 然后在对外广播路由时，用 Filter 删除掉内网一段的 ASN 来模拟 Confederation
+     的效果。
+     - **注意：**在你的网络内部，不能滤掉内网段 ASN！否则网络会形成环路。
+   - 优点是保留了 Confederation 的所有好处，同时可以正常计算路径长度（不会绕
+     路）；
+   - 缺点是容易配置出错，例如内网 ASN 没删干净就广播了出去。
 
 下面先介绍 Bird 自带的 Confederation 的配置方法，再介绍模拟 Confederation 的方
 法。

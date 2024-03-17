@@ -3,131 +3,131 @@
 @import 'sass/common';
 
 body {
-    background-color: $body-background-dark;
-    color: $body-color-dark;
+  background-color: $body-background-dark;
+  color: $body-color-dark;
 }
 
 #bg {
-    background: none;
+  background: none;
 }
 
 nav.lantian {
-    background-color: material-color('grey', '800');
+  background-color: material-color('grey', '800');
 }
 
 section.lantian {
-    background-color: material-color('grey', '800');
+  background-color: material-color('grey', '800');
 }
 
 article {
-    .post-info-wrap {
+  .post-info-wrap {
+    background-color: material-color('grey', '800');
+  }
+
+  .post-meta-wrap {
+    background-color: material-color('grey', '800');
+  }
+
+  .post-meta {
+    background-color: material-color('grey', '800');
+    color: $body-color-dark;
+    a {
+      color: $body-color-dark;
+    }
+
+    &:hover,
+    &:active {
+      background-color: material-color('grey', '800');
+    }
+
+    .badge-tag {
+      background-color: material-color('grey', '700');
+      &:hover {
+        background-color: material-color('grey', '600');
+      }
+    }
+  }
+
+  .post-text {
+    background-color: $body-background-dark;
+
+    b,
+    strong {
+      font-weight: 700 !important;
+      color: white;
+    }
+
+    img,
+    svg {
+      box-shadow: 0 0 10px black;
+    }
+    blockquote,
+    pre {
+      border-left: 5px solid material-color('grey', '800');
+    }
+    code {
+      border-bottom: 3px solid material-color('grey', '800');
+    }
+
+    table {
+      th,
+      td {
+        border: $border-default;
+      }
+
+      thead {
         background-color: material-color('grey', '800');
+      }
+
+      tr {
+        border-top: $border-default;
+
+        &:nth-child(2n) {
+          background-color: material-color('grey', '800');
+        }
+      }
     }
 
-    .post-meta-wrap {
-        background-color: material-color('grey', '800');
+    .header-anchor {
+      margin-left: 0.25em;
     }
-
-    .post-meta {
-        background-color: material-color('grey', '800');
-        color: $body-color-dark;
-        a {
-            color: $body-color-dark;
-        }
-
-        &:hover,
-        &:active {
-            background-color: material-color('grey', '800');
-        }
-
-        .badge-tag {
-            background-color: material-color('grey', '700');
-            &:hover {
-                background-color: material-color('grey', '600');
-            }
-        }
-    }
-
-    .post-text {
-        background-color: $body-background-dark;
-
-        b,
-        strong {
-            font-weight: 700 !important;
-            color: white;
-        }
-
-        img,
-        svg {
-            box-shadow: 0 0 10px black;
-        }
-        blockquote,
-        pre {
-            border-left: 5px solid material-color('grey', '800');
-        }
-        code {
-            border-bottom: 3px solid material-color('grey', '800');
-        }
-
-        table {
-            th,
-            td {
-                border: $border-default;
-            }
-
-            thead {
-                background-color: material-color('grey', '800');
-            }
-
-            tr {
-                border-top: $border-default;
-
-                &:nth-child(2n) {
-                    background-color: material-color('grey', '800');
-                }
-            }
-        }
-
-        .header-anchor {
-            margin-left: 0.25em;
-        }
-    }
+  }
 }
 
 footer.lantian {
-    background-color: material-color('grey', '800');
+  background-color: material-color('grey', '800');
 }
 
 #container {
-    background: $body-background-dark;
+  background: $body-background-dark;
 
-    @include media-breakpoint-up(md) {
-        box-shadow: 0 0 50px #000;
-    }
+  @include media-breakpoint-up(md) {
+    box-shadow: 0 0 50px #000;
+  }
 }
 
 .widget {
-    h3 {
-        color: white;
-        font-weight: 700;
-    }
+  h3 {
+    color: white;
+    font-weight: 700;
+  }
 
-    ul {
-        li {
-            .fas {
-                color: white;
-            }
-        }
+  ul {
+    li {
+      .fas {
+        color: white;
+      }
     }
+  }
 }
 
 .page-navigator {
-    span,
-    a {
-        &.current {
-            color: black;
-        }
+  span,
+  a {
+    &.current {
+      color: black;
     }
+  }
 }
 
 @import 'highlight.js/styles/atom-one-dark';

@@ -45,19 +45,19 @@ And here comes the sound effect plugin.
 This sound effect plugin is intended for audio devices with **all conditions met
 below**:
 
--   A "speaker" rather than a "headphone" or an "earphone"
-    -   Since the plugin will send bass through one channel and treble through
-        the other, it's meaningless for headphones
--   Speakers for both channels placed together
-    -   If they are too far apart, you will feel that the bass and treble are
-        coming from different places, hindering your experience.
--   No dedicated bass unit
-    -   If it has one, the manufacturer likely had done everything this plugin
-        does, to split bass to the dedicated unit
--   (Usually) inexpensive
-    -   If your speaker is pricey (like a JBL Charge 4), it usually has superior
-        bass effects anyway. Increasing bass further with this plugin may damage
-        your hearing.
+- A "speaker" rather than a "headphone" or an "earphone"
+  - Since the plugin will send bass through one channel and treble through the
+    other, it's meaningless for headphones
+- Speakers for both channels placed together
+  - If they are too far apart, you will feel that the bass and treble are coming
+    from different places, hindering your experience.
+- No dedicated bass unit
+  - If it has one, the manufacturer likely had done everything this plugin does,
+    to split bass to the dedicated unit
+- (Usually) inexpensive
+  - If your speaker is pricey (like a JBL Charge 4), it usually has superior
+    bass effects anyway. Increasing bass further with this plugin may damage
+    your hearing.
 
 ## Installation & Usage
 

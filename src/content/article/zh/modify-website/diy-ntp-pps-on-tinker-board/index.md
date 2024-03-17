@@ -96,10 +96,10 @@ ORIG_DEVICE 设置为对应的串口，我用的是 `ttyS1`：
 [2]: https://tinkerboarding.co.uk/forum/thread-594.html
 [3]: https://github.com/flok99/rpi_gpio_ntpd
 [4]:
-    https://unix.stackexchange.com/questions/207762/why-sudo-user-can-use-sched-setscheduler-sched-rr-while-root-can-not/511261#511261
+  https://unix.stackexchange.com/questions/207762/why-sudo-user-can-use-sched-setscheduler-sched-rr-while-root-can-not/511261#511261
 [5]: https://bugzilla.redhat.com/show_bug.cgi?id=1467919
 [6]:
-    https://github.com/xddxdd/rpi_gpio_ntpd/blob/master/systemd/rpi_gpio_ntp.service
+  https://github.com/xddxdd/rpi_gpio_ntpd/blob/master/systemd/rpi_gpio_ntp.service
 [7]: https://github.com/xddxdd/rpi_gpio_ntpd
 [8]: /usr/uploads/2019/09/901961425.png
 [9]: /usr/uploads/2019/09/2438465593.png

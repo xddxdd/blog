@@ -8,8 +8,8 @@ image: /usr/uploads/202103/gopher-gopherus.png
 
 ## 更新日志
 
--   2021-03-24：改进文章处理逻辑，增加识别链接和图片的代码。
--   2021-03-21：最初版本。
+- 2021-03-24：改进文章处理逻辑，增加识别链接和图片的代码。
+- 2021-03-21：最初版本。
 
 ## 什么是 Gopher
 
@@ -129,15 +129,15 @@ Hello World
 
 服务端依然返回了页面的内容。但是这比起我们需要的多了不少东西：
 
--   Gopher 客户端不认识 HTTP 的 200 状态码；
--   多余的 Date、Content-Type 等响应头；
--   nginx 回复的响应内容经过 `Transfer-Encoding: chunked` 编码，Gopher 客户端也
-    不认识。
--   在输完 `Host:` 一行后我们按了两次回车，nginx 才发送响应。Gopher 客户端只会发
-    一次回车。
--   最重要的是，注意到那个 `^C` 没？那是我手动按 `Ctrl+C` 中断了连接。nginx 默认
-    启用了 `Connection: keep-alive`，发送完请求后不会主动关闭连接，而会等待客户
-    端发起第二个请求，如果是 Gopher 客户端就只能一直等下去了。
+- Gopher 客户端不认识 HTTP 的 200 状态码；
+- 多余的 Date、Content-Type 等响应头；
+- nginx 回复的响应内容经过 `Transfer-Encoding: chunked` 编码，Gopher 客户端也不
+  认识。
+- 在输完 `Host:` 一行后我们按了两次回车，nginx 才发送响应。Gopher 客户端只会发一
+  次回车。
+- 最重要的是，注意到那个 `^C` 没？那是我手动按 `Ctrl+C` 中断了连接。nginx 默认启
+  用了 `Connection: keep-alive`，发送完请求后不会主动关闭连接，而会等待客户端发
+  起第二个请求，如果是 Gopher 客户端就只能一直等下去了。
 
 因此，基于 HTTP/1.1 修改太过复杂。不过，有 1.1 就有 1.0。我们用 HTTP/1.0 试试？
 
@@ -182,10 +182,10 @@ Hello World
 这个补丁总共做了三件事情：
 
 1. 增加了一个 `listen` 的选项 `plain`，代表用于接收 Gopher 的、不带 GET 的请求。
-    - 例如 `listen 70 plain default_server;`
-    - 注意开启 `plain` 选项后，这个端口就不能接受普通的 HTTP 请求了！因此不要把
-      80 端口的 `listen` 加上这个选项，更不要和 `http2` 之类的选项一起开。
-    - 理论上也支持 SSL，但我没试过。
+   - 例如 `listen 70 plain default_server;`
+   - 注意开启 `plain` 选项后，这个端口就不能接受普通的 HTTP 请求了！因此不要把
+     80 端口的 `listen` 加上这个选项，更不要和 `http2` 之类的选项一起开。
+   - 理论上也支持 SSL，但我没试过。
 2. 增加了一个 `plain` 模式专用的、解析 URL 用的状态机，相比 HTTP 的状态机，删除
    了解析请求类型（`GET`）、域名（`http://localhost`）和 HTTP 版本（`HTTP/1.1`）
    相关的功能，请求类型锁定为 `GET`，域名设置为 `null`（与 HTTP/1.0 相同），HTTP
@@ -216,95 +216,86 @@ const gopherAfter = '\t\t{{server_addr}}\t{{server_port}}' + crlf
 const gopherEOF = '.' + crlf
 
 function markdown_formatter(rel_path, md) {
-    const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g
+  const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g
 
-    var rows = md.split('\n')
-    for (var i = 0; i < rows.length; i++) {
-        // 识别所有的 [链接](url) 和 ![图片](image)
-        if (rows[i].match(markdownRegex)) {
-            var replace_at_beginning = false,
-                replace_at_end = false
+  var rows = md.split('\n')
+  for (var i = 0; i < rows.length; i++) {
+    // 识别所有的 [链接](url) 和 ![图片](image)
+    if (rows[i].match(markdownRegex)) {
+      var replace_at_beginning = false,
+        replace_at_end = false
 
-            var replace_fn = (
-                match,
-                prefix,
-                img_marker,
-                label,
-                href,
-                suffix
-            ) => {
-                // 不要替换 http://，gopher:// 等外部链接，Gopher 浏览器不支持
-                if (href.match('://')) {
-                    return match
-                }
-
-                if (prefix !== null) {
-                    // 标记链接或图片在这行开头，不要再添加文字 i 前缀了
-                    replace_at_beginning = true
-                }
-                if (suffix !== null) {
-                    // 标记链接或图片在这行开头，不要再添加后缀了
-                    replace_at_end = true
-                }
-
-                href = path.join('/', rel_path, href)
-
-                return (
-                    (prefix ? prefix + gopherAfter : '') +
-                    (img_marker === '!'
-                        ? gopherBeforeImage
-                        : gopherBeforeLink) +
-                    label +
-                    '\t' +
-                    href +
-                    '\t{{server_addr}}\t{{server_port}}' +
-                    crlf +
-                    (suffix ? gopherBefore + suffix : '')
-                )
-            }
-
-            rows[i] = rows[i].replaceAll(markdownRegex, replace_fn)
-            rows[i] =
-                (replace_at_beginning ? '' : gopherBefore) +
-                rows[i] +
-                (replace_at_end ? '' : gopherAfter)
-        } else {
-            rows[i] = gopherBefore + rows[i] + gopherAfter
+      var replace_fn = (match, prefix, img_marker, label, href, suffix) => {
+        // 不要替换 http://，gopher:// 等外部链接，Gopher 浏览器不支持
+        if (href.match('://')) {
+          return match
         }
-    }
 
-    return rows.join('') + gopherEOF
+        if (prefix !== null) {
+          // 标记链接或图片在这行开头，不要再添加文字 i 前缀了
+          replace_at_beginning = true
+        }
+        if (suffix !== null) {
+          // 标记链接或图片在这行开头，不要再添加后缀了
+          replace_at_end = true
+        }
+
+        href = path.join('/', rel_path, href)
+
+        return (
+          (prefix ? prefix + gopherAfter : '') +
+          (img_marker === '!' ? gopherBeforeImage : gopherBeforeLink) +
+          label +
+          '\t' +
+          href +
+          '\t{{server_addr}}\t{{server_port}}' +
+          crlf +
+          (suffix ? gopherBefore + suffix : '')
+        )
+      }
+
+      rows[i] = rows[i].replaceAll(markdownRegex, replace_fn)
+      rows[i] =
+        (replace_at_beginning ? '' : gopherBefore) +
+        rows[i] +
+        (replace_at_end ? '' : gopherAfter)
+    } else {
+      rows[i] = gopherBefore + rows[i] + gopherAfter
+    }
+  }
+
+  return rows.join('') + gopherEOF
 }
 
 // 关键逻辑
 unified()
-    .use(remark_parse)
-    .use(remark_stringify, {
-        bullet: '-',
-        fences: true,
-        listItemIndent: 'one',
-        resourceLink: false,
+  .use(remark_parse)
+  .use(remark_stringify, {
+    bullet: '-',
+    fences: true,
+    listItemIndent: 'one',
+    resourceLink: false,
+  })
+  .process(data.page.raw) // 读取原始 Markdown 数据
+  .then(file => {
+    var md = String(file)
+    if (!md) return
+
+    // 缩到 70 字符一行
+    md = prettier.format(md, {
+      parser: 'markdown',
+      printWidth: 70,
+      tabWidth: 2,
+      proseWrap: 'always',
+      endOfLine: 'lf',
     })
-    .process(data.page.raw) // 读取原始 Markdown 数据
-    .then(file => {
-        var md = String(file)
-        if (!md) return
+    if (!md) return
 
-        // 缩到 70 字符一行
-        md = prettier.format(md, {
-            parser: 'markdown',
-            printWidth: 70,
-            tabWidth: 2,
-            proseWrap: 'always',
-            endOfLine: 'lf',
-        })
-        if (!md) return
+    // 全部行改成 Gophermap 文字格式
+    md = markdown_formatter(path.dirname(data.path), md)
 
-        // 全部行改成 Gophermap 文字格式
-        md = markdown_formatter(path.dirname(data.path), md)
-
-        // 写文件等，略
-    })
+    // 写文件等，略
+  })
 ```
 
 生成文件的效果类似于：
@@ -347,21 +338,21 @@ data += gopherBefore + gopherAfter
 
 // 文章列表
 locals.posts.sort('date', 'desc').each(post => {
-    data +=
-        gopherBeforeLink +
-        '- ' +
-        post.title.slice(0, 56) +
-        ' (' +
-        new Date(post.date).toISOString().replace('T', ' ').substr(0, 19) +
-        ')' +
-        '\t/' +
-        post.path.replace(/index\.html$/g, '') +
-        '\t{{server_addr}}\t{{server_port}}' +
-        crlf
+  data +=
+    gopherBeforeLink +
+    '- ' +
+    post.title.slice(0, 56) +
+    ' (' +
+    new Date(post.date).toISOString().replace('T', ' ').substr(0, 19) +
+    ')' +
+    '\t/' +
+    post.path.replace(/index\.html$/g, '') +
+    '\t{{server_addr}}\t{{server_port}}' +
+    crlf
 
-    data += gopherBefore + '  ' + post.excerpt.slice(0, 68) + gopherAfter
-    data += gopherBefore + '  ' + post.excerpt.slice(68, 68) + gopherAfter
-    data += gopherBefore + gopherAfter
+  data += gopherBefore + '  ' + post.excerpt.slice(0, 68) + gopherAfter
+  data += gopherBefore + '  ' + post.excerpt.slice(68, 68) + gopherAfter
+  data += gopherBefore + gopherAfter
 })
 data += gopherEOF
 return data

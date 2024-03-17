@@ -15,7 +15,7 @@ Ubuntu, almost no VPS provider will offer a disk image preinstalled with NixOS.
 This lefts the user one of the following options to perform the installation
 manually:
 
--   Mounting NixOS's installer ISO, and then partition and install manually.
+- Mounting NixOS's installer ISO, and then partition and install manually.
 
 Since you can operate on the VPS's hard drive as you wish in NixOS's
 installation media, repartitioning the drive and specifying file system types,
@@ -36,9 +36,9 @@ the image of NixOS 23.05. Therefore, I cannot boot into NixOS installation
 environment with netboot.xyz. In addition, my provider doesn't support custom
 ISOs, so I cannot boot into NixOS installer with that either.
 
--   Replace the running operating system on VPS with
-    [NixOS-Infect](https://github.com/elitak/nixos-infect) or
-    [NixOS-Anywhere](https://github.com/nix-community/nixos-anywhere), etc.
+- Replace the running operating system on VPS with
+  [NixOS-Infect](https://github.com/elitak/nixos-infect) or
+  [NixOS-Anywhere](https://github.com/nix-community/nixos-anywhere), etc.
 
 NixOS-Infect works by installating a Nix daemon on the local OS, build a
 complete NixOS installation on it, and finally replace the bootloader entries
@@ -56,8 +56,8 @@ with `kexec`, and booting straight into NixOS installation image stored in RAM.
 Since it works in almost the same way as netboot.xyz, it also requires a large
 chunk of RAM, just like netboot.xyz.
 
--   Use NixOS-Infect first, and then manually adjust partitions in rescue
-    environment
+- Use NixOS-Infect first, and then manually adjust partitions in rescue
+  environment
 
 I used to setup similar low RAM VPSes by setting up a normal NixOS with
 NixOS-Infect first, and then deploy a configuration with Btrfs and Impermanence
@@ -66,7 +66,7 @@ convert filesystems. It works, but takes many steps to complete. In addition, if
 I did any of the steps incorrectly, I'm left with an unfixable system, and will
 need to start over.
 
--   ...Any other possibilities?
+- ...Any other possibilities?
 
 Recently, the NixOS community released a tool,
 [Disko](https://github.com/nix-community/disko). It is originally used for

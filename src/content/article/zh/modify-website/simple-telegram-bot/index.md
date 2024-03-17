@@ -13,17 +13,17 @@ Telegram Bot 的支持，方便群友现场查询 Whois、测试网络通断、�
 我的 Looking Glass 使用 Go 语言写成，因此我一开始先查找了 Go 语言的 Telegram Bot
 API。但流行的 API 库无一例外都遵循了同样的请求结构：
 
--   Telegram 服务器发送一个回调到自己的服务器；
--   自己的程序处理请求，期间可能根据本地配置的 Token 向 Telegram 服务器多次主动
-    请求；
--   自己的程序最终主动请求 Telegram 服务器，发送回复信息。
+- Telegram 服务器发送一个回调到自己的服务器；
+- 自己的程序处理请求，期间可能根据本地配置的 Token 向 Telegram 服务器多次主动请
+  求；
+- 自己的程序最终主动请求 Telegram 服务器，发送回复信息。
 
 这套方案功能强大，但有点复杂，而多余的功能我根本用不上。我更希望使用
 [Telegram 官方提供的另一种方式](https://core.telegram.org/bots/faq#how-can-i-make-requests-in-response-to-updates)，
 直接回复回调 HTTP 请求的方式：
 
--   Telegram 服务器发送一个回调到自己的服务器；
--   自己的程序处理请求后，直接以 HTTP Response 方式回复回调请求，执行操作。
+- Telegram 服务器发送一个回调到自己的服务器；
+- 自己的程序处理请求后，直接以 HTTP Response 方式回复回调请求，执行操作。
 
 虽然这种方法限制我对一个请求只能做出一个回复，但因为我的 Bot 也只需要回复一次，
 对我来说已经够用。同时这种方法也具有以下的优点：
@@ -40,33 +40,33 @@ Telegram 的回调请求以 JSON 发送，附在 HTTP POST 请求的 Body 上。
 
 ```json
 {
-    "update_id": 10000,
-    "message": {
-        "date": 1441645532,
-        "chat": {
-            "last_name": "Test Lastname",
-            "id": 1111111,
-            "first_name": "Test",
-            "username": "Test"
-        },
-        "message_id": 1365,
-        "from": {
-            "last_name": "Test Lastname",
-            "id": 1111111,
-            "first_name": "Test",
-            "username": "Test"
-        },
-        "text": "/start"
-    }
+  "update_id": 10000,
+  "message": {
+    "date": 1441645532,
+    "chat": {
+      "last_name": "Test Lastname",
+      "id": 1111111,
+      "first_name": "Test",
+      "username": "Test"
+    },
+    "message_id": 1365,
+    "from": {
+      "last_name": "Test Lastname",
+      "id": 1111111,
+      "first_name": "Test",
+      "username": "Test"
+    },
+    "text": "/start"
+  }
 }
 ```
 
 作为一个只关心命令本身的机器人，在这些请求中，我们只需要提取这些内容：
 
--   `message/message_id`：消息的编号，回复时需要设置这个编号以“回复/引用”原始消
-    息。
--   `message/chat/id`：聊天窗口的编号。
--   `message/text`：用户发送的命令。
+- `message/message_id`：消息的编号，回复时需要设置这个编号以“回复/引用”原始消
+  息。
+- `message/chat/id`：聊天窗口的编号。
+- `message/text`：用户发送的命令。
 
 Go 语言解析 JSON 没有 Python 那么方便。不像 Python 直接解析然后当作一个 `dict`
 访问，Go 语言中我们需要自己建好基本的数据结构来接收需要的信息。因此建立如下数据
@@ -140,12 +140,12 @@ if strings.Contains(request.Message.Text, " ") {
 
 返回给 Telegram 回调的响应信息同样是一个 JSON，含有如下内容：
 
--   `method`：响应的类型，在我的用例中固定为 `sendMessage`，即发送消息。
--   `chat_id`：聊天窗口编号，与回调请求相同。
--   `text`：回复的具体内容，根据需要由程序设置。
--   `reply_to_message_id`：回复哪条信息，设置为回调请求中的 `message_id`。
--   `parse_mode`：设置为 `Markdown` 可以让 Telegram 以 Markdown 格式解析文本，也
-    可以去掉。
+- `method`：响应的类型，在我的用例中固定为 `sendMessage`，即发送消息。
+- `chat_id`：聊天窗口编号，与回调请求相同。
+- `text`：回复的具体内容，根据需要由程序设置。
+- `reply_to_message_id`：回复哪条信息，设置为回调请求中的 `message_id`。
+- `parse_mode`：设置为 `Markdown` 可以让 Telegram 以 Markdown 格式解析文本，也可
+  以去掉。
 
 在 Go 中的结构体如下：
 
@@ -191,7 +191,7 @@ if len(commandResult) > 0 {
 [Go 语言 Bird Looking Glass](/article/modify-website/go-bird-looking-glass.lantian)，
 完整的代码可以在以下地址看到：
 
--   最新版
-    本：[https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go)
--   写本文时的版
-    本：[https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go)
+- 最新版
+  本：[https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go)
+- 写本文时的版
+  本：[https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go)

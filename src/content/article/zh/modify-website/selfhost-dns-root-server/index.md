@@ -11,59 +11,59 @@ date: 2020-09-05 21:59:46
 
 目前已经有很多分析，说明这种情况不太可能出现，大都从以下两种观点出发：
 
--   DNS 根服务器使用 Anycast 来广播 IP，中国大陆境内实际上是有根服务器的，不会受
-    到关停影响；
--   从经济/政治上，美国切断 DNS 根服务器对他们自己的弊大于利。
+- DNS 根服务器使用 Anycast 来广播 IP，中国大陆境内实际上是有根服务器的，不会受到
+  关停影响；
+- 从经济/政治上，美国切断 DNS 根服务器对他们自己的弊大于利。
 
 而今天我会从另一种观点出发：
 
--   你可以在短时间内自己搭建一个 DNS 根服务器，并且让你的递归 DNS 使用它。
+- 你可以在短时间内自己搭建一个 DNS 根服务器，并且让你的递归 DNS 使用它。
 
 是的，要自己搭建的 DNS 根服务器和目前作为互联网基础服务的 DNS 根服务器在功能上是
 等同的。
 
 ## 本文更新日志
 
--   2020-10-01：处理根 DNS 记录时，把 DS 记录也保留，以更好支持开启了 DNSSEC 的
-    递归解析服务器。
--   2020-09-05：初始版本。
+- 2020-10-01：处理根 DNS 记录时，把 DS 记录也保留，以更好支持开启了 DNSSEC 的递
+  归解析服务器。
+- 2020-09-05：初始版本。
 
 ## DNS 解析原理
 
 我们首先回顾下 DNS 解析的流程：
 
 1. 你打开电脑，输入 `https://www.lantian.pub`，想访问我的博客。
-    - 虽然我的博客地址没有 `www` 这一段，但是为了详细讲解，我们暂时假设有。
+   - 虽然我的博客地址没有 `www` 这一段，但是为了详细讲解，我们暂时假设有。
 2. 你的浏览器无法直接向这个域名发起连接，它需要先知道这个域名对应的 IP 地址。于
    是，你的浏览器发送一个 DNS 请求到操作系统里配置的 DNS 递归解析服务器，例如
    `114.114.114.114`。
-    - DNS 请求包含以下内容：请求这台 DNS 服务器**进行递归解析**，返回
-      `www.lantian.pub` 这个地址的 **A 记录**（即 IPv4 地址）。
-    - 使用的 DNS 递归解析服务器的 IP 地址是操作系统内预先配置好的，一般由路由器
-      通过 DHCP 协议下发，也有可能是你手动设置的。
-    - 路由器是怎么获取 DNS 服务器的 IP 地址的？它也会用 DHCP 或 PPPoE 等协议获取
-      上游（光猫）的 DNS 服务器，类似的一级级上升到你的 ISP（例如中国电信），DNS
-      服务器由 ISP 自己搭建，其地址手工配置在 ISP 的核心路由器中。
+   - DNS 请求包含以下内容：请求这台 DNS 服务器**进行递归解析**，返回
+     `www.lantian.pub` 这个地址的 **A 记录**（即 IPv4 地址）。
+   - 使用的 DNS 递归解析服务器的 IP 地址是操作系统内预先配置好的，一般由路由器通
+     过 DHCP 协议下发，也有可能是你手动设置的。
+   - 路由器是怎么获取 DNS 服务器的 IP 地址的？它也会用 DHCP 或 PPPoE 等协议获取
+     上游（光猫）的 DNS 服务器，类似的一级级上升到你的 ISP（例如中国电信），DNS
+     服务器由 ISP 自己搭建，其地址手工配置在 ISP 的核心路由器中。
 3. DNS 递归解析服务器收到了这个请求，开始进行**递归解析**。
-    - 注意这里的**递归解析**功能。还有一种 DNS 服务器叫**权威 DNS 服务器**，是不
-      带递归解析功能的，意味着如果你把系统的 DNS 递归解析服务器地址指向一个权威
-      服务器，你将难以完成 DNS 解析。
+   - 注意这里的**递归解析**功能。还有一种 DNS 服务器叫**权威 DNS 服务器**，是不
+     带递归解析功能的，意味着如果你把系统的 DNS 递归解析服务器地址指向一个权威服
+     务器，你将难以完成 DNS 解析。
 4. DNS 递归解析服务器首先询问 **DNS 根服务器**，知不知道 `www.lantian.pub` 的 IP
    地址。
-    - DNS 请求包含以下内容：请求这台 DNS 服务器**不进行递归解析**，返回
-      `www.lantian.pub` 这个地址的记录。
-    - 根服务器的地址是固定、已知的，以配置文件形式保存在递归解析服务器中。你安装
-      DNS 递归解析软件时，一般都会自动安装一份这个配置文件。
+   - DNS 请求包含以下内容：请求这台 DNS 服务器**不进行递归解析**，返回
+     `www.lantian.pub` 这个地址的记录。
+   - 根服务器的地址是固定、已知的，以配置文件形式保存在递归解析服务器中。你安装
+     DNS 递归解析软件时，一般都会自动安装一份这个配置文件。
 5. DNS 根服务器查询了一下它的数据库，发现它不知道 `www.lantian.pub` 的地址。但是
    它有 `pub` 这一级域名的 NS 记录，知道负责管理 `pub` 域名的权威 DNS 服务器的
    IP。
-    - 于是它做出回复：“你可以去问 `pub` 的权威服务器，它们的 IP 地址是这些。”
-        - 这里回复的是 `pub` 域名对应的 NS 记录（权威服务器的域名），以及（可能
-          有）对应的 A/AAAA 记录（即 IP）。
-    - DNS 根服务器不管理世界上所有的域名，它们只负责顶级域名，例如
-      `com`，`net`，`org` 这些的 NS 记录解析，告诉递归服务器去找另一台服务器问
-      路。
-    - 注意根服务器不会进行递归解析！
+   - 于是它做出回复：“你可以去问 `pub` 的权威服务器，它们的 IP 地址是这些。”
+     - 这里回复的是 `pub` 域名对应的 NS 记录（权威服务器的域名），以及（可能有）
+       对应的 A/AAAA 记录（即 IP）。
+   - DNS 根服务器不管理世界上所有的域名，它们只负责顶级域名，例如
+     `com`，`net`，`org` 这些的 NS 记录解析，告诉递归服务器去找另一台服务器问
+     路。
+   - 注意根服务器不会进行递归解析！
 6. DNS 递归解析服务器接下来去问 `pub` 的权威服务器，知不知道 `www.lantian.pub`
    的地址。
 7. `pub` 域名的权威服务器查了一下数据库并回复：“我不知道，但你可以去问这台服务器
@@ -95,105 +95,105 @@ date: 2020-09-05 21:59:46
 
 1. 安装一个 PowerDNS。
 
-    ```bash
-    apt install pdns-server pdns-backend-mysql
-    ```
+   ```bash
+   apt install pdns-server pdns-backend-mysql
+   ```
 
 2. 修改 PowerDNS 的配置文件，`/etc/powerdns/pdns.conf`，关键内容如下内容：
 
-    ```bash
-    # 启用 Bind 后端，使 PowerDNS 可以读取 Bind 格式的 DNS 记录数据
-    # Bind 格式是目前 DNS 记录的标准数据格式
-    launch=bind
-    # 让 Bind 后端加载这份配置文件
-    bind-config=/etc/powerdns/bind.conf
-    # 定时（每 60 秒）检查一次配置文件更新
-    bind-check-interval=60
-    # 忽略有问题的记录，防止某行记录写错时所有记录都不返回结果
-    bind-ignore-broken-records=yes
-    ```
+   ```bash
+   # 启用 Bind 后端，使 PowerDNS 可以读取 Bind 格式的 DNS 记录数据
+   # Bind 格式是目前 DNS 记录的标准数据格式
+   launch=bind
+   # 让 Bind 后端加载这份配置文件
+   bind-config=/etc/powerdns/bind.conf
+   # 定时（每 60 秒）检查一次配置文件更新
+   bind-check-interval=60
+   # 忽略有问题的记录，防止某行记录写错时所有记录都不返回结果
+   bind-ignore-broken-records=yes
+   ```
 
 3. 去 [IANA 官网](https://www.iana.org/domains/root/files)，点击
    `Root Zone File` 下载根服务器的 DNS 记录文件，把它保存到
    `/etc/powerdns/root.zone`。
-    - 是的，这个大概 2 MB 的文件就是 DNS 根服务器需要负责的全部内容。
+   - 是的，这个大概 2 MB 的文件就是 DNS 根服务器需要负责的全部内容。
 4. 打开下载的 `root.zone` 文件，可以看到里面的内容分为 5 列。做出如下修改：
 
-    - 删除所有第 1 列是 `.` 一个英文句点，并且第 4 列是 NS 的行。
-        - 这些行都在文件的最开头。
-    - 删除所有第 4 列不是 A，AAAA，SOA，NS 或者 DS 的行，可以用以下命令完成：
+   - 删除所有第 1 列是 `.` 一个英文句点，并且第 4 列是 NS 的行。
+     - 这些行都在文件的最开头。
+   - 删除所有第 4 列不是 A，AAAA，SOA，NS 或者 DS 的行，可以用以下命令完成：
 
-        ```bash
-        cat root.zone | awk '{if ($4=="A" || $4=="AAAA" || $4=="SOA" || $4=="NS" || $4=="DS") print $0}' > root.zone.2
-        ```
+     ```bash
+     cat root.zone | awk '{if ($4=="A" || $4=="AAAA" || $4=="SOA" || $4=="NS" || $4=="DS") print $0}' > root.zone.2
+     ```
 
-        被删除的记录是 DNSSEC 相关的记录，为了保护 DNS 内容不被修改。因为我们有
-        必要修改内容，所以这些 DNSSEC 记录会全部失效，所以干脆全部删除。
+     被删除的记录是 DNSSEC 相关的记录，为了保护 DNS 内容不被修改。因为我们有必要
+     修改内容，所以这些 DNSSEC 记录会全部失效，所以干脆全部删除。
 
-    - 添加你自己服务器的 IP 地址。假设你的服务器的 IP 是 `192.168.0.1` 和
-      `fd00::1`，对应的域名是 `server.example.com`，那么在文件末尾添加：
+   - 添加你自己服务器的 IP 地址。假设你的服务器的 IP 是 `192.168.0.1` 和
+     `fd00::1`，对应的域名是 `server.example.com`，那么在文件末尾添加：
 
-        ```bash
-        # Bind DNS 文件中注释以分号开头，因此不能有井号开头的注释
-        # 所以复制时记得把这些注释全删掉
-        # 注意下面一行末尾多的一个点，这个点不能删
-        . 86400 IN NS server.example.com.
-        # 也注意下面一行第一列末尾的点，也不能删
-        server.example.com. 86400 IN A 192.168.0.1
-        server.example.com. 86400 IN AAAA fd00::1
-        # 上面的 86400 是 TTL，也就是记录的有效期（缓存秒数），有需要可以调整
-        ```
+     ```bash
+     # Bind DNS 文件中注释以分号开头，因此不能有井号开头的注释
+     # 所以复制时记得把这些注释全删掉
+     # 注意下面一行末尾多的一个点，这个点不能删
+     . 86400 IN NS server.example.com.
+     # 也注意下面一行第一列末尾的点，也不能删
+     server.example.com. 86400 IN A 192.168.0.1
+     server.example.com. 86400 IN AAAA fd00::1
+     # 上面的 86400 是 TTL，也就是记录的有效期（缓存秒数），有需要可以调整
+     ```
 
-        这些记录说明你的服务器“有权”管理 DNS 的根记录。
+     这些记录说明你的服务器“有权”管理 DNS 的根记录。
 
-        如果有多台都想成为根服务器，重复以上步骤几次即可。
+     如果有多台都想成为根服务器，重复以上步骤几次即可。
 
 5. 新建 `/etc/powerdns/bind.conf` 文件，添加如下内容，让 PowerDNS 知道根 DNS 节
    点由上述的记录文件负责：
 
-    ```bash
-    zone "." { type native; file "/etc/powerdns/root.zone"; };
-    ```
+   ```bash
+   zone "." { type native; file "/etc/powerdns/root.zone"; };
+   ```
 
-    没错，就一行。
+   没错，就一行。
 
 6. `systemctl restart pdns` 重启 PowerDNS 服务器。
 7. 运行 `dig @192.168.0.1` 检查记录是否生效，正常情况下应该会显示你上面自己添加
    的这几行。例如当你运行 `dig @103.42.215.193` 从我自建的根服务器查询，你会看到
    这样的输出：
 
-    ```bash
-    ;; ANSWER SECTION:
-    .                       3600    IN      NS      gigsgigscloud.lantian.pub.
+   ```bash
+   ;; ANSWER SECTION:
+   .                       3600    IN      NS      gigsgigscloud.lantian.pub.
 
-    ;; ADDITIONAL SECTION:
-    gigsgigscloud.lantian.pub. 3600 IN      AAAA    2001:470:fa1c::1
-    gigsgigscloud.lantian.pub. 3600 IN      A       103.42.215.193
-    ```
+   ;; ADDITIONAL SECTION:
+   gigsgigscloud.lantian.pub. 3600 IN      AAAA    2001:470:fa1c::1
+   gigsgigscloud.lantian.pub. 3600 IN      A       103.42.215.193
+   ```
 
-    （为了简略，删除了一些行）
+   （为了简略，删除了一些行）
 
 8. 再运行 `dig @192.168.0.1 www.example.com`，应该有类似如下的输出：
 
-    ```bash
-    ;; AUTHORITY SECTION:
-    com.                    172800  IN      NS      m.gtld-servers.net.
-    com.                    172800  IN      NS      l.gtld-servers.net.
-    com.                    172800  IN      NS      k.gtld-servers.net.
+   ```bash
+   ;; AUTHORITY SECTION:
+   com.                    172800  IN      NS      m.gtld-servers.net.
+   com.                    172800  IN      NS      l.gtld-servers.net.
+   com.                    172800  IN      NS      k.gtld-servers.net.
 
-    ;; ADDITIONAL SECTION:
-    m.gtld-servers.net.     172800  IN      AAAA    2001:501:b1f9::30
-    m.gtld-servers.net.     172800  IN      A       192.55.83.30
-    l.gtld-servers.net.     172800  IN      AAAA    2001:500:d937::30
-    l.gtld-servers.net.     172800  IN      A       192.41.162.30
-    k.gtld-servers.net.     172800  IN      AAAA    2001:503:d2d::30
-    k.gtld-servers.net.     172800  IN      A       192.52.178.30
-    ```
+   ;; ADDITIONAL SECTION:
+   m.gtld-servers.net.     172800  IN      AAAA    2001:501:b1f9::30
+   m.gtld-servers.net.     172800  IN      A       192.55.83.30
+   l.gtld-servers.net.     172800  IN      AAAA    2001:500:d937::30
+   l.gtld-servers.net.     172800  IN      A       192.41.162.30
+   k.gtld-servers.net.     172800  IN      AAAA    2001:503:d2d::30
+   k.gtld-servers.net.     172800  IN      A       192.52.178.30
+   ```
 
-    这里就是你的根服务器输出了 `com` 域名对应的权威服务器地址，指示递归服务器去
-    这些地址查询。
+   这里就是你的根服务器输出了 `com` 域名对应的权威服务器地址，指示递归服务器去这
+   些地址查询。
 
-    （同样为了简略，删除了一些行）
+   （同样为了简略，删除了一些行）
 
 9. 恭喜！你的根服务器已经搭建好了。
 

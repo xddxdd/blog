@@ -4,8 +4,8 @@ import { type Language, LANGUAGES } from '../lib/language'
 import type { NavigationItem } from '../lib/navigation'
 
 type Props = {
-    language: Language
-    navBarItems: NavigationItem[]
+  language: Language
+  navBarItems: NavigationItem[]
 }
 
 const { language, navBarItems } = Astro.props
@@ -14,168 +14,145 @@ const { pathname } = Astro.url
 ---
 
 <nav class="lantian navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href={language.getSegment() + '/'}
-            >{SITE_TITLE}</a
-        >
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#lantian-navbar"
-            aria-controls="lantian-navbar"
+  <div class="container-fluid">
+    <a class="navbar-brand" href={language.getSegment() + '/'}>{SITE_TITLE}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#lantian-navbar"
+      aria-controls="lantian-navbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="lantian-navbar">
+      <ul class="navbar-nav">
+        {
+          navBarItems.map(item => (
+            <li class="nav-item d-none d-lg-block">
+              <a
+                class={`nav-link ${pathname == item.path ? 'active' : ''}`}
+                href={item.path}
+              >
+                {item.name}
+              </a>
+            </li>
+          ))
+        }
+        {
+          navBarItems.length > 0 && (
+            <li class="nav-item dropdown d-block d-lg-none">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                id="pages-dropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-fw fa-file" /> {__('page')}{' '}
+                <span class="caret" />
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="pages-dropdown">
+                {navBarItems.map(item => (
+                  <li>
+                    <a
+                      class={`dropdown-item ${pathname == item.path ? 'active' : ''}`}
+                      href={item.path}
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )
+        }
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a
+            href="#"
+            class="nav-link dropdown-toggle"
+            id="languages-dropdown"
+            role="button"
+            data-bs-toggle="dropdown"
             aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="lantian-navbar">
-            <ul class="navbar-nav">
-                {
-                    navBarItems.map(item => (
-                        <li class="nav-item d-none d-lg-block">
-                            <a
-                                class={`nav-link ${pathname == item.path ? 'active' : ''}`}
-                                href={item.path}
-                            >
-                                {item.name}
-                            </a>
-                        </li>
-                    ))
-                }
-                {
-                    navBarItems.length > 0 && (
-                        <li class="nav-item dropdown d-block d-lg-none">
-                            <a
-                                href="#"
-                                class="nav-link dropdown-toggle"
-                                id="pages-dropdown"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                <i class="fas fa-fw fa-file" /> {__('page')}{' '}
-                                <span class="caret" />
-                            </a>
-                            <ul
-                                class="dropdown-menu"
-                                aria-labelledby="pages-dropdown"
-                            >
-                                {navBarItems.map(item => (
-                                    <li>
-                                        <a
-                                            class={`dropdown-item ${pathname == item.path ? 'active' : ''}`}
-                                            href={item.path}
-                                        >
-                                            {item.name}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    )
-                }
-            </ul>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
+          >
+            <i class="fas fa-fw fa-language"></i>
+            {__('language')}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="languages-dropdown">
+            {
+              Object.entries(LANGUAGES).map(([_, newLanguage]) => {
+                const canonicalPath = language.getCanonicalPath(
+                  pathname,
+                  newLanguage
+                )
+                return (
+                  <li>
                     <a
-                        href="#"
-                        class="nav-link dropdown-toggle"
-                        id="languages-dropdown"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                      class={`dropdown-item ${pathname == canonicalPath ? 'active' : ''}`}
+                      href={canonicalPath}
                     >
-                        <i class="fas fa-fw fa-language"></i>
-                        {__('language')}
-                        <span class="caret"></span>
+                      {newLanguage.getDisplayName()}
                     </a>
-                    <ul
-                        class="dropdown-menu"
-                        aria-labelledby="languages-dropdown"
-                    >
-                        {
-                            Object.entries(LANGUAGES).map(
-                                ([_, newLanguage]) => {
-                                    const canonicalPath =
-                                        language.getCanonicalPath(
-                                            pathname,
-                                            newLanguage
-                                        )
-                                    return (
-                                        <li>
-                                            <a
-                                                class={`dropdown-item ${pathname == canonicalPath ? 'active' : ''}`}
-                                                href={canonicalPath}
-                                            >
-                                                {newLanguage.getDisplayName()}
-                                            </a>
-                                        </li>
-                                    )
-                                }
-                            )
-                        }
-                        <li><hr class="dropdown-divider" /></li>
-                        <li>
-                            <a class="dropdown-item disabled" href="#"
-                                >Not all pages have translations.</a
-                            >
-                        </li>
-                        <li>
-                            <a class="dropdown-item disabled" href="#"
-                                >You may see 404 - this is normal.</a
-                            >
-                        </li>
-                    </ul>
-                </li>
+                  </li>
+                )
+              })
+            }
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item disabled" href="#"
+                >Not all pages have translations.</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item disabled" href="#"
+                >You may see 404 - this is normal.</a
+              >
+            </li>
+          </ul>
+        </li>
 
-                <li class="nav-item dropdown">
-                    <a
-                        href="#"
-                        class="nav-link dropdown-toggle"
-                        id="color-scheme-dropdown"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <i class="fas fa-fw fa-adjust"></i>
-                        {__('color_scheme')}
-                    </a>
-                    <ul
-                        class="dropdown-menu"
-                        aria-labelledby="color-scheme-dropdown"
-                    >
-                        <li>
-                            <a
-                                id="color-scheme-auto"
-                                class="dropdown-item"
-                                href="#"
-                                ><i class="fas fa-fw fa-adjust"></i>
-                                {__('color_scheme_auto')}
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li>
-                            <a
-                                id="color-scheme-light"
-                                class="dropdown-item"
-                                href="#"
-                                ><i class="fas fa-fw fa-sun"></i>
-                                {__('color_scheme_light')}</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                id="color-scheme-dark"
-                                class="dropdown-item"
-                                href="#"
-                                ><i class="fas fa-fw fa-moon"></i>
-                                {__('color_scheme_dark')}</a
-                            >
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        <li class="nav-item dropdown">
+          <a
+            href="#"
+            class="nav-link dropdown-toggle"
+            id="color-scheme-dropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-fw fa-adjust"></i>
+            {__('color_scheme')}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="color-scheme-dropdown">
+            <li>
+              <a id="color-scheme-auto" class="dropdown-item" href="#"
+                ><i class="fas fa-fw fa-adjust"></i>
+                {__('color_scheme_auto')}
+              </a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a id="color-scheme-light" class="dropdown-item" href="#"
+                ><i class="fas fa-fw fa-sun"></i>
+                {__('color_scheme_light')}</a
+              >
+            </li>
+            <li>
+              <a id="color-scheme-dark" class="dropdown-item" href="#"
+                ><i class="fas fa-fw fa-moon"></i>
+                {__('color_scheme_dark')}</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

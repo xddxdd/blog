@@ -27,12 +27,12 @@ United States users can access my Los Angeles node.
 However, most GeoDNS services on the market are kind of expensive. For a single
 domain:
 
--   [CloudNS costs \$9.95/m](https://www.cloudns.net/geodns/);
--   [Constellix costs \$10/m](https://constellix.com/pricing/products);
--   [AWS Route 53 costs \$0.5/m, plus \$0.7/million queries and \$0.75/node for monitoring](https://aws.amazon.com/route53/pricing/);
--   [PerfOps provides a GeoDNS-enabled subdomain for CNAMEs, and is free for 100k queries, but monitoring costs \$5/node](https://perfops.net/pricing)。
--   Cloudflare Load Balancing costs \$15/m (with 2 backends and Traffic
-    Steering) and \$5 per extra node.
+- [CloudNS costs \$9.95/m](https://www.cloudns.net/geodns/);
+- [Constellix costs \$10/m](https://constellix.com/pricing/products);
+- [AWS Route 53 costs \$0.5/m, plus \$0.7/million queries and \$0.75/node for monitoring](https://aws.amazon.com/route53/pricing/);
+- [PerfOps provides a GeoDNS-enabled subdomain for CNAMEs, and is free for 100k queries, but monitoring costs \$5/node](https://perfops.net/pricing)。
+- Cloudflare Load Balancing costs \$15/m (with 2 backends and Traffic Steering)
+  and \$5 per extra node.
 
 The good news is that [NS1 provides GeoDNS for free](https://ns1.com/plans).
 Although it can only monitor one node, it supports setting node status over API
@@ -62,33 +62,33 @@ You need to prepare:
 
 1. An AWS account with your credit card on file. You may need to pay a few cents
    per month. We will use:
-    - [Lambda FaaS](https://aws.amazon.com/lambda/pricing/) (Free for first 1
-      million requests per month);
-    - [API Gateway](https://aws.amazon.com/api-gateway/pricing/) (To expose
-      Lambda functions to the Internet, free for first 1 million requests for
-      the first 12 months, then \$1.17 per million requests);
-    - [SNS messaging service](https://aws.amazon.com/sns/pricing/) (To send
-      up/down state messages to NS1, free for first 1 million requests per
-      month).
+   - [Lambda FaaS](https://aws.amazon.com/lambda/pricing/) (Free for first 1
+     million requests per month);
+   - [API Gateway](https://aws.amazon.com/api-gateway/pricing/) (To expose
+     Lambda functions to the Internet, free for first 1 million requests for the
+     first 12 months, then \$1.17 per million requests);
+   - [SNS messaging service](https://aws.amazon.com/sns/pricing/) (To send
+     up/down state messages to NS1, free for first 1 million requests per
+     month).
 2. A [NS1 account](https://ns1.com/signup). You need to verify your credit card,
    but it's free otherwise.
 3. A domain with less than 50 DNS records to be used with NS1. The free version
    of NS1 limits you to 50 DNS records.
-    - You can register a 6-9 digits xyz domain
-      [that costs \$0.99 per year](https://gen.xyz/1111b) for NS1 and CNAME your
-      primary domain over.
+   - You can register a 6-9 digits xyz domain
+     [that costs \$0.99 per year](https://gen.xyz/1111b) for NS1 and CNAME your
+     primary domain over.
 4. Add A/AAAA records for each node on your primary DNS, like
    `hostdare.lantian.pub -> 185.186.147.110`. Later we will point CNAMEs and
    monitors here.
 5. An UptimeRobot or Freshping account, with monitoring configured for all your
    nodes.
-    - Use the domains from step 4 as the monitored URL. Take
-      `hostdare.lantian.pub -> 185.186.147.110` as example: use
-      `https://hostdare.lantian.pub` rather than `https://185.186.147.110` as
-      the monitored URL.
-    - UptimeRobot supports a minimum monitoring interval of 5 minutes.
-      Freshping's interval is 1 minute, but it doesn't support IPv6. Make your
-      own choice.
+   - Use the domains from step 4 as the monitored URL. Take
+     `hostdare.lantian.pub -> 185.186.147.110` as example: use
+     `https://hostdare.lantian.pub` rather than `https://185.186.147.110` as the
+     monitored URL.
+   - UptimeRobot supports a minimum monitoring interval of 5 minutes.
+     Freshping's interval is 1 minute, but it doesn't support IPv6. Make your
+     own choice.
 
 Usually, the number of up/down notifications is limited, so your cost on AWS
 will be less than 1 cent per month, almost completely free.
@@ -125,34 +125,34 @@ of AWS.
 
 1. On the [Integrations page at NS1](https://my.nsone.net/#/integrations), click
    `Add a Data Source` and select AWS CloudWatch. Name it whatever you want.
-    - We're not going to use AWS CloudWatch. Instead, we're going to send
-      up/down events to NS1 in the format of CloudWatch.
+   - We're not going to use AWS CloudWatch. Instead, we're going to send up/down
+     events to NS1 in the format of CloudWatch.
 2. On the Incoming Feeds tab, click the CloudWatch icon and add a data feed. The
    `Alarm Name` should be the domain configured on UptimeRobot/Freshping.
    `Name (for internal reference)` can be whatever you want, but I just set it
    to the same value as `Alarm Name`.
 
-    - Take `hostdare.lantian.pub -> 185.186.147.110` for example, the
-      `Alarm Name` should be `hostdare.lantian.pub`.
+   - Take `hostdare.lantian.pub -> 185.186.147.110` for example, the
+     `Alarm Name` should be `hostdare.lantian.pub`.
 
-    ![NS1 Add Alarm](../../../../usr/uploads/202202/ns1-alarm.png)
+   ![NS1 Add Alarm](../../../../usr/uploads/202202/ns1-alarm.png)
 
 3. Repeat step 2 until you've added data feeds for all nodes.
 4. Now a CloudWatch `Feeds URL` will appear on the Incoming Feeds tab. Make a
    note of it, which will be added to AWS SNS later.
 
-    ![NS1 Feeds URL](../../../../usr/uploads/202202/ns1-feed.png)
+   ![NS1 Feeds URL](../../../../usr/uploads/202202/ns1-feed.png)
 
 5. Visit the
    [management page of AWS SNS](https://us-west-1.console.aws.amazon.com/sns/v3/home?region=us-west-1#/topics)
    and create a Topic (a message queue). Select `Standard` as the type and leave
    everything as default.
 
-    - Note that all my AWS links are for region `us-west-1`. Switch regions if
-      you want to create resources in other regions! The AWS SNS must be in the
-      same zone as the Lambda functions created later!
+   - Note that all my AWS links are for region `us-west-1`. Switch regions if
+     you want to create resources in other regions! The AWS SNS must be in the
+     same zone as the Lambda functions created later!
 
-    ![AWS Create Topic](../../../../usr/uploads/202202/aws-create-topic.png)
+   ![AWS Create Topic](../../../../usr/uploads/202202/aws-create-topic.png)
 
 6. An ARN (resource ID) will appear on the Topic's page. Make a note of it,
    which will be used when creating the Lambda function.
@@ -160,7 +160,7 @@ of AWS.
    subscription. Set `Protocol` to `HTTPS`, `Endpoint` to the feeds URL in step
    4, and leave everything else at default.
 
-    ![AWS Create Subscription](../../../../usr/uploads/202202/aws-create-subscription.png)
+   ![AWS Create Subscription](../../../../usr/uploads/202202/aws-create-subscription.png)
 
 Now all messages sent to this Topic on AWS SNS will be forwarded to NS1's API,
 so the states of the nodes can be synchronized to NS1.
@@ -174,122 +174,122 @@ messages from UptimeRobot or Freshping to AWS SNS messages.
    [management page of AWS Lambda](https://us-west-1.console.aws.amazon.com/lambda/home?region=us-west-1#/functions),
    and create a function.
 
-    - Note that all my AWS links are for region `us-west-1`. Switch regions if
-      you want to create resources in other regions! The AWS SNS must be in the
-      same zone as the Lambda functions!
-    - Choose `Auto from scratch`, and then `Node.js 14.x` as Runtime. Leave
-      everything else at default.
+   - Note that all my AWS links are for region `us-west-1`. Switch regions if
+     you want to create resources in other regions! The AWS SNS must be in the
+     same zone as the Lambda functions!
+   - Choose `Auto from scratch`, and then `Node.js 14.x` as Runtime. Leave
+     everything else at default.
 
-    ![AWS Create Lambda Function](../../../../usr/uploads/202202/aws-create-lambda.png)
+   ![AWS Create Lambda Function](../../../../usr/uploads/202202/aws-create-lambda.png)
 
 2. You'll be automatically taken to the edit page of that function. If you want
    to use UptimeRobot, copy & paste this piece of code:
 
-    ```javascript
-    var AWS = require('aws-sdk')
+   ```javascript
+   var AWS = require('aws-sdk')
 
-    const SECRET_KEY = '**Change to a random string as password**'
-    const SNS_ARN = '**Change to ARN for the AWS SNS earlier'
+   const SECRET_KEY = '**Change to a random string as password**'
+   const SNS_ARN = '**Change to ARN for the AWS SNS earlier'
 
-    exports.handler = async event => {
-        if (event.queryStringParameters.key != SECRET_KEY) {
-            return { statusCode: 403, body: 'Forbidden' }
-        }
+   exports.handler = async event => {
+     if (event.queryStringParameters.key != SECRET_KEY) {
+       return { statusCode: 403, body: 'Forbidden' }
+     }
 
-        let json = JSON.parse(event.body)
-        let ns1Object = {
-            AlarmName: new URL(json.url).hostname,
-            NewStateValue: json.state == 2 ? 'OK' : 'ALARM',
-        }
+     let json = JSON.parse(event.body)
+     let ns1Object = {
+       AlarmName: new URL(json.url).hostname,
+       NewStateValue: json.state == 2 ? 'OK' : 'ALARM',
+     }
 
-        try {
-            let sns = new AWS.SNS({ apiVersion: '2010-03-31' })
+     try {
+       let sns = new AWS.SNS({ apiVersion: '2010-03-31' })
 
-            let result = await sns
-                .publish({
-                    TopicArn: SNS_ARN,
-                    Message: JSON.stringify(ns1Object),
-                })
-                .promise()
+       let result = await sns
+         .publish({
+           TopicArn: SNS_ARN,
+           Message: JSON.stringify(ns1Object),
+         })
+         .promise()
 
-            return {
-                statusCode: 200,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(result),
-            }
-        } catch (e) {
-            return {
-                statusCode: 500,
-                body: e.stack,
-            }
-        }
-    }
-    ```
+       return {
+         statusCode: 200,
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(result),
+       }
+     } catch (e) {
+       return {
+         statusCode: 500,
+         body: e.stack,
+       }
+     }
+   }
+   ```
 
-    Use this piece of code if you want to use Freshping:
+   Use this piece of code if you want to use Freshping:
 
-    ```javascript
-    var AWS = require('aws-sdk')
+   ```javascript
+   var AWS = require('aws-sdk')
 
-    const SECRET_KEY = '**Change to a random string as password**'
-    const SNS_ARN = '**Change to ARN for the AWS SNS earlier'
+   const SECRET_KEY = '**Change to a random string as password**'
+   const SNS_ARN = '**Change to ARN for the AWS SNS earlier'
 
-    exports.handler = async event => {
-        if (event.queryStringParameters.key != SECRET_KEY) {
-            return { statusCode: 403, body: 'Forbidden' }
-        }
+   exports.handler = async event => {
+     if (event.queryStringParameters.key != SECRET_KEY) {
+       return { statusCode: 403, body: 'Forbidden' }
+     }
 
-        let json = JSON.parse(event.body)
-        let ns1Object = {
-            AlarmName: new URL(json.check_url).hostname,
-            NewStateValue: json.response_status_code === '200' ? 'OK' : 'ALARM',
-        }
+     let json = JSON.parse(event.body)
+     let ns1Object = {
+       AlarmName: new URL(json.check_url).hostname,
+       NewStateValue: json.response_status_code === '200' ? 'OK' : 'ALARM',
+     }
 
-        try {
-            let sns = new AWS.SNS({ apiVersion: '2010-03-31' })
+     try {
+       let sns = new AWS.SNS({ apiVersion: '2010-03-31' })
 
-            let result = await sns
-                .publish({
-                    TopicArn: SNS_ARN,
-                    Message: JSON.stringify(ns1Object),
-                })
-                .promise()
+       let result = await sns
+         .publish({
+           TopicArn: SNS_ARN,
+           Message: JSON.stringify(ns1Object),
+         })
+         .promise()
 
-            return {
-                statusCode: 200,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(result),
-            }
-        } catch (e) {
-            return {
-                statusCode: 500,
-                body: e.stack,
-            }
-        }
-    }
-    ```
+       return {
+         statusCode: 200,
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(result),
+       }
+     } catch (e) {
+       return {
+         statusCode: 500,
+         body: e.stack,
+       }
+     }
+   }
+   ```
 
-    Click Deploy.
+   Click Deploy.
 
 3. On the Configuration tab of the function, select Permissions on the left, and
    then click the link in Execution Role. This takes you to the permission
    management page.
 
-    ![AWS Lambda Permissions Settings](../../../../usr/uploads/202202/aws-lambda-permissions.png)
+   ![AWS Lambda Permissions Settings](../../../../usr/uploads/202202/aws-lambda-permissions.png)
 
 4. On the new page, click Add permissions - Create inline policy.
 5. On the Create Policy page, set Service to SNS:
 
-    ![AWS Policy - Setting Service](../../../../usr/uploads/202202/aws-permission-service.png)
+   ![AWS Policy - Setting Service](../../../../usr/uploads/202202/aws-permission-service.png)
 
 6. Set Actions to Publish under Write section:
 
-    ![AWS Policy - Setting Actions](../../../../usr/uploads/202202/aws-permission-actions.png)
+   ![AWS Policy - Setting Actions](../../../../usr/uploads/202202/aws-permission-actions.png)
 
 7. Click Add ARN under then Resources section, and fill in the ARN for the AWS
    SNS created earlier:
 
-    ![AWS Policy - Setting Resources](../../../../usr/uploads/202202/aws-permission-resources.png)
+   ![AWS Policy - Setting Resources](../../../../usr/uploads/202202/aws-permission-resources.png)
 
 8. Click Review Policy on the bottom right, give it a name, and click Create
    Policy.
@@ -305,32 +305,32 @@ accept HTTP requests and invoke the function.
    [AWS API Gateway management page](https://us-west-1.console.aws.amazon.com/apigateway/main/apis?region=us-west-1),
    create an API of type HTTP.
 
-    - Note that all my AWS links are for region `us-west-1`. Switch regions if
-      you want to create resources in other regions!
+   - Note that all my AWS links are for region `us-west-1`. Switch regions if
+     you want to create resources in other regions!
 
-    ![AWS API Gateway Select Type](../../../../usr/uploads/202202/aws-api-type.png)
+   ![AWS API Gateway Select Type](../../../../usr/uploads/202202/aws-api-type.png)
 
 2. Click Add integration, set Type to Lambda, and choose the Lambda function you
    created earlier. Give the API a name and click Next:
 
-    ![AWS API Gateway Choose Lambda Function](../../../../usr/uploads/202202/aws-api-integrations.png)
+   ![AWS API Gateway Choose Lambda Function](../../../../usr/uploads/202202/aws-api-integrations.png)
 
 3. On the Configure routes page, make a note of the path to your Lambda
    function. My path is `/ns1-uptime` for example:
 
-    ![AWS API Gateway Configure Routes](../../../../usr/uploads/202202/aws-api-routes.png)
+   ![AWS API Gateway Configure Routes](../../../../usr/uploads/202202/aws-api-routes.png)
 
 4. Click Next until the API Gateway is created. Its URL is shown on the Stages
    section at the center of the page.
 
-    ![AWS API Gateway URL](../../../../usr/uploads/202202/aws-api-url.png)
+   ![AWS API Gateway URL](../../../../usr/uploads/202202/aws-api-url.png)
 
-    Concatenate that to the path from step 3, and you have the URL for the
-    function. Assuming my API Gateway URL is
-    `https://1234567890.execute-api.us-west-1.amazonaws.com/`, my Lambda
-    function URL will be
-    `https://1234567890.execute-api.us-west-1.amazonaws.com/ns1-uptime`. If you
-    visit it directly, you should get `Internal Server Error`.
+   Concatenate that to the path from step 3, and you have the URL for the
+   function. Assuming my API Gateway URL is
+   `https://1234567890.execute-api.us-west-1.amazonaws.com/`, my Lambda function
+   URL will be
+   `https://1234567890.execute-api.us-west-1.amazonaws.com/ns1-uptime`. If you
+   visit it directly, you should get `Internal Server Error`.
 
 # Connect UptimeRobot/Freshping to Webhook
 
@@ -342,30 +342,30 @@ accept HTTP requests and invoke the function.
    [My Settings page](https://uptimerobot.com/dashboard#mySettings), and click
    Add Alert Contact:
 
-    - Set `Type` to `Webhook`;
-    - Set `URL to Notify` to the full function URL with passwords;
-    - For `POST Value`, enter:
+   - Set `Type` to `Webhook`;
+   - Set `URL to Notify` to the full function URL with passwords;
+   - For `POST Value`, enter:
 
-        ```json
-        { "url": "*monitorURL*", "state": "*alertType*" }
-        ```
+     ```json
+     { "url": "*monitorURL*", "state": "*alertType*" }
+     ```
 
-    - Tick `Send as JSON`;
-    - Set `Enable notification for` to `Up & down events`;
-    - Save.
+   - Tick `Send as JSON`;
+   - Set `Enable notification for` to `Up & down events`;
+   - Save.
 
-    ![UptimeRobot Webhook Config](../../../../usr/uploads/202202/uptimerobot-webhook.png)
+   ![UptimeRobot Webhook Config](../../../../usr/uploads/202202/uptimerobot-webhook.png)
 
-    - Modify all monitoring jobs, and select the new Webhook in the Alert
-      Contacts section.
+   - Modify all monitoring jobs, and select the new Webhook in the Alert
+     Contacts section.
 
 3. If you use Freshping, on your management page, click the gear icon on the
    left, followed by Integrations page. Click Create Integration in the Webhook
    section:
 
-    - Set `Event Type` to `Up/Down`;
-    - Set `Trigger the Webhook` to the full function URL with passwords;
-    - Leave everything else at defaults and save.
+   - Set `Event Type` to `Up/Down`;
+   - Set `Trigger the Webhook` to the full function URL with passwords;
+   - Leave everything else at defaults and save.
 
 # Configure GeoDNS and Failover on NS1
 
@@ -377,36 +377,36 @@ control panel, and connect them to their data feeds.
 2. Create a CNAME record without any Answers. Just fill out the name and save.
 3. Click Edit Filter Chain on the left, and drag in these filters from the right
    in order:
-    1. Up
-    2. Geotarget Country
-    3. Select First Group
-    4. Shuffle
-    5. Select First N
+   1. Up
+   2. Geotarget Country
+   3. Select First Group
+   4. Shuffle
+   5. Select First N
 4. Tick `Enable Client Subnet` and save.
 
-    ![NS1 Filter Chain](../../../../usr/uploads/202202/ns1-filter-chain.png)
+   ![NS1 Filter Chain](../../../../usr/uploads/202202/ns1-filter-chain.png)
 
 5. Add an Answer Group on the right. Here we will have each group corresponding
    to a region. Click the menu icon on the right of that Answer Group, and
    select `Edit Group Metadata`. Add its `Country` and `Subdivisions`
    information. Take Los Angeles for example:
 
-    - Set `Country/countries` to `Americas / Northern America / United States`;
-    - Set `Subdivisions` to
-      `North America / United States of America / California`;
-    - Set `US States` to `Western US / California`;
-    - Save.
+   - Set `Country/countries` to `Americas / Northern America / United States`;
+   - Set `Subdivisions` to
+     `North America / United States of America / California`;
+   - Set `US States` to `Western US / California`;
+   - Save.
 
-    ![NS1 Answer Group](../../../../usr/uploads/202202/ns1-answer-group.png)
+   ![NS1 Answer Group](../../../../usr/uploads/202202/ns1-answer-group.png)
 
 6. Click `Add Answer to Group` in that Answer Group, and enter the domain for
    the node, created in step 4 in preparation. Click the menu icon on the right
    and select `Edit Answer Metadata`:
 
-    - Click the icon on the right of `Up/down`, select the data feed for that
-      node, and save.
+   - Click the icon on the right of `Up/down`, select the data feed for that
+     node, and save.
 
-    ![NS1 Answer Metadata](../../../../usr/uploads/202202/ns1-answer-meta.png)
+   ![NS1 Answer Metadata](../../../../usr/uploads/202202/ns1-answer-meta.png)
 
 7. Repeat step 5 and 6 to add all regions and nodes. Now GeoDNS and failover are
    enabled for this record on its domain.

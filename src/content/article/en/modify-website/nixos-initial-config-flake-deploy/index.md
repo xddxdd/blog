@@ -10,20 +10,20 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 This is the second post in my NixOS series and mainly focuses on:
 
--   Basic format of NixOS config files and how to edit them
--   Flake functionality of Nix package manager
--   Deploy-RS deployment tool
+- Basic format of NixOS config files and how to edit them
+- Flake functionality of Nix package manager
+- Deploy-RS deployment tool
 
 This post assumes that you've installed NixOS with
 [NixOS's official installation manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation).
 
 ## Changelog
 
--   2023-05-10: Add a recommended post:
-    [NixOS & Nix Flakes - A Guide for Beginners](https://thiscute.world/en/posts/nixos-and-flake-basics/)
-    by Ryan Yin.
--   2021-12-18: NixOS 21.11 still doesn't come with Flake functionality by
-    default. Relevant information is updated.
+- 2023-05-10: Add a recommended post:
+  [NixOS & Nix Flakes - A Guide for Beginners](https://thiscute.world/en/posts/nixos-and-flake-basics/)
+  by Ryan Yin.
+- 2021-12-18: NixOS 21.11 still doesn't come with Flake functionality by
+  default. Relevant information is updated.
 
 ## Basic config
 
@@ -449,31 +449,31 @@ A `flake.lock` JSON file is generated:
 
 ```json
 {
-    "nodes": {
-        "nixpkgs": {
-            "locked": {
-                "lastModified": 1636623366,
-                "narHash": "sha256-jOQMlv9qFSj0U66HB+ujZoapty0UbewmSNbX8+3ujUQ=",
-                "owner": "NixOS",
-                "repo": "nixpkgs",
-                "rev": "c5ed8beb478a8ca035f033f659b60c89500a3034",
-                "type": "github"
-            },
-            "original": {
-                "owner": "NixOS",
-                "ref": "nixos-unstable",
-                "repo": "nixpkgs",
-                "type": "github"
-            }
-        },
-        "root": {
-            "inputs": {
-                "nixpkgs": "nixpkgs"
-            }
-        }
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1636623366,
+        "narHash": "sha256-jOQMlv9qFSj0U66HB+ujZoapty0UbewmSNbX8+3ujUQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c5ed8beb478a8ca035f033f659b60c89500a3034",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
     },
-    "root": "root",
-    "version": 7
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
 }
 ```
 
@@ -505,16 +505,15 @@ will have a few problems:
    without many resources available, I can easily run out of RAM or get
    suspended for excessive CPU usage.
 
-    The package repo of NixOS is somewhat similar to Gentoo. Unlike other Linux
-    distributions, a package being in the repo doesn't equate to it having
-    binary download available. A NixOS "package" is a set of Nix language
-    definitions describing the whole process of download, compilation, and
-    packaging.
+   The package repo of NixOS is somewhat similar to Gentoo. Unlike other Linux
+   distributions, a package being in the repo doesn't equate to it having binary
+   download available. A NixOS "package" is a set of Nix language definitions
+   describing the whole process of download, compilation, and packaging.
 
-    Usually, official NixOS will build software for us and upload them to a
-    Binary Cache. But if we ever change the compilation process (usually some
-    compilation parameters) or create a new package on our own (the process will
-    be explained in a future post), we're on our own.
+   Usually, official NixOS will build software for us and upload them to a
+   Binary Cache. But if we ever change the compilation process (usually some
+   compilation parameters) or create a new package on our own (the process will
+   be explained in a future post), we're on our own.
 
 2. The Nix package manager itself also takes a considerable amount of RAM and
    CPU resources when parsing config files, especially when the config is
@@ -672,17 +671,17 @@ His post provides some example configurations for commonly used software.
 You can also read these documents to have a better understanding of NixOS's
 config syntax, the Flake functionality, and Deploy-RS.
 
--   NixOS Syntax
-    -   [NixOS.Wiki: Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)
-    -   [Nix By Example](https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55)
--   Flake Functionality
-    -   [NixOS.Wiki: Flakes](https://nixos.wiki/wiki/Flakes)
--   Deploy-RS
-    -   [GitHub: Deploy-RS](https://github.com/serokell/deploy-rs)
+- NixOS Syntax
+  - [NixOS.Wiki: Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)
+  - [Nix By Example](https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55)
+- Flake Functionality
+  - [NixOS.Wiki: Flakes](https://nixos.wiki/wiki/Flakes)
+- Deploy-RS
+  - [GitHub: Deploy-RS](https://github.com/serokell/deploy-rs)
 
 You can also refer to my config files released on GitHub:
 
--   [Initial commit](https://github.com/xddxdd/nixos-config/tree/9ed2eff8e4e6054151558f3d5909f3ef2af9b288)
-    -   Finished the basic config and Nix Flake parts.
--   [general: add deploy-rs script, change SSH port to 2222](https://github.com/xddxdd/nixos-config/tree/79c6f5b45d7ff574ecefb594ed76715715906cec)
-    -   Finished configuration of Deploy-RS.
+- [Initial commit](https://github.com/xddxdd/nixos-config/tree/9ed2eff8e4e6054151558f3d5909f3ef2af9b288)
+  - Finished the basic config and Nix Flake parts.
+- [general: add deploy-rs script, change SSH port to 2222](https://github.com/xddxdd/nixos-config/tree/79c6f5b45d7ff574ecefb594ed76715715906cec)
+  - Finished configuration of Deploy-RS.

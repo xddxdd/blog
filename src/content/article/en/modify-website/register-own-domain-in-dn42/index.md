@@ -101,18 +101,18 @@ a container with `docker-compose`:
 
 ```yaml
 powerdns:
-    image: psitrax/powerdns
-    container_name: powerdns
-    restart: always
-    entrypoint: '/entrypoint.sh --cache-ttl=120 --master=yes --slave=yes'
-    environment:
-        - MYSQL_HOST=[Database IP]
-        - MYSQL_USER=[Database Username]
-        - MYSQL_PASS=[Database Password]
-        - MYSQL_DB=[Database Name]
-    ports:
-        - '[DN42 IP]:53:53'
-        - '[DN42 IP]:53:53/udp'
+  image: psitrax/powerdns
+  container_name: powerdns
+  restart: always
+  entrypoint: '/entrypoint.sh --cache-ttl=120 --master=yes --slave=yes'
+  environment:
+    - MYSQL_HOST=[Database IP]
+    - MYSQL_USER=[Database Username]
+    - MYSQL_PASS=[Database Password]
+    - MYSQL_DB=[Database Name]
+  ports:
+    - '[DN42 IP]:53:53'
+    - '[DN42 IP]:53:53/udp'
 ```
 
 Here PowerDNS may fail to start, telling you that some columns are too long when
@@ -241,22 +241,22 @@ similar record as `ns1.lantian.dn42`, which doesn't fit with DN42's recommended
 practices. I set my SOA record to "ns1.lantian.dn42 lantian.lantian.dn42 0 28800
 7200 604800 60", and a detailed explanation of each field is:
 
--   `ns1.lantian.dn42`: Name of the main DNS server, usually the domain name of
-    the server you're operating on.
--   `lantian.lantian.dn42`: Mailbox of the DNS server administrator, with `@` at
-    symbol replaced with `.` dot symbol. Here this value implies
-    `lantian@lantian.dn42`. This doesn't have to be a real address in DN42.
--   `0`: Record version ID, used to determine if records are changed if AXFR is
-    used. Since we use MySQL replication, this is not that important. Set to 0
-    tells PowerDNS to manage it automatically without manual intervention.
--   `28800`: Refresh time, the interval for the secondary DNS server to pull
-    from the primary server with AXFR. Not important here.
--   `7200`: Retry time, time to wait if a previous AXFR attempt failed. Also not
-    important here.
--   `604800`: Expiration time, time for a secondary DNS server to serve records
-    since the last successful AXFR. After this period of time, the secondary DNS
-    server will stop serving this zone. Also not important here.
--   `60`: Minimal TTL for all records. Minimum time to refresh record data.
+- `ns1.lantian.dn42`: Name of the main DNS server, usually the domain name of
+  the server you're operating on.
+- `lantian.lantian.dn42`: Mailbox of the DNS server administrator, with `@` at
+  symbol replaced with `.` dot symbol. Here this value implies
+  `lantian@lantian.dn42`. This doesn't have to be a real address in DN42.
+- `0`: Record version ID, used to determine if records are changed if AXFR is
+  used. Since we use MySQL replication, this is not that important. Set to 0
+  tells PowerDNS to manage it automatically without manual intervention.
+- `28800`: Refresh time, the interval for the secondary DNS server to pull from
+  the primary server with AXFR. Not important here.
+- `7200`: Retry time, time to wait if a previous AXFR attempt failed. Also not
+  important here.
+- `604800`: Expiration time, time for a secondary DNS server to serve records
+  since the last successful AXFR. After this period of time, the secondary DNS
+  server will stop serving this zone. Also not important here.
+- `60`: Minimal TTL for all records. Minimum time to refresh record data.
 
 Click on the edit button to the left of SOA record, set the values, and save.
 

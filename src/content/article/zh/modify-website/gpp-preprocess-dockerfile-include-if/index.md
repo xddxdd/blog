@@ -75,10 +75,10 @@ gpp -I /path/to/include --nostdinc -U "" "" "(" "," ")" "(" ")" "#" "" -M "#" "\
 
 上面带的自定义参数打开了如下功能：
 
--   `#define` 宏的功能，类似
-    `#define WGET(url) wget --no-check-certificate -q url`
--   行尾反斜杠的处理
--   `#if`，`#else` 之类类似 cpp 的功能
+- `#define` 宏的功能，类似
+  `#define WGET(url) wget --no-check-certificate -q url`
+- 行尾反斜杠的处理
+- `#if`，`#else` 之类类似 cpp 的功能
 
 要实现更多的功能，可以[自行参阅 gpp 的文档][6]。
 
@@ -124,19 +124,19 @@ Docker Hub 等，[可以在这里看到][9]。
 我的 Dockerfile 照例[发布在 GitHub][10]。
 
 [1]:
-    /article/modify-computer/build-arm-docker-image-on-x86-docker-hub-travis-automatic-build.lantian
+  /article/modify-computer/build-arm-docker-image-on-x86-docker-hub-travis-automatic-build.lantian
 [2]:
-    /article/modify-website/docker-build-arg-multi-arch-share-one-dockerfile.lantian
+  /article/modify-website/docker-build-arg-multi-arch-share-one-dockerfile.lantian
 [3]: https://github.com/moby/moby/issues/735#issuecomment-37273719
 [4]:
-    https://github.com/MrMEEE/bumblebee-Old-and-abbandoned/commit/a047be85247755cdbe0acce6f1dafc8beb84f2ac
+  https://github.com/MrMEEE/bumblebee-Old-and-abbandoned/commit/a047be85247755cdbe0acce6f1dafc8beb84f2ac
 [5]: https://files.nothingisreal.com/software/gpp/gpp.html
 [6]: https://files.nothingisreal.com/software/gpp/gpp.html
 [7]:
-    https://github.com/xddxdd/dockerfiles/blob/f4b054c1c0736e432c329dea18669999933ff439/include/image/multiarch_alpine_edge.Dockerfile
+  https://github.com/xddxdd/dockerfiles/blob/f4b054c1c0736e432c329dea18669999933ff439/include/image/multiarch_alpine_edge.Dockerfile
 [8]:
-    https://github.com/xddxdd/dockerfiles/blob/f4b054c1c0736e432c329dea18669999933ff439/dockerfiles/nginx/template.Dockerfile
+  https://github.com/xddxdd/dockerfiles/blob/f4b054c1c0736e432c329dea18669999933ff439/dockerfiles/nginx/template.Dockerfile
 [9]:
-    https://github.com/xddxdd/dockerfiles/blob/f4b054c1c0736e432c329dea18669999933ff439/Makefile
+  https://github.com/xddxdd/dockerfiles/blob/f4b054c1c0736e432c329dea18669999933ff439/Makefile
 [10]:
-    https://github.com/xddxdd/dockerfiles/tree/f4b054c1c0736e432c329dea18669999933ff439
+  https://github.com/xddxdd/dockerfiles/tree/f4b054c1c0736e432c329dea18669999933ff439

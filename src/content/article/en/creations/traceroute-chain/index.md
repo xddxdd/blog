@@ -85,44 +85,44 @@ program **can't** be optimized.
 
 1. Reduce the number of memory copies
 
-    I'm not the first to write such a program, but all similar programs I've
-    seen copies packets for multiple times in the memory, which is unnecessary.
-    Two memory copies are necessary while using TUN/TAP, one for receiving a
-    packet and one for sending it back. Apart from that, my program makes zero
-    copies of packet data:
+   I'm not the first to write such a program, but all similar programs I've seen
+   copies packets for multiple times in the memory, which is unnecessary. Two
+   memory copies are necessary while using TUN/TAP, one for receiving a packet
+   and one for sending it back. Apart from that, my program makes zero copies of
+   packet data:
 
-    - Memory space before the beginning packet is reserved. When replying to
-      _ICMP Time Exceeded_ packets, according to RFC requirements, the first 28
-      bytes (for IPv4) or 48 bytes (IPv6) must be included (not considering IP
-      Options). Since I reserved space, I don't need to copy the packet
-      elsewhere for extra space at the beginning. Instead, I can simply add the
-      ICMP header right before the incoming packet and send it back.
-    - While replying to _ICMP Echo_ packets, all I have to do is swap the
-      source/destination address and update the packet type. There's no need to
-      generate a new packet and copy payloads around.
+   - Memory space before the beginning packet is reserved. When replying to
+     _ICMP Time Exceeded_ packets, according to RFC requirements, the first 28
+     bytes (for IPv4) or 48 bytes (IPv6) must be included (not considering IP
+     Options). Since I reserved space, I don't need to copy the packet elsewhere
+     for extra space at the beginning. Instead, I can simply add the ICMP header
+     right before the incoming packet and send it back.
+   - While replying to _ICMP Echo_ packets, all I have to do is swap the
+     source/destination address and update the packet type. There's no need to
+     generate a new packet and copy payloads around.
 
 2. Incremental checksumming
 
-    IP packets include checksums for detection and discard of problematic
-    packets to avoid transmission errors. The checksum is calculated with
-    [One's Complement](https://en.wikipedia.org/wiki/Ones%27_complement), by
-    adding the whole packet as a `uint16_t` array and inverting every bit. We
-    can use this characteristic to prevent re-checksumming the whole packet. For
-    example, when replying to Pings, we swap the source/destination address and
-    change the packet type. Swapping source/destination address has no impact on
-    the sum of the packet, so it causes no change on checksum. Changing packet
-    type, on the other hand, is replacing a fixed value with another fixed value
-    (8 to 0 for IPv4 or 128 to 129 for IPv6), and is a constant change to the
-    checksum. We can simply update the checksum with the constant change.
+   IP packets include checksums for detection and discard of problematic packets
+   to avoid transmission errors. The checksum is calculated with
+   [One's Complement](https://en.wikipedia.org/wiki/Ones%27_complement), by
+   adding the whole packet as a `uint16_t` array and inverting every bit. We can
+   use this characteristic to prevent re-checksumming the whole packet. For
+   example, when replying to Pings, we swap the source/destination address and
+   change the packet type. Swapping source/destination address has no impact on
+   the sum of the packet, so it causes no change on checksum. Changing packet
+   type, on the other hand, is replacing a fixed value with another fixed value
+   (8 to 0 for IPv4 or 128 to 129 for IPv6), and is a constant change to the
+   checksum. We can simply update the checksum with the constant change.
 
 3. No `malloc` in the main loop
 
-    Except for a small memory allocation for initializing and parsing
-    parameters, when the program is looping through packets, it uses a fixed and
-    preallocated memory space to avoid performance issues caused by allocating
-    and freeing memory dynamically.
+   Except for a small memory allocation for initializing and parsing parameters,
+   when the program is looping through packets, it uses a fixed and preallocated
+   memory space to avoid performance issues caused by allocating and freeing
+   memory dynamically.
 
 Of course, there is still further optimization possible for this program:
 
--   Support TUN/TAP's multithreaded packet handling (Multiqueue), which allows
-    multiple cores to respond to packets simultaneously.
+- Support TUN/TAP's multithreaded packet handling (Multiqueue), which allows
+  multiple cores to respond to packets simultaneously.

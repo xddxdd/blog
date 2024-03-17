@@ -49,22 +49,22 @@ docker-compose.yml 文件。这个就是 Docker Compose 的配置文件。其基
 ```yaml
 version: '2'
 services:
-    容器 1:
-        image: 容器的镜像名称，如果本地没有这个镜像，Docker 会自动去镜像仓库下载
-        container_name: 容器名称
-        environment: # 环境变量
-            - 环境变量名称=环境变量值
-            - PASSWORD=123456
-        restart: always # 容器崩了就立即重启
-        volumes: # 将服务器上的文件夹映射到 Docker 容器中，用于存储和统一管理数据
-            - '服务器上存储数据的文件夹:Docker 容器中对应的文件夹'
-            - '/var/lib/mysql:/var/lib/mysql'
-        ports: # 端口映射
-            - '服务器上监听的端口:Docker 容器内的端口' # 此例为将端口开放供任何人访问
-            - '80:80'
-            - '服务器上监听的地址:服务器上监听的端口:Docker 容器内的端口' # 此例为该服务仅允许在服务器上访问
-            - '127.0.0.1:11211:11211'
-    容器2: ...（和容器 1 相同）
+  容器 1:
+    image: 容器的镜像名称，如果本地没有这个镜像，Docker 会自动去镜像仓库下载
+    container_name: 容器名称
+    environment: # 环境变量
+      - 环境变量名称=环境变量值
+      - PASSWORD=123456
+    restart: always # 容器崩了就立即重启
+    volumes: # 将服务器上的文件夹映射到 Docker 容器中，用于存储和统一管理数据
+      - '服务器上存储数据的文件夹:Docker 容器中对应的文件夹'
+      - '/var/lib/mysql:/var/lib/mysql'
+    ports: # 端口映射
+      - '服务器上监听的端口:Docker 容器内的端口' # 此例为将端口开放供任何人访问
+      - '80:80'
+      - '服务器上监听的地址:服务器上监听的端口:Docker 容器内的端口' # 此例为该服务仅允许在服务器上访问
+      - '127.0.0.1:11211:11211'
+  容器2: ...（和容器 1 相同）
 ```
 
 接下来我们就要写一个 docker-compose.yml，运行 MariaDB 的镜像并将数据导入。（#号
@@ -73,16 +73,16 @@ services:
 ```yaml
 version: '2'
 services:
-    lantian-mariadb:
-        image: mariadb:latest
-        container_name: lantian-mariadb
-        restart: always
-        volumes:
-            - '/srv/mysql:/var/lib/mysql'
-            - '/etc/timezone:/etc/timezone' # 将服务器的时区设置应用到 Docker 容器中
-            - '/etc/localtime:/etc/localtime'
-        ports:
-            - '127.0.0.1:3306:3306'
+  lantian-mariadb:
+    image: mariadb:latest
+    container_name: lantian-mariadb
+    restart: always
+    volumes:
+      - '/srv/mysql:/var/lib/mysql'
+      - '/etc/timezone:/etc/timezone' # 将服务器的时区设置应用到 Docker 容器中
+      - '/etc/localtime:/etc/localtime'
+    ports:
+      - '127.0.0.1:3306:3306'
 ```
 
 首先停止原来的 MariaDB：`service mysql stop`（我不考虑无缝切换问题）
@@ -161,14 +161,14 @@ docker-compose.yml 里加上这些内容：（注意空格，# 号后删掉）
 
 ```yaml
 lt-php-fpm:
-    image: lt-php7-fpm
-    container_name: lt-php-fpm
-    restart: always
-    volumes:
-        - './www:/srv/www' # 将你的 www 文件夹映射进去
-        - './owncloud:/srv/owncloud' # OwnCloud 数据文件夹，没有 OwnCloud 就删掉这行
-        - '/etc/timezone:/etc/timezone' # 时区
-        - '/etc/localtime:/etc/localtime' # 时区
+  image: lt-php7-fpm
+  container_name: lt-php-fpm
+  restart: always
+  volumes:
+    - './www:/srv/www' # 将你的 www 文件夹映射进去
+    - './owncloud:/srv/owncloud' # OwnCloud 数据文件夹，没有 OwnCloud 就删掉这行
+    - '/etc/timezone:/etc/timezone' # 时区
+    - '/etc/localtime:/etc/localtime' # 时区
 ```
 
 ## 自己编译软件镜像
@@ -274,17 +274,17 @@ docker build -t lt-nginx .
 
 ```yaml
 lt-nginx:
-    image: lt-nginx
-    container_name: lt-nginx
-    restart: always
-    volumes:
-        - './nginx:/usr/local/nginx/conf' # 配置文件
-        - './www:/srv/www' # www 文件夹
-        - '/etc/timezone:/etc/timezone' # 时区
-        - '/etc/localtime:/etc/localtime' # 时区
-    ports:
-        - '80:80'
-        - '443:443'
+  image: lt-nginx
+  container_name: lt-nginx
+  restart: always
+  volumes:
+    - './nginx:/usr/local/nginx/conf' # 配置文件
+    - './www:/srv/www' # www 文件夹
+    - '/etc/timezone:/etc/timezone' # 时区
+    - '/etc/localtime:/etc/localtime' # 时区
+  ports:
+    - '80:80'
+    - '443:443'
 ```
 
 ## 结语

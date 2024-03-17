@@ -17,63 +17,62 @@ server, as well as query routes to specified IPs.
 
 ## Why Rewrite in Go?
 
--   Bird-lg is based on Python 2 and Flask and takes more memory (20-30MB).
+- Bird-lg is based on Python 2 and Flask and takes more memory (20-30MB).
 
-    Bird-lgproxy also takes around 20MB and is required on every server. On the
-    512MB VPS where this site is hosted, there had been multiple cases where
-    memory ran out, and the on-disk SWAP was too slow. In this case, Docker,
-    Nginx, MySQL, PHP would crash one after one, and a reboot would be
-    necessary.
+  Bird-lgproxy also takes around 20MB and is required on every server. On the
+  512MB VPS where this site is hosted, there had been multiple cases where
+  memory ran out, and the on-disk SWAP was too slow. In this case, Docker,
+  Nginx, MySQL, PHP would crash one after one, and a reboot would be necessary.
 
--   The rewritten version in Go takes only 6 MB.
+- The rewritten version in Go takes only 6 MB.
 
--   Bird-lg queries status of multiple servers in **series** rather than
-    parallel. Sometimes when the network condition was being subpar, or ZeroTier
-    One had a glitch, it would take a long time to read all the statuses.
+- Bird-lg queries status of multiple servers in **series** rather than parallel.
+  Sometimes when the network condition was being subpar, or ZeroTier One had a
+  glitch, it would take a long time to read all the statuses.
 
--   The rewritten version in Go uses Goroutines to query multiple servers in
-    **parallel** rather than serial. Page loading latency is reduced by
-    magnitudes when there are many servers or when the network is bad.
+- The rewritten version in Go uses Goroutines to query multiple servers in
+  **parallel** rather than serial. Page loading latency is reduced by magnitudes
+  when there are many servers or when the network is bad.
 
--   This is also my practice in programming in Go.
+- This is also my practice in programming in Go.
 
 ## What Functionalities are Done?
 
 For Bird-lgproxy the following things are done:
 
--   Sending requests to Bird
--   Running Traceroute and returning the result
+- Sending requests to Bird
+- Running Traceroute and returning the result
 
 For Bird-lg the following things are done:
 
--   Basic status display:
+- Basic status display:
 
-    ![Basic Status Display][3]
+  ![Basic Status Display][3]
 
--   Querying route information to specified IP:
+- Querying route information to specified IP:
 
-    ![Querying Route Information to Specified IP][4]
+  ![Querying Route Information to Specified IP][4]
 
--   IP & ASN highlighting in results, and WHOIS lookups:
+- IP & ASN highlighting in results, and WHOIS lookups:
 
-    ![WHOIS Domain Queries][5]
+  ![WHOIS Domain Queries][5]
 
-    ![WHOIS ASN Queries][6]
+  ![WHOIS ASN Queries][6]
 
--   Traceroute (which shows a routing issue to DN42 right now):
+- Traceroute (which shows a routing issue to DN42 right now):
 
-    ![Traceroute Output][7]
+  ![Traceroute Output][7]
 
 ## What Aren't Done?
 
 Compared to the [Bird-lg in Python][8], Bird-lgproxy lacks the following
 functionalities:
 
--   IP source restriction
+- IP source restriction
 
 Bird-lg lacks:
 
--   Query history on the right of the page
+- Query history on the right of the page
 
 I don't implement these features since I don't need them. For example, I simply
 set Bird-lgproxy to listen on a specific network interface and use this as a way

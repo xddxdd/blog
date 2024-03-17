@@ -13,7 +13,7 @@ image: /usr/uploads/202110/nixos-social-preview.png
 行版，几乎没有 VPS 服务商提供预装 NixOS 的磁盘镜像，只能由用户使用以下方法之一手
 动安装：
 
--   自行挂载 NixOS 的安装 ISO 镜像，然后手动格盘安装。
+- 自行挂载 NixOS 的安装 ISO 镜像，然后手动格盘安装。
 
 由于你可以在 NixOS 安装镜像的环境中随意操作 VPS 的硬盘，这种方法自由度最高，可以
 任意对硬盘进行分区，指定文件系统格式。但是，使用这种方法前，你的主机商需要在以下
@@ -29,9 +29,9 @@ image: /usr/uploads/202110/nixos-social-preview.png
 此无法使用 netboot.xyz 启动 NixOS 安装环境。同时由于我的主机商也不提供自定义镜像
 功能，我也无法通过光盘启动 NixOS 安装程序。
 
--   使用 [NixOS-Infect](https://github.com/elitak/nixos-infect) 或
-    [NixOS-Anywhere](https://github.com/nix-community/nixos-anywhere) 等工具，直
-    接替换运行在 VPS 上的操作系统。
+- 使用 [NixOS-Infect](https://github.com/elitak/nixos-infect) 或
+  [NixOS-Anywhere](https://github.com/nix-community/nixos-anywhere) 等工具，直接
+  替换运行在 VPS 上的操作系统。
 
 NixOS-Infect 工具的原理是在本地系统上安装 Nix Daemon，再使用它构建一个完整的
 NixOS 系统，最后将原系统的启动项替换成 NixOS 的。由于这种方法不需要在内存中解压
@@ -44,14 +44,14 @@ NixOS 的完整安装镜像，这种方法更适合小内存的 VPS。但这种�
 启动到内存中的 NixOS 的安装镜像，本质原理与 netboot.xyz 大致相同，因此也与
 netboot.xyz 一样需要较大的内存空间。
 
--   先 NixOS-Infect，再在恢复环境中手动调整分区
+- 先 NixOS-Infect，再在恢复环境中手动调整分区
 
 对于类似的小内存 VPS，我曾经使用的方法是，先使用 NixOS-Infect 安装一个普通的
 NixOS，然后部署一份开启了 Btrfs 和 Impermanence 的配置，然后重启到恢复环境，在恢
 复环境中调整分区、转换分区格式。这种方法能用，但是很麻烦，而且一旦中间一步操作出
 错，很难修复系统，只能从头开始。
 
--   ……还有别的方法吗？
+- ……还有别的方法吗？
 
 最近 NixOS 社区发布了一款工具 [Disko](https://github.com/nix-community/disko)，
 它的原本用途是在 NixOS 安装环境中自动对硬盘进行分区，从而实现用 Nix 配置文件声明

@@ -20,56 +20,54 @@ by [Lan Tian](https://lantian.pub)
 
 ```javascript
 $(function () {
-    var x = 22
-    var y = 540
-    var a = 0
+  var x = 22
+  var y = 540
+  var a = 0
 
-    $('a.smallimage').hover(
-        function (e) {
-            if (a == 0) {
-                $('body').append(
-                    '<div id="bigimage"><img src="' +
-                        this.rel +
-                        '" alt="" /></div>'
-                )
-                a = 1
-            }
-            widthJudge(e)
-            $('a.smallimage').fadeTo(300, 0.3)
-            $('#bigimage').fadeIn(300)
-        },
-        function () {
-            $('#bigimage').fadeOut(300)
-            $('a.smallimage').fadeTo(300, 1)
-        }
-    )
+  $('a.smallimage').hover(
+    function (e) {
+      if (a == 0) {
+        $('body').append(
+          '<div id="bigimage"><img src="' + this.rel + '" alt="" /></div>'
+        )
+        a = 1
+      }
+      widthJudge(e)
+      $('a.smallimage').fadeTo(300, 0.3)
+      $('#bigimage').fadeIn(300)
+    },
+    function () {
+      $('#bigimage').fadeOut(300)
+      $('a.smallimage').fadeTo(300, 1)
+    }
+  )
 
-    $('a.smallimage').mousemove(function (e) {
-        widthJudge(e)
-    })
-    function max(a, b) {
-        if (a > b) {
-            return a
-        } else {
-            return b
-        }
+  $('a.smallimage').mousemove(function (e) {
+    widthJudge(e)
+  })
+  function max(a, b) {
+    if (a > b) {
+      return a
+    } else {
+      return b
     }
-    function widthJudge(e) {
-        var marginRight = document.body.clientWidth - e.pageX
-        var imageWidth = $('#bigimage').width()
-        if (marginRight < imageWidth) {
-            $('#bigimage').css({
-                top: max(e.pageY - y, 22) + 'px',
-                left: document.body.clientWidth - imageWidth + x + 'px',
-            })
-        } else {
-            x = -22
-            $('#bigimage').css({
-                top: max(e.pageY - y, 22) + 'px',
-                left: e.pageX + x + 'px',
-            })
-        }
+  }
+  function widthJudge(e) {
+    var marginRight = document.body.clientWidth - e.pageX
+    var imageWidth = $('#bigimage').width()
+    if (marginRight < imageWidth) {
+      $('#bigimage').css({
+        top: max(e.pageY - y, 22) + 'px',
+        left: document.body.clientWidth - imageWidth + x + 'px',
+      })
+    } else {
+      x = -22
+      $('#bigimage').css({
+        top: max(e.pageY - y, 22) + 'px',
+        left: e.pageX + x + 'px',
+      })
     }
+  }
 })
 ```
 
@@ -77,18 +75,18 @@ $(function () {
 
 ```css
 .smallimage {
-    position: relative;
-    z-index: 3;
+  position: relative;
+  z-index: 3;
 }
 #bigimage {
-    position: absolute;
-    z-index: 2;
+  position: absolute;
+  z-index: 2;
 }
 #bigimage img {
-    height: 500px;
-    padding: 5px;
-    background: #fff;
-    border: 1px solid #e3e3e3;
+  height: 500px;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid #e3e3e3;
 }
 ```
 

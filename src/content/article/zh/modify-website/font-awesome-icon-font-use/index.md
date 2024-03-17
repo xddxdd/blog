@@ -20,8 +20,8 @@ Awesome：[https://fortawesome.github.io/Font-Awesome/assets/font-awesome-4.1.0.
 
 ```html
 <link
-    rel="stylesheet"
-    href="http://你的网站/文件夹/font-awesome/css/font-awesome.min.css"
+  rel="stylesheet"
+  href="http://你的网站/文件夹/font-awesome/css/font-awesome.min.css"
 />
 ```
 

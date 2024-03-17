@@ -8,9 +8,8 @@ image: /usr/uploads/202103/gopher-gopherus-en.png
 
 ## Changelog
 
--   2021-03-24: Improve post-processing, add scripts for parsing links and
-    images.
--   2021-03-21: Initial version.
+- 2021-03-24: Improve post-processing, add scripts for parsing links and images.
+- 2021-03-21: Initial version.
 
 ## What's Gopher
 
@@ -143,18 +142,18 @@ Hello World
 The server still gave back contents for the page, but there are things more than
 we actually need:
 
--   Gopher clients won't recognize the 200 status code of HTTP;
--   There are extra response headers including Date, Content-Type, etc.;
--   The responses of Nginx are encoded with `Transfer-Encoding: chunked`, which
-    Gopher clients have no idea about;
--   We need to press Enter twice after the `Host:` line before Nginx sends the
-    response. Gopher clients will only do it once;
--   Most importantly, have you noticed the `^C`? It's there because I manually
-    pressed `Ctrl+C` to terminate the connection. Nginx has
-    `Connection: keep-alive` enabled by default and won't actively close the
-    connection after the request is completed. Instead, it will wait for the
-    client to send a second request. A Gopher client, in this case, will wait
-    forever.
+- Gopher clients won't recognize the 200 status code of HTTP;
+- There are extra response headers including Date, Content-Type, etc.;
+- The responses of Nginx are encoded with `Transfer-Encoding: chunked`, which
+  Gopher clients have no idea about;
+- We need to press Enter twice after the `Host:` line before Nginx sends the
+  response. Gopher clients will only do it once;
+- Most importantly, have you noticed the `^C`? It's there because I manually
+  pressed `Ctrl+C` to terminate the connection. Nginx has
+  `Connection: keep-alive` enabled by default and won't actively close the
+  connection after the request is completed. Instead, it will wait for the
+  client to send a second request. A Gopher client, in this case, will wait
+  forever.
 
 Therefore, there's too much to change based on HTTP/1.1. But if there's 1.1,
 there's also 1.0. How about we have a try of HTTP/1.0?
@@ -205,11 +204,11 @@ Overall, this patch did three changes:
 
 1. A new option, `plain`, is added to `listen`, meaning this port will be used
    to receive Gopher connections without the GET part.
-    - Use it like `listen 70 plain default_server;`
-    - Attention: a `plain` port cannot receive normal HTTP requests! So do not
-      add it to the `listen` for port 80, and never use it with other protocols
-      like `http2`.
-    - SSL is theoretically supported, but I never tried.
+   - Use it like `listen 70 plain default_server;`
+   - Attention: a `plain` port cannot receive normal HTTP requests! So do not
+     add it to the `listen` for port 80, and never use it with other protocols
+     like `http2`.
+   - SSL is theoretically supported, but I never tried.
 2. A state machine for parsing `plain` URLs is added. Compared to HTTP state
    machines, everything related to parsing request type (`GET`), domain
    (`http://localhost`), and HTTP version (`HTTP/1.1`) is removed. The request
@@ -244,98 +243,89 @@ const gopherAfter = '\t\t{{server_addr}}\t{{server_port}}' + crlf
 const gopherEOF = '.' + crlf
 
 function markdown_formatter(rel_path, md) {
-    const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g
+  const markdownRegex = /([^!]?)(!?)\[([^\]]+)\]\(([^)]+)\)(.?)/g
 
-    var rows = md.split('\n')
-    for (var i = 0; i < rows.length; i++) {
-        // Recognize all [Link](url) 和 ![Image](image)
-        if (rows[i].match(markdownRegex)) {
-            var replace_at_beginning = false,
-                replace_at_end = false
+  var rows = md.split('\n')
+  for (var i = 0; i < rows.length; i++) {
+    // Recognize all [Link](url) 和 ![Image](image)
+    if (rows[i].match(markdownRegex)) {
+      var replace_at_beginning = false,
+        replace_at_end = false
 
-            var replace_fn = (
-                match,
-                prefix,
-                img_marker,
-                label,
-                href,
-                suffix
-            ) => {
-                // Don't replace external links like http://, gopher://
-                // Gopher browsers don't support them
-                if (href.match('://')) {
-                    return match
-                }
-
-                if (prefix !== null) {
-                    // Mark there's link or image at line beginning
-                    // Don't add prefix anymore
-                    replace_at_beginning = true
-                }
-                if (suffix !== null) {
-                    // Mark there's link or image at line end
-                    // Don't add suffix anymore
-                    replace_at_end = true
-                }
-
-                href = path.join('/', rel_path, href)
-
-                return (
-                    (prefix ? prefix + gopherAfter : '') +
-                    (img_marker === '!'
-                        ? gopherBeforeImage
-                        : gopherBeforeLink) +
-                    label +
-                    '\t' +
-                    href +
-                    '\t{{server_addr}}\t{{server_port}}' +
-                    crlf +
-                    (suffix ? gopherBefore + suffix : '')
-                )
-            }
-
-            rows[i] = rows[i].replaceAll(markdownRegex, replace_fn)
-            rows[i] =
-                (replace_at_beginning ? '' : gopherBefore) +
-                rows[i] +
-                (replace_at_end ? '' : gopherAfter)
-        } else {
-            rows[i] = gopherBefore + rows[i] + gopherAfter
+      var replace_fn = (match, prefix, img_marker, label, href, suffix) => {
+        // Don't replace external links like http://, gopher://
+        // Gopher browsers don't support them
+        if (href.match('://')) {
+          return match
         }
-    }
 
-    return rows.join('') + gopherEOF
+        if (prefix !== null) {
+          // Mark there's link or image at line beginning
+          // Don't add prefix anymore
+          replace_at_beginning = true
+        }
+        if (suffix !== null) {
+          // Mark there's link or image at line end
+          // Don't add suffix anymore
+          replace_at_end = true
+        }
+
+        href = path.join('/', rel_path, href)
+
+        return (
+          (prefix ? prefix + gopherAfter : '') +
+          (img_marker === '!' ? gopherBeforeImage : gopherBeforeLink) +
+          label +
+          '\t' +
+          href +
+          '\t{{server_addr}}\t{{server_port}}' +
+          crlf +
+          (suffix ? gopherBefore + suffix : '')
+        )
+      }
+
+      rows[i] = rows[i].replaceAll(markdownRegex, replace_fn)
+      rows[i] =
+        (replace_at_beginning ? '' : gopherBefore) +
+        rows[i] +
+        (replace_at_end ? '' : gopherAfter)
+    } else {
+      rows[i] = gopherBefore + rows[i] + gopherAfter
+    }
+  }
+
+  return rows.join('') + gopherEOF
 }
 
 // Key logic
 unified()
-    .use(remark_parse)
-    .use(remark_stringify, {
-        bullet: '-',
-        fences: true,
-        listItemIndent: 'one',
-        resourceLink: false,
+  .use(remark_parse)
+  .use(remark_stringify, {
+    bullet: '-',
+    fences: true,
+    listItemIndent: 'one',
+    resourceLink: false,
+  })
+  .process(data.page.raw) // Get source Markdown data
+  .then(file => {
+    var md = String(file)
+    if (!md) return
+
+    // Cap to 70 chars per line
+    md = prettier.format(md, {
+      parser: 'markdown',
+      printWidth: 70,
+      tabWidth: 2,
+      proseWrap: 'always',
+      endOfLine: 'lf',
     })
-    .process(data.page.raw) // Get source Markdown data
-    .then(file => {
-        var md = String(file)
-        if (!md) return
+    if (!md) return
 
-        // Cap to 70 chars per line
-        md = prettier.format(md, {
-            parser: 'markdown',
-            printWidth: 70,
-            tabWidth: 2,
-            proseWrap: 'always',
-            endOfLine: 'lf',
-        })
-        if (!md) return
+    // Reformat each line to Gophermap
+    md = markdown_formatter(path.dirname(data.path), md)
 
-        // Reformat each line to Gophermap
-        md = markdown_formatter(path.dirname(data.path), md)
-
-        // Write files, omitted
-    })
+    // Write files, omitted
+  })
 ```
 
 The generated file will look like:
@@ -379,21 +369,21 @@ data += gopherBefore + gopherAfter
 
 // List of posts
 locals.posts.sort('date', 'desc').each(post => {
-    data +=
-        gopherBeforeLink +
-        '- ' +
-        post.title.slice(0, 56) +
-        ' (' +
-        new Date(post.date).toISOString().replace('T', ' ').substr(0, 19) +
-        ')' +
-        '\t/' +
-        post.path.replace(/index\.html$/g, '') +
-        '\t{{server_addr}}\t{{server_port}}' +
-        crlf
+  data +=
+    gopherBeforeLink +
+    '- ' +
+    post.title.slice(0, 56) +
+    ' (' +
+    new Date(post.date).toISOString().replace('T', ' ').substr(0, 19) +
+    ')' +
+    '\t/' +
+    post.path.replace(/index\.html$/g, '') +
+    '\t{{server_addr}}\t{{server_port}}' +
+    crlf
 
-    data += gopherBefore + '  ' + post.excerpt.slice(0, 68) + gopherAfter
-    data += gopherBefore + '  ' + post.excerpt.slice(68, 68) + gopherAfter
-    data += gopherBefore + gopherAfter
+  data += gopherBefore + '  ' + post.excerpt.slice(0, 68) + gopherAfter
+  data += gopherBefore + '  ' + post.excerpt.slice(68, 68) + gopherAfter
+  data += gopherBefore + gopherAfter
 })
 data += gopherEOF
 return data

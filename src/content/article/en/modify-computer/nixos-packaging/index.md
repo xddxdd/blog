@@ -32,12 +32,12 @@ good news are:
    in correct parameters, and package it for you.
 2. Nixpkgs also provides existing automated solutions for binary distributed
    software (commonly seen in closed-source software):
-    - One is Autopatchelf, which automatically modifies the library paths in the
-      binary, and points them to `/nix/store`.
-    - The other is Bubblewrap, or `steam-run` based on Bubblewrap, that can
-      emulate an FHS-compliant environment. As the name suggests, `steam-run`
-      mainly focuses on the Steam gaming platform and the games on it, but it
-      can also be used for other closed-source software.
+   - One is Autopatchelf, which automatically modifies the library paths in the
+     binary, and points them to `/nix/store`.
+   - The other is Bubblewrap, or `steam-run` based on Bubblewrap, that can
+     emulate an FHS-compliant environment. As the name suggests, `steam-run`
+     mainly focuses on the Steam gaming platform and the games on it, but it can
+     also be used for other closed-source software.
 3. Nix package manager run the packaging process in an isolated environment. You
    can think of it as a Docker container, with no networking access, no
    escalated privileges, and no access to filesystem except a few designated
@@ -56,11 +56,11 @@ And the bad news are:
 
 2. When, for some reason, you cannot use an existing function, you need to
    prepare yourself for a long debugging journey:
-    - Developer organized the source code in a strange way (like `osdlyrics`),
-      or used a non-standard compilation procedure
-    - Program actively detects its execution environment (like WeChat for UOS)
-    - Program actively detects changes to itself (like SVP video interpolation
-      software)
+   - Developer organized the source code in a strange way (like `osdlyrics`), or
+     used a non-standard compilation procedure
+   - Program actively detects its execution environment (like WeChat for UOS)
+   - Program actively detects changes to itself (like SVP video interpolation
+     software)
 
 A few months ago, I replaced my daily driver distro from Arch Linux to NixOS,
 and I've packaged quite a few programs on NixOS. This post will explain the
@@ -71,16 +71,15 @@ starting from the easier ones.
 
 First, I strongly recommend you to install NixOS and only package on NixOS.
 
--   Although you can package software with Nix on non-NixOS operating systems,
-    the produced software may still have runtime dependencies on the FHS
-    structure, causing incompatibilities on NixOS. Of course, if you're only
-    packaging for yourself, and have no plan to share the packages, you can
-    safely ignore this.
--   In addition, you need to use
-    [Home-Manager](https://github.com/nix-community/home-manager), a program
-    that manages config files in your Home directory with a Nix-language config
-    file, to install Nix-packaged software on a non-NixOS system. You need to do
-    your own research on how to use this program.
+- Although you can package software with Nix on non-NixOS operating systems, the
+  produced software may still have runtime dependencies on the FHS structure,
+  causing incompatibilities on NixOS. Of course, if you're only packaging for
+  yourself, and have no plan to share the packages, you can safely ignore this.
+- In addition, you need to use
+  [Home-Manager](https://github.com/nix-community/home-manager), a program that
+  manages config files in your Home directory with a Nix-language config file,
+  to install Nix-packaged software on a non-NixOS system. You need to do your
+  own research on how to use this program.
 
 ## Using Packaging Template from NUR
 
@@ -100,81 +99,81 @@ your custom packages in that new repository.
 
 Then, clone your repository.
 
--   If you don't use Nix Flake, you can run the following command to build the
-    example package from the template:
+- If you don't use Nix Flake, you can run the following command to build the
+  example package from the template:
 
-    ```bash
-    nix-build -A example-package
-    ```
+  ```bash
+  nix-build -A example-package
+  ```
 
--   If you use Flake, you can run the following commands:
+- If you use Flake, you can run the following commands:
 
-    ```bash
-    nix flake update # Optional, update repositories in flake.lock to latest version
-    nix build ".#example-package"
-    ```
+  ```bash
+  nix flake update # Optional, update repositories in flake.lock to latest version
+  nix build ".#example-package"
+  ```
 
 Then, add your own repository in your NixOS config.
 
--   If you don't use Nix Flake, add the following definitions to
-    `configuration.nix`:
+- If you don't use Nix Flake, add the following definitions to
+  `configuration.nix`:
 
-    ```nix
-    nixpkgs.config.packageOverrides = pkgs: {
-      myRepo = import (builtins.fetchTarball "https://github.com/nix-community/nur-packages-template/archive/master.tar.gz") {
-        inherit pkgs;
-      };
+  ```nix
+  nixpkgs.config.packageOverrides = pkgs: {
+    myRepo = import (builtins.fetchTarball "https://github.com/nix-community/nur-packages-template/archive/master.tar.gz") {
+      inherit pkgs;
     };
-    ```
+  };
+  ```
 
-    Replace `https://github.com/nix-community/nur-packages-template` with your
-    repository URL.
+  Replace `https://github.com/nix-community/nur-packages-template` with your
+  repository URL.
 
-    Now you can use your own packages in the form of
-    `pkgs.myRepo.example-package`.
+  Now you can use your own packages in the form of
+  `pkgs.myRepo.example-package`.
 
--   If you use Nix Flake, add the following definitions to the `inputs` section
-    in `flake.nix`:
+- If you use Nix Flake, add the following definitions to the `inputs` section in
+  `flake.nix`:
 
-    ```nix
-    inputs = {
-      # ...
-      myRepo = {
-        url = "github:nix-community/nur-packages-template";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-      # ...
+  ```nix
+  inputs = {
+    # ...
+    myRepo = {
+      url = "github:nix-community/nur-packages-template";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    ```
+    # ...
+  };
+  ```
 
-    Replace `nix-community/nur-packages-template` with your repository URL.
+  Replace `nix-community/nur-packages-template` with your repository URL.
 
-    Then, in the `output` section in `flake.nix`, for each of your
-    `nixosConfigurations` definition, add a module for the systems:
+  Then, in the `output` section in `flake.nix`, for each of your
+  `nixosConfigurations` definition, add a module for the systems:
 
-    ```nix
-    outputs = { self, nixpkgs, ... }@inputs: {
-      nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          # Add the following lines at the beginning of modules
-          ({
-            nixpkgs.overlays = [
-              (final: prev: {
-                myRepo = inputs.myRepo.packages."${prev.system}";
-              })
-            ];
-          })
-          # Add the preceding lines at the beginning of modules
+  ```nix
+  outputs = { self, nixpkgs, ... }@inputs: {
+    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        # Add the following lines at the beginning of modules
+        ({
+          nixpkgs.overlays = [
+            (final: prev: {
+              myRepo = inputs.myRepo.packages."${prev.system}";
+            })
+          ];
+        })
+        # Add the preceding lines at the beginning of modules
 
-          ./configuration.nix
-        ];
-      };
+        ./configuration.nix
+      ];
     };
-    ```
+  };
+  ```
 
-    Now you can use your own packages in the form of
-    `pkgs.myRepo.example-package`.
+  Now you can use your own packages in the form of
+  `pkgs.myRepo.example-package`.
 
 ## Add Packages Straight to NixOS Config
 
@@ -232,68 +231,68 @@ definition, since it's much easier. Contrary to `builtins.derivation`,
 
 1. Unpack phase
 
-    - In this step, `stdenv.mkDerivation` automatically unpacks the source code
-      archive specified by `src`. For example, if your archive is in `.tar.gz`
-      format, it automatically runs `tar xf`.
-    - But `stdenv.mkDerivation` doesn't recognize all archive types, for example
-      `.zip`. In this case, you need to specify the unpack command yourself:
+   - In this step, `stdenv.mkDerivation` automatically unpacks the source code
+     archive specified by `src`. For example, if your archive is in `.tar.gz`
+     format, it automatically runs `tar xf`.
+   - But `stdenv.mkDerivation` doesn't recognize all archive types, for example
+     `.zip`. In this case, you need to specify the unpack command yourself:
 
-        ```nix
-        nativeBuildInputs = [ unzip ];
-        unpackPhase = ''
-          unzip $src
-        '';
-        ```
+     ```nix
+     nativeBuildInputs = [ unzip ];
+     unpackPhase = ''
+       unzip $src
+     '';
+     ```
 
-    - `stdenv.mkDerivation` requires that the source code resides in a top-level
-      folder in the archive. It automatically `cd`s into that folder after
-      unpack.
+   - `stdenv.mkDerivation` requires that the source code resides in a top-level
+     folder in the archive. It automatically `cd`s into that folder after
+     unpack.
 
 2. Patch phase
 
-    - In this step, `stdenv.mkDerivation` applies all `patches` in sequential
-      order. This can be used to fix the incompatibilities between some programs
-      and NixOS.
+   - In this step, `stdenv.mkDerivation` applies all `patches` in sequential
+     order. This can be used to fix the incompatibilities between some programs
+     and NixOS.
 
 3. Configure phase
 
-    - This is equivalent to running `./configure` or `cmake`.
-      `stdenv.mkDerivation` automatically detects the packaging system and calls
-      the appropriate commands, or, when no relevant config files exist,
-      automatically skips the phase.
-    - It's worth noting that, to use `cmake`, you need to add an additional line
-      of `nativeBuildInputs = [ cmake ];` to add CMake into the packaging
-      environment.
-    - You can add configuration parameters with `configureFlags` or
-      `cmakeFlags`, to enable or disable functionalities of the program.
+   - This is equivalent to running `./configure` or `cmake`.
+     `stdenv.mkDerivation` automatically detects the packaging system and calls
+     the appropriate commands, or, when no relevant config files exist,
+     automatically skips the phase.
+   - It's worth noting that, to use `cmake`, you need to add an additional line
+     of `nativeBuildInputs = [ cmake ];` to add CMake into the packaging
+     environment.
+   - You can add configuration parameters with `configureFlags` or `cmakeFlags`,
+     to enable or disable functionalities of the program.
 
 4. Build phase
 
-    - This is equivalent to running `make`. You can specify the arguments to
-      `make` with `makeFlags`.
+   - This is equivalent to running `make`. You can specify the arguments to
+     `make` with `makeFlags`.
 
 5. Check phase
 
-    - This phase executes the unit tests in the source directory, to ensure that
-      the program functions correctly.
-    - You can skip this step with `doCheck = false;`.
+   - This phase executes the unit tests in the source directory, to ensure that
+     the program functions correctly.
+   - You can skip this step with `doCheck = false;`.
 
 6. Install phase
 
-    - This is equivalent to running `make install`, which copies the compilation
-      results to the relevant folder in Nix store.
-    - The whole building process happens in a temporary folder, rather than in
-      Nix store. Therefore, such a copy is necessary.
-    - When you specify the installation commands yourself, the target path is
-      stored in variable `$out`. `$out` can be either a directory containing
-      files, or simply a file.
+   - This is equivalent to running `make install`, which copies the compilation
+     results to the relevant folder in Nix store.
+   - The whole building process happens in a temporary folder, rather than in
+     Nix store. Therefore, such a copy is necessary.
+   - When you specify the installation commands yourself, the target path is
+     stored in variable `$out`. `$out` can be either a directory containing
+     files, or simply a file.
 
 7. Fixup phase
-    - This step cleans up the results in Nix store by, for example, stripping
-      debug symbols.
-    - Autopatchelf Hook, a hook that automatically replaces `.so` paths for
-      closed-source programs, is executed in this step.
-    - You can disable this step with `dontFixup = true;`.
+   - This step cleans up the results in Nix store by, for example, stripping
+     debug symbols.
+   - Autopatchelf Hook, a hook that automatically replaces `.so` paths for
+     closed-source programs, is executed in this step.
+   - You can disable this step with `dontFixup = true;`.
 
 For each phase, the command to be executed, or the pre/post command hooks, can
 be specified. Take the install phase for example:
@@ -464,17 +463,16 @@ stdenv.mkDerivation rec {
 This package mainly demonstrates the difference between `nativeBuildInputs` and
 `buildInputs`:
 
--   `nativeBuildInputs` are only used during packaging. They're usually used to
-    generate config files or compilation scripts. During cross compilation
-    (compiling for a device of another architecture), `nativeBuildInputs` will
-    have the same architecture as the device running the build, rather than the
-    target device. For example, if you're building for ARM Raspberry Pi on a x86
-    PC, `nativeBuildInputs` will have architecture x86.
--   `buildInputs` are used both in packaging and in program execution. All
-    dependent libraries go in here. These dependencies have the same
-    architecture as the target device. As an example, `liboqs` required by
-    `openssl-oqs-provider` must have the same architecture (both x86 or both
-    ARM).
+- `nativeBuildInputs` are only used during packaging. They're usually used to
+  generate config files or compilation scripts. During cross compilation
+  (compiling for a device of another architecture), `nativeBuildInputs` will
+  have the same architecture as the device running the build, rather than the
+  target device. For example, if you're building for ARM Raspberry Pi on a x86
+  PC, `nativeBuildInputs` will have architecture x86.
+- `buildInputs` are used both in packaging and in program execution. All
+  dependent libraries go in here. These dependencies have the same architecture
+  as the target device. As an example, `liboqs` required by
+  `openssl-oqs-provider` must have the same architecture (both x86 or both ARM).
 
 ## Hard: OSDLyrics (Python & C++, Two-Stage Build)
 
@@ -1556,22 +1554,22 @@ often need to consider all dependencies of the software, and try repeatedly
 whilst adjusting parameters. Compared to other distros, packaging in NixOS (and
 Nixpkgs) may seem complicated at first, but is actually easy:
 
--   Many repetitive work are automated with functions;
--   Packaging is isolated from the main OS, no worries of package breaking for
-    others because of residuals or missing dependencies.
+- Many repetitive work are automated with functions;
+- Packaging is isolated from the main OS, no worries of package breaking for
+  others because of residuals or missing dependencies.
 
 In this post, I demonstrated a few common packaging scenarios, including open
 source and closed source ones. But since I only shown a limited number of
 examples, they certainly do not cover all scenarios you may run into, so you're
 likely required to do your own research:
 
--   [NixOS Wiki](https://nixos.wiki/) provides packaging guides for many popular
-    programming languages, as well as special cases (like Qt).
--   [Nixpkgs](https://github.com/NixOS/nixpkgs) itself is a large package
-    repository with definitions for over 80,000 packages, which serves as a
-    reference.
--   [NUR](https://nur.nix-community.org/) is package repositories managed by Nix
-    users, similar to AUR.
+- [NixOS Wiki](https://nixos.wiki/) provides packaging guides for many popular
+  programming languages, as well as special cases (like Qt).
+- [Nixpkgs](https://github.com/NixOS/nixpkgs) itself is a large package
+  repository with definitions for over 80,000 packages, which serves as a
+  reference.
+- [NUR](https://nur.nix-community.org/) is package repositories managed by Nix
+  users, similar to AUR.
 
 All packaging examples in this post are from
 [my NUR repository](https://github.com/xddxdd/nur-packages).

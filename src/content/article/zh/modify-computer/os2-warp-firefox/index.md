@@ -161,13 +161,13 @@ kLIBC 可以从 Arca Noae（也就是维护 ArcaOS 的公司）的软件源下�
 
 输入 `e config.sys`，编辑 `config.sys` 这个配置文件。我们需要修改的地方如下：
 
--   找到 `LIBPATH=`，在等号后面加上 `C:\USR\LOCAL\LIB;C:\USR\LIB;`
-    -   修改完后类似于：
-    -   `LIBPATH=C:\USR\LOCAL\LIB;C:\USR\LIB;C:\NETSCAPE\PROGRAM;...`
--   找到 `SET PATH=`，在等号后面加上 `C:\USR\BIN;`
-    -   修改完后类似于：
-    -   `SET PATH=C:\USR\BIN;C:\NETSCAPE\PROGRAM;...`
--   在文件末尾添加一行 `SET UNIXROOT=C:`
+- 找到 `LIBPATH=`，在等号后面加上 `C:\USR\LOCAL\LIB;C:\USR\LIB;`
+  - 修改完后类似于：
+  - `LIBPATH=C:\USR\LOCAL\LIB;C:\USR\LIB;C:\NETSCAPE\PROGRAM;...`
+- 找到 `SET PATH=`，在等号后面加上 `C:\USR\BIN;`
+  - 修改完后类似于：
+  - `SET PATH=C:\USR\BIN;C:\NETSCAPE\PROGRAM;...`
+- 在文件末尾添加一行 `SET UNIXROOT=C:`
 
 关闭窗口保存文件。之后，再次点击任务栏上的“电脑+叉号”图标关机，重启 OS/2。
 

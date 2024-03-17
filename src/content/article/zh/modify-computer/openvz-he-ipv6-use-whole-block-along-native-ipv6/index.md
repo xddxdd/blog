@@ -1,7 +1,7 @@
 ---
 title:
-    'OpenVZ 配置 Hurricane Electric IPv6 隧道，开启整个地址池并与原生 IPv6
-    共同使用'
+  'OpenVZ 配置 Hurricane Electric IPv6 隧道，开启整个地址池并与原生 IPv6
+  共同使用'
 categories: 计算机与客户端
 tags: [OpenVZ, Hurricane Electric, IPv6, VPS]
 date: 2016-08-09 23:19:00
@@ -119,15 +119,15 @@ ip -6 route add local [分配给你的/48 地址池，没有就把这行删掉]/
 
 如何配置？按照步骤操作即可：
 
--   输入如下命令，设置路由表并关闭之前建立的隧道：
+- 输入如下命令，设置路由表并关闭之前建立的隧道：
 
 ```bash
 echo 200 ipv6tb >> /etc/iproute2/rt_tables
 /etc/init.d/ipv6tb stop
 ```
 
--   修改你前面创建的 <span class="text-primary">/etc/init.d/ipv6tb</span>，删除
-    所有内容，用如下内容代替：
+- 修改你前面创建的 <span class="text-primary">/etc/init.d/ipv6tb</span>，删除所
+  有内容，用如下内容代替：
 
 （下面的代码修改自
 [http://itkia.com/ipv6-policy-routing-linux-gotchas/](http://itkia.com/ipv6-policy-routing-linux-gotchas/)）
@@ -194,13 +194,13 @@ esac
 exit 0
 ```
 
--   输入如下命令重新开启隧道：
+- 输入如下命令重新开启隧道：
 
 ```bash
 /etc/init.d/ipv6tb start
 ```
 
--   （可选）开机自动启动：打开 `/etc/rc.local`，在exit 0之前建立一行，输入：
+- （可选）开机自动启动：打开 `/etc/rc.local`，在exit 0之前建立一行，输入：
 
 ```bash
 /etc/init.d/ipv6tb start

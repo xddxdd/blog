@@ -12,4 +12,12 @@ const article = defineCollection({
   }),
 })
 
-export const collections = { article }
+const page = defineCollection({
+  type: 'content',
+  // Type-check frontmatter using a schema
+  schema: z.object({
+    title: z.string(),
+  }),
+})
+
+export const collections = { article, page }

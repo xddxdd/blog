@@ -19,16 +19,16 @@ above scheme instead for deployment.
 
 The commonly used routing protocol on Internet, the BGP, works like this:
 
--   I own an IP range, 172.22.76.104/29, on DN42.
--   With a BGP software like BIRD, I "announce" that my server has access to IP
-    range 172.22.76.104/29.
--   Servers with peering to me will record this message: "Over this path, I can
-    access 172.22.76.104/29 which is 1 step away."
--   These servers continue to announce to others with peering to them: "This
-    server is 1 step away from the source of 172.22.76.104/29."
--   Similarly, other servers announce that they are 2, 3, 4... steps away from
-    172.22.76.104/29.
--   All servers will take the shortest route to send data to my server.
+- I own an IP range, 172.22.76.104/29, on DN42.
+- With a BGP software like BIRD, I "announce" that my server has access to IP
+  range 172.22.76.104/29.
+- Servers with peering to me will record this message: "Over this path, I can
+  access 172.22.76.104/29 which is 1 step away."
+- These servers continue to announce to others with peering to them: "This
+  server is 1 step away from the source of 172.22.76.104/29."
+- Similarly, other servers announce that they are 2, 3, 4... steps away from
+  172.22.76.104/29.
+- All servers will take the shortest route to send data to my server.
 
 In this case, only one server is announcing that it's the source for
 172.22.76.104/29, which is called Unicast. By contrast, Anycast is announcing
@@ -308,4 +308,4 @@ Currently I have two Anycast services in DN42:
 authoritative DNS, for DNS resolution of my IP range and `lantian.dn42`
 
 [1]:
-    https://github.com/xddxdd/dockerfiles/tree/0b36ccecc7f8da33e994a479686bb78e918a969f/dnsmasq-bird
+  https://github.com/xddxdd/dockerfiles/tree/0b36ccecc7f8da33e994a479686bb78e918a969f/dnsmasq-bird

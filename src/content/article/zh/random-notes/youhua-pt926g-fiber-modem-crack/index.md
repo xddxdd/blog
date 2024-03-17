@@ -8,9 +8,9 @@ date: 2020-08-13 20:43:26
 本文介绍如何在不拆光猫、不使用串口转换器的情况下，破解友华 PT926G 光猫的以下权
 限：
 
--   管理面板的超级管理员用户（telecomadmin）
--   Telnet 的 root 用户
--   访问 FTP
+- 管理面板的超级管理员用户（telecomadmin）
+- Telnet 的 root 用户
+- 访问 FTP
 
 坐标深圳电信。
 
@@ -53,9 +53,9 @@ PORT      STATE    SERVICE
 
 > 如果你所在的地区电信改了这个默认密码，你有几个选项：
 >
-> -   记录光猫的 LOID 等信息后拔掉光纤，恢复出厂设置，使用默认密码登录关掉配置下
->     发后再输入 LOID 等联网；
-> -   拆光猫并使用串口转换器。
+> - 记录光猫的 LOID 等信息后拔掉光纤，恢复出厂设置，使用默认密码登录关掉配置下发
+>   后再输入 LOID 等联网；
+> - 拆光猫并使用串口转换器。
 >
 > 以上操作需要你自行查找资料，本文不涉及。
 
@@ -66,22 +66,22 @@ PORT      STATE    SERVICE
 按照如下步骤操作即可：
 
 1. 首先在 `http://192.168.1.1:8080` 以 telecomadmin 登录；
-    - 这一步可能不是必须的，就算你不知道 telecomadmin 密码也可以试一下下一步。
+   - 这一步可能不是必须的，就算你不知道 telecomadmin 密码也可以试一下下一步。
 2. 访问 `http://192.168.1.1:8080/cgi-bin/abcdidfope94e0934jiewru8ew414.cgi`，页
    面应该会显示 `success`。
 3. 然后你就可以 `telnet 192.168.1.1` 连接了。
-    - 用户名是 `admin`
-    - 密码是 `TeleCom_1234`
+   - 用户名是 `admin`
+   - 密码是 `TeleCom_1234`
 
 但这个 Telnet 连接后进入的是一个魔改的 Shell，只能执行非常有限的白名单内的命令：
 
--   ip
--   ifconfig
--   route
--   ping
-    -   你可以用这些命令来调试网络。
--   su
-    -   很重要的命令，但目前我们还不知道密码。
+- ip
+- ifconfig
+- route
+- ping
+  - 你可以用这些命令来调试网络。
+- su
+  - 很重要的命令，但目前我们还不知道密码。
 
 其它指令都不能用。但我发现这个 Shell 的 Tab 自动补全还能用，可以用它来列出文件目
 录。例如：
@@ -107,7 +107,7 @@ dev/        image/      opt/        sbin/       userfs/
 但之前发现的一个奇怪的页面可以直接导出配置文件：
 
 1. 首先在 `http://192.168.1.1:8080` 以 telecomadmin 登录；
-    - 这里这一步是必须的，也就是你必须先知道 telecomadmin 的密码。
+   - 这里这一步是必须的，也就是你必须先知道 telecomadmin 的密码。
 2. 然后访问 `http://192.168.1.1:8080/bd/saveconf.asp`，点击 `Backup` 按钮；
 3. 你会获得一个 XML 文件，这就是光猫的配置文件。
 
@@ -158,5 +158,5 @@ PORT     STATE    SERVICE
 
 感谢前人付出的努力。
 
--   [友华 PT926E PT926G 技术部分公开（宽带技术网 tm5880891）](http://www.chinadsl.net/forum.php?mod=viewthread&tid=165272)
--   [友华 PT926E PT926G 改地区，改 MAC SN 的方法（宽带技术网 tm5880891）](http://www.chinadsl.net/forum.php?mod=viewthread&tid=166519)
+- [友华 PT926E PT926G 技术部分公开（宽带技术网 tm5880891）](http://www.chinadsl.net/forum.php?mod=viewthread&tid=165272)
+- [友华 PT926E PT926G 改地区，改 MAC SN 的方法（宽带技术网 tm5880891）](http://www.chinadsl.net/forum.php?mod=viewthread&tid=166519)

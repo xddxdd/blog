@@ -92,10 +92,10 @@ docker build -t $DOCKER_USERNAME/$IMAGE_NAME:$THIS_ARCH \
 经过上述设置后，镜像已经可以正常分架构构建，同时管理起来也没那么麻烦了。
 
 [1]:
-    /article/modify-computer/build-arm-docker-image-on-x86-docker-hub-travis-automatic-build.lantian
+  /article/modify-computer/build-arm-docker-image-on-x86-docker-hub-travis-automatic-build.lantian
 [2]:
-    https://github.com/xddxdd/dockerfiles/tree/46e7cc1f78ac1dce4b8b72c35bc3e6fbfb0333a3/nginx
+  https://github.com/xddxdd/dockerfiles/tree/46e7cc1f78ac1dce4b8b72c35bc3e6fbfb0333a3/nginx
 [3]: /usr/uploads/2018/12/1125148043.png
 [4]: https://hub.docker.com/r/multiarch/alpine/tags
 [5]:
-    https://github.com/xddxdd/dockerfiles/tree/2f019f8b851d5e8d80a5ba3e7c07134cf883ebf9
+  https://github.com/xddxdd/dockerfiles/tree/2f019f8b851d5e8d80a5ba3e7c07134cf883ebf9

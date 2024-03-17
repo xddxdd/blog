@@ -106,19 +106,19 @@ ip route add 172.22.76.102/32 via 172.22.76.98
 由于上面数据包的路径上总共有 5 跳，因此将文章拆分成 5 段，并删除 PTR 记录中不允
 许存在的标点符号：
 
--   one should uphold his country s interest with his life
--   he should not do things
--   just to pursue his personal gains
--   and he should not evade responsibilities
--   for fear of personal loss
+- one should uphold his country s interest with his life
+- he should not do things
+- just to pursue his personal gains
+- and he should not evade responsibilities
+- for fear of personal loss
 
 然后把空格全部换成英文句点：
 
--   one.should.uphold.his.country.s.interest.with.his.life
--   he.should.not.do.things
--   just.to.pursue.his.personal.gains
--   and.he.should.not.evade.responsibilities
--   for.fear.of.personal.loss
+- one.should.uphold.his.country.s.interest.with.his.life
+- he.should.not.do.things
+- just.to.pursue.his.personal.gains
+- and.he.should.not.evade.responsibilities
+- for.fear.of.personal.loss
 
 然后一句一句填到路径上各个 IP 的 PTR 反向解析记录里：
 

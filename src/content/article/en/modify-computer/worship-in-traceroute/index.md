@@ -117,19 +117,19 @@ it's almost Aug 17, I chose this one:
 The path I created has 5 hops, so I split the essay to 5 sentences, and removed
 punctuations PTR records aren't allowed to have:
 
--   one should uphold his country s interest with his life
--   he should not do things
--   just to pursue his personal gains
--   and he should not evade responsibilities
--   for fear of personal loss
+- one should uphold his country s interest with his life
+- he should not do things
+- just to pursue his personal gains
+- and he should not evade responsibilities
+- for fear of personal loss
 
 The replace spaces with periods:
 
--   one.should.uphold.his.country.s.interest.with.his.life
--   he.should.not.do.things
--   just.to.pursue.his.personal.gains
--   and.he.should.not.evade.responsibilities
--   for.fear.of.personal.loss
+- one.should.uphold.his.country.s.interest.with.his.life
+- he.should.not.do.things
+- just.to.pursue.his.personal.gains
+- and.he.should.not.evade.responsibilities
+- for.fear.of.personal.loss
 
 The fill it to PTR records for the IPs on the path:
 
@@ -145,6 +145,6 @@ You will see your small essay in Traceroute.
 [2]: /article/modify-website/dn42-ip-reverse-record.lantian
 [3]: /usr/uploads/2018/08/1311499371.png
 [4]:
-    https://github.com/xddxdd/dockerfiles/tree/25625c20fd1b47b3057cf59b6b84b8401d1b3e1e/dockerfiles/route-next
+  https://github.com/xddxdd/dockerfiles/tree/25625c20fd1b47b3057cf59b6b84b8401d1b3e1e/dockerfiles/route-next
 [5]: /usr/uploads/2018/08/846969415.png
 [6]: /usr/uploads/2018/08/921227701.png

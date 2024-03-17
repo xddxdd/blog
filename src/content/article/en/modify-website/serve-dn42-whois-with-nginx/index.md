@@ -43,35 +43,34 @@ However, "adding data" to a WHOIS server is not an easy task. Take the
 [DN42 Registry](https://git.dn42.dev/dn42/registry) for example. Its data is
 categorized into:
 
--   `as-block`: Range of ASN, defining allocation policies.
--   `as-set`: Group of ASNs, managed by each AS individually. It's used to label
-    peered AS and downstream customers for automated routing policy generation
-    on the Internet, but is not that useful in DN42.
--   `aut-num`: Information for the AS itself.
--   `dns`: Domains.
--   `inet6num`: **Allocation** of IPv6 address blocks. This is not the same as
-    routing information.
--   `inetnum`: Allocation of IPv4 addresses blocks.
--   `key-cert`: User's GPG keys. Users can store their GPG public keys here, if
-    the use of a keyserver is unfeasible or impossible.
--   `mntner`: Information of network maintainers.
--   `organisation`: Information of organizations. For example, there's a
-    professor participating in DN42, who asks his students to peer in DN42 as
-    networking practices. He can form an organization with his students in this
-    case.
--   `person`: Information of users. What's different from `mntner` it that
-    `person` is more focused on contact information.
--   `registry`: Information of registries. A "registry", including RIPE or
-    APNIC, manages IP and ASN. Information of interconnected networks is also
-    here, for example ChaosVPN and NeoNetwork.
--   `role`: User role information for permission granting purposes. Rarely used
-    in DN42.
--   `route`: **Routing** information for IPv4 blocks. An IP block can be split
-    to smaller blocks for announcements.
--   `route6`: Routing information for IPv6 blocks.
--   `route-set`: Defines the IP space of DN42.
--   `schema`: Defines file format in the registry.
--   `tinc-key`: Public keys of Tinc VPN.
+- `as-block`: Range of ASN, defining allocation policies.
+- `as-set`: Group of ASNs, managed by each AS individually. It's used to label
+  peered AS and downstream customers for automated routing policy generation on
+  the Internet, but is not that useful in DN42.
+- `aut-num`: Information for the AS itself.
+- `dns`: Domains.
+- `inet6num`: **Allocation** of IPv6 address blocks. This is not the same as
+  routing information.
+- `inetnum`: Allocation of IPv4 addresses blocks.
+- `key-cert`: User's GPG keys. Users can store their GPG public keys here, if
+  the use of a keyserver is unfeasible or impossible.
+- `mntner`: Information of network maintainers.
+- `organisation`: Information of organizations. For example, there's a professor
+  participating in DN42, who asks his students to peer in DN42 as networking
+  practices. He can form an organization with his students in this case.
+- `person`: Information of users. What's different from `mntner` it that
+  `person` is more focused on contact information.
+- `registry`: Information of registries. A "registry", including RIPE or APNIC,
+  manages IP and ASN. Information of interconnected networks is also here, for
+  example ChaosVPN and NeoNetwork.
+- `role`: User role information for permission granting purposes. Rarely used in
+  DN42.
+- `route`: **Routing** information for IPv4 blocks. An IP block can be split to
+  smaller blocks for announcements.
+- `route6`: Routing information for IPv6 blocks.
+- `route-set`: Defines the IP space of DN42.
+- `schema`: Defines file format in the registry.
+- `tinc-key`: Public keys of Tinc VPN.
 
 When users perform a query, they will only provide the query target itself, not
 category/type information. Example queries are `lantian.dn42`, `172.22.76.185`
@@ -142,17 +141,17 @@ may be looking up single IP addresses or IP blocks, and the WHOIS server needs
 to return the information for a larger (or equal) IP block containing the target
 IP. Suppose we have three IP blocks in our registry:
 
--   `192.168.0.0/16`
--   `192.168.16.0/20`
--   `192.168.18.0/24`
+- `192.168.0.0/16`
+- `192.168.16.0/20`
+- `192.168.18.0/24`
 
 Users should get different responses when looking up different IPs and blocks:
 
--   `192.168.18.18` -> `192.168.18.0/24`
--   `192.168.18.18/24` -> `192.168.18.0/24`
--   `192.168.18.18/20` -> `192.168.16.0/20`
--   `192.168.17.1` -> `192.168.16.0/20`
--   `192.168.17.1/16` -> `192.168.0.0/16`
+- `192.168.18.18` -> `192.168.18.0/24`
+- `192.168.18.18/24` -> `192.168.18.0/24`
+- `192.168.18.18/20` -> `192.168.16.0/20`
+- `192.168.17.1` -> `192.168.16.0/20`
+- `192.168.17.1/16` -> `192.168.0.0/16`
 
 Such logic cannot be implemented in simple regular expressions and case
 conversions. We need more complicated logic in Lua, with the following steps:

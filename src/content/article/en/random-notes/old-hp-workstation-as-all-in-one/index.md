@@ -12,67 +12,66 @@ post is a short note of my process of setting it up.
 
 For a NAS, you usually have these hardware choices:
 
--   Ready-to-use NAS (e.g. Synology)
-    -   Pros: ready to use out of the box.
-    -   Cons:
-        -   Expensive, to the extent of "free hardware for software purchase".
-        -   Harder to customize, when comparing the stock operating system with
-            various Linux distributions.
--   Second-hand servers
-    -   Pros:
-        -   Cheap. Most servers are thrown away by datacenters once their
-            warranty ends, and are obtained at minimum cost, refurbished and
-            then resold.
-        -   Stable. These servers are built to last, and are used in a
-            datacenter with controlled temperature, humidity and no dust.
-    -   Cons：
-        -   Noise. In order to lower the fan speed, you need to modify system
-            settings, replace with quieter fans, and/or install a separate fan
-            speed controller.
-        -   Large (mainly concerning rack-mount servers).
-        -   Proprietary parts. Server manufacturers customize their components
-            only for specific models. You will need to purchase these parts at
-            extra cost if you want to extend your system.
--   Second-hand workstations
-    -   Pros:
-        -   Cheap and stable, just like second-hand servers.
-        -   Lower noise. After all, workstations are meant to be used near
-            office desktops rather than datacenters.
-    -   Cons:
-        -   Proprietary parts, same as second-hand servers.\
--   DIY from regular PC parts
-    -   Pros:
-        -   Customize to your exact need.
-    -   Cons:
-        -   Worse performance-to-price ratio compared to second-hand servers and
-            workstations.
-        -   Stability of customer-facing parts may be worse than business-facing
-            servers and workstations.
+- Ready-to-use NAS (e.g. Synology)
+  - Pros: ready to use out of the box.
+  - Cons:
+    - Expensive, to the extent of "free hardware for software purchase".
+    - Harder to customize, when comparing the stock operating system with
+      various Linux distributions.
+- Second-hand servers
+  - Pros:
+    - Cheap. Most servers are thrown away by datacenters once their warranty
+      ends, and are obtained at minimum cost, refurbished and then resold.
+    - Stable. These servers are built to last, and are used in a datacenter with
+      controlled temperature, humidity and no dust.
+  - Cons：
+    - Noise. In order to lower the fan speed, you need to modify system
+      settings, replace with quieter fans, and/or install a separate fan speed
+      controller.
+    - Large (mainly concerning rack-mount servers).
+    - Proprietary parts. Server manufacturers customize their components only
+      for specific models. You will need to purchase these parts at extra cost
+      if you want to extend your system.
+- Second-hand workstations
+  - Pros:
+    - Cheap and stable, just like second-hand servers.
+    - Lower noise. After all, workstations are meant to be used near office
+      desktops rather than datacenters.
+  - Cons:
+    - Proprietary parts, same as second-hand servers.\
+- DIY from regular PC parts
+  - Pros:
+    - Customize to your exact need.
+  - Cons:
+    - Worse performance-to-price ratio compared to second-hand servers and
+      workstations.
+    - Stability of customer-facing parts may be worse than business-facing
+      servers and workstations.
 
 And I have these requirements for my NAS:
 
--   I want to use Jellyfin video transcoding, H265 if possible. This requires a
-    6th gen (Skylake) or newer Intel CPU with integrated graphics, or an NVIDIA
-    graphics card.
--   Other than that, I don't have any needs on performance (except very low
-    power CPUs like Intel Atom series).
--   Low noise. I'm currently living in a studio apartment, and the NAS will be
-    in the same room where I sleep.
--   I don't like ready-to-use NAS operating systems. I want to install NixOS and
-    customize it.
--   As cheap as it can get.
+- I want to use Jellyfin video transcoding, H265 if possible. This requires a
+  6th gen (Skylake) or newer Intel CPU with integrated graphics, or an NVIDIA
+  graphics card.
+- Other than that, I don't have any needs on performance (except very low power
+  CPUs like Intel Atom series).
+- Low noise. I'm currently living in a studio apartment, and the NAS will be in
+  the same room where I sleep.
+- I don't like ready-to-use NAS operating systems. I want to install NixOS and
+  customize it.
+- As cheap as it can get.
 
 Based on the requirements above, I chose to purchase a second-hand workstation.
 Since I'm in the United States at the moment, I purchased a refurbushed HP
 workstation on eBay for $50. It's key specifications are:
 
--   Model: HP Z220 SFF
--   CPU: Intel E3-1225 v2
--   RAM: 4GB DDR3
--   HDD: 250GB Spinning Disk
--   PSU: 240W
--   Three PCI-E slots, one x16, one x4, and one x1.
--   One PCI slot.
+- Model: HP Z220 SFF
+- CPU: Intel E3-1225 v2
+- RAM: 4GB DDR3
+- HDD: 250GB Spinning Disk
+- PSU: 240W
+- Three PCI-E slots, one x16, one x4, and one x1.
+- One PCI slot.
 
 ## Storage
 

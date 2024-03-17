@@ -13,28 +13,28 @@ date: 2022-04-04 05:16:16
    常激进，即使我开启了 BIOS 中的低温风扇停转功能，它依然在 CPU 温度只有 40 度、
    显卡空载的情况下转得非常欢快。
 
-    - 其实可以用 [NBFC](https://github.com/hirschmann/nbfc) 直接写 EC 寄存器来控
-      制，但
-      在[某次不幸的事故中](/article/chat/how-i-nuked-my-btrfs-partition.lantian/)当
-      时的配置方案丢失了。
-    - 我配置 NBFC 时正在新电脑试用 NixOS。事故发生时新电脑上的 NixOS 被我删掉
-      了，而且当时的配置没上传 GitHub。
-    - 过段时间再重新写一遍（咕咕咕）
+   - 其实可以用 [NBFC](https://github.com/hirschmann/nbfc) 直接写 EC 寄存器来控
+     制，但
+     在[某次不幸的事故中](/article/chat/how-i-nuked-my-btrfs-partition.lantian/)当
+     时的配置方案丢失了。
+   - 我配置 NBFC 时正在新电脑试用 NixOS。事故发生时新电脑上的 NixOS 被我删掉了，
+     而且当时的配置没上传 GitHub。
+   - 过段时间再重新写一遍（咕咕咕）
 
 2. 不支持调整键盘背光颜色，它们在 Windows 下由 OMEN Command Center 软件控制。有
    时系统崩溃、我长按电源键断电重启时，BIOS 会将键盘背光恢复成默认的五彩斑斓的颜
    色，此时我只能回到 Windows 进行调节。
 
-    - 好在 GitHub 有一个修改版的 Linux `hp_wmi` 内核模块，支持了在 Linux 下控制
-      背光颜色。
-    - 它是由 James Churchill（pelrun）开发的，可以在
-      <https://github.com/pelrun/hp-omen-linux-module> 下载。
+   - 好在 GitHub 有一个修改版的 Linux `hp_wmi` 内核模块，支持了在 Linux 下控制背
+     光颜色。
+   - 它是由 James Churchill（pelrun）开发的，可以在
+     <https://github.com/pelrun/hp-omen-linux-module> 下载。
 
 3. 键盘左边有一排宏按键 P1-P6。它们在 Windows 下由 OMEN Command Center 软件控
    制，可以配置宏定义，在按下按键时模拟一段键盘输入。当然，这个功能 Linux 下是用
    不了的。
 
-    - [惠普没有开发 Linux 版 OMEN Command Center 的计划](https://h30434.www3.hp.com/t5/Gaming-Notebooks/HP-Omen-keyboard-control-on-Linux/td-p/4890663)。
+   - [惠普没有开发 Linux 版 OMEN Command Center 的计划](https://h30434.www3.hp.com/t5/Gaming-Notebooks/HP-Omen-keyboard-control-on-Linux/td-p/4890663)。
 
 键盘上有几个用不了的按键，这就让人很不爽。虽然我不是重度游戏玩家，用不到宏按键，
 但即使把它们设置成一些程序的快捷键，用来快速打开浏览器、终端，也是好的。
@@ -98,31 +98,31 @@ private void OnEditorPageSaveClick(string obj)
 ```json
 // 略过了无关部分
 {
-    "Name": "Cybug",
-    "DisplayName": "OMEN 17",
-    "ProductNum": [
-        {
-            "SSID": "88F7" // GN20E (E3/E5/E7) non DDS
-        }
-    ],
-    "Feature": [
-        "SystemInfo",
-        "NetworkBooster",
-        "FourZone",
-        "DraxLighting",
-        "PerformanceControl",
-        "GraphicsSwitcher",
-        "Macros"
-    ],
-    "BackgroundFeature": [
-        "NetworkBooster",
-        "OmenKey",
-        "FourZone",
-        "DraxLightingBg",
-        "PerformanceControl",
-        "MarlinsMacro",
-        "DragonKBMcu"
-    ]
+  "Name": "Cybug",
+  "DisplayName": "OMEN 17",
+  "ProductNum": [
+    {
+      "SSID": "88F7" // GN20E (E3/E5/E7) non DDS
+    }
+  ],
+  "Feature": [
+    "SystemInfo",
+    "NetworkBooster",
+    "FourZone",
+    "DraxLighting",
+    "PerformanceControl",
+    "GraphicsSwitcher",
+    "Macros"
+  ],
+  "BackgroundFeature": [
+    "NetworkBooster",
+    "OmenKey",
+    "FourZone",
+    "DraxLightingBg",
+    "PerformanceControl",
+    "MarlinsMacro",
+    "DragonKBMcu"
+  ]
 }
 ```
 
@@ -199,7 +199,7 @@ public byte[] SetBytesToEC(ObservableCollection<InputKeyInfo> Items)
 1. 按下再松开 A 键：`[3, 0x1e, 0x9e]`
 2. 按下 A 键，等 100 毫秒，再松开：`[5, 0x1e, 255, 100, 0x9e]`
 3. 按下 A 键，等 300 毫秒，再松开：`[7, 0x1e, 255, 255, 255, 45, 0x9e]`
-    - 由于 byte 数据类型限制，每次最多等 255 毫秒，因此等 300 毫秒要分两次完成。
+   - 由于 byte 数据类型限制，每次最多等 255 毫秒，因此等 300 毫秒要分两次完成。
 
 继续分析 `OnEditorPageSaveClick` 的逻辑：
 

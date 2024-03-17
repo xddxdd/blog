@@ -76,16 +76,16 @@ armv7l（armhf）架构（树莓派（默认），Tinker Board 等），那么�
 一行修改成 [https://hub.docker.com/u/multiarch/][5] 下对应的 armhf 架构镜像即
 可。对应关系如下：
 
--   alpine -> multiarch/alpine:armhf-edge
--   ubuntu:bionic -> multiarch/ubuntu-debootstrap:armhf-bionic
--   debian:stretch -> multiarch/debian-debootstrap:armhf-stretch
+- alpine -> multiarch/alpine:armhf-edge
+- ubuntu:bionic -> multiarch/ubuntu-debootstrap:armhf-bionic
+- debian:stretch -> multiarch/debian-debootstrap:armhf-stretch
 
 如果你的 ARM 主机是 aarch64（armv8）架构（树莓派 3 开始支持，但是需要特殊系统才
 是这个架构），那么对应关系如下：
 
--   alpine -> multiarch/alpine:aarch64-edge
--   ubuntu:bionic -> multiarch/ubuntu-debootstrap:arm64-bionic
--   debian:stretch -> multiarch/debian-debootstrap:arm64-stretch
+- alpine -> multiarch/alpine:aarch64-edge
+- ubuntu:bionic -> multiarch/ubuntu-debootstrap:arm64-bionic
+- debian:stretch -> multiarch/debian-debootstrap:arm64-stretch
 
 改完后直接重新构建镜像，你就可以在本地生成 ARM 架构的镜像了。
 
@@ -153,7 +153,7 @@ Travis CI 是对开源社区免费的一款自动构建工具。只要你的 Doc
 [6]: https://forums.docker.com/t/automated-build-resource-restrictions/1413
 [7]: https://docs.docker.com/docker-cloud/builds/advanced/
 [8]:
-    https://github.com/xddxdd/dockerfiles/tree/16bc3155352881fe116963f76899c8860e77ab11/nginx/arm64v8
+  https://github.com/xddxdd/dockerfiles/tree/16bc3155352881fe116963f76899c8860e77ab11/nginx/arm64v8
 [9]: https://travis-ci.org/
 [10]: /usr/uploads/2018/07/2912698916.png
 [11]: /usr/uploads/2018/07/3122209022.png

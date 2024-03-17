@@ -115,9 +115,9 @@ zerotier-cli set 2333333333333333 allowDefault=true
 
 [1]: https://tunnelbroker.net
 [2]:
-    /article/modify-website/zerotier-one-connect-docker-containers-dualstack.lantian
+  /article/modify-website/zerotier-one-connect-docker-containers-dualstack.lantian
 [3]:
-    /article/modify-computer/openvz-he-ipv6-use-whole-block-along-native-ipv6.lantian
+  /article/modify-computer/openvz-he-ipv6-use-whole-block-along-native-ipv6.lantian
 [4]: /usr/uploads/2017/05/4005783584.png
 [5]: /usr/uploads/2017/07/4075241417.png
 [6]: /usr/uploads/2017/07/1687451490.png

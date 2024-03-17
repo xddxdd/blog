@@ -73,107 +73,107 @@ Docker 容器，可以统一在配置文件中调用。
 ```yaml
 version: '2.4'
 services:
-    # 密钥管理，Vault 实例，和 Drone 的插件
-    vault:
-        image: vault
-        container_name: vault
-        restart: unless-stopped
-        command: 'server'
-        labels:
-            - com.centurylinklabs.watchtower.enable=false
-        volumes:
-            - './conf/vault:/vault/config:ro'
-            - './data/vault:/vault/file'
+  # 密钥管理，Vault 实例，和 Drone 的插件
+  vault:
+    image: vault
+    container_name: vault
+    restart: unless-stopped
+    command: 'server'
+    labels:
+      - com.centurylinklabs.watchtower.enable=false
+    volumes:
+      - './conf/vault:/vault/config:ro'
+      - './data/vault:/vault/file'
 
-    drone-vault:
-        image: drone/vault
-        container_name: drone-vault
-        restart: unless-stopped
-        environment:
-            DRONE_DEBUG: 'true'
-            DRONE_SECRET: '***drone-vault 的密钥***'
-            VAULT_ADDR: 'https://vault.lantian.pub'
-            VAULT_TOKEN: '***Vault 的密钥***'
-        depends_on:
-            - vault
+  drone-vault:
+    image: drone/vault
+    container_name: drone-vault
+    restart: unless-stopped
+    environment:
+      DRONE_DEBUG: 'true'
+      DRONE_SECRET: '***drone-vault 的密钥***'
+      VAULT_ADDR: 'https://vault.lantian.pub'
+      VAULT_TOKEN: '***Vault 的密钥***'
+    depends_on:
+      - vault
 
-    # 第一套 Drone，用于我自己的 Gitea
-    drone:
-        image: drone/drone:2
-        container_name: drone
-        restart: unless-stopped
-        environment:
-            DRONE_GITEA_SERVER: 'https://git.lantian.pub'
-            DRONE_GITEA_CLIENT_ID: '***Gitea 的 OAuth ID***'
-            DRONE_GITEA_CLIENT_SECRET: '***Gitea 的 OAuth 密钥***'
-            DRONE_RPC_SECRET:
-                '***Drone Runner 的密钥，用 openssl rand -hex 16 生成***'
-            DRONE_SERVER_HOST: ci.lantian.pub
-            DRONE_SERVER_PROTO: https
-            DRONE_USER_CREATE: username:lantian,admin:true # 配置管理员账号
-            DRONE_JSONNET_ENABLED: 'true'
-            DRONE_STARLARK_ENABLED: 'true'
-        volumes:
-            - './data/drone:/data'
+  # 第一套 Drone，用于我自己的 Gitea
+  drone:
+    image: drone/drone:2
+    container_name: drone
+    restart: unless-stopped
+    environment:
+      DRONE_GITEA_SERVER: 'https://git.lantian.pub'
+      DRONE_GITEA_CLIENT_ID: '***Gitea 的 OAuth ID***'
+      DRONE_GITEA_CLIENT_SECRET: '***Gitea 的 OAuth 密钥***'
+      DRONE_RPC_SECRET:
+        '***Drone Runner 的密钥，用 openssl rand -hex 16 生成***'
+      DRONE_SERVER_HOST: ci.lantian.pub
+      DRONE_SERVER_PROTO: https
+      DRONE_USER_CREATE: username:lantian,admin:true # 配置管理员账号
+      DRONE_JSONNET_ENABLED: 'true'
+      DRONE_STARLARK_ENABLED: 'true'
+    volumes:
+      - './data/drone:/data'
 
-    # 第一套 Drone 的 Docker Runner
-    drone-runner-docker:
-        image: drone/drone-runner-docker:1
-        container_name: drone-runner-docker
-        restart: unless-stopped
-        environment:
-            DRONE_RPC_PROTO: https
-            DRONE_RPC_HOST: ci.lantian.pub
-            DRONE_RPC_SECRET: '***Drone 的密钥，与上面的 DRONE_RPC_SECRET 一致'
-            DRONE_RUNNER_CAPACITY: 4 # 并行任务数
-            DRONE_RUNNER_NAME: drone-docker
-            DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-vault:3000
-            DRONE_SECRET_PLUGIN_TOKEN: '***drone-vault 的密钥***'
-        volumes:
-            - '/var/run:/var/run'
-            - '/cache:/cache'
-        depends_on:
-            - drone
-            - drone-vault
+  # 第一套 Drone 的 Docker Runner
+  drone-runner-docker:
+    image: drone/drone-runner-docker:1
+    container_name: drone-runner-docker
+    restart: unless-stopped
+    environment:
+      DRONE_RPC_PROTO: https
+      DRONE_RPC_HOST: ci.lantian.pub
+      DRONE_RPC_SECRET: '***Drone 的密钥，与上面的 DRONE_RPC_SECRET 一致'
+      DRONE_RUNNER_CAPACITY: 4 # 并行任务数
+      DRONE_RUNNER_NAME: drone-docker
+      DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-vault:3000
+      DRONE_SECRET_PLUGIN_TOKEN: '***drone-vault 的密钥***'
+    volumes:
+      - '/var/run:/var/run'
+      - '/cache:/cache'
+    depends_on:
+      - drone
+      - drone-vault
 
-    # 第二套 Drone，用于 GitHub
-    drone-github:
-        image: drone/drone:2
-        container_name: drone-github
-        restart: unless-stopped
-        environment:
-            DRONE_GITHUB_CLIENT_ID: '**GitHub 的 OAuth ID**'
-            DRONE_GITHUB_CLIENT_SECRET: '***GitHub 的 OAuth 密钥***'
-            DRONE_RPC_SECRET:
-                '***Drone Runner 的密钥，用 openssl rand -hex 16 生成***'
-            DRONE_SERVER_HOST: ci-github.lantian.pub
-            DRONE_SERVER_PROTO: https
-            DRONE_USER_CREATE: username:xddxdd,admin:true # 配置管理员账号
-            DRONE_REGISTRATION_CLOSED: 'true' # 禁止新用户注册
-            DRONE_JSONNET_ENABLED: 'true'
-            DRONE_STARLARK_ENABLED: 'true'
-        volumes:
-            - './data/drone-github:/data'
+  # 第二套 Drone，用于 GitHub
+  drone-github:
+    image: drone/drone:2
+    container_name: drone-github
+    restart: unless-stopped
+    environment:
+      DRONE_GITHUB_CLIENT_ID: '**GitHub 的 OAuth ID**'
+      DRONE_GITHUB_CLIENT_SECRET: '***GitHub 的 OAuth 密钥***'
+      DRONE_RPC_SECRET:
+        '***Drone Runner 的密钥，用 openssl rand -hex 16 生成***'
+      DRONE_SERVER_HOST: ci-github.lantian.pub
+      DRONE_SERVER_PROTO: https
+      DRONE_USER_CREATE: username:xddxdd,admin:true # 配置管理员账号
+      DRONE_REGISTRATION_CLOSED: 'true' # 禁止新用户注册
+      DRONE_JSONNET_ENABLED: 'true'
+      DRONE_STARLARK_ENABLED: 'true'
+    volumes:
+      - './data/drone-github:/data'
 
-    # 第二套 Drone 的 Docker Runner
-    drone-github-runner-docker:
-        image: drone/drone-runner-docker:1
-        container_name: drone-github-runner-docker
-        restart: unless-stopped
-        environment:
-            DRONE_RPC_PROTO: https
-            DRONE_RPC_HOST: ci-github.lantian.pub
-            DRONE_RPC_SECRET: '***Drone 的密钥，与上面的 DRONE_RPC_SECRET 一致'
-            DRONE_RUNNER_CAPACITY: 4 # 并行任务数
-            DRONE_RUNNER_NAME: drone-docker
-            DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-vault:3000
-            DRONE_SECRET_PLUGIN_TOKEN: '***drone-vault 的密钥***'
-        volumes:
-            - '/var/run:/var/run'
-            - '/cache:/cache'
-        depends_on:
-            - drone-github
-            - drone-vault
+  # 第二套 Drone 的 Docker Runner
+  drone-github-runner-docker:
+    image: drone/drone-runner-docker:1
+    container_name: drone-github-runner-docker
+    restart: unless-stopped
+    environment:
+      DRONE_RPC_PROTO: https
+      DRONE_RPC_HOST: ci-github.lantian.pub
+      DRONE_RPC_SECRET: '***Drone 的密钥，与上面的 DRONE_RPC_SECRET 一致'
+      DRONE_RUNNER_CAPACITY: 4 # 并行任务数
+      DRONE_RUNNER_NAME: drone-docker
+      DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-vault:3000
+      DRONE_SECRET_PLUGIN_TOKEN: '***drone-vault 的密钥***'
+    volumes:
+      - '/var/run:/var/run'
+      - '/cache:/cache'
+    depends_on:
+      - drone-github
+      - drone-vault
 ```
 
 ## 基本的 Drone 自动构建与部署
@@ -182,11 +182,11 @@ services:
 
 我的博客本身有一套部署脚本，执行以下任务：
 
--   安装 node_modules
--   `hexo generate`
--   `hexo deploy` 到 GitHub Pages 上（作为备用）
--   把所有图片都转一遍 WebP，所有静态资源都提前用 Gzip、Brotli 压缩好
--   把生成的文件用 Ansible 批量 Rsync 到所有服务器上
+- 安装 node_modules
+- `hexo generate`
+- `hexo deploy` 到 GitHub Pages 上（作为备用）
+- 把所有图片都转一遍 WebP，所有静态资源都提前用 Gzip、Brotli 压缩好
+- 把生成的文件用 Ansible 批量 Rsync 到所有服务器上
 
 此外，由于我的博客用了 Dependabot 来更新依赖包，Dependabot 时不时会发起 Pull
 Request。显然，处理 Pull Request 时不能执行部署的步骤，只能尝试 generate 一下看
@@ -200,33 +200,33 @@ type: docker
 name: default
 
 trigger:
-    branch:
-        - master
+  branch:
+    - master
 
 steps:
-    - name: hexo generate
-      image: node:15-alpine
-      commands:
-          # 其实没必要装这么多包，只是为了与 deploy 一步统一
-          - apk add --no-cache build-base bash git openssh wget python3 gzip
-            brotli zstd parallel imagemagick
-          - npm install
-          - node_modules/hexo/bin/hexo generate
+  - name: hexo generate
+    image: node:15-alpine
+    commands:
+      # 其实没必要装这么多包，只是为了与 deploy 一步统一
+      - apk add --no-cache build-base bash git openssh wget python3 gzip brotli
+        zstd parallel imagemagick
+      - npm install
+      - node_modules/hexo/bin/hexo generate
 
-    - name: hexo deploy
-      image: node:15-alpine
-      commands:
-          # 装包
-          - apk add --no-cache build-base bash git openssh wget python3 gzip
-            brotli zstd parallel imagemagick
-          - node_modules/hexo/bin/hexo deploy
-      # 收到 Dependabot 的 PR 时不要部署
-      when:
-          event:
-              exclude:
-                  - pull_request
+  - name: hexo deploy
+    image: node:15-alpine
+    commands:
+      # 装包
+      - apk add --no-cache build-base bash git openssh wget python3 gzip brotli
+        zstd parallel imagemagick
+      - node_modules/hexo/bin/hexo deploy
+    # 收到 Dependabot 的 PR 时不要部署
+    when:
+      event:
+        exclude:
+          - pull_request
 
-    # 略过一些后续步骤
+  # 略过一些后续步骤
 ```
 
 这一段配置可以生成出静态网页文件，可以尝试运行 `hexo deploy`，但是由于缺少 SSH
@@ -238,9 +238,9 @@ steps:
 kind: secret
 name: id_ed25519
 get:
-    # 注意这里对应的 Vault 显示的路径是 kv/ssh，data 一项是必须加的
-    path: kv/data/ssh
-    name: id_ed25519
+  # 注意这里对应的 Vault 显示的路径是 kv/ssh，data 一项是必须加的
+  path: kv/data/ssh
+  name: id_ed25519
 
 ---
 kind: pipeline
@@ -250,29 +250,29 @@ name: default
 # ...
 
 steps:
-    # ...
-    - name: hexo deploy
-      image: node:15-alpine
-      environment:
-          # 调用上面从 Vault 获取到的 SSH 密钥，设置为环境变量
-          SSH_KEY:
-              from_secret: id_ed25519
-      commands:
-          # 安装 SSH 密钥
-          - mkdir -p /root/.ssh/
-          - echo "$SSH_KEY" > /root/.ssh/id_ed25519
-          - chmod 600 /root/.ssh/id_ed25519
+  # ...
+  - name: hexo deploy
+    image: node:15-alpine
+    environment:
+      # 调用上面从 Vault 获取到的 SSH 密钥，设置为环境变量
+      SSH_KEY:
+        from_secret: id_ed25519
+    commands:
+      # 安装 SSH 密钥
+      - mkdir -p /root/.ssh/
+      - echo "$SSH_KEY" > /root/.ssh/id_ed25519
+      - chmod 600 /root/.ssh/id_ed25519
 
-          # 配置 SSH，主要是禁用验证 SSH 主机密钥，如果不禁用会登录失败
-          - |
-              cat <<EOF >/root/.ssh/config
-              StrictHostKeyChecking no
-              UserKnownHostsFile=/dev/null
-              VerifyHostKeyDNS yes
-              LogLevel ERROR
-              EOF
+      # 配置 SSH，主要是禁用验证 SSH 主机密钥，如果不禁用会登录失败
+      - |
+        cat <<EOF >/root/.ssh/config
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+        VerifyHostKeyDNS yes
+        LogLevel ERROR
+        EOF
 
-          # 装包...略
+      # 装包...略
 ```
 
 这样 CI 容器中就有 SSH 密钥文件，可以通过 SSH 连接 GitHub 或者其它部署目标了。
@@ -286,48 +286,48 @@ steps:
 ```yaml
 # ...
 steps:
-    # 恢复上次缓存的文件：
-    - name: restore cache
-      image: meltwater/drone-cache:dev
-      settings:
-          backend: 'filesystem'
-          restore: true
-          cache_key: 'volume'
-          archive_format: 'gzip'
-          filesystem_cache_root: '/cache'
-          # 缓存这两个文件夹
-          mount:
-              - 'node_modules'
-              - 'img_cache'
-      volumes:
-          - name: cache
-            path: /cache
+  # 恢复上次缓存的文件：
+  - name: restore cache
+    image: meltwater/drone-cache:dev
+    settings:
+      backend: 'filesystem'
+      restore: true
+      cache_key: 'volume'
+      archive_format: 'gzip'
+      filesystem_cache_root: '/cache'
+      # 缓存这两个文件夹
+      mount:
+        - 'node_modules'
+        - 'img_cache'
+    volumes:
+      - name: cache
+        path: /cache
 
-    - name: hexo generate
-      # ...
+  - name: hexo generate
+    # ...
 
-    # 把这次的文件缓存：
-    - name: rebuild cache
-      image: meltwater/drone-cache:dev
-      settings:
-          backend: 'filesystem'
-          rebuild: true
-          cache_key: 'volume'
-          archive_format: 'gzip'
-          filesystem_cache_root: '/cache'
-          # 缓存这两个文件夹
-          mount:
-              - 'node_modules'
-              - 'img_cache'
-      volumes:
-          - name: cache
-            path: /cache
+  # 把这次的文件缓存：
+  - name: rebuild cache
+    image: meltwater/drone-cache:dev
+    settings:
+      backend: 'filesystem'
+      rebuild: true
+      cache_key: 'volume'
+      archive_format: 'gzip'
+      filesystem_cache_root: '/cache'
+      # 缓存这两个文件夹
+      mount:
+        - 'node_modules'
+        - 'img_cache'
+    volumes:
+      - name: cache
+        path: /cache
 
 # 缓存文件会保存到宿主机的 /cache 文件夹，需要仓库在 Drone 中设置为 Trusted 状态
 volumes:
-    - name: cache
-      host:
-          path: /cache
+  - name: cache
+    host:
+      path: /cache
 ```
 
 此外，部署失败时，可以通过 Telegram 插件发送通知：
@@ -337,49 +337,49 @@ volumes:
 kind: secret
 name: tg_token
 get:
-    path: kv/data/telegram
-    name: token
+  path: kv/data/telegram
+  name: token
 
 ---
 kind: secret
 name: tg_target
 get:
-    path: kv/data/telegram
-    name: target
+  path: kv/data/telegram
+  name: target
 
 ---
 # ...
 steps:
-    # ...
+  # ...
 
-    # 失败时通过这个任务通知
-    - name: telegram notification for failure
-      image: appleboy/drone-telegram
-      settings:
-          token:
-              from_secret: tg_token
-          to:
-              from_secret: tg_target
-      when:
-          status:
-              - failure
+  # 失败时通过这个任务通知
+  - name: telegram notification for failure
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: tg_token
+      to:
+        from_secret: tg_target
+    when:
+      status:
+        - failure
 
-    # 成功时通过这个任务通知，注意如果是定时任务触发则不会发送成功通知
-    - name: telegram notification for success
-      image: appleboy/drone-telegram
-      settings:
-          token:
-              from_secret: tg_token
-          to:
-              from_secret: tg_target
-      when:
-          branch:
-              - master
-          status:
-              - success
-          event:
-              exclude:
-                  - cron
+  # 成功时通过这个任务通知，注意如果是定时任务触发则不会发送成功通知
+  - name: telegram notification for success
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: tg_token
+      to:
+        from_secret: tg_target
+    when:
+      branch:
+        - master
+      status:
+        - success
+      event:
+        exclude:
+          - cron
 ```
 
 这样我们就有了一个带部署、带缓存、带 Telegram 通知的 Drone 配置。
@@ -469,11 +469,11 @@ local DebianCompileJob(image, kernel_headers) = {
 ```yaml
 # ...
 steps:
-    # ...
-    - name: skip build
-      image: alpine
-      commands:
-          - ./should_build.sh && exit 0 || exit 78
+  # ...
+  - name: skip build
+    image: alpine
+    commands:
+      - ./should_build.sh && exit 0 || exit 78
 ```
 
 实际例子可

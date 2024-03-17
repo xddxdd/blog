@@ -27,21 +27,21 @@ FAT32 分区，作为 EFI 启动分区，一个 HFS 格式系统区，还有一�
 个引导工具，说白了就是给 Macbook 设计的，因为其它电脑的 EFI 大都可以关闭，如果碰
 到无法关闭 EFI 的电脑也可以安装 Ubuntu，只有 Macbook 比较奇葩。
 
--   （在 Mac 下）下载 rEFInd，解
-    压。[http://sourceforge.net/projects/refind/files/0.8.3/refind-bin-0.8.3.zip/download](http://sourceforge.net/projects/refind/files/0.8.3/refind-bin-0.8.3.zip/download)
--   打开 Launchpad - 实用工具 - 终端，输入“cd "”，也就是cd然后一个空格然后一个英
-    文双引号。不要回车。
--   把刚才解压出的文件夹窗口上面的那个文件夹图标拖进终端，此时终端上就出现了你解
-    压开的 rEFInd 文件夹路径。
--   再输入一个英文双引号，回车。
--   输入：
+- （在 Mac 下）下载 rEFInd，解
+  压。[http://sourceforge.net/projects/refind/files/0.8.3/refind-bin-0.8.3.zip/download](http://sourceforge.net/projects/refind/files/0.8.3/refind-bin-0.8.3.zip/download)
+- 打开 Launchpad - 实用工具 - 终端，输入“cd "”，也就是cd然后一个空格然后一个英文
+  双引号。不要回车。
+- 把刚才解压出的文件夹窗口上面的那个文件夹图标拖进终端，此时终端上就出现了你解压
+  开的 rEFInd 文件夹路径。
+- 再输入一个英文双引号，回车。
+- 输入：
 
 ```bash
 sudo ./install.sh --esp
 ```
 
--   输入你的密码，回车。输入密码时屏幕上不会有显示。
--   重启电脑，应该可以看到一个选择器，上面有着 rEFInd 字样。安装成功。
+- 输入你的密码，回车。输入密码时屏幕上不会有显示。
+- 重启电脑，应该可以看到一个选择器，上面有着 rEFInd 字样。安装成功。
 
 ## 二。创建 Ubuntu 启动盘
 
@@ -50,41 +50,40 @@ iso 写入U盘。
 
 ## 三。修复分区表
 
--   在 Mac 的磁盘工具里，把你当前的 Mac 分区缩小，把剩下区域划成一个新分区。
--   插入你的U盘或光盘，重启电脑，开机时按住 Alt（Option），选择“Windows”回车。
--   此时将会自动进入 Ubuntu 安装向导，选择试用 Ubuntu 。
--   在 Unity 里搜索 GParted 并启动，把新的分区格式化成 ext4 ，应用。
--   关闭电脑，拔掉U盘，进入 Mac。
--   下载 GPT Fdisk
-    [http://sourceforge.net/projects/gptfdisk/](http://sourceforge.net/projects/gptfdisk/)
-    并安装。
--   打开终端，输入：
+- 在 Mac 的磁盘工具里，把你当前的 Mac 分区缩小，把剩下区域划成一个新分区。
+- 插入你的U盘或光盘，重启电脑，开机时按住 Alt（Option），选择“Windows”回车。
+- 此时将会自动进入 Ubuntu 安装向导，选择试用 Ubuntu 。
+- 在 Unity 里搜索 GParted 并启动，把新的分区格式化成 ext4 ，应用。
+- 关闭电脑，拔掉U盘，进入 Mac。
+- 下载 GPT Fdisk
+  [http://sourceforge.net/projects/gptfdisk/](http://sourceforge.net/projects/gptfdisk/)
+  并安装。
+- 打开终端，输入：
 
 ```bash
 sudo gdisk /dev/disk0
 ```
 
--   输入r回车，再输入p回车，此时屏幕上会列出你的分区表，一般第二个是你的 Mac ，
-    第四个是准备给 Ubuntu 的分区。
--   输入h回车。然后输入2 4（也就是 Mac 和 Ubuntu 的分区号）回车。
--   输入y回车，然后输入AF回车。这是设置分区类型。然后输入n，表示不设置成启动分
-    区。
--   输入y回车，然后输入83回车，然后输入n回车。
--   rEFInd 的启动不依赖启动分区的设置，所以没必要设置启动分区。
--   输入w回车，此时gdisk应该自动退出。
--   重启电脑，按住 Alt（Option），选择 Windows，开始安装 Ubuntu 操作系统。
+- 输入r回车，再输入p回车，此时屏幕上会列出你的分区表，一般第二个是你的 Mac ，第
+  四个是准备给 Ubuntu 的分区。
+- 输入h回车。然后输入2 4（也就是 Mac 和 Ubuntu 的分区号）回车。
+- 输入y回车，然后输入AF回车。这是设置分区类型。然后输入n，表示不设置成启动分区。
+- 输入y回车，然后输入83回车，然后输入n回车。
+- rEFInd 的启动不依赖启动分区的设置，所以没必要设置启动分区。
+- 输入w回车，此时gdisk应该自动退出。
+- 重启电脑，按住 Alt（Option），选择 Windows，开始安装 Ubuntu 操作系统。
 
 ## 四。开始安装
 
--   进入 Ubuntu 安装向导时，再次选择试用，然后启动 GParted。
--   把除了第一个200M EFI 分区以外的所有分区删除，然后按照你的喜好设置分区。
--   启动 Ubuntu 安装程序，按照正常步骤安装。注意不要选择清除整台电脑的数据，选择
-    自定义分区设置。
--   安装完成后，就可以正常进入 Ubuntu 了。
+- 进入 Ubuntu 安装向导时，再次选择试用，然后启动 GParted。
+- 把除了第一个200M EFI 分区以外的所有分区删除，然后按照你的喜好设置分区。
+- 启动 Ubuntu 安装程序，按照正常步骤安装。注意不要选择清除整台电脑的数据，选择自
+  定义分区设置。
+- 安装完成后，就可以正常进入 Ubuntu 了。
 
 ## 五。rEFInd 设置
 
--   进入 Ubuntu 后，输入：
+- 进入 Ubuntu 后，输入：
 
 ```bash
 sudo mkdir /media/efi
@@ -93,6 +92,6 @@ cd /media/efi/EFI/refind
 sudo nano refind.conf
 ```
 
--   把 timeout 改成 -1，这样就不用在启动菜单处等20秒进入系统了。
+- 把 timeout 改成 -1，这样就不用在启动菜单处等20秒进入系统了。
 
 以上，整个安装完成。

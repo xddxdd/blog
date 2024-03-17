@@ -87,18 +87,18 @@ start slave;
 
 ```yaml
 powerdns:
-    image: psitrax/powerdns
-    container_name: powerdns
-    restart: always
-    entrypoint: '/entrypoint.sh --cache-ttl=120 --master=yes --slave=yes'
-    environment:
-        - MYSQL_HOST=数据库服务器地址
-        - MYSQL_USER=数据库用户名
-        - MYSQL_PASS=数据库密码
-        - MYSQL_DB=数据库名字
-    ports:
-        - 'DN42 内的 IP 地址:53:53'
-        - 'DN42 内的 IP 地址:53:53/udp'
+  image: psitrax/powerdns
+  container_name: powerdns
+  restart: always
+  entrypoint: '/entrypoint.sh --cache-ttl=120 --master=yes --slave=yes'
+  environment:
+    - MYSQL_HOST=数据库服务器地址
+    - MYSQL_USER=数据库用户名
+    - MYSQL_PASS=数据库密码
+    - MYSQL_DB=数据库名字
+  ports:
+    - 'DN42 内的 IP 地址:53:53'
+    - 'DN42 内的 IP 地址:53:53/udp'
 ```
 
 然后 PowerDNS 可能会启动失败，提示在创建 comments 表时某些列过长。这是因为 MySQL
@@ -223,18 +223,18 @@ PowerAdmin 是一个 PowerDNS 的控制面板，可以去
 一类的内容的，这样的 SOA 记录就不符合规范。我的 SOA 记录是“ns1.lantian.dn42
 lantian.lantian.dn42 0 28800 7200 604800 60”，解释如下：
 
--   ns1.lantian.dn42：主要 DNS 服务器的名字，一般就是你现在在操作的服务器之后要
-    取的域名。
--   lantian.lantian.dn42：DNS 服务器管理者的邮箱，但是 @ 符号被句点代替了，例如
-    这里就是 lantian@lantian.dn42。在 DN42 中不一定需要真实地址。
--   0：记录编号，如果使用 AXFR 等进行 DNS 记录同步，从 DNS 服务器可能会根据这个
-    编号判断记录有没有更改。我们使用 MySQL 主从复制，所以这里不重要。这里设置为
-    0 代表 PowerDNS 会自动管理这一项，无需人工操作。
--   28800：刷新时间，AXFR 从服务器两次拉取的间隔，同样不重要。
--   7200：重试时间，AXFR 从服务器拉取失败后，再次拉取的时间，同样不重要。
--   604800：过期时间，AXFR 从服务器拉取失败后，最多用先前最后一次拉取成功的记录
-    继续提供服务这么长时间，之后停止应答。同样不重要。
--   60：最小 TTL，所有记录的最小刷新时间，至少过了这么长时间才会刷新。
+- ns1.lantian.dn42：主要 DNS 服务器的名字，一般就是你现在在操作的服务器之后要取
+  的域名。
+- lantian.lantian.dn42：DNS 服务器管理者的邮箱，但是 @ 符号被句点代替了，例如这
+  里就是 lantian@lantian.dn42。在 DN42 中不一定需要真实地址。
+- 0：记录编号，如果使用 AXFR 等进行 DNS 记录同步，从 DNS 服务器可能会根据这个编
+  号判断记录有没有更改。我们使用 MySQL 主从复制，所以这里不重要。这里设置为 0 代
+  表 PowerDNS 会自动管理这一项，无需人工操作。
+- 28800：刷新时间，AXFR 从服务器两次拉取的间隔，同样不重要。
+- 7200：重试时间，AXFR 从服务器拉取失败后，再次拉取的时间，同样不重要。
+- 604800：过期时间，AXFR 从服务器拉取失败后，最多用先前最后一次拉取成功的记录继
+  续提供服务这么长时间，之后停止应答。同样不重要。
+- 60：最小 TTL，所有记录的最小刷新时间，至少过了这么长时间才会刷新。
 
 点击 SOA 记录左边的编辑按钮，对应着设置好，保存。
 

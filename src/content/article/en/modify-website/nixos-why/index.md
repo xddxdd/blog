@@ -72,11 +72,11 @@ generate the config files automatically:
 
 ```yaml
 all:
-    hosts:
-        hostdare.lantian.pub:
-            ltnet_index: 3
-            ltnet_prefix_v4: 172.18.3
-            ltnet_prefix_v6: fdbc:f9dc:67ad:3
+  hosts:
+    hostdare.lantian.pub:
+      ltnet_index: 3
+      ltnet_prefix_v4: 172.18.3
+      ltnet_prefix_v6: fdbc:f9dc:67ad:3
 ```
 
 Once I finished changing the config, I simply ran `ansible-playbook` to call my

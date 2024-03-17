@@ -25,12 +25,12 @@ image: /usr/uploads/202008/i-love-niantic-network.png
 
 # 更新记录
 
--   2023-05-12：增加修改 BGP Localpref 导致环路的内容。
--   2020-08-27：格式修改，添加完整 IRC 日志，部分内容的中文翻译，添加另一段地址
-    掩码填错的内容，以及 ASN 少了一位的内容。
--   2020-07-13：添加 Registry IPv6 地址段掩码填错的内容，和 Bird 不同协议左右互
-    博的内容。
--   2020-05-30：第一版，包含 OSPF、Babel、左右横跳。
+- 2023-05-12：增加修改 BGP Localpref 导致环路的内容。
+- 2020-08-27：格式修改，添加完整 IRC 日志，部分内容的中文翻译，添加另一段地址掩
+  码填错的内容，以及 ASN 少了一位的内容。
+- 2020-07-13：添加 Registry IPv6 地址段掩码填错的内容，和 Bird 不同协议左右互博
+  的内容。
+- 2020-05-30：第一版，包含 OSPF、Babel、左右横跳。
 
 # OSPF 真好玩
 
@@ -62,12 +62,11 @@ protocol ospf {
 
 ```html
 <mc**>
-    shit.... as424242**** is hijacking my prefixes, for example 172.23.*.*/27
-    草…… AS424242**** 在劫持我的地址前缀（即地址块），例如 172.23.*.*/27
-    <he**>
-        yup, I see some roa fails for them as well 对，我也看到 ROA
-        验证失败了</he**
-    ></mc**
+  shit.... as424242**** is hijacking my prefixes, for example 172.23.*.*/27 草……
+  AS424242**** 在劫持我的地址前缀（即地址块），例如 172.23.*.*/27
+  <he**>
+    yup, I see some roa fails for them as well 对，我也看到 ROA 验证失败了</he**
+  ></mc**
 >
 ```
 
@@ -98,8 +97,8 @@ BGP 的路径，因为它并不认识这些东西。此时你的另一台服务�
 
 Telegram 里的老哥说话很好听，一边帮助你修上面那个 Bug，一边向你推荐 Babel：
 
--   Babel 可以自动根据延迟选择最短路线；
--   Babel 配置非常简单。
+- Babel 可以自动根据延迟选择最短路线；
+- Babel 配置非常简单。
 
 但是，群友不推荐你使用 Bird 自带的 Babel 协议支持，因为 Bird 的 Babel 不能根据延
 迟选路。
@@ -130,14 +129,14 @@ learn。
 
 ## 正确的操作
 
--   永远记住一点原则：OSPF，Babel 等 IGP（内部路由协议）不应处理 BGP 路由信
-    息，BGP 路由就应该让 BGP 协议自己处理。
-    -   在网络内部配置 BGP 有多种方案，可以参考
-        《[Bird 配置 BGP Confederation](/article/modify-website/bird-confederation.lantian/)》
-        这篇文章。
--   同时，内部路由协议的路由也不应漏到 BGP 中，除非内部路由协议中处理的所有 IP
-    段都是你自己所有。
--   所以你应该把 BGP 的 `export filter` 写成这样：
+- 永远记住一点原则：OSPF，Babel 等 IGP（内部路由协议）不应处理 BGP 路由信息，BGP
+  路由就应该让 BGP 协议自己处理。
+  - 在网络内部配置 BGP 有多种方案，可以参考
+    《[Bird 配置 BGP Confederation](/article/modify-website/bird-confederation.lantian/)》
+    这篇文章。
+- 同时，内部路由协议的路由也不应漏到 BGP 中，除非内部路由协议中处理的所有 IP 段
+  都是你自己所有。
+- 所以你应该把 BGP 的 `export filter` 写成这样：
 
 ```bash
 export filter {
@@ -150,18 +149,18 @@ export filter {
 
 ## 如何防御
 
--   最佳的方法是 ROA，即路由来源验证（`Route Origin Authorization`），限制每条路
-    由的来源 ASN。
-    -   对于 DN42，ROA 配置文件根据 Registry 的信息自动生成，可以在
-        [DN42 Wiki 的 Bird 配置页面](https://wiki.dn42.us/howto/Bird#route-origin-authorization)下
-        载，并且可以设置 Cron 定时任务自动更新。
--   如果你不想配置 ROA，你可以尝试与尽量多的人 Peer。
-    -   由于 BGP 默认选择经过的 AS 最少的路径，如果你和很多人直连，即使有人在劫
-        持路由，你的网络仍然会优先选择这些直连路径。
-    -   但注意这样**不能保证**防住路由劫持，例如以下情况：
-        -   真实 AS 到你路径比劫持者的长；
-        -   劫持者与真实 AS 到你的 AS 路径等长，此时会选择哪个看脸；
-        -   你有配置 DN42 Community Filter，导致劫持者的路由优先级比较高。
+- 最佳的方法是 ROA，即路由来源验证（`Route Origin Authorization`），限制每条路由
+  的来源 ASN。
+  - 对于 DN42，ROA 配置文件根据 Registry 的信息自动生成，可以在
+    [DN42 Wiki 的 Bird 配置页面](https://wiki.dn42.us/howto/Bird#route-origin-authorization)下
+    载，并且可以设置 Cron 定时任务自动更新。
+- 如果你不想配置 ROA，你可以尝试与尽量多的人 Peer。
+  - 由于 BGP 默认选择经过的 AS 最少的路径，如果你和很多人直连，即使有人在劫持路
+    由，你的网络仍然会优先选择这些直连路径。
+  - 但注意这样**不能保证**防住路由劫持，例如以下情况：
+    - 真实 AS 到你路径比劫持者的长；
+    - 劫持者与真实 AS 到你的 AS 路径等长，此时会选择哪个看脸；
+    - 你有配置 DN42 Community Filter，导致劫持者的路由优先级比较高。
 
 # 左右横跳
 
@@ -178,9 +177,9 @@ export filter {
 
 而且左右横跳错误可能会造成严重的影响：
 
--   如果出错的 AS 和其它多个 AS 建立了 Peering，即使你断开了和他的直接连接，路由
-    切换仍然可能从其它 AS 传递到你的 AS。
-    -   为了解决一个 AS 的问题，可能需要断开好几个 AS。
+- 如果出错的 AS 和其它多个 AS 建立了 Peering，即使你断开了和他的直接连接，路由切
+  换仍然可能从其它 AS 传递到你的 AS。
+  - 为了解决一个 AS 的问题，可能需要断开好几个 AS。
 
 例如，某 Telegram 群友从 Fullmesh + Direct 转向 Multihop 时出现事故，造成了非常
 大量的路由切换。
@@ -198,1225 +197,1076 @@ export filter {
 
 ```html
 <bur*>
-    is someone awake who is on telegram ? 有用 Telegram 的人醒着吗？
-    <bur*>
-        Kio*, sun*, ie**, lantian perhaps ? 可能是 Kio*，sun*，ie**，Lan Tian？
-        <Kio*>
-            Kio* is here Kio* 在
-            <fox*>
-                I am in that dn42 telegram chat too but I do not understand moon
-                runes 我也在 DN42 的 Telegram 群，但我不懂月相
+  is someone awake who is on telegram ? 有用 Telegram 的人醒着吗？
+  <bur*>
+    Kio*, sun*, ie**, lantian perhaps ? 可能是 Kio*，sun*，ie**，Lan Tian？
+    <Kio*>
+      Kio* is here Kio* 在
+      <fox*>
+        I am in that dn42 telegram chat too but I do not understand moon runes
+        我也在 DN42 的 Telegram 群，但我不懂月相
+        <fox*>
+          also its midnight for china? 另外现在是中国的半夜？
+          <bur*>
+            yes, I'm going to be nuking a lot of peerings if they are all asleep
+            对，如果他们全在睡觉，我就要炸掉一大堆 Peering 了
+            <bur*>
+              I think its originating from NIA*, but a lovely multi mb/s flap
+              going on for the past hour 我觉得问题来自
+              NIA*，一个小时前开始有一个好几 MB/s 的“可爱”的左右横跳
+              <bur*>
+                and its like whack-a-mole, if I disable one peering the traffic
+                just pops up on a different one 而且像打地鼠，如果我关掉一个
+                Peering，它又会从另一个 Peering 上跳出来
                 <fox*>
-                    also its midnight for china? 另外现在是中国的半夜？
+                  petition for bur* network to stop accepting new peers to help
+                  save dn42 network health 建议 Bur* 的网络不要再接受新的 Peer
+                  了，以保证“42 号去中心网络”的健康发展
+                  <Kio*>
+                    NIA* is awake now NIA* 现在醒了
                     <bur*>
-                        yes, I'm going to be nuking a lot of peerings if they
-                        are all asleep 对，如果他们全在睡觉，我就要炸掉一大堆
-                        Peering 了
+                      NIA* certainly has ipv4 next hop problems, they are
+                      advertising routes with next hops in other networks NIA*
+                      的 IPv4 Nexthop 肯定有问题，他们广播的路由的 Nexthop
+                      都在其它网络
+                      <Kio*>
+                        He says he is adjusting his "network from full-mesh to
+                        rr and multihops" 他说他在“把网络从 Full-mesh 调整成
+                        Route Reflector 和 Multihop”
                         <bur*>
-                            I think its originating from NIA*, but a lovely
-                            multi mb/s flap going on for the past hour
-                            我觉得问题来自 NIA*，一个小时前开始有一个好几 MB/s
-                            的“可爱”的左右横跳
+                          well its not working ;) 唔姆，这没有正常工作 ;)
+                          <stv*>
+                            bur*: I also took down our peering
+                            bur*：我也把我们的 Peering 断了
                             <bur*>
-                                and its like whack-a-mole, if I disable one
-                                peering the traffic just pops up on a different
-                                one 而且像打地鼠，如果我关掉一个
-                                Peering，它又会从另一个 Peering 上跳出来
-                                <fox*>
-                                    petition for bur* network to stop accepting
-                                    new peers to help save dn42 network health
-                                    建议 Bur* 的网络不要再接受新的 Peer
-                                    了，以保证“42 号去中心网络”的健康发展
-                                    <Kio*>
-                                        NIA* is awake now NIA* 现在醒了
+                              stv*, too much traffic from the grc? stv*, 来自
+                              GRC（全球路由收集节点）的流量太多了？
+                              <stv*>
+                                I added a new peer around 1hr ago. Just to check
+                                that this hasnt be the cause..
+                                我一小时前接了一个新的
+                                Peer，只是为了确认这不是原因……
+                                <stv*>
+                                  bur*: no the grc is still up and running
+                                  bur*：不，GRC 还在正常工作
+                                  <bur*>
+                                    ah, if you are getting a lot of route
+                                    updates its cos of NIA*
+                                    啊，如果你收到很多路由更新，它们是来自 NIA*
+                                    的
+                                    <bur*>
+                                      grc is currently pumping about 4mb/s to
+                                      downstram peers GRC 现在正在向下游发送 4
+                                      MB/s 的更新
+                                      <sun*>
+                                        bur*: what happen? bur*：发生了什么？
                                         <bur*>
-                                            NIA* certainly has ipv4 next hop
-                                            problems, they are advertising
-                                            routes with next hops in other
-                                            networks NIA* 的 IPv4 Nexthop
-                                            肯定有问题，他们广播的路由的 Nexthop
-                                            都在其它网络
-                                            <Kio*>
-                                                He says he is adjusting his
-                                                "network from full-mesh to rr
-                                                and multihops" 他说他在“把网络从
-                                                Full-mesh 调整成 Route Reflector
-                                                和 Multihop”
+                                          NIA* is having issues NIA* 出了问题
+                                          <bur*>
+                                            sun* anyway, you are up late! sun*
+                                            不管怎么说，你睡得好晚！
+                                            <sun*>
+                                              I just came back from the bar:)
+                                              我刚从酒吧回来 :)
+                                              <do**>
+                                                don't drink and root 酒后不要
+                                                root（指用管理员权限修改系统）
                                                 <bur*>
-                                                    well its not working ;)
-                                                    唔姆，这没有正常工作 ;)
-                                                    <stv*>
-                                                        bur*: I also took down
-                                                        our peering
-                                                        bur*：我也把我们的
-                                                        Peering 断了
-                                                        <bur*>
-                                                            stv*, too much
-                                                            traffic from the
-                                                            grc? stv*, 来自
-                                                            GRC（全球路由收集节点）的流量太多了？
-                                                            <stv*>
-                                                                I added a new
-                                                                peer around 1hr
-                                                                ago. Just to
-                                                                check that this
-                                                                hasnt be the
-                                                                cause..
-                                                                我一小时前接了一个新的
-                                                                Peer，只是为了确认这不是原因……
-                                                                <stv*>
-                                                                    bur*: no the
-                                                                    grc is still
-                                                                    up and
-                                                                    running
-                                                                    bur*：不，GRC
-                                                                    还在正常工作
-                                                                    <bur*>
-                                                                        ah, if
-                                                                        you are
-                                                                        getting
-                                                                        a lot of
-                                                                        route
-                                                                        updates
-                                                                        its cos
-                                                                        of NIA*
-                                                                        啊，如果你收到很多路由更新，它们是来自
-                                                                        NIA* 的
-                                                                        <bur*>
-                                                                            grc
-                                                                            is
-                                                                            currently
-                                                                            pumping
-                                                                            about
-                                                                            4mb/s
-                                                                            to
-                                                                            downstram
-                                                                            peers
-                                                                            GRC
-                                                                            现在正在向下游发送
-                                                                            4
-                                                                            MB/s
-                                                                            的更新
-                                                                            <sun*>
-                                                                                bur*:
+                                                  nice :) 不错 :)
+                                                  <sun*>
+                                                    l like drink ;) 我喜欢喝酒
+                                                    ;)
+                                                    <bur*>
+                                                      ok, I'm bored of this now,
+                                                      if you are currently
+                                                      sending me more than 1mb/s
+                                                      of bgp traffic your
+                                                      peering is about to get
+                                                      disabled.
+                                                      行吧，我现在累了，如果你正在向我发送超过
+                                                      1MB/s 的 BGP 流量，那你的
+                                                      Peering 会被我禁用。
+                                                      <bur*>
+                                                        Kio*, sun*, Tch*, jrb*,
+                                                        lantian, ie**, so far
+                                                        目前是
+                                                        Kio*，sun*，Tch*，jrb*，Lan
+                                                        Tian，ie** 几个
+                                                        <Kio*>
+                                                          barely notice any
+                                                          flapping here, is it
+                                                          v4 or v6 ?
+                                                          几乎没观察到左右横跳，是
+                                                          IPv4 还是 IPv6？
+                                                          <bur*>
+                                                            4 mostly, I think.
+                                                            you got killed on
+                                                            us-nyc1
+                                                            我觉得大部分是
+                                                            IPv4，你和我美国纽约
+                                                            1 号节点的 Peer
+                                                            被关了
+                                                            <bur*>
+                                                              Nap* Nap*
+                                                              <Nap*>
+                                                                Shut mine down
+                                                                if you need, I
+                                                                can't look into
+                                                                with much detail
+                                                                until tonight
+                                                                有必要的话就把我的
+                                                                Peer
+                                                                关了吧，我今晚之前都不能仔细检查
+                                                                <bau*>
+                                                                  half of dn42
+                                                                  is about to
+                                                                  loose
+                                                                  connectivity
+                                                                  due to bur*
+                                                                  disableing
+                                                                  peerings lol
+                                                                  哈哈，半个
+                                                                  DN42 会因为
+                                                                  Bur* 禁用
+                                                                  Peering 而断网
+                                                                  <do**>
+                                                                    oh yeah,
+                                                                    this looks
+                                                                    nice
+                                                                    哦耶，太棒了
+                                                                    <Kio*>
+                                                                      thats why
+                                                                      everybody
+                                                                      should be
+                                                                      at least
+                                                                      multi
+                                                                      homed with
+                                                                      two peers
+                                                                      因此所有人都应该至少接两个
+                                                                      Peer
+                                                                      <jrb*>
+                                                                        bur*:
+                                                                        and on
+                                                                        which
+                                                                        peering?
+                                                                        bur*：在哪个
+                                                                        Peering
+                                                                        上？
+                                                                        <Kio*>
+                                                                          you
+                                                                          shouldnt
+                                                                          loose
+                                                                          connectivity
+                                                                          if
+                                                                          only
+                                                                          one
+                                                                          peer
+                                                                          drops
+                                                                          如果只有一个
+                                                                          Peer
+                                                                          掉线，你不应该也掉线
+                                                                          <bur*>
+                                                                            jrb*
+                                                                            us-nyc1
+                                                                            and
+                                                                            us-lax1
+                                                                            for
+                                                                            you
+                                                                            so
+                                                                            far
+                                                                            jrb*
+                                                                            目前是美国纽约
+                                                                            1
+                                                                            号和美国洛杉矶
+                                                                            1 号
+                                                                            <jrb*>
+                                                                              mapping
+                                                                              table
+                                                                              says
+                                                                              us-3
+                                                                              and
+                                                                              us-5,
+                                                                              let
+                                                                              me
+                                                                              check.
+                                                                              映射表显示是美国
+                                                                              3
+                                                                              号和
+                                                                              5
+                                                                              号，我检查一下。
+                                                                              <Nap*>
+                                                                                Do
+                                                                                we
+                                                                                know
                                                                                 what
-                                                                                happen?
-                                                                                bur*：发生了什么？
-                                                                                <bur*>
+                                                                                routes
+                                                                                are
+                                                                                flapping
+                                                                                causing
+                                                                                the
+                                                                                updates?
+                                                                                我们知道是谁的路由造成这些更新吗？
+                                                                                <Kio*>
+                                                                                  filtering
+                                                                                  problematic
+                                                                                  ASN
+                                                                                  on
+                                                                                  my
+                                                                                  us
+                                                                                  node
+                                                                                  now
+                                                                                  正在我的节点上过滤有问题的
+                                                                                  ASN
+                                                                                  <bur*>
+                                                                                    Nap*
+                                                                                    its
                                                                                     NIA*
-                                                                                    is
-                                                                                    having
-                                                                                    issues
+                                                                                    Nap*，是
                                                                                     NIA*
-                                                                                    出了问题
                                                                                     <bur*>
-                                                                                        sun*
-                                                                                        anyway,
+                                                                                      AS42424213**
+                                                                                      AS42424213**
+                                                                                      <jrb*>
+                                                                                        sun*,
+                                                                                        rou*:
+                                                                                        disabling
+                                                                                        my
+                                                                                        peerings
+                                                                                        with
                                                                                         you
-                                                                                        are
-                                                                                        up
-                                                                                        late!
-                                                                                        sun*
-                                                                                        不管怎么说，你睡得好晚！
-                                                                                        <sun*>
-                                                                                            I
-                                                                                            just
-                                                                                            came
-                                                                                            back
-                                                                                            from
-                                                                                            the
-                                                                                            bar:)
-                                                                                            我刚从酒吧回来
-                                                                                            :)
-                                                                                            <do**>
-                                                                                                don't
-                                                                                                drink
-                                                                                                and
-                                                                                                root
-                                                                                                酒后不要
-                                                                                                root（指用管理员权限修改系统）
-                                                                                                <bur*>
-                                                                                                    nice
-                                                                                                    :)
-                                                                                                    不错
-                                                                                                    :)
-                                                                                                    <sun*>
-                                                                                                        l
-                                                                                                        like
-                                                                                                        drink
-                                                                                                        ;)
-                                                                                                        我喜欢喝酒
-                                                                                                        ;)
-                                                                                                        <bur*>
-                                                                                                            ok,
-                                                                                                            I'm
-                                                                                                            bored
-                                                                                                            of
-                                                                                                            this
-                                                                                                            now,
-                                                                                                            if
-                                                                                                            you
-                                                                                                            are
-                                                                                                            currently
-                                                                                                            sending
-                                                                                                            me
-                                                                                                            more
-                                                                                                            than
-                                                                                                            1mb/s
-                                                                                                            of
-                                                                                                            bgp
-                                                                                                            traffic
-                                                                                                            your
-                                                                                                            peering
-                                                                                                            is
-                                                                                                            about
-                                                                                                            to
-                                                                                                            get
-                                                                                                            disabled.
-                                                                                                            行吧，我现在累了，如果你正在向我发送超过
-                                                                                                            1MB/s
-                                                                                                            的
-                                                                                                            BGP
-                                                                                                            流量，那你的
-                                                                                                            Peering
-                                                                                                            会被我禁用。
-                                                                                                            <bur*>
-                                                                                                                Kio*,
-                                                                                                                sun*,
-                                                                                                                Tch*,
-                                                                                                                jrb*,
-                                                                                                                lantian,
-                                                                                                                ie**,
-                                                                                                                so
-                                                                                                                far
-                                                                                                                目前是
-                                                                                                                Kio*，sun*，Tch*，jrb*，Lan
-                                                                                                                Tian，ie**
-                                                                                                                几个
-                                                                                                                <Kio*>
-                                                                                                                    barely
-                                                                                                                    notice
-                                                                                                                    any
-                                                                                                                    flapping
-                                                                                                                    here,
-                                                                                                                    is
+                                                                                        for
+                                                                                        now,
+                                                                                        there
+                                                                                        seems
+                                                                                        to
+                                                                                        be
+                                                                                        serious
+                                                                                        flapping
+                                                                                        sun*，rou*：我现在禁用和你们的
+                                                                                        Peering，看起来有严重的左右横跳
+                                                                                        <do**>
+                                                                                          him
+                                                                                          again?
+                                                                                          又是他？
+                                                                                          <sun*>
+                                                                                            what?
+                                                                                            啥？
+                                                                                            <sun*>
+                                                                                              is
+                                                                                              me
+                                                                                              problem?
+                                                                                              我的问题吗？
+                                                                                              <bur*>
+                                                                                                sun*,
+                                                                                                I've
+                                                                                                killed
+                                                                                                all
+                                                                                                of
+                                                                                                our
+                                                                                                peerings
+                                                                                                sun*，我关掉了我们所有的
+                                                                                                Peering
+                                                                                                <sun*>
+                                                                                                  why?
+                                                                                                  为什么？
+                                                                                                  <bur*>
+                                                                                                    sun*,
+                                                                                                    you
+                                                                                                    are
+                                                                                                    distributing
+                                                                                                    the
+                                                                                                    problems
+                                                                                                    from
+                                                                                                    NIA*
+                                                                                                    sun*，你在传递
+                                                                                                    NIA*
+                                                                                                    造成的问题
+                                                                                                    <Nap*>
+                                                                                                      bur*:
+                                                                                                      K,
+                                                                                                      gonna
+                                                                                                      try
+                                                                                                      to
+                                                                                                      filter
+                                                                                                      on
+                                                                                                      ATL/CHI
+                                                                                                      at
+                                                                                                      least.
+                                                                                                      bur*：行，准备尝试至少在亚特兰大和芝加哥节点上做过滤。
+                                                                                                      <bur*>
+                                                                                                        thanks
+                                                                                                        Nap*
+                                                                                                        谢了
+                                                                                                        Nap*
+                                                                                                        <Kio*>
+                                                                                                          recommend
+                                                                                                          everybody
+                                                                                                          to
+                                                                                                          temporarily
+                                                                                                          enable
+                                                                                                          "bgp_path
+                                                                                                          ~"
+                                                                                                          filter
+                                                                                                          for
+                                                                                                          the
+                                                                                                          problematic
+                                                                                                          ASN
+                                                                                                          推荐所有人暂时打开“bgp_path
+                                                                                                          ~”过滤掉有问题的
+                                                                                                          ASN
+                                                                                                          <sun*>
+                                                                                                            i
+                                                                                                            disabled
+                                                                                                            NIA*,
+                                                                                                            would
+                                                                                                            fix
+                                                                                                            problem?
+                                                                                                            我禁用了
+                                                                                                            NIA*，会解决问题吗？
+                                                                                                            <do**>
+                                                                                                              bur*:
+                                                                                                              I
+                                                                                                              also
+                                                                                                              peer
+                                                                                                              with
+                                                                                                              NIA*
+                                                                                                              and
+                                                                                                              I
+                                                                                                              don't
+                                                                                                              get
+                                                                                                              any
+                                                                                                              bgp
+                                                                                                              updates
+                                                                                                              from
+                                                                                                              him
+                                                                                                              bur*：我也和
+                                                                                                              NIA*
+                                                                                                              Peer
+                                                                                                              了，但没收到他的任何
+                                                                                                              BGP
+                                                                                                              更新
+                                                                                                              <do**>
+                                                                                                                ah
+                                                                                                                wait
+                                                                                                                啊等等
+                                                                                                                <bur*>
+                                                                                                                  sun*,
+                                                                                                                  depends
+                                                                                                                  if
+                                                                                                                  you
+                                                                                                                  are
+                                                                                                                  also
+                                                                                                                  getting
+                                                                                                                  the
+                                                                                                                  updates
+                                                                                                                  from
+                                                                                                                  other
+                                                                                                                  peers
+                                                                                                                  too
+                                                                                                                  sun*，取决于你会不会也从其他
+                                                                                                                  Peer
+                                                                                                                  收到这些更新
+                                                                                                                  <do**>
+                                                                                                                    now
+                                                                                                                    I
+                                                                                                                    see
                                                                                                                     it
-                                                                                                                    v4
-                                                                                                                    or
-                                                                                                                    v6
-                                                                                                                    ?
-                                                                                                                    几乎没观察到左右横跳，是
-                                                                                                                    IPv4
-                                                                                                                    还是
-                                                                                                                    IPv6？
-                                                                                                                    <bur*>
-                                                                                                                        4
-                                                                                                                        mostly,
-                                                                                                                        I
-                                                                                                                        think.
-                                                                                                                        you
-                                                                                                                        got
-                                                                                                                        killed
-                                                                                                                        on
-                                                                                                                        us-nyc1
-                                                                                                                        我觉得大部分是
-                                                                                                                        IPv4，你和我美国纽约
-                                                                                                                        1
-                                                                                                                        号节点的
-                                                                                                                        Peer
-                                                                                                                        被关了
+                                                                                                                    现在我看到了
+                                                                                                                    <do**>
+                                                                                                                      disabling
+                                                                                                                      peering
+                                                                                                                      正在禁用
+                                                                                                                      Peering
+                                                                                                                      <sun*>
+                                                                                                                        if
+                                                                                                                        bgp_path
+                                                                                                                        ~
+                                                                                                                        [=
+                                                                                                                        42424213**
+                                                                                                                        =]
+                                                                                                                        then
+                                                                                                                        reject;
+                                                                                                                        （Bird
+                                                                                                                        Filter
+                                                                                                                        命令）
                                                                                                                         <bur*>
-                                                                                                                            Nap*
-                                                                                                                            Nap*
-                                                                                                                            <Nap*>
-                                                                                                                                Shut
-                                                                                                                                mine
-                                                                                                                                down
+                                                                                                                          ~
+                                                                                                                          [=
+                                                                                                                          *
+                                                                                                                          42424213**
+                                                                                                                          *
+                                                                                                                          =]
+                                                                                                                          to
+                                                                                                                          reject
+                                                                                                                          all
+                                                                                                                          paths
+                                                                                                                          用“~
+                                                                                                                          [=
+                                                                                                                          *
+                                                                                                                          42424213**
+                                                                                                                          *
+                                                                                                                          =]”过滤掉所有包含他的路径
+                                                                                                                          <sun*>
+                                                                                                                            ohh
+                                                                                                                            噢哦
+                                                                                                                            <jrb*>
+                                                                                                                              bur*:
+                                                                                                                              seems
+                                                                                                                              to
+                                                                                                                              be
+                                                                                                                              mostly
+                                                                                                                              rou*
+                                                                                                                              from
+                                                                                                                              my
+                                                                                                                              perspective
+                                                                                                                              bur*：从我这看主要是
+                                                                                                                              rou*
+                                                                                                                              <Kio*>
+                                                                                                                                Should
+                                                                                                                                be
+                                                                                                                                filtered
+                                                                                                                                on
+                                                                                                                                my
+                                                                                                                                side,
                                                                                                                                 if
-                                                                                                                                you
-                                                                                                                                need,
-                                                                                                                                I
-                                                                                                                                can't
-                                                                                                                                look
-                                                                                                                                into
-                                                                                                                                with
-                                                                                                                                much
-                                                                                                                                detail
-                                                                                                                                until
-                                                                                                                                tonight
-                                                                                                                                有必要的话就把我的
-                                                                                                                                Peer
-                                                                                                                                关了吧，我今晚之前都不能仔细检查
-                                                                                                                                <bau*>
-                                                                                                                                    half
-                                                                                                                                    of
-                                                                                                                                    dn42
-                                                                                                                                    is
-                                                                                                                                    about
-                                                                                                                                    to
-                                                                                                                                    loose
-                                                                                                                                    connectivity
-                                                                                                                                    due
-                                                                                                                                    to
-                                                                                                                                    bur*
-                                                                                                                                    disableing
-                                                                                                                                    peerings
-                                                                                                                                    lol
-                                                                                                                                    哈哈，半个
-                                                                                                                                    DN42
-                                                                                                                                    会因为
-                                                                                                                                    Bur*
-                                                                                                                                    禁用
-                                                                                                                                    Peering
-                                                                                                                                    而断网
-                                                                                                                                    <do**>
-                                                                                                                                        oh
-                                                                                                                                        yeah,
-                                                                                                                                        this
-                                                                                                                                        looks
-                                                                                                                                        nice
-                                                                                                                                        哦耶，太棒了
-                                                                                                                                        <Kio*>
-                                                                                                                                            thats
-                                                                                                                                            why
+                                                                                                                                anyone
+                                                                                                                                continues
+                                                                                                                                to
+                                                                                                                                receive
+                                                                                                                                those
+                                                                                                                                updates
+                                                                                                                                please
+                                                                                                                                notify
+                                                                                                                                我这里应该过滤好了，如果任何人继续收到这些更新，请通知我
+                                                                                                                                <bur*>
+                                                                                                                                  sun*,
+                                                                                                                                  I
+                                                                                                                                  tried
+                                                                                                                                  re-enabling
+                                                                                                                                  you
+                                                                                                                                  on
+                                                                                                                                  lax1
+                                                                                                                                  but
+                                                                                                                                  you
+                                                                                                                                  jumped
+                                                                                                                                  striaght
+                                                                                                                                  to
+                                                                                                                                  1mb/s+
+                                                                                                                                  again
+                                                                                                                                  sun*，我尝试在洛杉矶
+                                                                                                                                  1
+                                                                                                                                  号节点重新启用我们的
+                                                                                                                                  Peering，但流量马上到了
+                                                                                                                                  1
+                                                                                                                                  MB/s
+                                                                                                                                  多
+                                                                                                                                  <bur*>
+                                                                                                                                    jrb*,
+                                                                                                                                    re-enabled
+                                                                                                                                    jrb*，重新启用了
+                                                                                                                                    <sun*>
+                                                                                                                                      i
+                                                                                                                                      have
+                                                                                                                                      disabled
+                                                                                                                                      NIA*
+                                                                                                                                      我也禁用
+                                                                                                                                      NIA*
+                                                                                                                                      了
+                                                                                                                                      <bur*>
+                                                                                                                                        Kio*,
+                                                                                                                                        re-enabled
+                                                                                                                                        Kio*，重新启用了
+                                                                                                                                        <do**>
+                                                                                                                                          oh
+                                                                                                                                          btw,
+                                                                                                                                          I
+                                                                                                                                          have
+                                                                                                                                          notified
+                                                                                                                                          NIA*
+                                                                                                                                          about
+                                                                                                                                          this
+                                                                                                                                          issue
+                                                                                                                                          哦顺便提一句，我已经告知
+                                                                                                                                          NIA*
+                                                                                                                                          这个问题了
+                                                                                                                                          <jrb*>
+                                                                                                                                            do**:
+                                                                                                                                            also
+                                                                                                                                            tell
+                                                                                                                                            him
+                                                                                                                                            to
+                                                                                                                                            notify
                                                                                                                                             everybody
-                                                                                                                                            should
-                                                                                                                                            be
-                                                                                                                                            at
-                                                                                                                                            least
-                                                                                                                                            multi
-                                                                                                                                            homed
-                                                                                                                                            with
-                                                                                                                                            two
-                                                                                                                                            peers
-                                                                                                                                            因此所有人都应该至少接两个
-                                                                                                                                            Peer
-                                                                                                                                            <jrb*>
+                                                                                                                                            to
+                                                                                                                                            get
+                                                                                                                                            out
+                                                                                                                                            of
+                                                                                                                                            the
+                                                                                                                                            blacklists.
+                                                                                                                                            do**：另外告诉他（修好网络后）通知所有人解除黑名单。
+                                                                                                                                            <do**>
+                                                                                                                                              jrb*:
+                                                                                                                                              will
+                                                                                                                                              do
+                                                                                                                                              jib*：好的
+                                                                                                                                              <Nap*>
                                                                                                                                                 bur*:
-                                                                                                                                                and
+                                                                                                                                                I
+                                                                                                                                                should
+                                                                                                                                                have
+                                                                                                                                                it
+                                                                                                                                                filtered
                                                                                                                                                 on
-                                                                                                                                                which
-                                                                                                                                                peering?
-                                                                                                                                                bur*：在哪个
-                                                                                                                                                Peering
-                                                                                                                                                上？
+                                                                                                                                                my
+                                                                                                                                                ATL
+                                                                                                                                                (your
+                                                                                                                                                CHI)
+                                                                                                                                                bur*：我应该在我的亚特兰大节点上过滤了（对应你的芝加哥节点）
                                                                                                                                                 <Kio*>
-                                                                                                                                                    you
-                                                                                                                                                    shouldnt
-                                                                                                                                                    loose
-                                                                                                                                                    connectivity
-                                                                                                                                                    if
-                                                                                                                                                    only
-                                                                                                                                                    one
-                                                                                                                                                    peer
-                                                                                                                                                    drops
-                                                                                                                                                    如果只有一个
-                                                                                                                                                    Peer
-                                                                                                                                                    掉线，你不应该也掉线
+                                                                                                                                                  wrote
+                                                                                                                                                  NIA*
+                                                                                                                                                  also
+                                                                                                                                                  directly
+                                                                                                                                                  on
+                                                                                                                                                  telegram
+                                                                                                                                                  在
+                                                                                                                                                  Telegram
+                                                                                                                                                  上直接向
+                                                                                                                                                  NIA*
+                                                                                                                                                  发了消息
+                                                                                                                                                  <sun*>
+                                                                                                                                                    bur*:
+                                                                                                                                                    is
+                                                                                                                                                    it
+                                                                                                                                                    better
+                                                                                                                                                    now?
+                                                                                                                                                    bur*：现在好点了吗？
                                                                                                                                                     <bur*>
-                                                                                                                                                        jrb*
-                                                                                                                                                        us-nyc1
-                                                                                                                                                        and
-                                                                                                                                                        us-lax1
-                                                                                                                                                        for
-                                                                                                                                                        you
-                                                                                                                                                        so
-                                                                                                                                                        far
-                                                                                                                                                        jrb*
-                                                                                                                                                        目前是美国纽约
-                                                                                                                                                        1
-                                                                                                                                                        号和美国洛杉矶
-                                                                                                                                                        1
-                                                                                                                                                        号
-                                                                                                                                                        <jrb*>
-                                                                                                                                                            mapping
-                                                                                                                                                            table
-                                                                                                                                                            says
-                                                                                                                                                            us-3
-                                                                                                                                                            and
-                                                                                                                                                            us-5,
-                                                                                                                                                            let
-                                                                                                                                                            me
-                                                                                                                                                            check.
-                                                                                                                                                            映射表显示是美国
-                                                                                                                                                            3
-                                                                                                                                                            号和
-                                                                                                                                                            5
-                                                                                                                                                            号，我检查一下。
-                                                                                                                                                            <Nap*>
-                                                                                                                                                                Do
-                                                                                                                                                                we
-                                                                                                                                                                know
-                                                                                                                                                                what
-                                                                                                                                                                routes
-                                                                                                                                                                are
-                                                                                                                                                                flapping
-                                                                                                                                                                causing
-                                                                                                                                                                the
-                                                                                                                                                                updates?
-                                                                                                                                                                我们知道是谁的路由造成这些更新吗？
-                                                                                                                                                                <Kio*>
-                                                                                                                                                                    filtering
-                                                                                                                                                                    problematic
-                                                                                                                                                                    ASN
-                                                                                                                                                                    on
-                                                                                                                                                                    my
-                                                                                                                                                                    us
-                                                                                                                                                                    node
-                                                                                                                                                                    now
-                                                                                                                                                                    正在我的节点上过滤有问题的
-                                                                                                                                                                    ASN
+                                                                                                                                                      for
+                                                                                                                                                      the
+                                                                                                                                                      record,
+                                                                                                                                                      this
+                                                                                                                                                      is
+                                                                                                                                                      the
+                                                                                                                                                      first
+                                                                                                                                                      time
+                                                                                                                                                      that
+                                                                                                                                                      I've
+                                                                                                                                                      mass
+                                                                                                                                                      disabled
+                                                                                                                                                      peerings,
+                                                                                                                                                      but
+                                                                                                                                                      this
+                                                                                                                                                      was
+                                                                                                                                                      causing
+                                                                                                                                                      issues
+                                                                                                                                                      across
+                                                                                                                                                      the
+                                                                                                                                                      board
+                                                                                                                                                      这是我有史以来第一次大规模禁用
+                                                                                                                                                      Peering，但这次的确造成了很多问题
+                                                                                                                                                      <bur*>
+                                                                                                                                                        sun*,
+                                                                                                                                                        no
+                                                                                                                                                        not
+                                                                                                                                                        really
+                                                                                                                                                        sun*，不，没有
+                                                                                                                                                        <An**>
+                                                                                                                                                          I've
+                                                                                                                                                          stop
+                                                                                                                                                          importing
+                                                                                                                                                          route
+                                                                                                                                                          from
+                                                                                                                                                          NIA*
+                                                                                                                                                          我已经停止从
+                                                                                                                                                          NIA*
+                                                                                                                                                          导入路由了
+                                                                                                                                                          <stv*>
+                                                                                                                                                            I
+                                                                                                                                                            am
+                                                                                                                                                            also
+                                                                                                                                                            dropping
+                                                                                                                                                            NIA*
+                                                                                                                                                            now
+                                                                                                                                                            我现在也丢弃
+                                                                                                                                                            NIA*（的路由）了
+                                                                                                                                                            <bur*>
+                                                                                                                                                              sun*,
+                                                                                                                                                              thats
+                                                                                                                                                              like
+                                                                                                                                                              1k
+                                                                                                                                                              updates
+                                                                                                                                                              every
+                                                                                                                                                              few
+                                                                                                                                                              seconds
+                                                                                                                                                              sun*，每过几秒就会有一千条路由更新
+                                                                                                                                                              <Nap*>
+                                                                                                                                                                bur*:
+                                                                                                                                                                all
+                                                                                                                                                                host
+                                                                                                                                                                should
+                                                                                                                                                                have
+                                                                                                                                                                it
+                                                                                                                                                                filtered
+                                                                                                                                                                now.
+                                                                                                                                                                bur*：所有节点都应该过滤了。
+                                                                                                                                                                <bur*>
+                                                                                                                                                                  Nap*,
+                                                                                                                                                                  looks
+                                                                                                                                                                  to
+                                                                                                                                                                  me,
+                                                                                                                                                                  thanks
+                                                                                                                                                                  Nap*，看起来没问题，谢谢
+                                                                                                                                                                  <sun*>
+                                                                                                                                                                    bur*:
+                                                                                                                                                                    seems
+                                                                                                                                                                    to
+                                                                                                                                                                    have
+                                                                                                                                                                    reduced
+                                                                                                                                                                    traffic
+                                                                                                                                                                    bur*：看起来流量降低了
                                                                                                                                                                     <bur*>
-                                                                                                                                                                        Nap*
-                                                                                                                                                                        its
-                                                                                                                                                                        NIA*
-                                                                                                                                                                        Nap*，是
-                                                                                                                                                                        NIA*
-                                                                                                                                                                        <bur*>
-                                                                                                                                                                            AS42424213**
-                                                                                                                                                                            AS42424213**
-                                                                                                                                                                            <jrb*>
-                                                                                                                                                                                sun*,
-                                                                                                                                                                                rou*:
-                                                                                                                                                                                disabling
-                                                                                                                                                                                my
-                                                                                                                                                                                peerings
-                                                                                                                                                                                with
-                                                                                                                                                                                you
-                                                                                                                                                                                for
-                                                                                                                                                                                now,
-                                                                                                                                                                                there
-                                                                                                                                                                                seems
-                                                                                                                                                                                to
-                                                                                                                                                                                be
-                                                                                                                                                                                serious
-                                                                                                                                                                                flapping
-                                                                                                                                                                                sun*，rou*：我现在禁用和你们的
-                                                                                                                                                                                Peering，看起来有严重的左右横跳
-                                                                                                                                                                                <do**>
-                                                                                                                                                                                    him
-                                                                                                                                                                                    again?
-                                                                                                                                                                                    又是他？
-                                                                                                                                                                                    <sun*>
-                                                                                                                                                                                        what?
-                                                                                                                                                                                        啥？
-                                                                                                                                                                                        <sun*>
-                                                                                                                                                                                            is
-                                                                                                                                                                                            me
-                                                                                                                                                                                            problem?
-                                                                                                                                                                                            我的问题吗？
-                                                                                                                                                                                            <bur*>
-                                                                                                                                                                                                sun*,
-                                                                                                                                                                                                I've
-                                                                                                                                                                                                killed
-                                                                                                                                                                                                all
-                                                                                                                                                                                                of
-                                                                                                                                                                                                our
-                                                                                                                                                                                                peerings
-                                                                                                                                                                                                sun*，我关掉了我们所有的
-                                                                                                                                                                                                Peering
-                                                                                                                                                                                                <sun*>
-                                                                                                                                                                                                    why?
-                                                                                                                                                                                                    为什么？
-                                                                                                                                                                                                    <bur*>
-                                                                                                                                                                                                        sun*,
-                                                                                                                                                                                                        you
-                                                                                                                                                                                                        are
-                                                                                                                                                                                                        distributing
+                                                                                                                                                                      sun*,
+                                                                                                                                                                      yes
+                                                                                                                                                                      that
+                                                                                                                                                                      looks
+                                                                                                                                                                      better
+                                                                                                                                                                      sun*，的确看起来好些了
+                                                                                                                                                                      <bur*>
+                                                                                                                                                                        sun*,
+                                                                                                                                                                        is
+                                                                                                                                                                        that
+                                                                                                                                                                        now
+                                                                                                                                                                        ok
+                                                                                                                                                                        across
+                                                                                                                                                                        all
+                                                                                                                                                                        your
+                                                                                                                                                                        nodes
+                                                                                                                                                                        ?
+                                                                                                                                                                        sun*，现在你的所有节点都正常吗？
+                                                                                                                                                                        <sun*>
+                                                                                                                                                                          yep
+                                                                                                                                                                          对
+                                                                                                                                                                          <bur*>
+                                                                                                                                                                            sun*,
+                                                                                                                                                                            ok
+                                                                                                                                                                            re-enabled
+                                                                                                                                                                            sun*，好的，重新启用了
+                                                                                                                                                                            <do**>
+                                                                                                                                                                              alright,
+                                                                                                                                                                              also
+                                                                                                                                                                              filtered
+                                                                                                                                                                              42424213**
+                                                                                                                                                                              好的，也把
+                                                                                                                                                                              42424213**
+                                                                                                                                                                              过滤了
+                                                                                                                                                                              <tm**>
+                                                                                                                                                                                hi,
+                                                                                                                                                                                also
+                                                                                                                                                                                filtered
+                                                                                                                                                                                42424213**
+                                                                                                                                                                                大家好，我也把
+                                                                                                                                                                                42424213**
+                                                                                                                                                                                过滤了
+                                                                                                                                                                                <bur*>
+                                                                                                                                                                                  I
+                                                                                                                                                                                  guess
+                                                                                                                                                                                  they
+                                                                                                                                                                                  got
+                                                                                                                                                                                  the
+                                                                                                                                                                                  message,
+                                                                                                                                                                                  seems
+                                                                                                                                                                                  we're
+                                                                                                                                                                                  back
+                                                                                                                                                                                  to
+                                                                                                                                                                                  normal
+                                                                                                                                                                                  again
+                                                                                                                                                                                  and
+                                                                                                                                                                                  everyone
+                                                                                                                                                                                  I
+                                                                                                                                                                                  disabled
+                                                                                                                                                                                  is
+                                                                                                                                                                                  back
+                                                                                                                                                                                  again
+                                                                                                                                                                                  我猜他们（指
+                                                                                                                                                                                  NIA*）收到消息了，看起来我们再次回复正常了，所有我禁用的人都被重新启用了
+                                                                                                                                                                                  <do**>
+                                                                                                                                                                                    bur*:
+                                                                                                                                                                                    I
+                                                                                                                                                                                    think
+                                                                                                                                                                                    NIA*
+                                                                                                                                                                                    is
+                                                                                                                                                                                    asleep,
+                                                                                                                                                                                    probably
+                                                                                                                                                                                    everyone
+                                                                                                                                                                                    filtered
+                                                                                                                                                                                    it
+                                                                                                                                                                                    bur*：我觉得
+                                                                                                                                                                                    NIA*
+                                                                                                                                                                                    还在睡觉，也许所有人都过滤了
+                                                                                                                                                                                    <do**>
+                                                                                                                                                                                      or
+                                                                                                                                                                                      disabled
+                                                                                                                                                                                      peering
+                                                                                                                                                                                      或者禁用了
+                                                                                                                                                                                      Peering
+                                                                                                                                                                                      <bur*>
+                                                                                                                                                                                        do**,
+                                                                                                                                                                                        there
+                                                                                                                                                                                        is
+                                                                                                                                                                                        that,
+                                                                                                                                                                                        but
+                                                                                                                                                                                        I
+                                                                                                                                                                                        also
+                                                                                                                                                                                        renabled
+                                                                                                                                                                                        NIA*
+                                                                                                                                                                                        and
+                                                                                                                                                                                        am
+                                                                                                                                                                                        not
+                                                                                                                                                                                        getting
+                                                                                                                                                                                        the
+                                                                                                                                                                                        same
+                                                                                                                                                                                        errors
+                                                                                                                                                                                        now
+                                                                                                                                                                                        do**，有可能，但我也重新启用了
+                                                                                                                                                                                        NIA*，现在没有看到先前的错误
+                                                                                                                                                                                        <do**>
+                                                                                                                                                                                          oh,
+                                                                                                                                                                                          interesting
+                                                                                                                                                                                          哦，有趣
+                                                                                                                                                                                          <bur*>
+                                                                                                                                                                                            I
+                                                                                                                                                                                            might
+                                                                                                                                                                                            regret
+                                                                                                                                                                                            doing
+                                                                                                                                                                                            that
+                                                                                                                                                                                            by
+                                                                                                                                                                                            morning,
+                                                                                                                                                                                            but
+                                                                                                                                                                                            hey.
+                                                                                                                                                                                            I
+                                                                                                                                                                                            do
+                                                                                                                                                                                            try
+                                                                                                                                                                                            and
+                                                                                                                                                                                            keep
+                                                                                                                                                                                            everything
+                                                                                                                                                                                            open
+                                                                                                                                                                                            as
+                                                                                                                                                                                            best
+                                                                                                                                                                                            as
+                                                                                                                                                                                            possible.
+                                                                                                                                                                                            到了早上我有可能会后悔（指
+                                                                                                                                                                                            NIA*
+                                                                                                                                                                                            的问题在
+                                                                                                                                                                                            bur*
+                                                                                                                                                                                            睡觉时再次出现），但我尝试尽量公开/开放所有东西。
+                                                                                                                                                                                            <do**>
+                                                                                                                                                                                              bur*:
+                                                                                                                                                                                              last
+                                                                                                                                                                                              time
+                                                                                                                                                                                              when
+                                                                                                                                                                                              NIA*
+                                                                                                                                                                                              did
+                                                                                                                                                                                              that
+                                                                                                                                                                                              I
+                                                                                                                                                                                              waited
+                                                                                                                                                                                              for
+                                                                                                                                                                                              their
+                                                                                                                                                                                              response
+                                                                                                                                                                                              bur*：上次
+                                                                                                                                                                                              NIA*
+                                                                                                                                                                                              搞出这种事情的时候，我等他们的回复（后才采取行动）
+                                                                                                                                                                                              <Kio*>
+                                                                                                                                                                                                Nope
+                                                                                                                                                                                                nia*
+                                                                                                                                                                                                just
+                                                                                                                                                                                                messaged
+                                                                                                                                                                                                in
+                                                                                                                                                                                                Telegram
+                                                                                                                                                                                                about
+                                                                                                                                                                                                it
+                                                                                                                                                                                                不，NIA*
+                                                                                                                                                                                                刚在
+                                                                                                                                                                                                Telegram
+                                                                                                                                                                                                上发了消息
+                                                                                                                                                                                                <do**>
+                                                                                                                                                                                                  ah
+                                                                                                                                                                                                  啊
+                                                                                                                                                                                                  <bur*>
+                                                                                                                                                                                                    my
+                                                                                                                                                                                                    peering
+                                                                                                                                                                                                    hasn't
+                                                                                                                                                                                                    re-established,
+                                                                                                                                                                                                    so
+                                                                                                                                                                                                    I
+                                                                                                                                                                                                    guess
+                                                                                                                                                                                                    they
+                                                                                                                                                                                                    hit
+                                                                                                                                                                                                    the
+                                                                                                                                                                                                    big
+                                                                                                                                                                                                    red
+                                                                                                                                                                                                    shutdown
+                                                                                                                                                                                                    button
+                                                                                                                                                                                                    我（和
+                                                                                                                                                                                                    NIA*）的
+                                                                                                                                                                                                    Peering
+                                                                                                                                                                                                    还没有重新建立，我猜他们按下了那个巨大的、红色的关闭按钮
+                                                                                                                                                                                                    <Kio*>
+                                                                                                                                                                                                      He
+                                                                                                                                                                                                      tried
+                                                                                                                                                                                                      to
+                                                                                                                                                                                                      migrate
+                                                                                                                                                                                                      his
+                                                                                                                                                                                                      network
+                                                                                                                                                                                                      to
+                                                                                                                                                                                                      a
+                                                                                                                                                                                                      full
+                                                                                                                                                                                                      mesh
+                                                                                                                                                                                                      他尝试把网络迁移到
+                                                                                                                                                                                                      Full
+                                                                                                                                                                                                      mesh
+                                                                                                                                                                                                      <Kio*>
+                                                                                                                                                                                                        and
+                                                                                                                                                                                                        is
+                                                                                                                                                                                                        now
+                                                                                                                                                                                                        "pulling
+                                                                                                                                                                                                        all
                                                                                                                                                                                                         the
-                                                                                                                                                                                                        problems
-                                                                                                                                                                                                        from
-                                                                                                                                                                                                        NIA*
-                                                                                                                                                                                                        sun*，你在传递
-                                                                                                                                                                                                        NIA*
-                                                                                                                                                                                                        造成的问题
-                                                                                                                                                                                                        <Nap*>
-                                                                                                                                                                                                            bur*:
-                                                                                                                                                                                                            K,
-                                                                                                                                                                                                            gonna
-                                                                                                                                                                                                            try
-                                                                                                                                                                                                            to
-                                                                                                                                                                                                            filter
+                                                                                                                                                                                                        wires"
+                                                                                                                                                                                                        现在正在“全部拔线”
+                                                                                                                                                                                                        <do**>
+                                                                                                                                                                                                          Kio*:
+                                                                                                                                                                                                          did
+                                                                                                                                                                                                          you
+                                                                                                                                                                                                          message
+                                                                                                                                                                                                          him
+                                                                                                                                                                                                          directly
+                                                                                                                                                                                                          or
+                                                                                                                                                                                                          was
+                                                                                                                                                                                                          that
+                                                                                                                                                                                                          on
+                                                                                                                                                                                                          any
+                                                                                                                                                                                                          of
+                                                                                                                                                                                                          the
+                                                                                                                                                                                                          groups?
+                                                                                                                                                                                                          Kio*：你给他直接发了消息吗，还是在哪个群里？
+                                                                                                                                                                                                          <Kio*>
                                                                                                                                                                                                             on
-                                                                                                                                                                                                            ATL/CHI
-                                                                                                                                                                                                            at
-                                                                                                                                                                                                            least.
-                                                                                                                                                                                                            bur*：行，准备尝试至少在亚特兰大和芝加哥节点上做过滤。
-                                                                                                                                                                                                            <bur*>
-                                                                                                                                                                                                                thanks
-                                                                                                                                                                                                                Nap*
-                                                                                                                                                                                                                谢了
-                                                                                                                                                                                                                Nap*
-                                                                                                                                                                                                                <Kio*>
-                                                                                                                                                                                                                    recommend
-                                                                                                                                                                                                                    everybody
-                                                                                                                                                                                                                    to
-                                                                                                                                                                                                                    temporarily
-                                                                                                                                                                                                                    enable
-                                                                                                                                                                                                                    "bgp_path
-                                                                                                                                                                                                                    ~"
-                                                                                                                                                                                                                    filter
-                                                                                                                                                                                                                    for
-                                                                                                                                                                                                                    the
-                                                                                                                                                                                                                    problematic
-                                                                                                                                                                                                                    ASN
-                                                                                                                                                                                                                    推荐所有人暂时打开“bgp_path
-                                                                                                                                                                                                                    ~”过滤掉有问题的
-                                                                                                                                                                                                                    ASN
-                                                                                                                                                                                                                    <sun*>
-                                                                                                                                                                                                                        i
-                                                                                                                                                                                                                        disabled
-                                                                                                                                                                                                                        NIA*,
-                                                                                                                                                                                                                        would
-                                                                                                                                                                                                                        fix
-                                                                                                                                                                                                                        problem?
-                                                                                                                                                                                                                        我禁用了
-                                                                                                                                                                                                                        NIA*，会解决问题吗？
+                                                                                                                                                                                                            the
+                                                                                                                                                                                                            telegram
+                                                                                                                                                                                                            group
+                                                                                                                                                                                                            在
+                                                                                                                                                                                                            Telegram
+                                                                                                                                                                                                            群里
+                                                                                                                                                                                                            <do**>
+                                                                                                                                                                                                              bur*:
+                                                                                                                                                                                                              you
+                                                                                                                                                                                                              didn't
+                                                                                                                                                                                                              get
+                                                                                                                                                                                                              that
+                                                                                                                                                                                                              many
+                                                                                                                                                                                                              bgp
+                                                                                                                                                                                                              updates
+                                                                                                                                                                                                              from
+                                                                                                                                                                                                              me?
+                                                                                                                                                                                                              bur*：你没有从我这里收到那么多
+                                                                                                                                                                                                              BGP
+                                                                                                                                                                                                              更新？
+                                                                                                                                                                                                              <sun*>
+                                                                                                                                                                                                                NIA*
+                                                                                                                                                                                                                woke
+                                                                                                                                                                                                                up
+                                                                                                                                                                                                                :)
+                                                                                                                                                                                                                NIA*
+                                                                                                                                                                                                                醒了
+                                                                                                                                                                                                                :)
+                                                                                                                                                                                                                <bur*>
+                                                                                                                                                                                                                  do**,
+                                                                                                                                                                                                                  you
+                                                                                                                                                                                                                  went
+                                                                                                                                                                                                                  from
+                                                                                                                                                                                                                  an
+                                                                                                                                                                                                                  average
+                                                                                                                                                                                                                  of
+                                                                                                                                                                                                                  ~3kbs
+                                                                                                                                                                                                                  to
+                                                                                                                                                                                                                  ~10kbs+,
+                                                                                                                                                                                                                  peaking
+                                                                                                                                                                                                                  at
+                                                                                                                                                                                                                  50kbs.
+                                                                                                                                                                                                                  In
+                                                                                                                                                                                                                  the
+                                                                                                                                                                                                                  grand
+                                                                                                                                                                                                                  scheme
+                                                                                                                                                                                                                  of
+                                                                                                                                                                                                                  things
+                                                                                                                                                                                                                  that
+                                                                                                                                                                                                                  was
+                                                                                                                                                                                                                  lost
+                                                                                                                                                                                                                  in
+                                                                                                                                                                                                                  the
+                                                                                                                                                                                                                  noise
+                                                                                                                                                                                                                  do**，你从平均
+                                                                                                                                                                                                                  3
+                                                                                                                                                                                                                  KB/s
+                                                                                                                                                                                                                  到十几
+                                                                                                                                                                                                                  KB/s，峰值
+                                                                                                                                                                                                                  50
+                                                                                                                                                                                                                  KB/s。在如此巨大的量级中这点小问题被淹没了
+                                                                                                                                                                                                                  <do**>
+                                                                                                                                                                                                                    interesting
+                                                                                                                                                                                                                    有趣
+                                                                                                                                                                                                                    <do**>
+                                                                                                                                                                                                                      I
+                                                                                                                                                                                                                      also
+                                                                                                                                                                                                                      peer
+                                                                                                                                                                                                                      directly
+                                                                                                                                                                                                                      with
+                                                                                                                                                                                                                      NIA*
+                                                                                                                                                                                                                      我也和
+                                                                                                                                                                                                                      NIA*
+                                                                                                                                                                                                                      直接
+                                                                                                                                                                                                                      Peer
+                                                                                                                                                                                                                      了
+                                                                                                                                                                                                                      <bur*>
+                                                                                                                                                                                                                        do**,
+                                                                                                                                                                                                                        yes,
+                                                                                                                                                                                                                        interesting.
+                                                                                                                                                                                                                        Is
+                                                                                                                                                                                                                        the
+                                                                                                                                                                                                                        link
+                                                                                                                                                                                                                        restricted
+                                                                                                                                                                                                                        in
+                                                                                                                                                                                                                        bandwidth
+                                                                                                                                                                                                                        ?
+                                                                                                                                                                                                                        do**，是的，有趣。（你和他的）链路有带宽限制吗？
                                                                                                                                                                                                                         <do**>
-                                                                                                                                                                                                                            bur*:
-                                                                                                                                                                                                                            I
-                                                                                                                                                                                                                            also
-                                                                                                                                                                                                                            peer
-                                                                                                                                                                                                                            with
-                                                                                                                                                                                                                            NIA*
-                                                                                                                                                                                                                            and
-                                                                                                                                                                                                                            I
-                                                                                                                                                                                                                            don't
-                                                                                                                                                                                                                            get
-                                                                                                                                                                                                                            any
-                                                                                                                                                                                                                            bgp
-                                                                                                                                                                                                                            updates
-                                                                                                                                                                                                                            from
-                                                                                                                                                                                                                            him
-                                                                                                                                                                                                                            bur*：我也和
-                                                                                                                                                                                                                            NIA*
-                                                                                                                                                                                                                            Peer
-                                                                                                                                                                                                                            了，但没收到他的任何
-                                                                                                                                                                                                                            BGP
-                                                                                                                                                                                                                            更新
-                                                                                                                                                                                                                            <do**>
-                                                                                                                                                                                                                                ah
-                                                                                                                                                                                                                                wait
-                                                                                                                                                                                                                                啊等等
-                                                                                                                                                                                                                                <bur*>
-                                                                                                                                                                                                                                    sun*,
-                                                                                                                                                                                                                                    depends
-                                                                                                                                                                                                                                    if
-                                                                                                                                                                                                                                    you
-                                                                                                                                                                                                                                    are
-                                                                                                                                                                                                                                    also
-                                                                                                                                                                                                                                    getting
-                                                                                                                                                                                                                                    the
-                                                                                                                                                                                                                                    updates
-                                                                                                                                                                                                                                    from
-                                                                                                                                                                                                                                    other
-                                                                                                                                                                                                                                    peers
-                                                                                                                                                                                                                                    too
-                                                                                                                                                                                                                                    sun*，取决于你会不会也从其他
-                                                                                                                                                                                                                                    Peer
-                                                                                                                                                                                                                                    收到这些更新
-                                                                                                                                                                                                                                    <do**>
-                                                                                                                                                                                                                                        now
-                                                                                                                                                                                                                                        I
-                                                                                                                                                                                                                                        see
-                                                                                                                                                                                                                                        it
-                                                                                                                                                                                                                                        现在我看到了
-                                                                                                                                                                                                                                        <do**>
-                                                                                                                                                                                                                                            disabling
-                                                                                                                                                                                                                                            peering
-                                                                                                                                                                                                                                            正在禁用
-                                                                                                                                                                                                                                            Peering
-                                                                                                                                                                                                                                            <sun*>
-                                                                                                                                                                                                                                                if
-                                                                                                                                                                                                                                                bgp_path
-                                                                                                                                                                                                                                                ~
-                                                                                                                                                                                                                                                [=
-                                                                                                                                                                                                                                                42424213**
-                                                                                                                                                                                                                                                =]
-                                                                                                                                                                                                                                                then
-                                                                                                                                                                                                                                                reject;
-                                                                                                                                                                                                                                                （Bird
-                                                                                                                                                                                                                                                Filter
-                                                                                                                                                                                                                                                命令）
-                                                                                                                                                                                                                                                <bur*>
-                                                                                                                                                                                                                                                    ~
-                                                                                                                                                                                                                                                    [=
-                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                    42424213**
-                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                    =]
-                                                                                                                                                                                                                                                    to
-                                                                                                                                                                                                                                                    reject
-                                                                                                                                                                                                                                                    all
-                                                                                                                                                                                                                                                    paths
-                                                                                                                                                                                                                                                    用“~
-                                                                                                                                                                                                                                                    [=
-                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                    42424213**
-                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                    =]”过滤掉所有包含他的路径
-                                                                                                                                                                                                                                                    <sun*>
-                                                                                                                                                                                                                                                        ohh
-                                                                                                                                                                                                                                                        噢哦
-                                                                                                                                                                                                                                                        <jrb*>
-                                                                                                                                                                                                                                                            bur*:
-                                                                                                                                                                                                                                                            seems
-                                                                                                                                                                                                                                                            to
-                                                                                                                                                                                                                                                            be
-                                                                                                                                                                                                                                                            mostly
-                                                                                                                                                                                                                                                            rou*
-                                                                                                                                                                                                                                                            from
-                                                                                                                                                                                                                                                            my
-                                                                                                                                                                                                                                                            perspective
-                                                                                                                                                                                                                                                            bur*：从我这看主要是
-                                                                                                                                                                                                                                                            rou*
-                                                                                                                                                                                                                                                            <Kio*>
-                                                                                                                                                                                                                                                                Should
-                                                                                                                                                                                                                                                                be
-                                                                                                                                                                                                                                                                filtered
-                                                                                                                                                                                                                                                                on
-                                                                                                                                                                                                                                                                my
-                                                                                                                                                                                                                                                                side,
-                                                                                                                                                                                                                                                                if
-                                                                                                                                                                                                                                                                anyone
-                                                                                                                                                                                                                                                                continues
-                                                                                                                                                                                                                                                                to
-                                                                                                                                                                                                                                                                receive
-                                                                                                                                                                                                                                                                those
-                                                                                                                                                                                                                                                                updates
-                                                                                                                                                                                                                                                                please
-                                                                                                                                                                                                                                                                notify
-                                                                                                                                                                                                                                                                我这里应该过滤好了，如果任何人继续收到这些更新，请通知我
-                                                                                                                                                                                                                                                                <bur*>
-                                                                                                                                                                                                                                                                    sun*,
-                                                                                                                                                                                                                                                                    I
-                                                                                                                                                                                                                                                                    tried
-                                                                                                                                                                                                                                                                    re-enabling
-                                                                                                                                                                                                                                                                    you
-                                                                                                                                                                                                                                                                    on
-                                                                                                                                                                                                                                                                    lax1
-                                                                                                                                                                                                                                                                    but
-                                                                                                                                                                                                                                                                    you
-                                                                                                                                                                                                                                                                    jumped
-                                                                                                                                                                                                                                                                    striaght
-                                                                                                                                                                                                                                                                    to
-                                                                                                                                                                                                                                                                    1mb/s+
-                                                                                                                                                                                                                                                                    again
-                                                                                                                                                                                                                                                                    sun*，我尝试在洛杉矶
-                                                                                                                                                                                                                                                                    1
-                                                                                                                                                                                                                                                                    号节点重新启用我们的
-                                                                                                                                                                                                                                                                    Peering，但流量马上到了
-                                                                                                                                                                                                                                                                    1
-                                                                                                                                                                                                                                                                    MB/s
-                                                                                                                                                                                                                                                                    多
-                                                                                                                                                                                                                                                                    <bur*>
-                                                                                                                                                                                                                                                                        jrb*,
-                                                                                                                                                                                                                                                                        re-enabled
-                                                                                                                                                                                                                                                                        jrb*，重新启用了
-                                                                                                                                                                                                                                                                        <sun*>
-                                                                                                                                                                                                                                                                            i
-                                                                                                                                                                                                                                                                            have
-                                                                                                                                                                                                                                                                            disabled
-                                                                                                                                                                                                                                                                            NIA*
-                                                                                                                                                                                                                                                                            我也禁用
-                                                                                                                                                                                                                                                                            NIA*
-                                                                                                                                                                                                                                                                            了
-                                                                                                                                                                                                                                                                            <bur*>
-                                                                                                                                                                                                                                                                                Kio*,
-                                                                                                                                                                                                                                                                                re-enabled
-                                                                                                                                                                                                                                                                                Kio*，重新启用了
-                                                                                                                                                                                                                                                                                <do**>
-                                                                                                                                                                                                                                                                                    oh
-                                                                                                                                                                                                                                                                                    btw,
-                                                                                                                                                                                                                                                                                    I
-                                                                                                                                                                                                                                                                                    have
-                                                                                                                                                                                                                                                                                    notified
-                                                                                                                                                                                                                                                                                    NIA*
-                                                                                                                                                                                                                                                                                    about
-                                                                                                                                                                                                                                                                                    this
-                                                                                                                                                                                                                                                                                    issue
-                                                                                                                                                                                                                                                                                    哦顺便提一句，我已经告知
-                                                                                                                                                                                                                                                                                    NIA*
-                                                                                                                                                                                                                                                                                    这个问题了
-                                                                                                                                                                                                                                                                                    <jrb*>
-                                                                                                                                                                                                                                                                                        do**:
-                                                                                                                                                                                                                                                                                        also
-                                                                                                                                                                                                                                                                                        tell
-                                                                                                                                                                                                                                                                                        him
-                                                                                                                                                                                                                                                                                        to
-                                                                                                                                                                                                                                                                                        notify
-                                                                                                                                                                                                                                                                                        everybody
-                                                                                                                                                                                                                                                                                        to
-                                                                                                                                                                                                                                                                                        get
-                                                                                                                                                                                                                                                                                        out
-                                                                                                                                                                                                                                                                                        of
-                                                                                                                                                                                                                                                                                        the
-                                                                                                                                                                                                                                                                                        blacklists.
-                                                                                                                                                                                                                                                                                        do**：另外告诉他（修好网络后）通知所有人解除黑名单。
-                                                                                                                                                                                                                                                                                        <do**>
-                                                                                                                                                                                                                                                                                            jrb*:
-                                                                                                                                                                                                                                                                                            will
-                                                                                                                                                                                                                                                                                            do
-                                                                                                                                                                                                                                                                                            jib*：好的
-                                                                                                                                                                                                                                                                                            <Nap*>
-                                                                                                                                                                                                                                                                                                bur*:
-                                                                                                                                                                                                                                                                                                I
-                                                                                                                                                                                                                                                                                                should
-                                                                                                                                                                                                                                                                                                have
-                                                                                                                                                                                                                                                                                                it
-                                                                                                                                                                                                                                                                                                filtered
-                                                                                                                                                                                                                                                                                                on
-                                                                                                                                                                                                                                                                                                my
-                                                                                                                                                                                                                                                                                                ATL
-                                                                                                                                                                                                                                                                                                (your
-                                                                                                                                                                                                                                                                                                CHI)
-                                                                                                                                                                                                                                                                                                bur*：我应该在我的亚特兰大节点上过滤了（对应你的芝加哥节点）
-                                                                                                                                                                                                                                                                                                <Kio*>
-                                                                                                                                                                                                                                                                                                    wrote
-                                                                                                                                                                                                                                                                                                    NIA*
-                                                                                                                                                                                                                                                                                                    also
-                                                                                                                                                                                                                                                                                                    directly
-                                                                                                                                                                                                                                                                                                    on
-                                                                                                                                                                                                                                                                                                    telegram
-                                                                                                                                                                                                                                                                                                    在
-                                                                                                                                                                                                                                                                                                    Telegram
-                                                                                                                                                                                                                                                                                                    上直接向
-                                                                                                                                                                                                                                                                                                    NIA*
-                                                                                                                                                                                                                                                                                                    发了消息
-                                                                                                                                                                                                                                                                                                    <sun*>
-                                                                                                                                                                                                                                                                                                        bur*:
-                                                                                                                                                                                                                                                                                                        is
-                                                                                                                                                                                                                                                                                                        it
-                                                                                                                                                                                                                                                                                                        better
-                                                                                                                                                                                                                                                                                                        now?
-                                                                                                                                                                                                                                                                                                        bur*：现在好点了吗？
-                                                                                                                                                                                                                                                                                                        <bur*>
-                                                                                                                                                                                                                                                                                                            for
-                                                                                                                                                                                                                                                                                                            the
-                                                                                                                                                                                                                                                                                                            record,
-                                                                                                                                                                                                                                                                                                            this
-                                                                                                                                                                                                                                                                                                            is
-                                                                                                                                                                                                                                                                                                            the
-                                                                                                                                                                                                                                                                                                            first
-                                                                                                                                                                                                                                                                                                            time
-                                                                                                                                                                                                                                                                                                            that
-                                                                                                                                                                                                                                                                                                            I've
-                                                                                                                                                                                                                                                                                                            mass
-                                                                                                                                                                                                                                                                                                            disabled
-                                                                                                                                                                                                                                                                                                            peerings,
-                                                                                                                                                                                                                                                                                                            but
-                                                                                                                                                                                                                                                                                                            this
-                                                                                                                                                                                                                                                                                                            was
-                                                                                                                                                                                                                                                                                                            causing
-                                                                                                                                                                                                                                                                                                            issues
-                                                                                                                                                                                                                                                                                                            across
-                                                                                                                                                                                                                                                                                                            the
-                                                                                                                                                                                                                                                                                                            board
-                                                                                                                                                                                                                                                                                                            这是我有史以来第一次大规模禁用
-                                                                                                                                                                                                                                                                                                            Peering，但这次的确造成了很多问题
-                                                                                                                                                                                                                                                                                                            <bur*>
-                                                                                                                                                                                                                                                                                                                sun*,
-                                                                                                                                                                                                                                                                                                                no
-                                                                                                                                                                                                                                                                                                                not
-                                                                                                                                                                                                                                                                                                                really
-                                                                                                                                                                                                                                                                                                                sun*，不，没有
-                                                                                                                                                                                                                                                                                                                <An**>
-                                                                                                                                                                                                                                                                                                                    I've
-                                                                                                                                                                                                                                                                                                                    stop
-                                                                                                                                                                                                                                                                                                                    importing
-                                                                                                                                                                                                                                                                                                                    route
-                                                                                                                                                                                                                                                                                                                    from
-                                                                                                                                                                                                                                                                                                                    NIA*
-                                                                                                                                                                                                                                                                                                                    我已经停止从
-                                                                                                                                                                                                                                                                                                                    NIA*
-                                                                                                                                                                                                                                                                                                                    导入路由了
-                                                                                                                                                                                                                                                                                                                    <stv*>
-                                                                                                                                                                                                                                                                                                                        I
-                                                                                                                                                                                                                                                                                                                        am
-                                                                                                                                                                                                                                                                                                                        also
-                                                                                                                                                                                                                                                                                                                        dropping
-                                                                                                                                                                                                                                                                                                                        NIA*
-                                                                                                                                                                                                                                                                                                                        now
-                                                                                                                                                                                                                                                                                                                        我现在也丢弃
-                                                                                                                                                                                                                                                                                                                        NIA*（的路由）了
-                                                                                                                                                                                                                                                                                                                        <bur*>
-                                                                                                                                                                                                                                                                                                                            sun*,
-                                                                                                                                                                                                                                                                                                                            thats
-                                                                                                                                                                                                                                                                                                                            like
-                                                                                                                                                                                                                                                                                                                            1k
-                                                                                                                                                                                                                                                                                                                            updates
-                                                                                                                                                                                                                                                                                                                            every
-                                                                                                                                                                                                                                                                                                                            few
-                                                                                                                                                                                                                                                                                                                            seconds
-                                                                                                                                                                                                                                                                                                                            sun*，每过几秒就会有一千条路由更新
-                                                                                                                                                                                                                                                                                                                            <Nap*>
-                                                                                                                                                                                                                                                                                                                                bur*:
-                                                                                                                                                                                                                                                                                                                                all
-                                                                                                                                                                                                                                                                                                                                host
-                                                                                                                                                                                                                                                                                                                                should
-                                                                                                                                                                                                                                                                                                                                have
-                                                                                                                                                                                                                                                                                                                                it
-                                                                                                                                                                                                                                                                                                                                filtered
-                                                                                                                                                                                                                                                                                                                                now.
-                                                                                                                                                                                                                                                                                                                                bur*：所有节点都应该过滤了。
-                                                                                                                                                                                                                                                                                                                                <bur*>
-                                                                                                                                                                                                                                                                                                                                    Nap*,
-                                                                                                                                                                                                                                                                                                                                    looks
-                                                                                                                                                                                                                                                                                                                                    to
-                                                                                                                                                                                                                                                                                                                                    me,
-                                                                                                                                                                                                                                                                                                                                    thanks
-                                                                                                                                                                                                                                                                                                                                    Nap*，看起来没问题，谢谢
-                                                                                                                                                                                                                                                                                                                                    <sun*>
-                                                                                                                                                                                                                                                                                                                                        bur*:
-                                                                                                                                                                                                                                                                                                                                        seems
-                                                                                                                                                                                                                                                                                                                                        to
-                                                                                                                                                                                                                                                                                                                                        have
-                                                                                                                                                                                                                                                                                                                                        reduced
-                                                                                                                                                                                                                                                                                                                                        traffic
-                                                                                                                                                                                                                                                                                                                                        bur*：看起来流量降低了
-                                                                                                                                                                                                                                                                                                                                        <bur*>
-                                                                                                                                                                                                                                                                                                                                            sun*,
-                                                                                                                                                                                                                                                                                                                                            yes
-                                                                                                                                                                                                                                                                                                                                            that
-                                                                                                                                                                                                                                                                                                                                            looks
-                                                                                                                                                                                                                                                                                                                                            better
-                                                                                                                                                                                                                                                                                                                                            sun*，的确看起来好些了
-                                                                                                                                                                                                                                                                                                                                            <bur*>
-                                                                                                                                                                                                                                                                                                                                                sun*,
-                                                                                                                                                                                                                                                                                                                                                is
-                                                                                                                                                                                                                                                                                                                                                that
-                                                                                                                                                                                                                                                                                                                                                now
-                                                                                                                                                                                                                                                                                                                                                ok
-                                                                                                                                                                                                                                                                                                                                                across
-                                                                                                                                                                                                                                                                                                                                                all
-                                                                                                                                                                                                                                                                                                                                                your
-                                                                                                                                                                                                                                                                                                                                                nodes
-                                                                                                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                                                                                                sun*，现在你的所有节点都正常吗？
-                                                                                                                                                                                                                                                                                                                                                <sun*>
-                                                                                                                                                                                                                                                                                                                                                    yep
-                                                                                                                                                                                                                                                                                                                                                    对
-                                                                                                                                                                                                                                                                                                                                                    <bur*>
-                                                                                                                                                                                                                                                                                                                                                        sun*,
-                                                                                                                                                                                                                                                                                                                                                        ok
-                                                                                                                                                                                                                                                                                                                                                        re-enabled
-                                                                                                                                                                                                                                                                                                                                                        sun*，好的，重新启用了
-                                                                                                                                                                                                                                                                                                                                                        <do**>
-                                                                                                                                                                                                                                                                                                                                                            alright,
-                                                                                                                                                                                                                                                                                                                                                            also
-                                                                                                                                                                                                                                                                                                                                                            filtered
-                                                                                                                                                                                                                                                                                                                                                            42424213**
-                                                                                                                                                                                                                                                                                                                                                            好的，也把
-                                                                                                                                                                                                                                                                                                                                                            42424213**
-                                                                                                                                                                                                                                                                                                                                                            过滤了
-                                                                                                                                                                                                                                                                                                                                                            <tm**>
-                                                                                                                                                                                                                                                                                                                                                                hi,
-                                                                                                                                                                                                                                                                                                                                                                also
-                                                                                                                                                                                                                                                                                                                                                                filtered
-                                                                                                                                                                                                                                                                                                                                                                42424213**
-                                                                                                                                                                                                                                                                                                                                                                大家好，我也把
-                                                                                                                                                                                                                                                                                                                                                                42424213**
-                                                                                                                                                                                                                                                                                                                                                                过滤了
-                                                                                                                                                                                                                                                                                                                                                                <bur*>
-                                                                                                                                                                                                                                                                                                                                                                    I
-                                                                                                                                                                                                                                                                                                                                                                    guess
-                                                                                                                                                                                                                                                                                                                                                                    they
-                                                                                                                                                                                                                                                                                                                                                                    got
-                                                                                                                                                                                                                                                                                                                                                                    the
-                                                                                                                                                                                                                                                                                                                                                                    message,
-                                                                                                                                                                                                                                                                                                                                                                    seems
-                                                                                                                                                                                                                                                                                                                                                                    we're
-                                                                                                                                                                                                                                                                                                                                                                    back
-                                                                                                                                                                                                                                                                                                                                                                    to
-                                                                                                                                                                                                                                                                                                                                                                    normal
-                                                                                                                                                                                                                                                                                                                                                                    again
-                                                                                                                                                                                                                                                                                                                                                                    and
-                                                                                                                                                                                                                                                                                                                                                                    everyone
-                                                                                                                                                                                                                                                                                                                                                                    I
-                                                                                                                                                                                                                                                                                                                                                                    disabled
-                                                                                                                                                                                                                                                                                                                                                                    is
-                                                                                                                                                                                                                                                                                                                                                                    back
-                                                                                                                                                                                                                                                                                                                                                                    again
-                                                                                                                                                                                                                                                                                                                                                                    我猜他们（指
-                                                                                                                                                                                                                                                                                                                                                                    NIA*）收到消息了，看起来我们再次回复正常了，所有我禁用的人都被重新启用了
-                                                                                                                                                                                                                                                                                                                                                                    <do**>
-                                                                                                                                                                                                                                                                                                                                                                        bur*:
-                                                                                                                                                                                                                                                                                                                                                                        I
-                                                                                                                                                                                                                                                                                                                                                                        think
-                                                                                                                                                                                                                                                                                                                                                                        NIA*
-                                                                                                                                                                                                                                                                                                                                                                        is
-                                                                                                                                                                                                                                                                                                                                                                        asleep,
-                                                                                                                                                                                                                                                                                                                                                                        probably
-                                                                                                                                                                                                                                                                                                                                                                        everyone
-                                                                                                                                                                                                                                                                                                                                                                        filtered
-                                                                                                                                                                                                                                                                                                                                                                        it
-                                                                                                                                                                                                                                                                                                                                                                        bur*：我觉得
-                                                                                                                                                                                                                                                                                                                                                                        NIA*
-                                                                                                                                                                                                                                                                                                                                                                        还在睡觉，也许所有人都过滤了
-                                                                                                                                                                                                                                                                                                                                                                        <do**>
-                                                                                                                                                                                                                                                                                                                                                                            or
-                                                                                                                                                                                                                                                                                                                                                                            disabled
-                                                                                                                                                                                                                                                                                                                                                                            peering
-                                                                                                                                                                                                                                                                                                                                                                            或者禁用了
-                                                                                                                                                                                                                                                                                                                                                                            Peering
-                                                                                                                                                                                                                                                                                                                                                                            <bur*>
-                                                                                                                                                                                                                                                                                                                                                                                do**,
-                                                                                                                                                                                                                                                                                                                                                                                there
-                                                                                                                                                                                                                                                                                                                                                                                is
-                                                                                                                                                                                                                                                                                                                                                                                that,
-                                                                                                                                                                                                                                                                                                                                                                                but
-                                                                                                                                                                                                                                                                                                                                                                                I
-                                                                                                                                                                                                                                                                                                                                                                                also
-                                                                                                                                                                                                                                                                                                                                                                                renabled
-                                                                                                                                                                                                                                                                                                                                                                                NIA*
-                                                                                                                                                                                                                                                                                                                                                                                and
-                                                                                                                                                                                                                                                                                                                                                                                am
-                                                                                                                                                                                                                                                                                                                                                                                not
-                                                                                                                                                                                                                                                                                                                                                                                getting
-                                                                                                                                                                                                                                                                                                                                                                                the
-                                                                                                                                                                                                                                                                                                                                                                                same
-                                                                                                                                                                                                                                                                                                                                                                                errors
-                                                                                                                                                                                                                                                                                                                                                                                now
-                                                                                                                                                                                                                                                                                                                                                                                do**，有可能，但我也重新启用了
-                                                                                                                                                                                                                                                                                                                                                                                NIA*，现在没有看到先前的错误
-                                                                                                                                                                                                                                                                                                                                                                                <do**>
-                                                                                                                                                                                                                                                                                                                                                                                    oh,
-                                                                                                                                                                                                                                                                                                                                                                                    interesting
-                                                                                                                                                                                                                                                                                                                                                                                    哦，有趣
-                                                                                                                                                                                                                                                                                                                                                                                    <bur*>
-                                                                                                                                                                                                                                                                                                                                                                                        I
-                                                                                                                                                                                                                                                                                                                                                                                        might
-                                                                                                                                                                                                                                                                                                                                                                                        regret
-                                                                                                                                                                                                                                                                                                                                                                                        doing
-                                                                                                                                                                                                                                                                                                                                                                                        that
-                                                                                                                                                                                                                                                                                                                                                                                        by
-                                                                                                                                                                                                                                                                                                                                                                                        morning,
-                                                                                                                                                                                                                                                                                                                                                                                        but
-                                                                                                                                                                                                                                                                                                                                                                                        hey.
-                                                                                                                                                                                                                                                                                                                                                                                        I
-                                                                                                                                                                                                                                                                                                                                                                                        do
-                                                                                                                                                                                                                                                                                                                                                                                        try
-                                                                                                                                                                                                                                                                                                                                                                                        and
-                                                                                                                                                                                                                                                                                                                                                                                        keep
-                                                                                                                                                                                                                                                                                                                                                                                        everything
-                                                                                                                                                                                                                                                                                                                                                                                        open
-                                                                                                                                                                                                                                                                                                                                                                                        as
-                                                                                                                                                                                                                                                                                                                                                                                        best
-                                                                                                                                                                                                                                                                                                                                                                                        as
-                                                                                                                                                                                                                                                                                                                                                                                        possible.
-                                                                                                                                                                                                                                                                                                                                                                                        到了早上我有可能会后悔（指
-                                                                                                                                                                                                                                                                                                                                                                                        NIA*
-                                                                                                                                                                                                                                                                                                                                                                                        的问题在
-                                                                                                                                                                                                                                                                                                                                                                                        bur*
-                                                                                                                                                                                                                                                                                                                                                                                        睡觉时再次出现），但我尝试尽量公开/开放所有东西。
-                                                                                                                                                                                                                                                                                                                                                                                        <do**>
-                                                                                                                                                                                                                                                                                                                                                                                            bur*:
-                                                                                                                                                                                                                                                                                                                                                                                            last
-                                                                                                                                                                                                                                                                                                                                                                                            time
-                                                                                                                                                                                                                                                                                                                                                                                            when
-                                                                                                                                                                                                                                                                                                                                                                                            NIA*
-                                                                                                                                                                                                                                                                                                                                                                                            did
-                                                                                                                                                                                                                                                                                                                                                                                            that
-                                                                                                                                                                                                                                                                                                                                                                                            I
-                                                                                                                                                                                                                                                                                                                                                                                            waited
-                                                                                                                                                                                                                                                                                                                                                                                            for
-                                                                                                                                                                                                                                                                                                                                                                                            their
-                                                                                                                                                                                                                                                                                                                                                                                            response
-                                                                                                                                                                                                                                                                                                                                                                                            bur*：上次
-                                                                                                                                                                                                                                                                                                                                                                                            NIA*
-                                                                                                                                                                                                                                                                                                                                                                                            搞出这种事情的时候，我等他们的回复（后才采取行动）
-                                                                                                                                                                                                                                                                                                                                                                                            <Kio*>
-                                                                                                                                                                                                                                                                                                                                                                                                Nope
-                                                                                                                                                                                                                                                                                                                                                                                                nia*
-                                                                                                                                                                                                                                                                                                                                                                                                just
-                                                                                                                                                                                                                                                                                                                                                                                                messaged
-                                                                                                                                                                                                                                                                                                                                                                                                in
-                                                                                                                                                                                                                                                                                                                                                                                                Telegram
-                                                                                                                                                                                                                                                                                                                                                                                                about
-                                                                                                                                                                                                                                                                                                                                                                                                it
-                                                                                                                                                                                                                                                                                                                                                                                                不，NIA*
-                                                                                                                                                                                                                                                                                                                                                                                                刚在
-                                                                                                                                                                                                                                                                                                                                                                                                Telegram
-                                                                                                                                                                                                                                                                                                                                                                                                上发了消息
-                                                                                                                                                                                                                                                                                                                                                                                                <do**>
-                                                                                                                                                                                                                                                                                                                                                                                                    ah
-                                                                                                                                                                                                                                                                                                                                                                                                    啊
-                                                                                                                                                                                                                                                                                                                                                                                                    <bur*>
-                                                                                                                                                                                                                                                                                                                                                                                                        my
-                                                                                                                                                                                                                                                                                                                                                                                                        peering
-                                                                                                                                                                                                                                                                                                                                                                                                        hasn't
-                                                                                                                                                                                                                                                                                                                                                                                                        re-established,
-                                                                                                                                                                                                                                                                                                                                                                                                        so
-                                                                                                                                                                                                                                                                                                                                                                                                        I
-                                                                                                                                                                                                                                                                                                                                                                                                        guess
-                                                                                                                                                                                                                                                                                                                                                                                                        they
-                                                                                                                                                                                                                                                                                                                                                                                                        hit
-                                                                                                                                                                                                                                                                                                                                                                                                        the
-                                                                                                                                                                                                                                                                                                                                                                                                        big
-                                                                                                                                                                                                                                                                                                                                                                                                        red
-                                                                                                                                                                                                                                                                                                                                                                                                        shutdown
-                                                                                                                                                                                                                                                                                                                                                                                                        button
-                                                                                                                                                                                                                                                                                                                                                                                                        我（和
-                                                                                                                                                                                                                                                                                                                                                                                                        NIA*）的
-                                                                                                                                                                                                                                                                                                                                                                                                        Peering
-                                                                                                                                                                                                                                                                                                                                                                                                        还没有重新建立，我猜他们按下了那个巨大的、红色的关闭按钮
-                                                                                                                                                                                                                                                                                                                                                                                                        <Kio*>
-                                                                                                                                                                                                                                                                                                                                                                                                            He
-                                                                                                                                                                                                                                                                                                                                                                                                            tried
-                                                                                                                                                                                                                                                                                                                                                                                                            to
-                                                                                                                                                                                                                                                                                                                                                                                                            migrate
-                                                                                                                                                                                                                                                                                                                                                                                                            his
-                                                                                                                                                                                                                                                                                                                                                                                                            network
-                                                                                                                                                                                                                                                                                                                                                                                                            to
-                                                                                                                                                                                                                                                                                                                                                                                                            a
-                                                                                                                                                                                                                                                                                                                                                                                                            full
-                                                                                                                                                                                                                                                                                                                                                                                                            mesh
-                                                                                                                                                                                                                                                                                                                                                                                                            他尝试把网络迁移到
-                                                                                                                                                                                                                                                                                                                                                                                                            Full
-                                                                                                                                                                                                                                                                                                                                                                                                            mesh
-                                                                                                                                                                                                                                                                                                                                                                                                            <Kio*>
-                                                                                                                                                                                                                                                                                                                                                                                                                and
-                                                                                                                                                                                                                                                                                                                                                                                                                is
-                                                                                                                                                                                                                                                                                                                                                                                                                now
-                                                                                                                                                                                                                                                                                                                                                                                                                "pulling
-                                                                                                                                                                                                                                                                                                                                                                                                                all
-                                                                                                                                                                                                                                                                                                                                                                                                                the
-                                                                                                                                                                                                                                                                                                                                                                                                                wires"
-                                                                                                                                                                                                                                                                                                                                                                                                                现在正在“全部拔线”
-                                                                                                                                                                                                                                                                                                                                                                                                                <do**>
-                                                                                                                                                                                                                                                                                                                                                                                                                    Kio*:
-                                                                                                                                                                                                                                                                                                                                                                                                                    did
-                                                                                                                                                                                                                                                                                                                                                                                                                    you
-                                                                                                                                                                                                                                                                                                                                                                                                                    message
-                                                                                                                                                                                                                                                                                                                                                                                                                    him
-                                                                                                                                                                                                                                                                                                                                                                                                                    directly
-                                                                                                                                                                                                                                                                                                                                                                                                                    or
-                                                                                                                                                                                                                                                                                                                                                                                                                    was
-                                                                                                                                                                                                                                                                                                                                                                                                                    that
-                                                                                                                                                                                                                                                                                                                                                                                                                    on
-                                                                                                                                                                                                                                                                                                                                                                                                                    any
-                                                                                                                                                                                                                                                                                                                                                                                                                    of
-                                                                                                                                                                                                                                                                                                                                                                                                                    the
-                                                                                                                                                                                                                                                                                                                                                                                                                    groups?
-                                                                                                                                                                                                                                                                                                                                                                                                                    Kio*：你给他直接发了消息吗，还是在哪个群里？
-                                                                                                                                                                                                                                                                                                                                                                                                                    <Kio*>
-                                                                                                                                                                                                                                                                                                                                                                                                                        on
-                                                                                                                                                                                                                                                                                                                                                                                                                        the
-                                                                                                                                                                                                                                                                                                                                                                                                                        telegram
-                                                                                                                                                                                                                                                                                                                                                                                                                        group
-                                                                                                                                                                                                                                                                                                                                                                                                                        在
-                                                                                                                                                                                                                                                                                                                                                                                                                        Telegram
-                                                                                                                                                                                                                                                                                                                                                                                                                        群里
-                                                                                                                                                                                                                                                                                                                                                                                                                        <do**>
-                                                                                                                                                                                                                                                                                                                                                                                                                            bur*:
-                                                                                                                                                                                                                                                                                                                                                                                                                            you
-                                                                                                                                                                                                                                                                                                                                                                                                                            didn't
-                                                                                                                                                                                                                                                                                                                                                                                                                            get
-                                                                                                                                                                                                                                                                                                                                                                                                                            that
-                                                                                                                                                                                                                                                                                                                                                                                                                            many
-                                                                                                                                                                                                                                                                                                                                                                                                                            bgp
-                                                                                                                                                                                                                                                                                                                                                                                                                            updates
-                                                                                                                                                                                                                                                                                                                                                                                                                            from
-                                                                                                                                                                                                                                                                                                                                                                                                                            me?
-                                                                                                                                                                                                                                                                                                                                                                                                                            bur*：你没有从我这里收到那么多
-                                                                                                                                                                                                                                                                                                                                                                                                                            BGP
-                                                                                                                                                                                                                                                                                                                                                                                                                            更新？
-                                                                                                                                                                                                                                                                                                                                                                                                                            <sun*>
-                                                                                                                                                                                                                                                                                                                                                                                                                                NIA*
-                                                                                                                                                                                                                                                                                                                                                                                                                                woke
-                                                                                                                                                                                                                                                                                                                                                                                                                                up
-                                                                                                                                                                                                                                                                                                                                                                                                                                :)
-                                                                                                                                                                                                                                                                                                                                                                                                                                NIA*
-                                                                                                                                                                                                                                                                                                                                                                                                                                醒了
-                                                                                                                                                                                                                                                                                                                                                                                                                                :)
-                                                                                                                                                                                                                                                                                                                                                                                                                                <bur*>
-                                                                                                                                                                                                                                                                                                                                                                                                                                    do**,
-                                                                                                                                                                                                                                                                                                                                                                                                                                    you
-                                                                                                                                                                                                                                                                                                                                                                                                                                    went
-                                                                                                                                                                                                                                                                                                                                                                                                                                    from
-                                                                                                                                                                                                                                                                                                                                                                                                                                    an
-                                                                                                                                                                                                                                                                                                                                                                                                                                    average
-                                                                                                                                                                                                                                                                                                                                                                                                                                    of
-                                                                                                                                                                                                                                                                                                                                                                                                                                    ~3kbs
-                                                                                                                                                                                                                                                                                                                                                                                                                                    to
-                                                                                                                                                                                                                                                                                                                                                                                                                                    ~10kbs+,
-                                                                                                                                                                                                                                                                                                                                                                                                                                    peaking
-                                                                                                                                                                                                                                                                                                                                                                                                                                    at
-                                                                                                                                                                                                                                                                                                                                                                                                                                    50kbs.
-                                                                                                                                                                                                                                                                                                                                                                                                                                    In
-                                                                                                                                                                                                                                                                                                                                                                                                                                    the
-                                                                                                                                                                                                                                                                                                                                                                                                                                    grand
-                                                                                                                                                                                                                                                                                                                                                                                                                                    scheme
-                                                                                                                                                                                                                                                                                                                                                                                                                                    of
-                                                                                                                                                                                                                                                                                                                                                                                                                                    things
-                                                                                                                                                                                                                                                                                                                                                                                                                                    that
-                                                                                                                                                                                                                                                                                                                                                                                                                                    was
-                                                                                                                                                                                                                                                                                                                                                                                                                                    lost
-                                                                                                                                                                                                                                                                                                                                                                                                                                    in
-                                                                                                                                                                                                                                                                                                                                                                                                                                    the
-                                                                                                                                                                                                                                                                                                                                                                                                                                    noise
-                                                                                                                                                                                                                                                                                                                                                                                                                                    do**，你从平均
-                                                                                                                                                                                                                                                                                                                                                                                                                                    3
-                                                                                                                                                                                                                                                                                                                                                                                                                                    KB/s
-                                                                                                                                                                                                                                                                                                                                                                                                                                    到十几
-                                                                                                                                                                                                                                                                                                                                                                                                                                    KB/s，峰值
-                                                                                                                                                                                                                                                                                                                                                                                                                                    50
-                                                                                                                                                                                                                                                                                                                                                                                                                                    KB/s。在如此巨大的量级中这点小问题被淹没了
-                                                                                                                                                                                                                                                                                                                                                                                                                                    <do**>
-                                                                                                                                                                                                                                                                                                                                                                                                                                        interesting
-                                                                                                                                                                                                                                                                                                                                                                                                                                        有趣
-                                                                                                                                                                                                                                                                                                                                                                                                                                        <do**>
-                                                                                                                                                                                                                                                                                                                                                                                                                                            I
-                                                                                                                                                                                                                                                                                                                                                                                                                                            also
-                                                                                                                                                                                                                                                                                                                                                                                                                                            peer
-                                                                                                                                                                                                                                                                                                                                                                                                                                            directly
-                                                                                                                                                                                                                                                                                                                                                                                                                                            with
-                                                                                                                                                                                                                                                                                                                                                                                                                                            NIA*
-                                                                                                                                                                                                                                                                                                                                                                                                                                            我也和
-                                                                                                                                                                                                                                                                                                                                                                                                                                            NIA*
-                                                                                                                                                                                                                                                                                                                                                                                                                                            直接
-                                                                                                                                                                                                                                                                                                                                                                                                                                            Peer
-                                                                                                                                                                                                                                                                                                                                                                                                                                            了
-                                                                                                                                                                                                                                                                                                                                                                                                                                            <bur*>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                do**,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                yes,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                interesting.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                Is
-                                                                                                                                                                                                                                                                                                                                                                                                                                                the
-                                                                                                                                                                                                                                                                                                                                                                                                                                                link
-                                                                                                                                                                                                                                                                                                                                                                                                                                                restricted
-                                                                                                                                                                                                                                                                                                                                                                                                                                                in
-                                                                                                                                                                                                                                                                                                                                                                                                                                                bandwidth
-                                                                                                                                                                                                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                                                                                                                                                                                                do**，是的，有趣。（你和他的）链路有带宽限制吗？
-                                                                                                                                                                                                                                                                                                                                                                                                                                                <do**>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    not
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    at
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    all
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    完全没有</do**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                ></bur*
-                                                                                                                                                                                                                                                                                                                                                                                                                                            ></do**
-                                                                                                                                                                                                                                                                                                                                                                                                                                        ></do**
-                                                                                                                                                                                                                                                                                                                                                                                                                                    ></bur*
-                                                                                                                                                                                                                                                                                                                                                                                                                                ></sun*
-                                                                                                                                                                                                                                                                                                                                                                                                                            ></do**
-                                                                                                                                                                                                                                                                                                                                                                                                                        ></Kio*
-                                                                                                                                                                                                                                                                                                                                                                                                                    ></do**
-                                                                                                                                                                                                                                                                                                                                                                                                                ></Kio*
-                                                                                                                                                                                                                                                                                                                                                                                                            ></Kio*
-                                                                                                                                                                                                                                                                                                                                                                                                        ></bur*
-                                                                                                                                                                                                                                                                                                                                                                                                    ></do**
-                                                                                                                                                                                                                                                                                                                                                                                                ></Kio*
-                                                                                                                                                                                                                                                                                                                                                                                            ></do**
-                                                                                                                                                                                                                                                                                                                                                                                        ></bur*
-                                                                                                                                                                                                                                                                                                                                                                                    ></do**
-                                                                                                                                                                                                                                                                                                                                                                                ></bur*
-                                                                                                                                                                                                                                                                                                                                                                            ></do**
-                                                                                                                                                                                                                                                                                                                                                                        ></do**
-                                                                                                                                                                                                                                                                                                                                                                    ></bur*
-                                                                                                                                                                                                                                                                                                                                                                ></tm**
-                                                                                                                                                                                                                                                                                                                                                            ></do**
-                                                                                                                                                                                                                                                                                                                                                        ></bur*
-                                                                                                                                                                                                                                                                                                                                                    ></sun*
-                                                                                                                                                                                                                                                                                                                                                ></bur*
-                                                                                                                                                                                                                                                                                                                                            ></bur*
-                                                                                                                                                                                                                                                                                                                                        ></sun*
-                                                                                                                                                                                                                                                                                                                                    ></bur*
-                                                                                                                                                                                                                                                                                                                                ></Nap*
-                                                                                                                                                                                                                                                                                                                            ></bur*
-                                                                                                                                                                                                                                                                                                                        ></stv*
-                                                                                                                                                                                                                                                                                                                    ></An**
-                                                                                                                                                                                                                                                                                                                ></bur*
-                                                                                                                                                                                                                                                                                                            ></bur*
-                                                                                                                                                                                                                                                                                                        ></sun*
-                                                                                                                                                                                                                                                                                                    ></Kio*
-                                                                                                                                                                                                                                                                                                ></Nap*
-                                                                                                                                                                                                                                                                                            ></do**
-                                                                                                                                                                                                                                                                                        ></jrb*
-                                                                                                                                                                                                                                                                                    ></do**
-                                                                                                                                                                                                                                                                                ></bur*
-                                                                                                                                                                                                                                                                            ></sun*
-                                                                                                                                                                                                                                                                        ></bur*
-                                                                                                                                                                                                                                                                    ></bur*
-                                                                                                                                                                                                                                                                ></Kio*
-                                                                                                                                                                                                                                                            ></jrb*
-                                                                                                                                                                                                                                                        ></sun*
-                                                                                                                                                                                                                                                    ></bur*
-                                                                                                                                                                                                                                                ></sun*
-                                                                                                                                                                                                                                            ></do**
-                                                                                                                                                                                                                                        ></do**
-                                                                                                                                                                                                                                    ></bur*
-                                                                                                                                                                                                                                ></do**
-                                                                                                                                                                                                                            ></do**
-                                                                                                                                                                                                                        ></sun*
-                                                                                                                                                                                                                    ></Kio*
-                                                                                                                                                                                                                ></bur*
-                                                                                                                                                                                                            ></Nap*
-                                                                                                                                                                                                        ></bur*
-                                                                                                                                                                                                    ></sun*
-                                                                                                                                                                                                ></bur*
-                                                                                                                                                                                            ></sun*
-                                                                                                                                                                                        ></sun*
+                                                                                                                                                                                                                          not
+                                                                                                                                                                                                                          at
+                                                                                                                                                                                                                          all
+                                                                                                                                                                                                                          完全没有</do**
+                                                                                                                                                                                                                        ></bur*
+                                                                                                                                                                                                                      ></do**
+                                                                                                                                                                                                                    ></do**
+                                                                                                                                                                                                                  ></bur*
+                                                                                                                                                                                                                ></sun*
+                                                                                                                                                                                                              ></do**
+                                                                                                                                                                                                            ></Kio*
+                                                                                                                                                                                                          ></do**
+                                                                                                                                                                                                        ></Kio*
+                                                                                                                                                                                                      ></Kio*
+                                                                                                                                                                                                    ></bur*
+                                                                                                                                                                                                  ></do**
+                                                                                                                                                                                                ></Kio*
+                                                                                                                                                                                              ></do**
+                                                                                                                                                                                            ></bur*
+                                                                                                                                                                                          ></do**
+                                                                                                                                                                                        ></bur*
+                                                                                                                                                                                      ></do**
                                                                                                                                                                                     ></do**
-                                                                                                                                                                                ></jrb*
+                                                                                                                                                                                  ></bur*
+                                                                                                                                                                                ></tm**
+                                                                                                                                                                              ></do**
                                                                                                                                                                             ></bur*
+                                                                                                                                                                          ></sun*
                                                                                                                                                                         ></bur*
-                                                                                                                                                                    ></Kio*
+                                                                                                                                                                      ></bur*
+                                                                                                                                                                    ></sun*
+                                                                                                                                                                  ></bur*
                                                                                                                                                                 ></Nap*
-                                                                                                                                                            ></jrb*
+                                                                                                                                                              ></bur*
+                                                                                                                                                            ></stv*
+                                                                                                                                                          ></An**
                                                                                                                                                         ></bur*
-                                                                                                                                                    ></Kio*
-                                                                                                                                                ></jrb*
-                                                                                                                                            ></Kio*
-                                                                                                                                        ></do**
-                                                                                                                                    ></bau*
-                                                                                                                                ></Nap*
-                                                                                                                            ></bur*
-                                                                                                                        ></bur*
-                                                                                                                    ></Kio*
-                                                                                                                ></bur*
-                                                                                                            ></bur*
-                                                                                                        ></sun*
+                                                                                                                                                      ></bur*
+                                                                                                                                                    ></sun*
+                                                                                                                                                  ></Kio*
+                                                                                                                                                ></Nap*
+                                                                                                                                              ></do**
+                                                                                                                                            ></jrb*
+                                                                                                                                          ></do**
+                                                                                                                                        ></bur*
+                                                                                                                                      ></sun*
+                                                                                                                                    ></bur*
+                                                                                                                                  ></bur*
+                                                                                                                                ></Kio*
+                                                                                                                              ></jrb*
+                                                                                                                            ></sun*
+                                                                                                                          ></bur*
+                                                                                                                        ></sun*
+                                                                                                                      ></do**
+                                                                                                                    ></do**
+                                                                                                                  ></bur*
+                                                                                                                ></do**
+                                                                                                              ></do**
+                                                                                                            ></sun*
+                                                                                                          ></Kio*
+                                                                                                        ></bur*
+                                                                                                      ></Nap*
                                                                                                     ></bur*
-                                                                                                ></do**
+                                                                                                  ></sun*
+                                                                                                ></bur*
+                                                                                              ></sun*
                                                                                             ></sun*
-                                                                                        ></bur*
+                                                                                          ></do**
+                                                                                        ></jrb*
+                                                                                      ></bur*
                                                                                     ></bur*
-                                                                                ></sun*
+                                                                                  ></Kio*
+                                                                                ></Nap*
+                                                                              ></jrb*
                                                                             ></bur*
-                                                                        ></bur*
-                                                                    ></stv*
-                                                                ></stv*
+                                                                          ></Kio*
+                                                                        ></jrb*
+                                                                      ></Kio*
+                                                                    ></do**
+                                                                  ></bau*
+                                                                ></Nap*
+                                                              ></bur*
                                                             ></bur*
-                                                        ></stv*
-                                                    ></bur*
-                                                ></Kio*
+                                                          ></Kio*
+                                                        ></bur*
+                                                      ></bur*
+                                                    ></sun*
+                                                  ></bur*
+                                                ></do**
+                                              ></sun*
                                             ></bur*
-                                        ></Kio*
-                                    ></fox*
-                                ></bur*
-                            ></bur*
-                        ></bur*
-                    ></fox*
-                ></fox*
-            ></Kio*
-        ></bur*
+                                          ></bur*
+                                        ></sun*
+                                      ></bur*
+                                    ></bur*
+                                  ></stv*
+                                ></stv*
+                              ></bur*
+                            ></stv*
+                          ></bur*
+                        ></Kio*
+                      ></bur*
+                    ></Kio*
+                  ></fox*
+                ></bur*
+              ></bur*
+            ></bur*
+          ></fox*
+        ></fox*
+      ></Kio*
     ></bur*
+  ></bur*
 >
 ```
 
 ## 如何防御
 
--   最理想的方案是 Route Dampening，也就是限制一段时间能收到的路由更新数量。
-    -   但是 Bird 不支持这个，没救了，等死吧，告辞.heic
--   次优的方法是使用 Prometheus、Grafana 等工具对各个节点进行监控，在流量异常时
-    收到提醒，上去手动处理。
-    -   显而易见的是，如果你当时不在线，当你看到提醒时有可能已经几 G 的流量没
-        了。
--   再次优的方法是对 Peering 的端口进行限速。
-    -   由于 DN42 内目前几乎没有大流量应用，这种方法的确能保证安全。
-    -   缺点显而易见：性能下降。
--   土豪的方法是买无限流量的服务器。
+- 最理想的方案是 Route Dampening，也就是限制一段时间能收到的路由更新数量。
+  - 但是 Bird 不支持这个，没救了，等死吧，告辞.heic
+- 次优的方法是使用 Prometheus、Grafana 等工具对各个节点进行监控，在流量异常时收
+  到提醒，上去手动处理。
+  - 显而易见的是，如果你当时不在线，当你看到提醒时有可能已经几 G 的流量没了。
+- 再次优的方法是对 Peering 的端口进行限速。
+  - 由于 DN42 内目前几乎没有大流量应用，这种方法的确能保证安全。
+  - 缺点显而易见：性能下降。
+- 土豪的方法是买无限流量的服务器。
 
 # 这段地址到底多长
 
@@ -1452,9 +1302,9 @@ export filter {
 
 ## 正确的操作
 
--   用户在注册地址块时应该检查子网掩码的大小和地址块的有效性。
--   DN42 Registry 的检查程序，或者操作合并的管理员，应该发现这个错误。
--   ROA 生成器应该跳过这条有问题的记录，正常处理剩下的数据，而非报错退出。
+- 用户在注册地址块时应该检查子网掩码的大小和地址块的有效性。
+- DN42 Registry 的检查程序，或者操作合并的管理员，应该发现这个错误。
+- ROA 生成器应该跳过这条有问题的记录，正常处理剩下的数据，而非报错退出。
 
 万幸的是这个问题对整个 DN42 网络影响不大，只是 ROA 更新延迟了几小时而已。
 
@@ -1475,11 +1325,11 @@ export filter {
 因为我同时接了 DN42 和 NeoNetwork，还有一段自己的内网，所以为了防止把内网路由发
 到 DN42 和 NeoNetwork，我采取了以下方法：
 
--   把所有来自 Kernel 协议（从内核获取路由）和 Direct 协议（获取系统网络界面（网
-    卡）所在的网段）的路由打上一个 Community。
--   在 DN42 和 NeoNetwork 的 Peering 中把它们过滤掉。
--   这样我的内网 IP 就不会被广播出去，但因为 DN42 和 NeoNetwork 的路由被配置在
-    Static Protocol 中，所以不受影响。
+- 把所有来自 Kernel 协议（从内核获取路由）和 Direct 协议（获取系统网络界面（网
+  卡）所在的网段）的路由打上一个 Community。
+- 在 DN42 和 NeoNetwork 的 Peering 中把它们过滤掉。
+- 这样我的内网 IP 就不会被广播出去，但因为 DN42 和 NeoNetwork 的路由被配置在
+  Static Protocol 中，所以不受影响。
 
 配置完后一切看起来都很正常，直到几天后群友发现我的 Telegram Bot（就是我的
 Looking Glass）Ping 不通任何 DN42 内的 IP。
@@ -1512,231 +1362,138 @@ Community，就不再被广播了。并且 Static 如其名是“静态”协议
 
 这是 DN42 发生的变化：
 
--   Telegram 群：
+- Telegram 群：
 
-    ![Telegram 群友的反应](../../../../usr/uploads/202008/dn42-asn-error-response.png)
+  ![Telegram 群友的反应](../../../../usr/uploads/202008/dn42-asn-error-response.png)
 
--   蒂 花 之 秀：
+- 蒂 花 之 秀：
 
-    ![Telegram 群友的反应 2](../../../../usr/uploads/202008/dn42-asn-error-response-2.png)
+  ![Telegram 群友的反应 2](../../../../usr/uploads/202008/dn42-asn-error-response-2.png)
 
--   IRC：
+- IRC：
 
-    ```html
+  ```html
+  <lantian>
+    Someone successfully registered in DN42 with ASN 424242236 (9 digits)
+    有人成功在 DN42 上注册了 ASN 424242236（9 位数）
     <lantian>
-        Someone successfully registered in DN42 with ASN 424242236 (9 digits)
-        有人成功在 DN42 上注册了 ASN 424242236（9 位数）
-        <lantian>
-            Is this expected? 这是正常的吗？
+      Is this expected? 这是正常的吗？
+      <xu**>
+        doh 噢
+        <xu**>
+          shouldt have happened 不应该发生
+          <xu**>
+            probably forgot the extra 2 或许忘了个 2
             <xu**>
-                doh 噢
-                <xu**>
-                    shouldt have happened 不应该发生
-                    <xu**>
-                        probably forgot the extra 2 或许忘了个 2
-                        <xu**>
-                            424242 2236 424242 2236
-                            <Kai*>
-                                too late tho. it already has one peer with tech9
-                                太晚了，已经和 Tech9 Peer 上了
-                                <dne*>
-                                    filtering fail! 过滤器挂了！
-                                    <xu**>
-                                        pomoke? （用户名）
-                                        <lantian>
-                                            yep, doesn't seem to be on irc
-                                            though 对，但看起来不在 IRC 上
-                                            <lantian>
-                                                nor on telegram 也不在 Telegram
-                                                上 <0x7*> so how a 9-digit ASN
-                                                passed the schema checker...?
-                                                所以 9 位数 ASN
-                                                怎么过的检查程序……？
+              424242 2236 424242 2236
+              <Kai*>
+                too late tho. it already has one peer with tech9 太晚了，已经和
+                Tech9 Peer 上了
+                <dne*>
+                  filtering fail! 过滤器挂了！
+                  <xu**>
+                    pomoke? （用户名）
+                    <lantian>
+                      yep, doesn't seem to be on irc though 对，但看起来不在 IRC
+                      上
+                      <lantian>
+                        nor on telegram 也不在 Telegram 上 <0x7*> so how a
+                        9-digit ASN passed the schema checker...? 所以 9 位数
+                        ASN 怎么过的检查程序……？
+                        <lantian>
+                          I don't think schema checker checks ASN, or it will
+                          block out clearnet ASNs 我不觉得检查程序会检查
+                          ASN，否则会阻挡掉公网 ASN
+                          <lantian>
+                            But maybe we need a warning? 但也许需要加个警告？
+                            <xu**>
+                              probably a bug in the policy checker
+                              也许是检查程序的一个 Bug
+                              <xu**>
+                                i wish we had gone with a prefix that had a
+                                visual space 我希望我们的 ASN
+                                前缀有个看起来明显的分隔
+                                <xu**>
+                                  like AS424200xxxx 例如 AS424200xxxx
+                                  <lantian>
+                                    Well pomoke tried to peer with me via email
+                                    (but ended in spam folder) 总之 Pomoke
+                                    尝试发邮件找我 Peer（但进了垃圾箱）
+                                    <lantian>
+                                      I'm going to tell him/her to correct the
+                                      ASN 我准备告诉他/她改正自己的 ASN
+                                      <Kai*>
+                                        9 is a good number tho 不管怎么说 9
+                                        是个好数字
+                                        <Kai*>
+                                          once in a blue moon that bur* made
+                                          mistake bur*
+                                          犯错，蓝月将至（英语成语，即千载难逢）
+                                          <sun*>
+                                            westerners love digital 9
+                                            西方人喜欢数字 9
+                                            <bur*>
+                                              crap 草
+                                              <bur*>
+                                                lantian, are you in contact with
+                                                pomoke? if they can submit a fix
+                                                quickly then I'll merge it.
+                                                Otherwise I'll need to pull the
+                                                commit Lan Tian，你能联系上
+                                                Pomoke
+                                                吗？如果他们可以迅速提交修正信息我就马上把它合并了。
+                                                否则我就得撤销变更了
                                                 <lantian>
-                                                    I don't think schema checker
-                                                    checks ASN, or it will block
-                                                    out clearnet ASNs
-                                                    我不觉得检查程序会检查
-                                                    ASN，否则会阻挡掉公网 ASN
-                                                    <lantian>
-                                                        But maybe we need a
-                                                        warning?
-                                                        但也许需要加个警告？
-                                                        <xu**>
-                                                            probably a bug in
-                                                            the policy checker
-                                                            也许是检查程序的一个
-                                                            Bug
-                                                            <xu**>
-                                                                i wish we had
-                                                                gone with a
-                                                                prefix that had
-                                                                a visual space
-                                                                我希望我们的 ASN
-                                                                前缀有个看起来明显的分隔
-                                                                <xu**>
-                                                                    like
-                                                                    AS424200xxxx
-                                                                    例如
-                                                                    AS424200xxxx
-                                                                    <lantian>
-                                                                        Well
-                                                                        pomoke
-                                                                        tried to
-                                                                        peer
-                                                                        with me
-                                                                        via
-                                                                        email
-                                                                        (but
-                                                                        ended in
-                                                                        spam
-                                                                        folder)
-                                                                        总之
-                                                                        Pomoke
-                                                                        尝试发邮件找我
-                                                                        Peer（但进了垃圾箱）
-                                                                        <lantian>
-                                                                            I'm
-                                                                            going
-                                                                            to
-                                                                            tell
-                                                                            him/her
-                                                                            to
-                                                                            correct
-                                                                            the
-                                                                            ASN
-                                                                            我准备告诉他/她改正自己的
-                                                                            ASN
-                                                                            <Kai*>
-                                                                                9
-                                                                                is
-                                                                                a
-                                                                                good
-                                                                                number
-                                                                                tho
-                                                                                不管怎么说
-                                                                                9
-                                                                                是个好数字
-                                                                                <Kai*>
-                                                                                    once
-                                                                                    in
-                                                                                    a
-                                                                                    blue
-                                                                                    moon
-                                                                                    that
-                                                                                    bur*
-                                                                                    made
-                                                                                    mistake
-                                                                                    bur*
-                                                                                    犯错，蓝月将至（英语成语，即千载难逢）
-                                                                                    <sun*>
-                                                                                        westerners
-                                                                                        love
-                                                                                        digital
-                                                                                        9
-                                                                                        西方人喜欢数字
-                                                                                        9
-                                                                                        <bur*>
-                                                                                            crap
-                                                                                            草
-                                                                                            <bur*>
-                                                                                                lantian,
-                                                                                                are
-                                                                                                you
-                                                                                                in
-                                                                                                contact
-                                                                                                with
-                                                                                                pomoke?
-                                                                                                if
-                                                                                                they
-                                                                                                can
-                                                                                                submit
-                                                                                                a
-                                                                                                fix
-                                                                                                quickly
-                                                                                                then
-                                                                                                I'll
-                                                                                                merge
-                                                                                                it.
-                                                                                                Otherwise
-                                                                                                I'll
-                                                                                                need
-                                                                                                to
-                                                                                                pull
-                                                                                                the
-                                                                                                commit
-                                                                                                Lan
-                                                                                                Tian，你能联系上
-                                                                                                Pomoke
-                                                                                                吗？如果他们可以迅速提交修正信息我就马上把它合并了。
-                                                                                                否则我就得撤销变更了
-                                                                                                <lantian>
-                                                                                                    bur*:
-                                                                                                    I
-                                                                                                    sent
-                                                                                                    him/her
-                                                                                                    an
-                                                                                                    email,
-                                                                                                    not
-                                                                                                    sure
-                                                                                                    about
-                                                                                                    response
-                                                                                                    time
-                                                                                                    bur*，我给他/她发了封邮件，不知什么时候会回
-                                                                                                    <bur*>
-                                                                                                        umm,
-                                                                                                        I'm
-                                                                                                        going
-                                                                                                        to
-                                                                                                        have
-                                                                                                        to
-                                                                                                        pull
-                                                                                                        it
-                                                                                                        then
-                                                                                                        唔姆，那我就不得不撤销了</bur*
-                                                                                                    ></lantian
-                                                                                                ></bur*
-                                                                                            ></bur*
-                                                                                        ></sun*
-                                                                                    ></Kai*
-                                                                                ></Kai*
-                                                                            ></lantian
-                                                                        ></lantian
-                                                                    ></xu**
-                                                                ></xu**
-                                                            ></xu**
-                                                        ></lantian
-                                                    ></lantian
-                                                ></lantian
-                                            ></lantian
-                                        ></xu**
-                                    ></dne*
-                                ></Kai*
-                            ></xu**
-                        ></xu**
+                                                  bur*: I sent him/her an email,
+                                                  not sure about response time
+                                                  bur*，我给他/她发了封邮件，不知什么时候会回
+                                                  <bur*>
+                                                    umm, I'm going to have to
+                                                    pull it then
+                                                    唔姆，那我就不得不撤销了</bur*
+                                                  ></lantian
+                                                ></bur*
+                                              ></bur*
+                                            ></sun*
+                                          ></Kai*
+                                        ></Kai*
+                                      ></lantian
+                                    ></lantian
+                                  ></xu**
+                                ></xu**
+                              ></xu**
+                            ></lantian
+                          ></lantian
+                        ></lantian
+                      ></lantian
                     ></xu**
-                ></xu**
-            ></lantian
-        ></lantian
-    >
-    ```
+                  ></dne*
+                ></Kai*
+              ></xu**
+            ></xu**
+          ></xu**
+        ></xu**
+      ></lantian
+    ></lantian
+  >
+  ```
 
--   裁决之镰：
+- 裁决之镰：
 
-    ![错误被撤销](../../../../usr/uploads/202008/dn42-asn-error-correction.png)
+  ![错误被撤销](../../../../usr/uploads/202008/dn42-asn-error-correction.png)
 
 ## 如何防御
 
--   看戏就完事了，这种事情太少见了：
+- 看戏就完事了，这种事情太少见了：
 
-    ```html
-    <Kai*> once in a blue moon that bur* made mistake bur* 犯错，蓝月将至</Kai*>
-    ```
+  ```html
+  <Kai*> once in a blue moon that bur* made mistake bur* 犯错，蓝月将至</Kai*>
+  ```
 
--   当然看戏归看戏，还是要上 IRC 说一句出问题了。
--   在和别人 Peer 的时候，多检查一遍对方的信息。
--   以及没事可以翻翻 [DN42 New ASN](https://t.me/DN42new) 这个自动推送新 ASN 的
-    Telegram 频道。
+- 当然看戏归看戏，还是要上 IRC 说一句出问题了。
+- 在和别人 Peer 的时候，多检查一遍对方的信息。
+- 以及没事可以翻翻 [DN42 New ASN](https://t.me/DN42new) 这个自动推送新 ASN 的
+  Telegram 频道。
 
 # 小心 BGP Local Pref
 

@@ -24,18 +24,18 @@ image: /usr/uploads/2016/06/1359531479.png
 是`http://himawari8-dl.nict.go.jp/himawari8/img/D531106/2d/550/2016/06/14/140000_0_1.png`。
 地址中有以下几个重要的参数：
 
--   2d
-    -   代表图像清晰度，2d就是将图像分成2x2的550px x 550px的图片，也就是总分辨率
-        1100px x 1100px。顺带一提该网站最高提供20d的清晰度，也就是11000px x
-        11000px的分辨率。当然，除非你的网络极好，否则不要轻易尝试。
--   2016/06/14
-    -   很好理解，就是日期。
--   140000
-    -   是图片对应的UTC时间，注意是UTC！本例中的地址说明我下载的是北京时间晚上22
-        点拍摄、22:30发布的图像。
--   0_1
-    -   是图片对应的坐标，两个参数分别是从0开始计数的列数和行数。本例中，请求的
-        是第一列第二行的图片。
+- 2d
+  - 代表图像清晰度，2d就是将图像分成2x2的550px x 550px的图片，也就是总分辨率
+    1100px x 1100px。顺带一提该网站最高提供20d的清晰度，也就是11000px x 11000px
+    的分辨率。当然，除非你的网络极好，否则不要轻易尝试。
+- 2016/06/14
+  - 很好理解，就是日期。
+- 140000
+  - 是图片对应的UTC时间，注意是UTC！本例中的地址说明我下载的是北京时间晚上22点拍
+    摄、22:30发布的图像。
+- 0_1
+  - 是图片对应的坐标，两个参数分别是从0开始计数的列数和行数。本例中，请求的是第
+    一列第二行的图片。
 
 明白了这些参数是做什么的，我们就可以开始写代码了。下面的 PHP 代码以表格形式输出
 2d的共4张图片：
@@ -69,36 +69,36 @@ writeHimawariTable(2);
 
 ```html
 <script>
-    $(document).ready(function () {
-        var today = new Date()
-        // get date for himawari picture
-        t = today.getTime()
-        t = t - (t % 600000) - 1800000
-        today.setTime(t)
-        year = today.getUTCFullYear()
-        month = today.getUTCMonth() + 1
-        day = today.getUTCDate()
-        hour = today.getUTCHours()
-        minute = today.getUTCMinutes()
-        if (month < 10) month = '0' + month
-        if (day < 10) day = '0' + day
-        if (hour < 10) hour = '0' + hour
-        if (minute < 10) minute = '0' + minute
-        $('#himawari-time').text(today.toLocaleString())
-        $('#himawari-pic').attr(
-            'src',
-            '//himawari.xuyh0120.win/1d/550/' +
-                year +
-                '/' +
-                month +
-                '/' +
-                day +
-                '/' +
-                hour +
-                minute +
-                '00_0_0.webp'
-        )
-    })
+  $(document).ready(function () {
+    var today = new Date()
+    // get date for himawari picture
+    t = today.getTime()
+    t = t - (t % 600000) - 1800000
+    today.setTime(t)
+    year = today.getUTCFullYear()
+    month = today.getUTCMonth() + 1
+    day = today.getUTCDate()
+    hour = today.getUTCHours()
+    minute = today.getUTCMinutes()
+    if (month < 10) month = '0' + month
+    if (day < 10) day = '0' + day
+    if (hour < 10) hour = '0' + hour
+    if (minute < 10) minute = '0' + minute
+    $('#himawari-time').text(today.toLocaleString())
+    $('#himawari-pic').attr(
+      'src',
+      '//himawari.xuyh0120.win/1d/550/' +
+        year +
+        '/' +
+        month +
+        '/' +
+        day +
+        '/' +
+        hour +
+        minute +
+        '00_0_0.webp'
+    )
+  })
 </script>
 <p id="himawari-time">加载速度稍慢，请稍候……</p>
 <img id="himawari-pic" src="" />

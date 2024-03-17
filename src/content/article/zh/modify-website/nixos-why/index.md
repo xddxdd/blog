@@ -61,11 +61,11 @@ define LTNET_AS = {{ 4225470000 + ltnet_index }};
 
 ```yaml
 all:
-    hosts:
-        hostdare.lantian.pub:
-            ltnet_index: 3
-            ltnet_prefix_v4: 172.18.3
-            ltnet_prefix_v6: fdbc:f9dc:67ad:3
+  hosts:
+    hostdare.lantian.pub:
+      ltnet_index: 3
+      ltnet_prefix_v4: 172.18.3
+      ltnet_prefix_v6: fdbc:f9dc:67ad:3
 ```
 
 每次修改完配置文件后，我就直接运行 `ansible-playbook` 命令，调用我预先写好的

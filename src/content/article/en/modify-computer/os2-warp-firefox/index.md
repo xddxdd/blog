@@ -190,14 +190,13 @@ Click on the button on the center of taskbar, select `OS/2 Window` to open up a
 Type `e config.sys` to edit the configuration file `config.sys`. We need to
 modify:
 
--   Find `LIBPATH=`, and add `C:\USR\LOCAL\LIB;C:\USR\LIB;` after the equal
-    sign.
-    -   After this edit, you will get something similar to:
-    -   `LIBPATH=C:\USR\LOCAL\LIB;C:\USR\LIB;C:\NETSCAPE\PROGRAM;...`
--   Find `SET PATH=`, and add `C:\USR\BIN;` after the equal sign
-    -   After this edit, you will get something similar to:
-    -   `SET PATH=C:\USR\BIN;C:\NETSCAPE\PROGRAM;...`
--   Add a new line, `SET UNIXROOT=C:`, at the end of the file.
+- Find `LIBPATH=`, and add `C:\USR\LOCAL\LIB;C:\USR\LIB;` after the equal sign.
+  - After this edit, you will get something similar to:
+  - `LIBPATH=C:\USR\LOCAL\LIB;C:\USR\LIB;C:\NETSCAPE\PROGRAM;...`
+- Find `SET PATH=`, and add `C:\USR\BIN;` after the equal sign
+  - After this edit, you will get something similar to:
+  - `SET PATH=C:\USR\BIN;C:\NETSCAPE\PROGRAM;...`
+- Add a new line, `SET UNIXROOT=C:`, at the end of the file.
 
 Close the window and save the file. Later, click on the "computer and cross"
 icon to shut down, and reboot OS/2.

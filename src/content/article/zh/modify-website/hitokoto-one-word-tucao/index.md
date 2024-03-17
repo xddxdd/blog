@@ -32,11 +32,11 @@ echo $hitokoto['author'].'&#22312;'.$hitokoto['date'].'&#23545;'.$hitokoto['sour
 
 ```html
 <script
-    type="text/javascript"
-    src="https://api.hitokoto.us/rand?encode=js&amp;charset=utf-8"
+  type="text/javascript"
+  src="https://api.hitokoto.us/rand?encode=js&amp;charset=utf-8"
 ></script>
 <script>
-    hitokoto()
+  hitokoto()
 </script>
 ```
 

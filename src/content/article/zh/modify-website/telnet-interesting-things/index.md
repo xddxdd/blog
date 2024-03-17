@@ -34,7 +34,7 @@ telnet nyancat.dakko.us
 我们也可以在自己的服务器上建立一个类似的 Telnet 服务，让它显示自己定义的内容。我
 们以在终端中显示黑客帝国数字雨的 CMatrix 软件为例，说明如何建立这个服务。
 
--   登陆到你的 Debian 服务器上，输入下面的命令：
+- 登陆到你的 Debian 服务器上，输入下面的命令：
 
 ```bash
 apt-get install openbsd-inetd telnetd cmatrix
@@ -42,21 +42,21 @@ apt-get install openbsd-inetd telnetd cmatrix
 
 并等待安装完成。
 
--   创建 /opt/cmatrix.sh ，输入如下内容：
+- 创建 /opt/cmatrix.sh ，输入如下内容：
 
 ```bash
 #!/bin/sh
 cmatrix -abu 2
 ```
 
--   编辑 /etc/inetd.conf ，在末尾追加以下内容：
+- 编辑 /etc/inetd.conf ，在末尾追加以下内容：
 
 ```bash
 telnet stream tcp nowait nobody /usr/sbin/tcpd /usr/sbin/in.telnetd -L /opt/cmatrix.sh
 telnet stream tcp6 nowait nobody /usr/sbin/tcpd /usr/sbin/in.telnetd -L /opt/cmatrix.sh
 ```
 
--   重启 inetd 服务：
+- 重启 inetd 服务：
 
 ```bash
 service inetd restart

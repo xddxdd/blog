@@ -197,4 +197,4 @@ metric 400        # 将它的 Metric 设置成 400（无线网卡默认是 303�
 [1]: /article/modify-computer/raspberry-pi-3b-notes.lantian
 [2]: /article/modify-computer/raspberry-pi-3b-notes.lantian#quicklink8
 [3]:
-    /article/modify-computer/openvz-he-ipv6-use-whole-block-along-native-ipv6.lantian
+  /article/modify-computer/openvz-he-ipv6-use-whole-block-along-native-ipv6.lantian

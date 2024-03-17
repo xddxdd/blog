@@ -55,9 +55,9 @@ npm install --save hexo-webpack
 
 ```yaml
 node_sass:
-    includePaths:
-        - 'node_modules'
-    outputStyle: compressed
+  includePaths:
+    - 'node_modules'
+  outputStyle: compressed
 ```
 
 以 Bootstrap 为例，先用 npm 安装：
@@ -117,18 +117,18 @@ ProvidePlugin 为它们直接提供 jQuery 环境：
 const webpack = require('webpack')
 
 module.exports = {
-    entry: 'assets/script.js',
-    output: {
-        filename: 'script.bundle.js',
-        path: 'assets',
-    },
-    mode: 'production',
-    plugins: [
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-        }),
-    ],
+  entry: 'assets/script.js',
+  output: {
+    filename: 'script.bundle.js',
+    path: 'assets',
+  },
+  mode: 'production',
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
+  ],
 }
 ```
 

@@ -16,30 +16,28 @@ This time I will be talking about my graduate design project, an air quality
 sensor network built by a 3-person group. The whole project is structured as
 follow:
 
--   Obtain data from installed sensor modules and upload them to InfluxDB
-    running on a server
-    -   Sensors we used:
-        1. MiCS6814, measures NO2, CO, and NH3
-            - Analog output
-        2. BME680, measures temperature, humidity, atmospheric pressure, and
-           TVOC
-            - I2C interface
-        3. PMS5003, measures particle matters
-            - UART serial output
-    -   Extra modules:
-        1. ATGM336H, global positioning module with GPS+BeiDou support
-            - UART serial output
-        2. ESP8266, a widely used Wi-Fi module
-            - UART serial output
-        3. MH-CD42, power & battery management module
-            - Purely power output, no control signal
--   Need to consume little energy, enough to run for around a week with the
-    battery power
-    -   And battery life and voltage needs to be monitored
--   Waterproof in rain conditions (to some extent)
--   Display data and short predictions on a web page
-    -   Professor already has a weather station device that measures wind
-        conditions
+- Obtain data from installed sensor modules and upload them to InfluxDB running
+  on a server
+  - Sensors we used:
+    1. MiCS6814, measures NO2, CO, and NH3
+       - Analog output
+    2. BME680, measures temperature, humidity, atmospheric pressure, and TVOC
+       - I2C interface
+    3. PMS5003, measures particle matters
+       - UART serial output
+  - Extra modules:
+    1. ATGM336H, global positioning module with GPS+BeiDou support
+       - UART serial output
+    2. ESP8266, a widely used Wi-Fi module
+       - UART serial output
+    3. MH-CD42, power & battery management module
+       - Purely power output, no control signal
+- Need to consume little energy, enough to run for around a week with the
+  battery power
+  - And battery life and voltage needs to be monitored
+- Waterproof in rain conditions (to some extent)
+- Display data and short predictions on a web page
+  - Professor already has a weather station device that measures wind conditions
 
 This post is a record of pitfalls we've met during the development.
 
@@ -52,40 +50,40 @@ electronic modules, but soon I found problems:
 
 1. Arduino Nano has only one hardware serial port, but 3 serial ports are needed
    to talk to all of the above modules.
-    - Yes, I know SoftwareSerial (a software emulated serial port), but it is
-      quite unstable in testing, especially in the (relatively) high-speed
-      communication with ESP8266 at 115200 baud rate, where signals are
-      frequently garbled.
+   - Yes, I know SoftwareSerial (a software emulated serial port), but it is
+     quite unstable in testing, especially in the (relatively) high-speed
+     communication with ESP8266 at 115200 baud rate, where signals are
+     frequently garbled.
 2. Arduino Nano's clock frequency is fixed at 16 MHz. We know we can adjust it,
    but it's too much of a hassle.
-    - We don't need that much performance and would rather reduce the frequency
-      to save some battery juice.
+   - We don't need that much performance and would rather reduce the frequency
+     to save some battery juice.
 3. ~~The Arduino IDE is horrible.~~
 
 So I bought an STM32 development board from Taobao with the following specs:
 
--   STM32F103C8T6 chip
-    -   64 KB ROM, 20 KB RAM
-        -   ROM is a bit too small
-    -   3 hardware UART serial ports, just enough
-    -   2 I2Cs
-        -   But since one I2C can talk to multiple peripherals with different
-            IDs, one is enough
-    -   Up to 72 MHz clock frequency, freely adjustable
-        -   Since we don't run astronomic calculations on the MCU, we clocked it
-            as low as 4 MHz
-    -   1 RTC that allows timed sleep and wakeup
-    -   A lot of ADC (Analog-Digital Converter)
-        -   Can also measure input voltage and MCU chip temperature
-    -   1 CAN, 2 SPI, etc. Stuff we don't need
--   External 8 MHz crystal oscillator and 32.768KHz crystal oscillator
-    -   STM32 does have integrated oscillators, but guides online show that they
-        may be affected by chip temperature and provide imprecise output, so
-        external oscillators are definitely helpful
--   For just CNY 10
-    -   ~~Pay less to get better performance~~
-    -   In fact, the performance to cost ratio of Arduino is not high, but its
-        ecosystem is awesome
+- STM32F103C8T6 chip
+  - 64 KB ROM, 20 KB RAM
+    - ROM is a bit too small
+  - 3 hardware UART serial ports, just enough
+  - 2 I2Cs
+    - But since one I2C can talk to multiple peripherals with different IDs, one
+      is enough
+  - Up to 72 MHz clock frequency, freely adjustable
+    - Since we don't run astronomic calculations on the MCU, we clocked it as
+      low as 4 MHz
+  - 1 RTC that allows timed sleep and wakeup
+  - A lot of ADC (Analog-Digital Converter)
+    - Can also measure input voltage and MCU chip temperature
+  - 1 CAN, 2 SPI, etc. Stuff we don't need
+- External 8 MHz crystal oscillator and 32.768KHz crystal oscillator
+  - STM32 does have integrated oscillators, but guides online show that they may
+    be affected by chip temperature and provide imprecise output, so external
+    oscillators are definitely helpful
+- For just CNY 10
+  - ~~Pay less to get better performance~~
+  - In fact, the performance to cost ratio of Arduino is not high, but its
+    ecosystem is awesome
 
 Speaking of STM32 development, a lot of people may have the first impression
 that it involves direct register manipulations, and you need to spend a lot of
@@ -103,78 +101,75 @@ But in the later stage of the project, we found that the 64 KB ROM of
 STM32F103C8T6 is no longer enough for us. The ROM space is mainly occupied by
 the following parts:
 
--   BME680's closed source BSEC library
-    -   BSEC is the only source of BME680's TVOC reading. The sensor only
-        provides a resistor value, and there is no simple formula to convert
-        resistor value to actual TVOC readings.
--   Floating-point logic of `printf` and `scanf`
-    -   InfluxDB, what we use, accepts only ASCII-formatted upload data, so the
-        IEEE 754 floating-point readings from sensors must be converted to ASCII
-        text.
-    -   For the same reason, the latitude and longitude information must be
-        extracted from the GPS module's NMEA0183 statements and converted to
-        IEEE 754 floating-point numbers.
--   STM32's library functions
-    -   Those responsible for register operations.
+- BME680's closed source BSEC library
+  - BSEC is the only source of BME680's TVOC reading. The sensor only provides a
+    resistor value, and there is no simple formula to convert resistor value to
+    actual TVOC readings.
+- Floating-point logic of `printf` and `scanf`
+  - InfluxDB, what we use, accepts only ASCII-formatted upload data, so the IEEE
+    754 floating-point readings from sensors must be converted to ASCII text.
+  - For the same reason, the latitude and longitude information must be
+    extracted from the GPS module's NMEA0183 statements and converted to IEEE
+    754 floating-point numbers.
+- STM32's library functions
+  - Those responsible for register operations.
 
 Therefore we tried to shrink the code size in these places:
 
--   For BME680, while we cannot modify the closed source library itself, we
-    greatly reduced the size of the logic that calls the library.
--   For GPS, instead of conversion to/from floating-point numbers, we chose to
-    simply copy the latitude/longitude text from NMEA0183 statements.
-    -   A NMEA0183 statement that involves latitude and longitude is formatted
-        as follow:
-        -   `$GNGGA,hhmmss.ss,llll.ll,a,yyyyy.yy,a,x,xx,x.x,x.x,M,x.x,M,x.x,xxxx*hh`
-        -   `$GNGGA,074023.000,1234.56789,N,12345.67891,E,1,13,0.9,32.3,M,0.0,M,,*46`
-    -   Separated by comma, each field represents (from left to right):
-        -   `$GNGGA` means that this statement contains latitude and longitude
-            information
-        -   2nd column is the current time
-            -   The time above is AM 07:40:23, in UTC timezone
-        -   3rd column is latitude, in format `degree * 100 + minute`
-            -   The latitude above is 12 degrees, 34.56789 minutes
-        -   4th column represents north/south of the equator
-            -   The number in the third column is always positive, no matter
-                north/south of the equator
-        -   5th column is longitude, still in format `degree * 100 + minute`
-            -   The longitude above is 123 degrees, 45.67891 minutes
-        -   6th column is east/west of the prime meridian
-            -   The number in the fifth column is also always positive, no
-                matter east/west of the prime meridian
-        -   We don't care about the rest information
-    -   Here is our logic:
-        -   Copy the third column to the latitude character array, **starting
-            from the second character of the array**
-        -   If the 4th column is N (north of the equator), set the first
-            character of the array to `0`
-            -   Result has format 01234.56789, can be recognized by InfluxDB
-        -   If the 4th column is S (south of the equator), set the first
-            character of the array to `-` (minus sign)
-            -   Result has format -1234.56789, can also be recognized by
-                InfluxDB
-        -   Do the same to longitude data in columns 5 and 6
-        -   For conversion from `degree * 100 + minute` to more commonly used
-            `degree`, we choose to do it on the more powerful server
--   For STM32 library functions, we can switch to LL library for the parts we
-    don't need to directly operate on (ex. frequency setup done automatically by
-    STM32CubeMX)
-    -   STM32 provide 2 different sets of library functions for each component,
-        HAL and LL
-        -   HAL is more abstracted and easier to use but takes more space
-        -   LL is closer to register manipulations, small yet difficult to use
-    -   In `Project Manager - Advanced Settings`, switching RCC (frequency
-        setup) to LL saves a few kilobytes
--   For standard library functions, if multiple functions are doing similar
-    things, try to use only one of them
-    -   Ex. if you use `printf` and `sprintf` together, you may replace `printf`
-        with a combination of `sprintf` and `HAL_UART_Transmit`; saves quite
-        some space
--   Remember to turn on compiler optimizations and disable debugging
-    -   Set `DEBUG = 0` and `OPT = -Os` in Makefile
-    -   By the way, for STM32's `printf` to support floating-point numbers, you
-        need to add `-u _printf_float` in `LDFLAGS` in Makefile to enable that
-        support
+- For BME680, while we cannot modify the closed source library itself, we
+  greatly reduced the size of the logic that calls the library.
+- For GPS, instead of conversion to/from floating-point numbers, we chose to
+  simply copy the latitude/longitude text from NMEA0183 statements.
+  - A NMEA0183 statement that involves latitude and longitude is formatted as
+    follow:
+    - `$GNGGA,hhmmss.ss,llll.ll,a,yyyyy.yy,a,x,xx,x.x,x.x,M,x.x,M,x.x,xxxx*hh`
+    - `$GNGGA,074023.000,1234.56789,N,12345.67891,E,1,13,0.9,32.3,M,0.0,M,,*46`
+  - Separated by comma, each field represents (from left to right):
+    - `$GNGGA` means that this statement contains latitude and longitude
+      information
+    - 2nd column is the current time
+      - The time above is AM 07:40:23, in UTC timezone
+    - 3rd column is latitude, in format `degree * 100 + minute`
+      - The latitude above is 12 degrees, 34.56789 minutes
+    - 4th column represents north/south of the equator
+      - The number in the third column is always positive, no matter north/south
+        of the equator
+    - 5th column is longitude, still in format `degree * 100 + minute`
+      - The longitude above is 123 degrees, 45.67891 minutes
+    - 6th column is east/west of the prime meridian
+      - The number in the fifth column is also always positive, no matter
+        east/west of the prime meridian
+    - We don't care about the rest information
+  - Here is our logic:
+    - Copy the third column to the latitude character array, **starting from the
+      second character of the array**
+    - If the 4th column is N (north of the equator), set the first character of
+      the array to `0`
+      - Result has format 01234.56789, can be recognized by InfluxDB
+    - If the 4th column is S (south of the equator), set the first character of
+      the array to `-` (minus sign)
+      - Result has format -1234.56789, can also be recognized by InfluxDB
+    - Do the same to longitude data in columns 5 and 6
+    - For conversion from `degree * 100 + minute` to more commonly used
+      `degree`, we choose to do it on the more powerful server
+- For STM32 library functions, we can switch to LL library for the parts we
+  don't need to directly operate on (ex. frequency setup done automatically by
+  STM32CubeMX)
+  - STM32 provide 2 different sets of library functions for each component, HAL
+    and LL
+    - HAL is more abstracted and easier to use but takes more space
+    - LL is closer to register manipulations, small yet difficult to use
+  - In `Project Manager - Advanced Settings`, switching RCC (frequency setup) to
+    LL saves a few kilobytes
+- For standard library functions, if multiple functions are doing similar
+  things, try to use only one of them
+  - Ex. if you use `printf` and `sprintf` together, you may replace `printf`
+    with a combination of `sprintf` and `HAL_UART_Transmit`; saves quite some
+    space
+- Remember to turn on compiler optimizations and disable debugging
+  - Set `DEBUG = 0` and `OPT = -Os` in Makefile
+  - By the way, for STM32's `printf` to support floating-point numbers, you need
+    to add `-u _printf_float` in `LDFLAGS` in Makefile to enable that support
 
 # Logging on to School Wi-Fi
 
@@ -191,17 +186,17 @@ After research on the capabilities of ESP8266 Wi-Fi module, I concluded that:
 
 1. ESP8266 comes with an AT firmware by default, where we connect to Wi-Fi
    networks via serial port commands.
-    - In this case, it only supports open networks and WPA2 personal networks,
-      but not eduroam, which uses WPA2 enterprise.
-    - But there is no room left in STM32 for HTTPS encryption libraries, which
-      means we cannot submit credentials to log in.
+   - In this case, it only supports open networks and WPA2 personal networks,
+     but not eduroam, which uses WPA2 enterprise.
+   - But there is no room left in STM32 for HTTPS encryption libraries, which
+     means we cannot submit credentials to log in.
 2. ESP8266 can be reprogrammed with custom code.
-    - But finding the official SDK of ESP8266 along with documentation is a bit
-      hard.
-    - Although ESP8266 supports the Arduino platform, it still doesn't include
-      an SSL encryption library.
-    - In addition, ESP8266 only supports PAP-encrypted WPA2 enterprise networks,
-      while my school uses MSCHAPv2.
+   - But finding the official SDK of ESP8266 along with documentation is a bit
+     hard.
+   - Although ESP8266 supports the Arduino platform, it still doesn't include an
+     SSL encryption library.
+   - In addition, ESP8266 only supports PAP-encrypted WPA2 enterprise networks,
+     while my school uses MSCHAPv2.
 
 The solution is kind of a cheat: I went through the code on my Raspberry Pi and
 found a login script to the school network. Back when I wrote that script, the
@@ -332,38 +327,35 @@ power consumption in sleep mode.
 To reach that goal, we need to switch STM32 and sensors to either low power
 consumption mode or off position.
 
--   According to
-    [Datasheet](https://www.st.com/resource/en/datasheet/stm32f103c8.pdf),
-    STM32F103C8T6 has 3 different low power modes:
-    -   SLEEP mode, where only CPU is switched off, peripherals such as ADC,
-        I2C, and UART are still running.
-        -   5.5 mA at 8 MHz, obviously too high
-    -   STOP mode, where CPU and most of the peripherals are off, but RAM and
-        registers are retained and can be woken up via RTC or external
-        interrupt.
-        -   13.5 uA, acceptable moderate power consumption (little enough
-            compared to other modules)
-        -   Easy programming with almost no special handling
-    -   STANDBY mode, where CPU and peripherals are off, RAM and registers are
-        cleared.
-        -   Program runs from the beginning every time, so status has to be
-            recorded in ROM
-        -   2.4 uA, lowest, but difficult to code for
--   We chose STOP mode at last, with a few notes:
-    -   Enable RTC's `Clock Source` (turn on its functionality).
-    -   Set `RTC OUT` to `No RTC Output`, or turn on its output without pin
-        mapping.
-        -   In this case, the RTC output is connected to an interrupt
-            controller, so when a specific time is reached, an interrupt will be
-            triggered, and the CPU will be turned back on.
-        -   If you don't do this (set to `Disable`), STM32's CPU will never wake
-            up again.
-    -   Enable `RTC alarm interrupt through EXTI line` in `NVIC Settings` below.
-        -   Let the CPU accept RTC interrupts, or the CPU will also sleep
-            forever.
-    -   When calling such functionality, first reset the time of RTC (out of
-        safety), then set the alarm, and finally enter low power mode.
-    -   RTC only has a precision of 1 second.
+- According to
+  [Datasheet](https://www.st.com/resource/en/datasheet/stm32f103c8.pdf),
+  STM32F103C8T6 has 3 different low power modes:
+  - SLEEP mode, where only CPU is switched off, peripherals such as ADC, I2C,
+    and UART are still running.
+    - 5.5 mA at 8 MHz, obviously too high
+  - STOP mode, where CPU and most of the peripherals are off, but RAM and
+    registers are retained and can be woken up via RTC or external interrupt.
+    - 13.5 uA, acceptable moderate power consumption (little enough compared to
+      other modules)
+    - Easy programming with almost no special handling
+  - STANDBY mode, where CPU and peripherals are off, RAM and registers are
+    cleared.
+    - Program runs from the beginning every time, so status has to be recorded
+      in ROM
+    - 2.4 uA, lowest, but difficult to code for
+- We chose STOP mode at last, with a few notes:
+  - Enable RTC's `Clock Source` (turn on its functionality).
+  - Set `RTC OUT` to `No RTC Output`, or turn on its output without pin mapping.
+    - In this case, the RTC output is connected to an interrupt controller, so
+      when a specific time is reached, an interrupt will be triggered, and the
+      CPU will be turned back on.
+    - If you don't do this (set to `Disable`), STM32's CPU will never wake up
+      again.
+  - Enable `RTC alarm interrupt through EXTI line` in `NVIC Settings` below.
+    - Let the CPU accept RTC interrupts, or the CPU will also sleep forever.
+  - When calling such functionality, first reset the time of RTC (out of
+    safety), then set the alarm, and finally enter low power mode.
+  - RTC only has a precision of 1 second.
 
 Here is an example code snippet of sleep and timed wake up:
 
@@ -565,24 +557,24 @@ The AT instruction manual of ESP8266 is a bit difficult to find, but
 [we did it finally](https://www.itead.cc/wiki/images/5/53/Esp8266_at_instruction_set_en_v1.5.4_0.pdf).
 We need a few instructions:
 
--   `ATE0` turns off echoing of commands. This simplifies parsing of results and
-    reduces the amount of data transferred (thus reducing latency)
--   `AT+CWMODE=1` sets ESP8266 to Wi-Fi client mode
--   `AT+CWJAP_CUR="SchoolWiFi",""` connects ESP8266 to open Wi-Fi network
-    without password
--   `AT+CIPSTART="TCP","influxdb.lantian.pub",8086` creates a TCP connection to
-    specified host and port
--   `AT+CIPSEND=123` sends 123 bytes of data
--   `AT+CIPCLOSE` closes connection
--   `AT+GSLP=2147483647` enter a long sleep (until the next "enable" signal)
+- `ATE0` turns off echoing of commands. This simplifies parsing of results and
+  reduces the amount of data transferred (thus reducing latency)
+- `AT+CWMODE=1` sets ESP8266 to Wi-Fi client mode
+- `AT+CWJAP_CUR="SchoolWiFi",""` connects ESP8266 to open Wi-Fi network without
+  password
+- `AT+CIPSTART="TCP","influxdb.lantian.pub",8086` creates a TCP connection to
+  specified host and port
+- `AT+CIPSEND=123` sends 123 bytes of data
+- `AT+CIPCLOSE` closes connection
+- `AT+GSLP=2147483647` enter a long sleep (until the next "enable" signal)
 
 A few points to remember:
 
--   ESP8266 commands end with Windows CRLF `\r\n`, but some serial communication
-    software in Linux sends `\n` when pressing enter. In this case, the command
-    will not be executed correctly.
--   All the commands above need ESP8266 to respond with OK to work, so you
-    cannot simply send two commands together. In this case, the second command
-    may be ignored.
--   Sometimes, one attempt of command may fail (such as connecting to Wi-Fi),
-    you may retry for a few times.
+- ESP8266 commands end with Windows CRLF `\r\n`, but some serial communication
+  software in Linux sends `\n` when pressing enter. In this case, the command
+  will not be executed correctly.
+- All the commands above need ESP8266 to respond with OK to work, so you cannot
+  simply send two commands together. In this case, the second command may be
+  ignored.
+- Sometimes, one attempt of command may fail (such as connecting to Wi-Fi), you
+  may retry for a few times.

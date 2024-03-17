@@ -97,9 +97,9 @@ provider”）
 [1]: /usr/uploads/2018/06/689399879.png
 [2]: /usr/uploads/2018/06/2691471279.png
 [3]:
-    https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration
+  https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration
 [4]:
-    https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration/FileFormat/HowTo
+  https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration/FileFormat/HowTo
 [5]: /usr/uploads/2018/06/1206081669.png
 
 /usr/uploads/2018/06/1206081669.png

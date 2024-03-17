@@ -15,23 +15,22 @@ image: /usr/uploads/202009/chromium-post-quantum.png
 
 1. 网站会将它的**公钥**（以证书形式）发送给浏览器。
 2. 浏览器会校验公钥的有效性，防止中间人篡改公钥，从而拦截或监听通信。
-    - 浏览器（或操作系统）内置了一组可信任的证书颁发机构（CA）的公钥，通过密码学
-      方法可以确认这份公钥是其中某个颁发机构生成的。
-        - 证书颁发机构则会通过一系列方法（多级证书链，物理隔绝的密钥保存设备）来
-          保护他们自己的私钥安全，防止有人窃取他们的私钥来随意生成被信任的证书信
-          息。
-    - 浏览器会与证书颁发机构的服务器联系，查询“证书吊销列表”（Certificate
-      Revocation List）。这个列表保存了所有的“虽然的确是证书颁发机构颁发，但是因
-      为系统错误/私钥泄漏等原因不能再被信任”的证书。
+   - 浏览器（或操作系统）内置了一组可信任的证书颁发机构（CA）的公钥，通过密码学
+     方法可以确认这份公钥是其中某个颁发机构生成的。
+     - 证书颁发机构则会通过一系列方法（多级证书链，物理隔绝的密钥保存设备）来保
+       护他们自己的私钥安全，防止有人窃取他们的私钥来随意生成被信任的证书信息。
+   - 浏览器会与证书颁发机构的服务器联系，查询“证书吊销列表”（Certificate
+     Revocation List）。这个列表保存了所有的“虽然的确是证书颁发机构颁发，但是因
+     为系统错误/私钥泄漏等原因不能再被信任”的证书。
 3. 浏览器在确定公钥可信后，本地随机产生一个**随机密钥**，用来加密这一次的连接。
 4. 浏览器将随机密钥用网站的**公钥**加密，然后发送给网站服务器。
-    - 加密后的内容只能用网站的私钥解密，不能用公钥解密，因此监听者是无法获取随机
-      密钥内容的。
+   - 加密后的内容只能用网站的私钥解密，不能用公钥解密，因此监听者是无法获取随机
+     密钥内容的。
 5. 网站服务器用本地保存的**私钥**解密内容，获得浏览器产生的随机密钥。
 6. 浏览器和网站服务器开始用解密后的随机密钥进行**对称加密**，也就是双方使用同一
    份密码进行加密/解密的加密算法，例如 AES。
-    - 这里不再使用非对称加密是因为非对称加密对算力的消耗较大，而对称加密性能较
-      高。
+   - 这里不再使用非对称加密是因为非对称加密对算力的消耗较大，而对称加密性能较
+     高。
 
 非对称加密算法保证了浏览器和网站交换对称加密密钥的安全，从而保证数据不被窃取或篡
 改。
@@ -79,65 +78,65 @@ OpenSSL，[在这里可以看到](https://github.com/xddxdd/dockerfiles/blob/119
 1. 需要使用 Open Quantum Safe 的 OpenSSL，并额外下载、编译 liboqs，将其安装到
    OpenSSL 的源码目录，以便调用。我的 Dockerfile 中与之相关的是 44-52 行：
 
-    ```bash
-    # 前略
-    && git clone -b OQS-OpenSSL_1_1_1-stable https://github.com/open-quantum-safe/openssl.git \
-       # 省略了一些我个人使用的 OpenSSL 修改，对后量子加密不是必要的
-    && git clone -b master https://github.com/open-quantum-safe/liboqs.git \
-       && mkdir /tmp/liboqs/build && cd /tmp/liboqs/build \
-       && cmake -DOQS_BUILD_ONLY_LIB=1 -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=/tmp/openssl/oqs .. \
-       && make -j4 && make install && cd /tmp \
-    # 后略
-    ```
+   ```bash
+   # 前略
+   && git clone -b OQS-OpenSSL_1_1_1-stable https://github.com/open-quantum-safe/openssl.git \
+      # 省略了一些我个人使用的 OpenSSL 修改，对后量子加密不是必要的
+   && git clone -b master https://github.com/open-quantum-safe/liboqs.git \
+      && mkdir /tmp/liboqs/build && cd /tmp/liboqs/build \
+      && cmake -DOQS_BUILD_ONLY_LIB=1 -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=/tmp/openssl/oqs .. \
+      && make -j4 && make install && cd /tmp \
+   # 后略
+   ```
 
-    其中所有文件都被下载到了 `/tmp` 目录下。关键点是用 cmake 编译 liboqs 项目，
-    并将其安装到 OpenSSL 源码目录的 oqs 子目录下。
+   其中所有文件都被下载到了 `/tmp` 目录下。关键点是用 cmake 编译 liboqs 项目，并
+   将其安装到 OpenSSL 源码目录的 oqs 子目录下。
 
 2. 需要额外添加一些编译参数，以将 liboqs 包含在编译出来的 nginx 中，在
    Dockerfile 的 102-104 行：
 
-    ```bash
-    # 前略
-    && ./configure \
-       # 略过一些 nginx 的编译参数
-       --with-openssl=/tmp/openssl \
-       --with-cc-opt="-I/tmp/openssl/oqs/include" \
-       --with-ld-opt="-L/tmp/openssl/oqs/lib" \
-    && sed -i 's/libcrypto.a/libcrypto.a -loqs/g' objs/Makefile \
-    # 后略
-    ```
+   ```bash
+   # 前略
+   && ./configure \
+      # 略过一些 nginx 的编译参数
+      --with-openssl=/tmp/openssl \
+      --with-cc-opt="-I/tmp/openssl/oqs/include" \
+      --with-ld-opt="-L/tmp/openssl/oqs/lib" \
+   && sed -i 's/libcrypto.a/libcrypto.a -loqs/g' objs/Makefile \
+   # 后略
+   ```
 
 然后正常编译 nginx 即可。
 
 编译、安装 nginx 完成后，还需要修改参数使用这些后量子时代的非对称加密算法，包
 括**密钥交换算法**和**身份验证算法**两类：
 
--   密钥交换算法：即浏览器和网站传输对称加密密钥时使用的非对称加密算法。
+- 密钥交换算法：即浏览器和网站传输对称加密密钥时使用的非对称加密算法。
 
-    只需简单修改 `nginx.conf` 中的 `ssl_ecdh_curve` 参数，使用这些非对称加密算法
-    的椭圆曲线，就可以使用这些密钥交换算法：
+  只需简单修改 `nginx.conf` 中的 `ssl_ecdh_curve` 参数，使用这些非对称加密算法的
+  椭圆曲线，就可以使用这些密钥交换算法：
 
-    ```bash
-    ssl_ecdh_curve 'p256_frodo640aes:p256_bike1l1cpa:p256_kyber90s512:p256_ntru_hps2048509:p256_lightsaber:p256_sidhp434:p256_sikep434:prime256v1:secp384r1:secp521r1';
-    ```
+  ```bash
+  ssl_ecdh_curve 'p256_frodo640aes:p256_bike1l1cpa:p256_kyber90s512:p256_ntru_hps2048509:p256_lightsaber:p256_sidhp434:p256_sikep434:prime256v1:secp384r1:secp521r1';
+  ```
 
-    修改完成后 `nginx -s reload` 即可。
+  修改完成后 `nginx -s reload` 即可。
 
-    这里只开启了支持的密钥交换算法的一部分，原因有二：
+  这里只开启了支持的密钥交换算法的一部分，原因有二：
 
-    1. nginx 对这一参数的长度有限制，过长会报错；
-    2. 选择的这些参数也都被 Open Quantum Safe 的 BoringSSL 支持，这在后续开启
-       Chromium 支持时至关重要。
+  1. nginx 对这一参数的长度有限制，过长会报错；
+  2. 选择的这些参数也都被 Open Quantum Safe 的 BoringSSL 支持，这在后续开启
+     Chromium 支持时至关重要。
 
-    同时，这些密钥交换算法都以 `p256_` 开头，意味着后量子加密算法和传统加密算法
-    同时使用。这是为了防止一种情况：新的加密算法存在数学漏洞，使得它们使用传统计
-    算机（冯诺依曼计算机）就可以快速破解。同时使用两种交换算法，既保证了无法被量
-    子计算机破解（如果新加密算法正常工作），也保证了一旦新加密算法被破解，密钥交
-    换数据仍然拥有与传统算法同等级别的保护，不会被传统计算机立即破解。
+  同时，这些密钥交换算法都以 `p256_` 开头，意味着后量子加密算法和传统加密算法同
+  时使用。这是为了防止一种情况：新的加密算法存在数学漏洞，使得它们使用传统计算机
+  （冯诺依曼计算机）就可以快速破解。同时使用两种交换算法，既保证了无法被量子计算
+  机破解（如果新加密算法正常工作），也保证了一旦新加密算法被破解，密钥交换数据仍
+  然拥有与传统算法同等级别的保护，不会被传统计算机立即破解。
 
--   身份验证算法：即证书颁发机构（CA）给网站颁发证书形式公私钥的算法。使用这些算
-    法需要找支持后量子算法的 CA（现在还不存在）重新签发证书，或者自己签发证书
-    （不被浏览器信任），都不实用，因此我选择现在不使用。
+- 身份验证算法：即证书颁发机构（CA）给网站颁发证书形式公私钥的算法。使用这些算法
+  需要找支持后量子算法的 CA（现在还不存在）重新签发证书，或者自己签发证书（不被
+  浏览器信任），都不实用，因此我选择现在不使用。
 
 在这里配置完后，你可以使用 Open Quantum Safe 的一个 curl Docker 镜像来测试一下你
 的网站：
@@ -164,12 +163,12 @@ Open Quantum Safe 同
    BoringSSL；
 2. 下载 liboqs，编译安装到 BoringSSL 的 `oqs` 目录下：
 
-    ```bash
-    git clone --branch master https://github.com/open-quantum-safe/liboqs.git
-    cd liboqs && mkdir build && cd build
-    cmake .. -G"Ninja" -DCMAKE_INSTALL_PREFIX=<CHROMIUM_ROOT>/third_party/boringssl/src/oqs -DOQS_USE_OPENSSL=OFF
-    ninja && ninja install
-    ```
+   ```bash
+   git clone --branch master https://github.com/open-quantum-safe/liboqs.git
+   cd liboqs && mkdir build && cd build
+   cmake .. -G"Ninja" -DCMAKE_INSTALL_PREFIX=<CHROMIUM_ROOT>/third_party/boringssl/src/oqs -DOQS_USE_OPENSSL=OFF
+   ninja && ninja install
+   ```
 
 3. 给 Chromium 打
    上[这个调用 liboqs 的补丁](https://github.com/open-quantum-safe/oqs-demos/raw/master/chromium/oqs-mods.patch)。

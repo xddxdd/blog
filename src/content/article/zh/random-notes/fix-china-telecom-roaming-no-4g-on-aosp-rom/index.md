@@ -21,7 +21,7 @@ Lineage OS 的第三方安卓 ROM。但是刷入后，我发现我的中国电�
 1. 进入手机设置 - SIM 卡 - 中国电信 - APN 设置。
 2. 点击“中国电信NET设置”（`ctnet`）进入详细设置。
 3. 把 APN 类型一项（`APN Type`）修改为：`default,supl,dun,ims`
-    - 原始值是 `default,supl,dun`
+   - 原始值是 `default,supl,dun`
 4. 点击右上角三个点的菜单，选择保存。
 5. 选中“中国电信NET设置”右边的单选按钮，启用这个 APN。
 6. 关机，等待几分钟再开机。

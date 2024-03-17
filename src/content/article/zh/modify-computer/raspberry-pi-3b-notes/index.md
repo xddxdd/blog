@@ -408,5 +408,5 @@ dtoverlay=i2c-rtc,ds3231,ads7846,penirq=22,speed=100000,xohms=150 dtparam=spi=on
 [6]: https://github.com/szazo/DHT11_Python
 [7]: https://monal.im/netatalk/
 [8]:
-    https://samuelhewitt.com/blog/2015-09-12-debian-linux-server-mac-os-time-machine-backups-how-to
+  https://samuelhewitt.com/blog/2015-09-12-debian-linux-server-mac-os-time-machine-backups-how-to
 [9]: /usr/uploads/2017/10/972854234.jpg

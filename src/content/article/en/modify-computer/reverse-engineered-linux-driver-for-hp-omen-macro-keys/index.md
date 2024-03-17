@@ -14,14 +14,14 @@ under Linux are far from complete.
    that even with fan spin down enabled in BIOS, the fan keeps running with the
    CPU being around 40 degrees celsius and GPU being idle.
 
-    - Actually, [NBFC](https://github.com/hirschmann/nbfc) can be used to
-      control the fan speed by directly writing to EC registers, but
-      [in an unfortunate accident](/en/article/chat/how-i-nuked-my-btrfs-partition.lantian/)
-      I lost my configuration file.
-    - I was trying NixOS on my new laptop when I set up NBFC. When the accident
-      happened, I had removed NixOS from the laptop, and the config files were
-      never uploaded to GitHub.
-    - I may write that config file again in the future.
+   - Actually, [NBFC](https://github.com/hirschmann/nbfc) can be used to control
+     the fan speed by directly writing to EC registers, but
+     [in an unfortunate accident](/en/article/chat/how-i-nuked-my-btrfs-partition.lantian/)
+     I lost my configuration file.
+   - I was trying NixOS on my new laptop when I set up NBFC. When the accident
+     happened, I had removed NixOS from the laptop, and the config files were
+     never uploaded to GitHub.
+   - I may write that config file again in the future.
 
 2. No support for tuning keyboard backlight color, which is controlled by OMEN
    Command Center on Windows. Sometimes my system crash, and I press the power
@@ -29,17 +29,17 @@ under Linux are far from complete.
    into the colorful default setting. Whenever that happens, I'll have to set it
    back on Windows.
 
-    - The good news is that there's a modified Linux `hp_wmi` kernel module on
-      GitHub, with support for controlling keyboard backlight on Linux.
-    - It's developed by James Churchill (pelrun), and can be downloaded from
-      <https://github.com/pelrun/hp-omen-linux-module>.
+   - The good news is that there's a modified Linux `hp_wmi` kernel module on
+     GitHub, with support for controlling keyboard backlight on Linux.
+   - It's developed by James Churchill (pelrun), and can be downloaded from
+     <https://github.com/pelrun/hp-omen-linux-module>.
 
 3. There's a row of macro keys on the left side of the keyboard. They're
    controlled by OMEN Command Center on Windows, and can be set up with macro
    definitions to simulate a series of keystrokes on keypress. Of course, it
    doesn't work on Linux.
 
-    - [HP has no plan to develop an OMEN Command Center for Linux](https://h30434.www3.hp.com/t5/Gaming-Notebooks/HP-Omen-keyboard-control-on-Linux/td-p/4890663).
+   - [HP has no plan to develop an OMEN Command Center for Linux](https://h30434.www3.hp.com/t5/Gaming-Notebooks/HP-Omen-keyboard-control-on-Linux/td-p/4890663).
 
 Having unusable keys on your keyboard is frustrating. Although I'm not a heavy
 gamer and don't need macro keys, I can still use them for shortcuts to apps,
@@ -109,31 +109,31 @@ So my ID is `88f7`. Now into that JSON file:
 ```json
 // Unrelated parts are removed
 {
-    "Name": "Cybug",
-    "DisplayName": "OMEN 17",
-    "ProductNum": [
-        {
-            "SSID": "88F7" // GN20E (E3/E5/E7) non DDS
-        }
-    ],
-    "Feature": [
-        "SystemInfo",
-        "NetworkBooster",
-        "FourZone",
-        "DraxLighting",
-        "PerformanceControl",
-        "GraphicsSwitcher",
-        "Macros"
-    ],
-    "BackgroundFeature": [
-        "NetworkBooster",
-        "OmenKey",
-        "FourZone",
-        "DraxLightingBg",
-        "PerformanceControl",
-        "MarlinsMacro",
-        "DragonKBMcu"
-    ]
+  "Name": "Cybug",
+  "DisplayName": "OMEN 17",
+  "ProductNum": [
+    {
+      "SSID": "88F7" // GN20E (E3/E5/E7) non DDS
+    }
+  ],
+  "Feature": [
+    "SystemInfo",
+    "NetworkBooster",
+    "FourZone",
+    "DraxLighting",
+    "PerformanceControl",
+    "GraphicsSwitcher",
+    "Macros"
+  ],
+  "BackgroundFeature": [
+    "NetworkBooster",
+    "OmenKey",
+    "FourZone",
+    "DraxLightingBg",
+    "PerformanceControl",
+    "MarlinsMacro",
+    "DragonKBMcu"
+  ]
 }
 ```
 
@@ -211,8 +211,8 @@ we can encode a few sequences:
 1. Press and release A: `[3, 0x1e, 0x9e]`
 2. Press A, wait 100ms, and release: `[5, 0x1e, 255, 100, 0x9e]`
 3. Press A, wait 300ms, and release: `[7, 0x1e, 255, 255, 255, 45, 0x9e]`
-    - Each wait is up to 255ms because of limitations of byte data type. The
-      wait of 300ms needs to be done with two waits.
+   - Each wait is up to 255ms because of limitations of byte data type. The wait
+     of 300ms needs to be done with two waits.
 
 Back to the logic of `OnEditorPageSaveClick`:
 

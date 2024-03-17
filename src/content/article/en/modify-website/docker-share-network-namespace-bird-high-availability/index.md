@@ -44,39 +44,39 @@ and one for Bird. Using PowerDNS as an example, this is my config file:
 
 ```yaml
 services:
-    powerdns:
-        image: xddxdd/powerdns
-        container_name: powerdns
-        restart: always
-        volumes:
-            - './conf/powerdns:/etc/powerdns:ro'
-            - '/etc/geoip:/etc/geoip:ro'
-        depends_on:
-            - mysql
-            - docker-ipv6nat
-        ports:
-            - '53:53'
-            - '53:53/udp'
-        networks:
-            default:
-                ipv4_address: 172.18.3.54
-                ipv6_address: fcf9:a876:eddd:c85a:8a93::54
-            anycast_ip:
-                ipv4_address: 172.22.76.109
-                ipv6_address: fdbc:f9dc:67ad:2547::54
+  powerdns:
+    image: xddxdd/powerdns
+    container_name: powerdns
+    restart: always
+    volumes:
+      - './conf/powerdns:/etc/powerdns:ro'
+      - '/etc/geoip:/etc/geoip:ro'
+    depends_on:
+      - mysql
+      - docker-ipv6nat
+    ports:
+      - '53:53'
+      - '53:53/udp'
+    networks:
+      default:
+        ipv4_address: 172.18.3.54
+        ipv6_address: fcf9:a876:eddd:c85a:8a93::54
+      anycast_ip:
+        ipv4_address: 172.22.76.109
+        ipv6_address: fdbc:f9dc:67ad:2547::54
 
-    powerdns-bird:
-        image: xddxdd/bird
-        container_name: powerdns-bird
-        restart: always
-        network_mode: 'service:powerdns'
-        volumes:
-            - './conf/powerdns/bird-static.conf:/etc/bird-static.conf:ro'
-        cap_add:
-            - NET_ADMIN
-        depends_on:
-            - docker-ipv6nat
-            - powerdns
+  powerdns-bird:
+    image: xddxdd/bird
+    container_name: powerdns-bird
+    restart: always
+    network_mode: 'service:powerdns'
+    volumes:
+      - './conf/powerdns/bird-static.conf:/etc/bird-static.conf:ro'
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - docker-ipv6nat
+      - powerdns
 
 networks: [Redacted...]
 ```
@@ -147,50 +147,50 @@ Here is my updated config file:
 
 ```yaml
 services:
-    powerdns-net:
-        image: amd64/busybox:1.31.0
-        container_name: powerdns-net
-        restart: always
-        entrypoint: 'tail -f /dev/null'
-        labels:
-            - com.centurylinklabs.watchtower.enable=false
-        depends_on:
-            - docker-ipv6nat
-        ports:
-            - '53:53'
-            - '53:53/udp'
-        networks:
-            default:
-                ipv4_address: 172.18.3.54
-                ipv6_address: fcf9:a876:eddd:c85a:8a93::54
-            anycast_ip:
-                ipv4_address: 172.22.76.109
-                ipv6_address: fdbc:f9dc:67ad:2547::54
+  powerdns-net:
+    image: amd64/busybox:1.31.0
+    container_name: powerdns-net
+    restart: always
+    entrypoint: 'tail -f /dev/null'
+    labels:
+      - com.centurylinklabs.watchtower.enable=false
+    depends_on:
+      - docker-ipv6nat
+    ports:
+      - '53:53'
+      - '53:53/udp'
+    networks:
+      default:
+        ipv4_address: 172.18.3.54
+        ipv6_address: fcf9:a876:eddd:c85a:8a93::54
+      anycast_ip:
+        ipv4_address: 172.22.76.109
+        ipv6_address: fdbc:f9dc:67ad:2547::54
 
-    powerdns:
-        image: xddxdd/powerdns
-        container_name: powerdns
-        restart: always
-        network_mode: 'service:powerdns-net'
-        volumes:
-            - './conf/powerdns:/etc/powerdns:ro'
-            - '/etc/geoip:/etc/geoip:ro'
-        depends_on:
-            - docker-ipv6nat
-            - powerdns-net
+  powerdns:
+    image: xddxdd/powerdns
+    container_name: powerdns
+    restart: always
+    network_mode: 'service:powerdns-net'
+    volumes:
+      - './conf/powerdns:/etc/powerdns:ro'
+      - '/etc/geoip:/etc/geoip:ro'
+    depends_on:
+      - docker-ipv6nat
+      - powerdns-net
 
-    powerdns-bird:
-        image: xddxdd/bird
-        container_name: powerdns-bird
-        restart: always
-        network_mode: 'service:powerdns-net'
-        volumes:
-            - './conf/powerdns/bird-static.conf:/etc/bird-static.conf:ro'
-        cap_add:
-            - NET_ADMIN
-        depends_on:
-            - docker-ipv6nat
-            - powerdns
+  powerdns-bird:
+    image: xddxdd/bird
+    container_name: powerdns-bird
+    restart: always
+    network_mode: 'service:powerdns-net'
+    volumes:
+      - './conf/powerdns/bird-static.conf:/etc/bird-static.conf:ro'
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - docker-ipv6nat
+      - powerdns
 
 networks: [Redacted...]
 ```

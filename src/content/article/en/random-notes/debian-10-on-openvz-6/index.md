@@ -5,8 +5,8 @@ tags: [Debian, OpenVZ]
 date: 2020-03-19 21:55:54
 ---
 
--   It's the year 2020. Why are you still using OpenVZ 6 VPSes?
--   Because they only cost one dollar per year.
+- It's the year 2020. Why are you still using OpenVZ 6 VPSes?
+- Because they only cost one dollar per year.
 
 Since the kernel of OpenVZ 6 is extremely old (Linux 2.6.32), newer systems
 cannot function normally on an old kernel, so I had to stick to Debian 8 with my

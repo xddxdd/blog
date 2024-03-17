@@ -16,20 +16,20 @@ My Looking Glass is written in Go, so at the beginning, I looked for Telegram
 Bot APIs in the Go language. However, those popular API libraries all use the
 same scheme for handling requests:
 
--   Telegram server sends a callback to my own server;
--   My program handles the request and may send multiple requests actively to
-    the Telegram server, authenticated with a locally configured Token;
--   Finally, the program actively sends a request to the Telegram server to send
-    the response.
+- Telegram server sends a callback to my own server;
+- My program handles the request and may send multiple requests actively to the
+  Telegram server, authenticated with a locally configured Token;
+- Finally, the program actively sends a request to the Telegram server to send
+  the response.
 
 While powerful, this scheme is a bit too complicated, and I don't need the extra
 functionalities anyway. I rather prefer to use
 [the other way provided by Telegram](https://core.telegram.org/bots/faq#how-can-i-make-requests-in-response-to-updates),
 by directly responding to the callback HTTP request:
 
--   Telegram server sends a callback to my own server;
--   My program handles the request and replies to the callback request directly
-    to send the response message.
+- Telegram server sends a callback to my own server;
+- My program handles the request and replies to the callback request directly to
+  send the response message.
 
 Although this has the limitation of one reply (or action) per request (or
 message), this is enough for me, considering that my bot only needs to reply
@@ -49,34 +49,34 @@ requests. Telegram's official document provided an example:
 
 ```json
 {
-    "update_id": 10000,
-    "message": {
-        "date": 1441645532,
-        "chat": {
-            "last_name": "Test Lastname",
-            "id": 1111111,
-            "first_name": "Test",
-            "username": "Test"
-        },
-        "message_id": 1365,
-        "from": {
-            "last_name": "Test Lastname",
-            "id": 1111111,
-            "first_name": "Test",
-            "username": "Test"
-        },
-        "text": "/start"
-    }
+  "update_id": 10000,
+  "message": {
+    "date": 1441645532,
+    "chat": {
+      "last_name": "Test Lastname",
+      "id": 1111111,
+      "first_name": "Test",
+      "username": "Test"
+    },
+    "message_id": 1365,
+    "from": {
+      "last_name": "Test Lastname",
+      "id": 1111111,
+      "first_name": "Test",
+      "username": "Test"
+    },
+    "text": "/start"
+  }
 }
 ```
 
 As a bot that only cares about the command itself, we only need to extract the
 following information from the request:
 
--   `message/message_id`: ID of the message, needed to reply/quote the original
-    message.
--   `message/chat/id`: ID of the chat window.
--   `message/text`: Command from the user.
+- `message/message_id`: ID of the message, needed to reply/quote the original
+  message.
+- `message/chat/id`: ID of the chat window.
+- `message/text`: Command from the user.
 
 Compared to Python, which parses JSON directly and formats it into a `dict`,
 Go's approach is more complicated, where we have to set up data structures to
@@ -152,13 +152,13 @@ if strings.Contains(request.Message.Text, " ") {
 The response message to Telegram's callback is also a JSON, containing the
 following contents:
 
--   `method`: Type of response, hardcoded to `sendMessage` in my case.
--   `chat_id`: ID of the chat window, same as the request.
--   `text`: Content of the message, set in the processing logic as needed.
--   `reply_to_message_id`: ID of the message to be replied, set to `message_id`
-    in request.
--   `parse_mode`: Set to `Markdown` so Telegram parses your message as Markdown.
-    Or remove if you don't want this.
+- `method`: Type of response, hardcoded to `sendMessage` in my case.
+- `chat_id`: ID of the chat window, same as the request.
+- `text`: Content of the message, set in the processing logic as needed.
+- `reply_to_message_id`: ID of the message to be replied, set to `message_id` in
+  request.
+- `parse_mode`: Set to `Markdown` so Telegram parses your message as Markdown.
+  Or remove if you don't want this.
 
 The structure in Go is:
 
@@ -204,7 +204,7 @@ All code above are taken from by
 [Bird Looking Glass Written in Go](/en/article/modify-website/go-bird-looking-glass.lantian),
 with the full code available at:
 
--   Latest version:
-    [https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go)
--   Version when writing this post:
-    [https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go)
+- Latest version:
+  [https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/master/frontend/telegram_bot.go)
+- Version when writing this post:
+  [https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go](https://github.com/xddxdd/bird-lg-go/blob/c262ee3bdf26b963d6320483cae856f186a1f59b/frontend/telegram_bot.go)

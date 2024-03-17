@@ -10,9 +10,9 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 这是我的 NixOS 系列文章的第二篇，主要介绍以下内容：
 
--   NixOS 配置文件的基本格式和修改配置的方法
--   Nix 包管理器的 Flake 功能
--   Deploy-RS 部署工具
+- NixOS 配置文件的基本格式和修改配置的方法
+- Nix 包管理器的 Flake 功能
+- Deploy-RS 部署工具
 
 本文假设你已经按照
 [NixOS 官方安装教程](https://nixos.org/manual/nixos/stable/index.html#sec-installation)装
@@ -20,10 +20,10 @@ image: /usr/uploads/202110/nixos-social-preview.png
 
 ## 更新日志
 
--   2023-05-10：增加推荐阅
-    读：[NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)，
-    作者 Ryan Yin。
--   2021-12-18：NixOS 21.11 仍没有默认启用 Flake 功能，更新文章中相关说明。
+- 2023-05-10：增加推荐阅
+  读：[NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)，
+  作者 Ryan Yin。
+- 2021-12-18：NixOS 21.11 仍没有默认启用 Flake 功能，更新文章中相关说明。
 
 ## 基础配置
 
@@ -410,31 +410,31 @@ warning: creating lock file '/etc/nixos/flake.lock'
 
 ```json
 {
-    "nodes": {
-        "nixpkgs": {
-            "locked": {
-                "lastModified": 1636623366,
-                "narHash": "sha256-jOQMlv9qFSj0U66HB+ujZoapty0UbewmSNbX8+3ujUQ=",
-                "owner": "NixOS",
-                "repo": "nixpkgs",
-                "rev": "c5ed8beb478a8ca035f033f659b60c89500a3034",
-                "type": "github"
-            },
-            "original": {
-                "owner": "NixOS",
-                "ref": "nixos-unstable",
-                "repo": "nixpkgs",
-                "type": "github"
-            }
-        },
-        "root": {
-            "inputs": {
-                "nixpkgs": "nixpkgs"
-            }
-        }
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1636623366,
+        "narHash": "sha256-jOQMlv9qFSj0U66HB+ujZoapty0UbewmSNbX8+3ujUQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c5ed8beb478a8ca035f033f659b60c89500a3034",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
     },
-    "root": "root",
-    "version": 7
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
 }
 ```
 
@@ -462,13 +462,13 @@ warning: creating lock file '/etc/nixos/flake.lock'
    但因为我买的都是资源不是很多的便宜 VPS，很容易遇到内存不足或者 CPU 占用过高被
    主机商关机的问题。
 
-    NixOS 的软件源有点类似于 Gentoo。与其它 Linux 发行版不同，一个软件包在 NixOS
-    软件源里不代表它有二进制文件。NixOS 的“软件包”是一组 Nix 语言的定义，描述了
-    下载、编译、打包一个软件的完整流程。
+   NixOS 的软件源有点类似于 Gentoo。与其它 Linux 发行版不同，一个软件包在 NixOS
+   软件源里不代表它有二进制文件。NixOS 的“软件包”是一组 Nix 语言的定义，描述了下
+   载、编译、打包一个软件的完整流程。
 
-    一般情况下，NixOS 官方会帮我们编译好软件，然后上传到二进制缓存（Binary
-    Cache）供我们下载。但如果我们自己改了软件包的编译流程（一般是一些编译参数）
-    或者干脆是自己打的包（后面文章中会介绍），就得自己编译了。
+   一般情况下，NixOS 官方会帮我们编译好软件，然后上传到二进制缓存（Binary
+   Cache）供我们下载。但如果我们自己改了软件包的编译流程（一般是一些编译参数）或
+   者干脆是自己打的包（后面文章中会介绍），就得自己编译了。
 
 2. Nix 包管理器解析配置文件的过程本身就会占用不少的内存和 CPU 资源，尤其是配置较
    复杂的时候。
@@ -611,17 +611,17 @@ extra-platforms = aarch64-linux arm-linux
 你也可以阅读以下文档来更深入地了解 NixOS 的配置语法、Flake 功能，以及
 Deploy-RS。注意以下文档都是英文的：
 
--   NixOS 配置语法
-    -   [NixOS.Wiki: Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)
-    -   [Nix By Example](https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55)
--   Flake 功能
-    -   [NixOS.Wiki: Flakes](https://nixos.wiki/wiki/Flakes)
--   Deploy-RS
-    -   [GitHub: Deploy-RS](https://github.com/serokell/deploy-rs)
+- NixOS 配置语法
+  - [NixOS.Wiki: Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)
+  - [Nix By Example](https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55)
+- Flake 功能
+  - [NixOS.Wiki: Flakes](https://nixos.wiki/wiki/Flakes)
+- Deploy-RS
+  - [GitHub: Deploy-RS](https://github.com/serokell/deploy-rs)
 
 你也可以参考我在 GitHub 上发布的配置文件：
 
--   [Initial commit](https://github.com/xddxdd/nixos-config/tree/9ed2eff8e4e6054151558f3d5909f3ef2af9b288)
-    -   完成了基础配置和 Nix Flake 部分。
--   [general: add deploy-rs script, change SSH port to 2222](https://github.com/xddxdd/nixos-config/tree/79c6f5b45d7ff574ecefb594ed76715715906cec)
-    -   完成了 Deploy-RS 的配置。
+- [Initial commit](https://github.com/xddxdd/nixos-config/tree/9ed2eff8e4e6054151558f3d5909f3ef2af9b288)
+  - 完成了基础配置和 Nix Flake 部分。
+- [general: add deploy-rs script, change SSH port to 2222](https://github.com/xddxdd/nixos-config/tree/79c6f5b45d7ff574ecefb594ed76715715906cec)
+  - 完成了 Deploy-RS 的配置。
