@@ -4,16 +4,19 @@ import { Post } from '../lib/posts'
 import { format } from 'date-fns'
 import PostExcerpt from './fragments/PostExcerpt.astro'
 import PostMetaWidget from './fragments/PostMetaWidget.astro'
+import WalineComment from './fragments/WalineComment.astro'
 import TableOfContent from './fragments/TableOfContent.astro'
 import { replaceInvalidUrlChars } from 'src/lib/utils'
 
 type Props = {
   language: Language
   post: Post
+  postPrev?: Post | undefined
+  postNext?: Post | undefined
   isShowingMultiPosts: boolean
 }
 
-const { language, post, isShowingMultiPosts } = Astro.props
+const { language, post, postPrev, postNext, isShowingMultiPosts } = Astro.props
 const __ = language.getTranslation
 
 const { Content, headings } = await post.collectionEntry.render()
@@ -110,6 +113,34 @@ const { Content, headings } = await post.collectionEntry.render()
           )) || <Content />
         }
       </div>
+      {
+        !isShowingMultiPosts && (
+          <>
+            <div class="clearfix" id="post-navi">
+              <div class="float-end text-end">
+                {(postNext !== undefined && (
+                  <a href={postNext.getFullURL()} title={postNext.title}>
+                    {postNext.title}
+                  </a>
+                )) || <>&nbsp;</>}
+                <br />
+                {__('next_post')} &raquo;
+              </div>
+
+              <div class="float-start text-start position-absolute">
+                &laquo; {__('previous_post')}
+                <br />
+                {(postPrev !== undefined && (
+                  <a href={postPrev.getFullURL()} title={postPrev.title}>
+                    {postPrev.title}
+                  </a>
+                )) || <>&nbsp;</>}
+              </div>
+            </div>
+            <WalineComment language={language} post={post} />
+          </>
+        )
+      }
     </div>
   </div>
 </article>

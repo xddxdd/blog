@@ -412,6 +412,7 @@ footer.lantian {
   #post-navi {
     border-top: 1px solid material-color('grey', '400');
     border-bottom: 1px solid material-color('grey', '400');
+    padding: 5px;
   }
 }
 
@@ -467,10 +468,6 @@ aside {
       content: fa-content($fa-var-angle-right);
     }
   }
-}
-
-#post-navi {
-  padding: 5px;
 }
 
 .page-navigator {

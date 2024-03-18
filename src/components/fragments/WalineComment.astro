@@ -1,0 +1,41 @@
+---
+import { type Language } from '../../lib/language'
+import { Post } from '../../lib/posts'
+
+type Props = {
+  language: Language
+  post: Post
+}
+
+const { language, post } = Astro.props
+
+const walineLanguageMapping: Record<string, string> = {
+  en: 'en-US',
+  zh: 'zh-CN',
+}
+const walineLanguage = walineLanguageMapping[language.getCode()]!
+const walinePath = post.getFullURL().replace(/(\/+)$/, '')
+---
+
+<div
+  id="waline"
+  data-waline-language={walineLanguage}
+  data-waline-path={walinePath}
+>
+</div>
+<script>
+  import { init } from '@waline/client'
+  const walineProps = document.getElementById('waline')!.dataset
+  init({
+    el: '#waline',
+    serverURL: window.location.origin,
+    path: walineProps.walinePath,
+    lang: walineProps.walineLanguage,
+    requiredMeta: ['nick', 'mail'],
+    login: 'disable',
+    emoji: [
+      'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba',
+      'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
+    ],
+  })
+</script>

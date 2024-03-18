@@ -145,9 +145,6 @@ addLoadEvent(function () {
   })
 
   attempt('Waline', function () {
-    if (typeof waline_config !== 'undefined') {
-      walineInit(waline_config)
-    }
     walineRecentComments({
       serverURL: window.location.origin,
       count: 10,
