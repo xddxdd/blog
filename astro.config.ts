@@ -14,6 +14,7 @@ import remarkMermaid from 'remark-mermaid'
 import { visit } from 'unist-util-visit'
 import react from '@astrojs/react'
 import copyFiles from './src/lib/astro-plugins/copy-files'
+import type { Node } from 'unist'
 
 export const chineseQuotes = s =>
   typeof s === 'string'
@@ -23,12 +24,11 @@ export const chineseQuotes = s =>
         .replaceAll('‘', '『')
         .replaceAll('’', '』')
     : s
-let remarkChineseQuotes = () => tree => {
-  visit(tree, node => {
+let remarkChineseQuotes = () => (tree: Node) => {
+  visit(tree, (node: any) => {
     if (typeof node.value === 'string') {
       node.value = chineseQuotes(node.value)
     }
-    return node
   })
 }
 const markdownPluginOptions: Record<string, any> = {
