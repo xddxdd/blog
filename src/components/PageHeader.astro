@@ -98,6 +98,7 @@ const { pathname } = Astro.url
                       class={`dropdown-item ${pathname == canonicalPath ? 'active' : ''}`}
                       href={canonicalPath}
                     >
+                      <span class={`flag-icon ${newLanguage.getFlagIcon()}`} />
                       {newLanguage.getDisplayName()}
                     </a>
                   </li>

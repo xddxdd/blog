@@ -99,6 +99,10 @@ class LanguageChineseSimplifiedImpl extends Language {
   public override getLinkItems(): NavigationItem[] {
     return linkItems
   }
+
+  public override getFlagIcon(): string {
+    return 'flag-icon-cn'
+  }
 }
 
 export const LanguageChineseSimplified = new LanguageChineseSimplifiedImpl()

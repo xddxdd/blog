@@ -102,6 +102,10 @@ class LanguageEnglishImpl extends Language {
   public override getLinkItems(): NavigationItem[] {
     return linkItems
   }
+
+  public override getFlagIcon(): string {
+    return 'flag-icon-us'
+  }
 }
 
 export const LanguageEnglish = new LanguageEnglishImpl()

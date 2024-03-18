@@ -33,4 +33,5 @@ export abstract class Language {
   public abstract getCategoryMap(): Record<string, string>
   public abstract getNavBarItems(): NavigationItem[]
   public abstract getLinkItems(): NavigationItem[]
+  public abstract getFlagIcon(): string
 }
