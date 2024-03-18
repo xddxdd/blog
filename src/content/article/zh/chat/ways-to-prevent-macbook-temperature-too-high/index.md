@@ -18,7 +18,7 @@ Macbook可就掉地上了。
 负荷运行，CPU轻松烧到100度。之后，测试人员不得不将Macbook晾了一个晚上以恢复常
 温，在测试过程中，这台可怜的Macbook Pro也只能以这个姿态立着：
 
-![Macbook Pro](../../../../../../public/usr/uploads/2013/07/2453648692.jpg)
+![Macbook Pro](/usr/uploads/2013/07/2453648692.jpg)
 
 所以，CPU温度问题一定要注意。
 

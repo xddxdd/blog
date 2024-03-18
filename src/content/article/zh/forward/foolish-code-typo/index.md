@@ -44,52 +44,52 @@ Bumblebee是Linux平台上的一款NVidia显卡的辅助工具，它可以让NVi
 
 “所以我得先格式化我的硬盘？”“是的，我一般用Bumblebee格式化。”
 
-![/usr/uploads/2014/01/3298154581](../../../../../../public/usr/uploads/2014/01/3298154581.png)
+![/usr/uploads/2014/01/3298154581](/usr/uploads/2014/01/3298154581.png)
 
 “你有没有装Bumblebee？”“装了，但是我备份了usr文件夹。。。”
 
-![/usr/uploads/2014/01/2909647635](../../../../../../public/usr/uploads/2014/01/2909647635.png)
+![/usr/uploads/2014/01/2909647635](/usr/uploads/2014/01/2909647635.png)
 
 “他们会干掉我们，但他们不会干掉我们的usr”
 
-![/usr/uploads/2014/01/723043973](../../../../../../public/usr/uploads/2014/01/723043973.png)
+![/usr/uploads/2014/01/723043973](/usr/uploads/2014/01/723043973.png)
 
 “usr，为什么离开我？”
 
-![/usr/uploads/2014/01/1115107318](../../../../../../public/usr/uploads/2014/01/1115107318.png)
+![/usr/uploads/2014/01/1115107318](/usr/uploads/2014/01/1115107318.png)
 
 “Bumblebee，我找你有些话想说”
 
-![/usr/uploads/2014/01/3261213394](../../../../../../public/usr/uploads/2014/01/3261213394.jpg)
+![/usr/uploads/2014/01/3261213394](/usr/uploads/2014/01/3261213394.jpg)
 
 “usr？早在2011年6月就不见了，呵呵。”
 
-![/usr/uploads/2014/01/4006259684](../../../../../../public/usr/uploads/2014/01/4006259684.png)
+![/usr/uploads/2014/01/4006259684](/usr/uploads/2014/01/4006259684.png)
 
 SElinux和AppArmor都无语了。。。
 
-![/usr/uploads/2014/01/2872907203](../../../../../../public/usr/uploads/2014/01/2872907203.jpg)
+![/usr/uploads/2014/01/2872907203](/usr/uploads/2014/01/2872907203.jpg)
 
 “我在公司服务器上装了Bumblebee，现在我需要工作。。。”
 
-![/usr/uploads/2014/01/2792998614](../../../../../../public/usr/uploads/2014/01/2792998614.jpg)
+![/usr/uploads/2014/01/2792998614](/usr/uploads/2014/01/2792998614.jpg)
 
 “我不经常备份，但是我备份时总是太晚了。。。”
 
-![/usr/uploads/2014/01/2548332387](../../../../../../public/usr/uploads/2014/01/2548332387.jpg)
+![/usr/uploads/2014/01/2548332387](/usr/uploads/2014/01/2548332387.jpg)
 
 乔布斯：“你听说过Bumblebee吗？”比尔盖茨：“我建议所有Linux用户都装一个。”
 
-![/usr/uploads/2014/01/1807140881](../../../../../../public/usr/uploads/2014/01/1807140881.jpg)
+![/usr/uploads/2014/01/1807140881](/usr/uploads/2014/01/1807140881.jpg)
 
 低轨道黄蜂（Bumblebee）加农炮：
 
-![/usr/uploads/2014/01/3115206340](../../../../../../public/usr/uploads/2014/01/3115206340.png)
+![/usr/uploads/2014/01/3115206340](/usr/uploads/2014/01/3115206340.png)
 
 “你在/usr后加了个空格怎么了？那路径不存在。”“我没把路径用双引号括起来。。。”
 
-![/usr/uploads/2014/01/1434800310](../../../../../../public/usr/uploads/2014/01/1434800310.png)
+![/usr/uploads/2014/01/1434800310](/usr/uploads/2014/01/1434800310.png)
 
 “元首大人，我们在你的机器上装了Bumblebee。”
 
-![/usr/uploads/2014/01/1519896961](../../../../../../public/usr/uploads/2014/01/1519896961.jpg)
+![/usr/uploads/2014/01/1519896961](/usr/uploads/2014/01/1519896961.jpg)

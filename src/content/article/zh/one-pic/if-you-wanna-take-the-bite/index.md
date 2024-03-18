@@ -6,9 +6,9 @@ date: 2020-06-17 17:33:06
 image: /usr/uploads/202006/usvisa-time.png
 ---
 
-![美国签证预约取消邮件](../../../../../../public/usr/uploads/202006/usvisa-mail.png)
+![美国签证预约取消邮件](/usr/uploads/202006/usvisa-mail.png)
 
-![但这段时间仍然可以预约](../../../../../../public/usr/uploads/202006/usvisa-time.png)
+![但这段时间仍然可以预约](/usr/uploads/202006/usvisa-time.png)
 
 附取消邮件内容：
 

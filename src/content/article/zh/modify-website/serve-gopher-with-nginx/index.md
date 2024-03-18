@@ -369,27 +369,27 @@ return data
 
 首先是用 Linux 终端下的 Gopherus 浏览器访问的效果：
 
-![Gopherus 访问中文内容](../../../../../../public/usr/uploads/202103/gopher-gopherus.png)
+![Gopherus 访问中文内容](/usr/uploads/202103/gopher-gopherus.png)
 
 网站内容可以正常显示了，但是和预期还有些差别：Gopherus 将每行在 80 字节处截断
 了，而 UTF-8 编码的中文字每个占 3 字节，导致了有约 $\frac{1}{3}$ 的内容被挤到了
 下一行。英文站就没有这个问题：
 
-![Gopherus 访问英文内容](../../../../../../public/usr/uploads/202103/gopher-gopherus-en.png)
+![Gopherus 访问英文内容](/usr/uploads/202103/gopher-gopherus-en.png)
 
 比起 Gopherus，还有更现代的解决方案，Firefox 浏览器加 Overbite 插件：
 
-![Firefox + Overbite 访问中文内容](../../../../../../public/usr/uploads/202103/gopher-overbite.png)
+![Firefox + Overbite 访问中文内容](/usr/uploads/202103/gopher-overbite.png)
 
 中文内容的排版比起 Gopherus 好了不少。当然英文内容也可以正常显示：
 
-![Firefox + Overbite 访问英文内容](../../../../../../public/usr/uploads/202103/gopher-overbite-en.png)
+![Firefox + Overbite 访问英文内容](/usr/uploads/202103/gopher-overbite-en.png)
 
 我们点进一篇文章看看。虽然只是 Markdown 没做太多额外的处理，但文章本身是可读的：
 
-![Firefox + Overbite 访问中文文章](../../../../../../public/usr/uploads/202103/gopher-overbite-article.png)
+![Firefox + Overbite 访问中文文章](/usr/uploads/202103/gopher-overbite-article.png)
 
-![Firefox + Overbite 访问英文文章](../../../../../../public/usr/uploads/202103/gopher-overbite-article-en.png)
+![Firefox + Overbite 访问英文文章](/usr/uploads/202103/gopher-overbite-article-en.png)
 
 你也可以用 Gopher 客户端访问
 [gopher://gopher.lantian.pub](gopher://gopher.lantian.pub) 自行查看效果。

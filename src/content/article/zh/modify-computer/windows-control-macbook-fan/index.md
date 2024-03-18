@@ -27,7 +27,7 @@ MacBook的散热是用户们心中永远的痛，苹果的散热非常的保守�
 啊！风扇速度自然被调到最高值6000转。过了一会儿，我看到温度还是稳稳停留在90度，但
 是我摸了一下出风口，一点也不像90度烫手的样子。
 
-![Lubbos Fan Control](../../../../../../public/usr/uploads/2013/10/2933104397.png)
+![Lubbos Fan Control](/usr/uploads/2013/10/2933104397.png)
 
 我去谷歌上搜索，发现是因为版本太老，传感器参数不对的原因，到设置的ini里就能改。
 在ini里我修改了传感器、GPU数量和CPU数量设置，以和我的MacBook对应。修改完成后，再
@@ -38,7 +38,7 @@ MacBook的散热是用户们心中永远的痛，苹果的散热非常的保守�
 的帧率，集显电脑绝对不可能流畅播放。一打开视频，CPU占用率迅速飙升，风扇速度也正
 常提升；关掉视频，风扇也自动减速，测试成功。
 
-![/usr/uploads/2013/10/566121349.png](../../../../../../public/usr/uploads/2013/10/566121349.png)
+![/usr/uploads/2013/10/566121349.png](/usr/uploads/2013/10/566121349.png)
 
 修改版LubbosFanControl下载地址（完美支持12年中版集显
-MBP）：[LubbosFanControl.7z](../../../../../../public/usr/uploads/2013/10/1691255080.7z)
+MBP）：[LubbosFanControl.7z](/usr/uploads/2013/10/1691255080.7z)

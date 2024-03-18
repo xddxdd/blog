@@ -174,7 +174,7 @@ Nix 语言同样有着 JSON 的六大数据类型：数字，布尔值，字符�
 
 运行 `nixos-rebuild switch`，`nyancat` 命令就安装好了：
 
-![NixOS nyancat 命令](../../../../../../public/usr/uploads/202111/nixos-nyancat.png)
+![NixOS nyancat 命令](/usr/uploads/202111/nixos-nyancat.png)
 
 NixOS 官方的[这份文档](https://nixos.org/manual/nixos/unstable/options.html)列出
 了 `configuration.nix` 里可以定义的所有配置项。因为是所有配置项，所以这个网页很
@@ -182,11 +182,11 @@ NixOS 官方的[这份文档](https://nixos.org/manual/nixos/unstable/options.ht
 [NixOS 官方搜索工具的 Options 页面](https://search.nixos.org/options)搜索配置
 项：
 
-![NixOS 官方搜索 Options 页面](../../../../../../public/usr/uploads/202111/nixos-search-options.png)
+![NixOS 官方搜索 Options 页面](/usr/uploads/202111/nixos-search-options.png)
 
 或者在[搜索工具的 Packages 页面](https://search.nixos.org/packages)搜索软件包：
 
-![NixOS 官方搜索 Packages 页面](../../../../../../public/usr/uploads/202111/nixos-search-packages.png)
+![NixOS 官方搜索 Packages 页面](/usr/uploads/202111/nixos-search-packages.png)
 
 ## 配置文件是函数
 
@@ -288,7 +288,7 @@ a: {
 动/停止任何服务。这是因为我们只是把 SSH 的配置挪到了新的文件中，实际的配置并没有
 发生变化。
 
-![NixOS Rebuild](../../../../../../public/usr/uploads/202111/nixos-rebuild-noop.png)
+![NixOS Rebuild](/usr/uploads/202111/nixos-rebuild-noop.png)
 
 接下来我简单解释一下 `imports` 的原理。可以看到 `configuration.nix` 这个函数有参
 数 `config`，`pkgs`，和一些被我们忽略掉的参数（`...`）。NixOS 会用相同的参数（包
@@ -331,7 +331,7 @@ a: {
 刚才我介绍了修改系统配置和安装软件包的方法，但唯独没有提到如何升级软件包。这是因
 为 NixOS 的软件源是由另外一个命令 `nix-channel` 管理的：
 
-![NixOS nix-channel 命令](../../../../../../public/usr/uploads/202111/nixos-channels.png)
+![NixOS nix-channel 命令](/usr/uploads/202111/nixos-channels.png)
 
 其中 `nix-channel --list` 命令列出了当前配置的软件源列表，`nix-channel --update`
 用来将软件源更新到最新。但是，`nix-channel` 的配置不归 `configuration.nix`

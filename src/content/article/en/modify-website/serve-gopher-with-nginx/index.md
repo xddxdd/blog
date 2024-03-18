@@ -401,31 +401,31 @@ test it again afterwards, so there could be minor issues.
 First, let's take a look at how things look like with Gopherus browser under the
 Linux terminal:
 
-![Gopherus on Chinese contents](../../../../../../public/usr/uploads/202103/gopher-gopherus.png)
+![Gopherus on Chinese contents](/usr/uploads/202103/gopher-gopherus.png)
 
 The site is displayed normally, but it's a bit different from expected: Gopherus
 cut each line at 80 bytes, but Chinese characters are 3 bytes each in UTF-8
 encoding. This means approximately $\frac{1}{3}$ of the content each line wraps
 to the next line. My English site is shown correctly:
 
-![Gopherus on English contents](../../../../../../public/usr/uploads/202103/gopher-gopherus-en.png)
+![Gopherus on English contents](/usr/uploads/202103/gopher-gopherus-en.png)
 
 There are modern solutions compared to Gopherus, which is the Firefox browser
 with Overbite plugin:
 
-![Firefox + Overbite on Chinese contents](../../../../../../public/usr/uploads/202103/gopher-overbite.png)
+![Firefox + Overbite on Chinese contents](/usr/uploads/202103/gopher-overbite.png)
 
 Chinese contents layout is much better than Gopherus. Of course, English
 contents can be shown normally as well:
 
-![Firefox + Overbite on English contents](../../../../../../public/usr/uploads/202103/gopher-overbite-en.png)
+![Firefox + Overbite on English contents](/usr/uploads/202103/gopher-overbite-en.png)
 
 Let's try browsing a post. Although it's just plain Markdown without much extra
 processing, the post itself is readable:
 
-![Firefox + Overbite on Chinese contents](../../../../../../public/usr/uploads/202103/gopher-overbite-article.png)
+![Firefox + Overbite on Chinese contents](/usr/uploads/202103/gopher-overbite-article.png)
 
-![Firefox + Overbite on English contents](../../../../../../public/usr/uploads/202103/gopher-overbite-article-en.png)
+![Firefox + Overbite on English contents](/usr/uploads/202103/gopher-overbite-article-en.png)
 
 You can visit [gopher://gopher.lantian.pub](gopher://gopher.lantian.pub) with
 your own Gopher client to see the results.

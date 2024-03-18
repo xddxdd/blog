@@ -93,7 +93,7 @@ configuration of on-chip components, one-key code template generation, and a
 fully-featured set of library functions that hide register operations. Thanks to
 this, STM32 development is not much more difficult than Arduino.
 
-![STM32CubeMX User Interface](../../../../../../public/usr/uploads/202006/stm32cubemx.png)
+![STM32CubeMX User Interface](/usr/uploads/202006/stm32cubemx.png)
 
 ## When We Don't Have Enough ROM
 
@@ -393,7 +393,7 @@ needed to cut their power.
 
 Initially, we planned to use an N-channel MOSFET to cut the power:
 
-![MOSFET Power Switching Circuit](../../../../../../public/usr/uploads/202006/circuit-mosfet.png)
+![MOSFET Power Switching Circuit](/usr/uploads/202006/circuit-mosfet.png)
 
 CTL in the schematic represents the digital output of STM32, and R1 is the
 corresponding module. When CTL outputs 0, MOSFET M1 will cut the circuit to turn
@@ -406,7 +406,7 @@ enough power to work normally.
 
 So we added a BJT triode to pull the digital output to 5V:
 
-![Power Switching Circuit with BJT Triode](../../../../../../public/usr/uploads/202006/circuit-bjt.png)
+![Power Switching Circuit with BJT Triode](/usr/uploads/202006/circuit-bjt.png)
 
 When STM32 outputs 1, triode Q1 lets current through and pulls low the control
 voltage of MOSFET, turning off the modules; when STM32 outputs 0, Q1 cuts power,
@@ -426,7 +426,7 @@ large current.
 The solution is an additional resistor for limiting current, R3, in the
 following schematic:
 
-![Power Switching Circuit with BJT Triode and Resistor](../../../../../../public/usr/uploads/202006/circuit-bjt-resistor.png)
+![Power Switching Circuit with BJT Triode and Resistor](/usr/uploads/202006/circuit-bjt-resistor.png)
 
 > So STM32 can work normally while outputting 50 mA...
 

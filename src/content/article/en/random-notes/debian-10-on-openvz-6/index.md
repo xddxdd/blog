@@ -80,4 +80,4 @@ After the upgrade process finishes, nothing should happen when you type `reboot`
 and enter. Now you just need to reboot the server in your provider's control
 panel.
 
-![Debian 10 Running on OpenVZ 6 Kernel](../../../../../../public/usr/uploads/202003/debian-10-on-openvz-6.png)
+![Debian 10 Running on OpenVZ 6 Kernel](/usr/uploads/202003/debian-10-on-openvz-6.png)

@@ -56,5 +56,5 @@ end.
 ```
 
 当然只执行主程序是没用的，还需要原始图形文件，就是我调用的那个txt，下载地
-址：[/usr/uploads/2013/03/badapple.7z](../../../../../../public/usr/uploads/2013/03/badapple.7z)。
+址：[/usr/uploads/2013/03/badapple.7z](/usr/uploads/2013/03/badapple.7z)。
 下载下来和主程序放在一起。

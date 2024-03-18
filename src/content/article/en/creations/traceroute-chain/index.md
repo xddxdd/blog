@@ -10,7 +10,7 @@ Traceroute is one of the popular tools for network inspection. It shows the IP
 addresses of routers on the route from your computer to a destination server,
 similar to:
 
-![Traceroute Example](../../../../../../public/usr/uploads/2018/08/2301166997.png)
+![Traceroute Example](/usr/uploads/2018/08/2301166997.png)
 
 Domains are shown on the last 2 hops, which is the IP's reverse DNS record.
 Reverse DNS records exist as PTR records in the format of
@@ -45,7 +45,7 @@ path is calculated as +1, +2 to the host address. For example, if I run
 with 97 being the host. This creates the same result as I did 2 years ago with
 Docker containers:
 
-![Traceroute Results](../../../../../../public/usr/uploads/2018/08/1311499371.png)
+![Traceroute Results](/usr/uploads/2018/08/1311499371.png)
 
 (I'm simply reusing the screenshot from 2 years ago)
 

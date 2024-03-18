@@ -10,9 +10,9 @@ image: /usr/uploads/2013/10/2261613167.png
 前，[Host1Free 用关机大法清理了一大批闲置用户](/article/modify-website/host1free-check-users-vps-actively-used.lantian)。
 现在，H1F又出狠招，每月输验证码续期一次，否则就删除你的VPS。
 
-![/usr/uploads/2013/10/2261613167.png](../../../../../../public/usr/uploads/2013/10/2261613167.png)
+![/usr/uploads/2013/10/2261613167.png](/usr/uploads/2013/10/2261613167.png)
 
-![/usr/uploads/2013/10/3711407231.png](../../../../../../public/usr/uploads/2013/10/3711407231.png)
+![/usr/uploads/2013/10/3711407231.png](/usr/uploads/2013/10/3711407231.png)
 
 每次你续期后2周，会给你发下一月的续期邮件；你收到邮件后在2周内进行续期，否则先关
 闭你的VPS；再过1周不续期，就删除你的数据。

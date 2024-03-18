@@ -20,7 +20,7 @@ FYI I obtained the device from China Telecom, Guangdong Shenzhen.
 If you directly access the modem's IP (`http://192.168.1,1`), you will see such
 a login page to the modem:
 
-![Youhua PT926G Login Page](../../../../../../public/usr/uploads/202008/youhua-pt926g-default-page.png)
+![Youhua PT926G Login Page](/usr/uploads/202008/youhua-pt926g-default-page.png)
 
 Here you can log in with account name `useradmin` and the password labeled on
 the back of the modem, but there's not much you can do once logged in. The only
@@ -45,7 +45,7 @@ PORT      STATE    SERVICE
 
 There is a port 8080 that we can try accessing (`http://192.168.1.1:8080`):
 
-![Youhua PT926G Port 8080 Login Page](../../../../../../public/usr/uploads/202008/youhua-pt926g-8080.png)
+![Youhua PT926G Port 8080 Login Page](/usr/uploads/202008/youhua-pt926g-8080.png)
 
 Well, looks familiar enough.
 
@@ -59,7 +59,7 @@ Let's try China Telecom's default password (`telecomadmin / nE7jA%5m`):
 >
 > Usually, ISP will push a config update to change the password.
 
-![Youhua PT926G Port 8080 UI](../../../../../../public/usr/uploads/202008/youhua-pt926g-8080-logged-on.png)
+![Youhua PT926G Port 8080 UI](/usr/uploads/202008/youhua-pt926g-8080-logged-on.png)
 
 And I'm in. China Telecom Shenzhen simply doesn't change that password.
 
@@ -167,7 +167,7 @@ PORT     STATE    SERVICE
 And connect with your FTP client, the username is `useradmin`, and the password
 is what's on the back of your modem.
 
-![Successful FTP Connection to Youhua PT926G](../../../../../../public/usr/uploads/202008/youhua-pt926g-ftp.png)
+![Successful FTP Connection to Youhua PT926G](/usr/uploads/202008/youhua-pt926g-ftp.png)
 
 > Here, I'm using the modem's link-local address `fe80::1%wlp3s0`, where
 > `wlp3s0` is my Linux network interface name. This may not be possible under

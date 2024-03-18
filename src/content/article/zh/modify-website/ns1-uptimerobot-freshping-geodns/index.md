@@ -116,13 +116,13 @@ Request 错误，而且短时间内重试无法解决该问题。因为 Cloudfla
    - 以 `hostdare.lantian.pub -> 185.186.147.110` 为例，`Alarm Name` 需要填写为
      `hostdare.lantian.pub`。
 
-   ![NS1 添加订阅](../../../../../../public/usr/uploads/202202/ns1-alarm.png)
+   ![NS1 添加订阅](/usr/uploads/202202/ns1-alarm.png)
 
 3. 重复第二步，添加所有节点的订阅。
 4. 此时 Incoming Feeds 标签会显示 CloudWatch 订阅的链接（`Feeds URL`），记下这个
    链接，稍后将会将它添加到 AWS SNS 中。
 
-   ![NS1 订阅链接](../../../../../../public/usr/uploads/202202/ns1-feed.png)
+   ![NS1 订阅链接](/usr/uploads/202202/ns1-feed.png)
 
 5. 进入
    [AWS SNS 管理页面](https://us-west-1.console.aws.amazon.com/sns/v3/home?region=us-west-1#/topics)，
@@ -131,13 +131,13 @@ Request 错误，而且短时间内重试无法解决该问题。因为 Cloudfla
    - 注意我的 AWS 链接都是 us-west-1 区的，如果你想新建在其它区域请自行切换！AWS
      上的 SNS 和稍后创建的 Lambda 函数必须在同一个区！
 
-   ![AWS 创建 Topic](../../../../../../public/usr/uploads/202202/aws-create-topic.png)
+   ![AWS 创建 Topic](/usr/uploads/202202/aws-create-topic.png)
 
 6. Topic 的页面上会显示一个 ARN（资源 ID），将其记录下来，稍后创建函数时会用到。
 7. 点击页面下方的 `Create subscription` 按钮创建数据订阅，Protocol（协议）选择
    HTTPS，Endpoint（地址）输入第 4 步的订阅链接，其余选项保持默认。
 
-   ![AWS 创建订阅](../../../../../../public/usr/uploads/202202/aws-create-subscription.png)
+   ![AWS 创建订阅](/usr/uploads/202202/aws-create-subscription.png)
 
 此时发送到 AWS SNS 的这个 Topic 的消息，都会被转发到 NS1 的 API，从而将节点状态
 同步到 NS1。
@@ -155,7 +155,7 @@ Request 错误，而且短时间内重试无法解决该问题。因为 Cloudfla
      上的 SNS 和 Lambda 函数必须在同一个区！
    - 选择 `Auto from scratch`，Runtime 选择 `Node.js 14.x`，其余均保持默认。
 
-   ![AWS 创建 Lambda 函数](../../../../../../public/usr/uploads/202202/aws-create-lambda.png)
+   ![AWS 创建 Lambda 函数](/usr/uploads/202202/aws-create-lambda.png)
 
 2. 此时你会自动进入函数的编辑页面。如果你准备用 UptimeRobot，将这段代码复制进
    去：
@@ -249,21 +249,21 @@ Request 错误，而且短时间内重试无法解决该问题。因为 Cloudfla
 3. 点击函数的 Configuration 标签，左侧选择 Permissions，再点击 Execution Role 里
    的链接，进入权限管理页面。
 
-   ![AWS 函数权限配置](../../../../../../public/usr/uploads/202202/aws-lambda-permissions.png)
+   ![AWS 函数权限配置](/usr/uploads/202202/aws-lambda-permissions.png)
 
 4. 在打开的新页面上，点击 Add permissions - Create inline policy，创建一条权限规
    则。
 5. 进入 Create Policy（创建规则）页面后，Service 选择 SNS；
 
-   ![AWS 权限配置选择 Service](../../../../../../public/usr/uploads/202202/aws-permission-service.png)
+   ![AWS 权限配置选择 Service](/usr/uploads/202202/aws-permission-service.png)
 
 6. Actions 选择 Write 下的 Publish；
 
-   ![AWS 权限配置选择 Actions](../../../../../../public/usr/uploads/202202/aws-permission-actions.png)
+   ![AWS 权限配置选择 Actions](/usr/uploads/202202/aws-permission-actions.png)
 
 7. 在 Resources 点击 Add ARN，填写之前创建的 AWS SNS 的 ARN：
 
-   ![AWS 权限配置选择 Resources](../../../../../../public/usr/uploads/202202/aws-permission-resources.png)
+   ![AWS 权限配置选择 Resources](/usr/uploads/202202/aws-permission-resources.png)
 
 8. 点右下角的 Review Policy，随便起个名字，然后点 Create Policy 创建规则。
 
@@ -279,21 +279,21 @@ Request 错误，而且短时间内重试无法解决该问题。因为 Cloudfla
 
    - 注意我的 AWS 链接都是 us-west-1 区的，如果你想新建在其它区域请自行切换！
 
-   ![AWS API Gateway 选择类型](../../../../../../public/usr/uploads/202202/aws-api-type.png)
+   ![AWS API Gateway 选择类型](/usr/uploads/202202/aws-api-type.png)
 
 2. 点击 Add integration，类型选择 Lambda，并选择你刚才创建的 Lambda 函数，随便起
    个名，并点击下一步：
 
-   ![AWS API Gateway 选择 Lambda 函数](../../../../../../public/usr/uploads/202202/aws-api-integrations.png)
+   ![AWS API Gateway 选择 Lambda 函数](/usr/uploads/202202/aws-api-integrations.png)
 
 3. 在 Configure routes 页面，记下你的 Lambda 函数对应的路径，例如我的路径就是
    `/ns1-uptime`：
 
-   ![AWS API Gateway 配置路径](../../../../../../public/usr/uploads/202202/aws-api-routes.png)
+   ![AWS API Gateway 配置路径](/usr/uploads/202202/aws-api-routes.png)
 
 4. 一路下一步创建成功，页面中央的 Stages 中就是 API Gateway 的地址。
 
-   ![AWS API Gateway 地址](../../../../../../public/usr/uploads/202202/aws-api-url.png)
+   ![AWS API Gateway 地址](/usr/uploads/202202/aws-api-url.png)
 
    在地址末尾加上第三步的路径就是函数的地址。假设我的 API Gateway 地址是
    `https://1234567890.execute-api.us-west-1.amazonaws.com/`，那么 Lambda 函数的
@@ -323,7 +323,7 @@ Request 错误，而且短时间内重试无法解决该问题。因为 Cloudfla
    - Enable notification for 选择 Up & down events；
    - 保存。
 
-   ![UptimeRobot Webhook 配置](../../../../../../public/usr/uploads/202202/uptimerobot-webhook.png)
+   ![UptimeRobot Webhook 配置](/usr/uploads/202202/uptimerobot-webhook.png)
 
    - 修改所有的监控任务，在联系人一栏选中刚刚添加的 Webhook。
 
@@ -350,7 +350,7 @@ Feed 上。
    5. Select First N
 4. 勾选 Enable Client Subnet，然后保存。
 
-   ![NS1 Filter Chain](../../../../../../public/usr/uploads/202202/ns1-filter-chain.png)
+   ![NS1 Filter Chain](/usr/uploads/202202/ns1-filter-chain.png)
 
 5. 在右侧点击添加 Answer Group，每个 Group 对应一个地区。点击 Answer Group 右侧
    的菜单，选择编辑信息 Edit Group Metadata，添加国家（Country）和地区
@@ -361,14 +361,14 @@ Feed 上。
    - US States 选择 Western US / California；
    - 保存。
 
-   ![NS1 Answer Group](../../../../../../public/usr/uploads/202202/ns1-answer-group.png)
+   ![NS1 Answer Group](/usr/uploads/202202/ns1-answer-group.png)
 
 6. 在这个 Answer Group 里选择 Add Answer to Group，填写准备工作第 4 步创建的对应
    节点的域名。点击右侧菜单选择编辑信息 Edit Answer Metadata：
 
    - 点击 Up/down 右侧的图标，选择对应这个节点的订阅 Feed，保存。
 
-   ![NS1 Answer 信息](../../../../../../public/usr/uploads/202202/ns1-answer-meta.png)
+   ![NS1 Answer 信息](/usr/uploads/202202/ns1-answer-meta.png)
 
 7. 重复 5、6 两步添加所有地区和节点并保存，此时这个 CNAME 记录已经启用了 GeoDNS
    和自动切换。
