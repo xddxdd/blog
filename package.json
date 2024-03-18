@@ -26,6 +26,7 @@
     "@types/react-dom": "^18.2.22",
     "@waline/client": "^3.1.3",
     "astro": "^4.5.5",
+    "autoprefixer": "^10.4.18",
     "bootstrap": "^5.3.2",
     "bootstrap.native": "^5.0.11",
     "date-fns": "^3.5.0",
@@ -34,6 +35,11 @@
     "highlight.js": "^11.9.0",
     "instant.page": "^5.2.0",
     "plausible-tracker": "^0.3.8",
+    "postcss": "^8.4.36",
+    "postcss-inline-svg": "^6.0.0",
+    "postcss-load-config": "^5.0.3",
+    "postcss-preset-env": "^9.5.2",
+    "postcss-sorting": "^8.0.2",
     "prism-themes": "^1.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -54,6 +60,7 @@
     "sass": "^1.72.0",
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
   },
   "devDependencies": {
@@ -61,6 +68,14 @@
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0"
   },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead",
+    "Firefox 52",
+    "IE >=8",
+    "Chrome 49"
+  ],
   "prettier": {
     "trailingComma": "es5",
     "tabWidth": 2,
