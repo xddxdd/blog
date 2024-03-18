@@ -46,8 +46,7 @@ const { Content, headings } = await post.collectionEntry.render()
               fontAwesomeClass="fas fa-file-alt"
               label={post.category}
             >
-              {__('category')}
-              &nbsp;
+              {__('category')}{' '}
               <a
                 class="badge badge-tag"
                 href={`${language.getSegment()}/category/${replaceInvalidUrlChars(CATEGORY_MAP[post.category]!)}`}
@@ -63,8 +62,7 @@ const { Content, headings } = await post.collectionEntry.render()
               fontAwesomeClass="fas fa-tag"
               label={`${post.tags.length} ${__('n_tags')}`}
             >
-              {__('tags')}
-              &nbsp;
+              {__('tags')}{' '}
               {post.tags.map(tag => (
                 <>
                   <a
@@ -72,8 +70,7 @@ const { Content, headings } = await post.collectionEntry.render()
                     href={`${language.getSegment()}/tag/${replaceInvalidUrlChars(tag)}`}
                   >
                     {tag}
-                  </a>
-                  &nbsp;
+                  </a>{' '}
                 </>
               ))}
             </PostMetaWidget>
@@ -122,19 +119,21 @@ const { Content, headings } = await post.collectionEntry.render()
                   <a href={postNext.getFullURL()} title={postNext.title}>
                     {postNext.title}
                   </a>
-                )) || <>&nbsp;</>}
+                )) ||
+                  ' '}
                 <br />
-                {__('next_post')} &raquo;
+                {__('next_post')} »
               </div>
 
               <div class="float-start text-start position-absolute">
-                &laquo; {__('previous_post')}
+                « {__('previous_post')}
                 <br />
                 {(postPrev !== undefined && (
                   <a href={postPrev.getFullURL()} title={postPrev.title}>
                     {postPrev.title}
                   </a>
-                )) || <>&nbsp;</>}
+                )) ||
+                  ' '}
               </div>
             </div>
             <WalineComment language={language} post={post} />

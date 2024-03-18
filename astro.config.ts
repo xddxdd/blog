@@ -16,7 +16,7 @@ import react from '@astrojs/react'
 import copyFiles from './src/lib/astro-plugins/copy-files'
 import type { Node } from 'unist'
 
-export const chineseQuotes = s =>
+export const chineseQuotes = (s: any) =>
   typeof s === 'string'
     ? s
         .replaceAll('“', '「')
@@ -69,4 +69,10 @@ export default defineConfig({
     copyFiles([{ source: './src/assets/favicon/generated', dest: '.' }]),
   ],
   markdown: markdownPluginOptions,
+  build: {
+    format: "preserve",
+    assets: "assets",
+  },
+  // I use instant.page instead
+  prefetch: false,
 })
