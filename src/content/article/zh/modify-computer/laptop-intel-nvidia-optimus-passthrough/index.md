@@ -416,7 +416,8 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
      其中 `vbios_gvt_uefi.rom` 从
      [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom)
-     下载，或者[从本站下载](../../../../../../public/usr/uploads/202007/vbios_gvt_uefi.rom)，
+     下载，或
+     者[从本站下载](../../../../../../public/usr/uploads/202007/vbios_gvt_uefi.rom)，
      放在根目录下。如果移动了位置，也要对应修改 `romfile` 参数。
 
    - 把整个文件第一行的 `<domain type='kvm'>` 改成
@@ -599,9 +600,10 @@ image: /usr/uploads/202007/linus-torvalds-nvidia.png
 
    此处的 ssdt1.dat 对应如下 Base64，可以用
    [Base64 解码网站](https://base64.guru/converter/decode/file)转换成二进制文
-   件，放在根目录，或者[从本站下载](../../../../../../public/usr/uploads/202007/ssdt1.dat)。
-   如果移动了，需要对应修改上面的 file 参数。这也是一个修改后的 ACPI 表，用来模
-   拟一块满电的电池，只不过不需要合并到 OVMF 里，而是直接用参数加载就可以。
+   件，放在根目录，或
+   者[从本站下载](../../../../../../public/usr/uploads/202007/ssdt1.dat)。如果移
+   动了，需要对应修改上面的 file 参数。这也是一个修改后的 ACPI 表，用来模拟一块
+   满电的电池，只不过不需要合并到 OVMF 里，而是直接用参数加载就可以。
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f

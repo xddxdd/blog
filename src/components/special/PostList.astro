@@ -1,0 +1,40 @@
+---
+import type { Language } from '../../lib/language'
+import { getPosts } from '../../lib/posts'
+import { format } from 'date-fns'
+
+type Props = {
+  language: Language
+}
+
+const { language } = Astro.props
+const __ = language.getTranslation
+const posts = (await getPosts()).filter(post => post.language.is(language))
+
+const yearMonths = [
+  ...new Set(posts.map(post => format(post.date, __('list_year_month')))),
+]
+---
+
+<ul>
+  {
+    yearMonths.map(yearMonth => (
+      <li>
+        <span>{yearMonth}</span>
+        <ul>
+          {posts
+            .filter(
+              post => format(post.date, __('list_year_month')) == yearMonth
+            )
+            .map(post => (
+              <li>
+                {format(post.date, __('list_day'))}: {__('list_title_prefix')}
+                <a href={post.getFullURL()}>{post.title}</a>
+                {__('list_title_suffix')}
+              </li>
+            ))}
+        </ul>
+      </li>
+    ))
+  }
+</ul>

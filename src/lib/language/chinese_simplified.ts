@@ -31,9 +31,8 @@ const translationDict: Record<string, string | ((any) => string)> = {
   color_scheme_light: '浅色',
   color_scheme_dark: '深色',
 
-  list_year_month: 'YYYY 年 MM 月',
-  list_day: 'DD 日',
-  list_now: '（现在）',
+  list_year_month: 'yyyy 年 MM 月',
+  list_day: 'dd 日',
   list_title_prefix: '《',
   list_title_suffix: '》',
 

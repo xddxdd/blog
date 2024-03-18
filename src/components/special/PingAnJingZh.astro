@@ -1,0 +1,39 @@
+---
+import { getPosts } from '../../lib/posts'
+import { replaceInvalidUrlChars } from '../../lib/utils'
+import { SITE_TITLE } from '../../consts'
+import { LanguageChineseSimplified } from '../../lib/language/chinese_simplified'
+
+const language = LanguageChineseSimplified
+const posts = (await getPosts()).filter(post => post.language.is(language))
+const tags = [...new Set(posts.flatMap(post => post.tags))].sort()
+
+function psuedoRNG(last: number): number {
+  return ((last * 1103515245 + 12345) % 32) + 1
+}
+
+let randomNumber = psuedoRNG(tags.length)
+let currentIndex = 0
+
+let slices: string[][] = []
+while (currentIndex < tags.length) {
+  slices.push(tags.slice(currentIndex, currentIndex + randomNumber))
+  currentIndex += randomNumber
+  randomNumber = psuedoRNG(randomNumber)
+}
+---
+
+{
+  slices.map(slice => (
+    <p>
+      {slice.map((tag, index) => (
+        <>
+          <a href={`/tag/${replaceInvalidUrlChars(tag)}`}>{tag}</a>
+          平安{index == slice.length - 1 ? '。' : '、'}
+        </>
+      ))}
+    </p>
+  ))
+}
+
+<p>{SITE_TITLE} 平安。</p>
