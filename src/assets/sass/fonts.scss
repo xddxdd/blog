@@ -244,9 +244,10 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
+  // URL must be relative to base style.scss file
   src:
-    url('../res/ZhiMangXing-Regular.woff2') format('woff2'),
-    url('../res/ZhiMangXing-Regular.woff') format('woff');
+    url('res/ZhiMangXing-Regular.woff2') format('woff2'),
+    url('res/ZhiMangXing-Regular.woff') format('woff');
 }
 
 @import '@fortawesome/fontawesome-free/scss/regular.scss';
