@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, type AstroUserConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import highlightLanguages from './src/lib/highlight-js-languages'
@@ -31,8 +31,9 @@ let remarkChineseQuotes = () => (tree: Node) => {
     }
   })
 }
-const markdownPluginOptions: Record<string, any> = {
+const markdownPluginOptions: AstroUserConfig['markdown'] = {
   syntaxHighlight: false,
+  smartypants: false,
   remarkPlugins: [
     remarkFrontmatter,
     remarkGfm,
@@ -63,7 +64,7 @@ const markdownPluginOptions: Record<string, any> = {
 export default defineConfig({
   site: 'https://lantian.pub',
   integrations: [
-    mdx(markdownPluginOptions),
+    mdx(),
     sitemap(),
     react(),
     copyFiles([{ source: './src/assets/favicon/generated', dest: '.' }]),
