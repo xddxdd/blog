@@ -15,6 +15,7 @@ const __ = language.getTranslation
 </SidebarWidget>
 
 <script>
+  import type { RecentCommentData } from '@waline/api'
   fetch(`${window.location.origin}/api/comment?type=recent&count=10`)
     .then(response => {
       if (response.status !== 200) {
@@ -23,10 +24,8 @@ const __ = language.getTranslation
       return response.json()
     })
     .then(data => {
-      console.log(data)
-      const element = document.getElementById('recent-comments')
       document.getElementById('recent-comments')!.innerHTML = data.data
-        .map(comment => {
+        .map((comment: RecentCommentData) => {
           let text = comment.comment.replace(/(<([^>]+)>)/gi, '')
           return (
             '<li>' +

@@ -22,7 +22,7 @@ export const remarkGraphvizSvg = (options?: any) => {
     // Wait for rendering all instances
     const diagrams = await Promise.all(
       instances.map(async ([code]) => {
-        return await graphviz.layout(code, 'svg', graphvizEngine)
+        return graphviz.layout(code, 'svg', graphvizEngine)
       })
     )
     // Replace original code snippets

@@ -29,8 +29,8 @@ const walinePath = post.getFullURL().replace(/(\/+)$/, '')
   init({
     el: '#waline',
     serverURL: window.location.origin,
-    path: walineProps.walinePath,
-    lang: walineProps.walineLanguage,
+    path: walineProps.walinePath!,
+    lang: walineProps.walineLanguage!,
     requiredMeta: ['nick', 'mail'],
     login: 'disable',
     emoji: [
