@@ -13,6 +13,7 @@ import remarkMath from 'remark-math'
 import remarkMermaid from 'remark-mermaid'
 import { visit } from 'unist-util-visit'
 import react from '@astrojs/react'
+import copyFiles from './src/lib/astro-plugins/copy-files'
 
 export const chineseQuotes = s =>
   typeof s === 'string'
@@ -61,6 +62,11 @@ const markdownPluginOptions: Record<string, any> = {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://lantian.pub',
-  integrations: [mdx(markdownPluginOptions), sitemap(), react()],
+  integrations: [
+    mdx(markdownPluginOptions),
+    sitemap(),
+    react(),
+    copyFiles([{ source: './src/assets/favicon/generated', dest: '.' }]),
+  ],
   markdown: markdownPluginOptions,
 })
