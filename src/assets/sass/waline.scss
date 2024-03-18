@@ -103,7 +103,7 @@
     }
   }
 
-  @import 'prism-themes/themes/prism-one-light.css';
+  @import 'prism-themes/themes/prism-one-light';
 
   @media (prefers-color-scheme: dark) {
     :root {
@@ -111,11 +111,11 @@
     }
 
     :root:not([data-user-color-scheme]) {
-      @import 'prism-themes/themes/prism-one-dark.css';
+      @import 'prism-themes/themes/prism-one-dark';
     }
   }
 
   [data-user-color-scheme='dark'] {
-    @import 'prism-themes/themes/prism-one-dark.css';
+    @import 'prism-themes/themes/prism-one-dark';
   }
 }
