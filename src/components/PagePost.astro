@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import PostExcerpt from './fragments/PostExcerpt.astro'
 import PostMetaWidget from './fragments/PostMetaWidget.astro'
 import TableOfContent from './fragments/TableOfContent.astro'
+import { replaceInvalidUrlChars } from 'src/lib/utils'
 
 type Props = {
   language: Language
@@ -46,7 +47,7 @@ const { Content, headings } = await post.collectionEntry.render()
               &nbsp;
               <a
                 class="badge badge-tag"
-                href={`${language.getSegment()}/category/${CATEGORY_MAP[post.category]}`}
+                href={`${language.getSegment()}/category/${replaceInvalidUrlChars(CATEGORY_MAP[post.category]!)}`}
               >
                 {post.category}
               </a>
@@ -65,7 +66,7 @@ const { Content, headings } = await post.collectionEntry.render()
                 <>
                   <a
                     class="badge badge-tag"
-                    href={`${language.getSegment()}/tag/${tag}`}
+                    href={`${language.getSegment()}/tag/${replaceInvalidUrlChars(tag)}`}
                   >
                     {tag}
                   </a>

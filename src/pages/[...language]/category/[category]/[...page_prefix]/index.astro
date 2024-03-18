@@ -4,7 +4,7 @@ import type { PaginatedProps } from '../../../../../lib/posts'
 import PageLayout from '../../../../../components/PageLayout.astro'
 import PageArchive from '../../../../../components/PageArchive.astro'
 import { CATEGORY_MAP } from '../../../../../lib/language'
-import { reverseRecord } from '../../../../../lib/utils'
+import { replaceInvalidUrlChars, reverseRecord } from '../../../../../lib/utils'
 
 export async function getStaticPaths() {
   const categories = [
@@ -16,18 +16,21 @@ export async function getStaticPaths() {
     const postsForCategory = posts.filter(
       post => CATEGORY_MAP[post.category] == category
     )
+    const categoryInUrl = replaceInvalidUrlChars(category)
     return getStaticPathsForPaginate(
       postsForCategory,
-      `/category/${category}`,
+      `/category/${categoryInUrl}`,
+      { category: categoryInUrl },
       { category: category }
     )
   })
 }
 
-type Props = PaginatedProps
-const { posts, pagination, language } = Astro.props as Props
+type Props = PaginatedProps & {
+  category: string
+}
+const { posts, pagination, language, category } = Astro.props as Props
 
-const { category } = Astro.params as any
 const invertedCategoryMap = reverseRecord(language.getCategoryMap())
 const categoryDisplayName = invertedCategoryMap[category]
 

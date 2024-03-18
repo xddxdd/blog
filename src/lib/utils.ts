@@ -35,3 +35,7 @@ export function createExcerpt(html: string): string {
   }
   return output.substring(0, output_until) + '...'
 }
+
+export function replaceInvalidUrlChars(url: string): string {
+  return url.replaceAll(/[\s\.]/g, '-')
+}

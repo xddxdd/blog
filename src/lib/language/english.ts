@@ -45,9 +45,13 @@ const translationDict: Record<string, string | ((any) => string)> = {
 }
 
 const categoryMap: Record<string, string> = {
+  Chat: 'chat',
   Creations: 'creations',
+  Reposts: 'forward',
+  Fun: 'fun',
   'Computers and Clients': 'modify-computer',
   'Website and Servers': 'modify-website',
+  'One Pic': 'one-pic',
   'Random Notes': 'random-notes',
 }
 
