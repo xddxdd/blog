@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from '../consts'
+import { SITE_AUTHOR, SITE_TITLE } from '../consts'
 import { type Language, LANGUAGES } from '../lib/language'
 import { Post } from '../lib/posts'
 import PostExcerptForMeta from './fragments/PostExcerptForMeta.astro'
@@ -36,7 +36,7 @@ const rendered = await post?.collectionEntry.render()
 <meta name="title" content={fullTitle} />
 <meta name="keywords" content="" />
 <meta name="description" content={fullTitle} />
-<meta name="author" content="Lan Tian" />
+<meta name="author" content={SITE_AUTHOR} />
 
 <link rel="canonical" href={Astro.request.url} />
 <link

@@ -1,7 +1,9 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { POSTS_PER_PAGE } from '../consts'
+import { POSTS_PER_PAGE, SITE_AUTHOR, SITE_TITLE } from '../consts'
 import { type Language, LANGUAGES, DEFAULT_LANGUAGE } from './language'
 import type { PaginationProps } from '../components/PagePaginator.astro'
+import { Feed } from 'feed'
+import type { APIContext } from 'astro'
 
 export class Post {
   public readonly title: string
@@ -43,6 +45,52 @@ export async function getPosts(): Promise<Post[]> {
   return (await getCollection('article'))
     .map(Post.fromCollectionEntry)
     .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+}
+
+export async function getFeedObject(context: APIContext): Promise<Feed> {
+  const posts = await getPosts()
+  const siteURL = context.site!.origin
+  const copyright = `Copyright 2012-${new Date().getFullYear()} ${SITE_TITLE}`
+  const feed = new Feed({
+    title: SITE_TITLE,
+    description: SITE_TITLE,
+    id: siteURL,
+    link: siteURL,
+    language: DEFAULT_LANGUAGE.getCode(),
+    favicon: `${siteURL}/favicon.ico`,
+    copyright: copyright,
+    generator: context.generator,
+    feedLinks: {
+      rss2: `${siteURL}/rss2.xml`,
+      atom: `${siteURL}/feed.xml`,
+      json: `${siteURL}/feed.json`,
+    },
+    author: {
+      name: SITE_AUTHOR,
+      link: siteURL,
+    },
+  })
+
+  posts.slice(0, POSTS_PER_PAGE).forEach(post => {
+    let image = post.image
+    if (image !== undefined) {
+      if (image.startsWith('/')) {
+        image = siteURL + image
+      }
+    }
+
+    feed.addItem({
+      title: post.title,
+      id: siteURL + post.getFullURL(),
+      link: siteURL + post.getFullURL(),
+      date: post.date,
+      image: image,
+      published: post.date,
+      copyright: copyright,
+    })
+  })
+
+  return feed
 }
 
 export type PaginatedProps = {
