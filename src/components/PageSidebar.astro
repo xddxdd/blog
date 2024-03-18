@@ -4,6 +4,7 @@ import { Post } from '../lib/posts'
 import type { NavigationItem } from '../lib/navigation'
 import { format } from 'date-fns'
 import SidebarWidget from './fragments/SidebarWidget.astro'
+import WalineRecentComments from './fragments/WalineRecentComments.astro'
 
 type Props = {
   language: Language
@@ -27,9 +28,7 @@ const __ = language.getTranslation
     }
   </SidebarWidget>
 
-  <SidebarWidget title={__('latest_comments')} id="recent-comments">
-    <li><a href="#">Loading...</a></li>
-  </SidebarWidget>
+  <WalineRecentComments language={language} />
 
   <SidebarWidget title={__('others')}>
     <li>

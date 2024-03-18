@@ -4,10 +4,6 @@ import SimpleLightbox from 'simple-lightbox'
 import attempt from './js/attempt.js'
 
 import Plausible from 'plausible-tracker'
-import {
-  init as walineInit,
-  RecentComments as walineRecentComments,
-} from '@waline/client'
 
 /*****************************************
  * Bootstrap Native
@@ -142,28 +138,6 @@ addLoadEvent(function () {
     document
       .getElementById('color-scheme-dark')
       .addEventListener('click', () => applyCustomDarkModeSettings('dark'))
-  })
-
-  attempt('Waline', function () {
-    walineRecentComments({
-      serverURL: window.location.origin,
-      count: 10,
-    }).then(({ comments }) => {
-      document.getElementById('recent-comments').innerHTML = comments
-        .map(comment => {
-          let text = comment.comment.replace(/(<([^>]+)>)/gi, '')
-          return (
-            '<li>' +
-            comment.nick +
-            ' <a href="' +
-            comment.url +
-            '">' +
-            text +
-            '</a></li>'
-          )
-        })
-        .join('')
-    })
   })
 
   attempt('Interactive Content (Custom)', function () {

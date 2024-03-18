@@ -1,0 +1,43 @@
+---
+import type { Language } from '../../lib/language'
+import SidebarWidget from './SidebarWidget.astro'
+
+type Props = {
+  language: Language
+}
+
+const { language } = Astro.props
+const __ = language.getTranslation
+---
+
+<SidebarWidget title={__('latest_comments')} id="recent-comments">
+  <li><a href="#">Loading...</a></li>
+</SidebarWidget>
+
+<script>
+  fetch(`${window.location.origin}/api/comment?type=recent&count=10`)
+    .then(response => {
+      if (response.status !== 200) {
+        throw new Error(`Server returned bad HTTP status ${response.status}`)
+      }
+      return response.json()
+    })
+    .then(data => {
+      console.log(data)
+      const element = document.getElementById('recent-comments')
+      document.getElementById('recent-comments')!.innerHTML = data.data
+        .map(comment => {
+          let text = comment.comment.replace(/(<([^>]+)>)/gi, '')
+          return (
+            '<li>' +
+            comment.nick +
+            ' <a href="' +
+            comment.url +
+            '">' +
+            text +
+            '</a></li>'
+          )
+        })
+        .join('')
+    })
+</script>
