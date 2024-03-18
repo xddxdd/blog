@@ -272,8 +272,7 @@ Intel 核显的 SR-IOV 功能。
 
    此处的 ssdt1.dat 是一个修改后的 ACPI 表，用来模拟一块满电的电池。它对应如下
    Base64，可以用 [Base64 解码网站](https://base64.guru/converter/decode/file)转
-   换成二进制文件，放在根目录，或
-   者[从本站下载](/usr/uploads/202007/ssdt1.dat)。
+   换成二进制文件，放在根目录，或者[从本站下载](/usr/uploads/202007/ssdt1.dat)。
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
@@ -406,10 +405,10 @@ Intel 核显的 SR-IOV 功能。
 （2023-05）新版 Looking Glass 已经可以传输声音。以下步骤保留以供参考。
 
 <InteractiveButtons
-  buttons={{
-    sound_hide: '隐藏',
-    sound_show: '查看 2022-01 的旧版步骤',
-  }}
+  buttons={[
+    ['sound_hide', '隐藏'],
+    ['sound_show', '查看 2022-01 的旧版步骤'],
+  ]}
 />
 
 <InteractiveContent id="sound_show">
@@ -459,10 +458,10 @@ WantedBy=graphical-session.target
 考。
 
 <InteractiveButtons
-  buttons={{
-    keyboardmouse_hide: '隐藏',
-    keyboardmouse_show: '查看 2022-01 的旧版步骤',
-  }}
+  buttons={[
+    ['keyboardmouse_hide', '隐藏'],
+    ['keyboardmouse_show', '查看 2022-01 的旧版步骤'],
+  ]}
 />
 
 <InteractiveContent id="keyboardmouse_show">
@@ -638,10 +637,10 @@ Glass 能使用 DMA 技术高效地读取虚拟机画面，从而提高帧率。
 丁前相同。本段内容失效。**
 
 <InteractiveButtons
-  buttons={{
-    power_hide: '失效内容已隐藏',
-    power_show: '点此查看',
-  }}
+  buttons={[
+    ['power_hide', '失效内容已隐藏'],
+    ['power_show', '点此查看'],
+  ]}
 />
 
 <InteractiveContent id="power_show">
@@ -718,10 +717,10 @@ commit：[https://github.com/xddxdd/pkgbuild/commit/406adb7bf5657cfe07bb17ff561d
 ## 附录：最终 Libvirt XML 文件
 
 <InteractiveButtons
-  buttons={{
-    xml_hide: '隐藏',
-    xml_show: '显示完整的 XML 文件',
-  }}
+  buttons={[
+    ['xml_hide', '隐藏'],
+    ['xml_show', '显示完整的 XML 文件'],
+  ]}
 />
 
 <InteractiveContent id="xml_show">

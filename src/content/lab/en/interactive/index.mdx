@@ -1,0 +1,104 @@
+---
+title: Interactive Document Test Page
+---
+
+import InteractiveButtons from '../../../../components/InteractiveButtons.astro'
+import InteractiveContent from '../../../../components/InteractiveContent.astro'
+
+Use the case options below to perform tests.
+
+<InteractiveButtons
+  vertical={true}
+  size="lg"
+  buttons={[
+    ['t1', 'Case 1'],
+    ['t2', 'Case 2'],
+    ['t3', 'Nothing'],
+  ]}
+/>
+
+<InteractiveContent id="t1">
+  Case 1
+  <InteractiveButtons
+    vertical={true}
+    buttons={[
+      ['t11', 'Case 1-1'],
+      ['t12', 'Case 1-2'],
+    ]}
+  />
+</InteractiveContent>
+
+<InteractiveContent id="t2">
+  Case 2
+  <InteractiveButtons
+    vertical={true}
+    buttons={[
+      ['t21', 'Case 2-1'],
+      ['t22', 'Case 2-2'],
+    ]}
+  />
+</InteractiveContent>
+
+<InteractiveContent id="t11">
+  Case 1-1
+  <InteractiveButtons
+    vertical={true}
+    size="sm"
+    buttons={[
+      ['t111', 'Case 1-1-1'],
+      ['t112', 'Case 1-1-2'],
+    ]}
+  />
+</InteractiveContent>
+
+<InteractiveContent id="t12">
+  Case 1-2
+  <InteractiveButtons
+    vertical={true}
+    size="sm"
+    buttons={[
+      ['t121', 'Case 1-2-1'],
+      ['t122', 'Case 1-2-2'],
+    ]}
+  />
+</InteractiveContent>
+
+<InteractiveContent id="t21">
+  Case 2-1
+  <InteractiveButtons
+    vertical={true}
+    size="sm"
+    buttons={[
+      ['t211', 'Case 2-1-1'],
+      ['t212', 'Case 2-1-2'],
+    ]}
+  />
+</InteractiveContent>
+
+<InteractiveContent id="t22">
+  Case 2-2
+  <InteractiveButtons
+    vertical={true}
+    size="sm"
+    buttons={[
+      ['t221', 'Case 2-2-1'],
+      ['t222', 'Case 2-2-2'],
+    ]}
+  />
+</InteractiveContent>
+
+<InteractiveContent id="t111">Case 1-1-1</InteractiveContent>
+
+<InteractiveContent id="t112">Case 1-1-2</InteractiveContent>
+
+<InteractiveContent id="t121">Case 1-2-1</InteractiveContent>
+
+<InteractiveContent id="t122">Case 1-2-2</InteractiveContent>
+
+<InteractiveContent id="t211">Case 2-1-1</InteractiveContent>
+
+<InteractiveContent id="t212">Case 2-1-2</InteractiveContent>
+
+<InteractiveContent id="t221">Case 2-2-1</InteractiveContent>
+
+<InteractiveContent id="t222">Case 2-2-2</InteractiveContent>

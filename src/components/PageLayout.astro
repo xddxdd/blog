@@ -7,19 +7,23 @@ import PageHeader from './PageHeader.astro'
 import PageSidebar from './PageSidebar.astro'
 import PageFooter from './PageFooter.astro'
 import type { PaginationProps } from './PagePaginator.astro'
+import type { Page } from 'src/lib/pages'
+import Indihome from './fragments/Indihome.astro'
 
 import '../assets/style.scss'
 
 type Props = {
   title: string | undefined
   language: Language
-  post?: Post | undefined
+  post?: Post
+  page?: Page
   pagination?: PaginationProps | undefined
 }
 
-const { title, language, post, pagination } = Astro.props
+const { title, language, post, page, pagination } = Astro.props
 const fullTitle = title === undefined ? SITE_TITLE : `${title} - ${SITE_TITLE}`
 const posts = (await getPosts()).filter(post => post.language.is(language))
+const bodyClass = post?.bodyClass ?? page?.bodyClass
 ---
 
 <!doctype html>
@@ -32,8 +36,10 @@ const posts = (await getPosts()).filter(post => post.language.is(language))
     <PageHead fullTitle={fullTitle} language={language} post={post} />
     <script src="../assets/script.main.js"></script>
   </head>
-  <body>
+  <body class={bodyClass}>
     <div id="bg"></div>
+
+    {bodyClass == 'indihome' && <Indihome />}
 
     <div id="container" class="container">
       <PageHeader language={language} navBarItems={language.getNavBarItems()} />

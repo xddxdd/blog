@@ -2,11 +2,12 @@
 type Props = {
   vertical?: boolean
   size?: 'lg' | 'sm'
-  buttons: Record<string, string>
+  buttons: string[][]
 }
 
 const { vertical, size, buttons } = Astro.props
-const groupID = Math.floor(Math.random() * 10000000)
+const getRandom = () => Math.floor(Math.random() * 10000000)
+const groupID = getRandom()
 ---
 
 <p>
@@ -16,21 +17,27 @@ const groupID = Math.floor(Math.random() * 10000000)
     id={`lti-g${groupID}`}
   >
     {
-      Object.entries(buttons).map(([id, label]) => (
-        <>
-          <input
-            type="radio"
-            name={`lti-g${groupID}`}
-            id={`lti-${groupID}-${id}`}
-            class="btn-check lti-option"
-            autocomplete="off"
-            data-lti-tag={id}
-          />
-          <label class="btn btn-outline-primary" for={`lti-${groupID}-${id}`}>
-            {label}
-          </label>
-        </>
-      ))
+      buttons.map(([id, label]) => {
+        const buttonID = getRandom()
+        return (
+          <>
+            <input
+              type="radio"
+              name={`lti-g${groupID}`}
+              id={`lti-${groupID}-${buttonID}`}
+              class="btn-check lti-option"
+              autocomplete="off"
+              data-lti-tag={id}
+            />
+            <label
+              class="btn btn-outline-primary"
+              for={`lti-${groupID}-${buttonID}`}
+            >
+              {label}
+            </label>
+          </>
+        )
+      })
     }
   </div>
 </p>

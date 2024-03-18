@@ -9,5 +9,6 @@
   height: 100%;
   position: fixed;
   top: 0;
-  z-index: -1;
+  // Reserve -1 for special pages that draw another background
+  z-index: -2;
 }

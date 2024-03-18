@@ -316,8 +316,8 @@ And here we start:
    The ssdt1.dat is an ACPI table, and it emulates a fully-charged battery. It
    corresponds to the Base64 below. It can be converted to a binary file with
    [Base64 decoding website](https://base64.guru/converter/decode/file) or
-   [downloaded from this site](/usr/uploads/202007/ssdt1.dat).
-   Place it in the root folder.
+   [downloaded from this site](/usr/uploads/202007/ssdt1.dat). Place it in the
+   root folder.
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
@@ -477,10 +477,10 @@ We will fix the problems one by one.
 reference only.
 
 <InteractiveButtons
-  buttons={{
-    sound_hide: 'Hide',
-    sound_show: 'Show older steps from 2022-01',
-  }}
+  buttons={[
+    ['sound_hide', 'Hide'],
+    ['sound_show', 'Show older steps from 2022-01'],
+  ]}
 />
 
 <InteractiveContent id="sound_show">
@@ -535,10 +535,10 @@ The latest Looking Glass can relay keyboard and mouse events reliably now. These
 steps are kept for reference only.
 
 <InteractiveButtons
-  buttons={{
-    keyboardmouse_hide: 'Hide',
-    keyboardmouse_show: 'Show older steps from 2022-01',
-  }}
+  buttons={[
+    ['keyboardmouse_hide', 'Hide'],
+    ['keyboardmouse_show', 'Show older steps from 2022-01'],
+  ]}
 />
 
 <InteractiveContent id="keyboardmouse_show">
@@ -726,10 +726,10 @@ shut down after applying the patch. The power draw is the same as before. This
 section is now invalid.**
 
 <InteractiveButtons
-  buttons={{
-    power_hide: 'Invalid contents are hidden',
-    power_show: 'Show',
-  }}
+  buttons={[
+    ['power_hide', 'Invalid contents are hidden'],
+    ['power_show', 'Show'],
+  ]}
 />
 
 <InteractiveContent id="power_show">
@@ -817,10 +817,10 @@ Here are the sources I referenced when I did my configuration:
 ## Appendix: Final Libvirt XML File
 
 <InteractiveButtons
-  buttons={{
-    xml_hide: 'Hide',
-    xml_show: 'Show the entire XML file',
-  }}
+  buttons={[
+    ['xml_hide', 'Hide'],
+    ['xml_show', 'Show the entire XML file'],
+  ]}
 />
 
 <InteractiveContent id="xml_show">

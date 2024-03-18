@@ -107,8 +107,7 @@ Files\Apache Group\Apache里的所有文件，替换成下面的。
 注意：apache原版对IPv6支持不佳，请下载我提供的Apache 1.3 修改版，已经配置好HTTP
 代理。
 
-下
-载：[/usr/uploads/2013/04/1343548325.7z](/usr/uploads/2013/04/1343548325.7z)
+下载：[/usr/uploads/2013/04/1343548325.7z](/usr/uploads/2013/04/1343548325.7z)
 
 在服务管理器启动服务。一般就可以直接用了。
 

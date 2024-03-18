@@ -1,60 +1,76 @@
 @charset "utf-8";
 
-@import '../../sass/bootstrap_common.scss';
+@import './bootstrap_common.scss';
 
-#bg {
-  & {
-    background-image: url('./indihome.png') !important;
-  }
+body.indihome {
+  #indihome {
+    & {
+      // URL must be relative to base style.scss file
+      background-image: url('./res/indihome.png');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      z-index: -1;
+    }
 
-  #indihome-logo {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 2rem 5%;
-    font-size: 2.5rem;
-    color: $primary;
-    font-weight: 700;
-  }
+    #indihome-logo {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 2rem 5%;
+      font-size: 2.5rem;
+      color: $primary;
+      font-weight: 700;
+    }
 
-  #indihome-logo-right {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 0 5%;
+    #indihome-logo-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0 5%;
 
-    width: 16rem;
-    height: 8rem;
+      width: 16rem;
+      height: 8rem;
 
-    background-image: url('./dn42.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+      background-image: url('res/dn42.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
 
-    @include media-breakpoint-down(md) {
-      display: none;
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
+    }
+
+    #indihome-content {
+      animation: indihome-shake 10s infinite;
+      position: absolute;
+      left: 10%;
+      top: 15%;
+
+      p {
+        margin: 0 !important;
+      }
+
+      b {
+        color: black;
+        letter-spacing: 0 !important;
+      }
+
+      .indihome-num {
+        color: material-color('grey', '500');
+        font-size: 2rem;
+        letter-spacing: -0.1rem;
+      }
     }
   }
 
-  #indihome-content {
-    animation: indihome-shake 10s infinite;
-    position: absolute;
-    left: 10%;
-    top: 15%;
-
-    p {
-      margin: 0 !important;
-    }
-
-    b {
-      color: black;
-      letter-spacing: 0 !important;
-    }
-
-    .indihome-num {
-      color: material-color('grey', '500');
-      font-size: 2rem;
-      letter-spacing: -0.1rem;
+  @include media-breakpoint-up(md) {
+    #container {
+      margin-top: 60vh;
     }
   }
 }

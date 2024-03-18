@@ -10,11 +10,12 @@ export class Post {
   public readonly category: string
   public readonly tags: string[]
   public readonly date: Date
-  public readonly image: string | undefined
+  public readonly image?: string
   public readonly language: Language
   public readonly path: string
   public readonly body: string
   public readonly collectionEntry: CollectionEntry<'article'>
+  public readonly bodyClass?: string
 
   constructor(post: CollectionEntry<'article'>) {
     this.collectionEntry = post
@@ -30,6 +31,7 @@ export class Post {
     this.language = LANGUAGES[language!]!
     this.path = path
     this.body = post.body
+    this.bodyClass = post.data.bodyClass
   }
 
   public getFullURL(): string {

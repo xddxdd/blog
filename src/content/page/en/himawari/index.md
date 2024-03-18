@@ -1,6 +1,5 @@
 ---
 title: Himawari Satellite's Earth Images
-date: 1970-01-01 00:00:00
 ---
 
 This page contains a Javascript snippet to dynamically load photos taken from

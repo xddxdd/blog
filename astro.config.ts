@@ -70,8 +70,8 @@ export default defineConfig({
   ],
   markdown: markdownPluginOptions,
   build: {
-    format: "preserve",
-    assets: "assets",
+    format: 'preserve',
+    assets: 'assets',
   },
   // I use instant.page instead
   prefetch: false,

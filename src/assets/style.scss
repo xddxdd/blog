@@ -344,10 +344,6 @@ footer.lantian {
   @include media-breakpoint-up(md) {
     margin: 50px auto;
     box-shadow: 0 0 50px material-color('grey', '600');
-
-    &.bigscreen {
-      margin-top: 60vh;
-    }
   }
 }
 
@@ -518,6 +514,7 @@ ul ul {
 
 @import 'sass/images.scss';
 @import 'sass/flags.scss';
+@import 'sass/indihome.scss';
 
 @import 'highlight.js/styles/atom-one-light';
 .hljs {

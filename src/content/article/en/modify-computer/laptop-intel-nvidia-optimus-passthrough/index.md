@@ -470,10 +470,9 @@ a practice.
 
      The `vbios_gvt_uefi.rom` can be downloaded from
      [http://120.25.59.132:3000/vbios_gvt_uefi.rom](http://120.25.59.132:3000/vbios_gvt_uefi.rom),
-     or
-     [from this site](/usr/uploads/202007/vbios_gvt_uefi.rom),
-     and should be put to root folder. If you moved it elsewhere, you need to
-     modify the `romfile` parameter correspondingly.
+     or [from this site](/usr/uploads/202007/vbios_gvt_uefi.rom), and should be
+     put to root folder. If you moved it elsewhere, you need to modify the
+     `romfile` parameter correspondingly.
 
    - Change the first line of the configuration file, `<domain type='kvm'>`, to
      `<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>`.
@@ -662,11 +661,11 @@ So we have to hack through all these pitfalls.
    The ssdt1.dat corresponds to the Base64 below. It can be converted to a
    binary file with
    [Base64 decoding website](https://base64.guru/converter/decode/file) or
-   [downloaded from this site](/usr/uploads/202007/ssdt1.dat).
-   Put it in the root folder. If you moved its location, you should modify the
-   file parameter accordingly. It's also an ACPI table, and it emulates a
-   fully-charged battery, but instead of being merged to OVMF, it simply works
-   as a QEMU argument addition.
+   [downloaded from this site](/usr/uploads/202007/ssdt1.dat). Put it in the
+   root folder. If you moved its location, you should modify the file parameter
+   accordingly. It's also an ACPI table, and it emulates a fully-charged
+   battery, but instead of being merged to OVMF, it simply works as a QEMU
+   argument addition.
 
    ```bash
    U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
