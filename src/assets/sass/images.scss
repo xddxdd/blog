@@ -1,7 +1,8 @@
 @import 'common';
 
 #bg {
-  background-image: url('../res/bg.jpg');
+  // URL must be relative to base style.scss file
+  background-image: url('./res/bg.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   width: 100%;
