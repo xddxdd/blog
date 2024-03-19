@@ -47,9 +47,10 @@ steps:
         path: /cache
 
   - name: npm run build
-    image: node:20-alpine
+    image: node:lts-alpine
     commands:
       - apk add --no-cache build-base git gzip brotli zstd parallel rsync imagemagick vips-dev python3
+      - npm install
       - npm run build
 
   - name: build web-compressor
@@ -61,7 +62,7 @@ steps:
       - cargo build --release
 
   - name: hexo deploy
-    image: node:20-alpine
+    image: node:lts-alpine
     environment:
       NETRC:
         from_secret: netrc
