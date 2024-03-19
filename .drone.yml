@@ -75,7 +75,7 @@ steps:
       # Compress to gzip
       - web-compressor/target/release/web-compressor --target dist/
       # Convert to webp
-      - npm run webp
+      - npm run build-webp
 
       # Run deploy
       - mkdir -p /sync/www/lantian.pub
