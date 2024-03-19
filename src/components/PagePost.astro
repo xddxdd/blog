@@ -91,19 +91,14 @@ const { Content, headings } = await post.collectionEntry.render()
     <div class="post-wrap">
       {
         post.image !== undefined && (
-          <>
-            <div class="post-image-wrap d-none d-md-block">
-              <img
-                src={`${post.image}.thumb.png`}
-                alt={__('illustration_for', post.title)}
-                width="200"
-                height="150"
-              />
-            </div>
-            <div class="post-image-wrap d-block d-md-none">
-              <img src={post.image} alt={__('illustration_for', post.title)} />
-            </div>
-          </>
+          <div class="post-image-wrap">
+            <img
+              src={`${post.image}.thumb.png`}
+              alt={__('illustration_for', post.title)}
+              width="200"
+              height="150"
+            />
+          </div>
         )
       }
       <h1 class="post-title">
