@@ -9,6 +9,7 @@ import PageFooter from './PageFooter.astro'
 import type { PaginationProps } from './PagePaginator.astro'
 import type { Page } from 'src/lib/pages'
 import Indihome from './fragments/Indihome.astro'
+import { Head } from 'astro-capo'
 
 import '../assets/style.scss'
 
@@ -32,10 +33,10 @@ const bodyClass = post?.bodyClass ?? page?.bodyClass
   itemscope
   itemtype="https://schema.org/Article"
 >
-  <head>
+  <Head>
     <PageHead fullTitle={fullTitle} language={language} post={post} />
     <script src="../assets/script.main.js"></script>
-  </head>
+  </Head>
   <body class={bodyClass}>
     <div id="bg"></div>
 

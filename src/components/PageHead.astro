@@ -3,6 +3,7 @@ import { SITE_AUTHOR, SITE_TITLE } from '../consts'
 import { type Language, LANGUAGES } from '../lib/language'
 import { Post } from '../lib/posts'
 import PostExcerptForMeta from './fragments/PostExcerptForMeta.astro'
+import { getPosts } from 'src/lib/posts'
 
 type Props = {
   fullTitle: string
@@ -14,6 +15,9 @@ const { fullTitle, language, post } = Astro.props
 const { pathname, host } = Astro.url
 
 const rendered = await post?.collectionEntry.render()
+
+const posts = await getPosts()
+const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -75,7 +79,7 @@ const rendered = await post?.collectionEntry.render()
 
 <meta
   name="copyright"
-  content={`Copyright 2012-${new Date().getFullYear()} ${SITE_TITLE}`}
+  content={`Copyright ${firstPostYear}-${new Date().getFullYear()} ${SITE_TITLE}`}
 />
 
 <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />

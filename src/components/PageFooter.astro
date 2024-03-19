@@ -4,6 +4,7 @@ import type { Language } from '../lib/language'
 import { format } from 'date-fns'
 import type { PaginationProps } from './PagePaginator.astro'
 import PagePaginator from './PagePaginator.astro'
+import { getPosts } from 'src/lib/posts'
 
 type Props = {
   language: Language
@@ -11,6 +12,8 @@ type Props = {
 }
 
 const __ = Astro.props.language.getTranslation
+const posts = await getPosts()
+const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
 ---
 
 <footer class="lantian clearfix">
@@ -20,7 +23,8 @@ const __ = Astro.props.language.getTranslation
     )
   }
   <div id="copyright" class="float-end text-end">
-    <i class="fas fa-copyright"></i> 2012-{new Date().getFullYear()}
+    <i class="fas fa-copyright"></i>
+    {firstPostYear}-{new Date().getFullYear()}
     {SITE_TITLE}<br />
     <small>
       {__('powered_by', Astro.generator)} @ {
