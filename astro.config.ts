@@ -14,6 +14,7 @@ import remarkMermaid from 'remark-mermaid'
 import { visit } from 'unist-util-visit'
 import react from '@astrojs/react'
 import copyFiles from './src/lib/astro-plugins/copy-files'
+import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
 import type { Node } from 'unist'
 
 export const chineseQuotes = (s: any) =>
@@ -66,6 +67,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap(),
+    renameSitemap(),
     react(),
     copyFiles([{ source: './src/assets/favicon/generated', dest: '.' }]),
   ],
