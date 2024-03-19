@@ -7,7 +7,7 @@ const translationDict: Record<string, string | ((key: any) => string)> = {
   powered_by: software => `Powered by ${software}`,
   page: 'Page',
   nth_page: n => `Page ${n}`,
-  illustration: 'Illustration',
+  illustration_for: title => `Illustration for ${title}`,
 
   category: 'Category',
   table_of_contents: 'ToC',

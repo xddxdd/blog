@@ -5,13 +5,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "npm run build-thumbs && astro check && astro build",
+    "build-thumbs": "sh _scripts/thumbs.sh",
+    "build-webp": "sh _scripts/webp.sh",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write --plugin=prettier-plugin-astro .",
     "prettier:check": "prettier --check --plugin=prettier-plugin-astro .",
-    "thumbs": "sh _scripts/thumbs.sh",
-    "webp": "sh _scripts/webp.sh"
+    "serve": "python3 -m http.server 8000 -d dist"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.9",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^18.2.22",
     "@waline/client": "^3.1.3",
     "astro": "^4.5.5",
+    "astro-critters": "^2.1.4",
     "autoprefixer": "^10.4.18",
     "bootstrap": "^5.3.2",
     "bootstrap.native": "^5.0.11",

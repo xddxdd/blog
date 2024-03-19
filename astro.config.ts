@@ -16,6 +16,7 @@ import react from '@astrojs/react'
 import copyFiles from './src/lib/astro-plugins/copy-files'
 import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
 import type { Node } from 'unist'
+import critters from 'astro-critters'
 
 export const chineseQuotes = (s: any) =>
   typeof s === 'string'
@@ -69,6 +70,7 @@ export default defineConfig({
     sitemap(),
     renameSitemap(),
     react(),
+    critters({}),
     copyFiles([{ source: './src/assets/favicon/generated', dest: '.' }]),
   ],
   markdown: markdownPluginOptions,

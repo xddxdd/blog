@@ -7,7 +7,7 @@ const translationDict: Record<string, string | ((key: any) => string)> = {
   powered_by: software => `基于 ${software} 构建`,
   page: '页面',
   nth_page: n => `第 ${n} 页`,
-  illustration: '插图',
+  illustration_for: title => `${title} 的插图`,
 
   category: '分类',
   table_of_contents: '目录',
