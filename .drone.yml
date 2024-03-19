@@ -61,7 +61,7 @@ steps:
       - cd web-compressor
       - cargo build --release
 
-  - name: hexo deploy
+  - name: deploy
     image: node:lts-alpine
     environment:
       NETRC:
