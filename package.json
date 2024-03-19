@@ -38,6 +38,7 @@
     "date-fns": "^3.5.0",
     "feed": "^4.2.2",
     "flag-icon-css": "^4.1.7",
+    "glob": "^10.3.10",
     "highlight.js": "^11.9.0",
     "instant.page": "^5.2.0",
     "plausible-tracker": "^0.3.8",

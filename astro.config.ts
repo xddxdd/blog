@@ -15,6 +15,7 @@ import { visit } from 'unist-util-visit'
 import react from '@astrojs/react'
 import copyFiles from './src/lib/astro-plugins/copy-files'
 import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
+import capo from './src/lib/astro-plugins/capo'
 import type { Node } from 'unist'
 import critters from 'astro-critters'
 
@@ -67,11 +68,17 @@ export default defineConfig({
   site: 'https://lantian.pub',
   integrations: [
     mdx(),
+
+    // Generate sitemap-index.xml and rename it to sitemap.xml with renameSitemap
     sitemap(),
     renameSitemap(),
+
     react(),
-    critters({}),
     copyFiles([{ source: './src/assets/favicon/generated', dest: '.' }]),
+    // Capo must be after all HTML pages are generated
+    capo(),
+    // Critters must be after capo, to place updated styles in correct location
+    critters({}),
   ],
   markdown: markdownPluginOptions,
   build: {
