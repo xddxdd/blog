@@ -1,0 +1,14 @@
+@import 'common';
+
+#bg {
+  // URL must be relative to base style.scss file
+  background-image: url('./res/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  // Reserve -1 for special pages that draw another background
+  z-index: -2;
+}

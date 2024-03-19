@@ -1,75 +1,52 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
-  "private": true,
-  "hexo": {
-    "version": "7.1.1"
+  "name": "blog-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write --plugin=prettier-plugin-astro .",
+    "prettier:check": "prettier --check --plugin=prettier-plugin-astro .",
+    "thumbs": "sh _scripts/thumbs.sh",
+    "webp": "sh _scripts/webp.sh"
   },
-  "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "not dead",
-    "Firefox 52",
-    "IE >=8",
-    "Chrome 49"
-  ],
   "dependencies": {
-    "@babel/core": "7.24",
-    "@babel/preset-env": "7.24",
+    "@astrojs/check": "^0.5.9",
+    "@astrojs/mdx": "^2.2.0",
+    "@astrojs/react": "^3.1.0",
+    "@astrojs/sitemap": "^3.1.1",
     "@fontsource/fira-code": "^5.0.17",
     "@fontsource/rajdhani": "^5.0.12",
     "@fontsource/ubuntu": "^5.0.12",
     "@fontsource/zhi-mang-xing": "^5.0.11",
     "@fortawesome/fontawesome-free": "^6.5.1",
-    "@hashicorp/platform-remark-plugins": "^0.2.0",
-    "@hpcc-js/wasm": "2.16",
-    "@lantian1998/hexo-generator-json-feed-org": "github:lantian1998/hexo-generator-json-feed-org",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@hpcc-js/wasm": "^2.16.0",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
     "@waline/client": "^3.1.3",
-    "acorn": "^8.11.3",
+    "astro": "^4.5.5",
     "autoprefixer": "^10.4.18",
-    "babel-loader": "^9.1.3",
     "bootstrap": "^5.3.2",
     "bootstrap.native": "^5.0.11",
-    "browserslist": "^4.23.0",
-    "cli-real-favicon": "^0.0.8",
-    "core-js": "^3.36.0",
-    "css-loader": "^6.10.0",
-    "css-minimizer-webpack-plugin": "^6.0.0",
     "cssnano": "^6.1.0",
     "cssnano-preset-advanced": "^6.1.0",
+    "date-fns": "^3.5.0",
+    "feed": "^4.2.2",
     "flag-icon-css": "^4.1.7",
-    "fontmin": "^1.0.1",
-    "hexo": "^7.1.1",
-    "hexo-deployer-git": "^4.0.0",
-    "hexo-generator-archive": "^2.0.0",
-    "hexo-generator-category": "^2.0.0",
-    "hexo-generator-feed": "^3.0.0",
-    "hexo-generator-index": "^3.0.0",
-    "hexo-generator-readme-file": "^1.0.3",
-    "hexo-generator-sitemap": "^3.0.1",
-    "hexo-generator-tag": "^2.0.0",
-    "hexo-helper-qrcode": "^1.0.2",
-    "hexo-html-minifier": "^1.0.0",
-    "hexo-pangu": "^0.2.2",
-    "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-stylus": "^3.0.1",
-    "hexo-spoiler": "^1.7.4",
-    "hexo-util": "^3.2.0",
     "highlight.js": "^11.9.0",
     "instant.page": "^5.2.0",
-    "is-color-stop": "^1.1.0",
-    "is-fullwidth-code-point": "^4.0.0",
-    "katex": "^0.16.9",
-    "lodash": "^4.17.21",
-    "mini-css-extract-plugin": "^2.8.1",
-    "mini-svg-data-uri": "^1.4.4",
     "plausible-tracker": "^0.3.8",
-    "prettier": "^3.2.5",
+    "postcss": "^8.4.36",
+    "postcss-inline-svg": "^6.0.0",
+    "postcss-load-config": "^5.0.3",
+    "postcss-preset-env": "^9.5.2",
+    "postcss-sorting": "^8.0.2",
     "prism-themes": "^1.9.0",
-    "regenerator-runtime": "^0.14.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rehype-highlight": "^7.0.0",
     "rehype-katex": "^7.0.0",
     "rehype-parse": "^9.0.0",
@@ -84,46 +61,31 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.0",
     "remark-stringify": "^11.0.0",
-    "resolve-url-loader": "^5.0.0",
-    "rollup": "^4.13.0",
     "sass": "^1.72.0",
-    "sass-loader": "^14.1.1",
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
-    "style-loader": "^3.3.4",
-    "svgo-loader": "^4.0.0",
-    "terser-webpack-plugin": "^5.3.10",
-    "unified": "^11.0.4",
-    "unist-util-visit": "^5.0.0",
-    "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
   },
+  "devDependencies": {
+    "@types/highlight.js": "^10.1.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead",
+    "Firefox 52",
+    "IE >=8",
+    "Chrome 49"
+  ],
   "prettier": {
     "trailingComma": "es5",
-    "tabWidth": 4,
+    "tabWidth": 2,
     "semi": false,
     "singleQuote": true,
     "arrowParens": "avoid",
-    "proseWrap": "always",
-    "overrides": [
-      {
-        "files": "*.js",
-        "options": {
-          "tabWidth": 2
-        }
-      },
-      {
-        "files": "*.json",
-        "options": {
-          "tabWidth": 2
-        }
-      },
-      {
-        "files": "*.ts",
-        "options": {
-          "tabWidth": 2
-        }
-      }
-    ]
+    "proseWrap": "always"
   }
 }

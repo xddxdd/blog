@@ -1,0 +1,8 @@
+---
+import { createExcerpt } from '../../lib/utils'
+
+const html = await Astro.slots.render('default')
+const excerpt = createExcerpt(html)
+---
+
+<p>{excerpt}</p>

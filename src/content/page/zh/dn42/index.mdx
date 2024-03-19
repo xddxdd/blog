@@ -1,0 +1,128 @@
+---
+title: 'DN42'
+---
+
+如果你需要 DN42 配置上的帮助，可以参见
+《[DN42 实验网络介绍（2020 版）](/article/modify-website/dn42-experimental-network-2020.lantian)》，
+以及浏览本站之前有关 DN42 的文章。
+
+## 一些可以帮助你调试的链接
+
+这些链接可以帮助你在 Peering 过程中调试常见的问题。
+
+- [我的 Looking Glass](https://lg.lantian.pub/)
+  - 可以查看我这边各个节点的 BIRD 路由软件状态，包括 BGP 链接是否建立、是否收到
+    路由等等。
+  - 可以对公网和 DN42 内的地址进行 Traceroute。
+- 路由 ROA 过滤状态
+  - 我的网络只允许接收在 DN42 中注册过的路由，以及未知路由（以方便新注册 DN42 的
+    用户）。收到的无效路由或未知路由会被显示在这里。
+  - 无效路由：这个 IP 段在 DN42 中注册过了，但是实际广播的路由来源与注册信息不
+    符。
+    - 例如，我注册了 `172.22.76.184/29` 这个地址段，允许 4242422547（也就是我的
+      AS）广播。如果你尝试广播这个路由，就会显示在这里。
+    - 查
+      看[无效的 IPv4 路由列表](https://lg.lantian.pub/route_generic/local/table%20roa_fail_v4)，
+      以
+      及[无效的 IPv6 路由列表](https://lg.lantian.pub/route_generic/local/table%20roa_fail_v6)。
+  - 未知路由：这个 IP 段没有在 DN42 中注册过。
+    - 一般意味着你把你私人内网的路由信息（例如 `192.168.0.0/16`，`10.0.0.0/8`
+      等）错误地广播给了其他人。
+    - 也有可能是你刚注册成功，我的 ROA 信息还没更新。请等待 4-8 小时，然后重启我
+      们的 Peering。
+    - 也有可能是你在 DN42 中只创建了 inetnum/inet6num 没有创建 route/route6 对
+      象。
+    - 查
+      看[未知的 IPv4 路由列表](https://lg.lantian.pub/route_generic/local/table%20roa_unknown_v4)，
+      以
+      及[未知的 IPv6 路由列表](https://lg.lantian.pub/route_generic/local/table%20roa_unknown_v6)。
+
+## “1xRTT”（单次来回）对接（Peering）
+
+我住在中国，而你有可能在地球的另一侧。此时我们的一轮邮件（你发一封，我在你睡着时
+回复，你醒来后查看）需要 24 小时甚至更多。
+
+以下是进行 “1xRTT” Peering 的说明，意味着我们可以只用两封邮件建立 Peering，一封
+来自你，一封来自我。即使没有时区差异，“1xRTT” Peering 仍然能减少很多麻烦。
+
+import Peer from '../../../_templates/dn42-experimental-network-2020/peer-zh.md'
+
+<Peer />
+
+注：我不建议通过 IRC 联系我。虽然我开着 IRC 客户端，但我每月只会去看一两次信息，
+除非你主动在邮件中要求。
+
+## 基本信息
+
+- ASN：4242422547
+- IPv4 地址池：172.22.76.184/29 和 172.22.76.96/27
+- IPv6 地址池：fdbc:f9dc:67ad::/48
+- 我这边的默认端口号：你的 ASN 的后五位
+- 服务状态：[https://lg.lantian.pub](https://lg.lantian.pub/)
+
+## 服务器列表
+
+1. 中国香港，V.PS 服务商
+
+   - 域名：`v-ps-hkg.lantian.pub`
+   - 公网 IPv4：`95.214.164.82` / `v4.v-ps-hkg.lantian.pub`
+   - 公网 IPv6：`2403:2c80:b::12cc` / `v6.v-ps-hkg.lantian.pub`
+   - DN42 IPv4：`172.22.76.186` / `v4.v-ps-hkg.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:1::1` / `v6.v-ps-hkg.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=`
+
+2. 日本东京，Oracle 服务商
+
+   - 域名：`oracle-vm1.lantian.pub`
+   - 公网 IPv4：`132.145.123.138` / `v4.oracle-vm1.lantian.pub`
+   - 公网 IPv6：`2603:c021:8000:aaaa:2::1` / `v6.oracle-vm1.lantian.pub`
+   - DN42 IPv4：`172.22.76.123` / `v4.oracle-vm1.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:5::1` / `v6.oracle-vm1.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`JJUfHeE1ZgyXzo5aoE0tQfk6wZvnVU/d0V3/uSj61ns=`
+
+3. 美国圣何塞，V.PS 服务商
+
+   - 域名：`v-ps-sjc.lantian.pub`
+   - 公网 IPv4：`180.66.196.80` / `v4.v-ps-sjc.lantian.pub`
+   - 公网 IPv6：`2604:a840:2::ed` / `v6.v-ps-sjc.lantian.pub`
+   - DN42 IPv4：`172.22.76.185` / `v4.v-ps-sjc.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:3::1` / `v6.v-ps-sjc.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`zyATu8FW392WFFNAz7ZH6+4TUutEYEooPPirwcoIiXo=`
+
+4. 美国纽约，VirMach 服务商
+
+   - 域名：`virmach-ny1g.lantian.pub`
+   - 公网 IPv4：`45.42.214.121` / `v4.virmach-ny1g.lantian.pub`
+   - 公网 IPv6：`2001:470:1f07:54d::1` / `v6.virmach-ny1g.lantian.pub`
+   - DN42 IPv4：`172.22.76.190` / `v4.virmach-ny1g.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:8::1` / `v6.virmach-ny1g.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`a+zL2tDWjwxBXd2bho2OjR/BEmRe2tJF9DHFmZIE+Rk=`
+
+5. 卢森堡国 Bissen 市 Roost 村，BuyVM 服务商
+   - 域名：`buyvm.lantian.pub`
+   - 公网 IPv4：`107.189.12.254` / `v4.buyvm.lantian.pub`
+   - 公网 IPv6：`2605:6400:30:f22f::1` / `v6.buyvm.lantian.pub`
+   - DN42 IPv4：`172.22.76.187` / `v4.buyvm.dn42.lantian.pub`
+   - DN42 IPv6：`fdbc:f9dc:67ad:2::1` / `v6.buyvm.dn42.lantian.pub`
+   - Link-local IPv6：`fe80::2547`
+   - WireGuard 公钥：`DkmSBCIgrxPPZmT07DraoCSD/jSByjPkYqHJWfVZ5hM=`
+
+## 推荐配置模板（默认参数）
+
+> 以下模板均是以你的视角写成，你在自己的服务器上使用这些模板时不用交换两边。
+
+OpenVPN:
+
+import OpenVPN from '../../../_templates/dn42-experimental-network-2020/openvpn-zh.md'
+
+<OpenVPN />
+
+WireGuard 配置（用于 `wg-quick up` 命令）：
+
+import WireGuard from '../../../_templates/dn42-experimental-network-2020/wireguard-zh.md'
+
+<WireGuard />

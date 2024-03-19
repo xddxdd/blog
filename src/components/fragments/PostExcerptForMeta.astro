@@ -1,0 +1,14 @@
+---
+import { createExcerpt } from '../../lib/utils'
+
+type Params = {
+  property?: string
+  name?: string
+}
+
+const html = await Astro.slots.render('default')
+const excerpt = createExcerpt(html)
+const { name, property } = Astro.params as Params
+---
+
+<meta name={name} property={property} content={excerpt} />

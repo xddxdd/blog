@@ -1,0 +1,48 @@
+---
+export type PaginationProps = {
+  numPages: number
+  currentPage: number
+  basePath: string
+}
+
+type Props = PaginationProps
+
+const { numPages, currentPage, basePath } = Astro.props
+const pages = [...Array(numPages).keys()].map(i => i + 1)
+
+const showSelector = (pageNum: number) =>
+  pageNum == 1 || pageNum == numPages || Math.abs(pageNum - currentPage) <= 2
+const showEllipsis = (pageNum: number) => Math.abs(pageNum - currentPage) == 3
+const getHref = (pageNum: number) =>
+  pageNum == 1 ? `${basePath}/` : `${basePath}/page/${pageNum}/`
+---
+
+{
+  numPages > 1 && (
+    <div class="page-navigator">
+      {currentPage > 1 && (
+        <a class="extend prev" rel="prev" href={getHref(currentPage - 1)}>
+          «
+        </a>
+      )}
+      {pages.map(pageNum => (
+        <>
+          {(pageNum == currentPage && (
+            <span class="page-number current">{pageNum}</span>
+          )) ||
+            (showSelector(pageNum) && (
+              <a class="page-number" href={getHref(pageNum)}>
+                {pageNum}
+              </a>
+            )) ||
+            (showEllipsis(pageNum) && <span class="space">...</span>)}
+        </>
+      ))}
+      {currentPage < numPages && (
+        <a class="extend next" rel="next" href={getHref(currentPage + 1)}>
+          »
+        </a>
+      )}
+    </div>
+  )
+}

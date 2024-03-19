@@ -1,0 +1,43 @@
+---
+type Props = {
+  vertical?: boolean
+  size?: 'lg' | 'sm'
+  buttons: string[][]
+}
+
+const { vertical, size, buttons } = Astro.props
+const getRandom = () => Math.floor(Math.random() * 10000000)
+const groupID = getRandom()
+---
+
+<p>
+  <div
+    class={`btn-group ${vertical === true ? 'btn-group-vertical' : ''} ${size !== undefined ? `btn-group-${size}` : ''}`}
+    role="group"
+    id={`lti-g${groupID}`}
+  >
+    {
+      buttons.map(([id, label]) => {
+        const buttonID = getRandom()
+        return (
+          <>
+            <input
+              type="radio"
+              name={`lti-g${groupID}`}
+              id={`lti-${groupID}-${buttonID}`}
+              class="btn-check lti-option"
+              autocomplete="off"
+              data-lti-tag={id}
+            />
+            <label
+              class="btn btn-outline-primary"
+              for={`lti-${groupID}-${buttonID}`}
+            >
+              {label}
+            </label>
+          </>
+        )
+      })
+    }
+  </div>
+</p>

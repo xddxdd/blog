@@ -1,0 +1,12 @@
+---
+import PageLayout from '../components/PageLayout.astro'
+import PagePage from '../components/PagePage.astro'
+import { getPages } from '../lib/pages'
+
+const pages = await getPages()
+const page = pages.filter(page => page.path == '404')[0]!
+---
+
+<PageLayout title={page.title} language={page.language} page={page}>
+  <PagePage language={page.language} page={page} />
+</PageLayout>

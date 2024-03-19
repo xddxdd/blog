@@ -1,4 +1,0 @@
-node_sass:
-  includePaths:
-    - "node_modules"
-  outputStyle: compressed

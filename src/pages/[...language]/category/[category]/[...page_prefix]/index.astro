@@ -1,0 +1,54 @@
+---
+import { getPosts, getStaticPathsForPaginate } from '../../../../../lib/posts'
+import type { PaginatedProps } from '../../../../../lib/posts'
+import PageLayout from '../../../../../components/PageLayout.astro'
+import PageArchive from '../../../../../components/PageArchive.astro'
+import { CATEGORY_MAP } from '../../../../../lib/language'
+import { replaceInvalidUrlChars, reverseRecord } from '../../../../../lib/utils'
+
+export async function getStaticPaths() {
+  const categories = [
+    ...new Set(Object.entries(CATEGORY_MAP).map(([_, v]) => v)),
+  ]
+  const posts = await getPosts()
+
+  return categories.flatMap(category => {
+    const postsForCategory = posts.filter(
+      post => CATEGORY_MAP[post.category] == category
+    )
+    const categoryInUrl = replaceInvalidUrlChars(category)
+    return getStaticPathsForPaginate(
+      postsForCategory,
+      `/category/${categoryInUrl}`,
+      { category: categoryInUrl },
+      { category: category }
+    )
+  })
+}
+
+type Props = PaginatedProps & {
+  category: string
+}
+const { posts, pagination, language, category } = Astro.props as Props
+
+const invertedCategoryMap = reverseRecord(language.getCategoryMap())
+const categoryDisplayName = invertedCategoryMap[category]
+
+const __ = language.getTranslation
+const titleSuffix = __('category') + ' ' + categoryDisplayName
+const title =
+  pagination.currentPage == 1
+    ? titleSuffix
+    : __('nth_page', pagination.currentPage) + ' - ' + titleSuffix
+---
+
+<PageLayout title={title} language={language} pagination={pagination}>
+  <PageArchive language={language} posts={posts}>
+    <Fragment
+      set:html={__(
+        'list_category',
+        `<a href="${language.getSegment()}/category/${category}">${categoryDisplayName}</a>`
+      )}
+    />
+  </PageArchive>
+</PageLayout>

@@ -46,11 +46,11 @@ steps:
       - name: cache
         path: /cache
 
-  - name: hexo generate
-    image: node:18-alpine
+  - name: npm run build
+    image: node:20-alpine
     commands:
       - apk add --no-cache build-base git gzip brotli zstd parallel rsync imagemagick vips-dev python3
-      - make
+      - npm run build
 
   - name: build web-compressor
     image: rust:alpine
@@ -61,7 +61,7 @@ steps:
       - cargo build --release
 
   - name: hexo deploy
-    image: node:18-alpine
+    image: node:20-alpine
     environment:
       NETRC:
         from_secret: netrc
@@ -71,17 +71,14 @@ steps:
       # Set git logins
       - echo $NETRC > ~/.netrc
 
-      # Generate blog file
-      # Temporarily disabled for deploy failure to GitHub
-      # - node node_modules/hexo/bin/hexo deploy
       # Compress to gzip
-      - web-compressor/target/release/web-compressor --target public/
-      # Parallel jobs aren't used for hexo deploy targets, only my own site system
-      - sh _scripts/parallel_jobs.sh
+      - web-compressor/target/release/web-compressor --target dist/
+      # Convert to webp
+      - npm run webp
 
       # Run deploy
       - mkdir -p /sync/www/lantian.pub
-      - rsync -avr --delete-after public/ /sync/www/lantian.pub/
+      - rsync -avr --delete-after dist/ /sync/www/lantian.pub/
     when:
       event:
         exclude:

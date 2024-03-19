@@ -1,0 +1,145 @@
+---
+import { type Language, CATEGORY_MAP } from '../lib/language'
+import { Post } from '../lib/posts'
+import { format } from 'date-fns'
+import PostExcerpt from './fragments/PostExcerpt.astro'
+import PostMetaWidget from './fragments/PostMetaWidget.astro'
+import WalineComment from './fragments/WalineComment.astro'
+import TableOfContent from './fragments/TableOfContent.astro'
+import { replaceInvalidUrlChars } from 'src/lib/utils'
+
+type Props = {
+  language: Language
+  post: Post
+  postPrev?: Post | undefined
+  postNext?: Post | undefined
+  isShowingMultiPosts: boolean
+}
+
+const { language, post, postPrev, postNext, isShowingMultiPosts } = Astro.props
+const __ = language.getTranslation
+
+const { Content, headings } = await post.collectionEntry.render()
+---
+
+<article>
+  <div class="d-flex">
+    <div class="post-info-wrap">
+      <div class="post-info">
+        {
+          /* Filter out posts before UTC & handle timezone which may be 12h off */
+          post.date.valueOf() > 43200000 && (
+            <PostMetaWidget
+              fontAwesomeClass="fas fa-clock"
+              label={format(post.date, 'MM-dd')}
+            >
+              {__('date')}
+              <span class="badge badge-tag">
+                {format(post.date, 'yyyy-MM-dd HH:mm')}
+              </span>
+            </PostMetaWidget>
+          )
+        }
+        {
+          post.category !== undefined && (
+            <PostMetaWidget
+              fontAwesomeClass="fas fa-file-alt"
+              label={post.category}
+            >
+              {__('category')}{' '}
+              <a
+                class="badge badge-tag"
+                href={`${language.getSegment()}/category/${replaceInvalidUrlChars(CATEGORY_MAP[post.category]!)}`}
+              >
+                {post.category}
+              </a>
+            </PostMetaWidget>
+          )
+        }
+        {
+          post.tags.length > 0 && (
+            <PostMetaWidget
+              fontAwesomeClass="fas fa-tag"
+              label={`${post.tags.length} ${__('n_tags')}`}
+            >
+              {__('tags')}{' '}
+              {post.tags.map(tag => (
+                <>
+                  <a
+                    class="badge badge-tag"
+                    href={`${language.getSegment()}/tag/${replaceInvalidUrlChars(tag)}`}
+                  >
+                    {tag}
+                  </a>{' '}
+                </>
+              ))}
+            </PostMetaWidget>
+          )
+        }
+        {
+          !isShowingMultiPosts && (
+            <PostMetaWidget
+              fontAwesomeClass="fas fa-list"
+              label={__('table_of_contents')}
+            >
+              <TableOfContent headings={headings} />
+            </PostMetaWidget>
+          )
+        }
+      </div>
+    </div>
+    <div class="post-wrap">
+      {
+        post.image !== undefined && (
+          <div class="post-image-wrap">
+            <img src={post.image} alt={__('illustration')} />
+          </div>
+        )
+      }
+      <h1 class="post-title">
+        <a href={post.getFullURL()} rel="bookmark" title={post.title}
+          >{post.title}</a
+        >
+      </h1>
+      <div class="post-text">
+        {
+          (isShowingMultiPosts && (
+            <PostExcerpt>
+              <Content />
+            </PostExcerpt>
+          )) || <Content />
+        }
+      </div>
+      {
+        !isShowingMultiPosts && (
+          <>
+            <div class="clearfix" id="post-navi">
+              <div class="float-end text-end">
+                {(postNext !== undefined && (
+                  <a href={postNext.getFullURL()} title={postNext.title}>
+                    {postNext.title}
+                  </a>
+                )) ||
+                  ' '}
+                <br />
+                {__('next_post')} »
+              </div>
+
+              <div class="float-start text-start position-absolute">
+                « {__('previous_post')}
+                <br />
+                {(postPrev !== undefined && (
+                  <a href={postPrev.getFullURL()} title={postPrev.title}>
+                    {postPrev.title}
+                  </a>
+                )) ||
+                  ' '}
+              </div>
+            </div>
+            <WalineComment language={language} post={post} />
+          </>
+        )
+      }
+    </div>
+  </div>
+</article>

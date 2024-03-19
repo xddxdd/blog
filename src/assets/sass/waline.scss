@@ -1,0 +1,121 @@
+@charset "utf-8";
+@import 'common';
+@import '@waline/client/style';
+
+:root {
+  --waline-font-size: 1rem;
+  --waline-white: #fff;
+  --waline-light-grey: #{material-color('grey', '300')};
+  --waline-dark-grey: #{material-color('grey', '500')};
+  --waline-theme-color: #{$primary};
+  --waline-active-color: #{$primary};
+  --waline-color: #{$body-color};
+  --waline-bg-color: #fff;
+  --waline-bg-color-light: #fff;
+  --waline-bg-color-hover: #fff;
+  --waline-border-color: #{material-color('grey', '400')};
+  --waline-disable-bg-color: #{material-color('grey', '100')};
+  --waline-disable-color: #{material-color('grey', '400')};
+  --waline-code-bg-color: transparent;
+  --waline-bq-color: #{material-color('grey', '200')};
+  --waline-avatar-size: 4rem;
+  --waline-m-avatar-size: 3rem;
+  --waline-badge-color: #{$primary};
+  --waline-badge-font-size: 0.8rem;
+  --waline-info-bg-color: #{material-color('grey', '100')};
+  --waline-info-color: #{material-color('grey', '500')};
+  --waline-info-font-size: 0.625em;
+  --waline-border: 1px solid var(--waline-border-color);
+  --waline-avatar-radius: 0;
+  --waline-box-shadow: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-user-color-scheme]) {
+    /* 常规颜色 */
+    --waline-white: #000;
+    --waline-light-grey: #{material-color('grey', '700')};
+    --waline-dark-grey: #{material-color('grey', '500')};
+
+    /* 布局颜色 */
+    --waline-color: #{$body-color-dark};
+    --waline-bg-color: #{material-color('grey', '800')};
+    --waline-bg-color-light: #{material-color('grey', '800')};
+    --waline-bg-color-hover: #{material-color('grey', '800')};
+    --waline-disable-bg-color: #{material-color('grey', '900')};
+    --waline-disable-color: #{material-color('grey', '600')};
+
+    /* 特殊颜色 */
+    --waline-bq-color: #{material-color('grey', '800')};
+
+    /* 其他颜色 */
+    --waline-info-bg-color: #{material-color('grey', '800')};
+    --waline-info-color: #{material-color('grey', '500')};
+  }
+}
+
+[data-user-color-scheme='dark'] {
+  :root {
+    /* 常规颜色 */
+    --waline-white: #000;
+    --waline-light-grey: #{material-color('grey', '700')};
+    --waline-dark-grey: #{material-color('grey', '300')};
+
+    /* 布局颜色 */
+    --waline-color: #{$body-color-dark};
+    --waline-bg-color: #{material-color('grey', '800')};
+    --waline-bg-color-light: #{material-color('grey', '800')};
+    --waline-bg-color-hover: #{material-color('grey', '800')};
+    --waline-disable-bg-color: #{material-color('grey', '900')};
+    --waline-disable-color: #{material-color('grey', '600')};
+
+    /* 特殊颜色 */
+    --waline-bq-color: #{material-color('grey', '800')};
+
+    /* 其他颜色 */
+    --waline-info-bg-color: #{material-color('grey', '800')};
+    --waline-info-color: #{material-color('grey', '500')};
+  }
+}
+
+[data-waline] * {
+  border-radius: 0 !important;
+}
+
+.wl-content {
+  pre,
+  pre[class*='language-'] {
+    overflow: auto;
+
+    margin: 0.75rem 0;
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+
+    background: var(--waline-code-bgcolor);
+
+    line-height: 1.4;
+
+    code {
+      padding: 0;
+      border-radius: 0;
+      background: transparent !important;
+      color: #bbb;
+    }
+  }
+
+  @import 'prism-themes/themes/prism-one-light';
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-mode: 'dark';
+    }
+
+    :root:not([data-user-color-scheme]) {
+      @import 'prism-themes/themes/prism-one-dark';
+    }
+  }
+
+  [data-user-color-scheme='dark'] {
+    @import 'prism-themes/themes/prism-one-dark';
+  }
+}

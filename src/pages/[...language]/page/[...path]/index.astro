@@ -1,0 +1,24 @@
+---
+import PageLayout from '../../../../components/PageLayout.astro'
+import PagePage from '../../../../components/PagePage.astro'
+import { Page, getPages } from '../../../../lib/pages'
+
+export async function getStaticPaths() {
+  const pages = await getPages()
+  return pages.map(page => ({
+    params: {
+      path: page.path,
+      language: page.language.isDefault()
+        ? undefined
+        : page.language.toString(),
+    },
+    props: { page: page },
+  }))
+}
+type Props = { page: Page }
+const page = Astro.props.page
+---
+
+<PageLayout title={page.title} language={page.language} page={page}>
+  <PagePage language={page.language} page={page} />
+</PageLayout>

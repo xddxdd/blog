@@ -1,0 +1,59 @@
+---
+import { SITE_TITLE } from '../consts'
+import type { Language } from '../lib/language'
+import { Post, getPosts } from '../lib/posts'
+import PageHead from './PageHead.astro'
+import PageHeader from './PageHeader.astro'
+import PageSidebar from './PageSidebar.astro'
+import PageFooter from './PageFooter.astro'
+import type { PaginationProps } from './PagePaginator.astro'
+import type { Page } from 'src/lib/pages'
+import Indihome from './fragments/Indihome.astro'
+
+import '../assets/style.scss'
+
+type Props = {
+  title: string | undefined
+  language: Language
+  post?: Post
+  page?: Page
+  pagination?: PaginationProps | undefined
+}
+
+const { title, language, post, page, pagination } = Astro.props
+const fullTitle = title === undefined ? SITE_TITLE : `${title} - ${SITE_TITLE}`
+const posts = (await getPosts()).filter(post => post.language.is(language))
+const bodyClass = post?.bodyClass ?? page?.bodyClass
+---
+
+<!doctype html>
+<html
+  lang={language.toString()}
+  itemscope
+  itemtype="https://schema.org/Article"
+>
+  <head>
+    <PageHead fullTitle={fullTitle} language={language} post={post} />
+    <script src="../assets/script.main.js"></script>
+  </head>
+  <body class={bodyClass}>
+    <div id="bg"></div>
+
+    {bodyClass == 'indihome' && <Indihome />}
+
+    <div id="container" class="container">
+      <PageHeader language={language} navBarItems={language.getNavBarItems()} />
+      <div class="d-flex">
+        <div id="content">
+          <slot />
+        </div>
+        <PageSidebar
+          language={language}
+          posts={posts}
+          links={language.getLinkItems()}
+        />
+      </div>
+      <PageFooter language={language} pagination={pagination} />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+---
+type Props = {
+  id: string
+}
+---
+
+<div id={`lti-content-${Astro.props.id}`} class="lti-content"><slot /></div>

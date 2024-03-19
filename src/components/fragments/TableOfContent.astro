@@ -1,0 +1,21 @@
+---
+import type { MarkdownHeading } from 'astro'
+
+type Props = {
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+---
+
+<ol id="quicklink">
+  {
+    headings.map(heading => (
+      <li class={`toc-item toc-level-${heading.depth}`}>
+        <a class="toc-link" href={'#' + heading.slug}>
+          <span class="toc-text">{heading.text}</span>
+        </a>
+      </li>
+    ))
+  }
+</ol>
