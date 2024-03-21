@@ -68,7 +68,7 @@
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   },
   "devDependencies": {
     "@types/highlight.js": "^10.1.0",
