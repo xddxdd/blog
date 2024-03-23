@@ -6,81 +6,95 @@ import PostMetaWidget from './PostMetaWidget.astro'
 import TableOfContent from './TableOfContent.astro'
 import { replaceInvalidUrlChars } from 'src/lib/utils'
 import type { MarkdownHeading } from 'astro'
+import type { Page } from 'src/lib/pages'
 
 type Props = {
   language: Language
-  post: Post
+  post?: Post
+  page?: Page
   headings: MarkdownHeading[]
   isShowingMultiPosts: boolean
 }
 
-const { language, post, headings, isShowingMultiPosts } = Astro.props
+const { language, post, page, headings, isShowingMultiPosts } = Astro.props
 const __ = language.getTranslation
 ---
 
 <div class="post-info-wrap">
-  <div class="post-info">
-    {
-      /* Filter out posts before UTC & handle timezone which may be 12h off */
-      post.date.valueOf() > 43200000 && (
-        <PostMetaWidget
-          fontAwesomeClass="fas fa-clock"
-          label={format(post.date, 'MM-dd')}
-        >
-          {__('date')}
-          <span class="badge badge-tag">
-            {format(post.date, 'yyyy-MM-dd HH:mm')}
-          </span>
-        </PostMetaWidget>
-      )
-    }
-    {
-      post.category !== undefined && (
-        <PostMetaWidget
-          fontAwesomeClass="fas fa-file-alt"
-          label={post.category}
-        >
-          {__('category')}{' '}
-          <a
-            class="badge badge-tag"
-            href={`${language.getSegment()}/category/${replaceInvalidUrlChars(CATEGORY_MAP[post.category]!)}`}
+  {
+    post !== undefined && (
+      <div class="post-info">
+        {
+          /* Filter out posts before UTC & handle timezone which may be 12h off */
+          post.date.valueOf() > 43200000 && (
+            <PostMetaWidget
+              fontAwesomeClass="fas fa-clock"
+              label={format(post.date, 'MM-dd')}
+            >
+              {__('date')}
+              <span class="badge badge-tag">
+                {format(post.date, 'yyyy-MM-dd HH:mm')}
+              </span>
+            </PostMetaWidget>
+          )
+        }
+        {post.category !== undefined && (
+          <PostMetaWidget
+            fontAwesomeClass="fas fa-file-alt"
+            label={post.category}
           >
-            {post.category}
-          </a>
-        </PostMetaWidget>
-      )
-    }
-    {
-      post.tags.length > 0 && (
-        <PostMetaWidget
-          fontAwesomeClass="fas fa-tag"
-          label={`${post.tags.length} ${__('n_tags')}`}
-        >
-          {__('tags')}{' '}
-          {post.tags.map(tag => (
-            <>
-              <a
-                class="badge badge-tag"
-                href={`${language.getSegment()}/tag/${replaceInvalidUrlChars(tag)}`}
-              >
-                {tag}
-              </a>{' '}
-            </>
-          ))}
-        </PostMetaWidget>
-      )
-    }
-    {
-      !isShowingMultiPosts && (
-        <PostMetaWidget
-          fontAwesomeClass="fas fa-list"
-          label={__('table_of_contents')}
-        >
-          <TableOfContent headings={headings} />
-        </PostMetaWidget>
-      )
-    }
-  </div>
+            {__('category')}{' '}
+            <a
+              class="badge badge-tag"
+              href={`${language.getSegment()}/category/${replaceInvalidUrlChars(CATEGORY_MAP[post.category]!)}`}
+            >
+              {post.category}
+            </a>
+          </PostMetaWidget>
+        )}
+        {post.tags.length > 0 && (
+          <PostMetaWidget
+            fontAwesomeClass="fas fa-tag"
+            label={`${post.tags.length} ${__('n_tags')}`}
+          >
+            {__('tags')}{' '}
+            {post.tags.map(tag => (
+              <>
+                <a
+                  class="badge badge-tag"
+                  href={`${language.getSegment()}/tag/${replaceInvalidUrlChars(tag)}`}
+                >
+                  {tag}
+                </a>{' '}
+              </>
+            ))}
+          </PostMetaWidget>
+        )}
+        {!isShowingMultiPosts && headings.length > 0 && (
+          <PostMetaWidget
+            fontAwesomeClass="fas fa-list"
+            label={__('table_of_contents')}
+          >
+            <TableOfContent headings={headings} />
+          </PostMetaWidget>
+        )}
+      </div>
+    )
+  }
+  {
+    page !== undefined && (
+      <div class="post-info">
+        {!isShowingMultiPosts && headings.length > 0 && (
+          <PostMetaWidget
+            fontAwesomeClass="fas fa-list"
+            label={__('table_of_contents')}
+          >
+            <TableOfContent headings={headings} />
+          </PostMetaWidget>
+        )}
+      </div>
+    )
+  }
 </div>
 
 <style lang="scss">

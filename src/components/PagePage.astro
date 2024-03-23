@@ -1,8 +1,7 @@
 ---
 import { type Language } from '../lib/language'
 import { Page } from '../lib/pages'
-import PostMetaWidget from './fragments/PostMetaWidget.astro'
-import TableOfContent from './fragments/TableOfContent.astro'
+import PostInfo from './fragments/PostInfo.astro'
 
 type Props = {
   language: Language
@@ -10,23 +9,18 @@ type Props = {
 }
 
 const { language, page } = Astro.props
-const __ = language.getTranslation
 
 const { Content, headings } = await page.collectionEntry.render()
 ---
 
 <article>
   <div class="d-flex">
-    <div class="post-info-wrap">
-      <div class="post-info">
-        <PostMetaWidget
-          fontAwesomeClass="fas fa-list"
-          label={__('table_of_contents')}
-        >
-          <TableOfContent headings={headings} />
-        </PostMetaWidget>
-      </div>
-    </div>
+    <PostInfo
+      language={language}
+      page={page}
+      headings={headings}
+      isShowingMultiPosts={false}
+    />
     <div class="post-wrap">
       <h1 class="post-title">
         <a href={page.getFullURL()} rel="bookmark" title={page.title}
