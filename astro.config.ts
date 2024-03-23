@@ -6,6 +6,7 @@ import { remarkGraphvizSvg } from './src/lib/remark-graphviz-svg'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeMath from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
+import rehypeExternalLinks from 'rehype-external-links'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkJoinCjkLines from 'remark-join-cjk-lines'
@@ -60,6 +61,13 @@ const markdownPluginOptions: AstroUserConfig['markdown'] = {
       },
     ],
     rehypeSlug,
+    [
+      rehypeExternalLinks,
+      {
+        rel: ['noopener', 'noreferrer'],
+        target: '_blank',
+      },
+    ],
   ],
 }
 
