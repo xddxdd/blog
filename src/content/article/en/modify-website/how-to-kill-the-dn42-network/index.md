@@ -203,7 +203,7 @@ In addition, route flapping may cause severe impacts:
 For example, one user in the Telegram group had a misconfiguration while
 transitioning from Full-mesh + Direct connections to Multihop.
 
-![I Always Love Niantic Network](../../../../../../public/usr/uploads/202008/i-love-niantic-network.png)
+![I Always Love Niantic Network](/usr/uploads/202008/i-love-niantic-network.png)
 
 He didn't disconnect BGP in the process, and the Babel configuration error
 caused large amounts of routes to be announced and withdrawn.
@@ -355,7 +355,7 @@ planet, a message pops up on one person's phone/computer that his DN42 ROA
 generator is malfunctioning. He opens the registry page, facepalms, and commits
 this change:
 
-![Errorneous IPv6 Block in DN42 Registry](../../../../../../public/usr/uploads/202007/dn42-registry-error.png)
+![Errorneous IPv6 Block in DN42 Registry](/usr/uploads/202007/dn42-registry-error.png)
 
 [https://git.dn42.dev/dn42/registry/commit/9f45ee31cdea4a997d59a262c4a8ac8eb3cbd1f1](https://git.dn42.dev/dn42/registry/commit/9f45ee31cdea4a997d59a262c4a8ac8eb3cbd1f1)
 
@@ -374,7 +374,7 @@ and crashed.
 
 # And It Happened Again
 
-![Errorneous IPv6 Block Happened Again](../../../../../../public/usr/uploads/202008/dn42-registry-error.png)
+![Errorneous IPv6 Block Happened Again](/usr/uploads/202008/dn42-registry-error.png)
 
 [https://git.dn42.dev/dn42/registry/commit/00f90f592a35e325152ce28157f64d3fca7c8d7d](https://git.dn42.dev/dn42/registry/commit/00f90f592a35e325152ce28157f64d3fca7c8d7d)
 
@@ -447,13 +447,13 @@ so it won't overwrite my DN42 ranges again.
 
 A new user registered an ASN:
 
-![Errorneous ASN in DN42 Registry](../../../../../../public/usr/uploads/202008/dn42-asn-error.png)
+![Errorneous ASN in DN42 Registry](/usr/uploads/202008/dn42-asn-error.png)
 
 This is what happened to DN42:
 
 - Telegram Group: (Translation available below the image)
 
-  ![Telegram Reactions](../../../../../../public/usr/uploads/202008/dn42-asn-error-response.png)
+  ![Telegram Reactions](/usr/uploads/202008/dn42-asn-error-response.png)
 
   Translation:
 
@@ -503,7 +503,7 @@ This is what happened to DN42:
 
 - Justice Has Arrived:
 
-  ![Errorneous Commit Reverted](../../../../../../public/usr/uploads/202008/dn42-asn-error-correction.png)
+  ![Errorneous Commit Reverted](/usr/uploads/202008/dn42-asn-error-correction.png)
 
 ## Defensive Measures
 

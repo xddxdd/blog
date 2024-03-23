@@ -181,7 +181,7 @@ export filter {
 例如，某 Telegram 群友从 Fullmesh + Direct 转向 Multihop 时出现事故，造成了非常
 大量的路由切换。
 
-![我永远喜欢 Niantic Network](../../../../../../public/usr/uploads/202008/i-love-niantic-network.png)
+![我永远喜欢 Niantic Network](/usr/uploads/202008/i-love-niantic-network.png)
 
 他在切换过程中没有断开 BGP，而 Babel 的配置错误导致大量路由被传递及撤销。
 
@@ -435,7 +435,7 @@ export filter {
 的 DN42 ROA 记录生成器出现了错误。他打开 Registry，扶额叹息，并 commit 了这样一
 个修改：
 
-![DN42 Registry 中的错误 IPv6 地址块](../../../../../../public/usr/uploads/202007/dn42-registry-error.png)
+![DN42 Registry 中的错误 IPv6 地址块](/usr/uploads/202007/dn42-registry-error.png)
 
 [https://git.dn42.dev/dn42/registry/commit/9f45ee31cdea4a997d59a262c4a8ac8eb3cbd1f1](https://git.dn42.dev/dn42/registry/commit/9f45ee31cdea4a997d59a262c4a8ac8eb3cbd1f1)
 
@@ -453,7 +453,7 @@ export filter {
 
 # 再 放 送
 
-![DN42 Registry 中的错误 IPv6 地址块 - 再放送](../../../../../../public/usr/uploads/202008/dn42-registry-error.png)
+![DN42 Registry 中的错误 IPv6 地址块 - 再放送](/usr/uploads/202008/dn42-registry-error.png)
 
 [https://git.dn42.dev/dn42/registry/commit/00f90f592a35e325152ce28157f64d3fca7c8d7d](https://git.dn42.dev/dn42/registry/commit/00f90f592a35e325152ce28157f64d3fca7c8d7d)
 
@@ -515,17 +515,17 @@ Community，就不再被广播了。并且 Static 如其名是“静态”协议
 
 一名新玩家注册了一个 ASN：
 
-![DN42 Registry 中的错误 ASN](../../../../../../public/usr/uploads/202008/dn42-asn-error.png)
+![DN42 Registry 中的错误 ASN](/usr/uploads/202008/dn42-asn-error.png)
 
 这是 DN42 发生的变化：
 
 - Telegram 群：
 
-  ![Telegram 群友的反应](../../../../../../public/usr/uploads/202008/dn42-asn-error-response.png)
+  ![Telegram 群友的反应](/usr/uploads/202008/dn42-asn-error-response.png)
 
 - 蒂 花 之 秀：
 
-  ![Telegram 群友的反应 2](../../../../../../public/usr/uploads/202008/dn42-asn-error-response-2.png)
+  ![Telegram 群友的反应 2](/usr/uploads/202008/dn42-asn-error-response-2.png)
 
 - IRC：
 
@@ -588,7 +588,7 @@ Community，就不再被广播了。并且 Static 如其名是“静态”协议
 
 - 裁决之镰：
 
-  ![错误被撤销](../../../../../../public/usr/uploads/202008/dn42-asn-error-correction.png)
+  ![错误被撤销](/usr/uploads/202008/dn42-asn-error-correction.png)
 
 ## 如何防御
 
