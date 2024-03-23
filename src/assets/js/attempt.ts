@@ -7,8 +7,10 @@ export default function (name: string, func: () => void) {
   try {
     func()
     console.log('%c[  OK  ] ' + name, 'color:green')
-  } catch (e) {
-    console.log('%c[ FAIL ] ' + name + ': ' + e.message, 'color:red')
-    console.log(e.stack)
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      console.log('%c[ FAIL ] ' + name + ': ' + e.message, 'color:red')
+      console.log(e.stack)
+    }
   }
 }

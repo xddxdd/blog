@@ -9,8 +9,10 @@ import rehypeSlug from 'rehype-slug'
 import rehypeExternalLinks from 'rehype-external-links'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
+// @ts-ignore
 import remarkJoinCjkLines from 'remark-join-cjk-lines'
 import remarkMath from 'remark-math'
+// @ts-ignore
 import remarkMermaid from 'remark-mermaid'
 import { visit } from 'unist-util-visit'
 import react from '@astrojs/react'

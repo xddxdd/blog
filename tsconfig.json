@@ -29,5 +29,6 @@
     "allowUnusedLabels": false,
     "allowJs": true,
     "strictNullChecks": true
-  }
+  },
+  "exclude": ["dist/*"]
 }
