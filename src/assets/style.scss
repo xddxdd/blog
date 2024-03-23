@@ -514,7 +514,14 @@ ul ul {
 
 @import 'sass/images.scss';
 @import 'sass/flags.scss';
-@import 'sass/indihome.scss';
+
+body.indihome {
+  @include media-breakpoint-up(md) {
+    #container {
+      margin-top: 60vh;
+    }
+  }
+}
 
 @import 'highlight.js/styles/atom-one-light';
 .hljs {
