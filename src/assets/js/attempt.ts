@@ -2,7 +2,7 @@
  * Try/Catch Error Isolation
  *****************************************/
 
-export default function (name, func) {
+export default function (name: string, func: () => void) {
   'use strict'
   try {
     func()

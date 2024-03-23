@@ -1,7 +1,7 @@
 import 'instant.page'
 import SimpleLightbox from 'simple-lightbox'
 
-import attempt from './js/attempt.js'
+import attempt from './js/attempt'
 
 /*****************************************
  * Bootstrap Native
@@ -30,21 +30,22 @@ import { initCallback } from 'bootstrap.native'
     }
 
     let posts = document.getElementsByClassName('post-text')
-    for (let i = 0; i < posts.length; i++) {
-      let images = posts[i].getElementsByTagName('img')
-      for (let j = 0; j < images.length; j++) {
-        images[j].onclick = lightbox_onclick
-        images[j].style.cursor = 'pointer'
+    for (const post of posts) {
+      for (const img of post.getElementsByTagName('img')) {
+        img.onclick = lightbox_onclick
+        img.style.cursor = 'pointer'
       }
     }
 
-    let qrcodes = document.getElementsByClassName('qrcode-box')
-    for (let i = 0; i < qrcodes.length; i++) {
-      qrcodes[i].onclick = lightbox_onclick
+    let qrcodes = document.getElementsByClassName(
+      'qrcode-box'
+    ) as HTMLCollectionOf<HTMLImageElement>
+    for (const qrcode of qrcodes) {
+      qrcode.onclick = lightbox_onclick
     }
   })
 
-  attempt('Interactive Content (Custom)', function () {
+  attempt('Interactive Content', function () {
     'use strict'
 
     let interactive_update = function (element) {
@@ -74,7 +75,7 @@ import { initCallback } from 'bootstrap.native'
       })
 
       if (child_options.length) {
-        interactive_recurse(child_options.item(0).parentElement)
+        interactive_recurse(child_options.item(0)!.parentElement)
       }
     }
 
