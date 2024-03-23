@@ -33,3 +33,18 @@ const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
     </small>
   </div>
 </footer>
+
+<style lang="scss">
+  @import '../assets/sass/bootstrap_common.scss';
+  footer {
+    margin-top: -1px;
+    border-top: $border-default;
+    border-bottom: $border-default;
+    width: 100%;
+    background-color: material-color('grey', '200');
+
+    #copyright {
+      padding: 5px;
+    }
+  }
+</style>

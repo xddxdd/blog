@@ -18,12 +18,6 @@
   }
 }
 
-body {
-  background-color: $body-background;
-  color: $body-color;
-  font-size: $font-size-base;
-}
-
 a {
   color: $primary;
 }
@@ -32,79 +26,11 @@ a {
   resize: none;
 }
 
-nav.lantian {
-  padding: 0;
-  border-left: 5px solid $primary;
-
-  .container-fluid {
-    padding: 0;
-  }
-
-  .navbar-brand {
-    margin: 0;
-    padding: 1rem;
-    font-weight: 700;
-  }
-
-  .navbar-nav {
-    a.active {
-      background-color: $primary;
-      color: #fff;
-    }
-
-    @include media-breakpoint-down(lg) {
-      .nav-item {
-        margin: 0 1rem;
-      }
-    }
-  }
-
-  .navbar-spacer {
-    margin-right: auto;
-  }
-
-  .navbar-toggler-icon {
-    background-image: escape-svg($navbar-light-toggler-icon-bg);
-  }
-
-  #elderclock-plus1s {
-    opacity: 0;
-    position: absolute;
-    animation: elderclock-plus1s 1s 1;
-  }
-
-  border-bottom: $border-default;
-  background-color: material-color('grey', '200');
-}
-
-section.lantian {
-  border-bottom: $border-default;
-  background-color: material-color('grey', '200');
-}
-
 article {
   border-bottom: $border-default;
 
   .post-title {
     margin: 5px 0;
-  }
-
-  .post-info-wrap {
-    flex: 0 0 2.5em;
-    background-color: material-color('grey', '200');
-  }
-
-  @include media-breakpoint-up(md) {
-    .post-info {
-      position: sticky;
-      top: 0;
-    }
-  }
-
-  @include media-breakpoint-down(md) {
-    .post-info {
-      position: absolute;
-    }
   }
 
   .post-meta-wrap {
@@ -319,34 +245,6 @@ article {
   }
 }
 
-footer.lantian {
-  margin-top: -1px;
-  border-top: $border-default;
-  border-bottom: $border-default;
-  width: 100%;
-  background-color: material-color('grey', '200');
-
-  #copyright {
-    padding: 5px;
-  }
-}
-
-#bg {
-  @include media-breakpoint-down(md) {
-    display: none;
-  }
-}
-
-#container {
-  background: white;
-  padding: 0;
-
-  @include media-breakpoint-up(md) {
-    margin: 50px auto;
-    box-shadow: 0 0 50px material-color('grey', '600');
-  }
-}
-
 .widget {
   margin-bottom: 2px;
 
@@ -404,90 +302,11 @@ footer.lantian {
 #content {
   flex: 3;
   width: 0;
-
-  #post-navi {
-    border-top: 1px solid material-color('grey', '400');
-    border-bottom: 1px solid material-color('grey', '400');
-    padding: 5px;
-  }
 }
 
 aside {
   flex: 1;
   width: 0;
-}
-
-#quicklink {
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-
-  .toc-item {
-    list-style: none;
-  }
-
-  .toc,
-  .toc-child {
-    padding: 0;
-  }
-
-  .toc-link {
-    display: block;
-    padding: 0.25em 0;
-    margin-left: 1em;
-  }
-  .toc-level-1,
-  .toc-level-2,
-  .toc-level-3,
-  .toc-level-4,
-  .toc-level-5,
-  .toc-level-6 {
-    &:before {
-      @include font-awesome;
-      float: left;
-      text-align: center;
-      padding: 0.25em 0;
-    }
-  }
-
-  .toc-level-1 {
-    &:before {
-      content: fa-content($fa-var-angle-double-right);
-    }
-  }
-  .toc-level-2,
-  .toc-level-3,
-  .toc-level-4,
-  .toc-level-5,
-  .toc-level-6 {
-    &:before {
-      content: fa-content($fa-var-angle-right);
-    }
-  }
-}
-
-.page-navigator {
-  list-style: none;
-  float: left;
-
-  span,
-  a {
-    border: 1px solid material-color('grey', '500');
-    float: left;
-    margin: 5px;
-    text-align: center;
-    vertical-align: middle;
-    width: 25px;
-
-    &.current {
-      background-color: $primary;
-      color: white;
-    }
-  }
-  a:hover,
-  a:active {
-    background-color: material-color('grey', '400');
-  }
 }
 
 ol ol,
@@ -512,7 +331,6 @@ ul ul {
 @import 'simple-lightbox/dist/simpleLightbox';
 @import 'katex/dist/katex';
 
-@import 'sass/images.scss';
 @import 'sass/flags.scss';
 
 body.indihome {

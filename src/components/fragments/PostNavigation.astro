@@ -1,0 +1,50 @@
+---
+import { type Language } from '../../lib/language'
+import { Post } from '../../lib/posts'
+
+type Props = {
+  language: Language
+  postPrev?: Post | undefined
+  postNext?: Post | undefined
+}
+
+const { language, postPrev, postNext } = Astro.props
+const __ = language.getTranslation
+---
+
+<div class="clearfix" id="post-navi">
+  <div class="float-end text-end">
+    {
+      (postNext !== undefined && (
+        <a href={postNext.getFullURL()} title={postNext.title}>
+          {postNext.title}
+        </a>
+      )) ||
+        ' '
+    }
+    <br />
+    {__('next_post')} »
+  </div>
+
+  <div class="float-start text-start position-absolute">
+    « {__('previous_post')}
+    <br />
+    {
+      (postPrev !== undefined && (
+        <a href={postPrev.getFullURL()} title={postPrev.title}>
+          {postPrev.title}
+        </a>
+      )) ||
+        ' '
+    }
+  </div>
+</div>
+
+<style lang="scss">
+  @import '../../assets/sass/bootstrap_common.scss';
+  #post-navi {
+    border-top: 1px solid material-color('grey', '400');
+    border-bottom: 1px solid material-color('grey', '400');
+    padding: 5px;
+  }
+</style>

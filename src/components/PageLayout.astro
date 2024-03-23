@@ -9,6 +9,7 @@ import PageFooter from './PageFooter.astro'
 import type { PaginationProps } from './PagePaginator.astro'
 import type { Page } from 'src/lib/pages'
 import Indihome from './fragments/Indihome.astro'
+import Background from './fragments/Background.astro'
 
 import '../assets/style.scss'
 
@@ -37,7 +38,7 @@ const bodyClass = post?.bodyClass ?? page?.bodyClass
     <script src="../assets/script.main.js"></script>
   </head>
   <body class={bodyClass}>
-    <div id="bg"></div>
+    <Background />
 
     {bodyClass == 'indihome' && <Indihome />}
 
@@ -55,5 +56,25 @@ const bodyClass = post?.bodyClass ?? page?.bodyClass
       </div>
       <PageFooter language={language} pagination={pagination} />
     </div>
+
+    <style lang="scss">
+      @import '../assets/sass/bootstrap_common.scss';
+
+      body {
+        background-color: $body-background;
+        color: $body-color;
+        font-size: $font-size-base;
+      }
+
+      #container {
+        background: white;
+        padding: 0;
+
+        @include media-breakpoint-up(md) {
+          margin: 50px auto;
+          box-shadow: 0 0 50px material-color('grey', '600');
+        }
+      }
+    </style>
   </body>
 </html>

@@ -19,30 +19,57 @@ const getHref = (pageNum: number) =>
 
 {
   numPages > 1 && (
-    <div class="page-navigator">
-      {currentPage > 1 && (
-        <a class="extend prev" rel="prev" href={getHref(currentPage - 1)}>
-          «
-        </a>
-      )}
-      {pages.map(pageNum => (
-        <>
-          {(pageNum == currentPage && (
-            <span class="page-number current">{pageNum}</span>
-          )) ||
-            (showSelector(pageNum) && (
-              <a class="page-number" href={getHref(pageNum)}>
-                {pageNum}
-              </a>
+    <>
+      <div class="page-navigator">
+        {currentPage > 1 && (
+          <a class="extend prev" rel="prev" href={getHref(currentPage - 1)}>
+            «
+          </a>
+        )}
+        {pages.map(pageNum => (
+          <>
+            {(pageNum == currentPage && (
+              <span class="page-number current">{pageNum}</span>
             )) ||
-            (showEllipsis(pageNum) && <span class="space">...</span>)}
-        </>
-      ))}
-      {currentPage < numPages && (
-        <a class="extend next" rel="next" href={getHref(currentPage + 1)}>
-          »
-        </a>
-      )}
-    </div>
+              (showSelector(pageNum) && (
+                <a class="page-number" href={getHref(pageNum)}>
+                  {pageNum}
+                </a>
+              )) ||
+              (showEllipsis(pageNum) && <span class="space">...</span>)}
+          </>
+        ))}
+        {currentPage < numPages && (
+          <a class="extend next" rel="next" href={getHref(currentPage + 1)}>
+            »
+          </a>
+        )}
+      </div>
+    </>
   )
 }
+
+<style lang="scss">
+  @import '../assets/sass/bootstrap_common.scss';
+  .page-navigator {
+    list-style: none;
+    float: left;
+
+    span,
+    a {
+      border: 1px solid material-color('grey', '500');
+      float: left;
+      margin: 5px;
+      text-align: center;
+      vertical-align: middle;
+      width: 25px;
+
+      &.current,
+      &:hover,
+      &:active {
+        background-color: $primary;
+        color: white;
+      }
+    }
+  }
+</style>

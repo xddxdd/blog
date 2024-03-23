@@ -1,12 +1,10 @@
 ---
-import { type Language, CATEGORY_MAP } from '../lib/language'
+import { type Language } from '../lib/language'
 import { Post } from '../lib/posts'
-import { format } from 'date-fns'
 import PostExcerpt from './fragments/PostExcerpt.astro'
-import PostMetaWidget from './fragments/PostMetaWidget.astro'
 import WalineComment from './fragments/WalineComment.astro'
-import TableOfContent from './fragments/TableOfContent.astro'
-import { replaceInvalidUrlChars } from 'src/lib/utils'
+import PostInfo from './fragments/PostInfo.astro'
+import PostNavigation from './fragments/PostNavigation.astro'
 
 type Props = {
   language: Language
@@ -24,70 +22,12 @@ const { Content, headings } = await post.collectionEntry.render()
 
 <article>
   <div class="d-flex">
-    <div class="post-info-wrap">
-      <div class="post-info">
-        {
-          /* Filter out posts before UTC & handle timezone which may be 12h off */
-          post.date.valueOf() > 43200000 && (
-            <PostMetaWidget
-              fontAwesomeClass="fas fa-clock"
-              label={format(post.date, 'MM-dd')}
-            >
-              {__('date')}
-              <span class="badge badge-tag">
-                {format(post.date, 'yyyy-MM-dd HH:mm')}
-              </span>
-            </PostMetaWidget>
-          )
-        }
-        {
-          post.category !== undefined && (
-            <PostMetaWidget
-              fontAwesomeClass="fas fa-file-alt"
-              label={post.category}
-            >
-              {__('category')}{' '}
-              <a
-                class="badge badge-tag"
-                href={`${language.getSegment()}/category/${replaceInvalidUrlChars(CATEGORY_MAP[post.category]!)}`}
-              >
-                {post.category}
-              </a>
-            </PostMetaWidget>
-          )
-        }
-        {
-          post.tags.length > 0 && (
-            <PostMetaWidget
-              fontAwesomeClass="fas fa-tag"
-              label={`${post.tags.length} ${__('n_tags')}`}
-            >
-              {__('tags')}{' '}
-              {post.tags.map(tag => (
-                <>
-                  <a
-                    class="badge badge-tag"
-                    href={`${language.getSegment()}/tag/${replaceInvalidUrlChars(tag)}`}
-                  >
-                    {tag}
-                  </a>{' '}
-                </>
-              ))}
-            </PostMetaWidget>
-          )
-        }
-        {
-          !isShowingMultiPosts && (
-            <PostMetaWidget
-              fontAwesomeClass="fas fa-list"
-              label={__('table_of_contents')}
-            >
-              <TableOfContent headings={headings} />
-            </PostMetaWidget>
-          )
-        }
-      </div>
-    </div>
+    <PostInfo
+      language={language}
+      post={post}
+      headings={headings}
+      isShowingMultiPosts={isShowingMultiPosts}
+    />
     <div class="post-wrap">
       {
         post.image !== undefined && (
@@ -118,29 +58,11 @@ const { Content, headings } = await post.collectionEntry.render()
       {
         !isShowingMultiPosts && (
           <>
-            <div class="clearfix" id="post-navi">
-              <div class="float-end text-end">
-                {(postNext !== undefined && (
-                  <a href={postNext.getFullURL()} title={postNext.title}>
-                    {postNext.title}
-                  </a>
-                )) ||
-                  ' '}
-                <br />
-                {__('next_post')} »
-              </div>
-
-              <div class="float-start text-start position-absolute">
-                « {__('previous_post')}
-                <br />
-                {(postPrev !== undefined && (
-                  <a href={postPrev.getFullURL()} title={postPrev.title}>
-                    {postPrev.title}
-                  </a>
-                )) ||
-                  ' '}
-              </div>
-            </div>
+            <PostNavigation
+              language={language}
+              postPrev={postPrev}
+              postNext={postNext}
+            />
             <WalineComment language={language} post={post} />
           </>
         )
