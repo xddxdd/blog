@@ -25,10 +25,14 @@ const walinePath = post.getFullURL().replace(/(\/+)$/, '')
 </div>
 <script>
   import { init } from '@waline/client'
+  const origin =
+    window.location.hostname == 'localhost'
+      ? 'https://comments.lantian.pub'
+      : window.location.origin
   const walineProps = document.getElementById('waline')!.dataset
   init({
     el: '#waline',
-    serverURL: window.location.origin,
+    serverURL: origin,
     path: walineProps.walinePath!,
     lang: walineProps.walineLanguage!,
     requiredMeta: ['nick', 'mail'],

@@ -16,7 +16,11 @@ const __ = language.getTranslation
 
 <script>
   import type { RecentCommentData } from '@waline/api'
-  fetch(`${window.location.origin}/api/comment?type=recent&count=10`)
+  const origin =
+    window.location.hostname == 'localhost'
+      ? 'https://comments.lantian.pub'
+      : window.location.origin
+  fetch(`${origin}/api/comment?type=recent&count=10`)
     .then(response => {
       if (response.status !== 200) {
         throw new Error(`Server returned bad HTTP status ${response.status}`)
