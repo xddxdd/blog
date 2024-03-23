@@ -11,6 +11,7 @@
   // 页面文字
   --lt-page-text: #{material-color('grey', '200')};
   --lt-page-text-emphasis: white;
+  --lt-page-text-weak: #{material-color('grey', '400')};
   // 控件背景，逐级变亮
   --lt-component-bg: #{material-color('grey', '900')};
   --lt-component-bg-less-emphasis: #{material-color('grey', '900')};
