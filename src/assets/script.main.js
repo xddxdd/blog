@@ -3,8 +3,6 @@ import SimpleLightbox from 'simple-lightbox'
 
 import attempt from './js/attempt.js'
 
-import Plausible from 'plausible-tracker'
-
 /*****************************************
  * Bootstrap Native
  *****************************************/
@@ -14,21 +12,10 @@ import { initCallback } from 'bootstrap.native'
 /*****************************************
  * Page Onload Logic
  *****************************************/
-
-addLoadEvent(function () {
+;(function () {
   'use strict'
 
   attempt('Bootstrap.Native', initCallback)
-
-  attempt('Plausible Analytics', function () {
-    'use strict'
-    const plausible = Plausible({
-      domain: 'lantian.pub',
-      trackLocalhost: true,
-      apiHost: '',
-    })
-    plausible.trackPageview()
-  })
 
   attempt('Simple Lightbox', function () {
     'use strict'
@@ -55,89 +42,6 @@ addLoadEvent(function () {
     for (let i = 0; i < qrcodes.length; i++) {
       qrcodes[i].onclick = lightbox_onclick
     }
-  })
-
-  attempt('Dark Color Scheme', function () {
-    /* https://blog.skk.moe/post/hello-darkmode-my-old-friend/ */
-
-    const darkModeStorageKey = 'user-color-scheme' // 作为 localStorage 的 key
-    const rootElementDarkModeAttributeName = 'data-user-color-scheme'
-
-    const setLS = (k, v) => {
-      try {
-        localStorage.setItem(k, v)
-      } catch (e) {}
-    }
-
-    const getLS = k => {
-      try {
-        return localStorage.getItem(k)
-      } catch (e) {
-        return null // 与 localStorage 中没有找到对应 key 的行为一致
-      }
-    }
-
-    const applyCustomDarkModeSettings = mode => {
-      const validColorModeKeys = {
-        dark: true,
-        light: true,
-        auto: true,
-      }
-
-      if (!validColorModeKeys[mode]) {
-        mode = 'auto'
-      }
-      setLS(darkModeStorageKey, mode)
-
-      for (const key in validColorModeKeys) {
-        if (key == mode) {
-          document.getElementById('color-scheme-' + key).classList.add('active')
-        } else {
-          document
-            .getElementById('color-scheme-' + key)
-            .classList.remove('active')
-        }
-      }
-
-      if (mode != 'auto') {
-        document.documentElement.setAttribute(
-          rootElementDarkModeAttributeName,
-          mode
-        )
-        if (document.getElementById('twine')) {
-          document
-            .getElementById('twine')
-            .contentWindow.document.documentElement.setAttribute(
-              rootElementDarkModeAttributeName,
-              mode
-            )
-        }
-      } else {
-        document.documentElement.removeAttribute(
-          rootElementDarkModeAttributeName
-        )
-        if (document.getElementById('twine')) {
-          document
-            .getElementById('twine')
-            .contentWindow.document.documentElement.removeAttribute(
-              rootElementDarkModeAttributeName
-            )
-        }
-      }
-    }
-
-    // 当页面加载时，将显示模式设置为 localStorage 中自定义的值（如果有的话）
-    applyCustomDarkModeSettings(getLS(darkModeStorageKey))
-
-    document
-      .getElementById('color-scheme-auto')
-      .addEventListener('click', () => applyCustomDarkModeSettings('auto'))
-    document
-      .getElementById('color-scheme-light')
-      .addEventListener('click', () => applyCustomDarkModeSettings('light'))
-    document
-      .getElementById('color-scheme-dark')
-      .addEventListener('click', () => applyCustomDarkModeSettings('dark'))
   })
 
   attempt('Interactive Content (Custom)', function () {
@@ -215,25 +119,4 @@ addLoadEvent(function () {
       content.classList.add('d-none')
     })
   })
-
-  attempt('Interactive Content (Twine)', function () {
-    'use strict'
-    window.iframeResizer = () => {
-      var iframes = document.querySelectorAll('iframe')
-      if (iframes.length == 0) {
-        return
-      }
-
-      for (let i = 0; i < iframes.length; i++) {
-        try {
-          iframes[i].height =
-            iframes[i].contentWindow.document.body.scrollHeight
-        } catch (e) {}
-      }
-
-      setTimeout(iframeResizer, 100)
-    }
-
-    window.iframeResizer()
-  })
-})
+})()

@@ -4,6 +4,7 @@ import type { Language } from '../lib/language'
 import { format } from 'date-fns'
 import type { PaginationProps } from './PagePaginator.astro'
 import PagePaginator from './PagePaginator.astro'
+import PlausibleAnalytics from './fragments/PlausibleAnalytics.astro'
 import { getPosts } from 'src/lib/posts'
 
 type Props = {
@@ -32,6 +33,7 @@ const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
       }
     </small>
   </div>
+  <PlausibleAnalytics />
 </footer>
 
 <style lang="scss">

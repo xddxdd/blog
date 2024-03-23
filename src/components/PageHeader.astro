@@ -158,6 +158,72 @@ const { pathname } = Astro.url
   </div>
 </nav>
 
+<script>
+  /* https://blog.skk.moe/post/hello-darkmode-my-old-friend/ */
+
+  const darkModeStorageKey = 'user-color-scheme' // 作为 localStorage 的 key
+  const rootElementDarkModeAttributeName = 'data-user-color-scheme'
+
+  const setLS = (k, v) => {
+    try {
+      localStorage.setItem(k, v)
+    } catch (e) {}
+  }
+
+  const getLS = k => {
+    try {
+      return localStorage.getItem(k)
+    } catch (e) {
+      return null // 与 localStorage 中没有找到对应 key 的行为一致
+    }
+  }
+
+  const applyCustomDarkModeSettings = mode => {
+    const validColorModeKeys = {
+      dark: true,
+      light: true,
+      auto: true,
+    }
+
+    if (!validColorModeKeys[mode]) {
+      mode = 'auto'
+    }
+    setLS(darkModeStorageKey, mode)
+
+    for (const key in validColorModeKeys) {
+      if (key == mode) {
+        document.getElementById('color-scheme-' + key)!.classList.add('active')
+      } else {
+        document
+          .getElementById('color-scheme-' + key)!
+          .classList.remove('active')
+      }
+    }
+
+    if (mode != 'auto') {
+      document.documentElement.setAttribute(
+        rootElementDarkModeAttributeName,
+        mode
+      )
+    } else {
+      document.documentElement.removeAttribute(rootElementDarkModeAttributeName)
+    }
+  }
+
+  // 当页面加载时，将显示模式设置为 localStorage 中自定义的值（如果有的话）
+  applyCustomDarkModeSettings(getLS(darkModeStorageKey))
+
+  document
+    .getElementById('color-scheme-auto')!
+    .addEventListener('click', () => applyCustomDarkModeSettings('auto'))
+  document
+    .getElementById('color-scheme-light')!
+    .addEventListener('click', () => applyCustomDarkModeSettings('light'))
+  document
+    .getElementById('color-scheme-dark')!
+    .addEventListener('click', () => applyCustomDarkModeSettings('dark'))
+</script>
+
 <style lang="scss">
   @import '../assets/sass/bootstrap_common.scss';
   nav {
