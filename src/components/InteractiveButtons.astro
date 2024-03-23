@@ -17,21 +17,20 @@ const groupID = getRandom()
     id={`lti-g${groupID}`}
   >
     {
-      buttons.map(([id, label]) => {
-        const buttonID = getRandom()
+      buttons.map(([id, label], index) => {
         return (
           <>
             <input
               type="radio"
               name={`lti-g${groupID}`}
-              id={`lti-${groupID}-${buttonID}`}
+              id={`lti-${groupID}-${index}`}
               class="btn-check lti-option"
               autocomplete="off"
               data-lti-tag={id}
             />
             <label
               class="btn btn-outline-primary"
-              for={`lti-${groupID}-${buttonID}`}
+              for={`lti-${groupID}-${index}`}
             >
               {label}
             </label>

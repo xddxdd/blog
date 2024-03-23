@@ -4,6 +4,17 @@
 $enable-rounded: false;
 $enable-transitions: false;
 
+// FIXME: move to CSS variables or get rid of Bootstrap
+$primary: material-color('light-blue', '500');
+$primary-hover: material-color('light-blue', '700');
+$link-hover-color: $primary;
+$navbar-light-color: $primary;
+$navbar-light-hover-color: $primary-hover;
+$navbar-light-active-color: $primary;
+$navbar-dark-color: $primary;
+$navbar-dark-hover-color: $primary-hover;
+$navbar-dark-active-color: $primary;
+
 $blockquote-font-size: $font-size-base;
 
 $navbar-nav-link-padding-x: 1rem;

@@ -164,13 +164,13 @@ const { pathname } = Astro.url
   const darkModeStorageKey = 'user-color-scheme' // 作为 localStorage 的 key
   const rootElementDarkModeAttributeName = 'data-user-color-scheme'
 
-  const setLS = (k, v) => {
+  const setLS = (k: string, v: string) => {
     try {
       localStorage.setItem(k, v)
     } catch (e) {}
   }
 
-  const getLS = k => {
+  const getLS = (k: string) => {
     try {
       return localStorage.getItem(k)
     } catch (e) {
@@ -178,25 +178,25 @@ const { pathname } = Astro.url
     }
   }
 
-  const applyCustomDarkModeSettings = mode => {
+  const applyCustomDarkModeSettings = (_mode: string | null) => {
     const validColorModeKeys = {
       dark: true,
       light: true,
       auto: true,
     }
 
-    if (!validColorModeKeys[mode]) {
-      mode = 'auto'
-    }
+    const mode: string =
+      _mode === null || !Object.keys(validColorModeKeys).includes(_mode)
+        ? 'auto'
+        : _mode
     setLS(darkModeStorageKey, mode)
 
     for (const key in validColorModeKeys) {
+      const elem = document.getElementById('color-scheme-' + key)!
       if (key == mode) {
-        document.getElementById('color-scheme-' + key)!.classList.add('active')
+        elem.classList.add('active')
       } else {
-        document
-          .getElementById('color-scheme-' + key)!
-          .classList.remove('active')
+        elem.classList.remove('active')
       }
     }
 

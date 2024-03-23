@@ -1,4 +1,5 @@
 import 'instant.page'
+// @ts-ignore
 import SimpleLightbox from 'simple-lightbox'
 
 import attempt from './js/attempt'
@@ -19,12 +20,16 @@ import { initCallback } from 'bootstrap.native'
 
   attempt('Simple Lightbox', function () {
     'use strict'
-    let lightbox_onclick = function (e) {
+    let lightbox_onclick = function (
+      this: GlobalEventHandlers,
+      ev: MouseEvent
+    ) {
+      const e = ev.target as HTMLImageElement
       SimpleLightbox.open({
-        items: [this.getAttribute('src') || this.getAttribute('href')],
+        items: [e.src],
       })
       try {
-        e.preventDefault()
+        ev.preventDefault()
       } catch (err) {}
       return false
     }
@@ -48,8 +53,8 @@ import { initCallback } from 'bootstrap.native'
   attempt('Interactive Content', function () {
     'use strict'
 
-    let interactive_update = function (element) {
-      let this_tag = element.dataset.ltiTag
+    let interactive_update = function (element: HTMLInputElement) {
+      let this_tag = element.dataset.ltiTag!
       let child = document.getElementById(`lti-content-${this_tag}`)
       if (!child) {
         return
@@ -62,62 +67,73 @@ import { initCallback } from 'bootstrap.native'
 
       child.classList.add('d-none')
 
-      let child_options = child.getElementsByClassName('lti-option')
-      if (!child_options) {
+      let child_options = Array.from(
+        child.getElementsByClassName(
+          'lti-option'
+        ) as HTMLCollectionOf<HTMLInputElement>
+      )
+      if (child_options.length == 0) {
         return
       }
 
       /* bootstrap native js will handle state save & restore */
-      Array.prototype.slice.call(child_options).forEach(function (e) {
+      child_options.forEach(function (e) {
         e.classList.remove('active')
         e.checked = false
         // interactive_onclick(e);
       })
 
       if (child_options.length) {
-        interactive_recurse(child_options.item(0)!.parentElement)
+        interactive_recurse(child_options[0]!.parentElement! as HTMLDivElement)
       }
     }
 
-    let interactive_recurse = function (container) {
-      let option_list = container.getElementsByClassName('lti-option')
-      if (!option_list) {
+    let interactive_recurse = function (container: HTMLDivElement) {
+      let option_list = Array.from(
+        container.getElementsByClassName(
+          'lti-option'
+        ) as HTMLCollectionOf<HTMLInputElement>
+      )
+
+      if (option_list.length == 0) {
         return
       }
 
-      let option_array = Array.prototype.slice.call(option_list)
-
       // first go through the unselected options
-      option_array
+      option_list
         .filter(e => {
           return !e.checked
         })
         .forEach(interactive_update)
 
       // then handle the selected one
-      option_array
+      option_list
         .filter(e => {
           return e.checked
         })
         .forEach(interactive_update)
     }
 
-    let interactive_onclick = function () {
-      interactive_recurse(this.parentElement)
+    let interactive_onclick = function (
+      this: GlobalEventHandlers,
+      ev: MouseEvent
+    ) {
+      const elem = ev.target as HTMLInputElement
+      interactive_recurse(elem.parentElement as HTMLDivElement)
     }
 
-    let options = Array.prototype.slice.call(
-      document.getElementsByClassName('lti-option')
+    let options = Array.from(
+      document.getElementsByClassName(
+        'lti-option'
+      ) as HTMLCollectionOf<HTMLInputElement>
     )
-    options.forEach(option => {
-      option.onclick = interactive_onclick
-    })
+    options.forEach(option => (option.onclick = interactive_onclick))
 
-    let contents = Array.prototype.slice.call(
-      document.getElementsByClassName('lti-content')
+    let contents = Array.from(
+      document.getElementsByClassName(
+        'lti-content'
+      ) as HTMLCollectionOf<HTMLDivElement>
     )
-    contents.forEach(content => {
-      content.classList.add('d-none')
-    })
+    contents.forEach(content => content.classList.add('d-none'))
   })
 })()
