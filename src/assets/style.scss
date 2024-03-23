@@ -162,6 +162,10 @@ article {
       border-bottom: 3px solid var(--lt-component-bg-emphasis);
     }
 
+    pre code {
+      border-bottom: none !important;
+    }
+
     h1 {
       &:before {
         @include font-awesome;
