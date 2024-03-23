@@ -61,18 +61,18 @@ const bodyClass = post?.bodyClass ?? page?.bodyClass
       @import '../assets/sass/bootstrap_common.scss';
 
       body {
-        background-color: $body-background;
-        color: $body-color;
+        background-color: var(--lt-page-bg);
+        color: var(--lt-page-text);
         font-size: $font-size-base;
       }
 
       #container {
-        background: white;
+        background: var(--lt-component-bg);
         padding: 0;
 
         @include media-breakpoint-up(md) {
           margin: 50px auto;
-          box-shadow: 0 0 50px material-color('grey', '600');
+          box-shadow: 0 0 50px var(--lt-page-shadow);
         }
       }
     </style>

@@ -19,7 +19,7 @@
 }
 
 a {
-  color: $primary;
+  color: var(--lt-primary);
 }
 
 #textarea {
@@ -27,7 +27,7 @@ a {
 }
 
 article {
-  border-bottom: $border-default;
+  border-bottom: 1px solid var(--lt-border);
 
   .post-title {
     margin: 5px 0;
@@ -37,7 +37,7 @@ article {
     height: 2.5em;
     width: 2.5em;
     margin-top: 1px;
-    background-color: material-color('grey', '200');
+    background-color: var(--lt-component-bg-emphasis);
 
     p {
       width: 2.5em;
@@ -54,10 +54,10 @@ article {
     overflow: hidden;
     line-height: 2.5;
 
-    background-color: material-color('grey', '200');
-    color: $primary;
+    background-color: var(--lt-component-bg-emphasis);
+    color: var(--lt-primary);
     a {
-      color: $primary;
+      color: var(--lt-primary);
     }
 
     .post-meta-value {
@@ -69,10 +69,10 @@ article {
     &:active {
       width: 300px;
       height: auto;
-      background-color: $primary;
-      color: white;
+      background-color: var(--lt-selected-bg);
+      color: var(--lt-selected);
       a {
-        color: white;
+        color: var(--lt-selected);
       }
       .post-meta-value {
         display: block;
@@ -93,9 +93,9 @@ article {
       font-size: 100%;
       font-weight: 400;
 
-      background-color: material-color('light-blue', '700');
+      background-color: var(--lt-selected-emphasis-bg);
       &:hover {
-        background-color: material-color('light-blue', '800');
+        background-color: var(--lt-selected-emphasis-hover-bg);
       }
     }
   }
@@ -131,7 +131,7 @@ article {
   }
 
   .post-text {
-    background-color: white;
+    background-color: var(--lt-component-bg);
 
     > *:first-child {
       margin-top: 0 !important;
@@ -147,7 +147,7 @@ article {
     }
     img,
     svg {
-      box-shadow: 0 0 10px material-color('grey', '600');
+      box-shadow: 0 0 10px var(--lt-page-shadow);
       max-width: 100%;
       margin-left: auto;
       margin-right: auto;
@@ -155,11 +155,11 @@ article {
     }
     blockquote,
     pre {
-      border-left: 5px solid material-color('grey', '200');
+      border-left: 5px solid var(--lt-component-bg-emphasis);
       padding-left: 8px;
     }
     code {
-      border-bottom: 3px solid material-color('grey', '200');
+      border-bottom: 3px solid var(--lt-component-bg-emphasis);
     }
 
     h1 {
@@ -184,7 +184,7 @@ article {
     b,
     strong {
       font-weight: 700 !important;
-      color: black;
+      color: var(--lt-page-text-emphasis);
     }
 
     @include media-breakpoint-down(lg) {
@@ -213,18 +213,18 @@ article {
       td {
         // stylelint-disable-next-line primer/spacing
         padding: 6px 13px;
-        border: $border-default;
+        border: 1px solid var(--lt-border);
       }
 
       thead {
-        background-color: material-color('grey', '200');
+        background-color: var(--lt-component-bg-emphasis);
       }
 
       tr {
-        border-top: $border-default;
+        border-top: 1px solid var(--lt-border);
 
         &:nth-child(2n) {
-          background-color: material-color('grey', '100');
+          background-color: var(--lt-component-bg-less-emphasis);
         }
       }
     }
@@ -249,7 +249,7 @@ article {
   margin-bottom: 2px;
 
   h3 {
-    color: black;
+    color: var(--lt-page-text-emphasis);
     font-weight: 700;
   }
 
@@ -257,7 +257,7 @@ article {
   h3 {
     margin: 0;
     padding: 0;
-    border-bottom: $border-dotted;
+    border-bottom: 1px dotted var(--lt-border-weak);
     overflow: hidden;
     word-break: break-all;
     white-space: nowrap;
@@ -269,11 +269,11 @@ article {
 
     li {
       .fas {
-        color: black;
+        color: var(--lt-page-text-emphasis);
       }
 
       &:last-child {
-        border-bottom: $border-default;
+        border-bottom: 1px solid var(--lt-border);
       }
       &::before {
         @include font-awesome;
@@ -284,14 +284,14 @@ article {
   }
 
   .row {
-    border-bottom: $border-default;
+    border-bottom: 1px solid var(--lt-border);
     margin: 0;
     div {
       padding: 3px;
       text-align: center;
     }
     div:not(:last-child) {
-      border-right: $border-dotted;
+      border-right: 1px dotted var(--lt-border-weak);
     }
     p {
       margin: 0;
@@ -348,15 +348,7 @@ body.indihome {
   color: inherit !important;
 }
 
+@import 'colors/color.scss';
+
 // Waline css selectors are special
 @import 'sass/waline.scss';
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-user-color-scheme]) {
-    @import 'style_dark.scss';
-  }
-}
-
-[data-user-color-scheme='dark'] {
-  @import 'style_dark.scss';
-}

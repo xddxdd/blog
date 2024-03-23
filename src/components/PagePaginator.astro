@@ -57,7 +57,7 @@ const getHref = (pageNum: number) =>
 
     span,
     a {
-      border: 1px solid material-color('grey', '500');
+      border: 1px solid var(--lt-border);
       float: left;
       margin: 5px;
       text-align: center;
@@ -67,8 +67,8 @@ const getHref = (pageNum: number) =>
       &.current,
       &:hover,
       &:active {
-        background-color: $primary;
-        color: white;
+        background-color: var(--lt-selected-bg);
+        color: var(--lt-selected);
       }
     }
   }

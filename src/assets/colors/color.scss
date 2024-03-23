@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+@import 'color_light.scss';
+@import 'color_dark.scss';
+
+:root {
+  @include root-color-light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-user-color-scheme]) {
+    @include root-color-dark;
+  }
+}
+
+[data-user-color-scheme='dark'] {
+  @include root-color-dark;
+}

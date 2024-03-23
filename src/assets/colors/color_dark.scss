@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+@import 'sass-material-colors';
+
+@mixin root-color-dark {
+  // 页面背景
+  --lt-page-bg: #{material-color('grey', '900')};
+  --lt-page-shadow: black;
+  // 背景图
+  --lt-bg-image-display: none;
+  // 页面文字
+  --lt-page-text: #{material-color('grey', '200')};
+  --lt-page-text-emphasis: white;
+  // 控件背景，逐级变亮
+  --lt-component-bg: #{material-color('grey', '900')};
+  --lt-component-bg-less-emphasis: #{material-color('grey', '900')};
+  --lt-component-bg-emphasis: #{material-color('grey', '800')};
+  // 主题色
+  --lt-primary: #{material-color('light-blue', '500')};
+  --lt-primary-hover: #{material-color('light-blue', '700')};
+  // 被选中
+  --lt-selected: white;
+  --lt-selected-bg: #{material-color('light-blue', '500')};
+  // 被选中的强调色
+  --lt-selected-emphasis-bg: #{material-color('light-blue', '700')};
+  --lt-selected-emphasis-hover-bg: #{material-color('light-blue', '800')};
+  // 边框
+  --lt-border: #{material-color('grey', '500')};
+  --lt-border-weak: #{material-color('grey', '600')};
+}

@@ -160,10 +160,9 @@ const { pathname } = Astro.url
 
 <style lang="scss">
   @import '../assets/sass/bootstrap_common.scss';
-  nav.lantian {
+  nav {
     padding: 0;
-    border-left: 5px solid $primary;
-
+    border-left: 5px solid var(--lt-primary);
     .container-fluid {
       padding: 0;
     }
@@ -176,7 +175,7 @@ const { pathname } = Astro.url
 
     .navbar-nav {
       a.active {
-        background-color: $primary;
+        background-color: var(--lt-primary);
         color: #fff;
       }
 
@@ -184,6 +183,14 @@ const { pathname } = Astro.url
         .nav-item {
           margin: 0 1rem;
         }
+      }
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: var(--lt-primary);
+      &:hover {
+        color: var(--lt-primary-hover);
       }
     }
 
@@ -201,7 +208,13 @@ const { pathname } = Astro.url
       animation: elderclock-plus1s 1s 1;
     }
 
-    border-bottom: $border-default;
-    background-color: material-color('grey', '200');
+    border-bottom: 1px solid var(--lt-border);
+    background-color: var(--lt-component-bg-emphasis);
+
+    .dropdown-menu,
+    .dropdown-menu a {
+      color: var(--lt-page-text);
+      background-color: var(--lt-component-bg);
+    }
   }
 </style>
