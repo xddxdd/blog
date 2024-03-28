@@ -92,7 +92,8 @@ export default defineConfig({
   ],
   markdown: markdownPluginOptions,
   build: {
-    format: 'preserve',
+    // Using "preserve" format will break language switch links
+    format: 'directory',
     assets: 'assets',
   },
   // I use instant.page instead
