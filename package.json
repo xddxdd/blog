@@ -68,7 +68,7 @@
     "simple-lightbox": "^2.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3",
-    "typescript-esbuild": "^0.4.9"
+    "typescript-esbuild": "^0.4.10"
   },
   "devDependencies": {
     "@types/highlight.js": "^10.1.0",
