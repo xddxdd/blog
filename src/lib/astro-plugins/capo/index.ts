@@ -19,12 +19,14 @@ const createPlugin = (_?: any): AstroIntegration => {
         const outputDir = fileURLToPath(dir)
 
         const htmlFiles = await glob(path.join(outputDir, '**/*.html'))
-        htmlFiles.forEach(filePath => {
-          logger.info(`Processing ${filePath} with Capo.js`)
-          let content = fs.readFileSync(filePath).toString()
-          content = capo(content)
-          fs.writeFileSync(filePath, content)
-        })
+        await Promise.all(
+          htmlFiles.map(filePath => {
+            logger.info(`Processing ${filePath} with Capo.js`)
+            let content = fs.readFileSync(filePath).toString()
+            content = capo(content)
+            fs.writeFileSync(filePath, content)
+          })
+        )
       },
     },
   }

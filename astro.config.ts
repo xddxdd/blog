@@ -19,6 +19,7 @@ import react from '@astrojs/react'
 import copyFiles from './src/lib/astro-plugins/copy-files'
 import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
 import capo from './src/lib/astro-plugins/capo'
+import compress from './src/lib/astro-plugins/compress'
 import type { Node } from 'unist'
 import critters from 'astro-critters'
 
@@ -89,6 +90,7 @@ export default defineConfig({
     capo(),
     // Critters must be after capo, to place updated styles in correct location
     critters({}),
+    compress(),
   ],
   markdown: markdownPluginOptions,
   build: {

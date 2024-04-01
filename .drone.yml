@@ -53,14 +53,6 @@ steps:
       - npm install
       - npm run build
 
-  - name: build web-compressor
-    image: rust:alpine
-    commands:
-      - apk add --no-cache build-base git cmake
-      - git clone https://github.com/xddxdd/web-compressor.git
-      - cd web-compressor
-      - cargo build --release
-
   - name: deploy
     image: node:lts-alpine
     environment:
@@ -72,8 +64,6 @@ steps:
       # Set git logins
       - echo $NETRC > ~/.netrc
 
-      # Compress to gzip
-      - web-compressor/target/release/web-compressor --target dist/
       # Convert to webp
       - npm run build-webp
 
