@@ -21,7 +21,7 @@ import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
 import capo from './src/lib/astro-plugins/capo'
 import compress from './src/lib/astro-plugins/compress'
 import type { Node } from 'unist'
-import critters from 'astro-critters'
+import inline from '@playform/inline'
 
 export const chineseQuotes = (s: any) =>
   typeof s === 'string'
@@ -88,8 +88,8 @@ export default defineConfig({
     copyFiles([{ source: './src/assets/favicon/generated', dest: '.' }]),
     // Capo must be after all HTML pages are generated
     capo(),
-    // Critters must be after capo, to place updated styles in correct location
-    critters({}),
+    // CSS inline plugin must be after capo, to place updated styles in correct location
+    inline({}),
     compress(),
   ],
   markdown: markdownPluginOptions,
