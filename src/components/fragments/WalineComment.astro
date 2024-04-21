@@ -25,21 +25,24 @@ const walinePath = post.getFullURL().replace(/(\/+)$/, '')
 </div>
 <script>
   import { init } from '@waline/client'
-  const origin =
-    window.location.hostname == 'localhost'
-      ? 'https://comments.lantian.pub'
-      : window.location.origin
-  const walineProps = document.getElementById('waline')!.dataset
-  init({
-    el: '#waline',
-    serverURL: origin,
-    path: walineProps.walinePath!,
-    lang: walineProps.walineLanguage!,
-    requiredMeta: ['nick', 'mail'],
-    login: 'disable',
-    emoji: [
-      'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba',
-      'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
-    ],
-  })
+  const walineElement = document.getElementById('waline')
+  if (walineElement) {
+    const origin =
+      window.location.hostname == 'localhost'
+        ? 'https://comments.lantian.pub'
+        : window.location.origin
+    const walineProps = walineElement!.dataset
+    init({
+      el: '#waline',
+      serverURL: origin,
+      path: walineProps.walinePath!,
+      lang: walineProps.walineLanguage!,
+      requiredMeta: ['nick', 'mail'],
+      login: 'disable',
+      emoji: [
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
+      ],
+    })
+  }
 </script>
