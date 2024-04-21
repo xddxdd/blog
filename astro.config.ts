@@ -1,10 +1,9 @@
 import { defineConfig, type AstroUserConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
-import highlightLanguages from './src/lib/highlight-js-languages'
 import { remarkGraphvizSvg } from './src/lib/remark-graphviz-svg'
-import rehypeHighlight from 'rehype-highlight'
 import rehypeMath from 'rehype-katex'
+import rehypeShiki from '@shikijs/rehype'
 import rehypeSlug from 'rehype-slug'
 import rehypeExternalLinks from 'rehype-external-links'
 import remarkFrontmatter from 'remark-frontmatter'
@@ -58,9 +57,14 @@ const markdownPluginOptions: AstroUserConfig['markdown'] = {
   rehypePlugins: [
     rehypeMath,
     [
-      rehypeHighlight,
+      rehypeShiki,
       {
-        languages: highlightLanguages,
+        themes: {
+          dark: 'dark-plus',
+          light: 'light-plus',
+        },
+        wrap: true,
+        defaultColor: false,
       },
     ],
     rehypeSlug,

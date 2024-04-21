@@ -2,17 +2,21 @@
 
 @import 'color_light.scss';
 @import 'color_dark.scss';
+@import 'shiki.scss';
 
 :root {
   @include root-color-light;
+  @include shiki-light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-user-color-scheme]) {
     @include root-color-dark;
+    @include shiki-dark;
   }
 }
 
 [data-user-color-scheme='dark'] {
   @include root-color-dark;
+  @include shiki-dark;
 }

@@ -345,13 +345,6 @@ body.indihome {
   }
 }
 
-@import 'highlight.js/styles/atom-one-light';
-.hljs {
-  padding: 0 !important;
-  background: none !important;
-  color: inherit !important;
-}
-
 @import 'colors/color.scss';
 
 // Waline css selectors are special
