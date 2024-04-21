@@ -12,7 +12,11 @@ const groupID = getRandom()
 
 <p>
   <div
-    class={`btn-group ${vertical === true ? 'btn-group-vertical' : ''} ${size !== undefined ? `btn-group-${size}` : ''}`}
+    class:list={[
+      'btn-group',
+      vertical === true ? 'btn-group-vertical' : undefined,
+      size !== undefined ? `btn-group-${size}` : undefined,
+    ]}
     role="group"
     id={`lti-g${groupID}`}
   >

@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from '../consts'
 import { type Language, LANGUAGES } from '../lib/language'
+import { normalizeUrl } from '../lib/utils'
 import type { NavigationItem } from '../lib/navigation'
 
 type Props = {
@@ -33,7 +34,12 @@ const { pathname } = Astro.url
           navBarItems.map(item => (
             <li class="nav-item d-none d-lg-block">
               <a
-                class={`nav-link ${pathname == item.path ? 'active' : ''}`}
+                class:list={[
+                  'nav-link',
+                  normalizeUrl(pathname) == normalizeUrl(item.path)
+                    ? 'active'
+                    : undefined,
+                ]}
                 href={item.path}
               >
                 {item.name}
@@ -59,7 +65,12 @@ const { pathname } = Astro.url
                 {navBarItems.map(item => (
                   <li>
                     <a
-                      class={`dropdown-item ${pathname == item.path ? 'active' : ''}`}
+                      class:list={[
+                        'dropdown-item',
+                        normalizeUrl(pathname) == normalizeUrl(item.path)
+                          ? 'active'
+                          : undefined,
+                      ]}
                       href={item.path}
                     >
                       {item.name}
@@ -95,10 +106,17 @@ const { pathname } = Astro.url
                 return (
                   <li>
                     <a
-                      class={`dropdown-item ${pathname == canonicalPath ? 'active' : ''}`}
+                      class:list={[
+                        'dropdown-item',
+                        normalizeUrl(pathname) == normalizeUrl(canonicalPath)
+                          ? 'active'
+                          : undefined,
+                      ]}
                       href={canonicalPath}
                     >
-                      <span class={`flag-icon ${newLanguage.getFlagIcon()}`} />
+                      <span
+                        class:list={[`flag-icon`, newLanguage.getFlagIcon()]}
+                      />
                       {newLanguage.getDisplayName()}
                     </a>
                   </li>

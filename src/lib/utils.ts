@@ -39,3 +39,9 @@ export function createExcerpt(html: string): string {
 export function replaceInvalidUrlChars(url: string): string {
   return url.replaceAll(/[\s\.]/g, '-')
 }
+
+export function normalizeUrl(url: string): string {
+  const regex = /^(.*?)(\/(index\..*)?)?$/m
+  const match = regex.exec(url.trim())
+  return match![1]!.trim()
+}
