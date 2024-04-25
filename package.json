@@ -46,7 +46,7 @@
     "postcss-preset-env": "^9.5.6",
     "postcss-sorting": "^8.0.2",
     "prism-themes": "^1.9.0",
-    "react": "^18.2.0",
+    "react": "^18.3.0",
     "react-dom": "^18.2.0",
     "rehype-external-links": "^3.0.0",
     "rehype-katex": "^7.0.0",
