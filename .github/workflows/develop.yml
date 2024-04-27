@@ -7,7 +7,8 @@ on:
       - 'master'
 
 jobs:
-  go-test:
+  build:
+    name: Build web pages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,12 +20,21 @@ jobs:
           node-version: lts/*
           cache: npm
 
-      - name: Build web page
-        run: |
-          sudo apt-get install build-essential git gzip brotli zstd parallel rsync imagemagick libvips-dev python3
-          npm install
-          npm run build
-          npm run build-webp
+      - name: Cache WebP Images
+        id: cache-webp
+        uses: actions/cache@v4
+        with:
+          path: img_cache
+          key: img_cache
+
+      - name: Install dependencies
+        run: sudo apt-get install build-essential git gzip brotli zstd parallel rsync imagemagick libvips-dev python3
+
+      - run: npm install
+
+      - run: npm run build
+
+      - run: npm run build-webp
 
       - name: Upload files
         uses: actions/upload-artifact@v4
