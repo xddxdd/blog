@@ -36,6 +36,18 @@ jobs:
 
       - run: npm run build-webp
 
+      - name: Setup SSH key
+        run: |
+          mkdir -p $HOME/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > $HOME/.ssh/id_ed25519
+          echo "StrictHostKeyChecking no" > $HOME/.ssh/config
+          chmod -R 500 $HOME/.ssh
+
+      - name: Rsync files over SSH
+        run: |
+          sudo apt-get install -y rsync
+          rsync -avzr --delete-after -e "ssh -p2222" dist/ ci@rsync-ci.xuyh0120.win:/www/lantian.pub/
+
       - name: Upload files
         uses: actions/upload-artifact@v4
         with:
