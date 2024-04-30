@@ -37,6 +37,7 @@ jobs:
       - run: npm run build-webp
 
       - name: Setup SSH key
+        if: github.event_name != 'pull_request'
         run: |
           mkdir -p $HOME/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > $HOME/.ssh/id_ed25519
@@ -44,6 +45,7 @@ jobs:
           chmod -R 500 $HOME/.ssh
 
       - name: Rsync files over SSH
+        if: github.event_name != 'pull_request'
         run: |
           sudo apt-get install -y rsync
           rsync -avzr --delete-after -e "ssh -p2222" dist/ ci@rsync-ci.xuyh0120.win:/www/lantian.pub/
