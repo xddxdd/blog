@@ -78,7 +78,8 @@ export async function getPosts(): Promise<Post[]> {
 export async function getFeedObject(context: APIContext): Promise<Feed> {
   const posts = await getPosts()
   const siteURL = context.site!.origin
-  const copyright = `Copyright 2012-${new Date().getFullYear()} ${SITE_TITLE}`
+  const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
+  const copyright = `Copyright ${firstPostYear}-${new Date().getFullYear()} ${SITE_TITLE}`
   const feed = new Feed({
     title: SITE_TITLE,
     description: SITE_TITLE,
