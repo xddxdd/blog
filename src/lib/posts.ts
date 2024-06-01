@@ -108,6 +108,11 @@ export async function getFeedObject(context: APIContext): Promise<Feed> {
     }
 
     let content = await post.render()
+    // Convert to absolute links for some RSS readers
+    content = content.replaceAll(' src="/', ` src="${siteURL}/`)
+    content = content.replaceAll(" src='/", ` src='${siteURL}/`)
+    content = content.replaceAll(' href="/', ` href="${siteURL}/`)
+    content = content.replaceAll(" href='/", ` href='${siteURL}/`)
 
     feed.addItem({
       title: post.title,
