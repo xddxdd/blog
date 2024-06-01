@@ -1,0 +1,13 @@
+---
+import { Post } from '../../lib/posts'
+
+type Props = {
+  post: Post
+}
+
+const { post } = Astro.props
+const { Content } = await post.collectionEntry.render()
+
+---
+
+<Content />

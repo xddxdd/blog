@@ -4,6 +4,8 @@ import { type Language, LANGUAGES, DEFAULT_LANGUAGE } from './language'
 import type { PaginationProps } from '../components/PagePaginator.astro'
 import { Feed } from 'feed'
 import type { APIContext } from 'astro'
+import { experimental_AstroContainer as AstroContainer } from 'astro/container'
+import PostContent from '@components/fragments/PostContent.astro'
 
 export class Post {
   public readonly title: string
@@ -36,6 +38,30 @@ export class Post {
 
   public getFullURL(): string {
     return `${this.language.getSegment()}/article/${this.path}.lantian/`
+  }
+
+  // Based on https://github.com/syhily/yufan.me/blob/astro/src/pages/feed.ts
+  public async render(): Promise<string> {
+    const container = await AstroContainer.create({
+      renderers: [
+        {
+          name: '@astrojs/mdx',
+          serverEntrypoint: 'astro/jsx/server.js',
+        },
+      ],
+    })
+
+    let content = await container.renderToString(PostContent, {
+      props: {
+        post: this,
+      },
+    })
+
+    content = content.startsWith('<!DOCTYPE html>')
+      ? content.slice(15)
+      : content
+
+    return content
   }
 
   public static fromCollectionEntry(post: CollectionEntry<'article'>): Post {
@@ -73,13 +99,15 @@ export async function getFeedObject(context: APIContext): Promise<Feed> {
     },
   })
 
-  posts.slice(0, POSTS_PER_PAGE).forEach(post => {
+  for (const post of posts.slice(0, POSTS_PER_PAGE)) {
     let image = post.image
     if (image !== undefined) {
       if (image.startsWith('/')) {
         image = siteURL + image
       }
     }
+
+    let content = await post.render()
 
     feed.addItem({
       title: post.title,
@@ -89,8 +117,9 @@ export async function getFeedObject(context: APIContext): Promise<Feed> {
       image: image,
       published: post.date,
       copyright: copyright,
+      content: content,
     })
-  })
+  }
 
   return feed
 }
