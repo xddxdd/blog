@@ -42,7 +42,7 @@
     "plausible-tracker": "^0.3.9",
     "postcss": "^8.4.38",
     "postcss-inline-svg": "^6.0.0",
-    "postcss-load-config": "^5.1.0",
+    "postcss-load-config": "^6.0.1",
     "postcss-preset-env": "^9.5.14",
     "postcss-sorting": "^8.0.2",
     "prism-themes": "^1.9.0",
