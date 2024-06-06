@@ -93,7 +93,7 @@ export default defineConfig({
     // Capo must be after all HTML pages are generated
     capo(),
     // CSS inline plugin must be after capo, to place updated styles in correct location
-    inline({}),
+    inline({}) as any,
     compress(),
   ],
   markdown: markdownPluginOptions,

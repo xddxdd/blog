@@ -5,7 +5,6 @@ import type { PaginationProps } from '../components/PagePaginator.astro'
 import { Feed } from 'feed'
 import type { APIContext } from 'astro'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
-import PostContent from '@components/fragments/PostContent.astro'
 
 export class Post {
   public readonly title: string
@@ -51,11 +50,8 @@ export class Post {
       ],
     })
 
-    let content = await container.renderToString(PostContent, {
-      props: {
-        post: this,
-      },
-    })
+    const { Content } = await this.collectionEntry.render()
+    let content = await container.renderToString(Content)
 
     content = content.startsWith('<!DOCTYPE html>')
       ? content.slice(15)
