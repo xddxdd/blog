@@ -5,6 +5,8 @@ import type { PaginationProps } from '../components/PagePaginator.astro'
 import { Feed } from 'feed'
 import type { APIContext } from 'astro'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
+import { getContainerRenderer as getMdxContainerRenderer } from '@astrojs/mdx'
+import { loadRenderers } from 'astro/virtual-modules/container.js'
 
 export class Post {
   public readonly title: string
@@ -42,12 +44,7 @@ export class Post {
   // Based on https://github.com/syhily/yufan.me/blob/astro/src/pages/feed.ts
   public async render(): Promise<string> {
     const container = await AstroContainer.create({
-      renderers: [
-        {
-          name: '@astrojs/mdx',
-          serverEntrypoint: 'astro/jsx/server.js',
-        },
-      ],
+      renderers: await loadRenderers([getMdxContainerRenderer()]),
     })
 
     const { Content } = await this.collectionEntry.render()
