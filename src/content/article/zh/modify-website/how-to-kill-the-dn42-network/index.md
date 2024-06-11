@@ -6,6 +6,11 @@ date: 2023-05-12 22:03:33
 image: /usr/uploads/202008/i-love-niantic-network.png
 ---
 
+DN42 全称 Decentralized Network 42（42 号去中心网络），是一个大型、去中心化的
+VPN 网络。详细的介绍可以在
+[DN42 实验网络介绍及注册教程](/article/modify-website/dn42-experimental-network-2020.lantian/)这
+篇文章看到。
+
 > DN42 是一个**测试网络**，所有人都在帮助所有人。即使你不小心搞砸了，也没有人会
 > 指责你。你可以在 DN42 的
 > [IRC 频道](https://wiki.dn42.us/services/IRC)，[邮件列表](https://wiki.dn42.us/contact#contact_mailing-list)或

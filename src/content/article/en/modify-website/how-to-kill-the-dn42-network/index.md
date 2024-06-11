@@ -6,6 +6,10 @@ date: 2023-05-12 22:03:33
 image: /usr/uploads/202008/i-love-niantic-network.png
 ---
 
+DN42, aka Decentralized Network 42, is a large, decentralized VPN-based network.
+You can read more about DN42 in this post:
+[DN42 Experimental Network: Intro and Registration](/en/article/modify-website/dn42-experimental-network-2020.lantian/)
+
 > DN42 is an **experimental network**, where everyone helps everyone. Nobody is
 > going to blame you if you screwed up. You may seek help at DN42's
 > [IRC channel](https://wiki.dn42.us/services/IRC),
