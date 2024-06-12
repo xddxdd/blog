@@ -80,6 +80,10 @@ class LanguageEnglishImpl extends Language {
     return 'en'
   }
 
+  public override getFullCode(): string {
+    return 'en-US'
+  }
+
   public override getDisplayName(): string {
     return 'English'
   }

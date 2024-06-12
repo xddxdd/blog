@@ -77,6 +77,10 @@ class LanguageChineseSimplifiedImpl extends Language {
     return 'zh'
   }
 
+  public override getFullCode(): string {
+    return 'zh-CN'
+  }
+
   public override getDisplayName(): string {
     return 'Chinese Simplified / 简体中文'
   }

@@ -2,7 +2,12 @@ import { DEFAULT_LANGUAGE_CODE } from '../../consts'
 import type { NavigationItem } from '../navigation'
 
 export abstract class Language {
+  // e.g. zh, en
   public abstract getCode(): string
+
+  // e.g. zh-CN, en-US
+  public abstract getFullCode(): string
+
   public abstract getDisplayName(): string
 
   public isDefault(): boolean {
