@@ -15,12 +15,13 @@ import remarkMath from 'remark-math'
 import remarkMermaid from 'remark-mermaid'
 import { visit } from 'unist-util-visit'
 import react from '@astrojs/react'
-import copyFiles from './src/lib/astro-plugins/copy-files'
 import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
 import capo from './src/lib/astro-plugins/capo'
 import compress from './src/lib/astro-plugins/compress'
 import type { Node } from 'unist'
 import inline from '@playform/inline'
+import favicons from './src/lib/astro-plugins/favicons'
+import { SITE_TITLE } from './src/consts'
 
 export const chineseQuotes = (s: any) =>
   typeof s === 'string'
@@ -89,7 +90,21 @@ export default defineConfig({
     renameSitemap(),
 
     react(),
-    copyFiles([{ source: './src/assets/favicon/generated', dest: '.' }]),
+
+    favicons({
+      masterPicture: './src/assets/favicon.svg',
+      emitAssets: true,
+      faviconsDarkMode: false,
+      path: '/',
+
+      appName: SITE_TITLE,
+      appShortName: SITE_TITLE,
+      appDescription: SITE_TITLE,
+      lang: 'zh-CN',
+      background: '#03a9f4',
+      theme_color: '#03a9f4',
+    }),
+
     // Capo must be after all HTML pages are generated
     capo(),
     // CSS inline plugin must be after capo, to place updated styles in correct location
