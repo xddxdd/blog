@@ -18,6 +18,7 @@
 $font-family-sans-serif:
   Ubuntu,
   -apple-system,
+  'Noto Sans',
   'Helvetica Neue',
   Helvetica,
   'Nimbus Sans L',
@@ -25,15 +26,17 @@ $font-family-sans-serif:
   'Liberation Sans',
   'PingFang SC',
   'Hiragino Sans GB',
-  'Source Han Sans CN',
-  'Source Han Sans SC',
   'Noto Sans CJK SC',
+  'Source Han Sans SC',
+  'Source Han Sans CN',
   'Microsoft YaHei',
-  'WenQuanYi Micro Hei',
+  'Wenquanyi Micro Hei',
   'WenQuanYi Zen Hei',
+  'ST Heiti',
+  SimHei,
   'WenQuanYi Zen Hei Sharp',
-  SimSun,
   sans-serif;
+
 $font-family-monospace: 'Fira Code', 'Consolas', 'Bitstream Vera Sans Mono',
   'Courier New', Courier, monospace;
 
