@@ -57,7 +57,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "remark-inline-links": "^7.0.0",
-    "remark-join-cjk-lines": "^1.0.11",
+    "remark-join-cjk-lines": "^1.0.12",
     "remark-math": "^6.0.0",
     "remark-mermaid": "^0.2.0",
     "remark-parse": "^11.0.0",
