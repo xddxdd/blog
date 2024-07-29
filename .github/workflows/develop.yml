@@ -28,7 +28,9 @@ jobs:
           key: img_cache
 
       - name: Install dependencies
-        run: sudo apt-get install build-essential git gzip brotli zstd parallel rsync imagemagick libvips-dev python3
+        run: |
+          sudo apt-get update
+          sudo apt-get install build-essential git gzip brotli zstd parallel rsync imagemagick libvips-dev python3
 
       - run: npm install
 
