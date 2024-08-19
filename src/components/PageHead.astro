@@ -218,3 +218,14 @@ const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
 }
 
 <link rel="me" href="https://mastodon.social/@lantian" />
+
+<script is:inline>
+  ;(() => {
+    try {
+      const mode = localStorage.getItem('user-color-scheme')
+      if (mode == 'dark' || mode == 'light') {
+        document.documentElement.setAttribute('data-user-color-scheme', mode)
+      }
+    } catch (e) {}
+  })()
+</script>
