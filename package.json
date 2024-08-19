@@ -20,7 +20,7 @@
     "@astrojs/react": "^3.6.2",
     "@astrojs/sitemap": "^3.1.6",
     "@fontsource/fira-code": "^5.0.18",
-    "@fontsource/ubuntu": "^5.0.13",
+    "@fontsource/ubuntu": "^5.0.14",
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@hpcc-js/wasm": "^2.18.2",
     "@playform/inline": "^0.1.0",
