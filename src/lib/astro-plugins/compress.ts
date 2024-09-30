@@ -4,7 +4,7 @@ import path from 'path'
 import fs from 'node:fs'
 import { glob } from 'glob'
 import zlib from 'node:zlib'
-import { Zstd } from '@hpcc-js/wasm'
+import { Zstd } from '@hpcc-js/wasm-zstd'
 
 const EXTENSIONS = 'html,css,js,atom,stl,xml,svg,json,txt'
 const GZIP_ENABLED = true

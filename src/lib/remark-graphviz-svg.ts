@@ -1,7 +1,7 @@
 import { visit } from 'unist-util-visit'
 import { unified } from 'unified'
 import rehypeParse from 'rehype-parse'
-import { Graphviz } from '@hpcc-js/wasm/graphviz'
+import { Graphviz } from '@hpcc-js/wasm-graphviz'
 
 export const remarkGraphvizSvg = (options?: any) => {
   // Destructure options
