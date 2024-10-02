@@ -26,7 +26,7 @@
     "@hpcc-js/wasm-zstd": "^1.2.1",
     "@playform/inline": "^0.1.0",
     "@shikijs/rehype": "^1.21.0",
-    "@types/react": "^18.3.10",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "@waline/client": "^3.3.2",
     "astro": "^4.15.10",
