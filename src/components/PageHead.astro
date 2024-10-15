@@ -4,6 +4,8 @@ import { type Language, LANGUAGES } from '../lib/language'
 import { Post } from '../lib/posts'
 import PostExcerptForMeta from './fragments/PostExcerptForMeta.astro'
 import { getPosts } from 'src/lib/posts'
+import { faviconIconsConfig, getSizes } from 'src/lib/favicons'
+import mime from 'mime-types'
 
 type Props = {
   fullTitle: string
@@ -18,6 +20,11 @@ const rendered = await post?.collectionEntry.render()
 
 const posts = await getPosts()
 const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
+
+function mimeLookup(f: string): string | undefined {
+  const result = mime.lookup(f)
+  return typeof result === 'string' ? result : undefined
+}
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -71,53 +78,39 @@ const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
   content={`Copyright ${firstPostYear}-${new Date().getFullYear()} ${SITE_TITLE}`}
 />
 
-<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
-<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png" />
-<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
-<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
-<link
-  rel="apple-touch-icon"
-  sizes="114x114"
-  href="/apple-touch-icon-114x114.png"
-/>
-<link
-  rel="apple-touch-icon"
-  sizes="120x120"
-  href="/apple-touch-icon-120x120.png"
-/>
-<link
-  rel="apple-touch-icon"
-  sizes="144x144"
-  href="/apple-touch-icon-144x144.png"
-/>
-<link
-  rel="apple-touch-icon"
-  sizes="152x152"
-  href="/apple-touch-icon-152x152.png"
-/>
-<link
-  rel="apple-touch-icon"
-  sizes="180x180"
-  href="/apple-touch-icon-180x180.png"
-/>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link
-  rel="icon"
-  type="image/png"
-  sizes="192x192"
-  href="/android-chrome-192x192.png"
-/>
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+{
+  getSizes(faviconIconsConfig.favicons).map(([s, f]) => (
+    <link rel="icon" type={mimeLookup(f)} sizes={s} href={`/${f}`} />
+  ))
+}
+
+{
+  getSizes(faviconIconsConfig.appleIcon).map(([s, f]) =>
+    s ? <link rel="apple-touch-icon" sizes={s} href={`/${f}`} /> : <></>
+  )
+}
+
+{
+  getSizes(faviconIconsConfig.android).map(([s, f]) => (
+    <link rel="icon" type={mimeLookup(f)} sizes={s} href={`/${f}`} />
+  ))
+}
+
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#03a9f4" />
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+/>
 <meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
 <meta name="application-name" content={SITE_TITLE} />
 <meta name="msapplication-TileColor" content="#03a9f4" />
 <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
 <meta name="msapplication-navbutton-color" content="#03a9f4" />
+<meta name="msapplication-config" content="/browserconfig.xml" />
 <meta
-  content={`name=${SITE_TITLE};action-uri=/;icon-uri=/favicon.png`}
+  content={`name=${SITE_TITLE};action-uri=/;icon-uri=/favicon-48x48.png`}
   name="msapplication-task"
 />
 {
@@ -125,13 +118,14 @@ const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
     .getNavBarItems()
     .map(item => (
       <meta
-        content={`name=${item.name};action-uri=${item.path};icon-uri=/favicon.png`}
+        content={`name=${item.name};action-uri=${item.path};icon-uri=/favicon-48x48.png`}
         name="msapplication-task"
       />
     ))
 }
 <meta name="theme-color" content="#03a9f4" />
 <meta name="mobile-web-app-capable" content="yes" />
+<link rel="yandex-tableau-widget" href="/yandex-browser-manifest.json" />
 
 <meta property="og:url" content={Astro.request.url} />
 <meta property="og:type" content="website" />

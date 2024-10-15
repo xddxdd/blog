@@ -22,6 +22,7 @@ import type { Node } from 'unist'
 import inline from '@playform/inline'
 import favicons from './src/lib/astro-plugins/favicons'
 import { SITE_TITLE } from './src/consts'
+import { faviconIconsConfig } from './src/lib/favicons'
 
 export const chineseQuotes = (s: any) =>
   typeof s === 'string'
@@ -103,6 +104,8 @@ export default defineConfig({
       lang: 'zh-CN',
       background: '#03a9f4',
       theme_color: '#03a9f4',
+
+      icons: faviconIconsConfig,
     }),
 
     // Capo must be after all HTML pages are generated
