@@ -66,7 +66,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "remark-stringify": "^11.0.0",
-    "sass": "^1.80.2",
+    "sass": "^1.80.3",
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
     "ts-node": "^10.9.2",
