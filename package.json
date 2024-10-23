@@ -27,7 +27,7 @@
     "@playform/inline": "^0.1.0",
     "@shikijs/rehype": "^1.22.0",
     "@types/mime-types": "^2.1.4",
-    "@types/react": "^18.3.11",
+    "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@waline/client": "^3.3.2",
     "astro": "^4.16.7",
