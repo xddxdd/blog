@@ -1,4 +1,10 @@
-import type { PlatformName } from 'astro-favicons'
+type PlatformName =
+  | 'android'
+  | 'appleIcon'
+  | 'appleStartup'
+  | 'favicons'
+  | 'windows'
+  | 'yandex'
 
 export const androidSizes: number[] = [144, 192, 256, 36, 384, 48, 512, 72, 96]
 export const appleSizes: number[] = [
@@ -57,7 +63,6 @@ export const faviconIconsConfig: Record<PlatformName, string[]> = {
     'mstile-70x70.png',
   ],
   yandex: ['yandex-browser-50x50.png'],
-  safari: ['safari-pinned-tab.svg'],
 }
 
 export function getSizes(filenames: string[]): [string | undefined, string][] {
