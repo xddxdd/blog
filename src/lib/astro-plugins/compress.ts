@@ -32,6 +32,15 @@ const shouldKeep = (
   }
 }
 
+function toArrayBuffer(buffer: Buffer): ArrayBuffer {
+  const arrayBuffer = new ArrayBuffer(buffer.length)
+  const view = new Uint8Array(arrayBuffer)
+  for (let i = 0; i < buffer.length; ++i) {
+    view[i] = buffer[i]!
+  }
+  return arrayBuffer
+}
+
 const createPlugin = (_?: any): AstroIntegration => {
   return {
     name: '@lantian1998/astro-compress',
@@ -49,7 +58,7 @@ const createPlugin = (_?: any): AstroIntegration => {
             let acceptableLength = originalLength
 
             if (GZIP_ENABLED) {
-              const gzipContent = zlib.gzipSync(content, {
+              const gzipContent = zlib.gzipSync(toArrayBuffer(content), {
                 level: zlib.constants.Z_BEST_COMPRESSION,
               })
               const gzipLength = gzipContent.byteLength
@@ -64,7 +73,7 @@ const createPlugin = (_?: any): AstroIntegration => {
                   acceptableLength
                 )
               ) {
-                fs.writeFileSync(`${filePath}.gz`, gzipContent)
+                fs.writeFileSync(`${filePath}.gz`, new Uint8Array(gzipContent))
                 acceptableLength = Math.min(acceptableLength, gzipLength)
               }
             }
@@ -74,7 +83,7 @@ const createPlugin = (_?: any): AstroIntegration => {
               brotliParams[zlib.constants.BROTLI_PARAM_QUALITY] =
                 zlib.constants.BROTLI_MAX_QUALITY
               const brotliContent = zlib.brotliCompressSync(
-                content,
+                toArrayBuffer(content),
                 brotliParams
               )
               const brotliLength = brotliContent.byteLength
@@ -89,13 +98,16 @@ const createPlugin = (_?: any): AstroIntegration => {
                   acceptableLength
                 )
               ) {
-                fs.writeFileSync(`${filePath}.br`, brotliContent)
+                fs.writeFileSync(
+                  `${filePath}.br`,
+                  new Uint8Array(brotliContent)
+                )
                 acceptableLength = Math.min(acceptableLength, brotliLength)
               }
             }
 
             if (ZSTD_ENABLED) {
-              const zstdContent = zstd.compress(content, 19)
+              const zstdContent = zstd.compress(new Uint8Array(content), 19)
               const zstdLength = zstdContent.byteLength
 
               if (
