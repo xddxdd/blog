@@ -175,12 +175,11 @@ a constant number of items, 10 for example:
 }
 ```
 
-But when a fixed number of items are used, since Nix uses 32 bit float for its
-calculations, the 10 Taylor expansion items quickly diminish below floating
-point accuracy when the input is very small, and further items are still not
-small enough to be ignored with larger inputs. So I decided to have it make
-decisions based on the value of Taylor expansion items, and stop computation
-when the value is below our accuracy target:
+But when a fixed number of items are used, the 10 Taylor expansion items quickly
+diminish below floating point accuracy when the input is very small, and further
+items are still not small enough to be ignored with larger inputs. So I decided
+to have it make decisions based on the value of Taylor expansion items, and stop
+computation when the value is below our accuracy target:
 
 ```nix
 {
