@@ -40,7 +40,7 @@
     "date-fns": "^4.1.0",
     "feed": "^4.2.2",
     "flag-icon-css": "^4.1.7",
-    "glob": "^11.0.0",
+    "glob": "^11.0.1",
     "instant.page": "^5.2.0",
     "mime-types": "^2.1.35",
     "plausible-tracker": "^0.3.9",
