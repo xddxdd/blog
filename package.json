@@ -70,7 +70,7 @@
     "sass-material-colors": "0.0.5",
     "simple-lightbox": "^2.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3",
+    "typescript": "^5.8.2",
     "typescript-esbuild": "^0.4.10"
   },
   "devDependencies": {
