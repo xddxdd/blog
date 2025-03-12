@@ -1,4 +1,4 @@
-import { defineConfig, type AstroUserConfig } from 'astro/config'
+import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import { remarkGraphvizSvg } from './src/lib/remark-graphviz-svg'
@@ -22,7 +22,6 @@ import type { Node } from 'unist'
 import inline from '@playform/inline'
 import favicons from './src/lib/astro-plugins/favicons'
 import { SITE_TITLE } from './src/consts'
-import { faviconIconsConfig } from './src/lib/favicons'
 
 export const chineseQuotes = (s: any) =>
   typeof s === 'string'
@@ -39,7 +38,7 @@ let remarkChineseQuotes = () => (tree: Node) => {
     }
   })
 }
-const markdownPluginOptions: AstroUserConfig['markdown'] = {
+const markdownPluginOptions: Parameters<typeof defineConfig>[0]['markdown'] = {
   syntaxHighlight: false,
   smartypants: false,
   remarkPlugins: [
@@ -93,19 +92,36 @@ export default defineConfig({
     react(),
 
     favicons({
-      masterPicture: './src/assets/favicon.svg',
-      emitAssets: true,
-      faviconsDarkMode: false,
-      path: '/',
-
-      appName: SITE_TITLE,
-      appShortName: SITE_TITLE,
-      appDescription: SITE_TITLE,
-      lang: 'zh-CN',
-      background: '#03a9f4',
-      theme_color: '#03a9f4',
-
-      icons: faviconIconsConfig,
+      input: './src/assets/favicon.svg',
+      // I run capo myself
+      withCapo: false,
+      name: SITE_TITLE,
+      short_name: SITE_TITLE,
+      appleStatusBarStyle: 'black-translucent',
+      themes: ['#03a9f4', '#212121'],
+      background: '#bbdefb',
+      manifest: {
+        description: SITE_TITLE,
+        start_url: 'https://lantian.pub',
+        display_override: ['browser'],
+      },
+      icons: {
+        favicons: true,
+        android: true,
+        appleIcon: true,
+        appleStartup: true,
+        windows: true,
+        yandex: true,
+      },
+      pixel_art: true,
+      manifestMaskable: false,
+      shortcuts: [],
+      screenshots: [],
+      output: {
+        images: true,
+        files: true,
+        html: true,
+      },
     }),
 
     // Capo must be after all HTML pages are generated

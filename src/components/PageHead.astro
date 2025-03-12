@@ -4,8 +4,7 @@ import { type Language, LANGUAGES } from '../lib/language'
 import { Post } from '../lib/posts'
 import PostExcerptForMeta from './fragments/PostExcerptForMeta.astro'
 import { getPosts } from 'src/lib/posts'
-import { faviconIconsConfig, getSizes } from 'src/lib/favicons'
-import mime from 'mime-types'
+import { localizedHTML as favicons } from 'astro-favicons/middleware'
 
 type Props = {
   fullTitle: string
@@ -20,11 +19,6 @@ const rendered = await post?.collectionEntry.render()
 
 const posts = await getPosts()
 const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
-
-function mimeLookup(f: string): string | undefined {
-  const result = mime.lookup(f)
-  return typeof result === 'string' ? result : undefined
-}
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -38,7 +32,6 @@ function mimeLookup(f: string): string | undefined {
   content="width=device-width,initial-scale=1,shrink-to-fit=no"
 />
 <meta name="renderer" content="webkit|ie-comp|ie-stand" />
-<meta name="theme-color" content="#bbdefb" />
 <meta name="imagemode" content="force" />
 <meta name="nightmode" content="disable" />
 <meta name="wap-font-scale" content="no" />
@@ -46,7 +39,6 @@ function mimeLookup(f: string): string | undefined {
 <title>{fullTitle}</title>
 <meta name="title" content={fullTitle} />
 <meta name="keywords" content="" />
-<meta name="description" content={fullTitle} />
 <meta name="author" content={SITE_AUTHOR} />
 
 <link rel="canonical" href={Astro.request.url} />
@@ -78,54 +70,7 @@ function mimeLookup(f: string): string | undefined {
   content={`Copyright ${firstPostYear}-${new Date().getFullYear()} ${SITE_TITLE}`}
 />
 
-{
-  getSizes(faviconIconsConfig.favicons).map(([s, f]) => (
-    <link rel="icon" type={mimeLookup(f)} sizes={s} href={`/${f}`} />
-  ))
-}
-
-{
-  getSizes(faviconIconsConfig.appleIcon).map(([s, f]) =>
-    s ? <link rel="apple-touch-icon" sizes={s} href={`/${f}`} /> : <></>
-  )
-}
-
-{
-  getSizes(faviconIconsConfig.android).map(([s, f]) => (
-    <link rel="icon" type={mimeLookup(f)} sizes={s} href={`/${f}`} />
-  ))
-}
-
-<link rel="manifest" href="/site.webmanifest" />
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#03a9f4" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta
-  name="apple-mobile-web-app-status-bar-style"
-  content="black-translucent"
-/>
-<meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
-<meta name="application-name" content={SITE_TITLE} />
-<meta name="msapplication-TileColor" content="#03a9f4" />
-<meta name="msapplication-TileImage" content="/mstile-144x144.png" />
-<meta name="msapplication-navbutton-color" content="#03a9f4" />
-<meta name="msapplication-config" content="/browserconfig.xml" />
-<meta
-  content={`name=${SITE_TITLE};action-uri=/;icon-uri=/favicon-48x48.png`}
-  name="msapplication-task"
-/>
-{
-  language
-    .getNavBarItems()
-    .map(item => (
-      <meta
-        content={`name=${item.name};action-uri=${item.path};icon-uri=/favicon-48x48.png`}
-        name="msapplication-task"
-      />
-    ))
-}
-<meta name="theme-color" content="#03a9f4" />
-<meta name="mobile-web-app-capable" content="yes" />
-<link rel="yandex-tableau-widget" href="/yandex-browser-manifest.json" />
+<Fragment set:html={favicons(Astro.currentLocale)} />
 
 <meta property="og:url" content={Astro.request.url} />
 <meta property="og:type" content="website" />
@@ -193,10 +138,16 @@ function mimeLookup(f: string): string | undefined {
 {
   (post !== undefined && (
     <>
+      Z
       <meta
         property="image"
         content={`https://${host}${post.image ?? '/apple-touch-icon.png'}`}
       />
+      <PostExcerptForMeta name="description">
+        {(rendered?.Content !== undefined && <rendered.Content />) || (
+          <p>{post.title}</p>
+        )}
+      </PostExcerptForMeta>
       <PostExcerptForMeta property="description">
         {(rendered?.Content !== undefined && <rendered.Content />) || (
           <p>{post.title}</p>
@@ -206,6 +157,7 @@ function mimeLookup(f: string): string | undefined {
   )) || (
     <>
       <meta property="image" content={`https://${host}/apple-touch-icon.png`} />
+      <meta name="description" content={fullTitle} />
       <meta property="description" content={fullTitle} />
     </>
   )

@@ -1,9 +1,7 @@
 import type { AstroConfig, AstroIntegration } from 'astro'
-import favicons, { type FaviconConfig } from 'astro-favicons'
+import favicons, { type Options } from 'astro-favicons'
 
-export default function wrappedFavicons(
-  config: FaviconConfig
-): AstroIntegration {
+export default function wrappedFavicons(config: Options): AstroIntegration {
   const _favicon = favicons(config)
 
   return {

@@ -46,7 +46,7 @@ const createPlugin = (_?: any): AstroIntegration => {
     name: '@lantian1998/astro-compress',
     hooks: {
       // @ts-ignore
-      'astro:build:done': async ({ dir, routes, pages, logger }) => {
+      'astro:build:done': async ({ dir, pages, logger }) => {
         const outputDir = fileURLToPath(dir)
         const zstd = await Zstd.load()
 
