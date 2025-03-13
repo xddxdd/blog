@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^4.1.1",
+    "@astrojs/mdx": "^4.2.0",
     "@astrojs/react": "^4.2.1",
     "@astrojs/sitemap": "^3.2.1",
     "@fontsource/fira-code": "^5.2.5",
