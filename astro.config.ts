@@ -19,7 +19,6 @@ import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
 import capo from './src/lib/astro-plugins/capo'
 import compress from './src/lib/astro-plugins/compress'
 import type { Node } from 'unist'
-import inline from '@playform/inline'
 import favicons from './src/lib/astro-plugins/favicons'
 import { SITE_TITLE } from './src/consts'
 
@@ -126,8 +125,6 @@ export default defineConfig({
 
     // Capo must be after all HTML pages are generated
     capo(),
-    // CSS inline plugin must be after capo, to place updated styles in correct location
-    inline({}) as any,
     compress(),
   ],
   markdown: markdownPluginOptions,
