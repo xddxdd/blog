@@ -16,9 +16,9 @@ just a unit with two ordinary speakers.
 
 But when I played some music with my phone connected to it, I realized that it
 does have some bass output. Speaking of bass, I'm impressed by a JBL Charge 4
-speaker bought by one of my classmates. As a portable speaker that costs $150,
+speaker bought by one of my classmates. As a portable speaker that costs \$150,
 it has a dedicated bass unit with astonishing power. Then I began to think that,
-although my speaker costs a mere $20 (converted from CNY), is it possible to
+although my speaker costs a mere \$20 (converted from CNY), is it possible to
 improve its bass performance with software methods to make it somewhat similar
 to the Charge 4? I immediately tried ViPER4Audio FX, the all-in-one sound effect
 solution on Android, and increased the bass level in Dynamic System. While the

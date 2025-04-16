@@ -63,7 +63,7 @@ And I have these requirements for my NAS:
 
 Based on the requirements above, I chose to purchase a second-hand workstation.
 Since I'm in the United States at the moment, I purchased a refurbushed HP
-workstation on eBay for $50. It's key specifications are:
+workstation on eBay for \$50. It's key specifications are:
 
 - Model: HP Z220 SFF
 - CPU: Intel E3-1225 v2
@@ -88,7 +88,7 @@ and could easily cause a data loss. Therefore, I ended up with Btrfs + LVM
 RAID-1, and chose the more flexible LVM for the RAID layer.
 
 I also installed a 180GB Intel 520 SSD as the boot drive. Although it's an old
-drive, it only costs $15, almost as cheap as it gets for SSDs on eBay. In
+drive, it only costs \$15, almost as cheap as it gets for SSDs on eBay. In
 addition, it uses MLC NANDs which last longer than current TLC NANDs. This drive
 will only hold NixOS's system files (in `/nix`), and some configuration files
 that are backed up to cloud storage everyday. Therefore, I'm not worried of data
@@ -207,7 +207,7 @@ cards (with a height of 12cm). In addition, the power supply with a mere 240W
 output has no extra wiring for GPU power supply, meaning that I cannot use GPUs
 with high performance and high power consumption.
 
-Initially I purchased a NVIDIA Quadro P400 for $40, with a TDP of 30W. The
+Initially I purchased a NVIDIA Quadro P400 for \$40, with a TDP of 30W. The
 performance of this card is extremely weak, similar to the NVIDIA GT 1010 which
 few have heard off. It's even worse than a GT 1030! However, it comes with the
 same video encoding/decoding circuits as the entire 10 series GPUs,
@@ -228,8 +228,8 @@ performance, causing the bottleneck.
 I later replaced the GPU with a NVIDIA Tesla P4, with a TDP of 50W. Although
 it's a Tesla series card geared towards science computations, it still has
 support for video transcoding, with the same circuits as 10 series GPUs. This
-card sells on eBay for around $100, but since it's passively cooled, you need to
-spend an extra $20 on fans and shrouds to cool it in a regular workstation.
+card sells on eBay for around \$100, but since it's passively cooled, you need to
+spend an extra \$20 on fans and shrouds to cool it in a regular workstation.
 
 Testing shows that this GPU can transcode videos to 4K 80Mbps at around 60 FPS,
 with tone-mapping enabled. This completely satisfies my requirement on video

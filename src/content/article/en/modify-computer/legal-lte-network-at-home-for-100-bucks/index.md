@@ -7,7 +7,7 @@ date: 2025-04-06 02:56:34
 
 > This post is automatically translated from the Chinese version with LLM. The translation content has been edited and verified by the author.
 
-Yes, you read that right. Without the need for Faraday cages or signal-blocking measures, you can build a legal LTE network at home (in the US) for around $100, capable of transmitting continuously 24/7.
+Yes, you read that right. Without the need for Faraday cages or signal-blocking measures, you can build a legal LTE network at home (in the US) for around \$100, capable of transmitting continuously 24/7.
 
 > Regarding "legal": I am not a lawyer or a wireless expert. Based on my research into the relevant policies and regulations, my entire setup should be legal. However, I take no responsibility if you encounter any legal issues after following the instructions in this post.
 
@@ -41,7 +41,7 @@ Another company called Nova Labs was also interested in CBRS. Nova Labs operates
 - Prioritized Helium Mobile users to use these Wi-Fi hotspots and CBRS base stations, bypassing T-Mobile to reduce data traffic costs.
 - Issued a digital currency called HNT, and used HNT to pay for traffic cost on Wi-Fi hotspots and CBRS base stations.
 
-However, Nova Labs could never solve the stability issues of roaming to CBRS base stations and eventually abandoned the CBRS network entirely in March 2025, fully transitioning to using Wi-Fi hotspots. The CBRS base stations, originally costing thousands of dollars, were replaced and now listed on eBay for around $60 each. After flashing back to the original firmware and unlocking the management interface, these base stations can connect to core networks built with Magma, Open5GS, etc., and transmit for your own LTE network.
+However, Nova Labs could never solve the stability issues of roaming to CBRS base stations and eventually abandoned the CBRS network entirely in March 2025, fully transitioning to using Wi-Fi hotspots. The CBRS base stations, originally costing thousands of dollars, were replaced and now listed on eBay for around \$60 each. After flashing back to the original firmware and unlocking the management interface, these base stations can connect to core networks built with Magma, Open5GS, etc., and transmit for your own LTE network.
 
 [Search for "CBRS" on eBay](https://www.ebay.com/sch/i.html?_nkw=cbrs&_sacat=0&_sop=15) to find many CBRS base stations from the Helium Mobile network.
 
@@ -62,9 +62,9 @@ Note that Helium Mobile sells two types of CBRS base stations:
 If you are deploying at home, **you must buy an indoor base station**, not an outdoor one. The differences between the two are:
 
 - Indoor base stations can only be used indoors. They can easily connect to SAS without additional steps.
-- Outdoor base stations can only be used outdoors. They have higher SAS authorization fees, and require a CBRS Alliance-authorized installer to check the installation before transmission can begin. If you want to install an outdoor base station but can't find an authorized installer, [you can also spend $600 to get certified as an authorized installer](https://www.coursera.org/learn/google-cbrs-cpi-training), valid for 3 years, and then you can approve your own base stations and install as many base stations as you want.
+- Outdoor base stations can only be used outdoors. They have higher SAS authorization fees, and require a CBRS Alliance-authorized installer to check the installation before transmission can begin. If you want to install an outdoor base station but can't find an authorized installer, [you can also spend \$600 to get certified as an authorized installer](https://www.coursera.org/learn/google-cbrs-cpi-training), valid for 3 years, and then you can approve your own base stations and install as many base stations as you want.
 
-I didn't want to spend $600 on a certification that has little other use, so I bought an indoor base station directly.
+I didn't want to spend \$600 on a certification that has little other use, so I bought an indoor base station directly.
 
 ## Unlocking the Management Interface of the Indoor Base Station
 
@@ -114,7 +114,7 @@ Search for `Programmable SIM` on shopping websites like Amazon and Aliexpress to
 
 (Image source: Amazon)
 
-I bought a set of SIM cards on Amazon for $38.99, which included 5 programmable SIM cards, a card writer, a USB drive with Windows card-programming software, and an adapter from Micro SIM/Nano SIM to full-size SIM.
+I bought a set of SIM cards on Amazon for \$38.99, which included 5 programmable SIM cards, a card writer, a USB drive with Windows card-programming software, and an adapter from Micro SIM/Nano SIM to full-size SIM.
 
 # Building a Magma Core Network
 
@@ -411,7 +411,7 @@ At this point, the base station is connected to your core network, but since it 
 
 We need to register an account with a SAS system and register our base station to obtain frequency authorization.
 
-I used [Google SAS](https://cloud.google.com/products/spectrum-access-system), a SAS system run by Google Cloud. Google SAS is currently the easiest SAS system to register with; other vendors' SAS systems usually require contacting sales and signing enterprise-level service contracts to use. Moreover, Google SAS is extremely affordable; at the time of writing, [the price for indoor base stations is $2.64 per month per unit, and for outdoor base stations, it's $13.15 per month per unit](https://cloud.google.com/products/spectrum-access-system#pricing).
+I used [Google SAS](https://cloud.google.com/products/spectrum-access-system), a SAS system run by Google Cloud. Google SAS is currently the easiest SAS system to register with; other vendors' SAS systems usually require contacting sales and signing enterprise-level service contracts to use. Moreover, Google SAS is extremely affordable; at the time of writing, [the price for indoor base stations is \$2.64 per month per unit, and for outdoor base stations, it's \$13.15 per month per unit](https://cloud.google.com/products/spectrum-access-system#pricing).
 
 You need to register a Google Cloud account first, then visit the [SAS configuration page in the console](https://console.cloud.google.com/spectrum-access) and follow these steps to configure:
 
@@ -445,7 +445,7 @@ You need to register a Google Cloud account first, then visit the [SAS configura
    - Under `Measurement capability`, for FreedomFi/Sercomm indoor base stations, do not check `RX w/ grant`, but check `RX w/o grant`.
    - Under `Air Interface`, `Supported spec` should be `FFS` for FreedomFi/Sercomm indoor base stations.
 6. You can leave the rest of the configurations blank; click `Ready for CPI`.
-7. At this point, the page will display "The new configuration must be signed by a CPI before the CBSD registers with the SAS." (The base station needs to be approved by a Certified Professional Installer (CPI) before it can register with the SAS again). If you're installing an indoor base station, you can ignore this. But if you're installing an outdoor base station, you'll need to find a Certified Professional Installer to approve the configuration, or [spend $600 to get certified as a CPI](https://www.coursera.org/learn/google-cbrs-cpi-training).
+7. At this point, the page will display "The new configuration must be signed by a CPI before the CBSD registers with the SAS." (The base station needs to be approved by a Certified Professional Installer (CPI) before it can register with the SAS again). If you're installing an indoor base station, you can ignore this. But if you're installing an outdoor base station, you'll need to find a Certified Professional Installer to approve the configuration, or [spend \$600 to get certified as a CPI](https://www.coursera.org/learn/google-cbrs-cpi-training).
 
 ![Google SAS Base Station Information Interface 1](/usr/uploads/202504/google-sas-radio-info-1.png)
 
@@ -542,10 +542,10 @@ I also tried an Android phone, a Motorola Edge+ 2023. Although this phone could 
 
 The total cost of all the equipment and services I used to build this LTE network (excluding sales tax) is as follows:
 
-- Proxmox VE host for running virtual machines, my existing equipment: $0
-- FreedomFi/Sercomm indoor base station: $49 + shipping $12.3 = $61.3
-- Programmable SIM cards and card writer: $38.99
-- Google SAS: $2.64/month, calculated for one month
-- Total cost: $102.93
+- Proxmox VE host for running virtual machines, my existing equipment: \$0
+- FreedomFi/Sercomm indoor base station: \$49 + shipping \$12.3 = \$61.3
+- Programmable SIM cards and card writer: \$38.99
+- Google SAS: \$2.64/month, calculated for one month
+- Total cost: \$102.93
 
 This price is not expensive for a Homelabber, far below the traditional belief that building an LTE network costs hundreds or thousands of dollars, and all the equipment and services can be easily purchased.

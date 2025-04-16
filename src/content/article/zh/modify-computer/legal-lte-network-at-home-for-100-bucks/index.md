@@ -39,7 +39,7 @@ CBRS 频段开放后，吸引了许多公司的兴趣。[截至今天，已有 9
 - 让 Helium Mobile 用户优先使用这些 Wi-Fi 热点和 CBRS 基站，从而绕开 T-Mobile 降低数据流量成本。
 - 发行数字货币 HNT，使用 HNT 支付 Wi-Fi 热点和 CBRS 基站的流量费。
 
-但是，Nova Labs 始终无法解决漫游到 CBRS 基站的稳定性问题，并最终在 2025 年 3 月完全放弃了 CBRS 网络，全面转向使用 Wi-Fi 热点。原本上千刀的 CBRS 基站就被换了下来，挂在 eBay 上以 $60 左右一台的价格出售。而这些基站在刷回原版固件、解锁管理界面后，就可以连接我们用 Magma、Open5GS 等自建的核心网，发射自己的 LTE 网络。
+但是，Nova Labs 始终无法解决漫游到 CBRS 基站的稳定性问题，并最终在 2025 年 3 月完全放弃了 CBRS 网络，全面转向使用 Wi-Fi 热点。原本上千刀的 CBRS 基站就被换了下来，挂在 eBay 上以 \$60 左右一台的价格出售。而这些基站在刷回原版固件、解锁管理界面后，就可以连接我们用 Magma、Open5GS 等自建的核心网，发射自己的 LTE 网络。
 
 [在 eBay 上搜索“CBRS”](https://www.ebay.com/sch/i.html?_nkw=cbrs&_sacat=0&_sop=15)，就可以找到很多 Helium Mobile 网络的 CBRS 基站。
 
@@ -60,9 +60,9 @@ CBRS 频段开放后，吸引了许多公司的兴趣。[截至今天，已有 9
 如果你是在家部署，**一定要购买室内基站**，不能买室外基站。两种基站的区别在于：
 
 - 室内基站只能在室内使用，只需连接 SAS，无需额外步骤。
-- 室外基站只能在室外使用，连接 SAS 的授权费更贵，而且安装时还需要 CBRS 联盟的授权安装人员检查安装情况，审批通过后才能开始发射。如果你想在室外装基站，却找不到授权安装人员，[你也可以自己花 $600 考一个授权安装人员的证](https://www.coursera.org/learn/google-cbrs-cpi-training)，有效期 3 年，然后就可以审批自己的基站，想装多少基站就装多少了。
+- 室外基站只能在室外使用，连接 SAS 的授权费更贵，而且安装时还需要 CBRS 联盟的授权安装人员检查安装情况，审批通过后才能开始发射。如果你想在室外装基站，却找不到授权安装人员，[你也可以自己花 \$600 考一个授权安装人员的证](https://www.coursera.org/learn/google-cbrs-cpi-training)，有效期 3 年，然后就可以审批自己的基站，想装多少基站就装多少了。
 
-我不想花 $600 考一个基本没别的用处的证，就直接买了室内基站。
+我不想花 \$600 考一个基本没别的用处的证，就直接买了室内基站。
 
 ## 解锁室内基站的管理界面
 
@@ -112,7 +112,7 @@ LTE 网络建成后，你还需要一批 SIM 卡，写入自己网络的配置�
 
 （图源：Amazon）
 
-我在 Amazon 上花 $38.99 买了一套 SIM 卡，包括 5 张可编程 SIM 卡，一个写卡器，一个装了 Windows 写卡软件的 U 盘，和一个 Micro SIM/Nano SIM 转完整 SIM 卡大小的转换器。
+我在 Amazon 上花 \$38.99 买了一套 SIM 卡，包括 5 张可编程 SIM 卡，一个写卡器，一个装了 Windows 写卡软件的 U 盘，和一个 Micro SIM/Nano SIM 转完整 SIM 卡大小的转换器。
 
 # 搭建 Magma 核心网
 
@@ -408,7 +408,7 @@ web_ui_enable_list: ["2112CW5012345"]
 
 我们还需要注册一个 SAS 系统的账号，把自己的基站注册上去，才能让基站获得频段授权。
 
-我用的是 [Google SAS](https://cloud.google.com/products/spectrum-access-system)，由 Google Cloud 运行的 SAS 系统。Google SAS 是目前你能找到的注册最简单的 SAS 系统，其它厂商的 SAS 系统大都需要联系销售，签订企业级服务合同，才能使用。而且 Google SAS 的价格极其便宜，本文写作时，[室内基站的价格是每台每月 $2.64，室外基站的价格是每台每月 $13.15](https://cloud.google.com/products/spectrum-access-system#pricing)。
+我用的是 [Google SAS](https://cloud.google.com/products/spectrum-access-system)，由 Google Cloud 运行的 SAS 系统。Google SAS 是目前你能找到的注册最简单的 SAS 系统，其它厂商的 SAS 系统大都需要联系销售，签订企业级服务合同，才能使用。而且 Google SAS 的价格极其便宜，本文写作时，[室内基站的价格是每台每月 \$2.64，室外基站的价格是每台每月 \$13.15](https://cloud.google.com/products/spectrum-access-system#pricing)。
 
 你需要先注册一个 Google Cloud 账号，然后访问[控制台的 SAS 配置页面](https://console.cloud.google.com/spectrum-access)按照如下步骤进行配置。
 
@@ -442,7 +442,7 @@ web_ui_enable_list: ["2112CW5012345"]
    - `Measurement capability` 下，对于 FreedomFi/Sercomm 室内基站，`RX w/ grant` 不要打勾，`RX w/o grant` 需要打勾。
    - `Air Interface` 下的 `Supported spec`，FreedomFi/Sercomm 室内基站此处填写 `FFS`。
 6. 其余配置都可以空着不写，点击 `Ready for CPI`。
-7. 此时页面上会显示“The new configuration must be signed by a CPI before the CBSD registers with the SAS.”（基站再次注册到 SAS 之前，需要认证安装人员 CPI 审批配置）。如果你装的是室内基站，不用管它。但如果你装的是室外基站，就要找一个认证安装人员来审批配置了，或者[自己花 $600 考一个授权安装人员的证](https://www.coursera.org/learn/google-cbrs-cpi-training)。
+7. 此时页面上会显示“The new configuration must be signed by a CPI before the CBSD registers with the SAS.”（基站再次注册到 SAS 之前，需要认证安装人员 CPI 审批配置）。如果你装的是室内基站，不用管它。但如果你装的是室外基站，就要找一个认证安装人员来审批配置了，或者[自己花 \$600 考一个授权安装人员的证](https://www.coursera.org/learn/google-cbrs-cpi-training)。
 
 ![Google SAS 基站信息界面 1](/usr/uploads/202504/google-sas-radio-info-1.png)
 
@@ -539,10 +539,10 @@ web_ui_enable_list: ["2112CW5012345"]
 
 我搭建这套 LTE 网络的所有设备及总花费（不计消费税）如下：
 
-- 用来开虚拟机的 Proxmox VE 主机，是我的现有设备 $0
-- FreedomFi/Sercomm 室内基站设备，设备 $49 + 运费 $12.3 = $61.3
-- 可编程 SIM 卡及写卡器，$38.99
-- Google SAS $2.64/月，计一个月
-- 总价 $102.93
+- 用来开虚拟机的 Proxmox VE 主机，是我的现有设备 \$0
+- FreedomFi/Sercomm 室内基站设备，设备 \$49 + 运费 \$12.3 = \$61.3
+- 可编程 SIM 卡及写卡器，\$38.99
+- Google SAS \$2.64/月，计一个月
+- 总价 \$102.93
 
 这个价格对于 Homelabber 来说根本不算贵，远低于传统上认为的搭建 LTE 网络需要几百上千刀的花销，并且所有设备和服务都可以简单的买到。
