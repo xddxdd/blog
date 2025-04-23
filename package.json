@@ -19,7 +19,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^4.2.5",
     "@astrojs/react": "^4.2.5",
-    "@astrojs/sitemap": "^3.3.0",
+    "@astrojs/sitemap": "^3.3.1",
     "@fontsource/fira-code": "^5.2.5",
     "@fontsource/ubuntu": "^5.2.5",
     "@fortawesome/fontawesome-free": "^6.7.2",
