@@ -1,0 +1,29 @@
+---
+import { type Language } from '../lib/language'
+import { Post } from '../lib/posts'
+
+type Props = {
+  language: Language
+  post: Post
+}
+
+const { language, post } = Astro.props
+const seriesPosts = await post.sameSeriesPosts()
+const __ = language.getTranslation
+---
+
+{
+  post.series && (
+    <blockquote>
+      <p>{__('series_description', post.series)}</p>
+      <ul>
+        {seriesPosts.map(p => (
+          <li>
+            <a href={p.getFullURL()}>{p.title}</a>{' '}
+            {post.path === p.path && <>{__('series_current')}</>}
+          </li>
+        ))}
+      </ul>
+    </blockquote>
+  )
+}

@@ -5,6 +5,7 @@ import PostExcerpt from './fragments/PostExcerpt.astro'
 import WalineComment from './fragments/WalineComment.astro'
 import PostInfo from './fragments/PostInfo.astro'
 import PostNavigation from './fragments/PostNavigation.astro'
+import PageSeries from './PageSeries.astro'
 
 type Props = {
   language: Language
@@ -50,9 +51,13 @@ const { Content, headings } = await post.collectionEntry.render()
         {
           (isShowingMultiPosts && (
             <PostExcerpt>
+              <PageSeries language={language} post={post} />
               <Content />
             </PostExcerpt>
-          )) || <Content />
+          )) || (
+            <PageSeries language={language} post={post} />
+            <Content />
+          )
         }
       </div>
       {

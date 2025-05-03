@@ -10,6 +10,7 @@ const article = defineCollection({
     date: z.coerce.date(),
     image: z.string().optional(),
     bodyClass: z.string().optional(),
+    series: z.string().optional(),
   }),
 })
 

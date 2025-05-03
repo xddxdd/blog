@@ -36,6 +36,9 @@ const translationDict: Record<string, string | ((key: any) => string)> = {
   list_title_prefix: '《',
   list_title_suffix: '》',
 
+  series_description: series => `${series} 系列文章目录：`,
+  series_current: `（当前文章）`,
+
   feed_rss: 'RSS 订阅',
   feed_atom: 'Atom',
   feed_json: 'JSON',

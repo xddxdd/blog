@@ -17,6 +17,7 @@ export class Post {
   public readonly language: Language
   public readonly path: string
   public readonly body: string
+  public readonly series?: string
   public readonly collectionEntry: CollectionEntry<'article'>
   public readonly bodyClass?: string
 
@@ -35,6 +36,7 @@ export class Post {
     this.path = path
     this.body = post.body
     this.bodyClass = post.data.bodyClass
+    this.series = post.data.series
   }
 
   public getFullURL(): string {
@@ -59,6 +61,15 @@ export class Post {
 
   public static fromCollectionEntry(post: CollectionEntry<'article'>): Post {
     return new Post(post)
+  }
+
+  public async sameSeriesPosts(): Promise<Post[]> {
+    if (!this.series) {
+      return []
+    }
+    return (await getPosts())
+      .filter(p => p.language === this.language && p.series === this.series)
+      .sort((a, b) => a.date.valueOf() - b.date.valueOf())
   }
 }
 
