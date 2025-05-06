@@ -38,7 +38,7 @@
     "cssnano": "^7.0.7",
     "cssnano-preset-advanced": "^7.0.7",
     "date-fns": "^4.1.0",
-    "feed": "^4.2.2",
+    "feed": "^5.0.0",
     "flag-icon-css": "^4.1.7",
     "glob": "^11.0.2",
     "instant.page": "^5.2.0",
