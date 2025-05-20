@@ -4,6 +4,7 @@ categories: 计算机与客户端
 tags: [Nix, 三角函数]
 date: 2023-09-20 23:10:57
 image: /usr/uploads/202309/trigonometric.png
+series: "从零开始实现 Nix 数学库"
 ---
 
 （题图来

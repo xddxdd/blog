@@ -4,9 +4,10 @@ categories: 'Computers and Clients'
 tags: [Nix, 'Trigonometric Functions']
 date: 2023-09-20 23:10:57
 image: /usr/uploads/202309/trigonometric.png
+series: "Nix Math Library from Ground Zero"
 ---
 
-(Title image sourced from:
+(Cover image from:
 [Wikipedia - Trigonometry](https://en.wikipedia.org/wiki/Trigonometry))
 
 ## Why
