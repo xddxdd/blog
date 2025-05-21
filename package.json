@@ -27,7 +27,7 @@
     "@hpcc-js/wasm-zstd": "^1.2.1",
     "@shikijs/rehype": "^3.4.2",
     "@types/mime-types": "^2.1.4",
-    "@types/react": "^19.1.4",
+    "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@waline/client": "^3.5.7",
     "astro": "^5.7.13",
