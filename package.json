@@ -28,7 +28,7 @@
     "@shikijs/rehype": "^3.5.0",
     "@types/mime-types": "^2.1.4",
     "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@types/react-dom": "^19.1.6",
     "@waline/client": "^3.5.7",
     "astro": "^5.8.2",
     "astro-favicons": "^3.1.5",
