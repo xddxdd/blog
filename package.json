@@ -26,7 +26,7 @@
     "@hpcc-js/wasm-graphviz": "^1.8.0",
     "@hpcc-js/wasm-zstd": "^1.2.1",
     "@shikijs/rehype": "^3.6.0",
-    "@types/mime-types": "^2.1.4",
+    "@types/mime-types": "^3.0.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@waline/client": "^3.5.7",
