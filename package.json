@@ -47,7 +47,7 @@
     "postcss": "^8.5.4",
     "postcss-inline-svg": "^6.0.0",
     "postcss-load-config": "^6.0.1",
-    "postcss-preset-env": "^10.2.2",
+    "postcss-preset-env": "^10.2.3",
     "postcss-sorting": "^9.1.0",
     "prism-themes": "^1.9.0",
     "react": "^19.0.0",
