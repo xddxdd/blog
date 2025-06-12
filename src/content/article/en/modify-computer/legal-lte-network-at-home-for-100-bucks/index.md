@@ -485,6 +485,8 @@ Finally, click the `Write Card` button in the top right to write the card.
 
 If you want to write multiple SIM cards, follow the same process, but ensure that the `IMSI15`, `KI`, and `OPC` values are different for each card.
 
+![SIM card writing software interface](/usr/uploads/202504/write-sim-card.jpg)
+
 ## Creating a Data Plan
 
 Return to the core network management interface at <https://magma-test.magma.test> (or `magma-test.[your own domain]`), go to the left `Traffic` tab, then to the top `APNs` tab, and click `Create New APN` to create an APN.

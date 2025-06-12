@@ -482,6 +482,8 @@ web_ui_enable_list: ["2112CW5012345"]
 
 如果你想多写几张 SIM 卡，可以如法炮制，但是必须保证所有卡的 `IMSI15`，`KI`，`OPC` 这三个值不同。
 
+![写卡软件界面](/usr/uploads/202504/write-sim-card.jpg)
+
 ## 创建网络套餐
 
 回到核心网的管理界面 <https://magma-test.magma.test> （或者 `magma-test.[你自己的域名]`），进入左侧 `Traffic` 标签页，再进入顶部 `APNs` 标签页，点击 `Create New APN` 创建一个 APN。
