@@ -36,6 +36,23 @@ jobs:
 
       - run: npm run build
 
+      - name: Deploy to lantian1998.github.io
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        run: |
+          git config --global user.email "lantian-bot@lantian.pub"
+          git config --global user.name "Lan Tian Bot"
+          git config --global init.defaultBranch master
+
+          pushd dist
+          git init
+          git add .
+          git commit -m "Auto update: $(date -Iseconds)"
+          git remote add origin https://xddxdd-bot:${{ secrets.AUTOMERGE_TOKEN }}@github.com/lantian1998/lantian1998.github.io.git
+          git push -u origin master
+
+          rm -rf .git
+          popd
+
       - run: npm run build-webp
 
       - name: Setup SSH key
@@ -57,17 +74,3 @@ jobs:
         with:
           name: dist
           path: dist/
-
-      - name: Deploy to lantian1998.github.io
-        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
-        run: |
-          git config --global user.email "lantian-bot@lantian.pub"
-          git config --global user.name "Lan Tian Bot"
-          git config --global init.defaultBranch master
-
-          cd dist
-          git init
-          git add .
-          git commit -m "Auto update: $(date -Iseconds)"
-          git remote add origin https://xddxdd-bot:${{ secrets.AUTOMERGE_TOKEN }}@github.com/lantian1998/lantian1998.github.io.git
-          git push -u origin master
