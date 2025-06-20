@@ -180,7 +180,7 @@ inetnum:            172.22.76.184 - 172.22.76.191
 netname:            LANTIAN-IPV4
 descr:              Lan Tian's IP space
 remarks:            My network is open to peering; see https://lantian.pub/page/dn42
-remarks:            or directly contact me at b980120@hotmail.com
+remarks:            or directly contact me at dn42@lantian.pub
 country:            CN
 # 下略
 ```

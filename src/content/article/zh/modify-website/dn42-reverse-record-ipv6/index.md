@@ -35,7 +35,7 @@ ns[1-2].lantian.dn42，可以全填。
 
     inet6num:           fdbc:f9dc:67ad:0000:0000:0000:0000:0000 - fdbc:f9dc:67ad:ffff:ffff:ffff:ffff:ffff
     netname:            LANTIAN-IPV6
-    descr:              Peer with me at b980120@hotmail.com
+    descr:              Peer with me at dn42@lantian.pub
     country:            CN
     admin-c:            LANTIAN-DN42
     tech-c:             LANTIAN-DN42

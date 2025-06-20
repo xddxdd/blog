@@ -37,7 +37,7 @@
          you and send it to me
      - ZeroTier One: I will request to join your network
        - You may try to invite my server to your network, if possible
-4. Send the following information via email to **b980120@hotmail.com**:
+4. Send the following information via email to **dn42@lantian.pub**:
    - Your General Information:
      - ASN
      - Public IP

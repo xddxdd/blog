@@ -30,8 +30,8 @@ ns1.lantian.dn42。
 
     inetnum:            172.22.76.184 - 172.22.76.191
     netname:            LANTIAN-IPV4
-    remarks:            Peer with me at b980120@hotmail.com
-    descr:              Peer with me at b980120@hotmail.com
+    remarks:            Peer with me at dn42@lantian.pub
+    descr:              Peer with me at dn42@lantian.pub
     country:            CN
     admin-c:            LANTIAN-DN42
     tech-c:             LANTIAN-DN42
