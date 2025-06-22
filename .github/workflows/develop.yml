@@ -71,7 +71,7 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         run: |
           sudo apt-get install -y rsync
-          rsync -avzr --delete-after -e "ssh -p2222" dist/ ci@rsync-ci.xuyh0120.win:/www/lantian.pub/
+          rsync -azr --delete-after -e "ssh -p2222" dist/ ci@rsync-ci.xuyh0120.win:/www/lantian.pub/
 
       - name: Upload files
         uses: actions/upload-artifact@v4
