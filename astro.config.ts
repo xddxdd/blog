@@ -13,6 +13,7 @@ import remarkJoinCjkLines from 'remark-join-cjk-lines'
 import remarkMath from 'remark-math'
 // @ts-ignore
 import remarkMermaid from 'remark-mermaid'
+import rehypePicture from 'rehype-picture'
 import { visit } from 'unist-util-visit'
 import react from '@astrojs/react'
 import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
@@ -74,6 +75,19 @@ const markdownPluginOptions: Parameters<typeof defineConfig>[0]['markdown'] = {
         rel: ['noopener', 'noreferrer'],
         target: '_blank',
       },
+    ],
+    [
+      rehypePicture,
+      Object.fromEntries(
+        ['gif', 'jpg', 'png'].map(ext => [
+          ext,
+          {
+            [`${ext}.webp`]: 'image/webp',
+            [`${ext}.avif`]: 'image/avif',
+            [`${ext}.jxl`]: 'image/jxl',
+          },
+        ])
+      ),
     ],
   ],
 }
