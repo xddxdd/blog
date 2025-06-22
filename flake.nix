@@ -1,36 +1,38 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    flake-utils-plus = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = {
-    self,
-    flake-utils,
-    flake-utils-plus,
-    ...
-  } @ inputs:
-    flake-utils-plus.lib.mkFlake {
-      inherit self inputs;
-      supportedSystems = flake-utils.lib.allSystems;
-      outputsBuilder = channels: let
-        pkgs = channels.nixpkgs;
-      in {
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            imagemagick
-            jpegoptim
-            nodejs
-            optipng
-            parallel
-          ];
-        };
+  outputs =
+    {
+      self,
+      flake-parts,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
-        formatter = pkgs.alejandra;
-      };
+      perSystem =
+        { pkgs, ... }:
+        {
+          devShells.default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              brotli
+              gzip
+              imagemagick
+              jpegoptim
+              nodejs
+              optipng
+              parallel
+              zstd
+            ];
+          };
+
+          formatter = pkgs.nixfmt-rfc-style;
+        };
     };
 }
