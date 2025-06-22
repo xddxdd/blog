@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install build-essential git gzip brotli zstd parallel rsync imagemagick libvips-dev python3
+          sudo apt-get install build-essential git gzip brotli zstd parallel rsync imagemagick libvips-dev python3 libwebp-dev libavif-dev libjxl-dev
 
       - run: npm install
 
