@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 cd "$(dirname "$0")/.." || exit 1
 
 CACHEDIR=$(pwd)/img_cache
-mkdir -p $CACHEDIR
+mkdir -p "$CACHEDIR"
 
 # Compress to webp and avif only for my own site system
 echo Preparing parallel jobs...

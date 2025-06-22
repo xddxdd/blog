@@ -34,20 +34,18 @@ jobs:
           path: img_cache
           key: img_cache
 
+      - name: Install npm dependencies
+        run: |
+          nix develop --command npm install
+
+      - name: Build website files
+        run: |
+          nix develop --command npm run build
+
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install build-essential git rsync
-
-      - run: |
-          nix develop <<EOF
-          npm install
-          EOF
-
-      - run: |
-          nix develop <<EOF
-          npm run build
-          EOF
 
       - name: Deploy to lantian1998.github.io
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
