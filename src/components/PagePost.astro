@@ -33,12 +33,23 @@ const { Content, headings } = await post.collectionEntry.render()
       {
         post.image !== undefined && (
           <div class="post-image-wrap">
-            <img
-              src={`${post.image}.thumb.png`}
-              alt={__('illustration_for', post.title)}
-              width="200"
-              height="150"
-            />
+            <picture>
+              <source
+                srcset={`${post.image}.thumb.png.webp`}
+                type="image/webp"
+              />
+              <source
+                srcset={`${post.image}.thumb.png.avif`}
+                type="image/avif"
+              />
+              <source srcset={`${post.image}.thumb.png.jxl`} type="image/jxl" />
+              <img
+                src={`${post.image}.thumb.png`}
+                alt={__('illustration_for', post.title)}
+                width="200"
+                height="150"
+              />
+            </picture>
           </div>
         )
       }
@@ -55,8 +66,10 @@ const { Content, headings } = await post.collectionEntry.render()
               <Content />
             </PostExcerpt>
           )) || (
-            <PageSeries language={language} post={post} />
-            <Content />
+            <>
+              <PageSeries language={language} post={post} />
+              <Content />
+            </>
           )
         }
       </div>
