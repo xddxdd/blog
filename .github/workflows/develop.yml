@@ -32,7 +32,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: img_cache
-          key: img_cache
+          key: img_cache-${{ github.sha }}
+          restore-keys: |
+            img_cache-
 
       - name: Install npm dependencies
         run: |
@@ -63,7 +65,7 @@ jobs:
 
           git init
           git add .
-          git commit -m "Auto update: $(date -Iseconds)"
+          git commit -m "Auto update: $(date -Iseconds)" --quiet
           git remote add origin https://xddxdd-bot:${{ secrets.AUTOMERGE_TOKEN }}@github.com/lantian1998/lantian1998.github.io.git
           git push -u origin master --force
 
