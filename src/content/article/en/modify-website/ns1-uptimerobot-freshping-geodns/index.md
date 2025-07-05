@@ -42,7 +42,7 @@ automatically.
 ## Why not Self-host
 
 I tried
-[GeoDNS on PowerDNS as an authoritative DNS server (Chinese only)](https://lantian.pub/article/modify-website/powerdns-lua-diy-geodns.lantian/)
+[GeoDNS on PowerDNS as an authoritative DNS server](/en/article/modify-website/powerdns-lua-diy-geodns.lantian/)
 before, but it didn't work well. The main reason is that DNS recursors will not
 choose the nearest authoritative server automatically. Instead, they randomly
 select one from the nameserver list of the domain. If one recursor ends up with

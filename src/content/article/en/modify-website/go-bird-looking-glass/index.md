@@ -94,7 +94,7 @@ The project is available at [https://github.com/xddxdd/bird-lg][11]
 By the way, the Go Bird-lgproxy is a direct replacement for Python Bird-lgproxy,
 and can work together with the Python Bird-lg.
 
-[1]: /article/modify-website/join-dn42-experimental-network.lantian
+[1]: /en/article/modify-website/join-dn42-experimental-network.lantian
 [2]: https://github.com/sileht/bird-lg
 [3]: /usr/uploads/2019/01/2163803638.png
 [4]: /usr/uploads/2019/01/3361004803.png

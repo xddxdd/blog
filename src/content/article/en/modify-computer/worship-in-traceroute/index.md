@@ -23,7 +23,7 @@ similar to:
 Domains are shown on the last 2 hops, which is the IP's reverse DNS record.
 Reverse DNS records exist as PTR records in the format of
 `4.3.2.1.in-addr.arpa`. For more information, you may refer to
-[Setting IP Reverse Records in DN42 (Chinese Only)](/article/modify-website/dn42-ip-reverse-record.lantian).
+[Setting IP Reverse Records in DN42](/en/article/modify-website/dn42-ip-reverse-record.lantian).
 
 However, PTR records need not be real domains. They can be any string that
 "looks like" a domain. With this, we can write one sentence on each hop of a
@@ -142,7 +142,7 @@ Save and wait for DNS updates to propagate:
 You will see your small essay in Traceroute.
 
 [1]: /usr/uploads/2018/08/2301166997.png
-[2]: /article/modify-website/dn42-ip-reverse-record.lantian
+[2]: /en/article/modify-website/dn42-ip-reverse-record.lantian
 [3]: /usr/uploads/2018/08/1311499371.png
 [4]:
   https://github.com/xddxdd/dockerfiles/tree/25625c20fd1b47b3057cf59b6b84b8401d1b3e1e/dockerfiles/route-next

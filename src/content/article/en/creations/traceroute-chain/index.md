@@ -15,7 +15,7 @@ similar to:
 Domains are shown on the last 2 hops, which is the IP's reverse DNS record.
 Reverse DNS records exist as PTR records in the format of
 `4.3.2.1.in-addr.arpa`. For more information, you may refer to
-[Setting IP Reverse Records in DN42 (Chinese Only)](/article/modify-website/dn42-ip-reverse-record.lantian).
+[Setting IP Reverse Records in DN42](/en/article/modify-website/dn42-ip-reverse-record.lantian).
 
 Naturally, where there are characters, there will be stories shown in them. Two
 years ago,

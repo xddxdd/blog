@@ -6,6 +6,7 @@ import WalineComment from './fragments/WalineComment.astro'
 import PostInfo from './fragments/PostInfo.astro'
 import PostNavigation from './fragments/PostNavigation.astro'
 import PageSeries from './PageSeries.astro'
+import AutoTranslateWarning from './AutoTranslateWarning.astro'
 
 type Props = {
   language: Language
@@ -68,6 +69,7 @@ const { Content, headings } = await post.collectionEntry.render()
           )) || (
             <>
               <PageSeries language={language} post={post} />
+              {post.autoTranslated && <AutoTranslateWarning />}
               <Content />
             </>
           )

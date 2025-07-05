@@ -5,8 +5,6 @@ tags: [LTE, 4G, CBRS, Magma]
 date: 2025-04-06 02:56:34
 ---
 
-> This post is automatically translated from the Chinese version with LLM. The translation content has been edited and verified by the author.
-
 Yes, you read that right. Without the need for Faraday cages or signal-blocking measures, you can build a legal LTE network at home (in the US) for around \$100, capable of transmitting continuously 24/7.
 
 > Regarding "legal": I am not a lawyer or a wireless expert. Based on my research into the relevant policies and regulations, my entire setup should be legal. However, I take no responsibility if you encounter any legal issues after following the instructions in this post.

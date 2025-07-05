@@ -11,6 +11,7 @@ const article = defineCollection({
     image: z.string().optional(),
     bodyClass: z.string().optional(),
     series: z.string().optional(),
+    autoTranslated: z.boolean().optional(),
   }),
 })
 

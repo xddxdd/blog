@@ -8,7 +8,7 @@ date: 2024-04-20 16:36:14
 # Preface
 
 Almost four and a half years ago, I
-[migrated the blog's site system from Typecho to Hexo (Chinese only link)](https://lantian.pub/article/modify-website/switching-to-hexo-static-site-generator.lantian/).
+[migrated the blog's site system from Typecho to Hexo](/en/article/modify-website/switching-to-hexo-static-site-generator.lantian/).
 Hexo is a static site generator that by itself doesn't connect to databases like
 MySQL and PostgreSQL and dynamically generate pages. Instead, it generated all
 HTML pages in one go based on the given Markdown files. Compared to dynamic

@@ -10,7 +10,7 @@ DN42, aka Decentralized Network 42, is a large VPN network. Unlike traditional
 VPNs, DN42 uses a lot of technology involved in Internet backbones (such as BGP)
 and is a great simulation of a realistic network environment.
 
-[In a previous post (Chinese only)][1], I joined DN42 and connected most of my
+[In a previous post][1], I joined DN42 and connected most of my
 VPSes to it. (The ones left are OpenVZ VPSes without Tun/Tap support.) I knew
 from the beginning that DN42 has its own domain name system. For example, DN42's
 wiki ([https://wiki.dn42.us/Home][2]) can be accessed as
@@ -350,7 +350,7 @@ intervals, it may take up to a week for your domain to fully work.
 Finally, we've registered a domain in DN42. Now you can set up your website,
 mail, IRC, game server, or whatever you want.
 
-[1]: /article/modify-website/join-dn42-experimental-network.lantian
+[1]: /en/article/modify-website/join-dn42-experimental-network.lantian
 [2]: https://wiki.dn42.us/Home
 [3]: https://internal.dn42
 [4]: /usr/uploads/2018/04/1826994756.png

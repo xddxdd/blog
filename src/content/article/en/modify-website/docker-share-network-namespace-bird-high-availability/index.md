@@ -6,17 +6,17 @@ date: 2020-03-13 20:23:20
 ---
 
 At exactly one year ago, I
-[set up an Anycast service with Docker in the DN42 network (Chinese only atm)](/article/modify-website/dn42-docker-anycast-dns.lantian).
+[set up an Anycast service with Docker in the DN42 network](/en/article/modify-website/dn42-docker-anycast-dns.lantian).
 Back then, I customized the container's image and added a Bird installation to
 it, then put in a config file to broadcast Anycast routes via OSPF. However, as
 time went by, a few problems were exposed:
 
 1. The process of installing Bird takes time. Instead of installing Bird with
    `apt-get`, since
-   [my Dockerfiles need to support multiple architectures (Chinese only atm)](/article/modify-website/gpp-preprocess-dockerfile-include-if.lantian),
+   [my Dockerfiles need to support multiple architectures](/en/article/modify-website/gpp-preprocess-dockerfile-include-if.lantian),
    and Bird isn't available in some architecture's repos for Debian. And since
    my building server is AMD64, and
-   [is running images of other architectures with `qemu-user-static` (Chinese only atm)](/article/modify-computer/build-arm-docker-image-on-x86-docker-hub-travis-automatic-build.lantian),
+   [is running images of other architectures with `qemu-user-static`](/en/article/modify-computer/build-arm-docker-image-on-x86-docker-hub-travis-automatic-build.lantian),
    a lot of instruction translation is needed in the image building and software
    compilation progress, which is extremely inefficient. It may take more than 2
    hours to build an image for different architectures, while if I installed it

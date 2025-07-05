@@ -20,6 +20,7 @@ export class Post {
   public readonly series?: string
   public readonly collectionEntry: CollectionEntry<'article'>
   public readonly bodyClass?: string
+  public readonly autoTranslated: boolean
 
   constructor(post: CollectionEntry<'article'>) {
     this.collectionEntry = post
@@ -37,6 +38,7 @@ export class Post {
     this.body = post.body
     this.bodyClass = post.data.bodyClass
     this.series = post.data.series
+    this.autoTranslated = post.data.autoTranslated ?? false
   }
 
   public getFullURL(): string {
