@@ -23,7 +23,7 @@
     "@fontsource/fira-code": "^5.2.6",
     "@fontsource/ubuntu": "^5.2.6",
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@hpcc-js/wasm-graphviz": "^1.9.0",
+    "@hpcc-js/wasm-graphviz": "^1.9.2",
     "@hpcc-js/wasm-zstd": "^1.3.0",
     "@shikijs/rehype": "^3.7.0",
     "@types/mime-types": "^3.0.1",
