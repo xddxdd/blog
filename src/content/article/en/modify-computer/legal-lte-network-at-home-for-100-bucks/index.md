@@ -3,6 +3,7 @@ title: 'Legal LTE Network at Home for $100'
 categories: 'Computers and Clients'
 tags: [LTE, 4G, CBRS, Magma]
 date: 2025-04-06 02:56:34
+series: "Lan Tian Mobile (LTE at Home)"
 ---
 
 Yes, you read that right. Without the need for Faraday cages or signal-blocking measures, you can build a legal LTE network at home (in the US) for around \$100, capable of transmitting continuously 24/7.
@@ -112,7 +113,7 @@ Search for `Programmable SIM` on shopping websites like Amazon and Aliexpress to
 
 (Image source: Amazon)
 
-I bought a set of SIM cards on Amazon for \$38.99, which included 5 programmable SIM cards, a card writer, a USB drive with Windows card-programming software, and an adapter from Micro SIM/Nano SIM to full-size SIM.
+I bought a set of SIM cards on Amazon for \$38.99, which included 5 programmable SIM cards, a card programmer, a USB drive with Windows card-programming software, and an adapter from Micro SIM/Nano SIM to full-size SIM.
 
 # Building a Magma Core Network
 
@@ -457,15 +458,15 @@ At this point, check the base station's indicator lights; the leftmost LTE statu
 
 Take out your phone, select any SIM card, turn off the "Automatic Network Selection" option, and the phone will automatically search for nearby mobile networks. If your phone supports LTE band 48, you should see a network named 315010, which is the signal transmitted by your base station.
 
-# Writing SIM Cards
+# Programming SIM Cards
 
-With the LTE network in place, the next step is to write your network's authentication information onto the SIM cards, allowing phones to connect to your network.
+With the LTE network in place, the next step is to program your network's authentication information onto the SIM cards, allowing phones to connect to your network.
 
-When I bought the programmable SIM cards, the seller provided Windows card-writing software compatible with these SIM cards. I tried using pySim to write the cards on Linux, but the resulting SIM cards couldn't connect to the network for authentication, so I used Windows for this step.
+When I bought the programmable SIM cards, the seller provided Windows card-programming software compatible with these SIM cards. I tried using pySim to program the cards on Linux, but the resulting SIM cards couldn't connect to the network for authentication, so I used Windows for this step.
 
-Insert the SIM card writer into your computer and insert a programmable SIM card into the writer.
+Insert the SIM card programmer into your computer and insert a programmable SIM card into the programmer.
 
-Open the card-writing software, first click the `Read Card` button in the top right to attempt to read the card's information, ensuring the writer is connected properly.
+Open the card-programming software, first click the `Read Card` button in the top right to attempt to read the card's information, ensuring the programmer is connected properly.
 
 Then, in the `LTE/WCDMA Parameter` section on the right, enter the following information:
 
@@ -479,11 +480,11 @@ Then, in the `LTE/WCDMA Parameter` section on the right, enter the following inf
 - Click the `Auto` button next to `PLMNwAct`, and the four input fields on the left should automatically fill with the values shown in the image.
 - Change the `SPN` to the operator name you want to display on your phone, for example, `Lan Tian Mobile`.
 
-Finally, click the `Write Card` button in the top right to write the card.
+Finally, click the `Write Card` button in the top right to program the card.
 
-If you want to write multiple SIM cards, follow the same process, but ensure that the `IMSI15`, `KI`, and `OPC` values are different for each card.
+If you want to program multiple SIM cards, follow the same process, but ensure that the `IMSI15`, `KI`, and `OPC` values are different for each card.
 
-![SIM card writing software interface](/usr/uploads/202504/write-sim-card.jpg)
+![SIM card programming software interface](/usr/uploads/202504/write-sim-card.jpg)
 
 ## Creating a Data Plan
 
@@ -511,10 +512,10 @@ Go to the left `Subscriber` tab in the management interface, then click `Manage 
 
 For each SIM card you want to add, click the `Add New Row` button in the top right and enter the SIM card's information:
 
-- In the `IMSI` field, first enter `IMSI`, then the `IMSI15` you used when writing the card. For example: `IMSI315010999925470`.
+- In the `IMSI` field, first enter `IMSI`, then the `IMSI15` you used when programming the card. For example: `IMSI315010999925470`.
 - You can enter any value for `Subscriber Name`.
-- Enter the `KI` you used when writing the card in the `Auth Key` field.
-- Enter the `OPC` you used when writing the card in the `Auth OPC` field.
+- Enter the `KI` you used when programming the card in the `Auth Key` field.
+- Enter the `OPC` you used when programming the card in the `Auth OPC` field.
 - Select `ACTIVE` for `Service` to enable the SIM card.
 - Select the data plan you created earlier for `Data Plan`.
 - Select the APN you created earlier for `Active APNs`.
@@ -544,7 +545,7 @@ The total cost of all the equipment and services I used to build this LTE networ
 
 - Proxmox VE host for running virtual machines, my existing equipment: \$0
 - FreedomFi/Sercomm indoor base station: \$49 + shipping \$12.3 = \$61.3
-- Programmable SIM cards and card writer: \$38.99
+- Programmable SIM cards and card programmer: \$38.99
 - Google SAS: \$2.64/month, calculated for one month
 - Total cost: \$102.93
 
