@@ -31,7 +31,7 @@ let remarkChineseQuotes = () => (tree: Node) => {
 let remarkGophermap = () => {
   return function transformer(tree: any, file: any) {
     const gopherItems = processNode(tree, {
-      host: '{{server_host}}',
+      host: '{{server_addr}}',
       port: '{{server_port}}',
       baseSelector: '/',
     })
