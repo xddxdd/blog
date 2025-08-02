@@ -1,8 +1,5 @@
 import type {
-  GopherItemType,
   RemarkGophermapOptions,
-  ProcessingContext,
-  GopherItem,
   MarkdownNode,
   GophermapVFile,
 } from './types.js';
@@ -32,12 +29,12 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
 
   return function transformer(
     tree: MarkdownNode,
-    file: GophermapVFile,
+    _file: GophermapVFile,
   ): MarkdownNode {
     const gopherItems = processNode(tree, { host, port, baseSelector });
     const gophermapContent = gopherItems
       .map((item) => formatGopherItem(item))
-      .join('\n');
+      .join('\r\n');
 
     // Find or create frontmatter node
     let frontmatterNode = tree.children?.find(

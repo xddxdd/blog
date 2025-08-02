@@ -1,6 +1,5 @@
 import type { APIContext } from 'astro'
 import { Post, getPosts } from '../../../../lib/posts'
-import { LANGUAGES } from 'src/lib/language'
 
 export async function getStaticPaths() {
   const posts = await getPosts()

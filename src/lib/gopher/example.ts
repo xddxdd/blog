@@ -3,15 +3,7 @@ import remarkParse from 'remark-parse';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkStringify from 'remark-stringify';
 import remarkGophermap from './index.js';
-import type { VFile } from 'vfile';
 import * as yaml from 'js-yaml';
-
-interface ExampleVFile extends VFile {
-  data: {
-    gophermap?: string;
-    [key: string]: unknown;
-  };
-}
 
 const markdown = `# Welcome to My Gopher Site
 

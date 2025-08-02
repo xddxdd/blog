@@ -256,8 +256,8 @@ function processCode(
  * Process thematic break (---)
  */
 function processThematicBreak(
-  node: MarkdownNode,
-  context: ProcessingContext,
+  _node: MarkdownNode,
+  _context: ProcessingContext,
 ): GopherItem[] {
   // For YAML frontmatter, we'll just ignore thematic breaks
   // This helps with frontmatter parsing issues
@@ -281,8 +281,8 @@ function processInlineCode(
  * Process frontmatter (YAML/TOML)
  */
 function processFrontmatter(
-  node: MarkdownNode,
-  context: ProcessingContext,
+  _node: MarkdownNode,
+  _context: ProcessingContext,
 ): GopherItem[] {
   // Skip frontmatter entirely - it's metadata, not content
   return [];
