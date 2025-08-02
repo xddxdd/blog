@@ -1,4 +1,3 @@
-import type { Node } from 'unist';
 import type { VFile } from 'vfile';
 
 /**
@@ -14,7 +13,7 @@ export type GopherItemType =
   | 'h' // HTML file
   | 'I' // Image file
   | 's' // Sound file
-  | 'info'; // Information line (internal type)
+  | 'i'; // Information line
 
 /**
  * Plugin configuration options
@@ -53,18 +52,6 @@ export interface GopherItem {
 }
 
 /**
- * Markdown AST node types we handle
- */
-export interface MarkdownNode extends Node {
-  type: string;
-  children?: MarkdownNode[];
-  value?: string;
-  depth?: number;
-  url?: string;
-  alt?: string;
-}
-
-/**
  * Extended VFile with gophermap data
  */
 export interface GophermapVFile extends VFile {
@@ -73,3 +60,6 @@ export interface GophermapVFile extends VFile {
     [key: string]: unknown;
   };
 }
+
+// Re-export mdast types for convenience
+export type { Root, Content, PhrasingContent } from 'mdast';

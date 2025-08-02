@@ -15,6 +15,7 @@ import remarkMermaid from 'remark-mermaid'
 import rehypePicture from 'rehype-picture'
 import { visit } from 'unist-util-visit'
 import type { Node } from 'unist'
+import { CRLF } from './gopher'
 
 let remarkChineseQuotes = () => (tree: Node) => {
   visit(tree, (node: any) => {
@@ -37,7 +38,7 @@ let remarkGophermap = () => {
     })
     const gophermapContent = gopherItems
       .map(item => formatGopherItem(item))
-      .join('\n')
+      .join(CRLF)
 
     file.data.astro.frontmatter.gophermap = gophermapContent
   }

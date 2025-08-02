@@ -1,9 +1,19 @@
+import type { GopherItemType, ProcessingContext, GopherItem } from './types.js';
 import type {
-  GopherItemType,
-  ProcessingContext,
-  GopherItem,
-  MarkdownNode,
-} from './types.js';
+  Heading,
+  Paragraph,
+  List,
+  ListItem,
+  Blockquote,
+  Code,
+  ThematicBreak,
+  Link,
+  Image,
+  Yaml,
+  Node,
+  Parent,
+  Literal,
+} from 'mdast';
 
 /**
  * Remove consecutive empty items from a list of gopher items
@@ -13,7 +23,7 @@ function removeConsecutiveEmptyItems(items: GopherItem[]): GopherItem[] {
   let lastWasEmpty = false;
 
   for (const item of items) {
-    const isEmptyItem = item.type === 'info' && item.text === '';
+    const isEmptyItem = item.type === 'i' && item.text === '';
 
     // Only add empty items if the last item wasn't empty
     if (!isEmptyItem || !lastWasEmpty) {
@@ -31,7 +41,7 @@ function removeConsecutiveEmptyItems(items: GopherItem[]): GopherItem[] {
  * Only processes direct children, uses recursion for nested content
  */
 export function processNode(
-  node: MarkdownNode,
+  node: Node,
   context: ProcessingContext,
 ): GopherItem[] {
   // Handle special nodes that have children but should be processed as units
@@ -39,7 +49,16 @@ export function processNode(
     return processLeafNode(node, context);
   }
 
-  if (!node.children) {
+  // Handle literal nodes (nodes with values, not children)
+  if (
+    node.type === 'text' ||
+    node.type === 'code' ||
+    node.type === 'thematicBreak'
+  ) {
+    return processLeafNode(node, context);
+  }
+
+  if (!hasChildren(node)) {
     return processLeafNode(node, context);
   }
 
@@ -51,44 +70,27 @@ export function processNode(
       break;
 
     case 'heading':
-      items = processHeading(node, context);
+      items = processHeading(node as Heading, context);
       break;
 
     case 'paragraph':
-      items = processParagraph(node, context);
+      items = processParagraph(node as Paragraph, context);
       break;
 
     case 'list':
-      items = processList(node, context);
+      items = processList(node as List, context);
       break;
 
     case 'listItem':
-      items = processListItem(node, context);
+      items = processListItem(node as ListItem, context);
       break;
 
     case 'blockquote':
-      items = processBlockquote(node, context);
-      break;
-
-    case 'code':
-      items = processCode(node, context);
-      break;
-
-    case 'thematicBreak':
-      items = processThematicBreak(node, context);
-      break;
-
-    case 'inlineCode':
-      items = processInlineCode(node, context);
-      break;
-
-    case 'yaml':
-    case 'toml':
-      items = processFrontmatter(node, context);
+      items = processBlockquote(node as Blockquote, context);
       break;
 
     default:
-      items = processChildren(node, context);
+      items = hasChildren(node) ? processChildren(node, context) : [];
       break;
   }
 
@@ -101,24 +103,46 @@ export function processNode(
 }
 
 /**
- * Process leaf nodes (text, link, image)
+ * Type guard to check if a node has children
  */
-function processLeafNode(
-  node: MarkdownNode,
-  context: ProcessingContext,
-): GopherItem[] {
+function hasChildren(node: Node): node is Parent {
+  return 'children' in node && Array.isArray((node as Parent).children);
+}
+
+/**
+ * Type guard to check if a node has a value
+ */
+function hasValue(node: Node): node is Literal {
+  return 'value' in node && typeof (node as Literal).value === 'string';
+}
+
+/**
+ * Process leaf nodes (text, link, image, code, etc.)
+ */
+function processLeafNode(node: Node, context: ProcessingContext): GopherItem[] {
   switch (node.type) {
     case 'text':
-      return createTextItems(node.value || '', context);
+      return createTextItems(hasValue(node) ? node.value : '', context);
 
     case 'link':
-      return [createMediaItem(node.url || '', extractText(node), context)];
+      const linkNode = node as Link;
+      return [createMediaItem(linkNode.url || '', extractText(node), context)];
 
     case 'image':
-      return [createMediaItem(node.url || '', node.alt || '', context)];
+      const imageNode = node as Image;
+      return [
+        createMediaItem(imageNode.url || '', imageNode.alt || '', context),
+      ];
 
-    case 'inlineCode':
-      return [createInfoItem(`\`${node.value || ''}\``, context)];
+    case 'code':
+      return processCodeBlock(node as Code, context);
+
+    case 'thematicBreak':
+      return processThematicBreak(node as ThematicBreak, context);
+
+    case 'yaml':
+    case 'toml':
+      return processFrontmatter(node as Yaml, context);
 
     default:
       return [];
@@ -129,7 +153,7 @@ function processLeafNode(
  * Process all children of a node
  */
 function processChildren(
-  node: MarkdownNode,
+  node: Parent,
   context: ProcessingContext,
 ): GopherItem[] {
   const items: GopherItem[] = [];
@@ -149,7 +173,7 @@ function processChildren(
  * Process heading - returns info item + optional separator
  */
 function processHeading(
-  node: MarkdownNode,
+  node: Heading,
   context: ProcessingContext,
 ): GopherItem[] {
   const text = extractText(node);
@@ -167,7 +191,7 @@ function processHeading(
  * Process paragraph - handles mixed content (text + links/images)
  */
 function processParagraph(
-  node: MarkdownNode,
+  node: Paragraph,
   context: ProcessingContext,
 ): GopherItem[] {
   if (!node.children) {
@@ -192,10 +216,7 @@ function processParagraph(
 /**
  * Process list - adds spacing and processes items
  */
-function processList(
-  node: MarkdownNode,
-  context: ProcessingContext,
-): GopherItem[] {
+function processList(node: List, context: ProcessingContext): GopherItem[] {
   const items: GopherItem[] = [createEmptyItem(context)];
 
   if (!node.children) {
@@ -213,7 +234,7 @@ function processList(
  * Process list item - adds bullet prefix to content
  */
 function processListItem(
-  node: MarkdownNode,
+  node: ListItem,
   context: ProcessingContext,
 ): GopherItem[] {
   const childItems = processInlineContent(node, { ...context, prefix: '- ' });
@@ -224,7 +245,7 @@ function processListItem(
  * Process blockquote - adds quote prefix to content
  */
 function processBlockquote(
-  node: MarkdownNode,
+  node: Blockquote,
   context: ProcessingContext,
 ): GopherItem[] {
   const childItems = processInlineContent(node, {
@@ -239,8 +260,8 @@ function processBlockquote(
 /**
  * Process code block
  */
-function processCode(
-  node: MarkdownNode,
+function processCodeBlock(
+  node: Code,
   context: ProcessingContext,
 ): GopherItem[] {
   if (!node.value) return [];
@@ -256,7 +277,7 @@ function processCode(
  * Process thematic break (---)
  */
 function processThematicBreak(
-  _node: MarkdownNode,
+  _node: ThematicBreak,
   _context: ProcessingContext,
 ): GopherItem[] {
   // For YAML frontmatter, we'll just ignore thematic breaks
@@ -265,23 +286,10 @@ function processThematicBreak(
 }
 
 /**
- * Process inline code
- */
-function processInlineCode(
-  node: MarkdownNode,
-  context: ProcessingContext,
-): GopherItem[] {
-  if (!node.value) return [];
-
-  // Treat inline code as regular text but with backticks
-  return [createInfoItem(`\`${node.value}\``, context)];
-}
-
-/**
  * Process frontmatter (YAML/TOML)
  */
 function processFrontmatter(
-  _node: MarkdownNode,
+  _node: Yaml,
   _context: ProcessingContext,
 ): GopherItem[] {
   // Skip frontmatter entirely - it's metadata, not content
@@ -293,7 +301,7 @@ function processFrontmatter(
  * Handles mixed text, links, and images
  */
 function processInlineContent(
-  node: MarkdownNode,
+  node: Parent,
   context: ProcessingContext,
 ): GopherItem[] {
   const items: GopherItem[] = [];
@@ -308,9 +316,13 @@ function processInlineContent(
     // If this is a text node or inline code, accumulate it in the text buffer
     if (child.type === 'text' || child.type === 'inlineCode') {
       if (child.type === 'text') {
-        textBuffer += child.value || '';
+        if (hasValue(child)) {
+          textBuffer += child.value;
+        }
       } else if (child.type === 'inlineCode') {
-        textBuffer += `\`${child.value || ''}\``;
+        if (hasValue(child)) {
+          textBuffer += `\`${child.value}\``;
+        }
       }
     } else {
       // For non-text elements (links, images), flush any accumulated text first
@@ -351,7 +363,7 @@ function processInlineContent(
  */
 function createInfoItem(text: string, context: ProcessingContext): GopherItem {
   return {
-    type: 'info',
+    type: 'i',
     text: text,
     selector: '',
     host: context.host,
@@ -395,7 +407,7 @@ function createMediaItem(
 
 function createEmptyItem(context: ProcessingContext): GopherItem {
   return {
-    type: 'info',
+    type: 'i',
     text: '',
     selector: '',
     host: context.host,
@@ -423,16 +435,16 @@ function createTextItems(
 /**
  * Utility functions
  */
-function extractText(node: MarkdownNode): string {
+function extractText(node: Node): string {
   if (node.type === 'text') {
-    return node.value || '';
+    return hasValue(node) ? node.value : '';
   }
 
   if (node.type === 'inlineCode') {
-    return `\`${node.value || ''}\``;
+    return hasValue(node) ? `\`${node.value}\`` : '';
   }
 
-  if (node.children) {
+  if (hasChildren(node)) {
     return node.children.map(extractText).join('');
   }
 
@@ -581,6 +593,5 @@ function wrapContinuousText(text: string, maxWidth: number): string[] {
 }
 
 export function formatGopherItem(item: GopherItem): string {
-  const type = item.type === 'info' ? 'i' : item.type;
-  return `${type}${item.text}\t${item.selector}\t${item.host}\t${item.port}`;
+  return `${item.type}${item.text}\t${item.selector}\t${item.host}\t${item.port}`;
 }

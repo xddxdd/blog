@@ -1,8 +1,5 @@
-import type {
-  RemarkGophermapOptions,
-  MarkdownNode,
-  GophermapVFile,
-} from './types.js';
+import type { RemarkGophermapOptions, GophermapVFile, Root } from './types.js';
+import type { Yaml } from 'mdast';
 
 import { processNode, formatGopherItem } from './processing.js';
 import * as yaml from 'js-yaml';
@@ -13,9 +10,13 @@ export type {
   RemarkGophermapOptions,
   ProcessingContext,
   GopherItem,
-  MarkdownNode,
   GophermapVFile,
+  Root,
+  Content,
+  PhrasingContent,
 } from './types.js';
+
+export const CRLF = '\r\n';
 
 /**
  * Remark plugin to convert markdown AST to Gopher protocol format (gophermap)
@@ -27,32 +28,30 @@ export type {
 export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
   const { host = 'localhost', port = '70', baseSelector = '/' } = options;
 
-  return function transformer(
-    tree: MarkdownNode,
-    _file: GophermapVFile,
-  ): MarkdownNode {
+  return function transformer(tree: Root, _file: GophermapVFile): Root {
     const gopherItems = processNode(tree, { host, port, baseSelector });
     const gophermapContent = gopherItems
       .map((item) => formatGopherItem(item))
-      .join('\r\n');
+      .join(CRLF);
 
     // Find or create frontmatter node
     let frontmatterNode = tree.children?.find(
-      (child) => child.type === 'yaml' || child.type === 'toml',
-    );
+      (child) => child.type === 'yaml',
+    ) as Yaml | undefined;
 
     if (frontmatterNode && frontmatterNode.type === 'yaml') {
       // Parse existing YAML frontmatter
       try {
-        const frontmatterData = frontmatterNode.value
-          ? (yaml.load(frontmatterNode.value) as Record<string, unknown>)
+        const yamlNode = frontmatterNode as Yaml;
+        const frontmatterData = yamlNode.value
+          ? (yaml.load(yamlNode.value) as Record<string, unknown>)
           : {};
 
         // Add gophermap field
         frontmatterData.gophermap = gophermapContent;
 
         // Update the frontmatter node
-        frontmatterNode.value = yaml
+        yamlNode.value = yaml
           .dump(frontmatterData, {
             lineWidth: -1, // Prevent line wrapping
             noRefs: true, // Prevent YAML references
@@ -60,7 +59,8 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
           .trim();
       } catch (error) {
         // If parsing fails, create new frontmatter with just gophermap
-        frontmatterNode.value = yaml
+        const yamlNode = frontmatterNode as Yaml;
+        yamlNode.value = yaml
           .dump(
             { gophermap: gophermapContent },
             {
@@ -70,14 +70,9 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
           )
           .trim();
       }
-    } else if (frontmatterNode && frontmatterNode.type === 'toml') {
-      // For TOML, we'll just append the gophermap field as a comment for now
-      // since TOML parsing/stringifying is more complex
-      frontmatterNode.value =
-        (frontmatterNode.value || '') + `\n# gophermap field would go here`;
     } else {
       // No frontmatter exists, create new YAML frontmatter
-      const newFrontmatter: MarkdownNode = {
+      const newFrontmatter: Yaml = {
         type: 'yaml',
         value: yaml
           .dump(
