@@ -61,6 +61,11 @@ export class Post {
     return content
   }
 
+  public async renderGophermap(): Promise<string> {
+    const { remarkPluginFrontmatter } = await this.collectionEntry.render()
+    return remarkPluginFrontmatter['gophermap']
+  }
+
   public static fromCollectionEntry(post: CollectionEntry<'article'>): Post {
     return new Post(post)
   }
@@ -72,6 +77,24 @@ export class Post {
     return (await getPosts())
       .filter(p => p.language === this.language && p.series === this.series)
       .sort((a, b) => a.date.valueOf() - b.date.valueOf())
+  }
+
+  public static async findByLanguageAndPath(
+    language: string | undefined,
+    path: string
+  ): Promise<Post> {
+    const posts = (await getPosts()).filter(
+      p =>
+        ((p.language.isDefault() && language === undefined) ||
+          p.language.toString() === language) &&
+        p.path === path
+    )
+    if (posts.length !== 1) {
+      throw new Error(
+        `Found ${posts.length} posts for language ${language} path ${path}`
+      )
+    }
+    return posts[0]!
   }
 }
 

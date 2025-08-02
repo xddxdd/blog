@@ -12,6 +12,8 @@ const article = defineCollection({
     bodyClass: z.string().optional(),
     series: z.string().optional(),
     autoTranslated: z.boolean().optional(),
+    // This is needed to make gophermap generation work
+    gophermap: z.string().optional(),
   }),
 })
 
