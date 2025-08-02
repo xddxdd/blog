@@ -54,8 +54,8 @@ export async function GET(context: APIContext) {
       gopherBeforeLink +
       '- ' +
       post.title +
-      '\t/' +
-      post.path.replace(/index\.html$/g, '') +
+      '\t' +
+      post.getFullURL() +
       '\t{{server_addr}}\t{{server_port}}' +
       crlf
     data +=
