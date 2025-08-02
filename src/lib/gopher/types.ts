@@ -48,7 +48,6 @@ export interface GopherItem {
   selector: string;
   host: string;
   port: string;
-  prefixed?: boolean;
 }
 
 /**
