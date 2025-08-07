@@ -2,13 +2,13 @@ import type { RemarkGophermapOptions, GophermapVFile, Root } from './types.js';
 import type { Yaml } from 'mdast';
 
 import { processNode, formatGopherItem } from './processing.js';
+import { ProcessingContext } from './context.js';
 import * as yaml from 'js-yaml';
 
 // Re-export types for consumers
 export type {
   GopherItemType,
   RemarkGophermapOptions,
-  ProcessingContext,
   GopherItem,
   GophermapVFile,
   Root,
@@ -29,7 +29,13 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
   const { host = 'localhost', port = '70', baseSelector = '/' } = options;
 
   return function transformer(tree: Root, _file: GophermapVFile): Root {
-    const gopherItems = processNode(tree, { host, port, baseSelector });
+    const context = new ProcessingContext({
+      host,
+      port,
+      baseSelector,
+      prefixes: [],
+    });
+    const gopherItems = processNode(tree, context);
     const gophermapContent = gopherItems
       .map((item) => formatGopherItem(item))
       .join(CRLF);

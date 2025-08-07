@@ -28,18 +28,6 @@ export interface RemarkGophermapOptions {
 }
 
 /**
- * Processing context passed through the recursion
- */
-export interface ProcessingContext {
-  host: string;
-  port: string;
-  baseSelector: string;
-  prefix?: string;
-  maxLength?: number;
-  listItem?: boolean;
-}
-
-/**
  * Gopher item object structure
  */
 export interface GopherItem {

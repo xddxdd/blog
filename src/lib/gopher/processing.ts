@@ -1,4 +1,13 @@
-import type { GopherItemType, ProcessingContext, GopherItem } from './types.js';
+import type { GopherItemType, GopherItem } from './types.js';
+import { ProcessingContext } from './context.js';
+import {
+  HeadingPrefix,
+  ListPrefix,
+  NumberedListPrefix,
+  BlockquotePrefix,
+  CodePrefix,
+  prefixesToString,
+} from './prefixes.js';
 import type {
   Heading,
   Paragraph,
@@ -34,6 +43,32 @@ function removeConsecutiveEmptyItems(items: GopherItem[]): GopherItem[] {
   }
 
   return result;
+}
+
+/**
+ * Apply prefixes to items and return the modified items
+ */
+function applyPrefixesToItems(
+  items: GopherItem[],
+  prefixes: any[],
+  _context: ProcessingContext,
+  isContinuation: boolean = false,
+): GopherItem[] {
+  if (items.length === 0 || prefixes.length === 0) {
+    return items;
+  }
+
+  const prefixString = prefixesToString(prefixes, isContinuation);
+  const modifiedItems = [...items];
+
+  if (modifiedItems[0]) {
+    modifiedItems[0] = {
+      ...modifiedItems[0],
+      text: prefixString + modifiedItems[0].text,
+    };
+  }
+
+  return modifiedItems;
 }
 
 /**
@@ -122,7 +157,11 @@ function hasValue(node: Node): node is Literal {
 function processLeafNode(node: Node, context: ProcessingContext): GopherItem[] {
   switch (node.type) {
     case 'text':
-      return createTextItems(hasValue(node) ? node.value : '', context);
+      return createTextItems(
+        hasValue(node) ? node.value : '',
+        context,
+        undefined,
+      );
 
     case 'link':
       const linkNode = node as Link;
@@ -177,7 +216,13 @@ function processHeading(
   context: ProcessingContext,
 ): GopherItem[] {
   const text = extractText(node);
-  const items: GopherItem[] = [createInfoItem(text, context)];
+
+  // Create heading prefix
+  const headingPrefix = new HeadingPrefix(node.depth);
+  const allPrefixes = [...context.prefixes, headingPrefix];
+  const prefixString = prefixesToString(allPrefixes, false);
+
+  const items: GopherItem[] = [createInfoItem(prefixString + text, context)];
 
   // Add separator after h1
   if (node.depth === 1) {
@@ -203,9 +248,22 @@ function processParagraph(
     node.children.length === 1 &&
     (node.children[0]?.type === 'link' || node.children[0]?.type === 'image')
   ) {
-    const items = processNode(node.children[0], context);
-    items.push(createEmptyItem(context));
-    return items;
+    // If we have prefixes, apply them to the link
+    if (context.prefixes.length > 0) {
+      const linkItems = processNode(node.children[0]!, context);
+      const prefixedItems = applyPrefixesToItems(
+        linkItems,
+        context.prefixes,
+        context,
+      );
+      prefixedItems.push(createEmptyItem(context));
+      return prefixedItems;
+    } else {
+      // Normal standalone link processing
+      const items = processNode(node.children[0]!, context);
+      items.push(createEmptyItem(context));
+      return items;
+    }
   }
 
   const items = processInlineContent(node, context);
@@ -217,44 +275,119 @@ function processParagraph(
  * Process list - adds spacing and processes items
  */
 function processList(node: List, context: ProcessingContext): GopherItem[] {
-  const items: GopherItem[] = [createEmptyItem(context)];
+  const items: GopherItem[] = [];
+
+  // Only add empty item if this is a top-level list (no prefixes with indentation)
+  if (context.prefixes.length === 0) {
+    items.push(createEmptyItem(context));
+  }
 
   if (!node.children) {
     return items;
   }
 
-  for (const listItem of node.children) {
-    items.push(...processNode(listItem, { ...context, listItem: true }));
+  for (let i = 0; i < node.children.length; i++) {
+    const listItem = node.children[i];
+    if (listItem) {
+      // Create the appropriate list prefix
+      const listPrefix = node.ordered
+        ? new NumberedListPrefix(i + 1)
+        : new ListPrefix();
+
+      const scope = context.withPrefixes([listPrefix], { listItem: true });
+      items.push(...processNode(listItem, context));
+      scope.restore();
+    }
   }
 
   return items;
 }
 
 /**
- * Process list item - adds bullet prefix to content
+ * Process list item - adds bullet prefix to content and handles nesting
  */
 function processListItem(
   node: ListItem,
   context: ProcessingContext,
 ): GopherItem[] {
-  const childItems = processInlineContent(node, { ...context, prefix: '- ' });
-  return childItems;
+  if (!node.children) {
+    return [];
+  }
+
+  const items: GopherItem[] = [];
+
+  for (let i = 0; i < node.children.length; i++) {
+    const child = node.children[i];
+    if (!child) continue;
+    const isFirstChild = i === 0;
+
+    if (child.type === 'paragraph') {
+      // Handle paragraph children specially to avoid double processing
+      const paragraphItems = processInlineContent(child, context);
+      items.push(...paragraphItems);
+    } else if (child.type === 'list') {
+      // Handle nested lists with increased indentation
+      const nestedItems = processNode(child, context);
+      items.push(...nestedItems);
+    } else {
+      // For other children (like code blocks), add proper indentation
+      // Use isContinuation=true for non-first children to get space prefixes
+      const flagScope = context.withFlag('isContinuation', !isFirstChild);
+      const childItems = processNode(child, context);
+      items.push(...childItems);
+      flagScope.restore();
+    }
+  }
+
+  return items;
 }
 
 /**
- * Process blockquote - adds quote prefix to content
+ * Process blockquote - adds quote prefix to content and handles nesting
  */
 function processBlockquote(
   node: Blockquote,
   context: ProcessingContext,
 ): GopherItem[] {
-  const childItems = processInlineContent(node, {
-    ...context,
-    prefix: '> ',
-    maxLength: 68, // 70 - 2 for "> " prefix
-  });
-  childItems.push(createEmptyItem(context));
-  return childItems;
+  const blockquotePrefix = new BlockquotePrefix();
+  const scope = context.withPrefixes([blockquotePrefix]);
+
+  if (!node.children) {
+    scope.restore();
+    return [];
+  }
+
+  const items: GopherItem[] = [];
+
+  for (let i = 0; i < node.children.length; i++) {
+    const child = node.children[i];
+    if (!child) continue;
+
+    if (child.type === 'blockquote') {
+      // Handle nested blockquotes with accumulated prefix
+      const nestedItems = processNode(child, context);
+      items.push(...nestedItems);
+    } else if (child.type === 'paragraph') {
+      // Handle paragraph children with quote prefix
+      const paragraphItems = processInlineContent(child, context);
+      items.push(...paragraphItems);
+
+      // Add empty line between paragraphs in blockquotes, but not after the last one
+      const nextChild = node.children[i + 1];
+      if (i < node.children.length - 1 && nextChild?.type === 'paragraph') {
+        const firstLinePrefix = prefixesToString(context.prefixes, false);
+        items.push(createInfoItem(firstLinePrefix.trim(), context));
+      }
+    } else {
+      // Handle other elements (lists, headers, etc.) within blockquotes
+      const childItems = processNode(child, context);
+      items.push(...childItems);
+    }
+  }
+
+  scope.restore();
+  items.push(createEmptyItem(context));
+  return items;
 }
 
 /**
@@ -266,9 +399,28 @@ function processCodeBlock(
 ): GopherItem[] {
   if (!node.value) return [];
 
-  const items = node.value
-    .split('\n')
-    .map((line) => createInfoItem(line, context));
+  // Preserve existing prefixes and only add CodePrefix if not already present
+  let prefixes = context.prefixes;
+  const hasCodePrefix = prefixes.some((prefix) => prefix instanceof CodePrefix);
+  if (!hasCodePrefix) {
+    prefixes = [...prefixes, new CodePrefix()];
+  }
+
+  const codeContext = {
+    ...context,
+    prefixes,
+  };
+
+  const firstLinePrefix = prefixesToString(
+    codeContext.prefixes,
+    context.isContinuation ?? false,
+  );
+  const continuationPrefix = prefixesToString(codeContext.prefixes, true);
+
+  const items = node.value.split('\n').map((line, index) => {
+    const prefix = index === 0 ? firstLinePrefix : continuationPrefix;
+    return createInfoItem(prefix + line, context);
+  });
   items.push(createEmptyItem(context));
   return items;
 }
@@ -278,11 +430,11 @@ function processCodeBlock(
  */
 function processThematicBreak(
   _node: ThematicBreak,
-  _context: ProcessingContext,
+  context: ProcessingContext,
 ): GopherItem[] {
-  // For YAML frontmatter, we'll just ignore thematic breaks
-  // This helps with frontmatter parsing issues
-  return [];
+  // Create a horizontal rule using dashes
+  const rule = '-'.repeat(70);
+  return [createInfoItem(rule, context), createEmptyItem(context)];
 }
 
 /**
@@ -313,45 +465,92 @@ function processInlineContent(
   let textBuffer = '';
 
   for (const child of node.children) {
-    // If this is a text node or inline code, accumulate it in the text buffer
-    if (child.type === 'text' || child.type === 'inlineCode') {
+    // If this is a text node, inline code, or emphasis, accumulate it in the text buffer
+    if (
+      child.type === 'text' ||
+      child.type === 'inlineCode' ||
+      child.type === 'emphasis' ||
+      child.type === 'strong'
+    ) {
       if (child.type === 'text') {
         if (hasValue(child)) {
-          textBuffer += child.value;
+          // Normalize whitespace in text nodes by replacing multiple whitespace with single spaces
+          const normalizedText = child.value.replace(/\s+/g, ' ');
+          textBuffer += normalizedText;
         }
       } else if (child.type === 'inlineCode') {
         if (hasValue(child)) {
           textBuffer += `\`${child.value}\``;
         }
+      } else if (child.type === 'emphasis') {
+        // Handle italic text with *text*
+        const emphasisText = extractText(child);
+        textBuffer += `*${emphasisText}*`;
+      } else if (child.type === 'strong') {
+        // Handle bold text with **text**
+        const strongText = extractText(child);
+        textBuffer += `**${strongText}**`;
       }
     } else {
       // For non-text elements (links, images), flush any accumulated text first
       if (textBuffer.trim()) {
-        const prefixedText = context.prefix
-          ? context.prefix + textBuffer
-          : textBuffer;
-        const textItems = createTextItems(prefixedText, context);
+        const firstLinePrefix = prefixesToString(
+          context.prefixes,
+          context.isContinuation ?? false,
+        );
+        const continuationPrefix = prefixesToString(context.prefixes, true);
+        const prefixedText = firstLinePrefix + textBuffer;
+        const textItems = createTextItems(
+          prefixedText,
+          context,
+          continuationPrefix,
+        );
         items.push(...textItems);
         textBuffer = '';
 
-        // Reset prefix after first use in list items
-        if (context.listItem && context.prefix) {
-          context.prefix = '';
+        // Reset prefixes after first use in list items
+        if (context.listItem && context.prefixes.length > 0) {
+          context.prefixes = [];
         }
       }
 
-      // Process the non-text element normally
-      const childItems = processNode(child, context);
-      items.push(...childItems);
+      // Process the non-text element
+      if (child.type === 'link' || child.type === 'image') {
+        // If we're in a list context, apply prefixes to the link/image
+        if (context.prefixes.length > 0) {
+          const linkItems = processNode(child, context);
+          const prefixedItems = applyPrefixesToItems(
+            linkItems,
+            context.prefixes,
+            context,
+          );
+          items.push(...prefixedItems);
+        } else {
+          // Normal standalone link/image processing
+          const childItems = processNode(child, context);
+          items.push(...childItems);
+        }
+      } else {
+        // Process other elements normally
+        const childItems = processNode(child, context);
+        items.push(...childItems);
+      }
     }
   }
 
   // Flush any remaining text buffer
   if (textBuffer.trim()) {
-    const prefixedText = context.prefix
-      ? context.prefix + textBuffer
-      : textBuffer;
-    const textItems = createTextItems(prefixedText, context);
+    const firstLinePrefix = prefixesToString(
+      context.prefixes,
+      context.isContinuation ?? false,
+    );
+    const continuationPrefix = prefixesToString(context.prefixes, true);
+    const prefixedText = firstLinePrefix + textBuffer;
+    const textItems = createTextItems(
+      prefixedText,
+      context,
+      continuationPrefix,
+    );
     items.push(...textItems);
   }
 
@@ -418,18 +617,39 @@ function createEmptyItem(context: ProcessingContext): GopherItem {
 function createTextItems(
   text: string,
   context: ProcessingContext,
+  continuationPrefix?: string,
 ): GopherItem[] {
-  const trimmedText = text.trim();
-  if (!trimmedText || trimmedText.length <= 2) {
+  // Don't trim leading whitespace if we have prefixes (for list indentation)
+  const processedText =
+    context.prefixes.length > 0 ? text.trimEnd() : text.trim();
+  if (!processedText || processedText.trim().length <= 2) {
     return [];
   }
 
-  const maxWidth = context.maxLength || 70;
-  const lines = wrapText(trimmedText, maxWidth);
+  // Check if the text already has prefixes applied
+  const hasPrefixes = context.hasPrefixesApplied(text, false);
+
+  let maxWidth: number;
+  if (hasPrefixes) {
+    // If text already has prefixes, use the base max length
+    maxWidth = context.maxLength || 70;
+  } else {
+    // Calculate adjusted max width accounting for prefix length
+    maxWidth = context.getAdjustedMaxLength(false);
+  }
+
+  const lines = wrapText(processedText, maxWidth);
 
   return lines
     .filter((line) => line.trim())
-    .map((line) => createInfoItem(line, context));
+    .map((line, index) => {
+      // For continuation lines in nested contexts, ensure proper indentation
+      if (index > 0 && continuationPrefix) {
+        // For continuation lines, use the continuation prefix
+        return createInfoItem(continuationPrefix + line, context);
+      }
+      return createInfoItem(line, context);
+    });
 }
 
 /**
@@ -437,7 +657,11 @@ function createTextItems(
  */
 function extractText(node: Node): string {
   if (node.type === 'text') {
-    return hasValue(node) ? node.value : '';
+    if (hasValue(node)) {
+      // Normalize whitespace in text nodes
+      return node.value.replace(/\s+/g, ' ');
+    }
+    return '';
   }
 
   if (node.type === 'inlineCode') {
@@ -445,7 +669,7 @@ function extractText(node: Node): string {
   }
 
   if (hasChildren(node)) {
-    return node.children.map(extractText).join('');
+    return node.children.map(extractText).join(' ').replace(/\s+/g, ' ');
   }
 
   return '';
@@ -518,19 +742,28 @@ function wrapText(text: string, maxWidth: number): string[] {
     return wrapContinuousText(text, maxWidth);
   }
 
-  const words = text.split(' ');
+  // Preserve leading whitespace
+  const leadingSpaceMatch = text.match(/^(\s*)/);
+  const leadingSpaces = leadingSpaceMatch?.[1] || '';
+  const trimmedText = text.replace(/^\s*/, '');
+
+  const words = trimmedText.split(' ');
   let currentLine = '';
 
-  for (const word of words) {
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    if (!word) continue;
+
     const wordWidth = getDisplayWidth(word);
     const currentWidth = getDisplayWidth(currentLine);
     const spaceWidth = currentLine ? 1 : 0; // Space character width
+    const leadingSpaceWidth = currentLine ? 0 : getDisplayWidth(leadingSpaces); // Leading spaces only on first line
 
     // If adding this word would exceed the limit
-    if (currentWidth + spaceWidth + wordWidth > maxWidth) {
+    if (currentWidth + spaceWidth + wordWidth + leadingSpaceWidth > maxWidth) {
       // If current line has content, save it and start new line
       if (currentLine) {
-        lines.push(currentLine);
+        lines.push((lines.length === 0 ? leadingSpaces : '') + currentLine);
 
         // Check if the word itself is too long and needs to be broken
         if (wordWidth > maxWidth) {
@@ -543,8 +776,14 @@ function wrapText(text: string, maxWidth: number): string[] {
       } else {
         // Word itself is too long, need to break it
         const brokenWords = wrapContinuousText(word, maxWidth);
-        lines.push(...brokenWords.slice(0, -1));
-        currentLine = brokenWords[brokenWords.length - 1] || '';
+        if (brokenWords.length > 0) {
+          const firstLine = brokenWords[0];
+          if (firstLine) {
+            lines.push((lines.length === 0 ? leadingSpaces : '') + firstLine);
+          }
+          lines.push(...brokenWords.slice(1, -1));
+          currentLine = brokenWords[brokenWords.length - 1] || '';
+        }
       }
     } else {
       // Add word to current line
@@ -554,12 +793,13 @@ function wrapText(text: string, maxWidth: number): string[] {
 
   // Add the last line if it has content
   if (currentLine) {
+    const finalLine = (lines.length === 0 ? leadingSpaces : '') + currentLine;
     // Check if the final line is too long and needs to be broken
-    if (getDisplayWidth(currentLine) > maxWidth) {
-      const brokenLines = wrapContinuousText(currentLine, maxWidth);
+    if (getDisplayWidth(finalLine) > maxWidth) {
+      const brokenLines = wrapContinuousText(finalLine, maxWidth);
       lines.push(...brokenLines);
     } else {
-      lines.push(currentLine);
+      lines.push(finalLine);
     }
   }
 

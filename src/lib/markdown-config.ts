@@ -16,6 +16,7 @@ import rehypePicture from 'rehype-picture'
 import { visit } from 'unist-util-visit'
 import type { Node } from 'unist'
 import { CRLF } from './gopher'
+import { ProcessingContext } from './gopher/context'
 
 let remarkChineseQuotes = () => (tree: Node) => {
   visit(tree, (node: any) => {
@@ -31,11 +32,13 @@ let remarkChineseQuotes = () => (tree: Node) => {
 
 let remarkGophermap = () => {
   return function transformer(tree: any, file: any) {
-    const gopherItems = processNode(tree, {
+    const context = new ProcessingContext({
       host: '{{server_addr}}',
       port: '{{server_port}}',
       baseSelector: '/',
+      prefixes: [],
     })
+    const gopherItems = processNode(tree, context)
     const gophermapContent = gopherItems
       .map(item => formatGopherItem(item))
       .join(CRLF)
@@ -51,10 +54,10 @@ export const markdownPluginOptions: Parameters<
   smartypants: false,
   remarkPlugins: [
     remarkFrontmatter,
-    remarkGophermap,
-    remarkGfm,
     remarkChineseQuotes,
     remarkJoinCjkLines,
+    remarkGophermap,
+    remarkGfm,
     remarkMath,
     remarkGraphvizSvg,
     [
