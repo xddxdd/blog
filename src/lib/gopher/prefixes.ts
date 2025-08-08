@@ -1,6 +1,6 @@
 export interface IPrefix {
   toString(): string;
-  toSpaces(): string;
+  next(): void;
 }
 
 export class HeadingPrefix implements IPrefix {
@@ -14,34 +14,36 @@ export class HeadingPrefix implements IPrefix {
     return '#'.repeat(this.level) + ' ';
   }
 
-  toSpaces(): string {
-    return ' '.repeat(this.toString().length);
-  }
+  next(): void {}
 }
 
 export class ListPrefix implements IPrefix {
+  displayed = false;
+
   toString(): string {
-    return '- ';
+    return this.displayed ? '  ' : '- ';
   }
 
-  toSpaces(): string {
-    return '  ';
+  next(): void {
+    this.displayed = true;
   }
 }
 
 export class NumberedListPrefix implements IPrefix {
   index: number;
+  displayed = false;
 
   constructor(index: number) {
     this.index = index;
   }
 
   toString(): string {
-    return `${this.index}. `;
+    const prefix = `${this.index}. `;
+    return this.displayed ? ' '.repeat(prefix.length) : prefix;
   }
 
-  toSpaces(): string {
-    return ' '.repeat(this.toString().length);
+  next(): void {
+    this.displayed = true;
   }
 }
 
@@ -50,9 +52,7 @@ export class BlockquotePrefix implements IPrefix {
     return '> ';
   }
 
-  toSpaces(): string {
-    return '  ';
-  }
+  next(): void {}
 }
 
 export class CodePrefix implements IPrefix {
@@ -60,51 +60,20 @@ export class CodePrefix implements IPrefix {
     return '  ';
   }
 
-  toSpaces(): string {
-    return '  ';
-  }
+  next(): void {}
 }
 
 export function prefixesToString(
   prefixes: IPrefix[],
-  isContinuation: boolean = false,
+  triggerNext: boolean = true,
 ): string {
-  let result = '';
-  let i = 0;
-  while (i < prefixes.length) {
-    const current = prefixes[i]!;
-    // Check for consecutive ListPrefix or NumberedListPrefix
-    if (
-      current instanceof ListPrefix ||
-      current instanceof NumberedListPrefix
-    ) {
-      // Find the end of the consecutive group
-      let j = i;
-      while (
-        j + 1 < prefixes.length &&
-        (prefixes[j + 1] instanceof ListPrefix ||
-          prefixes[j + 1] instanceof NumberedListPrefix)
-      ) {
-        j++;
-      }
-      // If isContinuation is true, use toSpaces for all in the group
-      if (isContinuation) {
-        for (let k = i; k <= j; k++) {
-          result += prefixes[k]!.toSpaces();
-        }
-      } else {
-        // For all but the last in the group, use toSpaces()
-        for (let k = i; k < j; k++) {
-          result += prefixes[k]!.toSpaces();
-        }
-        // For the last in the group, use toString()
-        result += prefixes[j]!.toString();
-      }
-      i = j + 1;
-    } else {
-      result += current.toString();
-      i++;
-    }
+  const result = prefixes.map((p) => p.toString()).join('');
+  if (triggerNext) {
+    prefixes.forEach((p) => p.next());
   }
   return result;
+}
+
+export function prefixesWidth(prefixes: IPrefix[]): number {
+  return prefixesToString(prefixes, false).length;
 }

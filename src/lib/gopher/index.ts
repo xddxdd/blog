@@ -26,7 +26,12 @@ export const CRLF = '\r\n';
  * and returns structured gopher item objects. Recursion handles nested layers.
  */
 export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
-  const { host = 'localhost', port = '70', baseSelector = '/' } = options;
+  const {
+    host = 'localhost',
+    port = '70',
+    baseSelector = '/',
+    maxLength,
+  } = options;
 
   return function transformer(tree: Root, _file: GophermapVFile): Root {
     const context = new ProcessingContext({
@@ -34,6 +39,7 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
       port,
       baseSelector,
       prefixes: [],
+      maxLength,
     });
     const gopherItems = processNode(tree, context);
     const gophermapContent = gopherItems

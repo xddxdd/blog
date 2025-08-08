@@ -14,6 +14,7 @@ interface CliOptions {
   host: string;
   port: string;
   baseSelector: string;
+  maxLength?: number;
   help?: boolean;
   version?: boolean;
 }
@@ -30,6 +31,7 @@ Options:
   -h, --host <hostname>      Gopher server hostname (default: localhost)
   -p, --port <string>        Gopher server port (default: 70)
   -s, --selector <path>      Base selector path (default: /)
+  -l, --max-length <number>  Maximum line length for text wrapping (default: 70)
   --help                     Show this help message
   --version                  Show version information
 
@@ -115,6 +117,20 @@ function parseArgs(args: string[]): CliOptions {
           process.exit(1);
         }
         options.baseSelector = selectorValue;
+        break;
+      case '-l':
+      case '--max-length':
+        const maxLengthValue = args[++i];
+        if (!maxLengthValue) {
+          console.error('Error: --max-length requires a value');
+          process.exit(1);
+        }
+        const maxLengthNum = parseInt(maxLengthValue, 10);
+        if (isNaN(maxLengthNum) || maxLengthNum <= 0) {
+          console.error('Error: --max-length must be a positive number');
+          process.exit(1);
+        }
+        options.maxLength = maxLengthNum;
         break;
       default:
         if (arg.startsWith('-')) {
@@ -202,6 +218,7 @@ async function main() {
       host: options.host,
       port: options.port,
       baseSelector: options.baseSelector,
+      maxLength: options.maxLength,
     };
 
     const gophermap = await convertMarkdownToGophermap(

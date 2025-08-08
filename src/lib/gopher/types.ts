@@ -25,6 +25,8 @@ export interface RemarkGophermapOptions {
   port?: string;
   /** Base path for relative links */
   baseSelector?: string;
+  /** Maximum line length for text wrapping */
+  maxLength?: number;
 }
 
 /**
