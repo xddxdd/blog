@@ -44,6 +44,7 @@ const translationDict: Record<string, string | ((key: any) => string)> = {
   feed_json: 'JSON',
   server_status: '服务器状态',
   dn42_node_status: 'DN42 节点状态',
+  gopher_protocol: '使用 Gopher 协议访问',
 }
 
 const categoryMap: Record<string, string> = {
