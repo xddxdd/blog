@@ -25,7 +25,7 @@
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@hpcc-js/wasm-graphviz": "^1.11.0",
     "@hpcc-js/wasm-zstd": "^1.5.0",
-    "@shikijs/rehype": "^3.9.2",
+    "@shikijs/rehype": "^3.10.0",
     "@types/mdast": "^4.0.4",
     "@types/mime-types": "^3.0.1",
     "@types/react": "^19.1.10",
