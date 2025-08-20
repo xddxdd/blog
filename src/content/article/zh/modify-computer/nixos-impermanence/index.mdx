@@ -9,6 +9,8 @@ series: NixOS
 
 > 更新记录：
 >
+> 2025-08-20：标明在移动现有文件时，需要保留 `boot` 文件夹。
+>
 > 2023-02-18：在“移动 Nix Daemon 的临时文件夹”一段，修正配置不对 root 用户生效的
 > 问题。
 
@@ -322,7 +324,7 @@ environment.variables.NIX_REMOTE = "daemon";
 - **如果你不熟悉流程，做好数据备份！**
 - 新建一个 `persistent` 文件夹，对应系统启动后的 `/nix/persistent`；
 - 把上面列出的，要保存的路径都移动到 `persistent` 文件夹中；
-- 删除除了 `nix` 和 `persistent` 以外的其它文件夹；
+- 删除除了 `boot`（如果存在），`nix` 和 `persistent` 以外的其它文件夹；
   - **删除前请做好数据备份！**
 - 把 `nix` 中的所有文件夹移到当前目录下；
 - 最后删除 `nix` 文件夹，重启。

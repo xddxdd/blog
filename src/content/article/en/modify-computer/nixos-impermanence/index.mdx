@@ -9,6 +9,9 @@ series: NixOS
 
 > Changelog:
 >
+> 2025-08-20: Add `boot` folder to list of folders to be kept in place when
+> moving files.
+>
 > 2023-02-18: Fix config not applied to the root user, in the "Move Temp
 > Directory of Nix Daemon" section.
 
@@ -357,7 +360,7 @@ partition:
 - Create a `persistent` folder, correspondong to `/nix/persistent` after system
   starts;
 - Move all preserved paths listed above into the `persistent` folder;
-- Remove all folders except `nix` and `persistent`;
+- Remove all folders except `boot` (if exists), `nix` and `persistent`;
   - **BACK UP YOUR DATA BEFORE REMOVAL!**
 - Move all folders in `nix` to the current directory;
 - Finally, remove the `nix` directory and reboot.
