@@ -29,7 +29,7 @@
     "@types/mdast": "^4.0.4",
     "@types/mime-types": "^3.0.1",
     "@types/react": "^19.1.11",
-    "@types/react-dom": "^19.1.7",
+    "@types/react-dom": "^19.1.8",
     "@waline/client": "^3.6.0",
     "astro": "^5.13.3",
     "astro-favicons": "^3.1.5",
