@@ -179,7 +179,7 @@ natural exponential function is:
 $$
 \begin{aligned}
 \exp x &= \sum_{n=0}^\infty \frac{x^n}{n} \\
-&= 1 + x + \frac{x^2}{2} + \frac{x^3}{3} + ...
+&= 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + ...
 \end{aligned}
 $$
 
