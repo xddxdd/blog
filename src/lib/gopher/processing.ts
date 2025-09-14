@@ -1,27 +1,28 @@
-import type { GopherItemType, GopherItem } from './types.js'
+import type {
+  Blockquote,
+  Code,
+  Heading,
+  Image,
+  Link,
+  List,
+  ListItem,
+  Literal,
+  Node,
+  Paragraph,
+  Parent,
+  ThematicBreak,
+} from 'mdast'
+
 import { CharacterType } from './cjk.js'
 import { ProcessingContext } from './context.js'
 import {
+  BlockquotePrefix,
+  CodePrefix,
   HeadingPrefix,
   ListPrefix,
   NumberedListPrefix,
-  BlockquotePrefix,
-  CodePrefix,
 } from './prefixes.js'
-import type {
-  Heading,
-  Paragraph,
-  List,
-  ListItem,
-  Blockquote,
-  Code,
-  ThematicBreak,
-  Link,
-  Image,
-  Node,
-  Parent,
-  Literal,
-} from 'mdast'
+import type { GopherItem, GopherItemType } from './types.js'
 
 /**
  * Process a single node and return array of gopher items

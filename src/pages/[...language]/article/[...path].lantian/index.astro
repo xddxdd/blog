@@ -1,8 +1,8 @@
 ---
 import PageLayout from '@components/PageLayout.astro'
 import PagePost from '@components/PagePost.astro'
-import { Post, getPosts } from '@lib/posts'
 import { LANGUAGES } from '@lib/language'
+import { getPosts, Post } from '@lib/posts'
 
 export async function getStaticPaths() {
   const posts = await getPosts()

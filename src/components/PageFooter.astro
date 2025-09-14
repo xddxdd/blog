@@ -1,11 +1,11 @@
 ---
-import { SITE_TITLE } from '@consts'
-import type { Language } from '@lib/language'
-import { format } from 'date-fns'
+import PlausibleAnalytics from '@components/fragments/PlausibleAnalytics.astro'
 import type { PaginationProps } from '@components/PagePaginator.astro'
 import PagePaginator from '@components/PagePaginator.astro'
-import PlausibleAnalytics from '@components/fragments/PlausibleAnalytics.astro'
+import { SITE_TITLE } from '@consts'
+import type { Language } from '@lib/language'
 import { getPosts } from '@lib/posts'
+import { format } from 'date-fns'
 
 type Props = {
   language: Language

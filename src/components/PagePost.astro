@@ -1,12 +1,12 @@
 ---
-import { type Language } from '@lib/language'
-import { Post } from '@lib/posts'
+import AutoTranslateWarning from '@components/AutoTranslateWarning.astro'
 import PostExcerpt from '@components/fragments/PostExcerpt.astro'
-import WalineComment from '@components/fragments/WalineComment.astro'
 import PostInfo from '@components/fragments/PostInfo.astro'
 import PostNavigation from '@components/fragments/PostNavigation.astro'
+import WalineComment from '@components/fragments/WalineComment.astro'
 import PageSeries from '@components/PageSeries.astro'
-import AutoTranslateWarning from '@components/AutoTranslateWarning.astro'
+import { type Language } from '@lib/language'
+import { Post } from '@lib/posts'
 
 type Props = {
   language: Language

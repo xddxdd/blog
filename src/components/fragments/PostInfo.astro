@@ -1,12 +1,12 @@
 ---
-import { type Language, CATEGORY_MAP } from '@lib/language'
-import { Post } from '@lib/posts'
-import { format } from 'date-fns'
 import PostMetaWidget from '@components/fragments/PostMetaWidget.astro'
 import TableOfContent from '@components/fragments/TableOfContent.astro'
+import { CATEGORY_MAP, type Language } from '@lib/language'
+import type { Page } from '@lib/pages'
+import { Post } from '@lib/posts'
 import { replaceInvalidUrlChars } from '@lib/utils'
 import type { MarkdownHeading } from 'astro'
-import type { Page } from '@lib/pages'
+import { format } from 'date-fns'
 
 type Props = {
   language: Language

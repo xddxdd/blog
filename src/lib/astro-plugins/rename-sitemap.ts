@@ -1,7 +1,8 @@
-import type { AstroIntegration } from 'astro'
-import { fileURLToPath } from 'node:url'
-import path from 'path'
 import fs from 'node:fs'
+import { fileURLToPath } from 'node:url'
+
+import type { AstroIntegration } from 'astro'
+import path from 'path'
 
 const createPlugin = (): AstroIntegration => {
   return {

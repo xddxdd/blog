@@ -1,17 +1,17 @@
 ---
-import { SITE_TITLE } from '@consts'
-import type { Language } from '@lib/language'
-import { Post, getPosts } from '@lib/posts'
+import '../assets/style.scss'
+
+import Background from '@components/fragments/Background.astro'
+import Indihome from '@components/fragments/Indihome.astro'
+import PageFooter from '@components/PageFooter.astro'
 import PageHead from '@components/PageHead.astro'
 import PageHeader from '@components/PageHeader.astro'
-import PageSidebar from '@components/PageSidebar.astro'
-import PageFooter from '@components/PageFooter.astro'
 import type { PaginationProps } from '@components/PagePaginator.astro'
+import PageSidebar from '@components/PageSidebar.astro'
+import { SITE_TITLE } from '@consts'
+import type { Language } from '@lib/language'
 import type { Page } from '@lib/pages'
-import Indihome from '@components/fragments/Indihome.astro'
-import Background from '@components/fragments/Background.astro'
-
-import '../assets/style.scss'
+import { getPosts, Post } from '@lib/posts'
 
 type Props = {
   title: string | undefined

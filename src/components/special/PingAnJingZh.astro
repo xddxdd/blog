@@ -1,8 +1,8 @@
 ---
-import { getPosts } from '@lib/posts'
-import { replaceInvalidUrlChars } from '@lib/utils'
 import { SITE_TITLE } from '@consts'
 import { LanguageChineseSimplified } from '@lib/language/chinese_simplified'
+import { getPosts } from '@lib/posts'
+import { replaceInvalidUrlChars } from '@lib/utils'
 
 const language = LanguageChineseSimplified
 const posts = (await getPosts()).filter(post => post.language.is(language))

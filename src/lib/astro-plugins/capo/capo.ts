@@ -1,6 +1,7 @@
 // https://github.com/natemoo-re/astro-capo/blob/main/src/capo/index.ts
 import type { ElementNode } from 'ultrahtml'
-import { parse, walkSync, renderSync, ELEMENT_NODE } from 'ultrahtml'
+import { ELEMENT_NODE, parse, renderSync, walkSync } from 'ultrahtml'
+
 import { getWeight } from './rules.ts'
 
 export default function capo(html: string) {

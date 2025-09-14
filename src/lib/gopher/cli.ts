@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 import { readFileSync, writeFileSync } from 'fs'
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkFrontmatter from 'remark-frontmatter'
-import remarkStringify from 'remark-stringify'
-import remarkGophermap, { type RemarkGophermapOptions } from './index.js'
 import * as yaml from 'js-yaml'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkParse from 'remark-parse'
+import remarkStringify from 'remark-stringify'
+import { unified } from 'unified'
+
+import remarkGophermap, { type RemarkGophermapOptions } from './index.js'
 
 interface CliOptions {
   input: string

@@ -1,22 +1,23 @@
-import { defineConfig } from 'astro/config'
-import { remarkGraphvizSvg } from './remark-graphviz-svg'
-import rehypeMath from 'rehype-katex'
 import rehypeShiki from '@shikijs/rehype'
-import rehypeSlug from 'rehype-slug'
+import { defineConfig } from 'astro/config'
 import rehypeExternalLinks from 'rehype-external-links'
+import rehypeMath from 'rehype-katex'
+import rehypePicture from 'rehype-picture'
+import rehypeSlug from 'rehype-slug'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
-import { processNode, formatGopherItem } from './gopher/processing'
 // @ts-expect-error - remark-join-cjk-lines types are not available
 import remarkJoinCjkLines from 'remark-join-cjk-lines'
 import remarkMath from 'remark-math'
 // @ts-expect-error - remark-mermaid types are not available
 import remarkMermaid from 'remark-mermaid'
-import rehypePicture from 'rehype-picture'
-import { visit } from 'unist-util-visit'
 import type { Node } from 'unist'
+import { visit } from 'unist-util-visit'
+
 import { CRLF } from './gopher'
 import { ProcessingContext } from './gopher/context'
+import { formatGopherItem, processNode } from './gopher/processing'
+import { remarkGraphvizSvg } from './remark-graphviz-svg'
 
 const remarkChineseQuotes = () => (tree: Node) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

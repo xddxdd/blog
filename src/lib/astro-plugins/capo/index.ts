@@ -1,9 +1,11 @@
-import type { AstroIntegration } from 'astro'
-import { fileURLToPath } from 'node:url'
-import path from 'path'
 import fs from 'node:fs'
-import capo from './capo'
+import { fileURLToPath } from 'node:url'
+
+import type { AstroIntegration } from 'astro'
 import { glob } from 'glob'
+import path from 'path'
+
+import capo from './capo'
 
 export type CopyFilePairOption = {
   source: string

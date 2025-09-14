@@ -1,10 +1,11 @@
-import type { AstroIntegration, AstroIntegrationLogger } from 'astro'
-import { fileURLToPath } from 'node:url'
-import path from 'path'
 import fs from 'node:fs'
-import { glob } from 'glob'
+import { fileURLToPath } from 'node:url'
 import zlib from 'node:zlib'
+
 import { Zstd } from '@hpcc-js/wasm-zstd'
+import type { AstroIntegration, AstroIntegrationLogger } from 'astro'
+import { glob } from 'glob'
+import path from 'path'
 
 const EXTENSIONS = 'html,css,js,atom,stl,xml,svg,json,txt'
 const GZIP_ENABLED = true

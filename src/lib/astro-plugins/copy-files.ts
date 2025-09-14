@@ -1,8 +1,9 @@
-import type { AstroIntegration } from 'astro'
-import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path'
-import path from 'path'
 import fs from 'node:fs'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import type { AstroIntegration } from 'astro'
+import path from 'path'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.join(dirname(__filename), '../../..')

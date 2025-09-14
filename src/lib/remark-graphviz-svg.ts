@@ -1,7 +1,7 @@
-import { visit } from 'unist-util-visit'
-import { unified } from 'unified'
-import rehypeParse from 'rehype-parse'
 import { Graphviz } from '@hpcc-js/wasm-graphviz'
+import rehypeParse from 'rehype-parse'
+import { unified } from 'unified'
+import { visit } from 'unist-util-visit'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const remarkGraphvizSvg = (options?: any) => {

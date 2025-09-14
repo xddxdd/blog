@@ -1,9 +1,9 @@
-import type { APIContext } from 'astro'
-import { getPosts } from '@lib/posts'
-import { LANGUAGES, type Language } from '@lib/language'
 import { SITE_TITLE } from '@consts'
 import { CRLF, type GopherItem, type GopherItemType } from '@lib/gopher'
 import { formatGopherItem } from '@lib/gopher/processing'
+import { type Language, LANGUAGES } from '@lib/language'
+import { getPosts } from '@lib/posts'
+import type { APIContext } from 'astro'
 
 export async function getStaticPaths() {
   return Object.entries(LANGUAGES).flatMap(([, language]) => ({

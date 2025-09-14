@@ -1,19 +1,19 @@
-import type { RemarkGophermapOptions, Root } from './types.js'
+import * as yaml from 'js-yaml'
 import type { Yaml } from 'mdast'
 
-import { processNode, formatGopherItem } from './processing.js'
 import { ProcessingContext } from './context.js'
-import * as yaml from 'js-yaml'
+import { formatGopherItem, processNode } from './processing.js'
+import type { RemarkGophermapOptions, Root } from './types.js'
 
 // Re-export types for consumers
 export type {
-  GopherItemType,
-  RemarkGophermapOptions,
-  GopherItem,
-  GophermapVFile,
-  Root,
   Content,
+  GopherItem,
+  GopherItemType,
+  GophermapVFile,
   PhrasingContent,
+  RemarkGophermapOptions,
+  Root,
 } from './types.js'
 
 export const CRLF = '\r\n'

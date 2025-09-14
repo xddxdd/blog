@@ -51,4 +51,4 @@ export interface GophermapVFile extends VFile {
 }
 
 // Re-export mdast types for convenience
-export type { Root, Content, PhrasingContent } from 'mdast'
+export type { Content, PhrasingContent, Root } from 'mdast'

@@ -1,4 +1,4 @@
-import { prefixesToString, type IPrefix, prefixesWidth } from './prefixes.js'
+import { type IPrefix, prefixesToString, prefixesWidth } from './prefixes.js'
 
 /**
  * Processing context class with RAII pattern for managing prefixes

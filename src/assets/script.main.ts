@@ -1,14 +1,13 @@
 import 'instant.page'
-// @ts-expect-error - SimpleLightbox types are not available
-import SimpleLightbox from 'simple-lightbox'
-
-import attempt from './js/attempt'
 
 /*****************************************
  * Bootstrap Native
  *****************************************/
-
 import { initCallback } from 'bootstrap.native'
+// @ts-expect-error - SimpleLightbox types are not available
+import SimpleLightbox from 'simple-lightbox'
+
+import attempt from './js/attempt'
 
 /*****************************************
  * Page Onload Logic

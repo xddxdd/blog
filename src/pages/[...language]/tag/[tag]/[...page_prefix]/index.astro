@@ -1,8 +1,8 @@
 ---
-import { getPosts, getStaticPathsForPaginate } from '@lib/posts'
-import type { PaginatedProps } from '@lib/posts'
-import PageLayout from '@components/PageLayout.astro'
 import PageArchive from '@components/PageArchive.astro'
+import PageLayout from '@components/PageLayout.astro'
+import type { PaginatedProps } from '@lib/posts'
+import { getPosts, getStaticPathsForPaginate } from '@lib/posts'
 import { replaceInvalidUrlChars } from '@lib/utils'
 
 export async function getStaticPaths() {

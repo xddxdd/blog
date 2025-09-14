@@ -1,13 +1,14 @@
-import { getCollection, type CollectionEntry } from 'astro:content'
-import { POSTS_PER_PAGE, SITE_AUTHOR, SITE_TITLE } from '@consts'
-import { type Language, LANGUAGES, DEFAULT_LANGUAGE } from './language'
-import type { PaginationProps } from '../components/PagePaginator.astro'
-import { Feed } from 'feed'
-import type { APIContext } from 'astro'
-import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { getContainerRenderer as getMdxContainerRenderer } from '@astrojs/mdx'
-import { loadRenderers } from 'astro/virtual-modules/container.js'
+import { POSTS_PER_PAGE, SITE_AUTHOR, SITE_TITLE } from '@consts'
+import type { APIContext } from 'astro'
 import type { GetStaticPathsItem } from 'astro'
+import { experimental_AstroContainer as AstroContainer } from 'astro/container'
+import { loadRenderers } from 'astro/virtual-modules/container.js'
+import { type CollectionEntry, getCollection } from 'astro:content'
+import { Feed } from 'feed'
+
+import type { PaginationProps } from '../components/PagePaginator.astro'
+import { DEFAULT_LANGUAGE, type Language, LANGUAGES } from './language'
 
 export class Post {
   public readonly title: string
