@@ -49,6 +49,29 @@ jobs:
           sudo apt-get update
           sudo apt-get install build-essential git rsync
 
+      - name: Rsync files over SSH
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        run: |
+          mkdir -p $HOME/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > $HOME/.ssh/id_ed25519
+          echo "StrictHostKeyChecking no" > $HOME/.ssh/config
+          chmod -R 500 $HOME/.ssh
+
+          sudo apt-get install -y rsync
+          rsync -azr --delete-after -e "ssh -p2222" dist/ ci@rsync-ci.xuyh0120.win:/www/lantian.pub/
+
+          rm -rf $HOME/.ssh
+
+      - name: Upload files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Remove precompressed files
+        run: |
+          find dist/ -name \*.gz -or -name \*.br -or -name \*.zst -delete
+
       - name: Deploy to lantian1998.github.io
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         run: |
@@ -57,11 +80,6 @@ jobs:
           git config --global init.defaultBranch master
 
           pushd dist
-          cat > .gitignore <<EOF
-          *.gz
-          *.br
-          *.zst
-          EOF
 
           git init
           git add .
@@ -69,25 +87,5 @@ jobs:
           git remote add origin https://xddxdd-bot:${{ secrets.AUTOMERGE_TOKEN }}@github.com/lantian1998/lantian1998.github.io.git
           git push -u origin master --force
 
-          rm -rf .git .gitignore
+          rm -rf .git
           popd
-
-      - name: Setup SSH key
-        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
-        run: |
-          mkdir -p $HOME/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > $HOME/.ssh/id_ed25519
-          echo "StrictHostKeyChecking no" > $HOME/.ssh/config
-          chmod -R 500 $HOME/.ssh
-
-      - name: Rsync files over SSH
-        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
-        run: |
-          sudo apt-get install -y rsync
-          rsync -azr --delete-after -e "ssh -p2222" dist/ ci@rsync-ci.xuyh0120.win:/www/lantian.pub/
-
-      - name: Upload files
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
