@@ -7,6 +7,7 @@
     "start": "astro dev",
     "build": "npm run build-thumbs && npm run build-astro && npm run build-webp",
     "build-astro": "rm -rf .astro && astro check && astro build",
+    "build-fast": "rm -rf .astro && astro check && FAST_BUILD=1 astro build",
     "build-thumbs": "sh _scripts/thumbs.sh",
     "build-webp": "sh _scripts/webp.sh",
     "preview": "astro preview",

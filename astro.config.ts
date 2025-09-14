@@ -54,9 +54,13 @@ export default defineConfig({
       },
     }),
 
-    // Capo must be after all HTML pages are generated
-    capo(),
-    compress(),
+    ...(process.env.FAST_BUILD === '1'
+      ? []
+      : [
+          // Capo must be after all HTML pages are generated
+          capo(),
+          compress(),
+        ]),
   ],
   markdown: markdownPluginOptions,
   build: {
