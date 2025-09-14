@@ -20,7 +20,10 @@ export class Page {
     const path = paths.join('/')
 
     this.title = page.data.title
-    this.language = LANGUAGES[language!]!
+    if (!language || !LANGUAGES[language]) {
+      throw new Error(`Invalid or missing language: ${language}`)
+    }
+    this.language = LANGUAGES[language]
     this.path = path
     this.body = page.body
     this.bodyClass = page.data.bodyClass

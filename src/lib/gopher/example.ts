@@ -71,7 +71,10 @@ async function example(): Promise<void> {
   const frontmatterMatch = processedMarkdown.match(/^---\n([\s\S]*?)\n---/);
   if (frontmatterMatch) {
     try {
-      const frontmatterData = yaml.load(frontmatterMatch[1]!) as Record<
+      if (!frontmatterMatch[1]) {
+        throw new Error('Invalid frontmatter: content is empty')
+      }
+      const frontmatterData = yaml.load(frontmatterMatch[1]) as Record<
         string,
         unknown
       >;

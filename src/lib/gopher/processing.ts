@@ -61,15 +61,24 @@ export function processNode(
     case 'text':
       return createTextItems(hasValue(node) ? node.value : '', context);
 
-    case 'link':
+    case 'link': {
       const linkNode = node as Link;
-      return [createMediaItem(linkNode.url || '', extractText(node), context)];
+      if (!linkNode.url) {
+        throw new Error('Link node URL is required')
+      }
+      return [createMediaItem(linkNode.url, extractText(node), context)];
+    }
 
-    case 'image':
+    case 'image': {
       const imageNode = node as unknown as Image;
       return [
-        createMediaItem(imageNode.url || '', imageNode.alt || '', context),
+        createMediaItem(
+          imageNode.url || (() => { throw new Error('Image node URL is required') })(),
+          imageNode.alt || (() => { throw new Error('Image node alt text is required') })(),
+          context
+        ),
       ];
+    }
 
     case 'code':
       return processCodeBlock(node as unknown as Code, context);

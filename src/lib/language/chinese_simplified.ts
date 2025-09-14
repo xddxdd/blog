@@ -1,7 +1,7 @@
 import type { NavigationItem } from '../navigation'
 import { Language } from './type'
 
-const translationDict: Record<string, string | ((key: any) => string)> = {
+const translationDict: Record<string, string | ((key: unknown) => string)> = {
   list_category: category => `分类 ${category} 中的文章`,
   list_tag: tag => `含有标签 ${tag} 的文章`,
   powered_by: software => `基于 ${software} 构建`,
@@ -89,11 +89,16 @@ class LanguageChineseSimplifiedImpl extends Language {
     return 'Chinese Simplified / 简体中文'
   }
 
-  public override getTranslation(translationKey: string, args?: any): string {
+  public override getTranslation(translationKey: string, args?: unknown): string {
     if (args !== undefined) {
-      return (translationDict[translationKey]! as (key: any) => string)(args)
+      const translator = translationDict[translationKey]
+      if (typeof translator === 'function') {
+        return translator(args)
+      }
+      return translator || translationKey
     }
-    return translationDict[translationKey]! as string
+    const translation = translationDict[translationKey]
+    return typeof translation === 'string' ? translation : translationKey
   }
 
   public override getCategoryMap(): Record<string, string> {

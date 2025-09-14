@@ -18,6 +18,9 @@ export async function getStaticPaths() {
 
 export async function GET(context: APIContext) {
   const { language, path } = context.params
-  const post = await Post.findByLanguageAndPath(language, path || '')
+  if (!path) {
+    throw new Error('Article path is required')
+  }
+  const post = await Post.findByLanguageAndPath(language, path)
   return new Response(await post.renderGophermap())
 }

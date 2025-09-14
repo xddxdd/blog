@@ -7,10 +7,10 @@ import rehypeExternalLinks from 'rehype-external-links'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import { processNode, formatGopherItem } from './gopher/processing'
-// @ts-ignore
+// @ts-expect-error - remark-join-cjk-lines types are not available
 import remarkJoinCjkLines from 'remark-join-cjk-lines'
 import remarkMath from 'remark-math'
-// @ts-ignore
+// @ts-expect-error - remark-mermaid types are not available
 import remarkMermaid from 'remark-mermaid'
 import rehypePicture from 'rehype-picture'
 import { visit } from 'unist-util-visit'
@@ -18,7 +18,8 @@ import type { Node } from 'unist'
 import { CRLF } from './gopher'
 import { ProcessingContext } from './gopher/context'
 
-let remarkChineseQuotes = () => (tree: Node) => {
+const remarkChineseQuotes = () => (tree: Node) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   visit(tree, (node: any) => {
     if (typeof node.value === 'string') {
       node.value = node.value
@@ -30,7 +31,8 @@ let remarkChineseQuotes = () => (tree: Node) => {
   })
 }
 
-let remarkGophermap = () => {
+const remarkGophermap = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function transformer(tree: any, file: any) {
     const context = new ProcessingContext({
       host: '{{server_addr}}',

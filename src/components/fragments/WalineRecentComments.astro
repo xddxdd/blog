@@ -28,9 +28,11 @@ const __ = language.getTranslation
       return response.json()
     })
     .then(data => {
-      document.getElementById('recent-comments')!.innerHTML = data.data
+      const element = document.getElementById('recent-comments')
+      if (element) {
+        element.innerHTML = data.data
         .map((comment: RecentCommentData) => {
-          let text = comment.comment.replace(/(<([^>]+)>)/gi, '')
+          const text = comment.comment.replace(/(<([^>]+)>)/gi, '')
           return (
             '<li>' +
             comment.nick +
@@ -42,5 +44,6 @@ const __ = language.getTranslation
           )
         })
         .join('')
+      }
     })
 </script>

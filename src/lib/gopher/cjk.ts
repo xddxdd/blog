@@ -2,7 +2,7 @@ export class CharacterType {
   code: number;
 
   constructor(char: string) {
-    this.code = char.codePointAt(0)!;
+    this.code = char.codePointAt(0) || 0;
   }
 
   isCJKCharacter() {

@@ -13,7 +13,10 @@ const walineLanguageMapping: Record<string, string> = {
   en: 'en-US',
   zh: 'zh-CN',
 }
-const walineLanguage = walineLanguageMapping[language.getCode()]!
+const walineLanguage = walineLanguageMapping[language.getCode()]
+if (!walineLanguage) {
+  throw new Error(`Waline language mapping not found for: ${language.getCode()}`)
+}
 const walinePath = post.getFullURL().replace(/(\/+)$/, '')
 ---
 
@@ -31,12 +34,12 @@ const walinePath = post.getFullURL().replace(/(\/+)$/, '')
       window.location.hostname == 'localhost'
         ? 'https://comments.lantian.pub'
         : window.location.origin
-    const walineProps = walineElement!.dataset
+    const walineProps = walineElement.dataset
     init({
       el: '#waline',
       serverURL: origin,
-      path: walineProps.walinePath!,
-      lang: walineProps.walineLanguage!,
+      path: walineProps.walinePath || (() => { throw new Error('walinePath is required') })(),
+      lang: walineProps.walineLanguage || (() => { throw new Error('walineLanguage is required') })(),
       requiredMeta: ['nick', 'mail'],
       login: 'disable',
       emoji: [

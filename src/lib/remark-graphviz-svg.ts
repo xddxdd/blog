@@ -3,12 +3,15 @@ import { unified } from 'unified'
 import rehypeParse from 'rehype-parse'
 import { Graphviz } from '@hpcc-js/wasm-graphviz'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const remarkGraphvizSvg = (options?: any) => {
   // Destructure options
   const { language = 'graphviz', graphvizEngine = 'dot' } = options ?? {}
   // transformer can be async
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async function transformer(ast: any) {
     const graphviz = await Graphviz.load()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const instances: any[] = []
     // visit can't be async
     visit(ast, { type: 'code', lang: language }, (node, index, parent) => {
@@ -21,12 +24,14 @@ export const remarkGraphvizSvg = (options?: any) => {
     })
     // Wait for rendering all instances
     const diagrams = await Promise.all(
-      instances.map(async ([code]) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      instances.map(async ([code]: any) => {
         return graphviz.layout(code, 'svg', graphvizEngine)
       })
     )
     // Replace original code snippets
-    instances.forEach(([, index, parent], i) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    instances.forEach(([, index, parent]: any, i: number) => {
       parent.children.splice(index, 1, {
         type: 'paragraph',
         children: [
@@ -36,7 +41,7 @@ export const remarkGraphvizSvg = (options?: any) => {
           },
         ],
         data: {
-          hChildren: processor.parse(diagrams[i]).children,
+          hChildren: processor.parse(diagrams[i] as string).children,
         },
       })
     })

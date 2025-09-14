@@ -6,7 +6,7 @@ import { CRLF, type GopherItem, type GopherItemType } from '@lib/gopher'
 import { formatGopherItem } from '@lib/gopher/processing'
 
 export async function getStaticPaths() {
-  return Object.entries(LANGUAGES).flatMap(([_, language]) => ({
+  return Object.entries(LANGUAGES).flatMap(([, language]) => ({
     params: {
       language: language.isDefault() ? undefined : language.toString(),
     },
@@ -50,7 +50,7 @@ export async function GET(context: APIContext) {
     ...gopherItemArgs,
   })
   result.push(
-    ...Object.entries(LANGUAGES).flatMap(([_, otherLanguage]) => ({
+    ...Object.entries(LANGUAGES).flatMap(([, otherLanguage]) => ({
       text:
         otherLanguage.getDisplayName() +
         (isCurrentLanguage(otherLanguage) ? ' (*)' : ''),

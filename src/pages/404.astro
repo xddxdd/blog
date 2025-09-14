@@ -4,7 +4,10 @@ import PagePage from '@components/PagePage.astro'
 import { getPages } from '@lib/pages'
 
 const pages = await getPages()
-const page = pages.filter(page => page.path == '404')[0]!
+const page = pages.filter(page => page.path == '404')[0]
+if (!page) {
+  throw new Error('404 page not found')
+}
 ---
 
 <PageLayout title={page.title} language={page.language} page={page}>

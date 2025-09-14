@@ -83,7 +83,7 @@ function parseArgs(args: string[]): CliOptions {
         options.version = true;
         break;
       case '-o':
-      case '--output':
+      case '--output': {
         const outputValue = args[++i];
         if (!outputValue) {
           console.error('Error: --output requires a value');
@@ -91,8 +91,9 @@ function parseArgs(args: string[]): CliOptions {
         }
         options.output = outputValue;
         break;
+      }
       case '-h':
-      case '--host':
+      case '--host': {
         const hostValue = args[++i];
         if (!hostValue) {
           console.error('Error: --host requires a value');
@@ -100,8 +101,9 @@ function parseArgs(args: string[]): CliOptions {
         }
         options.host = hostValue;
         break;
+      }
       case '-p':
-      case '--port':
+      case '--port': {
         const portValue = args[++i];
         if (!portValue) {
           console.error('Error: --port requires a value');
@@ -109,8 +111,9 @@ function parseArgs(args: string[]): CliOptions {
         }
         options.port = portValue;
         break;
+      }
       case '-s':
-      case '--selector':
+      case '--selector': {
         const selectorValue = args[++i];
         if (!selectorValue) {
           console.error('Error: --selector requires a value');
@@ -118,8 +121,9 @@ function parseArgs(args: string[]): CliOptions {
         }
         options.baseSelector = selectorValue;
         break;
+      }
       case '-l':
-      case '--max-length':
+      case '--max-length': {
         const maxLengthValue = args[++i];
         if (!maxLengthValue) {
           console.error('Error: --max-length requires a value');
@@ -132,6 +136,7 @@ function parseArgs(args: string[]): CliOptions {
         }
         options.maxLength = maxLengthNum;
         break;
+      }
       default:
         if (arg.startsWith('-')) {
           console.error(`Error: Unknown option '${arg}'`);
@@ -168,13 +173,16 @@ async function convertMarkdownToGophermap(
   const frontmatterMatch = processedMarkdown.match(/^---\n([\s\S]*?)\n---/);
   if (frontmatterMatch) {
     try {
-      const frontmatterData = yaml.load(frontmatterMatch[1]!) as Record<
+      if (!frontmatterMatch[1]) {
+        throw new Error('Invalid frontmatter: content is empty')
+      }
+      const frontmatterData = yaml.load(frontmatterMatch[1]) as Record<
         string,
         unknown
       >;
       const gophermap = frontmatterData.gophermap;
       return typeof gophermap === 'string' ? gophermap : '';
-    } catch (error) {
+    } catch {
       // If frontmatter parsing fails, return empty string
       return '';
     }

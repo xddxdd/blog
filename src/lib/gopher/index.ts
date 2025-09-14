@@ -1,4 +1,4 @@
-import type { RemarkGophermapOptions, GophermapVFile, Root } from './types.js';
+import type { RemarkGophermapOptions, Root } from './types.js';
 import type { Yaml } from 'mdast';
 
 import { processNode, formatGopherItem } from './processing.js';
@@ -33,7 +33,7 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
     maxLength,
   } = options;
 
-  return function transformer(tree: Root, _file: GophermapVFile): Root {
+  return function transformer(tree: Root): Root {
     const context = new ProcessingContext({
       host,
       port,
@@ -47,7 +47,7 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
       .join(CRLF);
 
     // Find or create frontmatter node
-    let frontmatterNode = tree.children?.find(
+    const frontmatterNode = tree.children?.find(
       (child) => child.type === 'yaml',
     ) as Yaml | undefined;
 
@@ -69,7 +69,7 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
             noRefs: true, // Prevent YAML references
           })
           .trim();
-      } catch (error) {
+      } catch {
         // If parsing fails, create new frontmatter with just gophermap
         const yamlNode = frontmatterNode as Yaml;
         yamlNode.value = yaml

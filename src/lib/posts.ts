@@ -33,7 +33,10 @@ export class Post {
     this.tags = post.data.tags ?? []
     this.date = post.data.date ?? new Date(0)
     this.image = post.data.image
-    this.language = LANGUAGES[language!]!
+    if (!language || !LANGUAGES[language]) {
+      throw new Error(`Invalid or missing language: ${language}`)
+    }
+    this.language = LANGUAGES[language]
     this.path = path
     this.body = post.body
     this.bodyClass = post.data.bodyClass
@@ -89,11 +92,16 @@ export class Post {
           p.language.toString() === language) &&
         p.path === path
     )
+    if (posts.length === 0) {
+      throw new Error(`No posts found for language ${language} path ${path}`)
+    }
     if (posts.length !== 1) {
       throw new Error(
         `Found ${posts.length} posts for language ${language} path ${path}`
       )
     }
+    // We've verified posts.length === 1, so posts[0] is guaranteed to exist
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return posts[0]!
   }
 }
@@ -101,13 +109,20 @@ export class Post {
 export async function getPosts(): Promise<Post[]> {
   return (await getCollection('article'))
     .map(Post.fromCollectionEntry)
-    .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+    .sort((a: Post, b: Post) => b.date.valueOf() - a.date.valueOf())
 }
 
 export async function getFeedObject(context: APIContext): Promise<Feed> {
   const posts = await getPosts()
-  const siteURL = context.site!.origin
-  const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
+  if (!context.site?.origin) {
+    throw new Error('Site origin is required but not provided in context')
+  }
+  const siteURL = context.site.origin
+  const lastPost = posts[posts.length - 1]
+  if (!lastPost) {
+    throw new Error('No posts found to determine first post year')
+  }
+  const firstPostYear = lastPost.date.getFullYear()
   const copyright = `Copyright ${firstPostYear}-${new Date().getFullYear()} ${SITE_TITLE}`
   const feed = new Feed({
     title: SITE_TITLE,
@@ -169,9 +184,9 @@ export function getStaticPathsForPaginate(
   posts: Post[],
   basePathWithoutLanguage: string,
   additionalParams?: Record<string, string>,
-  additionalProps?: Record<string, any>
+  additionalProps?: Record<string, unknown>
 ) {
-  return Object.entries(LANGUAGES).flatMap(([_, language]) => {
+  return Object.entries(LANGUAGES).flatMap(([, language]) => {
     const postsForLanguage = posts.filter(post => post.language.is(language))
     const numPages = Math.ceil(postsForLanguage.length / POSTS_PER_PAGE)
     return [...Array(numPages).keys()].map(i => ({

@@ -18,7 +18,11 @@ const { pathname, host } = Astro.url
 const rendered = await post?.collectionEntry.render()
 
 const posts = await getPosts()
-const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
+const lastPost = posts[posts.length - 1]
+if (!lastPost) {
+  throw new Error('No posts found to determine first post year')
+}
+const firstPostYear = lastPost.date.getFullYear()
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -56,7 +60,7 @@ const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
 />
 
 {
-  Object.entries(LANGUAGES).map(([_, newLanguage]) => (
+  Object.entries(LANGUAGES).map(([, newLanguage]) => (
     <link
       rel="alternate"
       href={`https://${host}${language.getCanonicalPath(pathname, newLanguage)}`}
@@ -172,6 +176,8 @@ const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
       if (mode == 'dark' || mode == 'light') {
         document.documentElement.setAttribute('data-user-color-scheme', mode)
       }
-    } catch (e) {}
+    } catch {
+      // Ignore errors
+    }
   })()
 </script>

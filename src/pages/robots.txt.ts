@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
   const robotsTxt = `
 ${await aiRobotsTxt.text()}
 
-Sitemap: ${new URL('sitemap.xml', context.site!.origin).href}
+Sitemap: ${new URL('sitemap.xml', context.site?.origin || (() => { throw new Error('Site origin is required for sitemap generation') })()).href}
 `.trim()
 
   return new Response(robotsTxt, {

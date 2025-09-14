@@ -12,10 +12,13 @@ export default function wrappedFavicons(config: Options): AstroIntegration {
           ...args.config,
           publicDir: args.config.outDir,
         }
-        await _favicon.hooks['astro:config:setup']!({
+        const setupHook = _favicon.hooks['astro:config:setup']
+        if (setupHook) {
+          await setupHook({
           ...args,
-          config: updatedConfig,
-        })
+            config: updatedConfig,
+          })
+        }
       },
       'astro:server:start': async () => {},
       'astro:build:done': _favicon.hooks['astro:build:start'],
