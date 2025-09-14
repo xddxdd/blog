@@ -3,11 +3,12 @@ import { fileURLToPath } from 'node:url'
 import path from 'path'
 import fs from 'node:fs'
 
-const createPlugin = (): AstroIntegration => {
+const createPlugin = (_?: any): AstroIntegration => {
   return {
     name: '@lantian1998/astro-rename-sitemap',
     hooks: {
-      'astro:build:done': async ({ dir, logger }) => {
+      // @ts-ignore
+      'astro:build:done': async ({ dir, pages, logger }) => {
         const outputDir = fileURLToPath(dir)
         const sitemapFrom = path.join(outputDir, 'sitemap-index.xml')
         const sitemapTo = path.join(outputDir, 'sitemap.xml')

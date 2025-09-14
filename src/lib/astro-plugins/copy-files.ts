@@ -16,7 +16,8 @@ const createPlugin = (options: CopyFilePairOption[]): AstroIntegration => {
   return {
     name: '@lantian1998/astro-copy-files',
     hooks: {
-      'astro:build:done': async ({ dir, logger }) => {
+      // @ts-ignore
+      'astro:build:done': async ({ dir, pages, logger }) => {
         const outputDir = fileURLToPath(dir)
         options.forEach(pair => {
           const source = pair.source.startsWith('/')

@@ -36,16 +36,17 @@ function toArrayBuffer(buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length)
   const view = new Uint8Array(arrayBuffer)
   for (let i = 0; i < buffer.length; ++i) {
-    view[i] = buffer[i] ?? 0
+    view[i] = buffer[i]!
   }
   return arrayBuffer
 }
 
-const createPlugin = (): AstroIntegration => {
+const createPlugin = (_?: any): AstroIntegration => {
   return {
     name: '@lantian1998/astro-compress',
     hooks: {
-      'astro:build:done': async ({ dir, logger }) => {
+      // @ts-ignore
+      'astro:build:done': async ({ dir, pages, logger }) => {
         const outputDir = fileURLToPath(dir)
         const zstd = await Zstd.load()
 

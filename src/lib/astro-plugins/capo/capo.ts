@@ -32,6 +32,6 @@ function getSortedHead(head: ElementNode): ElementNode {
     .filter(Boolean) as [number, ElementNode][]
   const children = weightedChildren
     .sort((a, b) => b[0] - a[0])
-    .map(([, element]) => element)
+    .map(([_, element]) => element)
   return { ...head, children }
 }

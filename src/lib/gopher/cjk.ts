@@ -1,8 +1,8 @@
 export class CharacterType {
-  code: number
+  code: number;
 
   constructor(char: string) {
-    this.code = char.codePointAt(0) ?? 0
+    this.code = char.codePointAt(0)!;
   }
 
   isCJKCharacter() {
@@ -13,7 +13,7 @@ export class CharacterType {
       (this.code >= 0x3040 && this.code <= 0x309f) || // Hiragana
       (this.code >= 0x30a0 && this.code <= 0x30ff) || // Katakana
       (this.code >= 0xac00 && this.code <= 0xd7af)
-    ) // Hangul
+    ); // Hangul
   }
 
   isCJKPunctuation() {
@@ -26,7 +26,7 @@ export class CharacterType {
       (this.code >= 0xfe30 && this.code <= 0xfe4f) || // CJK Compatibility Forms
       (this.code >= 0x2010 && this.code <= 0x2027) || // General Punctuation (dash, quotation marks, etc.)
       (this.code >= 0x2030 && this.code <= 0x205f)
-    )
+    );
   }
 
   isLatinCharacter() {
@@ -34,7 +34,7 @@ export class CharacterType {
       !this.isCJKCharacter() &&
       !this.isCJKPunctuation() &&
       !this.isLatinPunctuation()
-    )
+    );
   }
 
   isLatinPunctuation() {
@@ -45,22 +45,22 @@ export class CharacterType {
       (this.code >= 0x007b && this.code <= 0x007e) || // {|}~
       (this.code >= 0x00a1 && this.code <= 0x00bf) || // Extended Latin punctuation
       (this.code >= 0x2000 && this.code <= 0x206f)
-    ) // General punctuation block
+    ); // General punctuation block
   }
 
   isCJK() {
-    return this.isCJKCharacter() || this.isCJKPunctuation()
+    return this.isCJKCharacter() || this.isCJKPunctuation();
   }
 
   isLatin() {
-    return this.isLatinCharacter() || this.isLatinPunctuation()
+    return this.isLatinCharacter() || this.isLatinPunctuation();
   }
 
   isCharacter() {
-    return this.isLatinCharacter() || this.isCJKCharacter()
+    return this.isLatinCharacter() || this.isCJKCharacter();
   }
 
   isPunctuation() {
-    return this.isLatinPunctuation() || this.isCJKPunctuation()
+    return this.isLatinPunctuation() || this.isCJKPunctuation();
   }
 }

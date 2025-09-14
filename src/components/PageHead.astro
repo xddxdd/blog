@@ -18,10 +18,7 @@ const { pathname, host } = Astro.url
 const rendered = await post?.collectionEntry.render()
 
 const posts = await getPosts()
-const firstPostYear =
-  posts.length > 0
-    ? (posts[posts.length - 1]?.date.getFullYear() ?? new Date().getFullYear())
-    : new Date().getFullYear()
+const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
 ---
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -59,7 +56,7 @@ const firstPostYear =
 />
 
 {
-  Object.entries(LANGUAGES).map(([, newLanguage]) => (
+  Object.entries(LANGUAGES).map(([_, newLanguage]) => (
     <link
       rel="alternate"
       href={`https://${host}${language.getCanonicalPath(pathname, newLanguage)}`}
@@ -141,6 +138,7 @@ const firstPostYear =
 {
   (post !== undefined && (
     <>
+      Z
       <meta
         property="image"
         content={`https://${host}${post.image ?? '/apple-touch-icon.png'}`}
@@ -174,8 +172,6 @@ const firstPostYear =
       if (mode == 'dark' || mode == 'light') {
         document.documentElement.setAttribute('data-user-color-scheme', mode)
       }
-    } catch {
-      // Ignore localStorage errors
-    }
+    } catch (e) {}
   })()
 </script>

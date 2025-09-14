@@ -10,11 +10,12 @@ export type CopyFilePairOption = {
   dest?: string
 }
 
-const createPlugin = (): AstroIntegration => {
+const createPlugin = (_?: any): AstroIntegration => {
   return {
     name: '@lantian1998/astro-capo',
     hooks: {
-      'astro:build:done': async ({ dir, logger }) => {
+      // @ts-ignore
+      'astro:build:done': async ({ dir, pages, logger }) => {
         const outputDir = fileURLToPath(dir)
 
         const htmlFiles = await glob(path.join(outputDir, '**/*.html'))

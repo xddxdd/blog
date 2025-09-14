@@ -1,9 +1,9 @@
-import type { RemarkGophermapOptions, Root } from './types.js'
-import type { Yaml } from 'mdast'
+import type { RemarkGophermapOptions, GophermapVFile, Root } from './types.js';
+import type { Yaml } from 'mdast';
 
-import { processNode, formatGopherItem } from './processing.js'
-import { ProcessingContext } from './context.js'
-import * as yaml from 'js-yaml'
+import { processNode, formatGopherItem } from './processing.js';
+import { ProcessingContext } from './context.js';
+import * as yaml from 'js-yaml';
 
 // Re-export types for consumers
 export type {
@@ -14,9 +14,9 @@ export type {
   Root,
   Content,
   PhrasingContent,
-} from './types.js'
+} from './types.js';
 
-export const CRLF = '\r\n'
+export const CRLF = '\r\n';
 
 /**
  * Remark plugin to convert markdown AST to Gopher protocol format (gophermap)
@@ -31,36 +31,36 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
     port = '70',
     baseSelector = '/',
     maxLength,
-  } = options
+  } = options;
 
-  return function transformer(tree: Root): Root {
+  return function transformer(tree: Root, _file: GophermapVFile): Root {
     const context = new ProcessingContext({
       host,
       port,
       baseSelector,
       prefixes: [],
       maxLength,
-    })
-    const gopherItems = processNode(tree, context)
+    });
+    const gopherItems = processNode(tree, context);
     const gophermapContent = gopherItems
-      .map(item => formatGopherItem(item))
-      .join(CRLF)
+      .map((item) => formatGopherItem(item))
+      .join(CRLF);
 
     // Find or create frontmatter node
-    const frontmatterNode = tree.children?.find(
-      child => child.type === 'yaml'
-    ) as Yaml | undefined
+    let frontmatterNode = tree.children?.find(
+      (child) => child.type === 'yaml',
+    ) as Yaml | undefined;
 
     if (frontmatterNode && frontmatterNode.type === 'yaml') {
       // Parse existing YAML frontmatter
       try {
-        const yamlNode = frontmatterNode as Yaml
+        const yamlNode = frontmatterNode as Yaml;
         const frontmatterData = yamlNode.value
           ? (yaml.load(yamlNode.value) as Record<string, unknown>)
-          : {}
+          : {};
 
         // Add gophermap field
-        frontmatterData.gophermap = gophermapContent
+        frontmatterData.gophermap = gophermapContent;
 
         // Update the frontmatter node
         yamlNode.value = yaml
@@ -68,19 +68,19 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
             lineWidth: -1, // Prevent line wrapping
             noRefs: true, // Prevent YAML references
           })
-          .trim()
-      } catch {
+          .trim();
+      } catch (error) {
         // If parsing fails, create new frontmatter with just gophermap
-        const yamlNode = frontmatterNode as Yaml
+        const yamlNode = frontmatterNode as Yaml;
         yamlNode.value = yaml
           .dump(
             { gophermap: gophermapContent },
             {
               lineWidth: -1,
               noRefs: true,
-            }
+            },
           )
-          .trim()
+          .trim();
       }
     } else {
       // No frontmatter exists, create new YAML frontmatter
@@ -92,18 +92,18 @@ export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
             {
               lineWidth: -1,
               noRefs: true,
-            }
+            },
           )
           .trim(),
-      }
+      };
 
       // Insert at the beginning of the document
       if (!tree.children) {
-        tree.children = []
+        tree.children = [];
       }
-      tree.children.unshift(newFrontmatter)
+      tree.children.unshift(newFrontmatter);
     }
 
-    return tree
-  }
+    return tree;
+  };
 }

@@ -14,10 +14,7 @@ type Props = {
 
 const __ = Astro.props.language.getTranslation
 const posts = await getPosts()
-const firstPostYear =
-  posts.length > 0
-    ? (posts[posts.length - 1]?.date.getFullYear() ?? new Date().getFullYear())
-    : new Date().getFullYear()
+const firstPostYear = posts[posts.length - 1]!.date.getFullYear()
 ---
 
 <footer class="lantian clearfix">

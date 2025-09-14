@@ -1,4 +1,4 @@
-import type { VFile } from 'vfile'
+import type { VFile } from 'vfile';
 
 /**
  * Gopher protocol item types
@@ -13,31 +13,31 @@ export type GopherItemType =
   | 'h' // HTML file
   | 'I' // Image file
   | 's' // Sound file
-  | 'i' // Information line
+  | 'i'; // Information line
 
 /**
  * Plugin configuration options
  */
 export interface RemarkGophermapOptions {
   /** Gopher server hostname */
-  host?: string
+  host?: string;
   /** Gopher server port */
-  port?: string
+  port?: string;
   /** Base path for relative links */
-  baseSelector?: string
+  baseSelector?: string;
   /** Maximum line length for text wrapping */
-  maxLength?: number
+  maxLength?: number;
 }
 
 /**
  * Gopher item object structure
  */
 export interface GopherItem {
-  type: GopherItemType
-  text: string
-  selector: string
-  host: string
-  port: string
+  type: GopherItemType;
+  text: string;
+  selector: string;
+  host: string;
+  port: string;
 }
 
 /**
@@ -45,10 +45,10 @@ export interface GopherItem {
  */
 export interface GophermapVFile extends VFile {
   data: {
-    gophermap?: string
-    [key: string]: unknown
-  }
+    gophermap?: string;
+    [key: string]: unknown;
+  };
 }
 
 // Re-export mdast types for convenience
-export type { Root, Content, PhrasingContent } from 'mdast'
+export type { Root, Content, PhrasingContent } from 'mdast';
