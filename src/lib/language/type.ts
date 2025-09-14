@@ -1,4 +1,4 @@
-import { DEFAULT_LANGUAGE_CODE } from '../../consts'
+import { DEFAULT_LANGUAGE_CODE } from '@consts'
 import type { NavigationItem } from '../navigation'
 
 export abstract class Language {

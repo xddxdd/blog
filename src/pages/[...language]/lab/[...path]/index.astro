@@ -1,7 +1,7 @@
 ---
-import PageLayout from '../../../../components/PageLayout.astro'
-import PagePage from '../../../../components/PagePage.astro'
-import { Page, getLabPages } from '../../../../lib/pages'
+import PageLayout from '@components/PageLayout.astro'
+import PagePage from '@components/PagePage.astro'
+import { Page, getLabPages } from '@lib/pages'
 
 export async function getStaticPaths() {
   const pages = await getLabPages()

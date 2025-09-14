@@ -1,4 +1,4 @@
-import { getFeedObject } from '../lib/posts'
+import { getFeedObject } from '@lib/posts'
 import type { APIContext } from 'astro'
 
 export async function GET(context: APIContext) {

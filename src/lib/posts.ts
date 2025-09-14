@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { POSTS_PER_PAGE, SITE_AUTHOR, SITE_TITLE } from '../consts'
+import { POSTS_PER_PAGE, SITE_AUTHOR, SITE_TITLE } from '@consts'
 import { type Language, LANGUAGES, DEFAULT_LANGUAGE } from './language'
 import type { PaginationProps } from '../components/PagePaginator.astro'
 import { Feed } from 'feed'

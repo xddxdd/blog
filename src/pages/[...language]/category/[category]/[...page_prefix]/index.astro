@@ -1,10 +1,10 @@
 ---
-import { getPosts, getStaticPathsForPaginate } from '../../../../../lib/posts'
-import type { PaginatedProps } from '../../../../../lib/posts'
-import PageLayout from '../../../../../components/PageLayout.astro'
-import PageArchive from '../../../../../components/PageArchive.astro'
-import { CATEGORY_MAP } from '../../../../../lib/language'
-import { replaceInvalidUrlChars, reverseRecord } from '../../../../../lib/utils'
+import { getPosts, getStaticPathsForPaginate } from '@lib/posts'
+import type { PaginatedProps } from '@lib/posts'
+import PageLayout from '@components/PageLayout.astro'
+import PageArchive from '@components/PageArchive.astro'
+import { CATEGORY_MAP } from '@lib/language'
+import { replaceInvalidUrlChars, reverseRecord } from '@lib/utils'
 
 export async function getStaticPaths() {
   const categories = [
