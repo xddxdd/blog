@@ -12,25 +12,16 @@ const GZIP_ENABLED = true
 const BROTLI_ENABLED = true
 const ZSTD_ENABLED = true
 
-const shouldKeep = (
+const log = (
   logger: AstroIntegrationLogger,
   filePath: string,
   compressType: string,
   originalBytes: number,
-  compressedBytes: number,
-  acceptableBytes: number
-): boolean => {
-  if (compressedBytes < acceptableBytes) {
-    logger.info(
-      `Compressing ${filePath} with ${compressType}: ${originalBytes} -> ${compressedBytes}`
-    )
-    return true
-  } else {
-    logger.info(
-      `Compressing ${filePath} with ${compressType}: ${originalBytes} -> ${compressedBytes} (max acceptable ${acceptableBytes}, discarding)`
-    )
-    return false
-  }
+  compressedBytes: number
+) => {
+  logger.info(
+    `Compressing ${filePath} with ${compressType}: ${originalBytes} -> ${compressedBytes}`
+  )
 }
 
 function toArrayBuffer(buffer: Buffer): ArrayBuffer {
@@ -55,7 +46,6 @@ const createPlugin = (): AstroIntegration => {
           files.map(async filePath => {
             const content = fs.readFileSync(filePath)
             const originalLength = content.byteLength
-            let acceptableLength = originalLength
 
             if (GZIP_ENABLED) {
               const gzipContent = zlib.gzipSync(toArrayBuffer(content), {
@@ -63,19 +53,8 @@ const createPlugin = (): AstroIntegration => {
               })
               const gzipLength = gzipContent.byteLength
 
-              if (
-                shouldKeep(
-                  logger,
-                  filePath,
-                  'gzip',
-                  originalLength,
-                  gzipLength,
-                  acceptableLength
-                )
-              ) {
-                fs.writeFileSync(`${filePath}.gz`, new Uint8Array(gzipContent))
-                acceptableLength = Math.min(acceptableLength, gzipLength)
-              }
+              log(logger, filePath, 'gzip', originalLength, gzipLength)
+              fs.writeFileSync(`${filePath}.gz`, new Uint8Array(gzipContent))
             }
 
             if (BROTLI_ENABLED) {
@@ -88,41 +67,16 @@ const createPlugin = (): AstroIntegration => {
               )
               const brotliLength = brotliContent.byteLength
 
-              if (
-                shouldKeep(
-                  logger,
-                  filePath,
-                  'brotli',
-                  originalLength,
-                  brotliLength,
-                  acceptableLength
-                )
-              ) {
-                fs.writeFileSync(
-                  `${filePath}.br`,
-                  new Uint8Array(brotliContent)
-                )
-                acceptableLength = Math.min(acceptableLength, brotliLength)
-              }
+              log(logger, filePath, 'brotli', originalLength, brotliLength)
+              fs.writeFileSync(`${filePath}.br`, new Uint8Array(brotliContent))
             }
 
             if (ZSTD_ENABLED) {
               const zstdContent = zstd.compress(new Uint8Array(content), 19)
               const zstdLength = zstdContent.byteLength
 
-              if (
-                shouldKeep(
-                  logger,
-                  filePath,
-                  'zstd',
-                  originalLength,
-                  zstdLength,
-                  acceptableLength
-                )
-              ) {
-                fs.writeFileSync(`${filePath}.zst`, zstdContent)
-                acceptableLength = Math.min(acceptableLength, zstdLength)
-              }
+              log(logger, filePath, 'zstd', originalLength, zstdLength)
+              fs.writeFileSync(`${filePath}.zst`, zstdContent)
             }
           })
         )

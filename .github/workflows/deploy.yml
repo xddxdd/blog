@@ -73,7 +73,7 @@ jobs:
 
       - name: Remove precompressed files
         run: |
-          find dist/ -name \*.gz -or -name \*.br -or -name \*.zst -delete
+          find dist/ -iname '*.gz' -or -iname '*.br' -or -iname '*.zst' -or -iname gophermap -delete
 
       - name: Deploy to lantian1998.github.io
         if:
