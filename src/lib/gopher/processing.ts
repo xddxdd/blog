@@ -70,7 +70,7 @@ export function processNode(
     }
 
     case 'image': {
-      const imageNode = node as unknown as Image;
+      const imageNode = node as Image;
       return [
         createMediaItem(
           imageNode.url || (() => { throw new Error('Image node URL is required') })(),
@@ -81,7 +81,7 @@ export function processNode(
     }
 
     case 'code':
-      return processCodeBlock(node as unknown as Code, context);
+      return processCodeBlock(node as Code, context);
 
     case 'thematicBreak':
       return processThematicBreak(node as ThematicBreak, context);

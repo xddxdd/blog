@@ -7,6 +7,7 @@ import type { APIContext } from 'astro'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { getContainerRenderer as getMdxContainerRenderer } from '@astrojs/mdx'
 import { loadRenderers } from 'astro/virtual-modules/container.js'
+import type { GetStaticPathsItem } from 'astro'
 
 export class Post {
   public readonly title: string
@@ -184,7 +185,7 @@ export function getStaticPathsForPaginate(
   posts: Post[],
   basePathWithoutLanguage: string,
   additionalParams?: Record<string, string>,
-  additionalProps?: Record<string, unknown>
+  additionalProps?: GetStaticPathsItem['props']
 ) {
   return Object.entries(LANGUAGES).flatMap(([, language]) => {
     const postsForLanguage = posts.filter(post => post.language.is(language))
