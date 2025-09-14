@@ -12,6 +12,18 @@ import { markdownPluginOptions } from './src/lib/markdown-config'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://lantian.pub',
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // Suppress deprecation warnings from dependencies
+          quietDeps: true,
+          // You can also use verbose: false to reduce output further
+          verbose: false,
+        },
+      },
+    },
+  },
   integrations: [
     mdx(),
 
@@ -57,10 +69,10 @@ export default defineConfig({
     ...(process.env.FAST_BUILD === '1'
       ? []
       : [
-          // Capo must be after all HTML pages are generated
-          capo(),
-          compress(),
-        ]),
+        // Capo must be after all HTML pages are generated
+        capo(),
+        compress(),
+      ]),
   ],
   markdown: markdownPluginOptions,
   build: {
