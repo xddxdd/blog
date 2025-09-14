@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "check": "astro check && eslint",
+    "check": "astro check && eslint && npm run check-prettier",
+    "check-prettier": "prettier --check --plugin=prettier-plugin-astro .",
     "build": "npm run build-thumbs && npm run build-astro && npm run build-webp",
     "build-astro": "rm -rf .astro && npm run check && astro build",
     "build-fast": "rm -rf .astro && npm run check && FAST_BUILD=1 astro build",
@@ -14,7 +15,6 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write --plugin=prettier-plugin-astro .",
-    "prettier:check": "prettier --check --plugin=prettier-plugin-astro .",
     "serve": "python3 -m http.server 8000 -d dist"
   },
   "dependencies": {

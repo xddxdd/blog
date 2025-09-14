@@ -89,7 +89,10 @@ class LanguageChineseSimplifiedImpl extends Language {
     return 'Chinese Simplified / 简体中文'
   }
 
-  public override getTranslation(translationKey: string, args?: unknown): string {
+  public override getTranslation(
+    translationKey: string,
+    args?: unknown
+  ): string {
     if (args !== undefined) {
       const translator = translationDict[translationKey]
       if (typeof translator === 'function') {

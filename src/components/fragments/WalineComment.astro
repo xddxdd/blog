@@ -15,7 +15,9 @@ const walineLanguageMapping: Record<string, string> = {
 }
 const walineLanguage = walineLanguageMapping[language.getCode()]
 if (!walineLanguage) {
-  throw new Error(`Waline language mapping not found for: ${language.getCode()}`)
+  throw new Error(
+    `Waline language mapping not found for: ${language.getCode()}`
+  )
 }
 const walinePath = post.getFullURL().replace(/(\/+)$/, '')
 ---
@@ -38,8 +40,16 @@ const walinePath = post.getFullURL().replace(/(\/+)$/, '')
     init({
       el: '#waline',
       serverURL: origin,
-      path: walineProps.walinePath || (() => { throw new Error('walinePath is required') })(),
-      lang: walineProps.walineLanguage || (() => { throw new Error('walineLanguage is required') })(),
+      path:
+        walineProps.walinePath ||
+        (() => {
+          throw new Error('walinePath is required')
+        })(),
+      lang:
+        walineProps.walineLanguage ||
+        (() => {
+          throw new Error('walineLanguage is required')
+        })(),
       requiredMeta: ['nick', 'mail'],
       login: 'disable',
       emoji: [

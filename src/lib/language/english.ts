@@ -92,7 +92,10 @@ class LanguageEnglishImpl extends Language {
     return 'English'
   }
 
-  public override getTranslation(translationKey: string, args?: unknown): string {
+  public override getTranslation(
+    translationKey: string,
+    args?: unknown
+  ): string {
     if (args !== undefined) {
       const translator = translationDict[translationKey]
       if (typeof translator === 'function') {

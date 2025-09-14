@@ -236,15 +236,21 @@ const { pathname } = Astro.url
 
   const autoElement = document.getElementById('color-scheme-auto')
   if (autoElement) {
-    autoElement.addEventListener('click', () => applyCustomDarkModeSettings('auto'))
+    autoElement.addEventListener('click', () =>
+      applyCustomDarkModeSettings('auto')
+    )
   }
   const lightElement = document.getElementById('color-scheme-light')
   if (lightElement) {
-    lightElement.addEventListener('click', () => applyCustomDarkModeSettings('light'))
+    lightElement.addEventListener('click', () =>
+      applyCustomDarkModeSettings('light')
+    )
   }
   const darkElement = document.getElementById('color-scheme-dark')
   if (darkElement) {
-    darkElement.addEventListener('click', () => applyCustomDarkModeSettings('dark'))
+    darkElement.addEventListener('click', () =>
+      applyCustomDarkModeSettings('dark')
+    )
   }
 </script>
 

@@ -31,19 +31,19 @@ const __ = language.getTranslation
       const element = document.getElementById('recent-comments')
       if (element) {
         element.innerHTML = data.data
-        .map((comment: RecentCommentData) => {
-          const text = comment.comment.replace(/(<([^>]+)>)/gi, '')
-          return (
-            '<li>' +
-            comment.nick +
-            ' <a href="' +
-            comment.url +
-            '">' +
-            text +
-            '</a></li>'
-          )
-        })
-        .join('')
+          .map((comment: RecentCommentData) => {
+            const text = comment.comment.replace(/(<([^>]+)>)/gi, '')
+            return (
+              '<li>' +
+              comment.nick +
+              ' <a href="' +
+              comment.url +
+              '">' +
+              text +
+              '</a></li>'
+            )
+          })
+          .join('')
       }
     })
 </script>

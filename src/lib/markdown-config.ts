@@ -19,7 +19,7 @@ import { CRLF } from './gopher'
 import { ProcessingContext } from './gopher/context'
 
 const remarkChineseQuotes = () => (tree: Node) => {
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   visit(tree, (node: any) => {
     if (typeof node.value === 'string') {
       node.value = node.value
@@ -32,7 +32,7 @@ const remarkChineseQuotes = () => (tree: Node) => {
 }
 
 const remarkGophermap = () => {
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function transformer(tree: any, file: any) {
     const context = new ProcessingContext({
       host: '{{server_addr}}',

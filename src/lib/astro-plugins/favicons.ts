@@ -15,7 +15,7 @@ export default function wrappedFavicons(config: Options): AstroIntegration {
         const setupHook = _favicon.hooks['astro:config:setup']
         if (setupHook) {
           await setupHook({
-          ...args,
+            ...args,
             config: updatedConfig,
           })
         }

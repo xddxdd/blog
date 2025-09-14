@@ -1,0 +1,21 @@
+# Exclude Markdown and MDX files
+*.md
+*.mdx
+
+# Common directories to ignore
+node_modules/
+dist/
+build/
+.next/
+.astro/
+img_cache/
+public/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated files
+*.min.js
+*.min.css
