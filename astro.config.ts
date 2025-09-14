@@ -1,12 +1,13 @@
-import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
-import sitemap from '@astrojs/sitemap'
 import react from '@astrojs/react'
-import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
+import sitemap from '@astrojs/sitemap'
+import { defineConfig } from 'astro/config'
+
+import { SITE_TITLE } from './src/consts'
 import capo from './src/lib/astro-plugins/capo'
 import compress from './src/lib/astro-plugins/compress'
 import favicons from './src/lib/astro-plugins/favicons'
-import { SITE_TITLE } from './src/consts'
+import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
 import { markdownPluginOptions } from './src/lib/markdown-config'
 
 // https://astro.build/config
@@ -69,10 +70,10 @@ export default defineConfig({
     ...(process.env.FAST_BUILD === '1'
       ? []
       : [
-        // Capo must be after all HTML pages are generated
-        capo(),
-        compress(),
-      ]),
+          // Capo must be after all HTML pages are generated
+          capo(),
+          compress(),
+        ]),
   ],
   markdown: markdownPluginOptions,
   build: {

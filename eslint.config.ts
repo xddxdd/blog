@@ -1,8 +1,9 @@
-import { defineConfig, globalIgnores } from 'eslint/config'
 import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import { defineConfig, globalIgnores } from 'eslint/config'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import eslintPluginAstro from 'eslint-plugin-astro'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import tseslint from 'typescript-eslint'
 
 export default defineConfig(
   eslint.configs.recommended,
@@ -17,5 +18,6 @@ export default defineConfig(
       'simple-import-sort/exports': 'error',
     },
   },
-  globalIgnores(['dist/', 'public/', '*.config.*', '.*'])
+  eslintConfigPrettier,
+  globalIgnores(['dist/', 'public/', '.*'])
 )
