@@ -98,7 +98,7 @@ const { pathname } = Astro.url
           </a>
           <ul class="dropdown-menu" aria-labelledby="languages-dropdown">
             {
-              Object.entries(LANGUAGES).map(([_, newLanguage]) => {
+              Object.entries(LANGUAGES).map(([, newLanguage]) => {
                 const canonicalPath = language.getCanonicalPath(
                   pathname,
                   newLanguage
@@ -185,13 +185,15 @@ const { pathname } = Astro.url
   const setLS = (k: string, v: string) => {
     try {
       localStorage.setItem(k, v)
-    } catch (e) {}
+    } catch {
+      // Ignore localStorage errors
+    }
   }
 
   const getLS = (k: string) => {
     try {
       return localStorage.getItem(k)
-    } catch (e) {
+    } catch {
       return null // 与 localStorage 中没有找到对应 key 的行为一致
     }
   }
@@ -210,7 +212,8 @@ const { pathname } = Astro.url
     setLS(darkModeStorageKey, mode)
 
     for (const key in validColorModeKeys) {
-      const elem = document.getElementById('color-scheme-' + key)!
+      const elem = document.getElementById('color-scheme-' + key)
+      if (!elem) return
       if (key == mode) {
         elem.classList.add('active')
       } else {
@@ -231,15 +234,15 @@ const { pathname } = Astro.url
   // 当页面加载时，将显示模式设置为 localStorage 中自定义的值（如果有的话）
   applyCustomDarkModeSettings(getLS(darkModeStorageKey))
 
-  document
-    .getElementById('color-scheme-auto')!
-    .addEventListener('click', () => applyCustomDarkModeSettings('auto'))
-  document
-    .getElementById('color-scheme-light')!
-    .addEventListener('click', () => applyCustomDarkModeSettings('light'))
-  document
-    .getElementById('color-scheme-dark')!
-    .addEventListener('click', () => applyCustomDarkModeSettings('dark'))
+  const autoElem = document.getElementById('color-scheme-auto')
+  const lightElem = document.getElementById('color-scheme-light')
+  const darkElem = document.getElementById('color-scheme-dark')
+
+  autoElem?.addEventListener('click', () => applyCustomDarkModeSettings('auto'))
+  lightElem?.addEventListener('click', () =>
+    applyCustomDarkModeSettings('light')
+  )
+  darkElem?.addEventListener('click', () => applyCustomDarkModeSettings('dark'))
 </script>
 
 <style lang="scss">

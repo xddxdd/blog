@@ -1,9 +1,9 @@
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkStringify from 'remark-stringify';
-import remarkGophermap from './index.js';
-import * as yaml from 'js-yaml';
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkStringify from 'remark-stringify'
+import remarkGophermap from './index.js'
+import * as yaml from 'js-yaml'
 
 const markdown = `# Welcome to My Gopher Site
 
@@ -47,7 +47,7 @@ telnet gopher.floodgap.com 70
 > "The Gopher protocol is a communications protocol designed for distributing, searching, and retrieving documents in Internet Protocol networks."
 
 Thank you for visiting!
-`;
+`
 
 async function example(): Promise<void> {
   const processor = unified()
@@ -58,33 +58,33 @@ async function example(): Promise<void> {
       port: '70',
       baseSelector: '/docs/',
     })
-    .use(remarkStringify);
+    .use(remarkStringify)
 
-  const result = await processor.process(markdown);
-  const processedMarkdown = String(result);
+  const result = await processor.process(markdown)
+  const processedMarkdown = String(result)
 
-  console.log('Generated Markdown with Gophermap in Frontmatter:');
-  console.log('=================================================');
-  console.log(processedMarkdown);
+  console.log('Generated Markdown with Gophermap in Frontmatter:')
+  console.log('=================================================')
+  console.log(processedMarkdown)
 
   // Extract just the gophermap content
-  const frontmatterMatch = processedMarkdown.match(/^---\n([\s\S]*?)\n---/);
+  const frontmatterMatch = processedMarkdown.match(/^---\n([\s\S]*?)\n---/)
   if (frontmatterMatch) {
     try {
-      const frontmatterData = yaml.load(frontmatterMatch[1]!) as Record<
+      const frontmatterData = yaml.load(frontmatterMatch[1] ?? '') as Record<
         string,
         unknown
-      >;
-      const gophermap = frontmatterData.gophermap;
+      >
+      const gophermap = frontmatterData.gophermap
       if (typeof gophermap === 'string') {
-        console.log('\nExtracted Gophermap:');
-        console.log('===================');
-        console.log(gophermap);
+        console.log('\nExtracted Gophermap:')
+        console.log('===================')
+        console.log(gophermap)
       }
     } catch (error) {
-      console.error('Error parsing frontmatter:', error);
+      console.error('Error parsing frontmatter:', error)
     }
   }
 }
 
-example().catch(console.error);
+example().catch(console.error)

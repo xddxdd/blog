@@ -28,19 +28,22 @@ const __ = language.getTranslation
       return response.json()
     })
     .then(data => {
-      document.getElementById('recent-comments')!.innerHTML = data.data
-        .map((comment: RecentCommentData) => {
-          let text = comment.comment.replace(/(<([^>]+)>)/gi, '')
-          return (
-            '<li>' +
-            comment.nick +
-            ' <a href="' +
-            comment.url +
-            '">' +
-            text +
-            '</a></li>'
-          )
-        })
-        .join('')
+      const recentCommentsElement = document.getElementById('recent-comments')
+      if (recentCommentsElement) {
+        recentCommentsElement.innerHTML = data.data
+          .map((comment: RecentCommentData) => {
+            const text = comment.comment.replace(/(<([^>]+)>)/gi, '')
+            return (
+              '<li>' +
+              comment.nick +
+              ' <a href="' +
+              comment.url +
+              '">' +
+              text +
+              '</a></li>'
+            )
+          })
+          .join('')
+      }
     })
 </script>

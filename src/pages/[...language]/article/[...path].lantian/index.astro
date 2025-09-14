@@ -6,7 +6,7 @@ import { LANGUAGES } from '@lib/language'
 
 export async function getStaticPaths() {
   const posts = await getPosts()
-  return Object.entries(LANGUAGES).flatMap(([_, language]) => {
+  return Object.entries(LANGUAGES).flatMap(([, language]) => {
     const postsForLanguage = posts.filter(post => post.language.is(language))
     return postsForLanguage.map((post, index) => ({
       params: {

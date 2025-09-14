@@ -46,7 +46,7 @@ const __ = language.getTranslation
             {__('category')}{' '}
             <a
               class="badge badge-tag"
-              href={`${language.getSegment()}/category/${replaceInvalidUrlChars(CATEGORY_MAP[post.category]!)}`}
+              href={`${language.getSegment()}/category/${replaceInvalidUrlChars(CATEGORY_MAP[post.category] ?? post.category)}`}
             >
               {post.category}
             </a>

@@ -8,7 +8,7 @@ import { replaceInvalidUrlChars, reverseRecord } from '@lib/utils'
 
 export async function getStaticPaths() {
   const categories = [
-    ...new Set(Object.entries(CATEGORY_MAP).map(([_, v]) => v)),
+    ...new Set(Object.entries(CATEGORY_MAP).map(([, v]) => v)),
   ]
   const posts = await getPosts()
 

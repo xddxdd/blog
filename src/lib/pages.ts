@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { type Language, LANGUAGES } from './language'
+import { type Language, LANGUAGES, DEFAULT_LANGUAGE } from './language'
 
 export type PageCollectionTypes =
   | CollectionEntry<'page'>
@@ -20,7 +20,7 @@ export class Page {
     const path = paths.join('/')
 
     this.title = page.data.title
-    this.language = LANGUAGES[language!]!
+    this.language = LANGUAGES[language ?? ''] ?? DEFAULT_LANGUAGE
     this.path = path
     this.body = page.body
     this.bodyClass = page.data.bodyClass

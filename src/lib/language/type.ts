@@ -34,7 +34,7 @@ export abstract class Language {
     return language.getSegment() + pathWithoutLanguage
   }
 
-  public abstract getTranslation(translationKey: string, args?: any): string
+  public abstract getTranslation(translationKey: string, args?: unknown): string
   public abstract getCategoryMap(): Record<string, string>
   public abstract getNavBarItems(): NavigationItem[]
   public abstract getLinkItems(): NavigationItem[]

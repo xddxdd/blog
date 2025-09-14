@@ -1,5 +1,5 @@
 import 'instant.page'
-// @ts-ignore
+// @ts-expect-error - SimpleLightbox has no type definitions
 import SimpleLightbox from 'simple-lightbox'
 
 import attempt from './js/attempt'
@@ -20,7 +20,7 @@ import { initCallback } from 'bootstrap.native'
 
   attempt('Simple Lightbox', function () {
     'use strict'
-    let lightbox_onclick = function (
+    const lightbox_onclick = function (
       this: GlobalEventHandlers,
       ev: MouseEvent
     ) {
@@ -30,11 +30,13 @@ import { initCallback } from 'bootstrap.native'
       })
       try {
         ev.preventDefault()
-      } catch (err) {}
+      } catch {
+        // Ignore preventDefault errors
+      }
       return false
     }
 
-    let posts = document.getElementsByClassName('post-text')
+    const posts = document.getElementsByClassName('post-text')
     for (const post of posts) {
       for (const img of post.getElementsByTagName('img')) {
         img.onclick = lightbox_onclick
@@ -42,7 +44,7 @@ import { initCallback } from 'bootstrap.native'
       }
     }
 
-    let qrcodes = document.getElementsByClassName(
+    const qrcodes = document.getElementsByClassName(
       'qrcode-box'
     ) as HTMLCollectionOf<HTMLImageElement>
     for (const qrcode of qrcodes) {
@@ -53,9 +55,12 @@ import { initCallback } from 'bootstrap.native'
   attempt('Interactive Content', function () {
     'use strict'
 
-    let interactive_update = function (element: HTMLInputElement) {
-      let this_tag = element.dataset.ltiTag!
-      let child = document.getElementById(`lti-content-${this_tag}`)
+    const interactive_update = function (element: HTMLInputElement) {
+      const this_tag = element.dataset.ltiTag
+      if (!this_tag) {
+        return
+      }
+      const child = document.getElementById(`lti-content-${this_tag}`)
       if (!child) {
         return
       }
@@ -67,7 +72,7 @@ import { initCallback } from 'bootstrap.native'
 
       child.classList.add('d-none')
 
-      let child_options = Array.from(
+      const child_options = Array.from(
         child.getElementsByClassName(
           'lti-option'
         ) as HTMLCollectionOf<HTMLInputElement>
@@ -83,13 +88,13 @@ import { initCallback } from 'bootstrap.native'
         // interactive_onclick(e);
       })
 
-      if (child_options.length) {
-        interactive_recurse(child_options[0]!.parentElement! as HTMLDivElement)
+      if (child_options.length && child_options[0]?.parentElement) {
+        interactive_recurse(child_options[0].parentElement as HTMLDivElement)
       }
     }
 
-    let interactive_recurse = function (container: HTMLDivElement) {
-      let option_list = Array.from(
+    const interactive_recurse = function (container: HTMLDivElement) {
+      const option_list = Array.from(
         container.getElementsByClassName(
           'lti-option'
         ) as HTMLCollectionOf<HTMLInputElement>
@@ -114,7 +119,7 @@ import { initCallback } from 'bootstrap.native'
         .forEach(interactive_update)
     }
 
-    let interactive_onclick = function (
+    const interactive_onclick = function (
       this: GlobalEventHandlers,
       ev: MouseEvent
     ) {
@@ -122,14 +127,14 @@ import { initCallback } from 'bootstrap.native'
       interactive_recurse(elem.parentElement as HTMLDivElement)
     }
 
-    let options = Array.from(
+    const options = Array.from(
       document.getElementsByClassName(
         'lti-option'
       ) as HTMLCollectionOf<HTMLInputElement>
     )
     options.forEach(option => (option.onclick = interactive_onclick))
 
-    let contents = Array.from(
+    const contents = Array.from(
       document.getElementsByClassName(
         'lti-content'
       ) as HTMLCollectionOf<HTMLDivElement>

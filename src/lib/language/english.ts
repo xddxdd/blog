@@ -1,7 +1,7 @@
 import type { NavigationItem } from '../navigation'
 import { Language } from './type'
 
-const translationDict: Record<string, string | ((key: any) => string)> = {
+const translationDict: Record<string, string | ((key: unknown) => string)> = {
   list_category: category => `Posts in category ${category}`,
   list_tag: tag => `Posts with tag ${tag}`,
   powered_by: software => `Powered by ${software}`,
@@ -92,11 +92,19 @@ class LanguageEnglishImpl extends Language {
     return 'English'
   }
 
-  public override getTranslation(translationKey: string, args?: any): string {
+  public override getTranslation(
+    translationKey: string,
+    args?: unknown
+  ): string {
     if (args !== undefined) {
-      return (translationDict[translationKey]! as (key: any) => string)(args)
+      const translator = translationDict[translationKey]
+      if (typeof translator === 'function') {
+        return translator(args)
+      }
+      return translator ?? ''
     }
-    return translationDict[translationKey]! as string
+    const translation = translationDict[translationKey]
+    return typeof translation === 'string' ? translation : ''
   }
 
   public override getCategoryMap(): Record<string, string> {

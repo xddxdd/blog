@@ -7,10 +7,10 @@ import rehypeExternalLinks from 'rehype-external-links'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import { processNode, formatGopherItem } from './gopher/processing'
-// @ts-ignore
+// @ts-expect-error - remarkJoinCjkLines has no type definitions
 import remarkJoinCjkLines from 'remark-join-cjk-lines'
 import remarkMath from 'remark-math'
-// @ts-ignore
+// @ts-expect-error - remarkMermaid has no type definitions
 import remarkMermaid from 'remark-mermaid'
 import rehypePicture from 'rehype-picture'
 import { visit } from 'unist-util-visit'
@@ -18,19 +18,21 @@ import type { Node } from 'unist'
 import { CRLF } from './gopher'
 import { ProcessingContext } from './gopher/context'
 
-let remarkChineseQuotes = () => (tree: Node) => {
+const remarkChineseQuotes = () => (tree: Node) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   visit(tree, (node: any) => {
     if (typeof node.value === 'string') {
       node.value = node.value
-        .replaceAll('“', '「')
-        .replaceAll('”', '」')
-        .replaceAll('‘', '『')
-        .replaceAll('’', '』')
+        .replaceAll('"', '「')
+        .replaceAll('"', '」')
+        .replaceAll("'", '『')
+        .replaceAll("'", '』')
     }
   })
 }
 
-let remarkGophermap = () => {
+const remarkGophermap = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function transformer(tree: any, file: any) {
     const context = new ProcessingContext({
       host: '{{server_addr}}',
@@ -38,12 +40,14 @@ let remarkGophermap = () => {
       baseSelector: '/',
       prefixes: [],
     })
-    const gopherItems = processNode(tree, context)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const gopherItems = processNode(tree as any, context)
     const gophermapContent = gopherItems
       .map(item => formatGopherItem(item))
       .join(CRLF)
 
-    file.data.astro.frontmatter.gophermap = gophermapContent
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(file as any).data.astro.frontmatter.gophermap = gophermapContent
   }
 }
 

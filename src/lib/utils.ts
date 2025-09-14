@@ -22,13 +22,14 @@ export function createExcerpt(html: string): string {
     i = 0
   while (len < excerpt_length && i < stripped.length) {
     output += stripped[i]
-    len += stripped.codePointAt(i)! > 255 ? 2 : 1
+    len += (stripped.codePointAt(i) ?? 0) > 255 ? 2 : 1
     i++
   }
 
   let output_until = output.length
   for (i = output.length; i > 0; i--) {
-    if (separators.includes(output[i]!)) {
+    const char = output[i]
+    if (char && separators.includes(char)) {
       output_until = i + 1
       break
     }
@@ -37,11 +38,11 @@ export function createExcerpt(html: string): string {
 }
 
 export function replaceInvalidUrlChars(url: string): string {
-  return url.replaceAll(/[\s\.]/g, '-')
+  return url.replaceAll(/[\s.]/g, '-')
 }
 
 export function normalizeUrl(url: string): string {
   const regex = /^(.*?)(\/(index\..*)?)?$/m
   const match = regex.exec(url.trim())
-  return match![1]!.trim()
+  return match?.[1]?.trim() ?? url
 }
