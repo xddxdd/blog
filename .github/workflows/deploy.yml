@@ -71,10 +71,6 @@ jobs:
           name: dist
           path: dist/
 
-      - name: Remove precompressed files
-        run: |
-          find dist/ -iname '*.gz' -or -iname '*.br' -or -iname '*.zst' -or -iname gophermap -delete
-
       - name: Deploy to lantian1998.github.io
         if:
           github.ref == 'refs/heads/master' && github.event_name !=
@@ -85,6 +81,12 @@ jobs:
           git config --global init.defaultBranch master
 
           pushd dist
+          cat > .gitignore <<EOF
+          *.gz
+          *.br
+          *.zst
+          gophermap
+          EOF
 
           git init
           git add .
@@ -92,5 +94,5 @@ jobs:
           git remote add origin https://xddxdd-bot:${{ secrets.AUTOMERGE_TOKEN }}@github.com/lantian1998/lantian1998.github.io.git
           git push -u origin master --force
 
-          rm -rf .git
+          sudo rm -rf .git .gitignore
           popd
