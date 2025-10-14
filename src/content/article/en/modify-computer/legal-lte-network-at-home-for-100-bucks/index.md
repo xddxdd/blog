@@ -444,7 +444,7 @@ You need to register a Google Cloud account first, then visit the [SAS configura
    - Under `Measurement capability`, for FreedomFi/Sercomm indoor base stations, do not check `RX w/ grant`, but check `RX w/o grant`.
    - Under `Air Interface`, `Supported spec` should be `FFS` for FreedomFi/Sercomm indoor base stations.
 6. You can leave the rest of the configurations blank; click `Ready for CPI`.
-7. At this point, the page will display "The new configuration must be signed by a CPI before the CBSD registers with the SAS." (The base station needs to be approved by a Certified Professional Installer (CPI) before it can register with the SAS again). If you're installing an indoor base station, you can ignore this. But if you're installing an outdoor base station, you'll need to find a Certified Professional Installer to approve the configuration, or [spend \$600 to get certified as a CPI](https://www.coursera.org/learn/google-cbrs-cpi-training).
+7. At this point, the page will display "The new configuration must be signed by a CPI before the CBSD registers with the SAS." If you're installing an indoor base station, you can ignore this. But if you're installing an outdoor base station, you'll need to find a Certified Professional Installer to approve the configuration, or [spend \$600 to get certified as a CPI](https://www.coursera.org/learn/google-cbrs-cpi-training).
 
 ![Google SAS Base Station Information Interface 1](/usr/uploads/202504/google-sas-radio-info-1.png)
 
