@@ -4,6 +4,7 @@ import 'instant.page'
  * Bootstrap Native
  *****************************************/
 import { initCallback } from 'bootstrap.native'
+import { enableAll } from 'fooldevs'
 // @ts-expect-error - SimpleLightbox types are not available
 import SimpleLightbox from 'simple-lightbox'
 
@@ -137,4 +138,6 @@ import attempt from './js/attempt'
     )
     contents.forEach(content => content.classList.add('d-none'))
   })
+
+  attempt('Fooldevs', enableAll)
 })()
