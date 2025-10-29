@@ -39,7 +39,7 @@
     "bootstrap": "^5.3.8",
     "bootstrap.native": "^5.1.6",
     "cssnano": "^7.1.2",
-    "cssnano-preset-advanced": "^7.0.9",
+    "cssnano-preset-advanced": "^7.0.10",
     "date-fns": "^4.1.0",
     "feed": "^5.1.0",
     "flag-icon-css": "^4.1.7",
