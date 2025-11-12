@@ -32,7 +32,7 @@
     "@types/mime-types": "^3.0.1",
     "@types/react": "^19.2.3",
     "@types/react-dom": "^19.2.3",
-    "@waline/client": "^3.7.1",
+    "@waline/client": "^3.8.0",
     "astro": "^5.15.5",
     "astro-favicons": "^3.1.5",
     "autoprefixer": "^10.4.22",
