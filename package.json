@@ -43,7 +43,7 @@
     "date-fns": "^4.1.0",
     "feed": "^5.1.0",
     "flag-icon-css": "^4.1.7",
-    "fooldevs": "^0.1.0",
+    "fooldevs": "^0.1.1",
     "glob": "^11.0.3",
     "instant.page": "^5.2.0",
     "mime-types": "^3.0.1",
