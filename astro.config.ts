@@ -19,6 +19,7 @@ export default defineConfig({
         scss: {
           // Suppress deprecation warnings from dependencies
           quietDeps: true,
+          silenceDeprecations: ['import'],
           // You can also use verbose: false to reduce output further
           verbose: false,
         },
