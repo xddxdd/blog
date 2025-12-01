@@ -14,6 +14,9 @@ Here are some links that may assist you in diagnosing problems with our peering.
   - You can see BIRD routing software status across my nodes, including whether
     BGP session is established and whether any route is received.
   - You can perform traceroute to either public IP addresses or DN42 ones.
+- [My FlapAlerted](https://flapalerted.lantian.pub/)
+  - [FlapAlerted](github.com/Kioubit/FlapAlerted) can show which routes are frequently changing. It usually indicates a configuration error where routes switch back and forth between multiple available routes.
+  - Also see [How to Kill the DN42 Network](https://lantian.pub/en/article/modify-website/how-to-kill-the-dn42-network.lantian/#route-flapping)
 - Route ROA filtering stats
   - My network only accepts routes that are registered in DN42, and unknown
     routes (to accomodate newly registered users). Received invalid or unknown
@@ -27,6 +30,7 @@ Here are some links that may assist you in diagnosing problems with our peering.
       [list of invalid IPv4 routes](https://lg.lantian.pub/route_generic/local/table%20roa_fail_v4),
       and the
       [list of invalid IPv6 routes](https://lg.lantian.pub/route_generic/local/table%20roa_fail_v6).
+    - If you cannot see the list of routes, click the "All Servers" link on the top left to see routes from all nodes.
   - Unknown route: this IP block isn't registered in DN42.
     - It usually means you announced your personal intranet (such as
       `192.168.0.0/16` or `10.0.0.0/8`) to others by mistake.
@@ -38,6 +42,7 @@ Here are some links that may assist you in diagnosing problems with our peering.
       [list of unknown IPv4 routes](https://lg.lantian.pub/route_generic/local/table%20roa_unknown_v4),
       and the
       [list of unknown IPv6 routes](https://lg.lantian.pub/route_generic/local/table%20roa_unknown_v6).
+    - If you cannot see the list of routes, click the "All Servers" link on the top left to see routes from all nodes.
 
 ## "1xRTT" Peering
 
