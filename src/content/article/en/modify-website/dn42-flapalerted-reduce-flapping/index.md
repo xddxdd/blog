@@ -1,6 +1,6 @@
 ---
 title: 'Using FlapAlerted to Suppress flapping in DN42'
-categories: Website and Server-side
+categories: 'Website and Servers'
 tags: [DN42, flapping, FlapAlerted]
 date: 2025-12-07 00:14:28
 image: /usr/uploads/202512/im-doing-my-part.png
