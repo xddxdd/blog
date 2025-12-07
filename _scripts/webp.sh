@@ -17,7 +17,7 @@ find dist -type f \( -name "*.gif" -or -name "*.jpg" -or -name "*.png" \) |
                 if [ -f "$CACHEDIR/$SHA256.$FORMAT" ]; then
                     cp "$CACHEDIR/$SHA256.$FORMAT" "$FILE.$FORMAT"
                 else
-                    echo "magick -quality 100 $FILE $FILE.$FORMAT && cp $FILE.$FORMAT $CACHEDIR/$SHA256.$FORMAT" >>.parallel_jobs.lst
+                    echo "magick convert -quality 100 $FILE $FILE.$FORMAT && cp $FILE.$FORMAT $CACHEDIR/$SHA256.$FORMAT" >>.parallel_jobs.lst
                 fi
             fi
         done
