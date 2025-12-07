@@ -215,7 +215,7 @@ When FlapAlerted detects flapping routes, you can use the `birdc show route tabl
 
 With ROA information, we can add instructions to check ROA information in the filters of the corresponding protocols in Bird.
 
-If you want to minimize CPU consumption, you can choose to filter out these routes at the Import Filter stage when receiving routes, but you won't be able to access these routes either.
+If you want to minimize CPU consumption, you can choose to filter out these routes at the Import Filter stage when receiving routes, but you won't be able to access these routes either. In addition, your FlapAlerted instance will also stop receiving these routes, and repeat the process of unblocking them after some time - seeing the flapping routes again - filtering them again.
 
 If you just want to reduce the impact on the DN42 network, you can choose to filter them out at the Export Filter stage when sending routes, with the side effect that your peers won't be able to access these routes through you.
 
