@@ -35,7 +35,7 @@ const { Content, headings } = await post.collectionEntry.render()
         post.image !== undefined && (
           <div class="post-image-wrap">
             <picture>
-              {/* <source
+              <source
                 srcset={`${post.image}.thumb.png.webp`}
                 type="image/webp"
               />
@@ -43,7 +43,7 @@ const { Content, headings } = await post.collectionEntry.render()
                 srcset={`${post.image}.thumb.png.avif`}
                 type="image/avif"
               />
-              <source srcset={`${post.image}.thumb.png.jxl`} type="image/jxl" /> */}
+              <source srcset={`${post.image}.thumb.png.jxl`} type="image/jxl" />
               <img
                 src={`${post.image}.thumb.png`}
                 alt={__('illustration_for', post.title)}
