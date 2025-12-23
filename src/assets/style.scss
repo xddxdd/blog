@@ -114,18 +114,27 @@ article {
   .post-image-wrap {
     margin: 0 -5px;
 
+    img {
+      height: 150px;
+      object-fit: cover;
+      object-position: center;
+    }
+
     @include media-breakpoint-up(md) {
       float: right;
       padding: 5px;
 
       img {
-        width: 200px;
+        max-width: 200px;
       }
     }
 
     @include media-breakpoint-down(md) {
+      // Put image in the center
+      text-align: center;
+
       img {
-        width: 100%;
+        max-width: 100%;
       }
     }
   }
