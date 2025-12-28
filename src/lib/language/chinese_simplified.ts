@@ -11,7 +11,6 @@ const translationDict: Record<string, string | ((key: unknown) => string)> = {
 
   category: '分类',
   table_of_contents: '目录',
-  qrcode: '二维码',
   n_tags: '标签',
   tag: '标签',
   tags: '标签',

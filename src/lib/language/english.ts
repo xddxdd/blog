@@ -11,7 +11,6 @@ const translationDict: Record<string, string | ((key: unknown) => string)> = {
 
   category: 'Category',
   table_of_contents: 'ToC',
-  qrcode: 'QR',
   n_tags: 'tags',
   tag: 'Tag',
   tags: 'Tags',

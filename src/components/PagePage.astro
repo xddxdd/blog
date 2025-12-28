@@ -1,5 +1,6 @@
 ---
 import PostInfo from '@components/fragments/PostInfo.astro'
+import PostText from '@components/fragments/PostText.astro'
 import { type Language } from '@lib/language'
 import { Page } from '@lib/pages'
 
@@ -27,9 +28,9 @@ const { Content, headings } = await page.collectionEntry.render()
           >{page.title}</a
         >
       </h1>
-      <div class="post-text">
+      <PostText>
         <Content />
-      </div>
+      </PostText>
     </div>
   </div>
 </article>

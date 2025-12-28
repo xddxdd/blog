@@ -4,6 +4,7 @@ import PostExcerpt from '@components/fragments/PostExcerpt.astro'
 import PostImage from '@components/fragments/PostImage.astro'
 import PostInfo from '@components/fragments/PostInfo.astro'
 import PostNavigation from '@components/fragments/PostNavigation.astro'
+import PostText from '@components/fragments/PostText.astro'
 import WalineComment from '@components/fragments/WalineComment.astro'
 import PageSeries from '@components/PageSeries.astro'
 import { type Language } from '@lib/language'
@@ -30,21 +31,13 @@ const { Content, headings } = await post.collectionEntry.render()
       isShowingMultiPosts={isShowingMultiPosts}
     />
     <div class="post-wrap">
-      {
-        post.image !== undefined && (
-          <PostImage
-            language={language}
-            title={post.title}
-            image={post.image}
-          />
-        )
-      }
+      <PostImage language={language} title={post.title} image={post.image} />
       <h1 class="post-title">
         <a href={post.getFullURL()} rel="bookmark" title={post.title}
           >{post.title}</a
         >
       </h1>
-      <div class="post-text">
+      <PostText>
         {
           (isShowingMultiPosts && (
             <PostExcerpt>
@@ -59,7 +52,7 @@ const { Content, headings } = await post.collectionEntry.render()
             </>
           )
         }
-      </div>
+      </PostText>
       {
         !isShowingMultiPosts && (
           <>

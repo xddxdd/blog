@@ -13,3 +13,60 @@ const { title, id } = Astro.props
     <slot />
   </ul>
 </section>
+
+<style lang="scss" is:global>
+  @import '../../assets/sass/bootstrap_common.scss';
+
+  section.widget {
+    h3 {
+      color: var(--lt-page-text-emphasis);
+      font-weight: 700;
+      line-height: 1.75;
+    }
+
+    ul li,
+    h3 {
+      margin: 0;
+      padding: 0;
+      border-bottom: 1px dotted var(--lt-border-weak);
+      overflow: hidden;
+      word-break: break-all;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    ul {
+      margin: 0;
+
+      li {
+        .fas {
+          color: var(--lt-page-text-emphasis);
+        }
+
+        &:last-child {
+          border-bottom: 1px solid var(--lt-border);
+        }
+        &::before {
+          @include font-awesome;
+          float: left;
+          content: fa-content($fa-var-angle-right);
+        }
+      }
+    }
+
+    .row {
+      border-bottom: 1px solid var(--lt-border);
+      margin: 0;
+      div {
+        padding: 3px;
+        text-align: center;
+      }
+      div:not(:last-child) {
+        border-right: 1px dotted var(--lt-border-weak);
+      }
+      p {
+        margin: 0;
+      }
+    }
+  }
+</style>

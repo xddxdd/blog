@@ -43,13 +43,6 @@ import attempt from './js/attempt'
         img.style.cursor = 'pointer'
       }
     }
-
-    const qrcodes = document.getElementsByClassName(
-      'qrcode-box'
-    ) as HTMLCollectionOf<HTMLImageElement>
-    for (const qrcode of qrcodes) {
-      qrcode.onclick = lightbox_onclick
-    }
   })
 
   attempt('Interactive Content', function () {

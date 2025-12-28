@@ -70,3 +70,30 @@ const { fontAwesomeClass, label } = Astro.props
     }
   }
 </style>
+
+<style lang="scss" is:global>
+  .post-meta {
+    color: var(--lt-primary);
+    a {
+      color: var(--lt-primary);
+    }
+
+    &:hover,
+    &:active {
+      color: var(--lt-selected);
+      a {
+        color: var(--lt-selected);
+      }
+    }
+
+    .badge-tag {
+      font-size: 100%;
+      font-weight: 400;
+
+      background-color: var(--lt-selected-emphasis-bg);
+      &:hover {
+        background-color: var(--lt-selected-emphasis-hover-bg);
+      }
+    }
+  }
+</style>
