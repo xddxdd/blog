@@ -22,6 +22,7 @@ const __ = language.getTranslation
           src={`${image}.thumb.png`}
           alt={__('illustration_for', title)}
           height="150"
+          onerror={`window.lantianImageFallback(this, '${image}.thumb.png')`}
         />
       </picture>
     </div>
