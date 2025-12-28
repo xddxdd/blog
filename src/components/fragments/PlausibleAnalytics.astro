@@ -3,11 +3,15 @@
 ---
 
 <script>
+  import isLocalhost from '@assets/js/is-localhost'
   import Plausible from 'plausible-tracker'
-  const plausible = Plausible({
-    domain: 'lantian.pub',
-    trackLocalhost: true,
-    apiHost: '',
-  })
-  plausible.trackPageview()
+
+  if (!isLocalhost()) {
+    const plausible = Plausible({
+      domain: 'lantian.pub',
+      trackLocalhost: true,
+      apiHost: '',
+    })
+    plausible.trackPageview()
+  }
 </script>

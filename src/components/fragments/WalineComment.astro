@@ -29,13 +29,13 @@ const walinePath = post.getFullURL().replace(/(\/+)$/, '')
 >
 </div>
 <script>
+  import isLocalhost from '@assets/js/is-localhost'
   import { init } from '@waline/client'
   const walineElement = document.getElementById('waline')
   if (walineElement) {
-    const origin =
-      window.location.hostname == 'localhost'
-        ? 'https://comments.lantian.pub'
-        : window.location.origin
+    const origin = isLocalhost()
+      ? 'https://comments.lantian.pub'
+      : window.location.origin
     const walineProps = walineElement.dataset
     init({
       el: '#waline',

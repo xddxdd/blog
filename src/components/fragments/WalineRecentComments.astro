@@ -15,11 +15,11 @@ const __ = language.getTranslation
 </SidebarWidget>
 
 <script>
+  import isLocalhost from '@assets/js/is-localhost'
   import type { RecentCommentData } from '@waline/api'
-  const origin =
-    window.location.hostname == 'localhost'
-      ? 'https://comments.lantian.pub'
-      : window.location.origin
+  const origin = isLocalhost()
+    ? 'https://comments.lantian.pub'
+    : window.location.origin
   fetch(`${origin}/api/comment?type=recent&count=10`)
     .then(response => {
       if (response.status !== 200) {

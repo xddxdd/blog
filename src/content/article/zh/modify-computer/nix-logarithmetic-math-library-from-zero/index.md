@@ -105,7 +105,7 @@ at /nix/store/qhnbm9x3zs2y55nyx1gxqf801gmjdjfc-source/default.nix:163:61:
 
 $$
 \begin{aligned}
-x \le 0,& \ln x = 无效值 \\
+x \le 0,& \ln x = \text{无效值} \\
 x < 1,& \ln x = -\ln \frac{1}{x} \\
 x > 1.9,& \ln (x) = 2 * \ln \sqrt x \\
 \end{aligned}

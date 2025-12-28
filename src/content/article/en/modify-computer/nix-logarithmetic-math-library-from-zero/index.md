@@ -122,7 +122,7 @@ calculation:
 
 $$
 \begin{aligned}
-x \le 0,& \ln x = Invalid Value \\
+x \le 0,& \ln x = \text{Invalid Value} \\
 x < 1,& \ln x = -\ln \frac{1}{x} \\
 x > 1.9,& \ln (x) = 2 * \ln \sqrt x \\
 \end{aligned}
