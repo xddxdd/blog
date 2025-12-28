@@ -21,7 +21,7 @@ if (!lastPost) {
 const firstPostYear = lastPost.date.getFullYear()
 ---
 
-<footer class="lantian clearfix">
+<footer class="clearfix">
   {
     Astro.props.pagination !== undefined && (
       <PagePaginator {...Astro.props.pagination} />
@@ -44,7 +44,6 @@ const firstPostYear = lastPost.date.getFullYear()
   footer {
     margin-top: -1px;
     border-top: 1px solid var(--lt-border);
-    border-bottom: 1px solid var(--lt-border);
     width: 100%;
     background-color: var(--lt-component-bg-emphasis);
 
