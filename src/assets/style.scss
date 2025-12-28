@@ -6,18 +6,6 @@
 @import 'sass/fonts.scss';
 @import 'sass/bootstrap.scss';
 
-@include media-breakpoint-down(md) {
-  html,
-  body {
-    overflow-x: hidden;
-    width: 100%;
-  }
-
-  body {
-    position: relative;
-  }
-}
-
 a {
   color: var(--lt-primary);
 }
@@ -51,42 +39,17 @@ article {
   }
 
   .post-meta {
-    overflow: hidden;
-    line-height: 2.5;
-
-    background-color: var(--lt-component-bg-emphasis);
     color: var(--lt-primary);
     a {
       color: var(--lt-primary);
     }
 
-    .post-meta-value {
-      display: none;
-      margin-left: 2.5em;
-    }
-
     &:hover,
     &:active {
-      width: 300px;
-      height: auto;
-      background-color: var(--lt-selected-bg);
       color: var(--lt-selected);
       a {
         color: var(--lt-selected);
       }
-      .post-meta-value {
-        display: block;
-      }
-    }
-
-    small {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-      display: block;
-      font-size: 75%;
-      margin-top: 0.2em;
     }
 
     .badge-tag {
@@ -109,34 +72,6 @@ article {
     flex: auto;
     width: 0;
     padding: 0 5px;
-  }
-
-  .post-image-wrap {
-    margin: 0 -5px;
-
-    img {
-      height: 150px;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    @include media-breakpoint-up(md) {
-      float: right;
-      padding: 5px;
-
-      img {
-        max-width: 200px;
-      }
-    }
-
-    @include media-breakpoint-down(md) {
-      // Put image in the center
-      text-align: center;
-
-      img {
-        max-width: 100%;
-      }
-    }
   }
 
   .post-text {
@@ -310,16 +245,6 @@ article {
       margin: 0;
     }
   }
-}
-
-#content {
-  flex: 3;
-  width: 0;
-}
-
-aside {
-  flex: 1;
-  width: 0;
 }
 
 ol ol,

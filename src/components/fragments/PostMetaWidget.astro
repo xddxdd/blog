@@ -19,3 +19,54 @@ const { fontAwesomeClass, label } = Astro.props
     </div>
   </div>
 </div>
+
+<style lang="scss">
+  .post-meta-wrap {
+    height: 2.5em;
+    width: 2.5em;
+    margin-top: 1px;
+    background-color: var(--lt-component-bg-emphasis);
+  }
+
+  .post-meta {
+    overflow: hidden;
+    line-height: 2.5;
+    background-color: var(--lt-component-bg-emphasis);
+
+    p {
+      width: 2.5em;
+      height: 2.5em;
+      line-height: 1;
+      text-align: center;
+      margin: 0;
+      float: left;
+      padding-top: 0.25em;
+
+      small {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: block;
+        font-size: 75%;
+        margin-top: 0.2em;
+      }
+    }
+
+    .post-meta-value {
+      display: none;
+      margin-left: 2.5em;
+    }
+
+    &:hover,
+    &:active {
+      width: 300px;
+      height: auto;
+      background-color: var(--lt-selected-bg);
+      color: var(--lt-selected);
+      .post-meta-value {
+        display: block;
+      }
+    }
+  }
+</style>

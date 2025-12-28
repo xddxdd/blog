@@ -48,17 +48,31 @@ const bodyClass = post?.bodyClass ?? page?.bodyClass
         <div id="content">
           <slot />
         </div>
-        <PageSidebar
-          language={language}
-          posts={posts}
-          links={language.getLinkItems()}
-        />
+        <aside class="d-none d-xl-block">
+          <PageSidebar
+            language={language}
+            posts={posts}
+            links={language.getLinkItems()}
+          />
+        </aside>
       </div>
       <PageFooter language={language} pagination={pagination} />
     </div>
 
     <style lang="scss">
       @import '../assets/sass/bootstrap_common.scss';
+
+      @include media-breakpoint-down(md) {
+        html,
+        body {
+          overflow-x: hidden;
+          width: 100%;
+        }
+
+        body {
+          position: relative;
+        }
+      }
 
       body {
         background-color: var(--lt-page-bg) !important;
@@ -74,6 +88,16 @@ const bodyClass = post?.bodyClass ?? page?.bodyClass
           margin: 50px auto;
           box-shadow: 0 0 50px var(--lt-page-shadow);
         }
+      }
+
+      #content {
+        flex: 3;
+        width: 0;
+      }
+
+      aside {
+        flex: 1;
+        width: 0;
       }
     </style>
   </body>

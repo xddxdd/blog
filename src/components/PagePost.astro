@@ -1,6 +1,7 @@
 ---
 import AutoTranslateWarning from '@components/AutoTranslateWarning.astro'
 import PostExcerpt from '@components/fragments/PostExcerpt.astro'
+import PostImage from '@components/fragments/PostImage.astro'
 import PostInfo from '@components/fragments/PostInfo.astro'
 import PostNavigation from '@components/fragments/PostNavigation.astro'
 import WalineComment from '@components/fragments/WalineComment.astro'
@@ -17,8 +18,6 @@ type Props = {
 }
 
 const { language, post, postPrev, postNext, isShowingMultiPosts } = Astro.props
-const __ = language.getTranslation
-
 const { Content, headings } = await post.collectionEntry.render()
 ---
 
@@ -33,24 +32,11 @@ const { Content, headings } = await post.collectionEntry.render()
     <div class="post-wrap">
       {
         post.image !== undefined && (
-          <div class="post-image-wrap">
-            <picture>
-              <source
-                srcset={`${post.image}.thumb.png.webp`}
-                type="image/webp"
-              />
-              <source
-                srcset={`${post.image}.thumb.png.avif`}
-                type="image/avif"
-              />
-              <source srcset={`${post.image}.thumb.png.jxl`} type="image/jxl" />
-              <img
-                src={`${post.image}.thumb.png`}
-                alt={__('illustration_for', post.title)}
-                height="150"
-              />
-            </picture>
-          </div>
+          <PostImage
+            language={language}
+            title={post.title}
+            image={post.image}
+          />
         )
       }
       <h1 class="post-title">

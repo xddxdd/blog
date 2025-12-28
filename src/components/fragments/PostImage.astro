@@ -1,0 +1,60 @@
+---
+import { type Language } from '@lib/language'
+
+type Props = {
+  language: Language
+  image?: string
+  title: string
+}
+
+const { language, image, title } = Astro.props
+const __ = language.getTranslation
+---
+
+{
+  image !== undefined && (
+    <div class="post-image-wrap">
+      <picture>
+        <source srcset={`${image}.thumb.png.webp`} type="image/webp" />
+        <source srcset={`${image}.thumb.png.avif`} type="image/avif" />
+        <source srcset={`${image}.thumb.png.jxl`} type="image/jxl" />
+        <img
+          src={`${image}.thumb.png`}
+          alt={__('illustration_for', title)}
+          height="150"
+        />
+      </picture>
+    </div>
+  )
+}
+
+<style lang="scss">
+  @import '../../assets/sass/bootstrap_common.scss';
+  .post-image-wrap {
+    margin: 0 -5px;
+
+    img {
+      height: 150px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    @include media-breakpoint-up(md) {
+      float: right;
+      padding: 5px;
+
+      img {
+        max-width: 200px;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      // Put image in the center
+      text-align: center;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+</style>
