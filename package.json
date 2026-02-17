@@ -44,7 +44,7 @@
     "feed": "^5.2.0",
     "flag-icon-css": "^4.1.7",
     "fooldevs": "^0.1.1",
-    "glob": "^13.0.3",
+    "glob": "^13.0.5",
     "http-server": "^14.1.1",
     "instant.page": "^5.2.0",
     "mime-types": "^3.0.2",
