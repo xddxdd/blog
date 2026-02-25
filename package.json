@@ -35,7 +35,7 @@
     "@waline/client": "^3.12.2",
     "astro": "^5.17.3",
     "astro-favicons": "^3.1.5",
-    "autoprefixer": "^10.4.24",
+    "autoprefixer": "^10.4.25",
     "bootstrap": "^5.3.8",
     "bootstrap.native": "^5.1.6",
     "cssnano": "^7.1.2",
