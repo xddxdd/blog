@@ -19,7 +19,7 @@
     "serve": "http-server dist -c-1 "
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.7",
+    "@astrojs/check": "^0.9.8",
     "@astrojs/mdx": "^4.3.14",
     "@astrojs/react": "^5.0.0",
     "@astrojs/sitemap": "^3.7.1",
