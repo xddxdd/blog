@@ -21,7 +21,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/mdx": "^4.3.14",
-    "@astrojs/react": "^5.0.0",
+    "@astrojs/react": "^5.0.1",
     "@astrojs/sitemap": "^3.7.1",
     "@fontsource/fira-code": "^5.2.7",
     "@fontsource/ubuntu": "^5.2.8",
