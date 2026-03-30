@@ -33,7 +33,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@waline/client": "^3.13.0",
-    "astro": "^5.18.1",
+    "astro": "^6.1.2",
     "astro-favicons": "^3.1.6",
     "autoprefixer": "^10.4.27",
     "bootstrap": "^5.3.8",
