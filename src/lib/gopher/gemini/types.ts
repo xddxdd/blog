@@ -4,10 +4,6 @@ import type { VFile } from 'vfile'
  * Plugin configuration options for Gemini
  */
 export interface RemarkGeminiOptions {
-  /** Gemini server hostname */
-  host?: string
-  /** Gemini server port */
-  port?: number
   /** Base path for relative links */
   baseSelector?: string
   /** Maximum line length for text wrapping */

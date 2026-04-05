@@ -55,7 +55,7 @@ const processor = unified()
   .use(remarkFrontmatter)
   .use(remarkUnifiedProtocol, {
     gopher: { host: 'gopher.example.com', port: '70' },
-    gemini: { host: 'gemini.example.com', port: 1965 }
+    gemini: {}
   });
 \`\`\`
 
@@ -86,8 +86,6 @@ async function example(): Promise<void> {
       maxLength: 67,
     },
     gemini: {
-      host: 'gemini.example.com',
-      port: 1965,
       baseSelector: '/demo/',
       maxLength: 72,
     },

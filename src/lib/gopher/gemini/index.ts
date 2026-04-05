@@ -26,18 +26,11 @@ export const LF = '\n'
  * and returns structured gemtext line objects. Recursion handles nested layers.
  */
 export default function remarkGemini(options: RemarkGeminiOptions = {}) {
-  const {
-    host = 'localhost',
-    port = 1965,
-    baseSelector = '/',
-    maxLength,
-  } = options
+  const { baseSelector = '/', maxLength } = options
 
   return function transformer(tree: Root, _file: GemtextVFile): Root {
     void _file
     const context = new GeminiProcessingContext({
-      host,
-      port,
       baseSelector,
       prefixes: [],
       maxLength,

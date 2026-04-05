@@ -56,12 +56,12 @@ export function processNode(
 
     case 'link': {
       const linkNode = node as Link
-      return [createLinkLine(linkNode.url || '', extractText(node), context)]
+      return [createLinkLine(linkNode.url || '', extractText(node))]
     }
 
     case 'image': {
       const imageNode = node as unknown as Image
-      return [createLinkLine(imageNode.url || '', imageNode.alt || '', context)]
+      return [createLinkLine(imageNode.url || '', imageNode.alt || '')]
     }
 
     case 'code':
@@ -376,16 +376,11 @@ function createLine(
   }
 }
 
-function createLinkLine(
-  url: string,
-  displayText: string,
-  context: GeminiProcessingContext
-): GemtextLine {
-  const resolvedUrl = context.resolveUrl(url)
+function createLinkLine(url: string, displayText: string): GemtextLine {
   return {
     type: 'link',
     content: displayText,
-    url: resolvedUrl,
+    url: url,
   }
 }
 

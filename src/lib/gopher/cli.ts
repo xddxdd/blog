@@ -38,7 +38,6 @@ Options:
   -g, --output-gemini <file>    Output file for Gemini format
   -h, --host <hostname>         Server hostname (default: localhost)
   -p, --port <string>           Gopher server port (default: '70')
-      --gemini-port <number>    Gemini server port (default: 1965)
   -s, --selector <path>         Base selector path (default: /)
   -l, --max-length <number>     Maximum line length (default: 70)
       --gopher                  Generate only Gopher format
@@ -61,7 +60,7 @@ Examples:
   unified-gopher README.md --both -o README.gophermap -g README.gmi
 
   # With custom server settings
-  unified-gopher blog-post.md --host blog.example.com --port 70 --gemini-port 1965
+  unified-gopher blog-post.md --host blog.example.com --port 70
 `)
 }
 

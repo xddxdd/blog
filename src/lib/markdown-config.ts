@@ -60,8 +60,6 @@ const remarkGemtext = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function transformer(tree: any, file: any) {
     const context = new GeminiProcessingContext({
-      host: '{{server_addr}}',
-      port: 1965,
       baseSelector: '/',
       maxLength: undefined,
     })
