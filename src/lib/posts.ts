@@ -8,6 +8,16 @@ import { type CollectionEntry, getCollection } from 'astro:content'
 import { Feed } from 'feed'
 
 import type { PaginationProps } from '../components/PagePaginator.astro'
+import type {
+  GemtextLine,
+  GemtextLineType,
+  GopherItem,
+  GopherItemType,
+} from './gopher'
+import { LF } from './gopher/gemini'
+import { formatGemtextLine } from './gopher/gemini/processing'
+import { CRLF } from './gopher/gopher'
+import { formatGopherItem } from './gopher/gopher/processing'
 import { DEFAULT_LANGUAGE, type Language, LANGUAGES } from './language'
 
 export class Post {
@@ -68,12 +78,51 @@ export class Post {
 
   public async renderGophermap(): Promise<string> {
     const { remarkPluginFrontmatter } = await this.collectionEntry.render()
-    return remarkPluginFrontmatter['gophermap']
+
+    const gopherItemArgs = {
+      type: 'i' as GopherItemType,
+      host: '{{server_addr}}',
+      port: '{{server_port}}',
+      selector: '',
+    }
+
+    const prefix: GopherItem[] = [
+      { text: `# ${this.title}`, ...gopherItemArgs },
+      {
+        text: `${this.language.getTranslation('category')}: ${this.category}`,
+        ...gopherItemArgs,
+      },
+      {
+        text: `${this.language.getTranslation('date')}: ${new Date(this.date).toISOString().replace('T', ' ')}`,
+        ...gopherItemArgs,
+      },
+      { text: '', ...gopherItemArgs },
+    ]
+
+    const prefixContent = prefix.map(item => formatGopherItem(item)).join(CRLF)
+    const content = remarkPluginFrontmatter['gophermap'] as string
+    return prefixContent + CRLF + content
   }
 
   public async renderGemtext(): Promise<string> {
     const { remarkPluginFrontmatter } = await this.collectionEntry.render()
-    return remarkPluginFrontmatter['gemtext']
+
+    const prefix: GemtextLine[] = [
+      { type: 'heading1' as GemtextLineType, content: this.title },
+      {
+        type: 'text' as GemtextLineType,
+        content: `${this.language.getTranslation('category')}: ${this.category}`,
+      },
+      {
+        type: 'text' as GemtextLineType,
+        content: `${this.language.getTranslation('date')}: ${new Date(this.date).toISOString().replace('T', ' ')}`,
+      },
+      { type: 'text' as GemtextLineType, content: '' },
+    ]
+
+    const prefixContent = prefix.map(line => formatGemtextLine(line)).join(LF)
+    const content = remarkPluginFrontmatter['gemtext'] as string
+    return prefixContent + LF + content
   }
 
   public static fromCollectionEntry(post: CollectionEntry<'article'>): Post {
