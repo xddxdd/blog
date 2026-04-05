@@ -1,109 +1,74 @@
-import * as yaml from 'js-yaml'
-import type { Yaml } from 'mdast'
+import type { Root } from 'mdast'
+import type { VFile } from 'vfile'
 
-import { ProcessingContext } from './context.js'
-import { formatGopherItem, processNode } from './processing.js'
-import type { RemarkGophermapOptions, Root } from './types.js'
+import remarkGemini from './gemini/index.js'
+import type { RemarkGeminiOptions } from './gemini/types.js'
+import remarkGophermap from './gopher/index.js'
+import type { RemarkGophermapOptions } from './gopher/types.js'
 
 // Re-export types for consumers
 export type {
-  Content,
+  GemtextLine,
+  GemtextLineType,
+  GemtextVFile,
+  RemarkGeminiOptions,
+} from './gemini/types.js'
+export type {
   GopherItem,
   GopherItemType,
   GophermapVFile,
-  PhrasingContent,
   RemarkGophermapOptions,
-  Root,
-} from './types.js'
-
-export const CRLF = '\r\n'
+} from './gopher/types.js'
+export type { Content, PhrasingContent, Root } from 'mdast'
 
 /**
- * Remark plugin to convert markdown AST to Gopher protocol format (gophermap)
- * and insert it into the frontmatter
- *
- * Architecture: Each processing function handles only one layer of the syntax tree
- * and returns structured gopher item objects. Recursion handles nested layers.
+ * Combined options for both Gopher and Gemini protocols
  */
-export default function remarkGophermap(options: RemarkGophermapOptions = {}) {
+export interface UnifiedProtocolOptions {
+  /** Gopher configuration */
+  gopher?: RemarkGophermapOptions
+  /** Gemini configuration */
+  gemini?: RemarkGeminiOptions
+  /** Enable Gopher output (default: true) */
+  enableGopher?: boolean
+  /** Enable Gemini output (default: true) */
+  enableGemini?: boolean
+}
+
+/**
+ * Unified remark plugin that generates both Gopher and Gemini formats
+ *
+ * This plugin processes markdown and generates both gophermap and gemtext
+ * formats, storing them in the frontmatter of the document.
+ */
+export default function remarkUnifiedProtocol(
+  options: UnifiedProtocolOptions = {}
+) {
   const {
-    host = 'localhost',
-    port = '70',
-    baseSelector = '/',
-    maxLength,
+    gopher = {},
+    gemini = {},
+    enableGopher = true,
+    enableGemini = true,
   } = options
 
-  return function transformer(tree: Root): Root {
-    const context = new ProcessingContext({
-      host,
-      port,
-      baseSelector,
-      prefixes: [],
-      maxLength,
-    })
-    const gopherItems = processNode(tree, context)
-    const gophermapContent = gopherItems
-      .map(item => formatGopherItem(item))
-      .join(CRLF)
+  return function transformer(tree: Root, file: VFile): Root {
+    let processedTree = tree
 
-    // Find or create frontmatter node
-    const frontmatterNode = tree.children?.find(
-      child => child.type === 'yaml'
-    ) as Yaml | undefined
-
-    if (frontmatterNode && frontmatterNode.type === 'yaml') {
-      // Parse existing YAML frontmatter
-      try {
-        const yamlNode = frontmatterNode as Yaml
-        const frontmatterData = yamlNode.value
-          ? (yaml.load(yamlNode.value) as Record<string, unknown>)
-          : {}
-
-        // Add gophermap field
-        frontmatterData.gophermap = gophermapContent
-
-        // Update the frontmatter node
-        yamlNode.value = yaml
-          .dump(frontmatterData, {
-            lineWidth: -1, // Prevent line wrapping
-            noRefs: true, // Prevent YAML references
-          })
-          .trim()
-      } catch {
-        // If parsing fails, create new frontmatter with just gophermap
-        const yamlNode = frontmatterNode as Yaml
-        yamlNode.value = yaml
-          .dump(
-            { gophermap: gophermapContent },
-            {
-              lineWidth: -1,
-              noRefs: true,
-            }
-          )
-          .trim()
-      }
-    } else {
-      // No frontmatter exists, create new YAML frontmatter
-      const newFrontmatter: Yaml = {
-        type: 'yaml',
-        value: yaml
-          .dump(
-            { gophermap: gophermapContent },
-            {
-              lineWidth: -1,
-              noRefs: true,
-            }
-          )
-          .trim(),
-      }
-
-      // Insert at the beginning of the document
-      if (!tree.children) {
-        tree.children = []
-      }
-      tree.children.unshift(newFrontmatter)
+    // Apply Gopher processing if enabled
+    if (enableGopher) {
+      const gopherTransformer = remarkGophermap(gopher)
+      processedTree = gopherTransformer(processedTree, file)
     }
 
-    return tree
+    // Apply Gemini processing if enabled
+    if (enableGemini) {
+      const geminiTransformer = remarkGemini(gemini)
+      processedTree = geminiTransformer(processedTree, file)
+    }
+
+    return processedTree
   }
 }
+
+// Also export individual plugins for direct use
+export { remarkGemini, remarkGophermap }

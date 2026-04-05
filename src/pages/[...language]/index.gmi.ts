@@ -1,6 +1,7 @@
 import { SITE_TITLE } from '@consts'
-import { CRLF, type GopherItem, type GopherItemType } from '@lib/gopher/gopher'
-import { formatGopherItem } from '@lib/gopher/gopher/processing'
+import type { GemtextLine, GemtextLineType } from '@lib/gopher'
+import { LF } from '@lib/gopher/gemini'
+import { formatGemtextLine } from '@lib/gopher/gemini/processing'
 import { type Language, LANGUAGES } from '@lib/language'
 import { getPosts } from '@lib/posts'
 import type { APIContext } from 'astro'
@@ -13,18 +14,6 @@ export async function getStaticPaths() {
   }))
 }
 
-const gopherItemArgs = {
-  type: 'i' as GopherItemType,
-  host: '{{server_addr}}',
-  port: '{{server_port}}',
-  selector: '',
-}
-const gopherLinkArgs = {
-  type: '1' as GopherItemType,
-  host: '{{server_addr}}',
-  port: '{{server_port}}',
-}
-
 export async function GET(context: APIContext) {
   const { language } = context.params
   const isCurrentLanguage = (otherLanguage: Language) =>
@@ -35,55 +24,58 @@ export async function GET(context: APIContext) {
     isCurrentLanguage(post.language)
   )
 
-  const result: GopherItem[] = []
+  const result: GemtextLine[] = []
 
   result.push(
-    ...['#', `# ${SITE_TITLE}`, '#', ''].map(e => ({
-      text: e,
-      ...gopherItemArgs,
+    ...['', SITE_TITLE, ''].map(e => ({
+      type: 'heading1' as GemtextLineType,
+      content: e,
     }))
   )
+  result.push({
+    type: 'text' as GemtextLineType,
+    content: '',
+  })
 
   // Language switch links
   result.push({
-    text: 'Languages:',
-    ...gopherItemArgs,
+    type: 'heading2' as GemtextLineType,
+    content: 'Languages:',
   })
   result.push(
     ...Object.entries(LANGUAGES).flatMap(([, otherLanguage]) => ({
-      text:
+      type: 'link' as GemtextLineType,
+      content:
         otherLanguage.getDisplayName() +
         (isCurrentLanguage(otherLanguage) ? ' (*)' : ''),
-      ...gopherItemArgs,
-      selector: otherLanguage.isDefault()
+      url: otherLanguage.isDefault()
         ? '/'
         : '/' + otherLanguage.getCode() + '/',
-      ...gopherLinkArgs,
     }))
   )
   result.push({
-    text: '',
-    ...gopherItemArgs,
+    type: 'text' as GemtextLineType,
+    content: '',
   })
 
   // Posts
   result.push(
     ...posts.flatMap(post => [
       {
-        text: `- ${post.title}`,
-        selector: post.getFullURL(),
-        ...gopherLinkArgs,
+        type: 'link' as GemtextLineType,
+        content: `- ${post.title}`,
+        url: post.getFullURL(),
       },
       {
-        text: `  ${new Date(post.date).toISOString().replace('T', ' ')}`,
-        ...gopherItemArgs,
+        type: 'text' as GemtextLineType,
+        content: `  ${new Date(post.date).toISOString().replace('T', ' ')}`,
       },
       {
-        text: '',
-        ...gopherItemArgs,
+        type: 'text' as GemtextLineType,
+        content: '',
       },
     ])
   )
 
-  return new Response(result.map(item => formatGopherItem(item)).join(CRLF))
+  return new Response(result.map(item => formatGemtextLine(item)).join(LF))
 }

@@ -14,9 +14,15 @@ import remarkMermaid from 'remark-mermaid'
 import type { Node } from 'unist'
 import { visit } from 'unist-util-visit'
 
-import { CRLF } from './gopher'
-import { ProcessingContext } from './gopher/context'
-import { formatGopherItem, processNode } from './gopher/processing'
+import { LF } from './gopher/gemini'
+import { GeminiProcessingContext } from './gopher/gemini/context'
+import {
+  formatGemtextLine,
+  processNode as geminiProcessNode,
+} from './gopher/gemini/processing'
+import { CRLF } from './gopher/gopher'
+import { ProcessingContext } from './gopher/gopher/context'
+import { formatGopherItem, processNode } from './gopher/gopher/processing'
 import { remarkGraphvizSvg } from './remark-graphviz-svg'
 
 const remarkChineseQuotes = () => (tree: Node) => {
@@ -50,6 +56,24 @@ const remarkGophermap = () => {
   }
 }
 
+const remarkGemtext = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return function transformer(tree: any, file: any) {
+    const context = new GeminiProcessingContext({
+      host: '{{server_addr}}',
+      port: 1965,
+      baseSelector: '/',
+      maxLength: undefined,
+    })
+    const geminiItems = geminiProcessNode(tree, context)
+    const gemtextContent = geminiItems
+      .map(item => formatGemtextLine(item))
+      .join(LF)
+
+    file.data.astro.frontmatter.gemtext = gemtextContent
+  }
+}
+
 export const markdownPluginOptions: Parameters<
   typeof defineConfig
 >[0]['markdown'] = {
@@ -60,6 +84,7 @@ export const markdownPluginOptions: Parameters<
     remarkChineseQuotes,
     remarkJoinCjkLines,
     remarkGophermap,
+    remarkGemtext,
     remarkGfm,
     remarkMath,
     remarkGraphvizSvg,

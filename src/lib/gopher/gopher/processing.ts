@@ -13,7 +13,7 @@ import type {
   ThematicBreak,
 } from 'mdast'
 
-import { CharacterType } from './cjk.js'
+import { CharacterType } from '../cjk.js'
 import { ProcessingContext } from './context.js'
 import {
   BlockquotePrefix,
@@ -64,31 +64,18 @@ export function processNode(
 
     case 'link': {
       const linkNode = node as Link
-      if (!linkNode.url) {
-        throw new Error('Link node URL is required')
-      }
-      return [createMediaItem(linkNode.url, extractText(node), context)]
+      return [createMediaItem(linkNode.url || '', extractText(node), context)]
     }
 
     case 'image': {
-      const imageNode = node as Image
+      const imageNode = node as unknown as Image
       return [
-        createMediaItem(
-          imageNode.url ||
-            (() => {
-              throw new Error('Image node URL is required')
-            })(),
-          imageNode.alt ||
-            (() => {
-              throw new Error('Image node alt text is required')
-            })(),
-          context
-        ),
+        createMediaItem(imageNode.url || '', imageNode.alt || '', context),
       ]
     }
 
     case 'code':
-      return processCodeBlock(node as Code, context)
+      return processCodeBlock(node as unknown as Code, context)
 
     case 'thematicBreak':
       return processThematicBreak(node as ThematicBreak, context)

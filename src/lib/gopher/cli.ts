@@ -7,189 +7,201 @@ import remarkParse from 'remark-parse'
 import remarkStringify from 'remark-stringify'
 import { unified } from 'unified'
 
-import remarkGophermap, { type RemarkGophermapOptions } from './index.js'
+import remarkUnifiedProtocol, {
+  type RemarkGeminiOptions,
+  type RemarkGophermapOptions,
+  type UnifiedProtocolOptions,
+} from './index.js'
 
 interface CliOptions {
-  input: string
-  output?: string
-  host: string
-  port: string
-  baseSelector: string
+  input?: string
+  outputGopher?: string
+  outputGemini?: string
+  host?: string
+  port?: string
+  geminiPort?: number
+  baseSelector?: string
   maxLength?: number
   help?: boolean
   version?: boolean
+  formatGopher?: boolean
+  formatGemini?: boolean
+  formatBoth?: boolean
 }
 
-function showHelp() {
+function showHelp(): void {
   console.log(`
-remark-gophermap CLI - Convert Markdown to Gopher protocol format
-
-Usage:
-  remark-gophermap <input.md> [options]
+Usage: unified-gopher [options] <input-file>
 
 Options:
-  -o, --output <file>        Output file (default: stdout)
-  -h, --host <hostname>      Gopher server hostname (default: localhost)
-  -p, --port <string>        Gopher server port (default: 70)
-  -s, --selector <path>      Base selector path (default: /)
-  -l, --max-length <number>  Maximum line length for text wrapping (default: 70)
-  --help                     Show this help message
-  --version                  Show version information
+  -o, --output-gopher <file>    Output file for Gopher format
+  -g, --output-gemini <file>    Output file for Gemini format
+  -h, --host <hostname>         Server hostname (default: localhost)
+  -p, --port <string>           Gopher server port (default: '70')
+      --gemini-port <number>    Gemini server port (default: 1965)
+  -s, --selector <path>         Base selector path (default: /)
+  -l, --max-length <number>     Maximum line length (default: 70)
+      --gopher                  Generate only Gopher format
+      --gemini                  Generate only Gemini format
+      --both                    Generate both formats (default)
+      --help                    Show this help message
+      --version                 Show version information
 
 Examples:
-  # Convert to stdout
-  remark-gophermap README.md
+  # Generate both formats to stdout (frontmatter)
+  unified-gopher README.md
 
-  # Convert to file
-  remark-gophermap README.md -o README.gophermap
+  # Generate Gopher format to file
+  unified-gopher README.md --gopher -o README.gophermap
+
+  # Generate Gemini format to file
+  unified-gopher README.md --gemini -g README.gmi
+
+  # Generate both formats to separate files
+  unified-gopher README.md --both -o README.gophermap -g README.gmi
 
   # With custom server settings
-  remark-gophermap blog-post.md -h blog.example.com -p 70 -s /posts/
-
-  # Pipe output
-  remark-gophermap article.md | less
+  unified-gopher blog-post.md --host blog.example.com --port 70 --gemini-port 1965
 `)
 }
 
-function showVersion() {
-  // Read version from package.json
+function showVersion(): void {
   try {
     const packageJson = JSON.parse(
-      readFileSync(new URL('../../package.json', import.meta.url), 'utf8')
+      readFileSync(new URL('../package.json', import.meta.url), 'utf8')
     )
-    console.log(`remark-gophermap v${packageJson.version}`)
+    console.log(`unified-gopher v${packageJson.version}`)
   } catch {
-    console.log('remark-gophermap (version unknown)')
+    console.log('unified-gopher (version unknown)')
   }
 }
 
 function parseArgs(args: string[]): CliOptions {
-  const options: CliOptions = {
-    input: '',
-    host: 'localhost',
-    port: '70',
-    baseSelector: '/',
-  }
+  const options: CliOptions = {}
+  let i = 0
 
-  for (let i = 0; i < args.length; i++) {
+  while (i < args.length) {
     const arg = args[i]
 
-    if (!arg) continue
-
     switch (arg) {
+      case '-o':
+      case '--output-gopher':
+        options.outputGopher = args[++i]
+        break
+      case '-g':
+      case '--output-gemini':
+        options.outputGemini = args[++i]
+        break
+      case '-h':
+      case '--host':
+        options.host = args[++i]
+        break
+      case '-p':
+      case '--port':
+        options.port = args[++i]
+        break
+      case '--gemini-port': {
+        const geminiPortArg = args[++i]
+        if (geminiPortArg) {
+          options.geminiPort = parseInt(geminiPortArg, 10)
+        }
+        break
+      }
+      case '-s':
+      case '--selector':
+        options.baseSelector = args[++i]
+        break
+      case '-l':
+      case '--max-length': {
+        const maxLengthArg = args[++i]
+        if (maxLengthArg) {
+          options.maxLength = parseInt(maxLengthArg, 10)
+        }
+        break
+      }
+      case '--gopher':
+        options.formatGopher = true
+        break
+      case '--gemini':
+        options.formatGemini = true
+        break
+      case '--both':
+        options.formatBoth = true
+        break
       case '--help':
         options.help = true
         break
       case '--version':
         options.version = true
         break
-      case '-o':
-      case '--output': {
-        const outputValue = args[++i]
-        if (!outputValue) {
-          console.error('Error: --output requires a value')
-          process.exit(1)
-        }
-        options.output = outputValue
-        break
-      }
-      case '-h':
-      case '--host': {
-        const hostValue = args[++i]
-        if (!hostValue) {
-          console.error('Error: --host requires a value')
-          process.exit(1)
-        }
-        options.host = hostValue
-        break
-      }
-      case '-p':
-      case '--port': {
-        const portValue = args[++i]
-        if (!portValue) {
-          console.error('Error: --port requires a value')
-          process.exit(1)
-        }
-        options.port = portValue
-        break
-      }
-      case '-s':
-      case '--selector': {
-        const selectorValue = args[++i]
-        if (!selectorValue) {
-          console.error('Error: --selector requires a value')
-          process.exit(1)
-        }
-        options.baseSelector = selectorValue
-        break
-      }
-      case '-l':
-      case '--max-length': {
-        const maxLengthValue = args[++i]
-        if (!maxLengthValue) {
-          console.error('Error: --max-length requires a value')
-          process.exit(1)
-        }
-        const maxLengthNum = parseInt(maxLengthValue, 10)
-        if (isNaN(maxLengthNum) || maxLengthNum <= 0) {
-          console.error('Error: --max-length must be a positive number')
-          process.exit(1)
-        }
-        options.maxLength = maxLengthNum
-        break
-      }
       default:
-        if (arg.startsWith('-')) {
-          console.error(`Error: Unknown option '${arg}'`)
-          console.error('Use --help for usage information')
-          process.exit(1)
-        } else if (!options.input) {
+        if (arg && !arg.startsWith('-')) {
           options.input = arg
-        } else {
-          console.error('Error: Multiple input files specified')
-          console.error('Use --help for usage information')
+        } else if (arg) {
+          console.error(`Unknown option: ${arg}`)
           process.exit(1)
         }
         break
     }
+    i++
+  }
+
+  // Set defaults for format flags
+  if (!options.formatGopher && !options.formatGemini && !options.formatBoth) {
+    options.formatBoth = true
   }
 
   return options
 }
 
-async function convertMarkdownToGophermap(
+async function convertMarkdownToProtocols(
   markdownContent: string,
-  options: RemarkGophermapOptions
-): Promise<string> {
+  options: UnifiedProtocolOptions
+): Promise<{ gophermap?: string; gemtext?: string }> {
   const processor = unified()
     .use(remarkParse)
     .use(remarkFrontmatter, ['yaml', 'toml'])
-    .use(remarkGophermap, options)
+    .use(remarkUnifiedProtocol, options)
     .use(remarkStringify)
 
   const result = await processor.process(markdownContent)
-  const processedMarkdown = String(result)
 
-  // Extract gophermap from frontmatter
-  const frontmatterMatch = processedMarkdown.match(/^---\n([\s\S]*?)\n---/)
-  if (frontmatterMatch) {
-    try {
-      if (!frontmatterMatch[1]) {
-        throw new Error('Invalid frontmatter: content is empty')
+  // Extract gophermap and gemtext from frontmatter
+  let gophermap: string | undefined
+  let gemtext: string | undefined
+
+  // Try to parse frontmatter from the processed content
+  if (result.toString().includes('---')) {
+    const lines = result.toString().split('\n')
+    let inFrontmatter = false
+    const frontmatterLines: string[] = []
+
+    for (const line of lines) {
+      if (line.trim() === '---') {
+        if (!inFrontmatter) {
+          inFrontmatter = true
+        } else {
+          break
+        }
+      } else if (inFrontmatter) {
+        frontmatterLines.push(line)
       }
-      const frontmatterData = yaml.load(frontmatterMatch[1]) as Record<
-        string,
-        unknown
-      >
-      const gophermap = frontmatterData.gophermap
-      return typeof gophermap === 'string' ? gophermap : ''
-    } catch {
-      // If frontmatter parsing fails, return empty string
-      return ''
+    }
+
+    if (frontmatterLines.length > 0) {
+      try {
+        const frontmatterData = yaml.load(
+          frontmatterLines.join('\n')
+        ) as Record<string, unknown>
+        gophermap = frontmatterData.gophermap as string
+        gemtext = frontmatterData.gemtext as string
+      } catch {
+        // If frontmatter parsing fails, return empty strings
+      }
     }
   }
 
-  return ''
+  return { gophermap, gemtext }
 }
 
 async function main() {
@@ -222,25 +234,60 @@ async function main() {
     // Read input file
     const markdownContent = readFileSync(options.input, 'utf8')
 
-    // Convert to gophermap
-    const gophermapOptions: RemarkGophermapOptions = {
-      host: options.host,
-      port: options.port,
-      baseSelector: options.baseSelector,
-      maxLength: options.maxLength,
+    // Determine which formats to generate
+    const enableGopher = options.formatGopher || options.formatBoth
+    const enableGemini = options.formatGemini || options.formatBoth
+
+    // Convert to protocols
+    const unifiedOptions: UnifiedProtocolOptions = {
+      enableGopher,
+      enableGemini,
+      gopher: {
+        host: options.host,
+        port: options.port,
+        baseSelector: options.baseSelector,
+        maxLength: options.maxLength,
+      } as RemarkGophermapOptions,
+      gemini: {
+        host: options.host,
+        port: options.geminiPort,
+        baseSelector: options.baseSelector,
+        maxLength: options.maxLength,
+      } as RemarkGeminiOptions,
     }
 
-    const gophermap = await convertMarkdownToGophermap(
+    const { gophermap, gemtext } = await convertMarkdownToProtocols(
       markdownContent,
-      gophermapOptions
+      unifiedOptions
     )
 
-    // Output result
-    if (options.output) {
-      writeFileSync(options.output, gophermap)
-      console.error(`✓ Converted ${options.input} → ${options.output}`)
-    } else {
-      process.stdout.write(gophermap)
+    // Output results
+    if (options.outputGopher && gophermap) {
+      writeFileSync(options.outputGopher, gophermap)
+      console.error(
+        `✓ Generated Gopher: ${options.input} → ${options.outputGopher}`
+      )
+    }
+
+    if (options.outputGemini && gemtext) {
+      writeFileSync(options.outputGemini, gemtext)
+      console.error(
+        `✓ Generated Gemini: ${options.input} → ${options.outputGemini}`
+      )
+    }
+
+    // If no specific output files, output to stdout
+    if (!options.outputGopher && !options.outputGemini) {
+      if (enableGopher && enableGemini) {
+        console.log('=== GOPHER ===')
+        if (gophermap) console.log(gophermap)
+        console.log('\n=== GEMINI ===')
+        if (gemtext) console.log(gemtext)
+      } else if (enableGopher && gophermap) {
+        console.log(gophermap)
+      } else if (enableGemini && gemtext) {
+        console.log(gemtext)
+      }
     }
   } catch (error) {
     if (error instanceof Error) {

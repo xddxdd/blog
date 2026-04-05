@@ -71,6 +71,11 @@ export class Post {
     return remarkPluginFrontmatter['gophermap']
   }
 
+  public async renderGemtext(): Promise<string> {
+    const { remarkPluginFrontmatter } = await this.collectionEntry.render()
+    return remarkPluginFrontmatter['gemtext']
+  }
+
   public static fromCollectionEntry(post: CollectionEntry<'article'>): Post {
     return new Post(post)
   }
