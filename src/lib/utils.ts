@@ -1,3 +1,16 @@
+import { GeminiProcessingContext } from './gopher/gemini/context'
+import { ProcessingContext } from './gopher/gopher/context'
+
+export const GOPHER_CONTEXT = new ProcessingContext({
+  host: '{{server_addr}}',
+  port: '{{server_port}}',
+  baseSelector: '',
+})
+
+export const GEMINI_CONTEXT = new GeminiProcessingContext({
+  baseSelector: '',
+})
+
 // https://www.jacobparis.com/content/reversing-a-record-in-typescript
 export function reverseRecord<T extends PropertyKey, U extends PropertyKey>(
   input: Record<T, U>

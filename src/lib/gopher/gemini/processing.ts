@@ -365,7 +365,7 @@ function processInlineContent(
 /**
  * Create gemtext line objects
  */
-function createLine(
+export function createLine(
   type: GemtextLineType,
   content: string,
   context: GeminiProcessingContext
@@ -376,7 +376,7 @@ function createLine(
   }
 }
 
-function createLinkLine(url: string, displayText: string): GemtextLine {
+export function createLinkLine(url: string, displayText: string): GemtextLine {
   return {
     type: 'link',
     content: displayText,
@@ -384,14 +384,14 @@ function createLinkLine(url: string, displayText: string): GemtextLine {
   }
 }
 
-function createEmptyLine(): GemtextLine {
+export function createEmptyLine(): GemtextLine {
   return {
     type: 'empty',
     content: '',
   }
 }
 
-function createTextLines(
+export function createTextLines(
   text: string,
   context: GeminiProcessingContext
 ): GemtextLine[] {

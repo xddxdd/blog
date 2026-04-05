@@ -340,7 +340,10 @@ function processInlineContent(
 /**
  * Create gopher item objects
  */
-function createInfoItem(text: string, context: ProcessingContext): GopherItem {
+export function createInfoItem(
+  text: string,
+  context: ProcessingContext
+): GopherItem {
   return {
     type: 'i',
     text: context.prefixesToString() + text,
@@ -350,7 +353,7 @@ function createInfoItem(text: string, context: ProcessingContext): GopherItem {
   }
 }
 
-function createMediaItem(
+export function createMediaItem(
   url: string,
   displayText: string,
   context: ProcessingContext
@@ -384,7 +387,7 @@ function createMediaItem(
   }
 }
 
-function createEmptyItem(context: ProcessingContext): GopherItem {
+export function createEmptyItem(context: ProcessingContext): GopherItem {
   return {
     type: 'i',
     text: context.prefixesToString(),
@@ -394,7 +397,7 @@ function createEmptyItem(context: ProcessingContext): GopherItem {
   }
 }
 
-function createTextItems(
+export function createTextItems(
   text: string,
   context: ProcessingContext
 ): GopherItem[] {

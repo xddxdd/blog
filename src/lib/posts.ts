@@ -8,17 +8,21 @@ import { type CollectionEntry, getCollection } from 'astro:content'
 import { Feed } from 'feed'
 
 import type { PaginationProps } from '../components/PagePaginator.astro'
-import type {
-  GemtextLine,
-  GemtextLineType,
-  GopherItem,
-  GopherItemType,
-} from './gopher'
+import type { GemtextLine } from './gopher'
 import { LF } from './gopher/gemini'
-import { formatGemtextLine } from './gopher/gemini/processing'
+import {
+  createEmptyLine,
+  createLine,
+  formatGemtextLine,
+} from './gopher/gemini/processing'
 import { CRLF } from './gopher/gopher'
-import { formatGopherItem } from './gopher/gopher/processing'
+import {
+  createEmptyItem,
+  createInfoItem,
+  formatGopherItem,
+} from './gopher/gopher/processing'
 import { DEFAULT_LANGUAGE, type Language, LANGUAGES } from './language'
+import { GEMINI_CONTEXT, GOPHER_CONTEXT } from './utils'
 
 export class Post {
   public readonly title: string
@@ -79,24 +83,17 @@ export class Post {
   public async renderGophermap(): Promise<string> {
     const { remarkPluginFrontmatter } = await this.collectionEntry.render()
 
-    const gopherItemArgs = {
-      type: 'i' as GopherItemType,
-      host: '{{server_addr}}',
-      port: '{{server_port}}',
-      selector: '',
-    }
-
-    const prefix: GopherItem[] = [
-      { text: `# ${this.title}`, ...gopherItemArgs },
-      {
-        text: `${this.language.getTranslation('category')}: ${this.category}`,
-        ...gopherItemArgs,
-      },
-      {
-        text: `${this.language.getTranslation('date')}: ${new Date(this.date).toISOString().replace('T', ' ')}`,
-        ...gopherItemArgs,
-      },
-      { text: '', ...gopherItemArgs },
+    const prefix = [
+      createInfoItem(`# ${this.title}`, GOPHER_CONTEXT),
+      createInfoItem(
+        `${this.language.getTranslation('category')}: ${this.category}`,
+        GOPHER_CONTEXT
+      ),
+      createInfoItem(
+        `${this.language.getTranslation('date')}: ${new Date(this.date).toISOString().replace('T', ' ')}`,
+        GOPHER_CONTEXT
+      ),
+      createEmptyItem(GOPHER_CONTEXT),
     ]
 
     const prefixContent = prefix.map(item => formatGopherItem(item)).join(CRLF)
@@ -108,16 +105,18 @@ export class Post {
     const { remarkPluginFrontmatter } = await this.collectionEntry.render()
 
     const prefix: GemtextLine[] = [
-      { type: 'heading1' as GemtextLineType, content: this.title },
-      {
-        type: 'text' as GemtextLineType,
-        content: `${this.language.getTranslation('category')}: ${this.category}`,
-      },
-      {
-        type: 'text' as GemtextLineType,
-        content: `${this.language.getTranslation('date')}: ${new Date(this.date).toISOString().replace('T', ' ')}`,
-      },
-      { type: 'text' as GemtextLineType, content: '' },
+      createLine('heading1', this.title, GEMINI_CONTEXT),
+      createLine(
+        'text',
+        `${this.language.getTranslation('category')}: ${this.category}`,
+        GEMINI_CONTEXT
+      ),
+      createLine(
+        'text',
+        `${this.language.getTranslation('date')}: ${new Date(this.date).toISOString().replace('T', ' ')}`,
+        GEMINI_CONTEXT
+      ),
+      createEmptyLine(),
     ]
 
     const prefixContent = prefix.map(line => formatGemtextLine(line)).join(LF)

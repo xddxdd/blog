@@ -1,9 +1,15 @@
 import { SITE_TITLE } from '@consts'
-import type { GemtextLine, GemtextLineType } from '@lib/gopher'
+import type { GemtextLine } from '@lib/gopher'
 import { LF } from '@lib/gopher/gemini'
-import { formatGemtextLine } from '@lib/gopher/gemini/processing'
+import {
+  createEmptyLine,
+  createLine,
+  createLinkLine,
+  formatGemtextLine,
+} from '@lib/gopher/gemini/processing'
 import { type Language, LANGUAGES } from '@lib/language'
 import { getPosts } from '@lib/posts'
+import { GEMINI_CONTEXT } from '@lib/utils'
 import type { APIContext } from 'astro'
 
 export async function getStaticPaths() {
@@ -26,56 +32,36 @@ export async function GET(context: APIContext) {
 
   const result: GemtextLine[] = []
 
-  result.push(
-    ...['', SITE_TITLE, ''].map(e => ({
-      type: 'heading1' as GemtextLineType,
-      content: e,
-    }))
-  )
-  result.push({
-    type: 'text' as GemtextLineType,
-    content: '',
-  })
+  for (const line of ['', SITE_TITLE, '']) {
+    result.push(createLine('heading1', line, GEMINI_CONTEXT))
+  }
+  result.push(createEmptyLine())
 
   // Language switch links
-  result.push({
-    type: 'heading2' as GemtextLineType,
-    content: 'Languages:',
-  })
-  result.push(
-    ...Object.entries(LANGUAGES).flatMap(([, otherLanguage]) => ({
-      type: 'link' as GemtextLineType,
-      content:
-        otherLanguage.getDisplayName() +
-        (isCurrentLanguage(otherLanguage) ? ' (*)' : ''),
-      url: otherLanguage.isDefault()
-        ? '/'
-        : '/' + otherLanguage.getCode() + '/',
-    }))
-  )
-  result.push({
-    type: 'text' as GemtextLineType,
-    content: '',
-  })
+  result.push(createLine('heading2', 'Languages:', GEMINI_CONTEXT))
+  for (const [, otherLanguage] of Object.entries(LANGUAGES)) {
+    const text =
+      otherLanguage.getDisplayName() +
+      (isCurrentLanguage(otherLanguage) ? ' (*)' : '')
+    const url = otherLanguage.isDefault()
+      ? '/'
+      : '/' + otherLanguage.getCode() + '/'
+    result.push(createLinkLine(url, text))
+  }
+  result.push(createEmptyLine())
 
   // Posts
-  result.push(
-    ...posts.flatMap(post => [
-      {
-        type: 'link' as GemtextLineType,
-        content: `- ${post.title}`,
-        url: post.getFullURL(),
-      },
-      {
-        type: 'text' as GemtextLineType,
-        content: `  ${new Date(post.date).toISOString().replace('T', ' ')}`,
-      },
-      {
-        type: 'text' as GemtextLineType,
-        content: '',
-      },
-    ])
-  )
+  for (const post of posts) {
+    result.push(createLinkLine(post.getFullURL(), `- ${post.title}`))
+    result.push(
+      createLine(
+        'text',
+        `  ${new Date(post.date).toISOString().replace('T', ' ')}`,
+        GEMINI_CONTEXT
+      )
+    )
+    result.push(createEmptyLine())
+  }
 
   return new Response(result.map(item => formatGemtextLine(item)).join(LF))
 }

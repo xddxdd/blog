@@ -1,8 +1,14 @@
 import { SITE_TITLE } from '@consts'
-import { CRLF, type GopherItem, type GopherItemType } from '@lib/gopher/gopher'
-import { formatGopherItem } from '@lib/gopher/gopher/processing'
+import { CRLF, type GopherItem } from '@lib/gopher/gopher'
+import {
+  createEmptyItem,
+  createInfoItem,
+  createMediaItem,
+  formatGopherItem,
+} from '@lib/gopher/gopher/processing'
 import { type Language, LANGUAGES } from '@lib/language'
 import { getPosts } from '@lib/posts'
+import { GOPHER_CONTEXT } from '@lib/utils'
 import type { APIContext } from 'astro'
 
 export async function getStaticPaths() {
@@ -11,18 +17,6 @@ export async function getStaticPaths() {
       language: language.isDefault() ? undefined : language.toString(),
     },
   }))
-}
-
-const gopherItemArgs = {
-  type: 'i' as GopherItemType,
-  host: '{{server_addr}}',
-  port: '{{server_port}}',
-  selector: '',
-}
-const gopherLinkArgs = {
-  type: '1' as GopherItemType,
-  host: '{{server_addr}}',
-  port: '{{server_port}}',
 }
 
 export async function GET(context: APIContext) {
@@ -37,53 +31,36 @@ export async function GET(context: APIContext) {
 
   const result: GopherItem[] = []
 
-  result.push(
-    ...['#', `# ${SITE_TITLE}`, '#', ''].map(e => ({
-      text: e,
-      ...gopherItemArgs,
-    }))
-  )
+  for (const line of ['#', `# ${SITE_TITLE}`, '#', '']) {
+    result.push(createInfoItem(line, GOPHER_CONTEXT))
+  }
 
   // Language switch links
-  result.push({
-    text: 'Languages:',
-    ...gopherItemArgs,
-  })
-  result.push(
-    ...Object.entries(LANGUAGES).flatMap(([, otherLanguage]) => ({
-      text:
-        otherLanguage.getDisplayName() +
-        (isCurrentLanguage(otherLanguage) ? ' (*)' : ''),
-      ...gopherItemArgs,
-      selector: otherLanguage.isDefault()
-        ? '/'
-        : '/' + otherLanguage.getCode() + '/',
-      ...gopherLinkArgs,
-    }))
-  )
-  result.push({
-    text: '',
-    ...gopherItemArgs,
-  })
+  result.push(createInfoItem('Languages:', GOPHER_CONTEXT))
+  for (const [, otherLanguage] of Object.entries(LANGUAGES)) {
+    const text =
+      otherLanguage.getDisplayName() +
+      (isCurrentLanguage(otherLanguage) ? ' (*)' : '')
+    const selector = otherLanguage.isDefault()
+      ? '/'
+      : '/' + otherLanguage.getCode() + '/'
+    result.push(createMediaItem(selector, text, GOPHER_CONTEXT))
+  }
+  result.push(createEmptyItem(GOPHER_CONTEXT))
 
   // Posts
-  result.push(
-    ...posts.flatMap(post => [
-      {
-        text: `- ${post.title}`,
-        selector: post.getFullURL(),
-        ...gopherLinkArgs,
-      },
-      {
-        text: `  ${new Date(post.date).toISOString().replace('T', ' ')}`,
-        ...gopherItemArgs,
-      },
-      {
-        text: '',
-        ...gopherItemArgs,
-      },
-    ])
-  )
+  for (const post of posts) {
+    result.push(
+      createMediaItem(post.getFullURL(), `- ${post.title}`, GOPHER_CONTEXT)
+    )
+    result.push(
+      createInfoItem(
+        `  ${new Date(post.date).toISOString().replace('T', ' ')}`,
+        GOPHER_CONTEXT
+      )
+    )
+    result.push(createEmptyItem(GOPHER_CONTEXT))
+  }
 
   return new Response(result.map(item => formatGopherItem(item)).join(CRLF))
 }
