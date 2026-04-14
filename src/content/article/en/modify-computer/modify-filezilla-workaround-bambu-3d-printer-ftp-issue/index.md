@@ -1,5 +1,5 @@
 ---
-title: 'Modifying FileZilla to Workaround Bambu 3D Printer's FTP Issue'
+title: "Modifying FileZilla to Workaround Bambu 3D Printer's FTP Issue"
 categories: Computers and Clients
 tags: [FileZilla, FTP, '3D Printer', 'Bambu']
 date: 2026-04-13 23:28:02
