@@ -3,6 +3,7 @@ import PostInfo from '@components/fragments/PostInfo.astro'
 import PostText from '@components/fragments/PostText.astro'
 import { type Language } from '@lib/language'
 import { Page } from '@lib/pages'
+import { render } from 'astro:content'
 
 type Props = {
   language: Language
@@ -11,7 +12,7 @@ type Props = {
 
 const { language, page } = Astro.props
 
-const { Content, headings } = await page.collectionEntry.render()
+const { Content, headings } = await render(page.collectionEntry)
 ---
 
 <article>

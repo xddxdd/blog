@@ -1,8 +1,9 @@
-import { defineCollection, z } from 'astro:content'
+import { glob } from 'astro/loaders'
+import { z } from 'astro/zod'
+import { defineCollection } from 'astro:content'
 
 const article = defineCollection({
-  type: 'content',
-  // Type-check frontmatter using a schema
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/article' }),
   schema: z.object({
     title: z.string(),
     categories: z.string(),
@@ -12,14 +13,20 @@ const article = defineCollection({
     bodyClass: z.string().optional(),
     series: z.string().optional(),
     autoTranslated: z.boolean().optional(),
-    // This is needed to make gophermap generation work
     gophermap: z.string().optional(),
   }),
 })
 
 const page = defineCollection({
-  type: 'content',
-  // Type-check frontmatter using a schema
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/page' }),
+  schema: z.object({
+    title: z.string(),
+    bodyClass: z.string().optional(),
+  }),
+})
+
+const lab = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/lab' }),
   schema: z.object({
     title: z.string(),
     bodyClass: z.string().optional(),
@@ -27,7 +34,7 @@ const page = defineCollection({
 })
 
 export const collections = {
-  article: article,
-  page: page,
-  lab: page,
+  article,
+  lab,
+  page,
 }

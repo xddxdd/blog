@@ -9,6 +9,7 @@ import WalineComment from '@components/fragments/WalineComment.astro'
 import PageSeries from '@components/PageSeries.astro'
 import { type Language } from '@lib/language'
 import { Post } from '@lib/posts'
+import { render } from 'astro:content'
 
 type Props = {
   language: Language
@@ -19,7 +20,7 @@ type Props = {
 }
 
 const { language, post, postPrev, postNext, isShowingMultiPosts } = Astro.props
-const { Content, headings } = await post.collectionEntry.render()
+const { Content, headings } = await render(post.collectionEntry)
 ---
 
 <article>

@@ -4,7 +4,7 @@ import type { APIContext } from 'astro'
 import type { GetStaticPathsItem } from 'astro'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { loadRenderers } from 'astro/virtual-modules/container.js'
-import { type CollectionEntry, getCollection } from 'astro:content'
+import { type CollectionEntry, getCollection, render } from 'astro:content'
 import { Feed } from 'feed'
 
 import type { PaginationProps } from '../components/PagePaginator.astro'
@@ -41,7 +41,7 @@ export class Post {
   constructor(post: CollectionEntry<'article'>) {
     this.collectionEntry = post
 
-    const [language, ...paths] = post.slug.split('/')
+    const [language, ...paths] = post.id.split('/')
     const path = paths.join('/')
 
     this.title = post.data.title
@@ -70,7 +70,7 @@ export class Post {
       renderers: await loadRenderers([getMdxContainerRenderer()]),
     })
 
-    const { Content } = await this.collectionEntry.render()
+    const { Content } = await render(this.collectionEntry)
     let content = await container.renderToString(Content)
 
     content = content.startsWith('<!DOCTYPE html>')
@@ -81,7 +81,7 @@ export class Post {
   }
 
   public async renderGophermap(): Promise<string> {
-    const { remarkPluginFrontmatter } = await this.collectionEntry.render()
+    const { remarkPluginFrontmatter } = await render(this.collectionEntry)
 
     const prefix = [
       createInfoItem(`# ${this.title}`, GOPHER_CONTEXT),
@@ -102,7 +102,7 @@ export class Post {
   }
 
   public async renderGemtext(): Promise<string> {
-    const { remarkPluginFrontmatter } = await this.collectionEntry.render()
+    const { remarkPluginFrontmatter } = await render(this.collectionEntry)
 
     const prefix: GemtextLine[] = [
       createLine('heading1', this.title, GEMINI_CONTEXT),

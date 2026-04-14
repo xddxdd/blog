@@ -17,7 +17,7 @@ export class Page {
   constructor(page: PageCollectionTypes) {
     this.collectionEntry = page
 
-    const [language, ...paths] = page.slug.split('/')
+    const [language, ...paths] = page.id.split('/')
     const path = paths.join('/')
 
     this.title = page.data.title

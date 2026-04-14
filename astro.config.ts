@@ -2,11 +2,11 @@ import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
+import favicons from 'astro-favicons'
 
 import { SITE_TITLE } from './src/consts'
 import capo from './src/lib/astro-plugins/capo'
 import compress from './src/lib/astro-plugins/compress'
-import favicons from './src/lib/astro-plugins/favicons'
 import renameSitemap from './src/lib/astro-plugins/rename-sitemap'
 import { markdownPluginOptions } from './src/lib/markdown-config'
 
