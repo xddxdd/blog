@@ -42,7 +42,7 @@
     "cssnano": "^7.1.4",
     "cssnano-preset-advanced": "^7.0.12",
     "date-fns": "^4.1.0",
-    "feed": "^5.2.0",
+    "feed": "^5.2.1",
     "flag-icon-css": "^4.1.7",
     "fooldevs": "^0.1.1",
     "glob": "^13.0.6",
