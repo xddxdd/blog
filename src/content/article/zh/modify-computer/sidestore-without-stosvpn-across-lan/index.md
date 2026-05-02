@@ -5,6 +5,8 @@ tags: [SideStore, StosVPN, iOS]
 date: 2025-06-27 00:47:31
 ---
 
+**2026 年 5 月 1 日更新：** 增加了[@日下部 詩](https://github.com/KusakabeShi)提供的在整个网络生效的 Nftables 规则。
+
 ## 前言
 
 [SideStore](https://github.com/SideStore/SideStore) 是一款常用的 iOS 应用侧载工具，可以绕过 App Store 安装第三方应用。它的工作原理是用你的 Apple ID 获取免费的苹果开发者证书，给你要安装的应用签名，从而让应用可以在 iOS 设备上正常运行。
@@ -84,7 +86,7 @@ table inet sidestore {
 
 ~~由于 Nftables 不支持将数据包的来源/目标 IP 等信息用作变量，无法用一组规则实现“交换来源和目标地址”的目的，所以我们需要给每台 iOS 设备都添加一条规则。如果你的 iOS 设备比较少，可以给每个设备的 IP 都单独写一条规则。但如果你的设备很多，或者没有固定 IP，你就需要给家庭网段内的每一个 IP 都写一条规则，非常麻烦。同时，如果你的路由器不支持 Nftables 或类似的防火墙功能，无法用类似的方式改写数据包，也无法实现这样的功能。~~
 
-感谢[@日下部 詩](https://github.com/KusakabeShi)提供的防火墙规则，以下 Nftables 规则可以直接交换来源和目标地址，对整个网络生效，无需给每个 IP 单独设置规则：
+**2026 年 5 月 1 日更新：** 感谢[@日下部 詩](https://github.com/KusakabeShi)提供的防火墙规则，以下 Nftables 规则可以直接交换来源和目标地址，对整个网络生效，无需给每个 IP 单独设置规则：
 
 ```bash
 table ip sidestore {

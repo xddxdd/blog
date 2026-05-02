@@ -5,6 +5,8 @@ tags: [SideStore, StosVPN, iOS]
 date: 2025-06-27 00:47:31
 ---
 
+**2026-05-01 update:** Added Nftables rule that apply to the entire network, provided by [@KusakabeShi](https://github.com/KusakabeShi).
+
 ## Foreword
 
 [SideStore](https://github.com/SideStore/SideStore) is a commonly used iOS app sideloading tool that allows you to install third-party apps bypassing the App Store. It works by using your Apple ID to obtain a free Apple developer certificate, which is then used to sign the app you want to install, allowing it to run normally on your iOS device.
@@ -84,7 +86,7 @@ The purpose of the above rules is that if a packet is received from your iOS dev
 
 ~~Since Nftables does not support using packet source/destination IP addresses as variables, it's not possible to achieve the purpose of "swapping source and destination addresses" with a single set of rules. Therefore, we need to add a rule for each iOS device. If you have a small number of iOS devices, you can write a separate rule for each device's IP address. However, if you have many devices, or if they don't have static IP addresses, you will need to write a rule for every IP address in your home network segment, which can be very troublesome. Also, if your router does not support Nftables or similar firewall functions and cannot rewrite packets in a similar way, you cannot achieve this functionality.~~
 
-Thanks to [@KusakabeShi](https://github.com/KusakabeShi) who provided the following rules, these Nftables rules can swap the source and destination addresses in one go. It will work for your entire network, and you don't need to create rules for each IP one by one:
+**2026-05-01 update:** Thanks to [@KusakabeShi](https://github.com/KusakabeShi) who provided the following rules, these Nftables rules can swap the source and destination addresses in one go. It will work for your entire network, and you don't need to create rules for each IP one by one:
 
 ```bash
 table ip sidestore {
