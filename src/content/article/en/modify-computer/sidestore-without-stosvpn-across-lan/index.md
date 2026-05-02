@@ -82,7 +82,18 @@ table inet sidestore {
 
 The purpose of the above rules is that if a packet is received from your iOS device (`192.168.0.123` or `192.168.0.234`) destined for `10.7.0.1` (the virtual computer), it changes the packet's source IP to `10.7.0.1` (the virtual computer) and the destination IP to your iOS device (`192.168.0.123` or `192.168.0.234`), and then sends it out. The `notrack` here disables connection tracking, which prevents Linux from matching these packets to previously received packets and connection tracking entries, which could make the rules ineffective.
 
-Since Nftables does not support using packet source/destination IP addresses as variables, it's not possible to achieve the purpose of "swapping source and destination addresses" with a single set of rules. Therefore, we need to add a rule for each iOS device. If you have a small number of iOS devices, you can write a separate rule for each device's IP address. However, if you have many devices, or if they don't have static IP addresses, you will need to write a rule for every IP address in your home network segment, which can be very troublesome. Also, if your router does not support Nftables or similar firewall functions and cannot rewrite packets in a similar way, you cannot achieve this functionality.
+~~Since Nftables does not support using packet source/destination IP addresses as variables, it's not possible to achieve the purpose of "swapping source and destination addresses" with a single set of rules. Therefore, we need to add a rule for each iOS device. If you have a small number of iOS devices, you can write a separate rule for each device's IP address. However, if you have many devices, or if they don't have static IP addresses, you will need to write a rule for every IP address in your home network segment, which can be very troublesome. Also, if your router does not support Nftables or similar firewall functions and cannot rewrite packets in a similar way, you cannot achieve this functionality.~~
+
+Thanks to [@KusakabeShi](https://github.com/KusakabeShi) who provided the following rules, these Nftables rules can swap the source and destination addresses in one go. It will work for your entire network, and you don't need to create rules for each IP one by one:
+
+```bash
+table ip sidestore {
+  chain NAT_PREROUTING {
+    type nat hook prerouting priority -350; policy accept;
+    ip daddr 10.7.0.1 ip daddr set ip saddr ip saddr set 10.7.0.1 notrack
+  }
+}
+```
 
 ## SideStore VPN Tool
 
