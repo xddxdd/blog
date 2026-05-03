@@ -1,15 +1,9 @@
-import type { APIContext } from 'astro'
+import type { APIContext, APIRoute } from 'astro'
 
-export async function GET(context: APIContext) {
-  const aiRobotsTxt = await fetch(
-    'https://github.com/ai-robots-txt/ai.robots.txt/raw/refs/heads/main/robots.txt'
-  )
-  if (aiRobotsTxt.status != 200) {
-    throw new Error('Cannot download AI Robots.txt')
-  }
-
+export const GET: APIRoute = (context: APIContext) => {
   const robotsTxt = `
-${await aiRobotsTxt.text()}
+User-agent: *
+Allow: /
 
 Sitemap: ${
     new URL(
