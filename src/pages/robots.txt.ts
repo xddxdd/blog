@@ -8,8 +8,15 @@ export async function GET(context: APIContext) {
     throw new Error('Cannot download AI Robots.txt')
   }
 
+  // Filter out lines containing "User" (e.g., User-agent entries)
+  // This allows all user agents instead of blocking specific ones
+  const filteredText = (await aiRobotsTxt.text())
+    .split('\n')
+    .filter(line => !line.includes('User'))
+    .join('\n')
+
   const robotsTxt = `
-${await aiRobotsTxt.text()}
+${filteredText}
 
 Sitemap: ${
     new URL(
