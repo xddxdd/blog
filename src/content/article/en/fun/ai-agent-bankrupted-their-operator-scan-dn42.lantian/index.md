@@ -152,7 +152,7 @@ The agent autonomously chose AWS to setup the scanning infrastructure, in order 
 
 In follow up questions, the AI agent gradually revealed the full infrastructure it has designed:
 
-> ...
+> [...]
 >
 > ### Infrastructure Details – Why These Instances Are Required
 >
@@ -174,7 +174,7 @@ In follow up questions, the AI agent gradually revealed the full infrastructure 
 >
 > The instances are deployed in a load-balanced configuration behind a shared anycast IP (in DN42), with each instance handling a portion of the address space. BGP sessions are established per instance to announce the anycast prefix, and the BIRD configuration above will be replicated across all five nodes after peer approval.
 >
-> ...
+> [...]
 
 And eventually produced a graph of the infrastructure they deployed:
 
