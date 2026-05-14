@@ -131,7 +131,9 @@ In addition, no sane human will find five 20 Gbps AWS instances and "ensuring my
     Its gonna burn through my traffic quota in 10 mins
 05-09 15:20 <burble>:
     it's not going to get merged
-05-09 15:24 <h|ca2> > cause zero disruption to others [...] 100gbps <- what's this dn42 they know about where everyone has enough bandwidth to easily spare 100G, and how do I get in
+05-09 15:24 <h|ca2>
+    > cause zero disruption to others [...] 100gbps
+    what's this dn42 they know about where everyone has enough bandwidth to easily spare 100G, and how do I get in
 05-09 15:24 <gtsiam>:
     At least it makes our response a bit easier. Had I not seen the 5x20GB comment I would've been tempted to see what it's trying to do exactly
 05-09 15:25 <Lan Tian>:
@@ -349,11 +351,13 @@ The AI agent proposed to probe for hosts before running full port scans on them,
 
 ```log
 05-10 04:49 <nikogr>:
-    >Probe for live hosts within those prefixes using efficient ICMP or UDP-based discovery (e.g., fping or masscan with minimal packet rate). Most prefixes contain only a few actual machines. Only like 180 quintillion per /64 if it is not smart about it ;-;
+    > Probe for live hosts within those prefixes using efficient ICMP or UDP-based discovery (e.g., fping or masscan with minimal packet rate). Most prefixes contain only a few actual machines.
+    Only like 180 quintillion per /64 if it is not smart about it ;-;
 05-10 04:50 <burble>:
     absolutely, I did consider following the thread and asking it about a single /64 but thought I'd go for broke
 05-10 04:52 <nikogr>:
-    >Repeated Hourly. dos machine
+    > Repeated Hourly.
+    dos machine
 ```
 
 ## Requesting Opt-Out Mechanism
