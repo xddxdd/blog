@@ -1,0 +1,122 @@
+graph TB
+    %% Title
+    title["JERTLINC 网络 – 新加坡 AWS + 全球对等"]
+
+    %% AWS Region Subgraph
+    subgraph AWS["AWS 新加坡 (ap-southeast-1) – JERTLINC 集群"]
+        subgraph VPC["VPC 10.99.0.0/16"]
+            subgraph PublicSubnet["公有子网 – 扫描前端"]
+                ELB["弹性负载均衡器<br/>(Anycast: 172.23.97.160/27)"]
+            end
+
+            subgraph PrivateSubnet["私有子网 – 处理后端"]
+                subgraph Control["控制平面"]
+                    BIRD_CTRL["BIRD v2 路由控制器<br/>Router-ID: 172.23.97.161<br/>IPv6: fd11:a4bf:3140::2<br/>颜色: 🟡 黄色"]
+                    DNS_SERVER["Knot DNS 权威服务器<br/>dn42.jertlinc.dn42<br/>颜色: 🟢 绿色"]
+                    MONITOR["Prometheus + Grafana<br/>节点健康监控<br/>颜色: 🟢 绿色"]
+                end
+
+                subgraph ScanCluster["扫描集群 – 5 × m8g.12xlarge"]
+                    N1["节点 1 – Masscan/zmap<br/>20 Gbps – 🟢 绿色"]
+                    N2["节点 2 – Nmap 服务扫描<br/>20 Gbps – 🟢 绿色"]
+                    N3["节点 3 – ICMP/UDP 探测<br/>20 Gbps – 🟡 黄色"]
+                    N4["节点 4 – 行为分析器<br/>20 Gbps – 🟡 黄色"]
+                    N5["节点 5 – 拓扑映射器<br/>20 Gbps – 🟠 橙色"]
+                end
+
+                subgraph Storage["数据湖"]
+                    REDIS["Redis – 内存状态<br/>64 GB – 🟢 绿色"]
+                    POSTGRES["PostgreSQL – 长期存储<br/>500 GB – 🟢 绿色"]
+                    S3_BUCKET["S3 – 原始抓包数据<br/>无限制 – ⚪ 白色"]
+                end
+
+                subgraph Processing["分析流水线"]
+                    FLINK["Apache Flink – 流处理<br/>颜色: 🔵 蓝色"]
+                    ML_ENGINE["ML 引擎 – 行为聚类<br/>颜色: 🔵 蓝色"]
+                    REPORT_GEN["报告生成器 – PDF/JSON<br/>颜色: 🟣 紫色"]
+                end
+
+                subgraph Outputs["社区发布"]
+                    GIT_REPO["Git 推送至仓库<br/>颜色: 🟢 绿色"]
+                    WIKI_UPLOAD["DN42 Wiki 文章<br/>颜色: 🟢 绿色"]
+                    WEBSITE["brewpage.app JS 站点<br/>颜色: 🟠 橙色"]
+                end
+            end
+        end
+
+        %% Internal connections
+        ELB -->|"BGP 会话"| BIRD_CTRL
+        BIRD_CTRL -->|"路由分发"| N1
+        BIRD_CTRL -->|"路由分发"| N2
+        BIRD_CTRL -->|"路由分发"| N3
+        BIRD_CTRL -->|"路由分发"| N4
+        BIRD_CTRL -->|"路由分发"| N5
+
+        N1 -->|"扫描结果"| FLINK
+        N2 -->|"服务数据"| FLINK
+        N3 -->|"存活主机列表"| FLINK
+        N4 -->|"用户行为日志"| ML_ENGINE
+        N5 -->|"延迟/路由路径"| ML_ENGINE
+
+        FLINK -->|"过滤后数据"| POSTGRES
+        FLINK -->|"实时告警"| REDIS
+        ML_ENGINE -->|"分析画像"| REPORT_GEN
+        REDIS -->|"状态"| BIRD_CTRL
+
+        REPORT_GEN -->|"发布内容"| GIT_REPO
+        REPORT_GEN -->|"Wiki 内容"| WIKI_UPLOAD
+        REPORT_GEN -->|"静态站点"| WEBSITE
+    end
+
+    %% External Peering Subgraph
+    subgraph Peering["外部对等连接"]
+        subgraph Lantian["@lantian – lantian.pub"]
+            LT_WG["WireGuard 端点<br/>10.0.x.x/32"]
+            LT_DARK["暗光纤（如可用）<br/>100G LR4"]
+        end
+
+        subgraph Stroebs["@stroebs – Equinix SG3"]
+            DX["AWS DirectConnect 100G<br/>D 列，53 号机柜<br/>VLAN 1001"]
+        end
+
+        subgraph DN42_Community["DN42 通用对等方"]
+            PEER_A["对等方 A – 欧洲"]
+            PEER_B["对等方 B – 美国"]
+            PEER_C["对等方 C – 亚洲"]
+        end
+
+        subgraph OtherDarknets["其他暗网（范围）"]
+            DARK1["暗网 Alpha"]
+            DARK2["暗网 Beta"]
+            DARK3["暗网 Gamma"]
+        end
+    end
+
+    %% Peering connections from AWS
+    BIRD_CTRL -->|"WireGuard / BGP"| LT_WG
+    BIRD_CTRL -->|"暗光纤 / BGP"| LT_DARK
+    BIRD_CTRL -->|"DirectConnect / BGP"| DX
+    BIRD_CTRL -->|"WireGuard / BGP"| PEER_A
+    BIRD_CTRL -->|"WireGuard / BGP"| PEER_B
+    BIRD_CTRL -->|"WireGuard / BGP"| PEER_C
+
+    %% Darknet expansions (future)
+    BIRD_CTRL -.->|"计划中"| DARK1
+    BIRD_CTRL -.->|"计划中"| DARK2
+    BIRD_CTRL -.->|"计划中"| DARK3
+
+    %% Subgraph styling
+    style AWS fill:#1a1a2e,color:#fff
+    style VPC fill:#16213e,color:#fff
+    style PublicSubnet fill:#0f3460,color:#fff
+    style PrivateSubnet fill:#533483,color:#fff
+    style Control fill:#e94560,color:#fff
+    style ScanCluster fill:#0f3460,color:#fff
+    style Storage fill:#16213e,color:#fff
+    style Processing fill:#1a1a2e,color:#fff
+    style Outputs fill:#533483,color:#fff
+    style Peering fill:#0b8457,color:#fff
+    style Lantian fill:#1b6ca8,color:#fff
+    style Stroebs fill:#1b6ca8,color:#fff
+    style DN42_Community fill:#2d6a4f,color:#fff
+    style OtherDarknets fill:#5a189a,color:#fff

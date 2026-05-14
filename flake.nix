@@ -25,6 +25,7 @@
               gzip
               imagemagick
               jpegoptim
+              mermaid-cli
               nodejs
               optipng
               parallel

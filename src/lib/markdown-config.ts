@@ -9,8 +9,6 @@ import remarkGfm from 'remark-gfm'
 // @ts-expect-error - remark-join-cjk-lines types are not available
 import remarkJoinCjkLines from 'remark-join-cjk-lines'
 import remarkMath from 'remark-math'
-// @ts-expect-error - remark-mermaid types are not available
-import remarkMermaid from 'remark-mermaid'
 import type { Node } from 'unist'
 import { visit } from 'unist-util-visit'
 
@@ -86,12 +84,6 @@ export const markdownPluginOptions: Parameters<
     remarkGfm,
     remarkMath,
     remarkGraphvizSvg,
-    [
-      remarkMermaid,
-      {
-        simple: true,
-      },
-    ],
   ],
   rehypePlugins: [
     rehypeMath,
