@@ -23,6 +23,22 @@ import { ProcessingContext } from './gopher/gopher/context'
 import { formatGopherItem, processNode } from './gopher/gopher/processing'
 import { remarkGraphvizSvg } from './remark-graphviz-svg'
 
+const rehypeTableWrapper = () => (tree: Node) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  visit(tree, 'element', (node: any, index: number, parent: any) => {
+    if (node.tagName !== 'table') return
+
+    const wrapper = {
+      type: 'element' as const,
+      tagName: 'div',
+      properties: { className: 'post-text-scroll-wrapper' },
+      children: [node],
+    }
+
+    parent.children.splice(index, 1, wrapper)
+  })
+}
+
 const remarkChineseQuotes = () => (tree: Node) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   visit(tree, (node: any) => {
@@ -86,6 +102,7 @@ export const markdownPluginOptions: Parameters<
     remarkGraphvizSvg,
   ],
   rehypePlugins: [
+    rehypeTableWrapper,
     rehypeMath,
     [
       rehypeShiki,

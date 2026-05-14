@@ -79,12 +79,18 @@
       }
     }
 
+    .post-text-scroll-wrapper {
+      overflow-x: scroll;
+    }
+
     table {
       display: block;
       width: 100%; // keep for backwards compatibility
       width: max-content;
       max-width: 100%;
       overflow: auto;
+
+      min-width: 600px; // Scroll on mobile
 
       margin-bottom: 1rem;
 
