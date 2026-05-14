@@ -28,7 +28,7 @@ import { remarkGraphvizSvg } from './remark-graphviz-svg'
 const remarkChineseQuotes = () => (tree: Node) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   visit(tree, (node: any) => {
-    if (typeof node.value === 'string') {
+    if (typeof node.value === 'string' && node.type !== 'code') {
       node.value = node.value
         .replaceAll('“', '「')
         .replaceAll('”', '」')
