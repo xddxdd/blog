@@ -9,7 +9,7 @@ autoTranslated: true
 
 Today when I logged into my Raspberry Pi and ran `df` to check disk space as usual, I discovered the TF card was almost full. Initially I thought I had misconfigured settings, causing download files to save to the TF card instead of the external hard drive. After troubleshooting, I found that log files under `/var/log` occupied a staggering 18G of space. Checking the logs revealed continuous error messages like:
 
-```bash
+```log
 Jan 25 22:51:15 lantian-rpi3 kernel: [   22.143274] eth0: hw csum failure
 ... [original log content unchanged] ...
 Jan 25 22:51:15 lantian-rpi3 kernel: [   22.143755] 3fe0: 76f2ace4 7e9b5cc0 76b29dd4 0006ac00 60000010 ffffffff

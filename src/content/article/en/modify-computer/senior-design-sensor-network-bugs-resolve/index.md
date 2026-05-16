@@ -482,7 +482,7 @@ server.
 
 Here is an example request:
 
-```bash
+```log
 POST /write?u=INFLUXUSER&p=INFLUXPASS&db=INFLUXDB HTTP/1.1\r\n
 Host: influxdb.lantian.pub:8086\r\n
 User-Agent: lantian/2.3.3\r\n

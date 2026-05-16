@@ -16,7 +16,7 @@ details of that process.
 First, we can find a WHOIS server to observe its response. Choose the WHOIS
 server for `.pub` domain as an example, and run `telnet whois.nic.pub 43`:
 
-```bash
+```log
 # Type following line and hit enter
 lantian.pub
 # WHOIS server responded with:
@@ -186,7 +186,7 @@ The code is available at
 My WHOIS server is deployed to [all my DN42 nodes](/en/page/dn42/), which can be
 queried over either the Internet or DN42:
 
-```bash
+```log
 # User command input
 whois -h 185.186.147.110 "172.22.76.185"
 

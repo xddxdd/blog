@@ -96,7 +96,7 @@ Nginx, by itself, is an HTTP server. Let us ignore for a moment the modern
 HTTP/2.0 with binary commands, or UDP-based QUIC or HTTP/3.0, and look back at
 the HTTP/1.1, which was once widely used. Back then, a request looks like this:
 
-```bash
+```log
 GET /test.php HTTP/1.1
 Host: localhost
 User-Agent: curl/7.75.0
@@ -119,7 +119,7 @@ The other parts, such as User-Agent headers commonly seen, are not an essential
 part of the HTTP protocol. We can connect to the server manually with
 `telnet localhost 80` and only send the first two lines:
 
-```bash
+```log
 GET /test.php HTTP/1.1
 Host: localhost
 
@@ -158,7 +158,7 @@ we actually need:
 Therefore, there's too much to change based on HTTP/1.1. But if there's 1.1,
 there's also 1.0. How about we have a try of HTTP/1.0?
 
-```bash
+```log
 GET /test.php HTTP/1.0
 
 HTTP/1.1 200 OK

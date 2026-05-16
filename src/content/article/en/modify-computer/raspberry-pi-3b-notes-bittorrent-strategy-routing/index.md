@@ -64,7 +64,7 @@ We need policy routing to enforce "return via the incoming path." Policy routing
 
 First, check routes with `route`:
 
-```bash
+```log
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 default         10.106.65.1     0.0.0.0         UG    202    0        0 eth0

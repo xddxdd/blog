@@ -89,7 +89,7 @@ $$
 虽然这个泰勒级数可以处理 $0 < x \le 2$ 的范围，但经过测试，当 $x$
 接近范围两端时，需要计算的项数会变得过多，导致 Nix 报栈溢出错误：
 
-```bash
+```log
 error: stack overflow; max-call-depth exceeded
 at /nix/store/qhnbm9x3zs2y55nyx1gxqf801gmjdjfc-source/default.nix:163:61:
    162|     let

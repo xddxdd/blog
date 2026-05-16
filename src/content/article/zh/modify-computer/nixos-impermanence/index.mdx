@@ -21,7 +21,7 @@ NixOS 广为人知的一大特点是，系统大部分软件的设置都由 Nix 
 例如，在运行 NixOS 的电脑上运行 `ls -alh /etc`，可以看到大部分配置文件都只是到
 `/etc/static` 的软链接：
 
-```bash
+```log
 # 省略部分不相关的行
 lrwxrwxrwx  1 root root     18 Jan 13 03:02 bashrc -> /etc/static/bashrc
 lrwxrwxrwx  1 root root     18 Jan 13 03:02 dbus-1 -> /etc/static/dbus-1
@@ -38,7 +38,7 @@ lrwxrwxrwx  1 root root     17 Jan 13 03:02 hosts -> /etc/static/hosts
 
 而 `/etc/static` 本身则被链接到 `/nix/store`，被 NixOS 统一管理：
 
-```bash
+```log
 lrwxrwxrwx 1 root root 51 Jan 13 03:02 /etc/static -> /nix/store/41plm7py84sp29w3bg4ahb41dpfxwf9l-etc/etc
 ```
 
@@ -109,7 +109,7 @@ squashfs-root/01qm2r3cihmf4np82mim8vy9phzgc9cn-rtw88-firmware-unstable-2022-11-0
 - 由于根目录中的大部分文件是根据配置生成的软链接，根目录的内存盘几乎不占空间。例
   如我的一台服务器上，根目录只占用了 660KB 空间：
 
-```bash
+```log
 # sudo du -h -d1 -x /
 0       /srv
 0       /mnt

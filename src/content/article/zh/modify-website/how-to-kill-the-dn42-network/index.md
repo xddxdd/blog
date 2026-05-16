@@ -613,7 +613,7 @@ Community，就不再被广播了。并且 Static 如其名是“静态”协议
 
 在 DN42 Telegram 群帮别人调试网络时，我突然发现我的两个节点之间出现了环路：
 
-```bash
+```log
 traceroute to fd28:cb8f:4c92:1::1 (fd28:cb8f:4c92:1::1), 30 hops max, 80 byte packets
  1  us-new-york-city.virmach-ny1g.lantian.dn42 (fdbc:f9dc:67ad:8::1)  88.023 ms
  2  lu-bissen.buyvm.lantian.dn42 (fdbc:f9dc:67ad:2::1)  94.401 ms

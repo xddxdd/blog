@@ -58,7 +58,7 @@ Once you've chosen peers, exchange:
 4. OpenVPN pre-shared key
 
 Both parties should create this OpenVPN config:
-```config
+```propertiesig
 proto       udp
 mode        p2p
 remote      [peer's public IP]

@@ -228,7 +228,7 @@ container itself, or only 172.22.76.104/29. But what we expect is an independent
 route for 172.22.76.110/32, so we need a static route in `bird-static.conf`.
 This file is in place so that it can be easily replaced with Volumes.
 
-```bash
+```text
 protocol static {
     ipv4;
     route 172.22.76.110/32 unreachable;

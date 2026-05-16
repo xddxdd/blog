@@ -84,7 +84,7 @@ networks: [省略...]
 
 但是没多久，主系统就收不到 Bird 容器发来的 OSPF 广播了。我进入 Bird 容器一看：
 
-```bash
+```log
 # ip addr
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00

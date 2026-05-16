@@ -15,7 +15,7 @@ During one such malfunction, I was chatting with a classmate via pywebqq. When s
 
 I really didn't want to log out, so I opened the terminal to check scim's commands.
 
-```bash
+```log
 xdd@xdd-asus:~$ scim --help
 Smart Common Input Method 1.4.14
 

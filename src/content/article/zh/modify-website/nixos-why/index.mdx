@@ -218,7 +218,7 @@ Nix 包管理器把二进制程序储存在类似
 例如，众所周知 Linux 系统上的绝大多数程序都要依赖系统的 Libc。我们看下刚才这份
 Bash 依赖的是哪里的 Libc：
 
-```bash
+```log
 $ ldd /nix/store/wadmyilr414n7bimxysbny876i2vlm5r-bash-5.1-p8/bin/bash
 linux-vdso.so.1 (0x00007ffe169d8000)
 libdl.so.2 => /nix/store/mij848h2x5wiqkwhg027byvmf9x3gx7y-glibc-2.33-50/lib/libdl.so.2 (0x00007f767f863000)

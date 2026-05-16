@@ -48,7 +48,7 @@ musl-gcc sleep.c -Os -static -o sleep
 
 And we have an executable that's 17KB in size:
 
-```bash
+```log
 > ls -alh sleep
 -rwxr-xr-x 1 lantian lantian 17K Dec 27 22:27 sleep
 ```
@@ -60,7 +60,7 @@ can do better.
 
 If we try to decompile the `sleep` program, we'll get a bunch of functions:
 
-```bash
+```log
 > objdump -x sleep
 
 sleep:     file format elf64-x86-64
@@ -320,7 +320,7 @@ gcc -Os -static -nostdlib -Imusl/arch/x86_64 -o sleep sleep.c
 
 Which will give us a `sleep` file that's 8.9 KB in size:
 
-```bash
+```log
 > ls -alh sleep
 -rwxr-xr-x 1 lantian lantian 8.9K Dec 27 23:00 sleep
 ```
@@ -359,7 +359,7 @@ strip -s -R ".comment" sleep
 And we got to 4.3 KB, exactly the same as that assembly. Let's check by doing a
 disassembly:
 
-```bash
+```log
 > objdump -D sleep
 
 sleep:     file format elf64-x86-64

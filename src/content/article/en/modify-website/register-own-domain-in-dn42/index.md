@@ -45,7 +45,7 @@ figured out why, I simply set up a MySQL source/replica replication.
 
 First, install a MySQL in each server, and add these lines to `my.cnf`:
 
-```bash
+```properties
 # Server IDs, can be assigned to anything, but must be unique
 server-id=1
 # Server names, will be shown in phpMyAdmin's sync status page
@@ -301,7 +301,7 @@ git config --global commit.gpgSign true
 Since I'm already a DN42 user and have my own MNT handles, I need to edit
 `data/mntner/LANTIAN-MNT` and add my GPG fingerprint to it:
 
-```bash
+```log
 mntner:             LANTIAN-MNT
 admin-c:            LANTIAN-DN42
 tech-c:             LANTIAN-DN42
@@ -312,7 +312,7 @@ auth:               pgp-fingerprint 23067C13B6AEBDD7C0BB567327F31700E751EC22
 
 Then create `data/dns/lantian.dn42`:
 
-```bash
+```log
 domain:             lantian.dn42
 admin-c:            LANTIAN-DN42
 tech-c:             LANTIAN-DN42

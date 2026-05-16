@@ -26,7 +26,7 @@ date: 2020-08-13 20:43:26
 
 但 nmap 扫描显示事情并不简单：
 
-```bash
+```log
 $ nmap -v 192.168.1.1
 # 省略一些输出
 PORT      STATE    SERVICE
@@ -127,7 +127,7 @@ dev/        image/      opt/        sbin/       userfs/
 
 这就意味着你可以连接光猫 IPv6 地址的 FTP 端口，例如我们先拿 nmap 扫一下：
 
-```bash
+```log
 # 从 http://192.168.1.1:8080 查看光猫 IPv6 地址
 # 注意这里不需要 telecomadmin，useradmin 也可以
 $ nmap -v -6 240e:xxxx:xxxx::xxxx

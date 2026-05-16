@@ -17,7 +17,7 @@ Bug掉的那次，我在和同学用pywebqq聊天，结果scim一抽，接下来
 
 我实在不想注销系统，于是打开终端，查查scim的命令。
 
-```bash
+```log
 xdd@xdd-asus:~$ scim --help
 Smart Common Input Method 1.4.14
 

@@ -43,7 +43,7 @@ sudo nano /etc/esmtprc
 
 最后文件应该看起来像这样：
 
-```bash
+```properties
 # Config file for ESMTP sendmail
 
 # The SMTP host and service (port)

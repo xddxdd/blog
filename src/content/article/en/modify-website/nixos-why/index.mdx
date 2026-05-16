@@ -275,7 +275,7 @@ Let's take an example. It's well known that most programs on Linux depends on
 the system Libc. Let's find out which Libc the bash we're talking about is
 depending on:
 
-```bash
+```log
 $ ldd /nix/store/wadmyilr414n7bimxysbny876i2vlm5r-bash-5.1-p8/bin/bash
 linux-vdso.so.1 (0x00007ffe169d8000)
 libdl.so.2 => /nix/store/mij848h2x5wiqkwhg027byvmf9x3gx7y-glibc-2.33-50/lib/libdl.so.2 (0x00007f767f863000)

@@ -135,7 +135,7 @@ apt upgrade
 指针长度的系统调用。编辑 `/etc/default/grub` 文件，在 Linux 内核的启动命令中加上
 `syscall.x32=y`：
 
-```bash
+```properties
 # If you change this file, run 'update-grub' afterwards to update
 # /boot/grub/grub.cfg.
 # For full documentation of the options in this file, see:

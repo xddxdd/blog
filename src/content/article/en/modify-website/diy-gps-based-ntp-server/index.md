@@ -121,7 +121,7 @@ apt-get install ntp
 ```
 
 Add GPS configuration to `/etc/ntp.conf`:
-```conf
+```properties
 # GPS Serial data reference
 server 127.127.28.0 minpoll 4 maxpoll 4
 fudge 127.127.28.0 time1 0.0 refid GPS

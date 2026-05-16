@@ -221,7 +221,7 @@ If you just want to reduce the impact on the DN42 network, you can choose to fil
 
 Add to your Filter filter:
 
-```bash
+```text
 # Change roa_flap_v4 to the corresponding ROA table name above, use roa_flap_v6 for IPv6
 if (roa_check(roa_flap_v4, net, bgp_path.last) = ROA_INVALID) then {
   # Route changes frequently, hijacked by FlapAlerted to AS0, Bird considers the route to

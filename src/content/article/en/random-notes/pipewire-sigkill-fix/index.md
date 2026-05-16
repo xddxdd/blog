@@ -81,7 +81,7 @@ Then, since `RTKit` imposes an additional layer of execution time limit, we need
 to add a startup argument to `RTKit` to increase that limit as well. Run
 `systemctl edit rtkit-daemon.service`, and enter the following config:
 
-```bash
+```ini
 [Service]
 # First, clear the original ExecStart command.
 ExecStart=

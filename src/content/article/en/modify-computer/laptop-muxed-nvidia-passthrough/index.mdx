@@ -511,7 +511,7 @@ Finally, you can create a SystemD service to run the Scream client conveniently
 later. Create `~/.config/systemd/user/scream.service` with the following
 content:
 
-```bash
+```ini
 [Unit]
 Description=Scream
 
@@ -563,7 +563,7 @@ simply pass your keyboard and mouse into the VM.
    First run `ls -l /dev/input/by-path` on the host to see your present `evdev`
    devices. I have these ones for example:
 
-   ```bash
+   ```log
    pci-0000:00:14.0-usb-0:1:1.1-event-mouse               # USB mouse
    pci-0000:00:14.0-usb-0:1:1.1-mouse
    pci-0000:00:14.0-usb-0:6:1.0-event

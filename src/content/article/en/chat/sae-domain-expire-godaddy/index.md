@@ -16,7 +16,7 @@ SAE is Sina's cloud computing platform and one of the earliest cloud platforms i
 
 Moreover, it seems they won't be able to get the domain back anytime soon because the foreign domain registrar GoDaddy quickly snatched the domain upon expiration and renewed it until 2020. No one knows how much GoDaddy will ask for this domain.
 
-```bash
+```log
 $ whois sinaapp.com
 
 Whois Server Version 2.0

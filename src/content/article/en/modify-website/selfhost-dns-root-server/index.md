@@ -116,7 +116,7 @@ or Bind9, you can set up your own root server.
 2. Modify PowerDNS's config, `/etc/powerdns/pdns.conf`. The key modifications
    are:
 
-   ```bash
+   ```properties
    # Enable Bind Backend, so PowerDNS can recognize DNS record data in Bind format
    # Bind is the de-facto standard format for DNS records
    launch=bind
@@ -154,7 +154,7 @@ or Bind9, you can set up your own root server.
      `192.168.0.1` and `fd00::1`, with a domain `server.example.com` pointing to
      it, add these lines to the end of the file:
 
-     ```bash
+     ```text
      # Comments in Bind DNS files start with semicolons,
      # so no lines starting with number (hashtag) signs.
      #
@@ -190,7 +190,7 @@ or Bind9, you can set up your own root server.
    `dig @103.42.215.193`, which is querying against my root server, you would
    see:
 
-   ```bash
+   ```log
    ;; ANSWER SECTION:
    .                       3600    IN      NS      gigsgigscloud.lantian.pub.
 
@@ -204,7 +204,7 @@ or Bind9, you can set up your own root server.
 8. Then, run `dig @192.168.0.1 www.example.com`, and you should get an output
    similar to:
 
-   ```bash
+   ```log
    ;; AUTHORITY SECTION:
    com.                    172800  IN      NS      m.gtld-servers.net.
    com.                    172800  IN      NS      l.gtld-servers.net.

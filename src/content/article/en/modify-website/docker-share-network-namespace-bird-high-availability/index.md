@@ -94,7 +94,7 @@ Then run `docker-compose up -d` to start both containers.
 Not long has passed before the host cannot receive OSPF broadcasts from the Bird
 container anymore. I entered the Bird container, did some checks, and saw:
 
-```bash
+```log
 # ip addr
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00

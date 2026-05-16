@@ -28,7 +28,7 @@ useful thing seems to be Wi-Fi setting.
 
 But a Nmap scan reveals much more:
 
-```bash
+```log
 $ nmap -v 192.168.1.1
 # Some output redacted for simplicity
 PORT      STATE    SERVICE
@@ -148,7 +148,7 @@ complete: it only blocks IPv4 connections, not IPv6.
 This means you can connect to the FTP via the modem's IPv6 address. We can do a
 Nmap first:
 
-```bash
+```log
 # Obtain modem's IPv6 address from http://192.168.1.1:8080
 # You don't need telecomadmin here, useradmin also works
 $ nmap -v -6 240e:xxxx:xxxx::xxxx

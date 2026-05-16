@@ -120,3 +120,13 @@ blog/
 - **构建工具**：TypeScript、esbuild
 - **包管理**：npm
 - **开发环境**：Nix flake（可选）
+
+## 代码块语言类型
+
+代码高亮使用 **Shiki**。只有 Shiki 支持的语言类型才可用。常用的非代码内容类型：
+
+- `log`：终端命令输出、日志、系统消息，及日志风格内容（如 whois、dig、nmap、traceroute、ls、ip route 等命令的输出）
+- `text`：纯文本、ASCII 图表、DNS zone 文件、Bird 路由配置
+- `ini`：systemd unit 文件
+- `properties`：key=value 格式的配置文件（如 esmtprc、pdns.conf、my.cnf）
+- `diff`：代码差异对比

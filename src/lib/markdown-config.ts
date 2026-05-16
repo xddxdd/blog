@@ -107,12 +107,18 @@ export const markdownPluginOptions: Parameters<
     [
       rehypeShiki,
       {
+        langAlias: {
+          console: 'log',
+        },
         themes: {
           dark: 'dark-plus',
           light: 'light-plus',
         },
         wrap: true,
         defaultColor: false,
+        addLanguageClass: true,
+        fallbackLanguage: 'log',
+        inline: 'tailing-curly-colon',
       },
     ],
     rehypeSlug,

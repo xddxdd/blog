@@ -10,7 +10,7 @@ date: 2018-01-25 23:18:00
 下来，/var/log 下的日志文件居然占据了整整 18G 的空间。查看了一下日志，基本上都是
 类似如下的报错：
 
-```bash
+```log
 Jan 25 22:51:15 lantian-rpi3 kernel: [   22.143274] eth0: hw csum failure
 Jan 25 22:51:15 lantian-rpi3 kernel: [   22.143281] CPU: 0 PID: 1075 Comm: vncagent Not tainted 4.9.77-v7+ #1081
 Jan 25 22:51:15 lantian-rpi3 kernel: [   22.143283] Hardware name: BCM2835

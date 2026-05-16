@@ -152,7 +152,7 @@ Then you need to enable the x32 ABI support of the kernel, so it can understand
 system calls with 32-bit pointer length from x32 applications. Edit
 `/etc/default/grub` and add `syscall.x32=y` to the kernel startup command-line:
 
-```bash
+```properties
 # If you change this file, run 'update-grub' afterward to update
 # /boot/grub/grub.cfg.
 # For full documentation of the options in this file, see:

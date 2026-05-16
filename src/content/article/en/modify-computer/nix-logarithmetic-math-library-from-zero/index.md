@@ -105,7 +105,7 @@ Although this Taylor series can handle the range $0 < x \le 2$, after testing,
 when $x$ is close to the ends of the range, the number of terms to be calculated
 becomes too large, causing Nix to report a stack overflow error:
 
-```bash
+```log
 error: stack overflow; max-call-depth exceeded
 at /nix/store/qhnbm9x3zs2y55nyx1gxqf801gmjdjfc-source/default.nix:163:61:
    162|     let

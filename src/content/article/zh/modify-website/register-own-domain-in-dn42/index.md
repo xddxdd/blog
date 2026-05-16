@@ -34,7 +34,7 @@ Linux 下自建 DNS 一般使用 Bind 或 PowerDNS 两款软件。Bind 以文件
 
 首先，在每台服务器中安装一个 MySQL，并且在 my.cnf 设置上这些内容：
 
-```bash
+```properties
 # 每台服务器的编号，随便设置，但不能重复
 server-id=1
 # 每台服务器的名称，设置后可以在 phpMyAdmin 中看到从服务器的名字
@@ -276,7 +276,7 @@ git config --global commit.gpgSign true
 因为我是 DN42 老用户，已经有了自己的 MNT Handle，就打开
 data/mntner/LANTIAN-MNT，加入相应的指纹信息，类似如下：
 
-```bash
+```log
 mntner:             LANTIAN-MNT
 admin-c:            LANTIAN-DN42
 tech-c:             LANTIAN-DN42
@@ -287,7 +287,7 @@ auth:               pgp-fingerprint 23067C13B6AEBDD7C0BB567327F31700E751EC22
 
 然后创建 data/dns/lantian.dn42：
 
-```bash
+```log
 domain:             lantian.dn42
 admin-c:            LANTIAN-DN42
 tech-c:             LANTIAN-DN42

@@ -133,7 +133,7 @@ date: 2020-09-05 21:59:46
    - 添加你自己服务器的 IP 地址。假设你的服务器的 IP 是 `192.168.0.1` 和
      `fd00::1`，对应的域名是 `server.example.com`，那么在文件末尾添加：
 
-     ```bash
+     ```text
      # Bind DNS 文件中注释以分号开头，因此不能有井号开头的注释
      # 所以复制时记得把这些注释全删掉
      # 注意下面一行末尾多的一个点，这个点不能删
@@ -162,7 +162,7 @@ date: 2020-09-05 21:59:46
    的这几行。例如当你运行 `dig @103.42.215.193` 从我自建的根服务器查询，你会看到
    这样的输出：
 
-   ```bash
+   ```log
    ;; ANSWER SECTION:
    .                       3600    IN      NS      gigsgigscloud.lantian.pub.
 
@@ -175,7 +175,7 @@ date: 2020-09-05 21:59:46
 
 8. 再运行 `dig @192.168.0.1 www.example.com`，应该有类似如下的输出：
 
-   ```bash
+   ```log
    ;; AUTHORITY SECTION:
    com.                    172800  IN      NS      m.gtld-servers.net.
    com.                    172800  IN      NS      l.gtld-servers.net.

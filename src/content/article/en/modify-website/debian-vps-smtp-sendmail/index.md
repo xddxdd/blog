@@ -36,7 +36,7 @@ After `mda=`, enter `"/usr/bin/procmail -d %T"` (including quotes).
 
 The final file should resemble:
 
-```bash
+```properties
 # Config file for ESMTP sendmail
 
 # The SMTP host and service (port)

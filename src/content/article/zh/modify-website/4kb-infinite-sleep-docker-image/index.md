@@ -44,7 +44,7 @@ musl-gcc sleep.c -Os -static -o sleep
 
 然后我们得到了一个 17KB 大小的可执行文件：
 
-```bash
+```log
 > ls -alh sleep
 -rwxr-xr-x 1 lantian lantian 17K Dec 27 22:27 sleep
 ```
@@ -55,7 +55,7 @@ musl-gcc sleep.c -Os -static -o sleep
 
 如果我们反编译一下刚才的 `sleep` 程序，可以看到一大堆函数：
 
-```bash
+```log
 > objdump -x sleep
 
 sleep:     file format elf64-x86-64
@@ -304,7 +304,7 @@ gcc -Os -static -nostdlib -Imusl/arch/x86_64 -o sleep sleep.c
 
 我们得到了一个 8.9 KB 的 `sleep` 文件：
 
-```bash
+```log
 > ls -alh sleep
 -rwxr-xr-x 1 lantian lantian 8.9K Dec 27 23:00 sleep
 ```
@@ -341,7 +341,7 @@ strip -s -R ".comment" sleep
 
 此时文件只有 4.3 KB，与汇编版本完全相同。我们反编译看下：
 
-```bash
+```log
 > objdump -D sleep
 
 sleep:     file format elf64-x86-64

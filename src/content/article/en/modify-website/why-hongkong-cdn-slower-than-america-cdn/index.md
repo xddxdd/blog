@@ -10,7 +10,7 @@ CDN, or Content Delivery Network, creates distributed copies of your website acr
 
 For example, if your website is hosted in **Location B**, and you (and your visitors) are in **Location A**, the connection between A and B might pass through **Location C** with poor network quality. When you ping your site, packet loss occurs at C, forcing clients to wait and retransmit data, slowing down the site. By using a CDN in **Location D**, traffic bypasses the problematic C, reducing packet loss and improving speed.
 
-```bash
+```text
 A
 autoTranslated: true
 ---
@@ -25,7 +25,7 @@ Previously, my blog used Safeguard CDN (安全宝) with a ChinaCache node in Los
 
 To verify, I used **traceroute** to map the network path. Without a Hong Kong VPS, I turned to WebKaka for cross-region testing. WebKaka provides speed tests, ping, and traceroute tools. I temporarily routed international traffic to Incapsula CDN (with US West/East Coast and Israel nodes) while keeping Safeguard CDN for China. Then, I ran traceroutes from WebKaka's Hong Kong New World and US Los Angeles BN nodes to my origin IP:
 
-```bash
+```log
 Route Start: Hong Kong New World | Route End: USA | Max Hops: 30
 Node    IP Address    DNS Name    Location    Latency
 1    59.188.196.193        Hong Kong New World Telecom    0 ms

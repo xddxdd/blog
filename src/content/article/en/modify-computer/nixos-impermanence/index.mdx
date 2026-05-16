@@ -23,7 +23,7 @@ will still be overwritten on the next Nix config switch or the next reboot.
 For example, if you run `ls -alh /etc` on a computer running NixOS, you can
 observe that most config files are simply soft links to `/etc/static`:
 
-```bash
+```log
 # Unrelated lines omitted
 lrwxrwxrwx  1 root root     18 Jan 13 03:02 bashrc -> /etc/static/bashrc
 lrwxrwxrwx  1 root root     18 Jan 13 03:02 dbus-1 -> /etc/static/dbus-1
@@ -41,7 +41,7 @@ lrwxrwxrwx  1 root root     17 Jan 13 03:02 hosts -> /etc/static/hosts
 `/etc/static` itself, by the way, is linked to `/nix/store` and managed by
 NixOS:
 
-```bash
+```log
 lrwxrwxrwx 1 root root 51 Jan 13 03:02 /etc/static -> /nix/store/41plm7py84sp29w3bg4ahb41dpfxwf9l-etc/etc
 ```
 
@@ -131,7 +131,7 @@ the states you want.
   the config file, it takes almost no space. On one of my servers, the root
   directory takes as small as 660KB of space:
 
-```bash
+```log
 # sudo du -h -d1 -x /
 0       /srv
 0       /mnt

@@ -203,7 +203,7 @@ include "/etc/bird-static.conf";
 就要在 bird-static.conf 中设置静态路由。独立出一个文件是为了方便之后以 Volume 的
 方式覆盖这个文件。
 
-```bash
+```text
 protocol static {
     ipv4;
     route 172.22.76.110/32 unreachable;

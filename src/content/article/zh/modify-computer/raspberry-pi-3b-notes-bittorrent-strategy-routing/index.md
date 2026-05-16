@@ -84,7 +84,7 @@ Web 管理界面，可以上传种子、调整限速等。
 
 首先输入 `route` 命令查看路由表，你会看到这样的输出：
 
-```bash
+```log
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 default         10.106.65.1     0.0.0.0         UG    202    0        0 eth0
@@ -99,7 +99,7 @@ default         10.107.128.1    0.0.0.0         UG    303    0        0 wlan0
 
 再输入 `ip addr` 看一下现在的 IP。你会看到类似如下输出：
 
-```bash
+```log
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
    inet 127.0.0.1/8 scope host lo
