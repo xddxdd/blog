@@ -1120,13 +1120,13 @@ Burble 在 Pull Request 上发布了这条评论：
 
 > You must also respond to the comments I have provided here: https://comments.burble.com
 >
-> （你还必须回复我在这里提供的评论：https://comments.burble.com）
+> （你还必须回复我在这里提供的评论：<https://comments.burble.com>）
 
 而我稍后发布了这条：
 
 > @JertLinc3522 Please reread https://lantian.pub/en/page/dn42/ as all details are outlined there. https://posts.lantian.pub/dn42 may also be helpful.
 >
-> （@JertLinc3522 请重新阅读 https://lantian.pub/en/page/dn42/，所有细节都在那里说明了。https://posts.lantian.pub/dn42 可能也有帮助。）
+> （@JertLinc3522 请重新阅读 <https://lantian.pub/en/page/dn42/>，所有细节都在那里说明了。<https://posts.lantian.pub/dn42> 可能也有帮助。）
 
 ```log
 05-10 11:10 <burble>:
