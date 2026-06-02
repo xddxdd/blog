@@ -167,31 +167,46 @@ export async function getPosts(): Promise<Post[]> {
     .sort((a: Post, b: Post) => b.date.valueOf() - a.date.valueOf())
 }
 
-export async function getFeedObject(context: APIContext): Promise<Feed> {
-  const posts = await getPosts()
+export async function getFeedObject(
+  context: APIContext,
+  language?: Language
+): Promise<Feed> {
+  const allPosts = await getPosts()
   if (!context.site?.origin) {
     throw new Error('Site origin is required but not provided in context')
   }
   const siteURL = context.site.origin
-  const lastPost = posts[posts.length - 1]
+  const posts = language
+    ? allPosts.filter(p => p.language.is(language))
+    : allPosts
+  const lastPost = allPosts[allPosts.length - 1]
   if (!lastPost) {
     throw new Error('No posts found to determine first post year')
   }
   const firstPostYear = lastPost.date.getFullYear()
   const copyright = `Copyright ${firstPostYear}-${new Date().getFullYear()} ${SITE_TITLE}`
+  const feedLanguage = language ?? DEFAULT_LANGUAGE
+  const languageSegment = feedLanguage.getSegment()
+  const feedId = language ? `${siteURL}${languageSegment}/` : siteURL
   const feed = new Feed({
     title: SITE_TITLE,
     description: SITE_TITLE,
-    id: siteURL,
-    link: siteURL,
-    language: DEFAULT_LANGUAGE.getCode(),
+    id: feedId,
+    link: siteURL + languageSegment,
+    language: feedLanguage.getFullCode(),
     favicon: `${siteURL}/favicon.ico`,
     copyright: copyright,
     generator: context.generator,
     feedLinks: {
-      rss2: `${siteURL}/rss2.xml`,
-      atom: `${siteURL}/feed.xml`,
-      json: `${siteURL}/feed.json`,
+      rss2: language
+        ? `${siteURL}/rss2.${language.getCode()}.xml`
+        : `${siteURL}/rss2.xml`,
+      atom: language
+        ? `${siteURL}/feed.${language.getCode()}.xml`
+        : `${siteURL}/feed.xml`,
+      json: language
+        ? `${siteURL}/feed.${language.getCode()}.json`
+        : `${siteURL}/feed.json`,
     },
     author: {
       name: SITE_AUTHOR,

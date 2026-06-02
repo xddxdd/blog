@@ -59,6 +59,33 @@ const firstPostYear = lastPost.date.getFullYear()
   title={SITE_TITLE}
   href={`https://${host}/feed.xml`}
 />
+{
+  Object.entries(LANGUAGES).map(([, lang]) => (
+    <>
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title={`${SITE_TITLE} (${lang.getDisplayName()})`}
+        href={`https://${host}/rss2.${lang.getCode()}.xml`}
+        hreflang={lang.getCode()}
+      />
+      <link
+        rel="alternate"
+        type="application/atom+xml"
+        title={`${SITE_TITLE} (${lang.getDisplayName()})`}
+        href={`https://${host}/feed.${lang.getCode()}.xml`}
+        hreflang={lang.getCode()}
+      />
+      <link
+        rel="alternate"
+        type="application/json"
+        title={`${SITE_TITLE} (${lang.getDisplayName()})`}
+        href={`https://${host}/feed.${lang.getCode()}.json`}
+        hreflang={lang.getCode()}
+      />
+    </>
+  ))
+}
 
 {
   Object.entries(LANGUAGES).map(([, newLanguage]) => (

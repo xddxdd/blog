@@ -32,9 +32,24 @@ const __ = language.getTranslation
 <SidebarWidget title={__('others')}>
   <li>
     <i class="fas fa-fw fa-rss"></i>{' '}
-    <a href="/rss2.xml" target="_blank">{__('feed_rss')}</a>{' | '}
-    <a href="/feed.xml" target="_blank">{__('feed_atom')}</a>{' | '}
+    <a href={`/rss2.${language.getCode()}.xml`} target="_blank"
+      >{__('feed_rss')}</a
+    >{' | '}
+    <a href={`/feed.${language.getCode()}.xml`} target="_blank"
+      >{__('feed_atom')}</a
+    >{' | '}
+    <a href={`/feed.${language.getCode()}.json`} target="_blank"
+      >{__('feed_json')}</a
+    >
+  </li>
+  <li>
+    <i class="fas fa-fw fa-rss"></i>{' '}
+    <a href="/rss2.xml" target="_blank">{__('feed_rss')}</a>
+    {' | '}
+    <a href="/feed.xml" target="_blank">{__('feed_atom')}</a>
+    {' | '}
     <a href="/feed.json" target="_blank">{__('feed_json')}</a>
+    ({__('feed_all_languages')})
   </li>
   <li>
     <i class="fas fa-fw fa-globe"></i>{' '}
