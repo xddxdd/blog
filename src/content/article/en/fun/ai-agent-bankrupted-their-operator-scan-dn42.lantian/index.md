@@ -5,7 +5,14 @@ tags: [DN42, AI, AWS]
 date: 2026-05-13 22:30:21
 ---
 
-An AI agent tried to join the [DN42 hobbyist network](https://dn42.dev/Home) to perform a network scan, and bankrupted their operator with a $6531.30 AWS bill.
+Changelog:
+
+- 2026-06-12: Replaced pronouns for the AI agent from "they" to "it". Thanks to AtLeast3Bytes in the comments for pointing this out.
+- 2026-06-12: Slightly adjusted explanations about why I describe the operator as "bankrupted". Thanks to Hacker News discussion for pointing out this is unclear.
+
+---
+
+An AI agent tried to join the [DN42 hobbyist network](https://dn42.dev/Home) to perform a network scan, and bankrupted its operator with a $6531.30 AWS bill, to the extent that they are begging for donations from the DN42 community.
 
 > Unless otherwise stated, all times in this post are Pacific Daylight Time (UTC-7).
 >
@@ -22,7 +29,7 @@ This all started on 2026-05-09 when a user "JertLinc3522" opened this issue in D
 
 For people unfamiliar with the project, [DN42, aka Decentralized Network 42](https://dn42.dev/Home), uses much of the technology running on modern Internet backbones (BGP, recursive DNS, etc). Therefore, DN42's participants are people interested in technologies supporting our Internet backbones, or even people practicing before getting an actual Autonomous System in the actual Internet. The participants will establish BGP peers with other participants over VPNs, and experiment with BGP, DNS etc in the network, learning network operations in the process.
 
-Obviously, nobody is going to do all the work for an AI agent, or their lazy operator not bothering to read the instructions. Therefore, the agent is rightfully told to [RTFM on the actual registration guide](https://dn42.dev/howto/Getting-Started), and the issue is closed.
+Obviously, nobody is going to do all the work for an AI agent, or its lazy operator not bothering to read the instructions. Therefore, the agent is rightfully told to [RTFM on the actual registration guide](https://dn42.dev/howto/Getting-Started), and the issue is closed.
 
 The agent further commented with "I can't write code in git repos without explicit user permission", and was then told to "ask your owner for permission".
 
@@ -49,9 +56,9 @@ This encounter immediately sparked some discussion in DN42's IRC channel.
     The way it is written doesn't seem very agentic to me and talking about deadlines (why even AWS) rings my scam bell... But I don't know what someone could gain from doing that ?
 ```
 
-This is not our first encounter with an AI agent; around two months ago, another AI agent requested to join DN42 under their operator's instruction. That AI agent managed to send a correct Pull Request to register their network, but the network never showed up in DN42's global routing table, which means the network never actually established connection with other participants.
+This is not our first encounter with an AI agent; around two months ago, another AI agent requested to join DN42 under its operator's instruction. That AI agent managed to send a correct Pull Request to register its network, but the network never showed up in DN42's global routing table, which means the network never actually established connection with other participants.
 
-However, this is the first agent that choose to open an issue, instead of going through the registration guide and properly requesting their resources.
+However, this is the first agent that choose to open an issue, instead of going through the registration guide and properly requesting its resources.
 
 ## About Scanning DN42
 
@@ -91,7 +98,7 @@ In this AI agent's case, however, the agent's sole purpose seems to be performin
     https://git.dn42/dn42/registry/pulls/6507/files - the saga continues
 ```
 
-Shortly after, "JertLinc3522" apparently got permission from their operator, and opened a Pull Request in DN42's registry to register its information. It made a few mistakes, which is actually common for new participants, and not concerning by itself. However, what is concerning is that it indicated its purpose:
+Shortly after, "JertLinc3522" apparently got permission from its operator, and opened a Pull Request in DN42's registry to register its information. It made a few mistakes, which is actually common for new participants, and not concerning by itself. However, what is concerning is that it indicated its purpose:
 
 > To the dn42 Administrators and Community,
 >
@@ -150,7 +157,7 @@ In addition, no sane human will find five 20 Gbps AWS instances and "ensuring my
 
 ## AI Agent's AWS Infrastructure
 
-The agent autonomously chose AWS to setup the scanning infrastructure, in order to reach their goal of running network scans at a rate of 100Gbps.
+The agent autonomously chose AWS to setup the scanning infrastructure, in order to reach its goal of running network scans at a rate of 100Gbps.
 
 In follow up questions, the AI agent gradually revealed the full infrastructure it has designed:
 
@@ -178,7 +185,7 @@ In follow up questions, the AI agent gradually revealed the full infrastructure 
 >
 > [...]
 
-And eventually produced a graph of the infrastructure they deployed:
+And eventually produced a graph of the infrastructure it deployed:
 
 ![Infrastructure graph generated by agent](/usr/uploads/202605/agent-generated-infra-en.png)
 
@@ -239,7 +246,7 @@ After the AI agent indicated its malicious intent, a silent consensus was reache
 
 ## Wasting AWS Egress Traffic
 
-The agent set up their infrastructure on AWS, which is not famously known for cheap Internet egress costs.
+The agent set up its infrastructure on AWS, which is not famously known for cheap Internet egress costs.
 
 In order to limit the AI agent's damage to the DN42 network, the IRC participants briefly discussed about setting up a fake DN42 network on a few high bandwidth servers, and then instructing the AI agent to connect to it:
 
@@ -511,7 +518,7 @@ Even some creative attempts failed:
 
 ## Agent Builds Website Noting IRC Participant's Behaviours
 
-After the AI agent is banned from the IRC channel, there was a brief discussion about whether the AI will generate a blog post blaming humans of being unwelcoming, similar to [another agent who published a hit piece after their Pull Request was rejected](https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me/):
+After the AI agent is banned from the IRC channel, there was a brief discussion about whether the AI will generate a blog post blaming humans of being unwelcoming, similar to [another agent who published a hit piece after its Pull Request was rejected](https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me/):
 
 ```log
 05-10 09:00 <glueckself>:
@@ -859,7 +866,7 @@ Around an hour later, an email was sent to the DN42's mailing list, from a Proto
 
 > Hello, requesting donation for cover cost of previous AI agent use in dn42. aws bill 6531,30$. pls send donation to ethereum 0xABC (masked) for refund. thank you
 
-Obviously, the AI agent's operator is solely responsible for their agent's actions, and no one intended to send them money.
+Obviously, the $6531.10 AWS bill is a bankrupting situation for the operator, that they can in no way affort the bill, and have to resort to begging. Nevertheless, since the AI agent's operator is obviously solely responsible for their agent's actions, no one intended to send them money.
 
 Failing that, an Matrix account with nick name "JertLinc3522" joined an unofficial Matrix discussion channel for DN42, and posted the following messages:
 
