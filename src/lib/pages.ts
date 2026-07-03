@@ -3,8 +3,7 @@ import { type CollectionEntry, getCollection } from 'astro:content'
 import { type Language, LANGUAGES } from './language'
 
 export type PageCollectionTypes =
-  | CollectionEntry<'page'>
-  | CollectionEntry<'lab'>
+  CollectionEntry<'page'> | CollectionEntry<'lab'>
 
 export class Page {
   public readonly title: string

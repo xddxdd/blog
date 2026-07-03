@@ -3,7 +3,7 @@
 @import '@fortawesome/fontawesome-free/scss/functions';
 @import '@fortawesome/fontawesome-free/scss/variables';
 @import '@fortawesome/fontawesome-free/scss/mixins';
-@import 'sass-material-colors';
+@import 'sass-material-colors/sass/sass-material-colors';
 
 @mixin font-awesome {
   -webkit-font-smoothing: antialiased;

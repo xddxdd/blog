@@ -16,6 +16,7 @@ export default defineConfig(
     rules: {
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
+      'astro/no-omitted-end-tags': 'off',
     },
   },
   eslintConfigPrettier,
