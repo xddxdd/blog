@@ -356,10 +356,10 @@ Here are the steps:
         - Your application won't be accepted immediately. In this case, you need
           to visit one of the places below, tell everyone that you need a larger
           block, state your reasons, and request a vote:
-          - DN42's IRC channel ([here](https://wiki.dn42.us/services/IRC), under
-            `public internet`)
+          - DN42's IRC channel ([here](https://dn42.dev/services/IRC), under
+             `public internet`)
           - DN42's mailing list
-            ([here](https://wiki.dn42.us/contact#contact_mailing-list), under
+            ([here](https://dn42.dev/contact#contact_mailing-list), under
             `Mailing list`)
       - **DO NOT REQUEST HUGE BLOCKS LIKE `/24` ON YOUR FIRST REGISTRATION!**
       - **DO NOT REQUEST HUGE BLOCKS LIKE `/24` ON YOUR FIRST REGISTRATION!**
@@ -684,7 +684,7 @@ Here are some recommended places to find other users:
    to you. These node entries usually have e-mail addresses or links to their
    description pages for their DN42 AS. You may contact them with this
    information.
-2. Go to DN42's [IRC channel](https://wiki.dn42.us/services/IRC).
+2. Go to DN42's [IRC channel](https://dn42.dev/services/IRC).
 3. Go to this [unofficial Telegram group](https://t.me/Dn42Chat).
 4. ~~Directly go to Burble. Burble is a really active user in DN42 who has many
    nodes around the world. Visit
@@ -852,9 +852,8 @@ is a list of widely used, BGP supported routing software:
    - Supports various routing protocols, including BGP, OSPF, RIP, etc
    - Supports both IPv4 and IPv6
    - Clear configuration syntax yet powerful
-   - ATTENTION: this is for BIRD2, which is different from BIRD1.
    - BIRD configuration is a bit complicated, so please refer to
-     [DN42 Wiki's Bird2 Guide](https://wiki.dn42.us/howto/Bird2), where a
+     [DN42 Wiki's Bird2 Guide](https://dn42.dev/howto/Bird2), where a
      copy-paste-able config is available.
    - You can directly use BIRD's official repo in Debian:
 
@@ -869,32 +868,12 @@ is a list of widely used, BGP supported routing software:
      You may refer to
      [BIRD's download page](https://bird.network.cz/?download&tdir=debian/).
 
-2. BIRD Internet Routing Daemon **(v1)**
-
-   - Split IPv4 and IPv6 into two processes compared to V2
-   - And lack some features, like Multiprotocol BGP, OSPFv3, etc
-     - But doesn't affect basic peerings
-   - Refer to [DN42 Wiki's Bird1 Guide](https://wiki.dn42.us/howto/Bird), where
-     a copy-paste-able config is available.
-   - You can directly use BIRD's official repo in Debian:
-
-     ```bash
-     wget -O - http://bird.network.cz/debian/apt.key | apt-key add -
-     apt-get install lsb-release
-     echo "deb http://bird.network.cz/debian/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/bird.list
-     apt-get update
-     apt-get install bird
-     ```
-
-     You may refer to
-     [BIRD's download page](https://bird.network.cz/?download&tdir=debian/).
-
-3. Quagga / FRRouting
+2. FRRouting
    - Syntax is similar to Cisco routers, so people with hardware router
      experiences may like this
    - Might be the only available option for some routing OSes (like pfSense)
-   - Refer to [DN42 Wiki's Quagga Guide](https://wiki.dn42.us/howto/Quagga)
-4. BGP functionality of hardware routers
+   - Refer to [DN42 Wiki's FRRouting Guide](https://dn42.dev/howto/frr)
+3. BGP functionality of hardware routers
    - Supported by router manufacturer, and is usually rock stable
    - But might be limited in terms of extended functionality
    - And the configuration is different per vendor, so you have to do your own
@@ -1076,20 +1055,13 @@ ip6tables -A FORWARD -i dn42+ -j DN42_INPUT
 ip6tables -A FORWARD -o dn42+ -j DN42_OUTPUT
 ```
 
-## BGP Session Setup: BIRD v1 & v2
+## BGP Session Setup: BIRD v2
 
-I will only talk about the configuration of BIRD v1 and v2 since they are the
-most widely used. I assume you have finished the setup following the Wiki but
-don't have any peers.
+I will only talk about the configuration of BIRD v2 since it is the most widely
+used. I assume you have finished the setup following the Wiki but don't have any
+peers.
 
-- [DN42 Wiki's Bird2 Guide](https://wiki.dn42.us/howto/Bird2)
-- [DN42 Wiki's Bird1 Guide](https://wiki.dn42.us/howto/Bird)
-
-For BIRD v1, what you need is:
-
-import Bird1 from '../../../../_templates/dn42-experimental-network-2020/bird1-en.md'
-
-<Bird1 />
+- [DN42 Wiki's Bird2 Guide](https://dn42.dev/howto/Bird2)
 
 For BIRD v2, what you need is:
 
@@ -1105,7 +1077,7 @@ network. Now you can perform some tests:
 - `ping 172.20.0.53` or `ping 172.23.0.53`, this is the Anycast DNS in DN42.
 - `ping 172.23.0.80`, this is the internal IP address of DN42 Wiki.
 - Try
-  [Internal Services on DN42 Wiki](https://wiki.dn42.us/internal/Internal-Services),
+  [Internal Services on DN42 Wiki](https://dn42.dev/internal/Internal-Services),
   [Burble's Services](https://dn42.burble.com/home/burble-dn42-services).
 
 You can also challenge yourself and change your tunnel and BGP config, add more
@@ -1115,13 +1087,9 @@ functionalities and improve performance and/or safety:
   supposed to. For example, my `172.22.76.184/29` should come from `4242422547`.
   Routes failing the check will be rejected;
   - DN42 Wiki has a ROA configuration guide for BIRD: see
-    [Bird2](https://wiki.dn42.us/howto/Bird2) or
-    [Bird1](https://wiki.dn42.us/howto/Bird)
+    [Bird2](https://dn42.dev/howto/Bird2)
 - Community Filter, that assigns scores to links in DN42 based on latency,
   bandwidth, and encryption, and selects a faster route based on them
-  - For Bird1, refer to
-    [DN42 Wiki's Bird Communities Page](https://wiki.dn42.us/howto/Bird-communities).
-    For Bird2, changes are needed, and you may try out yourself
 - Anycast, aka multiple servers announcing the same IP, so that external
   requests will be directed to the nearest server
   - Usually used for DNS on the global Internet, but in DN42, the Wiki
@@ -1143,6 +1111,6 @@ functionalities and improve performance and/or safety:
 
 Remember: DN42 is an **experimental network** where everyone helps everyone.
 Nobody is going to blame you if you screwed up. You may seek help at DN42's
-[IRC channel](https://wiki.dn42.us/services/IRC),
-[mailing list](https://wiki.dn42.us/contact#contact_mailing-list) or the
+[IRC channel](https://dn42.dev/services/IRC),
+[mailing list](https://dn42.dev/contact#contact_mailing-list) or the
 [unofficial Telegram group](https://t.me/Dn42Chat).
