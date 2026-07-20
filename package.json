@@ -44,7 +44,7 @@
     "date-fns": "^4.4.0",
     "feed": "^6.0.0",
     "flag-icon-css": "^4.1.7",
-    "fooldevs": "^0.1.1",
+    "fooldevs": "^0.1.2",
     "glob": "^13.0.6",
     "http-server": "^14.1.1",
     "instant.page": "^5.2.0",
