@@ -154,55 +154,54 @@ Here are the steps:
       ```
 
       </InteractiveContent>
-
-      - The items in the file are:
-        - `mntner`: `maintainer`, the name for your account. Same as the file
-          name.
-        - `admin-c`: `admin contact`, points to a later created `person` file.
-          Usually `[NICKNAME]-DN42`.
-        - `tech-c`: `tech contact`, points to a later created `person` file.
-          Usually `[NICKNAME]-DN42`.
-        - `mnt-by`: `maintain by`, points to this account itself. Usually
-          `[NICKNAME]-DN42`.
-        - `source`: has a fixed value of `DN42`.
-        - `auth`: your authentication info. Usually, two types of data are
-          accepted: GPG public key and SSH public key.
-          - You **MUST** add at least one out of GPG pubkey and SSH pubkey.
-          - If you plan to add a GPG pubkey, you need to create one first
-            (assuming you don't have one). You may follow
-            [this guide by GitHub](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key).
-            You will also need the pubkey when submitting your registration
-            request.
-            - You also need to upload your GPG pubkey to a public server, aka
-              Keyserver, for other people to obtain.
-            - Run this command:
-              - `gpg --keyserver hkp://keyserver.ubuntu.com --send-key [GPG Key ID]`
-            - Then fill the key ID to `auth` item, with the format of
-              `pgp-fingerprint [GPG Key ID]`, similar to my example above.
-          - If you plan to add an SSH pubkey, you need to create one first
-            (assuming you don't have one).
-            - Running `ssh-keygen -t ed25519` is usually enough for Mac and
-              Linux, but if you have a rather old version of SSH, which doesn't
-              support ED25519 crypto, you may run `ssh-keygen -t rsa` instead to
-              use RSA crypto.
-            - For Windows, you can
-              [download PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
-              and use its `puttygen` utility.
-            - After generation, add your pubkey (usually stored at `~/.ssh` and
-              named `id_ed25519.pub` or `id_rsa.pub` on Mac and Linux; displayed
-              straight on `puttygen` window after generation) to `auth` item,
-              with format `ssh-ed25519 [SSH Pubkey]` or `ssh-rsa [SSH Pubkey]`.
-            - In addition, some services on DN42 verify your identity with your
-              SSH pubkey here.
-          - Read DN42's
-            [Registry Authentication Wiki Page](https://dn42.dev/howto/Registry-Authentication)
-            for more information.
-        - `remarks`: comments, fill with whatever content you like. Or you may
-          simply remove them.
-      - **ATTENTION:** There is a long sequence of spaces between the name and
-        values. The length of this space sequence **cannot be changed to
-        whatever you like, and cannot be replaced with TAB**. The length of the
-        name, the colon, and the spaces **MUST be exactly 20 characters**.
+- The items in the file are:
+  - `mntner`: `maintainer`, the name for your account. Same as the file
+    name.
+  - `admin-c`: `admin contact`, points to a later created `person` file.
+    Usually `[NICKNAME]-DN42`.
+  - `tech-c`: `tech contact`, points to a later created `person` file.
+    Usually `[NICKNAME]-DN42`.
+  - `mnt-by`: `maintain by`, points to this account itself. Usually
+    `[NICKNAME]-DN42`.
+  - `source`: has a fixed value of `DN42`.
+  - `auth`: your authentication info. Usually, two types of data are
+    accepted: GPG public key and SSH public key.
+    - You **MUST** add at least one out of GPG pubkey and SSH pubkey.
+    - If you plan to add a GPG pubkey, you need to create one first
+      (assuming you don't have one). You may follow
+      [this guide by GitHub](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key).
+      You will also need the pubkey when submitting your registration
+      request.
+      - You also need to upload your GPG pubkey to a public server, aka
+        Keyserver, for other people to obtain.
+      - Run this command:
+        - `gpg --keyserver hkp://keyserver.ubuntu.com --send-key [GPG Key ID]`
+      - Then fill the key ID to `auth` item, with the format of
+        `pgp-fingerprint [GPG Key ID]`, similar to my example above.
+    - If you plan to add an SSH pubkey, you need to create one first
+      (assuming you don't have one).
+      - Running `ssh-keygen -t ed25519` is usually enough for Mac and
+        Linux, but if you have a rather old version of SSH, which doesn't
+        support ED25519 crypto, you may run `ssh-keygen -t rsa` instead to
+        use RSA crypto.
+      - For Windows, you can
+        [download PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+        and use its `puttygen` utility.
+      - After generation, add your pubkey (usually stored at `~/.ssh` and
+        named `id_ed25519.pub` or `id_rsa.pub` on Mac and Linux; displayed
+        straight on `puttygen` window after generation) to `auth` item,
+        with format `ssh-ed25519 [SSH Pubkey]` or `ssh-rsa [SSH Pubkey]`.
+      - In addition, some services on DN42 verify your identity with your
+        SSH pubkey here.
+    - Read DN42's
+      [Registry Authentication Wiki Page](https://dn42.dev/howto/Registry-Authentication)
+      for more information.
+  - `remarks`: comments, fill with whatever content you like. Or you may
+    simply remove them.
+- **ATTENTION:** There is a long sequence of spaces between the name and
+  values. The length of this space sequence **cannot be changed to
+  whatever you like, and cannot be replaced with TAB**. The length of the
+  name, the colon, and the spaces **MUST be exactly 20 characters**.
 
    2. Create `[NICKNAME]-DN42` under `data/person`. This stands for your
       personal information, but what's actually needed is simply a mailbox.
@@ -232,17 +231,16 @@ Here are the steps:
       ```
 
       </InteractiveContent>
-
-      - The items in the file are:
-        - `person`: your nickname.
-        - `e-mail`: your e-mail address.
-        - `contact`: optional, your contact information other than e-mail, e.g.
-          IRC or Telegram.
-        - `nic-hdl`: `NIC handle`, points to the file itself. It is the same as
-          file name, `[NICKNAME]-DN42`.
-        - `mnt-by`: `maintain by`, points to the `mntner` file you previously
-          created, `[NICKNAME]-MNT`.
-        - `source`: has a fixed value of `DN42`.
+- The items in the file are:
+  - `person`: your nickname.
+  - `e-mail`: your e-mail address.
+  - `contact`: optional, your contact information other than e-mail, e.g.
+    IRC or Telegram.
+  - `nic-hdl`: `NIC handle`, points to the file itself. It is the same as
+    file name, `[NICKNAME]-DN42`.
+  - `mnt-by`: `maintain by`, points to the `mntner` file you previously
+    created, `[NICKNAME]-MNT`.
+  - `source`: has a fixed value of `DN42`.
 
    3. Next, you need to choose for yourself an Autonomous System Number or ASN.
       On the real/global Internet, the ASN range 4200000000 - 4294967294 is
@@ -278,36 +276,35 @@ Here are the steps:
       ```
 
       </InteractiveContent>
-
-      - The items in the file are:
-        - `aut-num`: Your ASN.
-        - `as-name`: Name for the AS, usually only visible in some network
-          structure graphs of DN42. The recommended value is `[NICKNAME]-AS`.
-        - `descr`: Description for the AS, usually only visible in some network
-          structure graphs of DN42. Fill with whatever you like.
-        - `admin-c`: `admin contact`, points to your `person` file,
-          `[NICKNAME]-DN42`.
-        - `tech-c`: `tech contact`, points to your `person` file,
-          `[NICKNAME]-DN42`.
-        - `mnt-by`: `maintain by`, points to your `mntner` file,
-          `[NICKNAME]-MNT`.
-        - `source`: has a fixed value of `DN42`.
-      - If you have an ASN on the real Internet:
-        - **You may choose to use your real, global ASN in DN42.** Simply use
-          your own ASN in this step.
-        - If you do this, you may run into a bit of trouble when peering with
-          others：
-          - When establishing a VPN connection, many people in DN42 use the last
-            5 digits of your ASN as the port number. In this case, your public
-            ASN may collide with an internal ASN in DN42.
-          - If this happens, you need to talk to the other side, so you can
-            connect to another port.
-        - And your identity may need to be verified, such as checking if the
-          mailbox match what's on the WHOIS information of your global ASN, etc.
-          - I never experienced this sequence, and the verification procedure is
-            my guess. Perhaps a more complicated procedure is required.
-        - Generally, I suggest that you **register for a new ASN in DN42**. It's
-          less hassle.
+- The items in the file are:
+  - `aut-num`: Your ASN.
+  - `as-name`: Name for the AS, usually only visible in some network
+    structure graphs of DN42. The recommended value is `[NICKNAME]-AS`.
+  - `descr`: Description for the AS, usually only visible in some network
+    structure graphs of DN42. Fill with whatever you like.
+  - `admin-c`: `admin contact`, points to your `person` file,
+    `[NICKNAME]-DN42`.
+  - `tech-c`: `tech contact`, points to your `person` file,
+    `[NICKNAME]-DN42`.
+  - `mnt-by`: `maintain by`, points to your `mntner` file,
+    `[NICKNAME]-MNT`.
+  - `source`: has a fixed value of `DN42`.
+- If you have an ASN on the real Internet:
+  - **You may choose to use your real, global ASN in DN42.** Simply use
+    your own ASN in this step.
+  - If you do this, you may run into a bit of trouble when peering with
+    others：
+    - When establishing a VPN connection, many people in DN42 use the last
+      5 digits of your ASN as the port number. In this case, your public
+      ASN may collide with an internal ASN in DN42.
+    - If this happens, you need to talk to the other side, so you can
+      connect to another port.
+  - And your identity may need to be verified, such as checking if the
+    mailbox match what's on the WHOIS information of your global ASN, etc.
+    - I never experienced this sequence, and the verification procedure is
+      my guess. Perhaps a more complicated procedure is required.
+  - Generally, I suggest that you **register for a new ASN in DN42**. It's
+    less hassle.
 
    4. Next, you start to choose your IP. Browse to `data/inetnum` folder, where
       all registered IPv4 blocks are stored. You need to find a free space and
@@ -324,7 +321,6 @@ Here are the steps:
         - **Please use the following tools to choose your IP block, instead of
           manually finding one in `data/inetnum`**.
           - [https://explorer.burble.com/free#/4](https://explorer.burble.com/free#/4)
-          - [https://dn42.us/peers/free](https://dn42.us/peers/free)
       - The smallest address block you can register in DN42 is `/29`, or 8 IPs.
         Out of which 6 IPs are usable for servers and devices, as the first IP
         is reserved for marking the address block, and the last IP is for
@@ -357,7 +353,7 @@ Here are the steps:
           to visit one of the places below, tell everyone that you need a larger
           block, state your reasons, and request a vote:
           - DN42's IRC channel ([here](https://dn42.dev/services/IRC), under
-             `public internet`)
+            `public internet`)
           - DN42's mailing list
             ([here](https://dn42.dev/contact#contact_mailing-list), under
             `Mailing list`)
@@ -460,14 +456,13 @@ Here are the steps:
       ```
 
       </InteractiveContent>
-
-      - The items in the file are:
-        - `route`: range of your IP block.
-        - `descr`: description, fill with anything you like.
-        - `origin`: AS you authorize to use this IP block. Fill with your ASN.
-        - `mnt-by`: `maintain by`, points to your `mntner` file,
-          `[NICKNAME]-MNT`.
-        - `source`: has a fixed value of `DN42`.
+- The items in the file are:
+  - `route`: range of your IP block.
+  - `descr`: description, fill with anything you like.
+  - `origin`: AS you authorize to use this IP block. Fill with your ASN.
+  - `mnt-by`: `maintain by`, points to your `mntner` file,
+    `[NICKNAME]-MNT`.
+  - `source`: has a fixed value of `DN42`.
 
    6. Since it's already the year 2020, you'd better also register an IPv6
       block. Create a file under `data/inet6num`.
@@ -598,14 +593,13 @@ Here are the steps:
       ```
 
       </InteractiveContent>
-
-      - The items in the file are:
-        - `route6`: range of your IP block.
-        - `descr`: description, fill with anything you like.
-        - `origin`: AS you authorize to use this IP block. Fill with your ASN.
-        - `mnt-by`: `maintain by`, points to your `mntner` file,
-          `[NICKNAME]-MNT`.
-        - `source`: has a fixed value of `DN42`.
+- The items in the file are:
+  - `route6`: range of your IP block.
+  - `descr`: description, fill with anything you like.
+  - `origin`: AS you authorize to use this IP block. Fill with your ASN.
+  - `mnt-by`: `maintain by`, points to your `mntner` file,
+    `[NICKNAME]-MNT`.
+  - `source`: has a fixed value of `DN42`.
 
 5. Congratulations, you have created all files you need. Next, `cd` to the root
    folder of the git repo, run `git add .`, and run `git commit -S`, use your
@@ -679,10 +673,10 @@ VPN tunnel connection and BGP session, to establish peering.
 
 Here are some recommended places to find other users:
 
-1. Use [DN42 PingFinder](https://dn42.us/peers). Submit your IP address, and
-   server nodes of other users registered on PingFinder will test their latency
-   to you. These node entries usually have e-mail addresses or links to their
-   description pages for their DN42 AS. You may contact them with this
+1. Use [DN42 PingFinder](https://peerfinder.dn42.dev/). Submit your IP address,
+   and server nodes of other users registered on PingFinder will test their
+   latency to you. These node entries usually have e-mail addresses or links to
+   their description pages for their DN42 AS. You may contact them with this
    information.
 2. Go to DN42's [IRC channel](https://dn42.dev/services/IRC).
 3. Go to this [unofficial Telegram group](https://t.me/Dn42Chat).

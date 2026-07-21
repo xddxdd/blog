@@ -10,13 +10,13 @@ DN42, aka Decentralized Network 42, is a large VPN network. Unlike traditional
 VPNs, DN42 uses a lot of technology involved in Internet backbones (such as BGP)
 and is a great simulation of a realistic network environment.
 
-[In a previous post][1], I joined DN42 and connected most of my
-VPSes to it. (The ones left are OpenVZ VPSes without Tun/Tap support.) I knew
-from the beginning that DN42 has its own domain name system. For example, DN42's
-wiki ([https://wiki.dn42.us/Home][2]) can be accessed as
-[https://internal.dn42][3] in DN42. I didn't register a domain back then since I
-didn't have time, and I didn't have much knowledge of DN42. I finished the
-registration this month and would like to share my experience.
+[In a previous post][1], I joined DN42 and connected most of my VPSes to it.
+(The ones left are OpenVZ VPSes without Tun/Tap support.) I knew from the
+beginning that DN42 has its own domain name system. For example, DN42's wiki
+([https://dn42.dev/][2]) can be accessed as [https://internal.dn42][3] in DN42.
+I didn't register a domain back then since I didn't have time, and I didn't have
+much knowledge of DN42. I finished the registration this month and would like to
+share my experience.
 
 ## Building Authoritative DNS
 
@@ -284,7 +284,7 @@ Finally, `dig` your own server as a test:
 ## Register Domain at DN42
 
 DN42 had an upgrade recently, replacing the old Monotone repository with Git.
-First, register an account at [https://git.dn42.us/explore/repos][12], Fork
+First, register an account at [https://git.dn42.dev/explore/repos][12], Fork
 [dn42/registry][13], and Clone it to your local computer.
 
 First, DN42 requires Git Commits to be GPG signed. I'm using GPG Keychain on
@@ -351,7 +351,7 @@ Finally, we've registered a domain in DN42. Now you can set up your website,
 mail, IRC, game server, or whatever you want.
 
 [1]: /en/article/modify-website/join-dn42-experimental-network.lantian
-[2]: https://wiki.dn42.us/Home
+[2]: https://dn42.dev/
 [3]: https://internal.dn42
 [4]: /usr/uploads/2018/04/1826994756.png
 [5]: /usr/uploads/2018/04/3187246767.png
@@ -361,7 +361,7 @@ mail, IRC, game server, or whatever you want.
 [9]: /usr/uploads/2018/04/57781084.png
 [10]: /usr/uploads/2018/04/2476632371.png
 [11]: /usr/uploads/2018/04/3598285227.png
-[12]: https://git.dn42.us/explore/repos
-[13]: https://git.dn42.us/dn42/registry
+[12]: https://git.dn42.dev/explore/repos
+[13]: https://git.dn42.dev/dn42/registry
 [14]: /usr/uploads/2018/04/3250696671.png
 [15]: /usr/uploads/2018/04/2335363675.png

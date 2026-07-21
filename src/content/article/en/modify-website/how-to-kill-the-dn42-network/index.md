@@ -12,8 +12,8 @@ You can read more about DN42 in this post:
 
 > DN42 is an **experimental network**, where everyone helps everyone. Nobody is
 > going to blame you if you screwed up. You may seek help at DN42's
-> [IRC channel](https://wiki.dn42.us/services/IRC),
-> [mailing list](https://wiki.dn42.us/contact#contact_mailing-list) or the
+> [IRC channel](https://dn42.dev/services/IRC),
+> [mailing list](https://dn42.dev/contact#mailing-list) or the
 > [unofficial Telegram group](https://t.me/Dn42Chat).
 
 Since DN42 is a network for experimentation, a lot of relatively inexperienced
@@ -166,7 +166,7 @@ export filter {
   the source ASN of each route.
   - For DN42, ROA configuration is generated automatically based on registry
     data. They can be downloaded from
-    [DN42 Wiki's Bird Config Page](https://wiki.dn42.us/howto/Bird#route-origin-authorization),
+    [DN42 Wiki's Bird Config Page](https://dn42.dev/howto/Bird2#route-origin-authorization),
     and can be automatically updated with a cron job.
 - If you don't want to configure ROA, you may try to peer with more people.
   - Since BGP chooses the path with the least number of ASes, if you're directly
