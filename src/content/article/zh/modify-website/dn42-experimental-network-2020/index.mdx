@@ -28,7 +28,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
 ## 本文更新日志
 
-- 2026-08：在 `route` / `route6` 对象的示例中补充 `max-length` 属性。
+- 2026-08：在 `route` / `route6` 对象的示例中补充 `max-length` 属性；补充说明最新版 Windows 10/11 已自带 `ssh` 命令。
 - 2022-12：添加使用空闲 IPv4 地址块查找工具的内容。
 - 2022-06：更新最新的注册流程。
 - 2022-02：更新 `rp_filter` 相关内容，不要使用 `rp_filter=2`！
@@ -148,10 +148,11 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
         - 如果你准备添加 SSH 公钥，首先你需要创建一个（如果你之前没有的话）。
           - Mac 和 Linux 一般运行 `ssh-keygen -t ed25519`
             即可，但如果你的 SSH 版本特别老不支持 ED25519 密钥，也可以使用 RSA，`ssh-keygen -t rsa`。
-          - Windows 可以[下载 PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)，使用其中的 puttygen 工具生成。
-          - 生成完成后，将公钥（Mac 和 Linux 一般在 `~/.ssh` 目录下，名为
+          - 最新版本的 Windows 10/11 已经自带 `ssh` 命令，可以直接在 PowerShell 或 CMD 中运行 `ssh-keygen -t ed25519` 生成密钥，使用体验与 Linux 一致，无需再安装 PuTTY。
+          - 如果你使用的 Windows 版本较旧，没有自带 `ssh` 命令，可以[下载 PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)，使用其中的 puttygen 工具生成作为替代方案。
+          - 生成完成后，将公钥（使用 `ssh-keygen` 生成时一般在 `~/.ssh` 目录下，名为
             `id_ed25519.pub` 或者
-            `id_rsa.pub`；Windows 下 puttygen 会直接在窗口上显示公钥）以
+            `id_rsa.pub`；使用 puttygen 生成时则会直接在窗口上显示公钥）以
             `ssh-ed25519 [公钥]` 或者 `ssh-rsa [公钥]` 格式添加到 `auth` 项中。
           - 此外，DN42 上有些服务会以此处的 SSH 公钥来验证你的身份。
         - 可以阅读 DN42 官方的[身份认证 Wiki 页面](https://dn42.dev/howto/Registry-Authentication)获取更多信息。

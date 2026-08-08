@@ -38,7 +38,7 @@ Interner connections.
 
 ## Changelog
 
-- 2026-08: Add the `max-length` attribute to the `route` / `route6` object examples.
+- 2026-08: Add the `max-length` attribute to the `route` / `route6` object examples; note that recent Windows 10/11 already comes with the `ssh` command built in.
 - 2022-12: Add steps to use a free IPv4 block finder.
 - 2022-06: Update to the latest registration procedure.
 - 2022-02: Update `rp_filter` content, never use `rp_filter=2`!
@@ -185,13 +185,18 @@ Here are the steps:
         Linux, but if you have a rather old version of SSH, which doesn't
         support ED25519 crypto, you may run `ssh-keygen -t rsa` instead to
         use RSA crypto.
-      - For Windows, you can
+      - Recent versions of Windows 10/11 already comes with the `ssh` command built in, so you can simply run
+        `ssh-keygen -t ed25519` in PowerShell or CMD, just like on Linux,
+        without installing PuTTY.
+      - If your Windows version is older and does not have the `ssh`
+        command, you can
         [download PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
-        and use its `puttygen` utility.
+        and use its `puttygen` utility as an alternative.
       - After generation, add your pubkey (usually stored at `~/.ssh` and
-        named `id_ed25519.pub` or `id_rsa.pub` on Mac and Linux; displayed
-        straight on `puttygen` window after generation) to `auth` item,
-        with format `ssh-ed25519 [SSH Pubkey]` or `ssh-rsa [SSH Pubkey]`.
+        named `id_ed25519.pub` or `id_rsa.pub` on with `ssh-keygen`; displayed
+        straight on `puttygen` window after generation) to
+        `auth` item, with format `ssh-ed25519 [SSH Pubkey]` or
+        `ssh-rsa [SSH Pubkey]`.
       - In addition, some services on DN42 verify your identity with your
         SSH pubkey here.
     - Read DN42's
