@@ -28,6 +28,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
 
 ## 本文更新日志
 
+- 2026-08：在 `route` / `route6` 对象的示例中补充 `max-length` 属性。
 - 2022-12：添加使用空闲 IPv4 地址块查找工具的内容。
 - 2022-06：更新最新的注册流程。
 - 2022-02：更新 `rp_filter` 相关内容，不要使用 `rp_filter=2`！
@@ -355,6 +356,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       route:              172.22.76.184/29
       descr:              Peer with me at dn42@lantian.pub
       origin:             AS4242422547
+      max-length:         29
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
@@ -364,6 +366,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
   - `route`：你的这个地址块的范围。
   - `descr`：简介，随意填写。
   - `origin`：你授权哪个 AS 使用这个地址块，填写你的 AS 编号。
+  - `max-length`：你允许这个 AS 广播的最大前缀长度（即最具体的子网掩码）。一般与 `route` 中注册的前缀长度相同，表示只允许广播这一个前缀。需要从更大的地址块中划分子网广播时再调大这个值。
   - `mnt-by`：`maintain by（由谁维护）`，由谁维护，指向你之前的 mntner 文件，`[昵称]-MNT`。
   - `source`：固定为 `DN42`。
 
@@ -465,6 +468,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
       route6:             fdbc:f9dc:67ad::/48
       descr:              Peer with me at dn42@lantian.pub
       origin:             AS4242422547
+      max-length:         48
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
@@ -474,6 +478,7 @@ DN42 在 172.20.0.0/14 和 fd00::/8 上运行，而这两个 IP 段都是分配�
   - `route6`：你的这个地址块的范围。
   - `descr`：简介，随意填写。
   - `origin`：你授权哪个 AS 使用这个地址块，填写你的 AS 编号。
+  - `max-length`：你允许这个 AS 广播的最大前缀长度（即最具体的子网掩码）。一般与 `route6` 中注册的前缀长度相同，表示只允许广播这一个前缀。需要从更大的地址块中划分子网广播时再调大这个值。
   - `mnt-by`：`maintain by（由谁维护）`，由谁维护，指向你之前的 mntner 文件，`[昵称]-MNT`。
   - `source`：固定为 `DN42`。
 

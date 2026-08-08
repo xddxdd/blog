@@ -38,6 +38,7 @@ Interner connections.
 
 ## Changelog
 
+- 2026-08: Add the `max-length` attribute to the `route` / `route6` object examples.
 - 2022-12: Add steps to use a free IPv4 block finder.
 - 2022-06: Update to the latest registration procedure.
 - 2022-02: Update `rp_filter` content, never use `rp_filter=2`!
@@ -451,6 +452,7 @@ Here are the steps:
       route:              172.22.76.184/29
       descr:              Peer with me at dn42@lantian.pub
       origin:             AS4242422547
+      max-length:         29
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
@@ -460,6 +462,7 @@ Here are the steps:
   - `route`: range of your IP block.
   - `descr`: description, fill with anything you like.
   - `origin`: AS you authorize to use this IP block. Fill with your ASN.
+  - `max-length`: the maximum prefix length (i.e. the most specific subnet mask) that this AS is allowed to announce. Usually set to the same length as the prefix in `route`, meaning only this exact prefix may be announced. Increase it only when you need to announce smaller subnets carved out of a larger block.
   - `mnt-by`: `maintain by`, points to your `mntner` file,
     `[NICKNAME]-MNT`.
   - `source`: has a fixed value of `DN42`.
@@ -588,6 +591,7 @@ Here are the steps:
       route6:             fdbc:f9dc:67ad::/48
       descr:              Peer with me at dn42@lantian.pub
       origin:             AS4242422547
+      max-length:         48
       mnt-by:             LANTIAN-MNT
       source:             DN42
       ```
@@ -597,6 +601,7 @@ Here are the steps:
   - `route6`: range of your IP block.
   - `descr`: description, fill with anything you like.
   - `origin`: AS you authorize to use this IP block. Fill with your ASN.
+  - `max-length`: the maximum prefix length (i.e. the most specific subnet mask) that this AS is allowed to announce. Usually set to the same length as the prefix in `route6`, meaning only this exact prefix may be announced. Increase it only when you need to announce smaller subnets carved out of a larger block.
   - `mnt-by`: `maintain by`, points to your `mntner` file,
     `[NICKNAME]-MNT`.
   - `source`: has a fixed value of `DN42`.
