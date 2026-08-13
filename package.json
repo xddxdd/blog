@@ -40,7 +40,7 @@
     "bootstrap": "^5.3.8",
     "bootstrap.native": "^5.1.10",
     "cssnano": "^8.0.5",
-    "cssnano-preset-advanced": "^8.0.4",
+    "cssnano-preset-advanced": "^8.0.5",
     "date-fns": "^4.4.0",
     "feed": "^6.0.0",
     "flag-icon-css": "^4.1.7",
