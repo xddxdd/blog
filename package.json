@@ -39,7 +39,7 @@
     "autoprefixer": "^10.5.4",
     "bootstrap": "^5.3.8",
     "bootstrap.native": "^5.1.10",
-    "cssnano": "^8.0.8",
+    "cssnano": "^9.0.1",
     "cssnano-preset-advanced": "^9.0.1",
     "date-fns": "^4.4.0",
     "feed": "^6.0.0",
