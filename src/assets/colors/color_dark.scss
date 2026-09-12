@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@use 'sass:color';
+
 @import 'sass-material-colors/sass/sass-material-colors';
 
 @mixin root-color-dark {
@@ -16,6 +18,12 @@
   --lt-component-bg: #{material-color('grey', '900')};
   --lt-component-bg-less-emphasis: #{material-color('grey', '900')};
   --lt-component-bg-emphasis: #{material-color('grey', '800')};
+  // 代码行交替背景色，取 grey-800 与 grey-900 的中间值（调色板没有 grey-850）
+  --lt-code-line-bg-alt: #{color.mix(
+      material-color('grey', '800'),
+      material-color('grey', '900'),
+      50%
+    )};
   // 主题色
   --lt-primary: #{material-color('light-blue', '500')};
   --lt-primary-hover: #{material-color('light-blue', '700')};

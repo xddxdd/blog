@@ -16,6 +16,8 @@
   --lt-component-bg: white;
   --lt-component-bg-less-emphasis: #{material-color('grey', '100')};
   --lt-component-bg-emphasis: #{material-color('grey', '200')};
+  // 代码行交替背景色
+  --lt-code-line-bg-alt: #{material-color('grey', '100')};
   // 主题色
   --lt-primary: #{material-color('light-blue', '500')};
   --lt-primary-hover: #{material-color('light-blue', '700')};

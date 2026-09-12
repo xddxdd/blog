@@ -39,6 +39,35 @@ const rehypeTableWrapper = () => (tree: Node) => {
   })
 }
 
+// Measures each code line's leading whitespace (tabs expanded to tab-size 8)
+// into --line-indent, which PostText.astro uses to hang wrapped continuation
+// rows 4ch past the line's own indent
+const shikiLineIndent = () => ({
+  name: 'line-indent',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  line(line: any) {
+    let text = ''
+    for (const child of line.children) {
+      if (child.type === 'text') {
+        text += child.value
+      } else if (child.type === 'element') {
+        for (const grandchild of child.children) {
+          if (grandchild.type === 'text') text += grandchild.value
+        }
+      }
+    }
+    let columns = 0
+    for (const char of text) {
+      if (char === ' ') columns += 1
+      else if (char === '\t') columns = (Math.floor(columns / 8) + 1) * 8
+      else break
+    }
+    if (columns > 0) {
+      line.properties.style = `--line-indent:${columns}ch`
+    }
+  },
+})
+
 const remarkChineseQuotes = () => (tree: Node) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   visit(tree, (node: any) => {
@@ -114,11 +143,11 @@ export const markdownPluginOptions: Parameters<
           dark: 'dark-plus',
           light: 'light-plus',
         },
-        wrap: true,
         defaultColor: false,
         addLanguageClass: true,
         fallbackLanguage: 'log',
         inline: 'tailing-curly-colon',
+        transformers: [shikiLineIndent()],
       },
     ],
     rehypeSlug,

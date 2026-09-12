@@ -37,12 +37,35 @@
       border-left: 5px solid var(--lt-component-bg-emphasis);
       padding-left: 8px;
     }
+    pre {
+      padding-right: 8px;
+    }
     code {
       border-bottom: 3px solid var(--lt-component-bg-emphasis);
     }
 
     pre code {
       border-bottom: none !important;
+      display: block;
+      // Shiki emits the newline between .line elements as a child of <code>;
+      // collapse them now that lines are blocks, or they render as blank lines
+      white-space: normal;
+
+      .line {
+        display: block;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        // Hanging indent: wrapped rows sit 4ch past the line's own leading
+        // whitespace (--line-indent, set by a Shiki transformer), while the
+        // first row is pulled back to its original position
+        padding-left: calc(var(--line-indent, 0ch) + 4ch);
+        text-indent: calc(-4ch - var(--line-indent, 0ch));
+
+        &:empty::after {
+          // Blank lines collapse to zero height; give them a line box
+          content: '\200B';
+        }
+      }
     }
 
     h1 {
