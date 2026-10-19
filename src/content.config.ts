@@ -13,6 +13,7 @@ const article = defineCollection({
     bodyClass: z.string().optional(),
     series: z.string().optional(),
     autoTranslated: z.boolean().optional(),
+    rssExcluded: z.boolean().optional(),
     gophermap: z.string().optional(),
   }),
 })

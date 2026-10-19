@@ -38,6 +38,9 @@ const translationDict: Record<string, string | ((key: unknown) => string)> = {
   series_description: series => `List of ${series} series posts:`,
   series_current: `(current post)`,
 
+  rss_excluded_warning:
+    'The author intentionally set this post to not appear in the RSS feed.',
+
   feed_all_languages: 'all lang',
   feed_rss: 'RSS Feed',
   feed_atom: 'Atom',

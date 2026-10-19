@@ -37,6 +37,7 @@ export class Post {
   public readonly collectionEntry: CollectionEntry<'article'>
   public readonly bodyClass?: string
   public readonly autoTranslated: boolean
+  public readonly rssExcluded: boolean
 
   constructor(post: CollectionEntry<'article'>) {
     this.collectionEntry = post
@@ -58,6 +59,7 @@ export class Post {
     this.bodyClass = post.data.bodyClass
     this.series = post.data.series
     this.autoTranslated = post.data.autoTranslated ?? false
+    this.rssExcluded = post.data.rssExcluded ?? false
   }
 
   public getFullURL(): string {
@@ -176,9 +178,9 @@ export async function getFeedObject(
     throw new Error('Site origin is required but not provided in context')
   }
   const siteURL = context.site.origin
-  const posts = language
-    ? allPosts.filter(p => p.language.is(language))
-    : allPosts
+  const posts = (
+    language ? allPosts.filter(p => p.language.is(language)) : allPosts
+  ).filter(p => !p.rssExcluded)
   const lastPost = allPosts[allPosts.length - 1]
   if (!lastPost) {
     throw new Error('No posts found to determine first post year')

@@ -1,0 +1,13 @@
+---
+import type { Language } from '@lib/language'
+
+type Props = {
+  language: Language
+}
+
+const { language } = Astro.props
+---
+
+<blockquote>
+  <p>{language.getTranslation('rss_excluded_warning')}</p>
+</blockquote>

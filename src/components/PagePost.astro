@@ -7,6 +7,7 @@ import PostNavigation from '@components/fragments/PostNavigation.astro'
 import PostText from '@components/fragments/PostText.astro'
 import WalineComment from '@components/fragments/WalineComment.astro'
 import PageSeries from '@components/PageSeries.astro'
+import RssExcludedWarning from '@components/RssExcludedWarning.astro'
 import { type Language } from '@lib/language'
 import { Post } from '@lib/posts'
 import { render } from 'astro:content'
@@ -48,6 +49,7 @@ const { Content, headings } = await render(post.collectionEntry)
           )) || (
             <>
               <PageSeries language={language} post={post} />
+              {post.rssExcluded && <RssExcludedWarning language={language} />}
               {post.autoTranslated && <AutoTranslateWarning />}
               <Content />
             </>

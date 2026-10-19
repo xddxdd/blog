@@ -38,6 +38,8 @@ const translationDict: Record<string, string | ((key: unknown) => string)> = {
   series_description: series => `${series} 系列文章目录：`,
   series_current: `（当前文章）`,
 
+  rss_excluded_warning: '本文经作者设置，特意不收录进 RSS 订阅。',
+
   feed_all_languages: '全语言',
   feed_rss: 'RSS 订阅',
   feed_atom: 'Atom',
