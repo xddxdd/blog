@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
-    "@astrojs/mdx": "^7.0.5",
+    "@astrojs/markdown-remark": "^7.3.4",
+    "@astrojs/mdx": "^8.1.1",
     "@astrojs/react": "^7.1.1",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/fira-code": "^5.3.0",
@@ -48,6 +49,7 @@
     "glob": "^13.0.6",
     "http-server": "^14.1.1",
     "instant.page": "^5.2.0",
+    "js-yaml": "^5.5.0",
     "mime-types": "^3.0.2",
     "plausible-tracker": "^0.3.9",
     "postcss": "^8.5.31",
@@ -94,6 +96,12 @@
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.0"
+  },
+  "overrides": {
+    "katex": "^0.19.1",
+    "sharp": "^0.35.5",
+    "esbuild": "^0.28.1",
+    "deepmerge-ts": "^8.0.2"
   },
   "browserslist": [
     "last 1 version",
