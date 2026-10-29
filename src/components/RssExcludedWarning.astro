@@ -8,6 +8,9 @@ type Props = {
 const { language } = Astro.props
 ---
 
-<blockquote>
+<div class="callout callout-info">
+  <p class="callout-title">
+    <i class="callout-icon"></i>{language.getTranslation('callout_info')}
+  </p>
   <p>{language.getTranslation('rss_excluded_warning')}</p>
-</blockquote>
+</div>

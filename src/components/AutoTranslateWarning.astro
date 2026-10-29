@@ -1,10 +1,19 @@
 ---
+import type { Language } from '@lib/language'
 
+type Props = {
+  language: Language
+}
+
+const { language } = Astro.props
 ---
 
-<blockquote>
+<div class="callout callout-warning">
+  <p class="callout-title">
+    <i class="callout-icon"></i>{language.getTranslation('callout_warning')}
+  </p>
   <p>
     This post is automatically translated with LLM. The translation content has
     NOT been reviewed and may contain errors.
   </p>
-</blockquote>
+</div>

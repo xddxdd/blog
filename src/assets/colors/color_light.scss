@@ -30,4 +30,15 @@
   // 边框
   --lt-border: #{material-color('grey', '500')};
   --lt-border-weak: #{material-color('grey', '400')};
+  // 提示框（callout）：前缀色 + 背景色
+  --lt-callout-info: #{material-color('light-blue', '700')};
+  --lt-callout-info-bg: #{material-color('light-blue', '50')};
+  --lt-callout-tip: #{material-color('green', '700')};
+  --lt-callout-tip-bg: #{material-color('green', '50')};
+  --lt-callout-important: #{material-color('purple', '700')};
+  --lt-callout-important-bg: #{material-color('purple', '50')};
+  --lt-callout-warning: #{material-color('orange', '800')};
+  --lt-callout-warning-bg: #{material-color('orange', '50')};
+  --lt-callout-error: #{material-color('red', '700')};
+  --lt-callout-error-bg: #{material-color('red', '50')};
 }

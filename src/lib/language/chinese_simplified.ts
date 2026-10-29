@@ -40,6 +40,12 @@ const translationDict: Record<string, string | ((key: unknown) => string)> = {
 
   rss_excluded_warning: '本文经作者设置，特意不收录进 RSS 订阅。',
 
+  callout_info: '信息',
+  callout_tip: '提示',
+  callout_important: '重要',
+  callout_warning: '警告',
+  callout_error: '错误',
+
   feed_all_languages: '全语言',
   feed_rss: 'RSS 订阅',
   feed_atom: 'Atom',

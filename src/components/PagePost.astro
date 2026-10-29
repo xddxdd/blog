@@ -50,7 +50,9 @@ const { Content, headings } = await render(post.collectionEntry)
             <>
               <PageSeries language={language} post={post} />
               {post.rssExcluded && <RssExcludedWarning language={language} />}
-              {post.autoTranslated && <AutoTranslateWarning />}
+              {post.autoTranslated && (
+                <AutoTranslateWarning language={language} />
+              )}
               <Content />
             </>
           )

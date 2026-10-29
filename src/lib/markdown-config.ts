@@ -21,6 +21,7 @@ import {
 import { CRLF } from './gopher/gopher'
 import { ProcessingContext } from './gopher/gopher/context'
 import { formatGopherItem, processNode } from './gopher/gopher/processing'
+import { rehypeCallouts } from './rehype-callouts'
 import { remarkGraphvizSvg } from './remark-graphviz-svg'
 
 const rehypeTableWrapper = () => (tree: Node) => {
@@ -131,6 +132,7 @@ export const markdownPluginOptions: Parameters<
     remarkGraphvizSvg,
   ],
   rehypePlugins: [
+    rehypeCallouts,
     rehypeTableWrapper,
     rehypeMath,
     [

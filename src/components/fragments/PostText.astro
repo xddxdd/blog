@@ -37,6 +37,47 @@
       border-left: 5px solid var(--lt-component-bg-emphasis);
       padding-left: 8px;
     }
+
+    .callout {
+      --callout-color: var(--lt-component-bg-emphasis);
+      --callout-bg: transparent;
+
+      margin: 0 0 1rem;
+      padding: 8px 16px;
+      border-left: 5px solid var(--callout-color);
+      background-color: var(--callout-bg);
+
+      .callout-title {
+        font-weight: 700;
+        color: var(--callout-color);
+
+        .callout-icon::before {
+          @include font-awesome;
+          margin-right: 0.25em;
+        }
+      }
+    }
+
+    @each $type,
+      $icon
+        in (
+          info: $fa-var-circle-info,
+          tip: $fa-var-lightbulb,
+          important: $fa-var-circle-exclamation,
+          warning: $fa-var-triangle-exclamation,
+          error: $fa-var-circle-xmark
+        )
+    {
+      .callout-#{$type} {
+        --callout-color: var(--lt-callout-#{$type});
+        --callout-bg: var(--lt-callout-#{$type}-bg);
+
+        .callout-icon::before {
+          content: fa-content($icon);
+        }
+      }
+    }
+
     pre {
       padding-right: 8px;
     }

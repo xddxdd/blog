@@ -14,7 +14,11 @@ const __ = language.getTranslation
 
 {
   post.series && (
-    <blockquote>
+    <div class="callout callout-info">
+      <p class="callout-title">
+        <i class="callout-icon" />
+        {__('callout_info')}
+      </p>
       <p>{__('series_description', post.series)}</p>
       <ul>
         {seriesPosts.map(p => (
@@ -24,6 +28,6 @@ const __ = language.getTranslation
           </li>
         ))}
       </ul>
-    </blockquote>
+    </div>
   )
 }

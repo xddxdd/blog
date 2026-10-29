@@ -41,6 +41,12 @@ const translationDict: Record<string, string | ((key: unknown) => string)> = {
   rss_excluded_warning:
     'The author intentionally set this post to not appear in the RSS feed.',
 
+  callout_info: 'Info',
+  callout_tip: 'Tip',
+  callout_important: 'Important',
+  callout_warning: 'Warning',
+  callout_error: 'Error',
+
   feed_all_languages: 'all lang',
   feed_rss: 'RSS Feed',
   feed_atom: 'Atom',

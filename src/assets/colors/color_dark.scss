@@ -36,4 +36,35 @@
   // 边框
   --lt-border: #{material-color('grey', '500')};
   --lt-border-weak: #{material-color('grey', '600')};
+  // 提示框（callout）：前缀色取色板亮部，背景色用色板 900 混入页面底色避免过饱和
+  --lt-callout-info: #{material-color('light-blue', '300')};
+  --lt-callout-info-bg: #{color.mix(
+      material-color('light-blue', '900'),
+      material-color('grey', '900'),
+      50%
+    )};
+  --lt-callout-tip: #{material-color('green', '300')};
+  --lt-callout-tip-bg: #{color.mix(
+      material-color('green', '900'),
+      material-color('grey', '900'),
+      50%
+    )};
+  --lt-callout-important: #{material-color('purple', '300')};
+  --lt-callout-important-bg: #{color.mix(
+      material-color('purple', '900'),
+      material-color('grey', '900'),
+      50%
+    )};
+  --lt-callout-warning: #{material-color('orange', '300')};
+  --lt-callout-warning-bg: #{color.mix(
+      material-color('orange', '900'),
+      material-color('grey', '900'),
+      50%
+    )};
+  --lt-callout-error: #{material-color('red', '300')};
+  --lt-callout-error-bg: #{color.mix(
+      material-color('red', '900'),
+      material-color('grey', '900'),
+      50%
+    )};
 }
