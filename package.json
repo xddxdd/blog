@@ -34,7 +34,7 @@
     "@types/mime-types": "^3.0.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.3.0",
-    "@waline/client": "^3.16.1",
+    "@waline/client": "^3.16.2",
     "astro": "^7.4.5",
     "astro-favicons": "^3.1.8",
     "autoprefixer": "^10.6.2",
