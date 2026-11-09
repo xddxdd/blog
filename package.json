@@ -23,7 +23,7 @@
     "@astrojs/check": "^0.9.12",
     "@astrojs/markdown-remark": "^7.3.5",
     "@astrojs/mdx": "^8.1.2",
-    "@astrojs/react": "^7.1.2",
+    "@astrojs/react": "^7.1.4",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/fira-code": "^5.3.0",
     "@fontsource/ubuntu": "^5.3.0",
