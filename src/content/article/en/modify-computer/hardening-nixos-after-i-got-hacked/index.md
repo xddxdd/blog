@@ -318,7 +318,7 @@ Using all the hardening options above in NixOS is the easy part, just add them t
 
 Then deploy NixOS using your favorite method, and verify if the service is working correctly, and if some restrictions need to be lifted. Now you have one hardened service.
 
-However, there's about zero change you only have this one service on your NixOS. Although you can harden them one by one, these services can still come from your own modules, Nixpkgs, or even third party Flakes. You might accidentally miss some of the services, or Nixpkgs or third party Flakes can change and add new services without your realization. If any of these new services happen to be vulnerable, the attacker will be able to bypass all your hardening measures, and gain highest privileges easily.
+However, there's about zero chance you only have this one service on your NixOS. Although you can harden them one by one, these services can still come from your own modules, Nixpkgs, or even third party Flakes. You might accidentally miss some of the services, or Nixpkgs or third party Flakes can change and add new services without your realization. If any of these new services happen to be vulnerable, the attacker will be able to bypass all your hardening measures, and gain highest privileges easily.
 
 Although some Nixpkgs modules have already applied some of the hardening options for some of the services, these options vary by modules, and they do not guarantee maximum protection.
 
